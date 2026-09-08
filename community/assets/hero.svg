@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">FreeSWITCH 平替 RustSwitch</title>
+  <desc id="desc">面向语音智能体的开源实时语音内核。Rust 负责媒体，Go 负责控制，C/C++ 适配编解码生态。当前为开发预览，FreeSWITCH 接口按实际业务范围逐项兼容。</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#092c2c"/>
+      <stop offset="1" stop-color="#102023"/>
+    </linearGradient>
+    <linearGradient id="wave" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#48ddc6"/>
+      <stop offset="1" stop-color="#acedd5"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="520" rx="24" fill="url(#background)"/>
+  <g fill="none" stroke="#27504f" stroke-width="1" opacity=".45">
+    <circle cx="1128" cy="-48" r="280"/>
+    <circle cx="1128" cy="-48" r="352"/>
+    <circle cx="1128" cy="-48" r="424"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+    <rect x="48" y="38" width="30" height="30" rx="9" fill="#66e2c7"/>
+    <path d="M58 60V46h5c7 0 7 8 0 8h-5m6 0 5 6" fill="none" stroke="#0d302f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="92" y="60" font-size="16" font-weight="700" fill="#b8d8d2" letter-spacing="2">OPEN SOURCE · VOICE RUNTIME</text>
+    <rect x="1003" y="38" width="149" height="31" rx="15.5" fill="#342d23" stroke="#7e6244"/>
+    <circle cx="1020" cy="53.5" r="4" fill="#f4bd7c"/>
+    <text x="1034" y="59" font-size="15" fill="#f4cf9f">开发预览</text>
+    <text x="48" y="155" font-size="57" font-weight="750" fill="#f0fbf7" letter-spacing="-1.5">FreeSWITCH 平替 <tspan fill="#78ebce">RustSwitch</tspan></text>
+    <text x="50" y="204" font-size="26" fill="#c3ddd7">面向语音智能体，重建实时通话的基础能力。</text>
+    <text x="50" y="241" font-size="18" fill="#8eb7ae">电话接入 · 实时音频 · 峰值保护 · 可视化运维 · 可验证的接口兼容</text>
+    <g transform="translate(50 291)">
+      <rect width="349" height="137" rx="15" fill="#123b39" stroke="#32635b"/>
+      <rect x="24" y="25" width="5" height="28" rx="2.5" fill="#75e8c9"/>
+      <text x="44" y="48" font-size="27" font-weight="700" fill="#f0fbf7">Rust 媒体内核</text>
+      <text x="24" y="88" font-size="18" fill="#b6d6cb">分片进程 · 有界队列 · 实时音频</text>
+      <text x="24" y="115" font-size="15" fill="#84b2a6">为稳定性与可测量性能设计</text>
+    </g>
+    <g transform="translate(426 291)">
+      <rect width="349" height="137" rx="15" fill="#123b39" stroke="#32635b"/>
+      <rect x="24" y="25" width="5" height="28" rx="2.5" fill="#75e8c9"/>
+      <text x="44" y="48" font-size="27" font-weight="700" fill="#f0fbf7">Go 控制面</text>
+      <text x="24" y="88" font-size="18" fill="#b6d6cb">呼叫生命周期 · 准入 · 管理 API</text>
+      <text x="24" y="115" font-size="15" fill="#84b2a6">中文管理后台与开发文档随包交付</text>
+    </g>
+    <g transform="translate(802 291)">
+      <rect width="349" height="137" rx="15" fill="#123b39" stroke="#32635b"/>
+      <rect x="24" y="25" width="5" height="28" rx="2.5" fill="#f2bb7f"/>
+      <text x="44" y="48" font-size="27" font-weight="700" fill="#f0fbf7">C/C++ 生态适配</text>
+      <text x="24" y="88" font-size="18" fill="#b6d6cb">版本化 C ABI · 编解码插件</text>
+      <text x="24" y="115" font-size="15" fill="#84b2a6">保留成熟原生库的演进空间</text>
+    </g>
+    <text x="50" y="476" font-size="16" fill="#a7c9bf">从电话到 Agent，让每一项能力都有代码、边界与验证依据。</text>
+    <g transform="translate(999 466)" stroke="url(#wave)" stroke-width="4" stroke-linecap="round">
+      <path d="M0 -3V3 M12 -8V8 M24 -14V14 M36 -6V6 M48 -20V20 M60 -12V12 M72 -4V4 M84 -16V16 M96 -23V23 M108 -10V10 M120 -5V5 M132 -12V12 M144 -3V3"/>
+    </g>
+  </g>
+</svg>
