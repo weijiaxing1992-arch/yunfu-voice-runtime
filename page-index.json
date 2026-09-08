@@ -1740,6 +1740,43 @@
       "text": "六、来源与本轮核对"
     }
   ],
+  "COMMUNITY.html": [
+    {
+      "id": "rustswitch-社区参与指南",
+      "level": 1,
+      "text": "RustSwitch 社区参与指南"
+    },
+    {
+      "id": "找到合适的入口",
+      "level": 2,
+      "text": "找到合适的入口"
+    },
+    {
+      "id": "第一次参与从这些方向开始",
+      "level": 2,
+      "text": "第一次参与，从这些方向开始"
+    },
+    {
+      "id": "提交一份容易复现的问题",
+      "level": 2,
+      "text": "提交一份容易复现的问题"
+    },
+    {
+      "id": "协作约定",
+      "level": 2,
+      "text": "协作约定"
+    },
+    {
+      "id": "让更多真正需要它的人看到",
+      "level": 2,
+      "text": "让更多真正需要它的人看到"
+    },
+    {
+      "id": "许可与来源",
+      "level": 2,
+      "text": "许可与来源"
+    }
+  ],
   "CONTRIBUTING.html": [
     {
       "id": "贡献说明",
@@ -1780,9 +1817,9 @@
   ],
   "OPEN_SOURCE.html": [
     {
-      "id": "云蝠-voice-runtime-开源说明",
+      "id": "freeswitch-平替-rustswitch-开源说明",
       "level": 1,
-      "text": "云蝠 Voice Runtime 开源说明"
+      "text": "FreeSWITCH 平替 RustSwitch · 开源说明"
     },
     {
       "id": "本次开源清单",
@@ -1834,34 +1871,131 @@
   ],
   "README.html": [
     {
-      "id": "云蝠-voice-runtime",
+      "id": "freeswitch-平替-rustswitch",
       "level": 1,
-      "text": "云蝠 Voice Runtime"
+      "text": "FreeSWITCH 平替 RustSwitch"
     },
     {
-      "id": "项目与代码",
+      "id": "为什么做-rustswitch",
       "level": 2,
-      "text": "项目与代码"
+      "text": "为什么做 RustSwitch"
     },
     {
-      "id": "项目资料",
+      "id": "现在可以做什么",
       "level": 2,
-      "text": "项目资料"
+      "text": "现在可以做什么"
     },
     {
-      "id": "下载与验证",
+      "id": "架构一览",
       "level": 2,
-      "text": "下载与验证"
+      "text": "架构一览"
     },
     {
-      "id": "验收状态",
+      "id": "管理后台预览",
       "level": 2,
-      "text": "验收状态"
+      "text": "管理后台预览"
     },
     {
-      "id": "开源与贡献",
+      "id": "快速体验",
       "level": 2,
-      "text": "开源与贡献"
+      "text": "快速体验"
+    },
+    {
+      "id": "方式一下载编译包",
+      "level": 3,
+      "text": "方式一：下载编译包"
+    },
+    {
+      "id": "方式二从源码构建",
+      "level": 3,
+      "text": "方式二：从源码构建"
+    },
+    {
+      "id": "与-freeswitch-的关系",
+      "level": 2,
+      "text": "与 FreeSWITCH 的关系"
+    },
+    {
+      "id": "路线图围绕真实语音智能体推进",
+      "level": 2,
+      "text": "路线图：围绕真实语音智能体推进"
+    },
+    {
+      "id": "完整项目资料",
+      "level": 2,
+      "text": "完整项目资料"
+    },
+    {
+      "id": "代码在哪里",
+      "level": 2,
+      "text": "代码在哪里"
+    },
+    {
+      "id": "一起建设-rustswitch",
+      "level": 2,
+      "text": "一起建设 RustSwitch"
+    },
+    {
+      "id": "开源许可与致谢",
+      "level": 2,
+      "text": "开源许可与致谢"
+    }
+  ],
+  "README_EN.html": [
+    {
+      "id": "rustswitch-a-freeswitch-alternative-for-voice-agents",
+      "level": 1,
+      "text": "RustSwitch — a FreeSWITCH alternative for Voice Agents"
+    },
+    {
+      "id": "why-rustswitch",
+      "level": 2,
+      "text": "Why RustSwitch?"
+    },
+    {
+      "id": "what-is-available-today",
+      "level": 2,
+      "text": "What is available today?"
+    },
+    {
+      "id": "architecture",
+      "level": 2,
+      "text": "Architecture"
+    },
+    {
+      "id": "try-it-locally",
+      "level": 2,
+      "text": "Try it locally"
+    },
+    {
+      "id": "prebuilt-runtime",
+      "level": 3,
+      "text": "Prebuilt runtime"
+    },
+    {
+      "id": "build-from-source",
+      "level": 3,
+      "text": "Build from source"
+    },
+    {
+      "id": "read-the-project",
+      "level": 2,
+      "text": "Read the project"
+    },
+    {
+      "id": "acceptance-and-roadmap",
+      "level": 2,
+      "text": "Acceptance and roadmap"
+    },
+    {
+      "id": "build-this-with-us",
+      "level": 2,
+      "text": "Build this with us"
+    },
+    {
+      "id": "license-and-attribution",
+      "level": 2,
+      "text": "License and attribution"
     }
   ],
   "SECURITY.html": [
@@ -2015,6 +2149,13 @@
       "id": "13-维护与文档接入",
       "level": 2,
       "text": "13. 维护与文档接入"
+    }
+  ],
+  "community/assets/README.html": [
+    {
+      "id": "社区首页图源",
+      "level": 1,
+      "text": "社区首页图源"
     }
   ],
   "open-source/PUBLICATION.html": [
@@ -6362,34 +6503,74 @@
   ],
   "index.html": [
     {
-      "id": "云蝠-voice-runtime",
+      "id": "freeswitch-平替-rustswitch",
       "level": 1,
-      "text": "云蝠 Voice Runtime"
+      "text": "FreeSWITCH 平替 RustSwitch"
     },
     {
-      "id": "项目与代码",
+      "id": "为什么做-rustswitch",
       "level": 2,
-      "text": "项目与代码"
+      "text": "为什么做 RustSwitch"
     },
     {
-      "id": "项目资料",
+      "id": "现在可以做什么",
       "level": 2,
-      "text": "项目资料"
+      "text": "现在可以做什么"
     },
     {
-      "id": "下载与验证",
+      "id": "架构一览",
       "level": 2,
-      "text": "下载与验证"
+      "text": "架构一览"
     },
     {
-      "id": "验收状态",
+      "id": "管理后台预览",
       "level": 2,
-      "text": "验收状态"
+      "text": "管理后台预览"
     },
     {
-      "id": "开源与贡献",
+      "id": "快速体验",
       "level": 2,
-      "text": "开源与贡献"
+      "text": "快速体验"
+    },
+    {
+      "id": "方式一下载编译包",
+      "level": 3,
+      "text": "方式一：下载编译包"
+    },
+    {
+      "id": "方式二从源码构建",
+      "level": 3,
+      "text": "方式二：从源码构建"
+    },
+    {
+      "id": "与-freeswitch-的关系",
+      "level": 2,
+      "text": "与 FreeSWITCH 的关系"
+    },
+    {
+      "id": "路线图围绕真实语音智能体推进",
+      "level": 2,
+      "text": "路线图：围绕真实语音智能体推进"
+    },
+    {
+      "id": "完整项目资料",
+      "level": 2,
+      "text": "完整项目资料"
+    },
+    {
+      "id": "代码在哪里",
+      "level": 2,
+      "text": "代码在哪里"
+    },
+    {
+      "id": "一起建设-rustswitch",
+      "level": 2,
+      "text": "一起建设 RustSwitch"
+    },
+    {
+      "id": "开源许可与致谢",
+      "level": 2,
+      "text": "开源许可与致谢"
     }
   ]
 }

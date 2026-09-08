@@ -1,0 +1,59 @@
+name: FreeSWITCH 兼容对照
+description: 提交固定版本、固定场景的互通证据或兼容差异。
+title: "[Compatibility] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        本表用于记录具体兼容范围。配置导出、编译成功和单个样例通过不能替代完整行为验收。未实际运行的部分请明确写“未验证”；不要将局部结果扩大为完整兼容或修改历史证据来变绿。
+  - type: input
+    id: rustswitch_version
+    attributes:
+      label: RustSwitch 版本
+      description: Release 标签或提交 SHA，并注明 main 或 asr-candidate。
+    validations:
+      required: true
+  - type: input
+    id: freeswitch_version
+    attributes:
+      label: 固定的 FreeSWITCH 版本
+      description: 写明发行版本，能提供时附准确提交 SHA；不要仅填写“最新”。若未运行原版，请直接注明。
+    validations:
+      required: true
+  - type: input
+    id: interface
+    attributes:
+      label: 模块、协议与对照条目
+      description: 指定模块、命令/API/事件/配置参数、传输方式及已有对照 ID；没有对应 ID 可注明。
+      placeholder: mod_event_socket / ESL TCP / api status / 对照 ID
+    validations:
+      required: true
+  - type: textarea
+    id: conditions
+    attributes:
+      label: 两侧环境、配置与负载
+      description: 描述系统与硬件、已加载模块、脱敏配置、相同输入与负载。涉及媒体或性能时说明编解码、包时长、并发、测试时长及指标；列明无法保持一致的条件。
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 逐步复现方法
+      description: 两侧分别如何运行，使用哪些最小报文、命令或脚本；不要附真实凭据和个人信息。
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: 预期、FreeSWITCH 结果与 RustSwitch 结果
+      description: 分别给出响应、事件顺序、错误码或媒体表现，附脱敏证据。注明实际执行和未执行的步骤。
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 验证结论与未覆盖范围
+      description: 明确本次通过、存在差异和未验证的断言，以及证据绑定的版本。不从单例外推整个模块或总体兼容率。
+    validations:
+      required: true
+

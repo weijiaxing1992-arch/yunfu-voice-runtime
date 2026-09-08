@@ -1,0 +1,43 @@
+name: 功能建议
+description: 描述真实业务需求、接口变化与可验证的完成条件。
+title: "[Feature] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请先查看项目未完成清单并搜索已有讨论。优先描述业务问题及最小可用范围；尚未实现或验证的能力会继续如实记录。
+  - type: textarea
+    id: problem
+    attributes:
+      label: 业务场景与当前问题
+      description: 谁会使用、执行什么动作、现有能力在哪一步无法满足？
+    validations:
+      required: true
+  - type: input
+    id: context
+    attributes:
+      label: 当前版本与相关入口
+      description: Release 标签或提交 SHA、main 或 asr-candidate，以及相关协议、接口或工作包编号。
+      placeholder: main；TEL-01；DTMF 采集
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议行为与范围
+      description: 描述预期输入、结果、错误处理和最小实现范围；可补充已考虑的替代方式。
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 如何验证完成
+      description: 给出可复现的场景、预期结果和边界；性能需求请同时描述硬件、负载、编解码、时长和指标。
+    validations:
+      required: true
+  - type: textarea
+    id: resources
+    attributes:
+      label: 可提供的测试条件或参考资料
+      description: 可填写公开规范、脱敏样例及可用环境；无需在此提交任何密钥、客户信息或私有录音。
+

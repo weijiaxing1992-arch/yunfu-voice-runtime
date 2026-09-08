@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T05:07:53.959343+00:00",
+  "generated_at": "2026-09-08T05:59:21.228112+00:00",
   "scope": "本次公开分发文件完整性；不代表功能、兼容或容量通过。",
   "files": [
     {
@@ -24,8 +24,8 @@
     },
     {
       "path": "OPEN_SOURCE.md",
-      "bytes": 4725,
-      "sha256": "d01694949007ac58934a220a33ee338df6f8abf0a34cc4100115c3330ef0f4a4"
+      "bytes": 4753,
+      "sha256": "98d539ef80971aa3ba79ae71553ea89b36d734d1fbd32729ef54087390237f38"
     },
     {
       "path": "README.md",
@@ -734,8 +734,8 @@
     },
     {
       "path": "open-source/PUBLICATION.html",
-      "bytes": 5560,
-      "sha256": "3089f7948b944159787d34c4243547e5f441824e9e26d68d2dcca1d71c052aec"
+      "bytes": 12395,
+      "sha256": "aa02b67b93f4cbd168c289095577506d408ef940d571ea4650036669932bde92"
     },
     {
       "path": "open-source/PUBLICATION.md",
@@ -744,8 +744,8 @@
     },
     {
       "path": "open-source/content-audit.html",
-      "bytes": 9792,
-      "sha256": "538b2fe02d07ab219a8fe70ae81f3dfa10c4cdd9c43463f8b8db7f050f05c21f"
+      "bytes": 16627,
+      "sha256": "900ada762ca3b51a826b8009b9937a7d87168741839aef0190d6f3b220fc8848"
     },
     {
       "path": "open-source/content-audit.md",

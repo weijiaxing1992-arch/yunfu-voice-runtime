@@ -1,0 +1,48 @@
+name: 缺陷报告
+description: 提交可以复现的运行、接口、媒体或页面问题。
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢帮助改进 RustSwitch。请先搜索已有问题，不要提交真实线路密码、访问令牌、客户号码或个人录音。安全漏洞请按 SECURITY.md 使用私密报告渠道。
+  - type: input
+    id: version
+    attributes:
+      label: 版本与源码分支
+      description: Release 标签或提交 SHA，并注明 main 或 asr-candidate。
+      placeholder: v0.1.0-preview.20260908 / main
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 运行环境
+      description: 操作系统、CPU 架构、源码构建或运行包；性能问题另附 CPU、内存和网络条件。
+      placeholder: Linux aarch64，使用 ARM64 运行包；仅在回环地址复现。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 最小复现步骤
+      description: 提供必要的脱敏配置、动作顺序和复现频率。
+      placeholder: |
+        1. 使用以下最小配置……
+        2. 发起……
+        3. 在……时出现问题；每次/偶尔出现。
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 预期与实际结果
+      description: 说明你期望的行为、实际发生的行为及影响范围。
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 脱敏证据与已排查内容
+      description: 相关日志、任务结果或最小报文；注明时间范围，以及哪些部分尚未验证。请去掉凭据和个人信息。
+

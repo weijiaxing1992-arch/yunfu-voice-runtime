@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T05:07:54.072027+00:00",
+  "generated_at": "2026-09-08T05:59:21.288806+00:00",
   "scope": "本次公开分发文件完整性；不代表功能、兼容或容量通过。",
   "files": [
     {
@@ -29,8 +29,8 @@
     },
     {
       "path": "linux-arm64/OPEN_SOURCE.md",
-      "bytes": 4725,
-      "sha256": "d01694949007ac58934a220a33ee338df6f8abf0a34cc4100115c3330ef0f4a4"
+      "bytes": 4753,
+      "sha256": "98d539ef80971aa3ba79ae71553ea89b36d734d1fbd32729ef54087390237f38"
     },
     {
       "path": "linux-arm64/README.md",
@@ -564,13 +564,13 @@
     },
     {
       "path": "linux-arm64/manifest.json",
-      "bytes": 22476,
-      "sha256": "227cd0f4f6d4c9c83565793a67102c9f1d14bc9cd3a38e4ea4bb21bd20aab336"
+      "bytes": 22478,
+      "sha256": "02747b85e3f9722061c03338a5e984d2f649cedbeec27459ed9291e58779c717"
     },
     {
       "path": "linux-arm64/open-source/PUBLICATION.html",
-      "bytes": 5560,
-      "sha256": "3089f7948b944159787d34c4243547e5f441824e9e26d68d2dcca1d71c052aec"
+      "bytes": 12395,
+      "sha256": "aa02b67b93f4cbd168c289095577506d408ef940d571ea4650036669932bde92"
     },
     {
       "path": "linux-arm64/open-source/PUBLICATION.md",
@@ -579,8 +579,8 @@
     },
     {
       "path": "linux-arm64/open-source/content-audit.html",
-      "bytes": 9792,
-      "sha256": "538b2fe02d07ab219a8fe70ae81f3dfa10c4cdd9c43463f8b8db7f050f05c21f"
+      "bytes": 16627,
+      "sha256": "900ada762ca3b51a826b8009b9937a7d87168741839aef0190d6f3b220fc8848"
     },
     {
       "path": "linux-arm64/open-source/content-audit.md",
@@ -694,8 +694,8 @@
     },
     {
       "path": "macos-arm64/OPEN_SOURCE.md",
-      "bytes": 4725,
-      "sha256": "d01694949007ac58934a220a33ee338df6f8abf0a34cc4100115c3330ef0f4a4"
+      "bytes": 4753,
+      "sha256": "98d539ef80971aa3ba79ae71553ea89b36d734d1fbd32729ef54087390237f38"
     },
     {
       "path": "macos-arm64/README.md",
@@ -1324,8 +1324,8 @@
     },
     {
       "path": "macos-arm64/manifest.json",
-      "bytes": 28646,
-      "sha256": "46bd7a3f3d810673a2692b331c8fd1fdc1221dbbfea6bb1f6f285a475d364368"
+      "bytes": 28648,
+      "sha256": "2bf17be1f87d52c636729258dbf4899813a3bf2e92bc0bcd2e4a28bafffaf0af"
     },
     {
       "path": "macos-arm64/native-source/native/audio/OPUS-COPYING",
@@ -1409,8 +1409,8 @@
     },
     {
       "path": "macos-arm64/open-source/PUBLICATION.html",
-      "bytes": 5560,
-      "sha256": "3089f7948b944159787d34c4243547e5f441824e9e26d68d2dcca1d71c052aec"
+      "bytes": 12395,
+      "sha256": "aa02b67b93f4cbd168c289095577506d408ef940d571ea4650036669932bde92"
     },
     {
       "path": "macos-arm64/open-source/PUBLICATION.md",
@@ -1419,8 +1419,8 @@
     },
     {
       "path": "macos-arm64/open-source/content-audit.html",
-      "bytes": 9792,
-      "sha256": "538b2fe02d07ab219a8fe70ae81f3dfa10c4cdd9c43463f8b8db7f050f05c21f"
+      "bytes": 16627,
+      "sha256": "900ada762ca3b51a826b8009b9937a7d87168741839aef0190d6f3b220fc8848"
     },
     {
       "path": "macos-arm64/open-source/content-audit.md",

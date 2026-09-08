@@ -1,0 +1,11 @@
+dependencies/** linguist-vendored
+source/*/control/vendor/** linguist-vendored
+source/*/native/vendor/** linguist-vendored
+source/*/control/internal/server/fs_templates/** linguist-vendored
+source/*/control/internal/server/doc_assets/** linguist-generated
+reference/** linguist-documentation
+backlog/** linguist-documentation
+evidence/** linguist-documentation
+*.html linguist-documentation
+*.md linguist-documentation
+*.svg linguist-documentation
