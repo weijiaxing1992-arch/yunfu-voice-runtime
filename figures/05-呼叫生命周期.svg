@@ -57,7 +57,7 @@
 <rect x="50" y="905" width="22" height="18" rx="4" fill="#eef7fb" stroke="#167799"/>
 <text x="82" y="920" class="small">主目录基线已有实现</text>
 <rect x="415" y="905" width="22" height="18" rx="4" fill="#fff4e6" stroke="#b87019"/>
-<text x="447" y="920" class="small">独立候选，尚未发布</text>
+<text x="447" y="920" class="small">独立候选，尚未合入主线</text>
 <rect x="805" y="905" width="22" height="18" rx="4" fill="#f5f6f7" stroke="#7b8993"/>
 <text x="837" y="920" class="small">外部系统 / 待集成范围</text>
 </svg>

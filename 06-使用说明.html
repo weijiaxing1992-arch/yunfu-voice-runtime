@@ -1,25 +1,28 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>06 使用说明 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>RustSwitch<small>开源社区 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="active" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 06 使用说明</div><article class="content"><div class="page-tools"><a href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 9 节</summary><a href="#1-确认工程和版本">1. 确认工程和版本</a><a href="#2-准备环境和构建">2. 准备环境和构建</a><a href="#3-本地启动与最小试用">3. 本地启动与最小试用</a><a href="#4-后台操作顺序">4. 后台操作顺序</a><a href="#5-接入可信线路">5. 接入可信线路</a><a href="#6-本地接听ivr-和按键">6. 本地接听、IVR 和按键</a><a href="#7-http-客户端正确写入">7. HTTP 客户端正确写入</a><a href="#8-pcm-与-asr-接入">8. PCM 与 ASR 接入</a><a href="#9-linux-安装与停止">9. Linux 安装与停止</a></details><h1 id="06-使用说明">06 使用说明</h1>
-<p>本章命令是供操作者在自己的实验环境执行的示例；资料生成过程没有启动、停止或修改电话服务。主工程与 ASR 候选不是同一安装版本，先按第 1 步确认自己所在目录。</p>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>06 RustSwitch 使用说明 · RustSwitch 项目文档</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">R</span><span>RustSwitch<small>项目文档 · 开发预览</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">项目首页</a><a href="DOCUMENTATION.html">文档中心</a><a href="QUICKSTART.html">快速开始</a><a href="CHANGELOG.html">更新日志</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="active" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">RustSwitch 文档 / 06 RustSwitch 使用说明</div><article class="content"><div class="page-tools"><a href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 9 节</summary><a href="#1-确认工程和版本">1. 确认工程和版本</a><a href="#2-准备环境和构建">2. 准备环境和构建</a><a href="#3-本地启动与最小试用">3. 本地启动与最小试用</a><a href="#4-后台操作顺序">4. 后台操作顺序</a><a href="#5-接入可信线路">5. 接入可信线路</a><a href="#6-本地接听ivr-和按键">6. 本地接听、IVR 和按键</a><a href="#7-http-客户端正确写入">7. HTTP 客户端正确写入</a><a href="#8-pcm-与-asr-接入">8. PCM 与 ASR 接入</a><a href="#9-linux-安装与停止">9. Linux 安装与停止</a></details><h1 id="06-rustswitch-使用说明">06 RustSwitch 使用说明</h1>
+<p>本章供安装、线路接入和业务控制人员使用，说明配置生效、后台操作、可信 SIP 线路、IVR、音频接口及停止流程。首次安装先完成 <a href="QUICKSTART.html">快速开始</a>，容量与故障处理见 <a href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html">运维和压力测试</a>。</p>
+<p>除另行说明外，<code>./bin/rustswitch</code> 等命令从包含 <code>bin/</code>、<code>config/</code> 的运行目录执行；维护源码时，主工程根为仓库内的 <code>source/main/</code>。主工程与 ASR 候选是独立版本，不能混用程序或同时占用相同示例端口。启动、配置保存和测试操作均会产生实际状态变化。</p>
 <h2 id="1-确认工程和版本">1. 确认工程和版本</h2>
-<p>公开仓库主工程位于 <code>source/main</code>，ASR 候选位于 <code>source/asr-candidate</code>。首次使用请按 <a href="QUICKSTART.html">快速开始</a> 的离线构建或预编译运行包流程操作；以下 <code>make all</code> 是完整工程门禁路径，当前仍有文档门禁阻塞。已有服务可只读查询：</p>
+<p>公开仓库主工程位于 <a href="source/main"><code>source/main/</code></a>，ASR 候选位于 <a href="source/asr-candidate"><code>source/asr-candidate/</code></a>。部署时记录所用 Release/提交、二进制哈希、平台和配置位置。已有服务可只读查询：</p>
 <pre><code class="language-sh">curl --fail --silent --show-error http://127.0.0.1:9080/healthz
 curl --fail --silent --show-error http://127.0.0.1:9080/v1/docs
 curl --fail --silent --show-error http://127.0.0.1:9080/v1/status
 </code></pre>
-<p>healthz 仅说明进程可响应，readyz 只说明瞬时新准入状态，docs.version 才是其内嵌文档版本。连接失败不返回版本。本资料生成时后台未连接成功，不表示曾经部署的版本被自动更换。</p>
+<p><code>/healthz</code> 检查进程响应，<code>/readyz</code> 检查瞬时新准入状态，<code>/v1/docs</code> 中的 <code>version</code> 是内嵌文档版本。组件版本和文档版本不是同一编号。连接失败时应先检查进程与监听，不能推断服务已经安装或升级；仅文档更新也不会替换正在运行的二进制。</p>
 <h2 id="2-准备环境和构建">2. 准备环境和构建</h2>
-<p>需要 Go≥1.23、支持项目的 Rust stable（最低 1.85）、C 编译器、Python 3；校验需 rustfmt/clippy。按仓库锁定的 Cargo.lock 和 Go vendor 构建；不要删除锁文件以绕过编译错误。</p>
-<pre><code class="language-sh"># 在主工程根目录执行
+<p>使用预编译运行包或固定快照离线构建时，按 <a href="QUICKSTART.html">快速开始</a> 操作。开发维护使用工程 Makefile，声明要求 Go≥1.23、Rust≥1.85、C11 编译器和 Python；完整静态检查还需要 rustfmt/clippy。离线交付脚本要求 Python≥3.9。保持 Cargo.lock 和 Go vendor，不删除锁文件以绕过依赖问题。</p>
+<pre><code class="language-sh"># 从公开仓库根目录进入主工程；此流程会构建产物并执行文档生成门禁。
+cd source/main
 make all
-bin/rustswitch -check-config -config config/local.json
+./bin/rustswitch -check-config -config config/local.json
 </code></pre>
-<p><code>make all</code> 包括文档门禁、Go 控制程序、Rust 媒体、callbench 和 C 插件示例。若文档证据与改动后的源码不一致，门禁会明确失败，需按发布流程重新验收，不应跳过门禁宣称新版本已验证。Mac 二进制不能直接拿到 Linux 运行，须在目标平台构建。</p>
+<p><code>make all</code> 包括文档生成门禁、Go 控制程序、Rust 媒体、callbench 和 C 插件示例；它不是离线交付构建脚本，也不自动运行完整测试。当前主工程门禁有 PCM 证据过期问题，候选有字段字典不同步问题，需按 <a href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">未完成清单</a> 修复和重新验收。macOS 二进制不能直接在 Linux 使用，架构也必须匹配。</p>
 <h2 id="3-本地启动与最小试用">3. 本地启动与最小试用</h2>
-<pre><code class="language-sh">bin/rustswitch -config config/local.json
+<pre><code class="language-sh">./bin/rustswitch -config config/local.json
 </code></pre>
-<p>默认示例：后台 9080、SIP 5060、固定上游 5070，100 路硬并发、20 CPS、2 个媒体 worker，RTP/RTCP 范围 20000–21999。相对媒体程序、提示文件、日志路径按进程工作目录解析，保持从项目根目录启动。</p>
+<p>默认示例：后台 9080、SIP 5060、固定上游 5070，100 路硬并发、20 CPS、2 个媒体 worker，RTP/RTCP 范围 20000–21999。相对媒体程序和日志路径按进程工作目录解析，应从当前安装的运行目录启动；<code>media.playback_root</code> 则要求明确的绝对路径。首次启动前运行 <code>./bin/rustswitch -config config/local.json -check-config</code>，校验通过不等于真实端口或线路可用。</p>
 <p>打开 <code>http://127.0.0.1:9080/#tests</code> 选择“小电话”，执行单路 SIP/媒体测试。它使用隔离模拟端点核验建立、双向媒体和挂断，不是浏览器麦克风/WebRTC 电话，也不是对任意外部分机拨号。</p>
 <h2 id="4-后台操作顺序">4. 后台操作顺序</h2>
+<p>后台由控制程序内嵌提供，访问根地址即可。先查看运行总览和实际配置，再修改保护策略或线路参数，最后执行单路验证。</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -56,9 +59,46 @@ bin/rustswitch -check-config -config config/local.json
 <td>查看固定版本的机器模型、专题与对照，下载完整 ZIP</td>
 </tr>
 </tbody></table></div>
-<p>多个页面共享 revision。遇到 409，保留草稿、重新读取并人工合并，不能仅替换 revision 盲重试。写入需要最新 CSRF；CSRF 不是远程账户认证。远程运维可用 <code>ssh -L 9080:127.0.0.1:9080 &lt;自己的SSH主机别名&gt;</code> 后访问本机地址；本例不包含任何真实主机凭据。</p>
+<p>配置有三种不同的状态与生效方式：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态或操作</th>
+<th>如何判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>active</code></td>
+<td>本进程实际启动配置；监听、媒体分片和硬限制以它为准</td>
+</tr>
+<tr>
+<td><code>desired</code></td>
+<td>已保存的待启动配置，<code>restart_required</code> 指示是否与 active 不同</td>
+</tr>
+<tr>
+<td>Guard 在线策略</td>
+<td>保存成功后作用于后续新呼叫；降低阈值不会主动挂断存量呼叫</td>
+</tr>
+<tr>
+<td>XML 工作区</td>
+<td>保存/导出配置资料；运行 XML 拨号计划是另一个显式启动入口</td>
+</tr>
+</tbody></table></div>
+<p>管理状态存于 <code>journal.path</code> 后追加 <code>.admin.json</code> 的文件，不直接改写启动 JSON。再次启动和 <code>-check-config</code> 会按持久化规则读取待启动配置，所以恢复环境时要同时处理启动配置与管理状态。</p>
+<p>多个页面共享 <code>revision</code>。遇到 HTTP 409，保留草稿、重新读取并人工合并，不能仅替换 revision 盲重试。写入需要当前进程的 CSRF token；CSRF 不是远程账户认证。本版本要求管理监听为回环地址，并校验请求 Host/Origin；远程运维可使用如下 SSH 隧道，将示例别名换成自己的主机：</p>
+<pre><code class="language-sh">ssh -N -L 9080:127.0.0.1:9080 your-server-alias
+</code></pre>
+<p>随后在本机访问 <code>http://127.0.0.1:9080</code>。本机 9080 已被占用时应选择其他本地端口；这不会改变服务器的监听配置。</p>
 <h2 id="5-接入可信线路">5. 接入可信线路</h2>
-<p>先配置真实 SIP/媒体地址和白名单，再建立单固定上游呼叫。需要 REGISTER 时，增加 <code>sip.registration</code>；需要认证时配置 <code>sip.trunk_auth</code>。以下仅是 <code>sip</code> 内部补充，不可当作完整配置 PUT：</p>
+<p>先配置真实 SIP/媒体地址和白名单，再验证单固定上游呼叫。按以下顺序核对：</p>
+<ol>
+<li>设置 <code>sip.listen</code>、<code>sip.advertise</code> 和 <code>sip.upstream</code>；目的地使用实际 IPv4 地址与端口。</li>
+<li>设置 <code>media.bind_ip</code>、<code>media.advertise_ip</code> 和可用 RTP/RTCP 范围。</li>
+<li>分别配置 <code>sip.trusted_networks</code> 和 <code>media.allowed_remote_networks</code>，保留最小必要范围。</li>
+<li>需要注册时添加 <code>sip.registration</code>，需要 Digest 认证时配置 <code>sip.trunk_auth</code> 与私有密码文件。</li>
+<li>配置校验后按排空/重启流程应用，检查注册状态，再验证呼叫、双向媒体和挂断回收。</li>
+</ol>
+<p>以下仅是 <code>sip</code> 内部补充，不可当作完整配置 PUT，也不包含实际运营商账户：</p>
 <pre><code class="language-json">{
   &quot;trunk_auth&quot;: {
     &quot;username&quot;: &quot;line&quot;,
@@ -75,19 +115,20 @@ bin/rustswitch -check-config -config config/local.json
 }
 </code></pre>
 <p>密码文件为同用户可读的私有普通文件，示例权限 0600/0400；不要写到 URL、命令行或提交的源码中。实际网络目的地是 <code>sip.upstream</code> 的 IPv4 地址和端口；URI 域名不等于已实现 DNS/SRV 路由。TCP/TLS 需配置各自监听，TLS 校验证书链和名称。注册成功后再核验真实呼入/呼出与双向媒体，不能只看 registered。</p>
-<p>完整可用 JSON 与 TLS 字段见 <a href="reference/docs/api/trunk-registration.html">线路注册</a>。当前没有可直接代替 FreeSWITCH originate 的公开调用；主动外呼须由受控 SIP 发起方进入现有线路桥接路径，完整业务外呼 API 仍待实现。</p>
+<p>完整 JSON、TLS 字段与限制见 <a href="source/main/docs/api/trunk-registration.md">线路注册合同</a>。当前没有可直接代替 FreeSWITCH originate 的公开调用；主动外呼须由受控 SIP 发起方进入现有线路桥接路径，通用业务外呼 API 仍待实现。</p>
 <h2 id="6-本地接听ivr-和按键">6. 本地接听、IVR 和按键</h2>
 <p>在 sip 添加 <code>local_extensions: [&quot;1000&quot;, &quot;1001&quot;]</code>；需要本地 G.711 PCM/ASR 路径时同时按合同设置 <code>media.processing: &quot;g711&quot;</code>。这是配置片段说明，保留完整基础配置并先执行 check-config。</p>
 <p>本地号码精确匹配，媒体分配成功才应答，正确 ACK 后才能读写媒体。受限 XML 拨号计划是另一个启动冻结入口；启用后未匹配返回 404，不自动回退固定上游。</p>
 <p>启用 ESL 示例：</p>
-<pre><code class="language-sh">bin/rustswitch -config config/local.json \
+<pre><code class="language-sh">./bin/rustswitch -config config/local.json \
   -esl-listen 127.0.0.1:8021 \
   -esl-password-file /absolute/private/esl.secret
 </code></pre>
-<p>从 CHANNEL_CREATE 取得真实 UUID，订阅 CHANNEL_ANSWER、CHANNEL_EXECUTE_COMPLETE、DTMF、CHANNEL_HANGUP 等，匹配应用关联 ID。使用 <a href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">05</a> 的 read 示例后查看 <code>menu_choice</code>、<code>read_result</code> 和 <code>read_terminator_used</code>，区分成功、超时、输入不完整和挂断。<code>playback</code> 支持范围、提示文件格式及停止语义见 <a href="reference/docs/api/ivr-reference.html">IVR</a>。</p>
+<p>ESL 默认关闭；<code>-esl-listen</code> 与 <code>-esl-password-file</code> 必须同时提供。示例密钥文件路径需替换为真实私有文件，内容为一行非空密码，不能将账户密码直接放在命令行。</p>
+<p>从 CHANNEL_CREATE 取得真实 UUID，订阅 CHANNEL_ANSWER、CHANNEL_EXECUTE_COMPLETE、DTMF、CHANNEL_HANGUP 等，匹配应用关联 ID。使用 <a href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">协议与 SDK</a> 的 read 示例后查看 <code>menu_choice</code>、<code>read_result</code> 和 <code>read_terminator_used</code>，区分成功、超时、输入不完整和挂断。<code>+OK</code> 表示命令受理，不等于播放或收号已经完成。播放格式、提示文件和停止语义见 <a href="source/main/docs/api/ivr-reference.md">IVR 合同</a>。</p>
 <h2 id="7-http-客户端正确写入">7. HTTP 客户端正确写入</h2>
-<p>下面只读取得完整现状并写回同一保护策略，演示 token/revision 处理；运行后仍会进行一次真实保存并推进版本。修改策略前阅读 <a href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html">07</a>。</p>
-<pre><code class="language-python">import json, urllib.request
+<p>下面演示先读取现状，再将同一份完整 Guard 策略写回的 token/revision 流程。执行后会发生一次真实保存并推进版本，不是只读检查。修改实际阈值前阅读 <a href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html">容量保护说明</a>。</p>
+<pre><code class="language-python">import json, urllib.request, urllib.error
 base = &quot;http://127.0.0.1:9080&quot;
 def get(path):
     with urllib.request.urlopen(base + path, timeout=5) as r:
@@ -100,15 +141,54 @@ request = urllib.request.Request(base + &quot;/v1/guard&quot;, method=&quot;PUT&
     data=json.dumps(body).encode(),
     headers={&quot;Content-Type&quot;:&quot;application/json&quot;,
              &quot;X-RustSwitch-CSRF&quot;:config[&quot;csrf_token&quot;]})
-with urllib.request.urlopen(request, timeout=5) as r:
-    print(json.load(r))
+try:
+    with urllib.request.urlopen(request, timeout=5) as r:
+        print(json.load(r))
+except urllib.error.HTTPError as error:
+    # 不盲目覆盖其他操作者的配置，也不输出凭据。
+    if error.code == 409:
+        raise SystemExit(&quot;配置版本已变化，请重新读取并合并后再保存&quot;) from None
+    raise
 </code></pre>
-<p>写入网络超时可能发生在已经提交之后。先 GET 核对，不要为每次重试生成新的 request_id 或盲目重放操作。完整字段以 <a href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html">04</a> 和 <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html">09</a> 为准。</p>
+<p>写入网络超时可能发生在已经提交之后，应先 GET 核对实际状态。对要求 <code>request_id</code> 的测试任务创建接口，重试还应复用原标识；不能把该字段套用到不接受它的 Guard 请求。完整模型与错误码见 <a href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html">HTTP 接口</a> 和 <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html">数据模型</a>。</p>
 <h2 id="8-pcm-与-asr-接入">8. PCM 与 ASR 接入</h2>
 <p>外部 TTS 适配器目前需要自行准备 8 kHz mono S16LE，在已 ACK 的本地通道上走 RVA1 BEGIN/DATA/END；不要把 HTTP JSON 当成每 20 ms 送音通道。实际 TTS 厂商连接未由此自动完成。</p>
-<p>ASR 候选新增部署 <code>asr_stream</code> 和内部 <code>Server.StartASR</code>。它先与本机私有 ASR1 代理握手，再申请真实 RX；8 kHz 原生或按需 16 kHz。业务持续 Next，Finish 之后仍取结果，等待有效 DONE 与实际清理。候选 <code>asr-mock</code> 仅核验 PCM 摘要；真实模型与完整 Agent 还需接入。部署字段和所有方法见 <a href="candidate/asr-stream-reference.html">候选合同</a>。主服务基线没有新增 StartASR HTTP URL。</p>
+<p>ASR 候选提供 <code>asr_stream</code> 部署配置和内部 <code>Server.StartASR</code>。它先与本机私有 ASR1 代理握手，再申请真实 RX；保留 8 kHz 原生收音或按需转换到 16 kHz。业务需持续读取 <code>Next</code>，调用 <code>Finish</code> 后仍取结果，并等待有效 DONE 与实际清理。候选 <code>asr-mock</code> 仅核验 PCM 摘要；真实模型与完整 Agent 仍需接入。部署字段和方法见 <a href="candidate/asr-stream-reference.html">候选合同</a>。主工程没有 StartASR HTTP URL。</p>
 <h2 id="9-linux-安装与停止">9. Linux 安装与停止</h2>
-<p>可审阅 <a href="reference/deploy/rustswitch.service">systemd 模板</a>：默认工作目录 <code>/opt/rustswitch</code>、专用用户、<code>LimitNOFILE=262144</code>、仅 <code>/var/lib/rustswitch</code> 可写。需自行创建用户/目录，并使 production.json 的日志、状态和文件权限与这些路径一致。模板存在不等于本机已安装服务。</p>
-<p>停止前先排空新接入并观察真实通话归零。首次 SIGTERM 进入正常退出流程，等待存量通话和注册注销；重复终止信号会强制结束。systemd 默认 3640 秒等待与示例最长通话相关，生产需按实际超时策略核验。</p>
-<p>回滚保留旧二进制、配置、许可与证据；先排空并确认本次进程退出，再按部署流程切换。当前不提供跨版本活动通话迁移。</p>
-</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>
+<p>可从 <a href="source/main/deploy/rustswitch.service"><code>source/main/deploy/rustswitch.service</code></a> 取得 systemd 模板。安装前完成如下准备：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>对象</th>
+<th>模板约定与部署要求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>服务身份</td>
+<td>创建专用 <code>rustswitch</code> 用户和组，使其能读取程序、配置及需要的私有文件</td>
+</tr>
+<tr>
+<td>程序与工作目录</td>
+<td><code>/opt/rustswitch/bin/</code>；工作目录 <code>/opt/rustswitch</code></td>
+</tr>
+<tr>
+<td>启动配置</td>
+<td><code>/opt/rustswitch/config/production.json</code>，由部署方基于实际地址生成并校验</td>
+</tr>
+<tr>
+<td>可写状态目录</td>
+<td><code>/var/lib/rustswitch</code>，配置的事件、管理状态和需要持久化的数据应与权限策略一致</td>
+</tr>
+<tr>
+<td>文件描述符</td>
+<td><code>LimitNOFILE=262144</code> 是模板预算，仍需核对系统和运行进程实际限额</td>
+</tr>
+<tr>
+<td>停止与重启</td>
+<td><code>Restart=on-failure</code>、<code>KillMode=mixed</code>、<code>TimeoutStopSec=3640</code>；重启不恢复已中断的活动通话</td>
+</tr>
+</tbody></table></div>
+<p>模板启用 <code>ProtectSystem=strict</code>、<code>ProtectHome=true</code> 等限制。提示文件、密钥和本机 socket 路径必须在该服务上下文可访问；不要让配置继续引用开发者的 home 目录。安装 unit 后先验证配置和单路服务行为，再按变更流程开放线路流量。</p>
+<p>停止前可通过后台/API 进入排空状态，阻止新准入并观察存量通话结束。首次 SIGTERM/SIGINT 进入正常退出流程，等待存量通话和注册注销；第二个信号强制取消。HTTP 排空与进程退出不同：普通排空可以恢复接入，已经开始停止的进程不能用恢复接口撤销退出。systemd 的 3640 秒等待与示例最长通话相关，需按实际通话和 SIP 清理期限核验。</p>
+<p>回滚应保留旧二进制、启动 JSON、管理状态、许可和验证记录；先排空并确认新进程退出，再切换到已验证组合。回滚后复查 active/desired、保护策略、注册和单路媒体，当前不提供跨版本活动通话迁移。</p>
+</article><div class="foot">RustSwitch · 文档修订 2026-09-08 · 主接口基线 1.13.0 · 候选与历史证据按各自范围适用。</div></main></body></html>

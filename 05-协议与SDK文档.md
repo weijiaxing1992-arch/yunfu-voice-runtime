@@ -1,18 +1,22 @@
 # 05 通信协议与 SDK 文档
 
-本章给出全部非 HTTP 接口的入口和责任。下方链接的专题原文随包提供，包含完整字段、状态、错误和示例；不需要到互联网补齐内部协议。
+本文面向电话接入、实时音频和原生适配开发者，按调用边界汇总 RustSwitch 主源码及 ASR 候选的非 HTTP 接口。主文档基线为 **1.13.0**；HTTP 管理入口另见 [04](04-HTTP接口文档.md)，版本关系见[文档中心](DOCUMENTATION.md)。
 
-| 接口 | 状态 | 完整合同 |
+## 接口分类与适用范围
+
+接入前先选择接口层级：SIP、ESL 等面向对端或应用；Go/Rust JSON IPC、FD3/FD4 面向受控进程；RVA1 和 ASR1 按各自本机权限及生命周期合同使用。内部接口不应直接作为公网服务暴露。下表链接的专题提供帧格式、字段、状态、错误及示例。
+
+| 接口 | 实现范围 | 技术参考 |
 |---|---|---|
 | SIP/SDP、RTP/RTCP、CLI、日志 | 限定基线实现 | [通信协议总册](reference/docs/api/protocol-reference.md) |
 | 上游 REGISTER / INVITE Digest | 单固定上游客户端 | [注册与认证](reference/docs/api/trunk-registration.md) |
-| 入站 ESL / fs_cli 子集 | 显式开启，有限命令/事件 | [ESL 完整说明](reference/docs/api/esl-reference.md) |
+| 入站 ESL / fs_cli 子集 | 显式开启，有限命令/事件 | [ESL 参考](reference/docs/api/esl-reference.md) |
 | IVR/read/playback 等 | 本地 A 腿有限应用 | [IVR 合同](reference/docs/api/ivr-reference.md) |
-| 通道变量与批量设置 | 有限容器、真实副作用 | [变量](reference/docs/api/variables-reference.md) |
-| 通道快照/uuid_dump | 单腿真实快照 | [快照](reference/docs/api/channel-snapshot-reference.md) |
+| 通道变量与批量设置 | 有限变量容器与指定应用副作用 | [变量](reference/docs/api/variables-reference.md) |
+| 通道快照/uuid_dump | 单腿状态快照 | [快照](reference/docs/api/channel-snapshot-reference.md) |
 | 事件生命周期 | 有界事件流，明确完成关联 | [事件](reference/docs/api/event-lifecycle-reference.md) |
-| 运行 XML Dialplan | 显式启动冻结的有限条件/动作 | [拨号计划](reference/docs/api/dialplan-reference.md) |
-| 媒体 JSON IPC | Go→Rust 私有内部协议 | [协议总册](reference/docs/api/protocol-reference.md)、[JSON Schema](reference/docs/api/media-ipc.schema.json) |
+| 运行 XML Dialplan | 启动时冻结的条件与动作子集 | [拨号计划](reference/docs/api/dialplan-reference.md) |
+| 媒体 JSON IPC | Go → Rust 进程间内部协议 | [协议总册](reference/docs/api/protocol-reference.md)、[JSON Schema](reference/docs/api/media-ipc.schema.json) |
 | 播放/收号/DTMF 控制 | 受理不等于完成 | [媒体交互](reference/docs/api/media-interaction.md)、[DTMF 发送](reference/docs/api/dtmf-send-reference.md) |
 | G.711 双腿/本地图 | 8 kHz/20 ms 限定实时图 | [双腿](reference/docs/api/processed-media-reference.md)、[本地](reference/docs/api/processed-local-reference.md) |
 | RSP1/RSR1 PCM turn | FD3，内部控制与数据分离 | [PCM turn](reference/docs/api/pcm-turn-reference.md) |
@@ -21,9 +25,9 @@
 | AudioFrame/Codec SDK | 离线编解码与帧基础 | [音频](reference/docs/api/audio-reference.md) |
 | C 编解码 ABI | 自有 ABI 版本 1 | [头文件](reference/native/include/rustswitch_codec.h) |
 | C 协议 ABI | 预留，未完成生产提供器 | [头文件](reference/native/include/rustswitch_protocol.h) |
-| ASR1 / StartASR | 独立候选，非公开 HTTP | [候选完整合同](candidate/asr-stream-reference.md)、[模型增量](candidate/asr-openapi-update-proposal.md) |
+| ASR1 / StartASR | 独立候选，非公开 HTTP | [候选接口合同](candidate/asr-stream-reference.md)、[模型增量](candidate/asr-openapi-update-proposal.md) |
 
-## SIP 与 Codec 使用边界
+## SIP 与音频编码支持范围
 
 初始 INVITE、ACK、CANCEL、BYE、OPTIONS 和显式 INFO 子集可用；入站 REGISTER、REFER、UPDATE、PRACK、完整 re-INVITE/保持恢复及复杂路由不能按 FreeSWITCH 原功能使用。上游 REGISTER 客户端不等于允许分机向本项目注册。
 
@@ -64,8 +68,14 @@ RVA1 的 BEGIN 必须以真实已 ACK 本地通道授权，再通过独立数据
 
 RXS2 每消息固定 168 字节头、正文最多 480 字节，单订阅出口队列 8 项；160 个原生样本表示 20 ms。传出/写入计数不等于业务实际消费。候选 ASR1 每帧最多 8196 字节、64 个来源区间、8 项结果队列，FINISH/DONE 精确确认完整前缀；其完整二进制偏移、JSON 类型和错误定义见候选合同。
 
-## 原版对照如何使用
+## FreeSWITCH 迁移验证
 
 优先检查调用入口、参数、响应字节、事件顺序、副作用、超时/取消和资源释放这七项。某一错误码或命令正向例通过，不能扩大到同模块全部语义。原版 `detect_speech`、`play_and_detect_speech`、MRCP、完整 originate 并未因内部 ASR 候选出现而实现。
 
-完整 3999 条原始对照、CSV 和验收定义见 [10](10-全部专题文档目录.md)。未完成条目仍保留，不把产品范围后延计为兼容通过。
+完整 3,999 条原始对照、CSV 和验收定义见[专题索引](10-全部专题文档目录.md)，待完成工作见[项目未完成清单](13-项目未完成清单.md)。迁移验证应固定 FreeSWITCH 版本、目标线路及必要接口集合，逐项保存双方输入、输出和资源释放结果；延期能力保持未完成状态。
+
+## 实现与调试入口
+
+主源码位于 `source/main/`，候选源码位于 `source/asr-candidate/`。从对应根目录进入 `control/` 查看 Go 协议及控制逻辑，进入 `media/` 查看 Rust 媒体处理，进入 `native/include/` 查看 C ABI。
+
+调试时应关联通道 UUID、媒体会话、worker 代次和音频轮次。信令成功、媒体收到、SDK 写入及业务实际消费是不同阶段；故障报告应明确发生阶段、实际报文、完成事件与最终释放状态。命令和日志采集方式见[运维说明](07-运维与压测说明.md)。

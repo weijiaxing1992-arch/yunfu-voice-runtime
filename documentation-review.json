@@ -1,0 +1,213 @@
+{
+  "scope": "当前公开说明、离线HTML、合同保留、需求同步与文件路径检查；未新增功能或容量验收。",
+  "base_commit": "54fcd571874d599b10611dc7f38f2a751a433c94",
+  "passed": true,
+  "checks": {
+    "protected_source_and_evidence_unchanged": true,
+    "http_operations": {
+      "expected": 26,
+      "documented": 26,
+      "equal": true
+    },
+    "models": {
+      "expected": 77,
+      "documented": 77,
+      "all_equal": true
+    },
+    "comparison_entries": 3999,
+    "requirements": {
+      "count": 121,
+      "markdown_json_csv_equal": true
+    },
+    "handbook": {
+      "pages": 110,
+      "local_references": 4843,
+      "fragments": 1028,
+      "unbundled_references": 0
+    },
+    "json_files_parsed": 457,
+    "examples_parsed": 148
+  },
+  "errors": [],
+  "checked_at_utc": "2026-09-08T07:55:13.609043+00:00",
+  "runtime_validation_performed": false,
+  "existing_runtime_documentation_gates_passed": false,
+  "fixed_release_assets_modified": false,
+  "updated_markdown_count": 30,
+  "updated_markdown": [
+    {
+      "path": "01-项目说明.md",
+      "sha256": "9ab104b97348f4300db80089872aaee8a8003716c8f906d5591b1adbbcc3bd78"
+    },
+    {
+      "path": "02-项目拓扑图.md",
+      "sha256": "fd93c3c0a49621f64e31c5cd1c52831d65e6c3e488bfc059082a202dda6a11f9"
+    },
+    {
+      "path": "03-软件架构图.md",
+      "sha256": "9a1a81d208201297e96baeed2dc1e0b578a566a41d8a39f19bdd92095084524b"
+    },
+    {
+      "path": "04-HTTP接口文档.md",
+      "sha256": "63091a3ff6b26653a78aff69d8fcd8acf897905b334dd647ff7a2740cf992f1c"
+    },
+    {
+      "path": "05-协议与SDK文档.md",
+      "sha256": "9ea59212ffe27ee6b4ee50b900810bf0c8851d3f9c5c685103bd47d10a7bc55d"
+    },
+    {
+      "path": "06-使用说明.md",
+      "sha256": "f572f4fed4fe0909643418115b955d5020dd56d72c06adba00cda8d16b95af92"
+    },
+    {
+      "path": "07-运维与压测说明.md",
+      "sha256": "7a2312bf4dce73144b4b1f20df79a0b6547db6564ad8490259d41a642385c2a9"
+    },
+    {
+      "path": "08-当前能力与验证状态.md",
+      "sha256": "08d210a8fbc29c3b991f5b498e5229cec6e0fe63af0eb85fc9df354d17b39963"
+    },
+    {
+      "path": "09-数据模型全文.md",
+      "sha256": "be4b76ffdd769d9c7486b92762f667e83532e93819ab1bd614d494ba96dd33e2"
+    },
+    {
+      "path": "10-全部专题文档目录.md",
+      "sha256": "7c3604cea4f82857071cb5192e3e52b3ba19469bd6c073c1c7c261e18b586796"
+    },
+    {
+      "path": "11-交付与源码说明.md",
+      "sha256": "5c563fa747cb63f602d873e66122fdf37ea594053aa51cfe5dab30856fbc8da4"
+    },
+    {
+      "path": "12-需求说明书.md",
+      "sha256": "b0500ed4f0c10c58446c555d809a69bb54ea39981b91d64f2f486c336c5aac3d"
+    },
+    {
+      "path": "13-项目未完成清单.md",
+      "sha256": "392465fe0d5692765afb6dbeb6518b6829a45350cf8b3865c7248455e1b6b4f1"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "7db2e3e6c3f7b986b6a5656ca5d775414011ff11bc74f0741ddfad17e2da1d5b"
+    },
+    {
+      "path": "COMMUNITY.md",
+      "sha256": "fcdb29ce429487cb083cbd210f89296b2b116251b95f1f2ff657277133126396"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "39dbf150e0fa1e616e48322643d78cb951f355e76378d85776acf6b56719cb5a"
+    },
+    {
+      "path": "DELIVERY.md",
+      "sha256": "d54ccfc1e357a02f74a4eb3a3d7b6568e35c50d639a4331f1afe739ff3f81c63"
+    },
+    {
+      "path": "DOCUMENTATION.md",
+      "sha256": "ca204813787cf1254514f5596b5b7c12c2bdc97e2444394a9addb805b312239c"
+    },
+    {
+      "path": "OPEN_SOURCE.md",
+      "sha256": "2425e3225be8f0db85d9454482561930c8ef4dc3140ec55cbc1fece1d58739c1"
+    },
+    {
+      "path": "QUICKSTART.md",
+      "sha256": "e067eb97d813c2a0dd031083c9200d3d04e56bb72d652c0dfb7257cae948eec9"
+    },
+    {
+      "path": "README.md",
+      "sha256": "c45f7f69f7c7c47a74c82fd7446bf4c21d417b38530cb9a8179ed958fd4db5aa"
+    },
+    {
+      "path": "README_EN.md",
+      "sha256": "42220d1de2832acf21aab60d75af202a9c7cf9bb3eaa721c988faf535365de9d"
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "1ada2d82e8e0cbd99ff2f9d6c284edff524879508d4d8bd8e857d4893272fcff"
+    },
+    {
+      "path": "binaries/README.md",
+      "sha256": "53e34d1dc22fe75f13206760f5faf250c826f61b71e0bf93ddcbb9e68fd0d8ef"
+    },
+    {
+      "path": "binaries/linux-arm64/README.md",
+      "sha256": "b3c352c6e8699b114f99350d9c84265d55ddd6a74b9c87f6c023a5d9a5c54bd3"
+    },
+    {
+      "path": "binaries/macos-arm64/README.md",
+      "sha256": "ff624283558eab4423fc5786157f25b78d1370da0ee40d86bc27c7c3771802f8"
+    },
+    {
+      "path": "community/assets/README.md",
+      "sha256": "f09bb0eb99b45819a5c2b37a959fa9d282a9090c04763dcec5df408729065148"
+    },
+    {
+      "path": "open-source/PUBLICATION.md",
+      "sha256": "e1637d55c2b55f31ca36f6d6e190284ccf204a7a5db05ee491052f938221b122"
+    },
+    {
+      "path": "open-source/content-audit.md",
+      "sha256": "012c0e8b9e19efbe5503a16fe2a7fb4014540a29acc8a105f457326423a83e5c"
+    },
+    {
+      "path": "source/README.md",
+      "sha256": "de3d964f41a3d75798478b0e919c11bca3474c9709aea648cb2b4e3399941a2f"
+    }
+  ],
+  "visual_review": {
+    "passed": true,
+    "scope": "Six selected offline HTML documents, 1440/390/375 px. GitHub availability and production service behavior are not evaluated.",
+    "pages": [
+      "index.html",
+      "README_EN.html",
+      "04-HTTP接口文档.html",
+      "09-数据模型全文.html",
+      "DOCUMENTATION.html",
+      "03-软件架构图.html"
+    ],
+    "viewports": [
+      1440,
+      390,
+      375
+    ],
+    "cases": 18,
+    "external_requests": 0,
+    "page_errors": 0,
+    "failed_requests": 0,
+    "broken_links": 0,
+    "inputs": [
+      {
+        "file": "index.html",
+        "sha256": "7cc9594665ccd5edacd7c6dcb60233fa2880952d2cdde9e800d27571f2ee27e5",
+        "bytes": 22650
+      },
+      {
+        "file": "README_EN.html",
+        "sha256": "839326a1cbbfb6df08964188bf636b1599df5c0985aeeb43f3167af34894f83f",
+        "bytes": 25637
+      },
+      {
+        "file": "04-HTTP接口文档.html",
+        "sha256": "389021d0d09a5f9fef4bad0c04b12c528b861df62bc28c19d24c6410ce464610",
+        "bytes": 99331
+      },
+      {
+        "file": "09-数据模型全文.html",
+        "sha256": "118445536ba2e837b0c8e0ccad956780ffd95335d81b8a390ca88c30c4493680",
+        "bytes": 247156
+      },
+      {
+        "file": "DOCUMENTATION.html",
+        "sha256": "e7ae05ea09334b0c1a34dcba9efe0c05c7787ee0636af19a0ee9abfc1aebaf5b",
+        "bytes": 14113
+      },
+      {
+        "file": "03-软件架构图.html",
+        "sha256": "f73736ab417fbc746d839c7698e3ab3317fd26d1e42470f7ee9da77e29a0d8f6",
+        "bytes": 13437
+      }
+    ]
+  }
+}

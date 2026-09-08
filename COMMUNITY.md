@@ -1,68 +1,92 @@
-# RustSwitch 社区参与指南
+# RustSwitch 社区指南
 
-RustSwitch 希望成为服务语音智能体的 FreeSWITCH 替代方案。当前处于开发预览阶段，社区协作围绕可复现的问题、真实的接口差异和可核对的实现展开。
+RustSwitch 是面向电话语音智能体的开源实时语音项目，采用 Rust 媒体、Go 控制和 C/C++ 适配层，逐步兼容有实际迁移需求的 FreeSWITCH 接口。当前处于开发预览阶段，协作以可复现的问题、清楚的接口合同和可核对的测试证据为基础。
 
-你可以从一条线路的互通问题、一段更清楚的文档或一个失败用例开始。无需先了解整个媒体内核。
+本指南说明参与入口、讨论与决策方式，以及共同维护项目的约定。技术贡献流程见 [CONTRIBUTING](CONTRIBUTING.md)，文档与版本规则见 [DOCUMENTATION](DOCUMENTATION.md)，安全问题见 [SECURITY](SECURITY.md)。
 
-## 找到合适的入口
+## 参与入口
 
-| 你想做什么 | 入口 | 建议提供的内容 |
-| --- | --- | --- |
-| 安装、配置或接口使用提问 | [GitHub Issues](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues) | 所用版本、平台、阅读过的文档、期望与实际结果 |
-| 报告缺陷 | [新建 Issue](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues/new) | 最小复现、脱敏配置、关键日志、是否使用主工程或候选 |
-| 提议功能或兼容适配 | [GitHub Issues](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues) | 实际业务场景、对应接口、现有差异、可验证的完成条件 |
-| 提交代码或文档 | [贡献说明](CONTRIBUTING.md)、[Pull Requests](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/pulls) | 问题与变化、验证结果、未覆盖范围、涉及的许可证 |
-| 报告安全问题 | [安全报告说明](SECURITY.md) | 按私密渠道提交；公开 Issue 不放漏洞利用细节或凭据 |
-| 查阅实现与验收状态 | [未完成清单](13-项目未完成清单.md)、[FreeSWITCH 对照数据](backlog) | 同时查看实现状态、证据范围和对应源码 |
+| 目的 | 入口 | 提交时说明 |
+|---|---|---|
+| 安装、配置或接口使用提问 | [GitHub Issues](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues) | 版本、平台、阅读过的文档、期望与实际结果 |
+| 报告缺陷 | [缺陷模板](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues/new?template=bug_report.yml) | 最小复现、脱敏配置、关键日志、主工程或候选 |
+| 提议功能或设计 | [功能模板](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues/new?template=feature_request.yml) | 业务场景、现有缺口、接口变化、完成条件 |
+| 提交 FreeSWITCH 互通结果 | [兼容报告模板](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues/new?template=compatibility_report.yml) | 两端版本、成对场景、报文、实际差异、测试范围 |
+| 改进代码或文档 | [Pull Requests](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/pulls) | 问题、行为变化、测试与文档、未覆盖范围 |
+| 报告安全问题 | [私密报告说明](SECURITY.md) | 按说明提交，不在公开讨论中放入敏感漏洞细节 |
+| 查阅进度 | [未完成清单](13-项目未完成清单.md)、[变更记录](CHANGELOG.md) | 同时核对实现、验证状态与对应源码 |
 
-当前以本仓库为协作入口，尚未公布独立聊天群或固定响应时限。先搜索已有 Issue 和文档，相关问题尽量在同一处补充证据。
+中文和英文的问题、文档改进与技术讨论均可提交。当前以本仓库 Issues 和 Pull Requests 为公开协作入口，尚未公布独立聊天群、固定会议、响应时限或付费支持方案。
 
-## 第一次参与，从这些方向开始
+## 第一次参与
 
-下面是任务方向，不代表已经建立或分配了对应 Issue。认领前请先开 Issue 说明范围，避免多人重复修改。
+不需要先理解整个媒体内核。可以选择一个独立、可验证的改进：
 
-| 方向 | 可以提交的第一份贡献 | 依据 |
-| --- | --- | --- |
-| 新用户安装体验 | 在明确的系统上按快速开始操作，记录失败步骤，修复说明或脚本 | [QUICKSTART.md](QUICKSTART.md) |
-| 中文与英文文档 | 修复链接、解释术语、翻译可独立阅读的小节，保持能力边界一致 | [README_EN.md](README_EN.md)、[专题目录](10-全部专题文档目录.md) |
-| 单路 SIP 与 DTMF | 提供合法的脱敏报文和最小场景，说明预期事件及超时边界 | SIP-01 至 SIP-05、TEL-01 |
-| 压测诊断 | 为缺失统计、任务取消、过期样本增加可复现案例 | DIA-01 至 DIA-03 |
-| FreeSWITCH 对照 | 选定一个命令或事件，在固定原版与 RustSwitch 上记录同条件结果 | FS-05、[对照清单](backlog) |
-| 语音智能体接入 | 从一个供应商协议、取消场景或音频来源校验开始提出小范围设计 | AI-01 至 AI-08 |
+| 方向 | 第一份贡献示例 | 参考 |
+|---|---|---|
+| 安装体验 | 在明确的系统与工具链上运行快速开始，记录失败步骤并修正说明 | [QUICKSTART](QUICKSTART.md) |
+| 文档与翻译 | 修复链接、解释术语、翻译一个小节，保留相同的能力边界 | [文档中心](DOCUMENTATION.md)、[英文首页](README_EN.md) |
+| 线路与按键 | 提供脱敏 SIP/DTMF 最小场景，标明预期事件和超时条件 | SIP-01 至 SIP-05、TEL-01 |
+| 压测诊断 | 为缺失统计、取消或过期样本增加可重复的失败案例 | DIA-01 至 DIA-03 |
+| FreeSWITCH 对照 | 选择一个命令、事件或拨号计划场景，记录固定原版与本项目结果 | FS-05、[对照资料](backlog) |
+| Agent 音频 | 提议一个供应商适配、轮次取消或音频来源检查的独立设计 | AI-01 至 AI-08 |
 
-工作包编号及其验收条件见 [13 项目未完成清单](13-项目未完成清单.md)。真实线路、供应商与容量测试需要相应环境；没有环境时，可先贡献协议夹具、离线复现或文档，但应明确尚未验证的真实链路。
+工作包编号及验收条件见[未完成清单](13-项目未完成清单.md)。上述是任务方向，不代表已创建、分配或承诺完成相应 Issue。小型文档修正可直接提 PR；多人协作或范围较大的工作建议先在 Issue 说明意向，确认是否已有相关工作。
 
-## 提交一份容易复现的问题
+真实线路、供应商和容量验收需要相应环境。没有环境时可以贡献协议夹具、离线测试或文档，并标明真实链路尚未验证。
 
-建议按以下顺序描述：
+## 问题报告与技术讨论
 
-1. **版本与环境**：提交或 Release 标签、操作系统和架构、`main` 或 `asr-candidate`。
-2. **业务动作**：注册、接听、播放、收号、实时音频或压测中的哪一步。
-3. **复现步骤**：最少配置和操作；是否每次出现；期望与实际结果。
-4. **证据**：脱敏报文、相关日志、任务编号与结果文件。性能问题另附硬件、时长、编解码和完整负载条件。
-5. **验证范围**：已经排查什么、哪些部分尚未测试，不把单个成功样例扩大成完整兼容。
+一份可复现的报告应包括：
 
-请去掉真实密码、令牌、客户号码、个人录音和无关业务信息。用回环或文档示例地址替代生产地址，并保留影响复现的字段关系。
+1. **版本**：Release 标签或 Git 提交、使用 `source/main/` 还是 `source/asr-candidate/`、二进制来源。
+2. **环境**：系统、架构、相关工具链与依赖；性能问题另附 CPU、内存、网卡和网络布局。
+3. **场景**：注册、呼叫、播放、收号、实时音频或压测中的具体步骤。
+4. **结果**：期望行为、实际行为、是否稳定复现，以及最小配置和操作。
+5. **证据与范围**：脱敏报文、日志、失败任务结果和未测试部分。
 
-## 协作约定
+发布前移除真实密码、令牌、客户号码、个人录音及无关业务信息。用回环或文档示例地址代替生产地址，同时保留与复现相关的字段关系。发现敏感信息已被公开时，应立即撤销相应凭据并按[安全说明](SECURITY.md)联系维护者。
 
-- 讨论具体行为与证据，尊重不同背景的参与者；拒绝人身攻击、骚扰和未经同意披露个人信息。
-- 对代码提出批评时说明复现或理由，对报告者保持耐心。
-- 一个 Pull Request 聚焦一个可评审的变化；较大接口变更先说明设计与迁移影响。
-- 默认修改 `source/main/`。候选、设计原型和未合并补丁必须保持来源与状态清楚。
-- 更新接口时同步合同、文档与有意义的测试；不通过改历史结果或延长证据有效期来制造“全绿”。
-- 不承诺当前没有证据支持的容量、故障零损失或完整 FreeSWITCH 等价能力。
+## 协作与决策
 
-## 让更多真正需要它的人看到
+项目不以下载量、Star 数或单个测试成功作为接受变更的依据。评审主要判断问题是否明确、实现是否符合合同、资源与故障边界是否清楚，以及证据是否覆盖声称的行为。
 
-如果 RustSwitch 的方向对你有帮助，欢迎给仓库一个 **Star**，向电话系统与 Voice Agent 开发者分享项目链接，或发布注明版本和限制的实测文章。
+| 角色 | 职责 |
+|---|---|
+| 报告者与使用者 | 描述场景、提供必要证据、补充复现反馈；不要求具备代码贡献经验 |
+| 贡献者 | 控制修改范围、说明设计与迁移影响、提供适当验证并回应评审 |
+| 评审参与者 | 围绕具体行为、测试和接口提出可执行意见，明确哪些结论尚不确定 |
+| 仓库维护者 | 根据仓库权限评审合并、维护发布内容、组织缺陷与安全报告处理 |
 
-最有价值的推荐包含具体内容：你验证过的系统、一个可以复现的互通场景、一处真实改进，或仍未解决的问题。社区不需要刷星、互星交换、批量账户或虚构用户案例；Star 也不是获得问题响应的条件。
+这里描述的是协作职责，不代表已设立独立委员会、固定团队席位或轮值安排。贡献与评审记录以 GitHub 提交、Issue 和 PR 为准。
 
-贡献记录以 GitHub 提交、Issue 和 Pull Request 为准。安全修复在适合公开时记录，避免提前泄露细节。
+对重大接口、数据模型、兼容范围或依赖引入的调整，先在 Issue 记录问题、方案、替代方案和验收方式，再提交聚焦的 PR。重要决定与理由应保留在关联讨论中；发布后的对外变化记录到 [CHANGELOG](CHANGELOG.md)。有分歧时先明确可验证的断言和证据，不以重复争论替代实验。
 
-## 许可与来源
+## 共同约定
 
-原创贡献按本项目 [Apache-2.0](LICENSE) 提供，第三方代码保留自己的许可。提交前请确认有权公开相关代码、报文、图片与测试资源，并遵守 [第三方声明](THIRD_PARTY_NOTICES.md) 与 [贡献说明](CONTRIBUTING.md)。
+- 尊重参与者，讨论代码和具体行为；不接受骚扰、人身攻击、仇恨表达或未经同意披露个人信息。
+- 不把候选、设计原型、历史报告或 mock 当作主工程的完整生产能力。
+- 不删除失败记录、延长证据有效期或重分类条目来制造“全绿”。
+- 不以未经验证的容量、零丢包、零故障损失或完整 FreeSWITCH 等价能力宣传项目。
+- 不要求 Star、捐赠或商业采购作为提交问题或参与讨论的条件。
+- 提交内容需有权公开，尊重第三方代码、报文、图像及音频的许可与隐私。
 
-RustSwitch 独立开发；对 FreeSWITCH 的引用用于兼容对照与来源说明，不代表官方认证或背书。
+维护者可以按仓库权限对偏离主题、泄露敏感内容或违反上述约定的内容进行引导、隐藏、锁定或移除，并在适合公开时说明处理原因。不要在公开线程转发敏感细节；安全相关情况使用私密报告流程。
+
+## 传播与认可
+
+如果 RustSwitch 对你有帮助，欢迎 Star 仓库、分享项目链接，或发布注明版本、环境和限制的实测文章。能够复现的互通案例、解释清楚的失败分析和有条件对照的基准更有助于其他人判断项目是否适用。
+
+不使用刷星、互星交换、批量账户、虚构客户或未经证实的性能数字推广项目。贡献记录来自实际提交和评审；安全修复的公开时间应避免提前暴露利用细节。
+
+## 许可与项目关系
+
+原创贡献适用本项目 [Apache-2.0](LICENSE)，已有第三方文件适用各自许可与例外，详见 [LICENSE_SCOPE](LICENSE_SCOPE.md) 和 [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md)。
+
+RustSwitch 独立开发。FreeSWITCH 名称用于兼容研究和来源说明，不代表其官方认证、合作关系或背书。
+
+## For English-speaking contributors
+
+English issues and pull requests are welcome. Use the linked bug, feature, or interoperability templates and identify the release or commit, source variant, environment, expected behavior, actual behavior, and a sanitized reproducer. Small fixes may go directly to a pull request; discuss significant interface or architecture changes in an issue first.
+
+Most detailed documents remain in Chinese. [README_EN](README_EN.md) describes the current scope. Please preserve the distinction between implemented paths, separately published candidates, historical evidence, and unverified goals. Read [CONTRIBUTING](CONTRIBUTING.md) for contribution requirements and [SECURITY](SECURITY.md) for private reporting. No response SLA, support subscription, or fixed governance committee is established by this guide.

@@ -1,12 +1,13 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>13 项目未完成清单 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>RustSwitch<small>开源社区 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="active" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 13 项目未完成清单</div><article class="content"><div class="page-tools"><a href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 6 节</summary><a href="#一当前必须区分的交付状态">一、当前必须区分的交付状态</a><a href="#二3999条原始状态统计">二、3999条原始状态统计</a><a href="#三当前已确认的失败与证据限制">三、当前已确认的失败与证据限制</a><a href="#四逐项工作包">四、逐项工作包</a><a href="#五统一关单规则">五、统一关单规则</a><a href="#六来源与本轮核对">六、来源与本轮核对</a></details><h1 id="13-项目未完成清单">13 项目未完成清单</h1>
-<p>整理日期：2026-09-08。本文记录可交接的真实缺口与验收条件，不提供“100%兼容”或已达到5000/10000路的结论。项目方向是服务语音智能体的高性能实时语音内核，前期尽量兼容FreeSWITCH入口；延期的PBX能力仍公开保留。</p>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>13 项目未完成清单 · RustSwitch 项目文档</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">R</span><span>RustSwitch<small>项目文档 · 开发预览</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">项目首页</a><a href="DOCUMENTATION.html">文档中心</a><a href="QUICKSTART.html">快速开始</a><a href="CHANGELOG.html">更新日志</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="active" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">RustSwitch 文档 / 13 项目未完成清单</div><article class="content"><div class="page-tools"><a href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 6 节</summary><a href="#一实现与交付基线">一、实现与交付基线</a><a href="#二3999条原始状态统计">二、3999条原始状态统计</a><a href="#三当前已确认的失败与证据限制">三、当前已确认的失败与证据限制</a><a href="#四逐项工作包">四、逐项工作包</a><a href="#五统一关单规则">五、统一关单规则</a><a href="#六历史来源与校验记录">六、历史来源与校验记录</a></details><h1 id="13-项目未完成清单">13 项目未完成清单</h1>
+<p>整理日期：2026-09-08。本文作为 RustSwitch 的研发工作登记，记录功能缺口、已有证据、代码入口、依赖和完成条件。适用于研发分工、测试设计及版本评审，覆盖语音智能体核心能力与渐进式 FreeSWITCH 兼容。</p>
+<p>清单保留 40 个稳定工作包编号；其中 DLV-04 的公开许可与分发材料已完成，其余条目按各自实现和验证状态推进。3,999 条原始对照及历史测试记录单独保留，不以工作包数量计算兼容率。版本和历史证据规则见<a href="DOCUMENTATION.html">文档中心</a>。</p>
 <p>配套资料：<a href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html">交付与源码说明</a>、<a href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html">需求说明书</a>、<a href="backlog/FreeSWITCH-%E5%85%A8%E9%83%A8%E9%80%90%E9%A1%B9%E7%8A%B6%E6%80%81.json">完整3999行JSON</a>、<a href="backlog/FreeSWITCH-%E5%85%A8%E9%83%A8%E9%80%90%E9%A1%B9%E7%8A%B6%E6%80%81.csv">完整CSV</a>、<a href="backlog/%E6%9C%AA%E5%AE%9E%E7%8E%B0%E4%B8%8E%E9%83%A8%E5%88%86%E5%AE%9E%E7%8E%B0.csv">未实现与部分实现2897行</a>、<a href="backlog/%E6%9C%AA%E9%80%9A%E8%BF%87%E6%9C%AC%E5%9C%B0%E9%AA%8C%E8%AF%81.csv">未通过本地验证3917行</a>。原始参考：<a href="reference/docs/api/comparison.json">对照数据</a>、<a href="reference/docs/api/runtime-verification.json">运行验证数据</a>、<a href="reference/docs/api/compatibility-worklist.html">兼容工作清单</a>、<a href="reference/docs/api/voice-runtime-v1-acceptance.html">Voice Runtime V1验收</a>。</p>
-<h2 id="一当前必须区分的交付状态">一、当前必须区分的交付状态</h2>
+<h2 id="一实现与交付基线">一、实现与交付基线</h2>
 <ol>
-<li><strong>正式存量目录</strong>：3999条对照记录，历史本地passed为82条；这仅是文件中的存量状态。<strong>本轮打包文档门禁实际失败，不能把82条称作当前全部有效绿色</strong>。主源码失败原因为“绿色已失效：key-api-pcm-stream”，ASR候选失败原因为“字段字典落后于机器合同”。原日志位于交付包 <code>evidence/delivery-doc-gate</code>，当前有效绿色总数尚待重新评估。</li>
-<li><strong>ASR隔离候选</strong>：已有内部ASR1、时效/生命周期保护、重采样、来源对账和资源统计；<code>full-review-01</code>实际完成1471个通过测试事件（其中504个顶层测试），0失败/跳过，含限定本机真实链路、race、vet、页面检查与双平台编译。它尚未合并到主源码或发布，不包含真实识别模型。CHECKPOINT中较早“回归运行中”的记录由实际完成收据更新解释。</li>
-<li><strong>私有压测补丁</strong>：test-02对应的六文件可按SHA恢复，并有定向回归；当前工作稿后来改动runner和test两文件，没有test-03收据。原子Stats方案仅有合同，无实现和验证，不能列为已修复。</li>
-<li><strong>本轮交付构建</strong>：两套源码的Go/Rust/C ABI离线编译已通过，候选另含asr-mock；编译通过不等于文档发布门禁或容量验收通过。本次公开分发已新增项目Apache-2.0许可与第三方例外说明，原历史审查时尚无根许可。本文未操作主服务、未部署，也未重新读取在线服务版本。</li>
+<li><strong>主源码对照快照</strong>：3999条对照记录，历史本地passed为82条；这仅是文件中的存量状态。<strong>预览交付时功能文档门禁未通过，当前有效通过条目仍须重新核验</strong>。主源码失败原因为“绿色已失效：key-api-pcm-stream”，ASR候选失败原因为“字段字典落后于机器合同”。原日志位于交付包 <code>evidence/delivery-doc-gate</code>，当前有效绿色总数尚待重新评估。</li>
+<li><strong>ASR隔离候选</strong>：已有内部ASR1、时效/生命周期保护、重采样、来源对账和资源统计；<code>full-review-01</code>实际完成1471个通过测试事件（其中504个顶层测试），0失败/跳过，含限定本机真实链路、race、vet、页面检查与双平台编译。候选源码已随开发预览公开交付，尚未合入主源码或完成产品发布验收，不包含真实识别模型。CHECKPOINT中较早“回归运行中”的记录由实际完成收据更新解释。</li>
+<li><strong>独立压测修复草案</strong>：test-02对应的六文件可按SHA恢复，并有定向回归；当前工作稿后来改动runner和test两文件，没有test-03收据。原子Stats方案仅有合同，无实现和验证，不能列为已修复。</li>
+<li><strong>预览交付构建</strong>：两套源码的Go/Rust/C ABI离线编译已通过，候选另含asr-mock；编译通过不等于文档发布门禁或容量验收通过。本次公开分发已新增项目Apache-2.0许可与第三方例外说明，原历史审查时尚无根许可。本文未操作主服务、未部署，也未重新读取在线服务版本。</li>
 </ol>
 <h2 id="二3999条原始状态统计">二、3999条原始状态统计</h2>
 <p>参考：FreeSWITCH 1.11.3，提交 <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>。以下保留原JSON状态，不按工作包重新归类或删减分母。</p>
@@ -65,7 +66,7 @@
 <tbody><tr>
 <td>passed</td>
 <td align="right">82</td>
-<td>限定断言的历史通过记录；本轮发布门禁失败，不能照抄为当前全绿</td>
+<td>限定断言的历史通过记录；预览功能门禁未通过，当前有效性待复核</td>
 </tr>
 <tr>
 <td>failed</td>
@@ -391,12 +392,12 @@
 </tbody></table></div>
 <h2 id="三当前已确认的失败与证据限制">三、当前已确认的失败与证据限制</h2>
 <p>历史2000路转发任务 <code>a4eb04b740b16479113f91b1c78e6d41</code> 建立2000路，媒体10秒发送2,000,000包，仅接收456,233个唯一包，缺失1,543,767，任务失败。10个Rust worker缓存累计RX/TX均约921,898；最终HTTP返回的worker发布时间比发生器退出早约729–735ms，不能用它定位整个测试的最终损失。控制器活动数为0而旧媒体缓存为2000也不能单独判通道泄漏。</p>
-<p>本次Darwin portable路径发生器为8发送worker、256接收reader，服务侧每批约1包；256次末尾超时不等于256次读错误。所有分片的内核socket丢弃计数均不支持，原始0值不能说明内核无丢包。发生器约12 CPU秒包含20秒建呼等全生命周期，Rust累计约6 CPU秒；不能直接除媒体10秒后宣称精确媒体CPU率，更不能断定10核饱和。需先修同源统计和未知计数，再用目标Linux环境定位。</p>
+<p>该历史任务的 Darwin portable 路径发生器为8发送worker、256接收reader，服务侧每批约1包；256次末尾超时不等于256次读错误。所有分片的内核socket丢弃计数均不支持，原始0值不能说明内核无丢包。发生器约12 CPU秒包含20秒建呼等全生命周期，Rust累计约6 CPU秒；不能直接除媒体10秒后宣称精确媒体CPU率，更不能断定10核饱和。需先修同源统计和未知计数，再用目标Linux环境定位。</p>
 <p>本机5000路任务曾因隔离端口不足拒绝完整运行，该结果不构成5000路或10000路能力验证。ASR的9项Unix测试与5项SIP/Rust测试仅验证内部ASR1和mock；现有真实BYE用例不覆盖等待final期间挂断。Linux二进制构建、DSP微基准和本机有限回归均不能外推Linux容量、真实模型或生产无损切换。</p>
 <h2 id="四逐项工作包">四、逐项工作包</h2>
-<p>P0优先处理可信交付、核心AI业务和容量承诺；P1推进电话接入、运维与渐进兼容；P2可按首期业务延期，但不得隐藏差异。以下代码位置是接手入口，不表示标题功能已经实现。普通路径相对ASR候选项目根目录；<code>private/</code>相对 <code>work/voice-runtime-m2-asr/benchmark-fix-01/</code>；<code>governance</code>表示待确定的项目级许可，不是现存文件。</p>
+<p>P0优先处理可信交付、核心AI业务和容量承诺；P1推进电话接入、运维与渐进兼容；P2可按首期业务延期，但不得隐藏差异。以下代码位置是接手入口，不表示标题功能已经实现。普通代码路径相对公开候选目录 <code>source/asr-candidate/</code>；主源码对应入口位于 <code>source/main/</code>。<code>private/</code> 是历史独立补丁的来源标签，相关交付文件见<a href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html">源码说明</a>，并非公共代码目录。DLV-04 的项目级许可材料位于仓库根目录。</p>
 <h3 id="dlv-01-p0-asr隔离候选合并文档和发布">DLV-01 · P0 · ASR隔离候选合并、文档和发布</h3>
-<p>**状态：**已完成限定实现待合并/发布。**验证：**限定回归通过，正式文档尚未接入。</p>
+<p>**状态：**候选限定实现已公开交付，待合入主源码并完成验收。**验证：**限定回归通过，正式文档尚未接入。</p>
 <p>真实 Unix 9 例、真实 SIP/Rust 5 例及整包回归已通过；供应商为校验 PCM 的 mock，不是识别模型。</p>
 <p>代码入口：<code>control/internal/asr</code>；<code>control/internal/server/asr_stream.go</code>；<code>control/internal/server/asr_observe.go</code>。</p>
 <p>依赖：DLV-03；冻结源码和发布窗口。</p>
@@ -404,7 +405,7 @@
 <p>完成条件：源码、文档、原始证据、构建和发布收据一致；仍明确内部 SDK 与 mock 范围。</p>
 <p>对照ID：<code>key-api-rx-sdk</code>, <code>key-http-status</code>, <code>key-http-metrics</code>；验收/目标索引：<code>A09-ASR</code>, <code>V1-08</code>, <code>V1-16</code>。</p>
 <h3 id="dlv-02-p0-rx时效和通话生命周期增量发布">DLV-02 · P0 · RX时效和通话生命周期增量发布</h3>
-<p>**状态：**已完成限定实现待合并/发布。**验证：**候选回归通过，未部署。</p>
+<p>**状态：**候选限定实现已公开交付，待合入主源码并完成验收。**验证：**候选回归通过，未部署。</p>
 <p>候选已有 LifetimeDone 和 RemainingBudget；主动退订不等于通话结束，100ms 预算不能重置。</p>
 <p>代码入口：<code>control/internal/media/rx_clock.go</code>；<code>control/internal/media/rx_stream.go</code>；<code>control/internal/server/rx_stream.go</code>。</p>
 <p>依赖：DLV-01。</p>
@@ -412,7 +413,7 @@
 <p>完成条件：发布后保留两种生命周期边界和期限失败原件，不能将 summary 当新音频预算。</p>
 <p>对照ID：<code>key-api-rx-sdk</code>, <code>key-ipc-rx-stream</code>；验收/目标索引：<code>A05</code>, <code>A09-ASR</code>。</p>
 <h3 id="dlv-03-p0-修复两套源码的文档发布门禁">DLV-03 · P0 · 修复两套源码的文档发布门禁</h3>
-<p>**状态：**未完成。**验证：**本轮打包检查实际失败。</p>
+<p>**状态：**未完成。**验证：**预览交付时两套功能文档门禁未通过。</p>
 <p>主源码检查报“绿色已失效：key-api-pcm-stream”；ASR 候选报“字段字典落后于机器合同”。历史 82 条 passed 不能当当前有效绿色总数。</p>
 <p>代码入口：<code>tools/build_api_docs.py</code>；<code>docs/api</code>。</p>
 <p>依赖：证据有效期/源码绑定核查；候选字段字典更新。</p>
@@ -420,9 +421,9 @@
 <p>完成条件：两套门禁通过且页面、机器合同、字段字典、证据与实际源码一致；当前可绿数量重新计算。</p>
 <p>对照ID：<code>key-api-pcm-stream</code>；验收/目标索引：<code>发布门禁</code>。</p>
 <h3 id="dlv-04-p0-确定项目自有源码许可和分发范围">DLV-04 · P0 · 确定项目自有源码许可和分发范围</h3>
-<p>**状态：**未完成交付决定。**验证：**两套根目录无项目自有 LICENSE。</p>
-<p>公开发布更新：已提供项目Apache-2.0 LICENSE、NOTICE、第三方清单与各自许可文本。本项许可与分发材料已完成；其余功能/容量验收状态不受影响。</p>
-<p>代码入口：<code>governance</code>。</p>
+<p>**状态：**公开许可与分发材料已完成。**依据：**2026-09-08 开发预览已提供项目 Apache-2.0 <code>LICENSE</code>、<code>NOTICE</code>、第三方清单及相应许可文本。</p>
+<p>初始清单记录的“许可未确定”属于公开分发前的历史状态；原始快照保留用于追溯。本项完成仅涉及许可和分发材料，功能与容量验收独立处理。</p>
+<p>材料入口：<a href="OPEN_SOURCE.html">开源说明</a>、<a href="LICENSE_SCOPE.html">许可范围</a>、<a href="THIRD_PARTY_NOTICES.html">第三方清单</a>。</p>
 <p>依赖：项目权利人决定许可、商业分发边界；第三方许可复核。</p>
 <p>验收方法：确认代码归属、项目许可文本、codec/依赖再分发要求和归属说明，检查源码包与二进制包。</p>
 <p>完成条件：由有权人员确定项目许可并随交付提供，保留第三方许可与必要声明。</p>
@@ -436,15 +437,15 @@
 <p>完成条件：每个预期 worker 的原子行身份一致，请求开始晚于发生器退出且返回不早于开始；缺失或旧格式为未知。</p>
 <p>对照ID：<code>key-ipc-stats</code>, <code>key-http-status</code>, <code>key-media-capacity</code>；验收/目标索引：<code>V1-16</code>, <code>V1-17</code>。</p>
 <h3 id="dia-02-p0-失败末尾有界采样与取消终态">DIA-02 · P0 · 失败末尾有界采样与取消终态</h3>
-<p>**状态：**部分实现于私有副本。**验证：**test-02限定通过，后改两文件未复验。</p>
-<p>私有补丁最多补采样5秒，继承取消、保留最后有效样本和原失败；旧判据仍依赖 Admission。后加 benchmarkContextOutcome 和8项用例未有 test-03。</p>
+<p>**状态：**部分实现于已公开独立补丁，尚未合入主工程。**验证：**test-02限定通过，后改两文件未复验。</p>
+<p>已公开独立补丁最多补采样5秒，继承取消、保留最后有效样本和原失败；旧判据仍依赖 Admission。后加 benchmarkContextOutcome 和8项用例未有 test-03。</p>
 <p>代码入口：<code>private/control/internal/server/benchmark_runner.go</code>；<code>private/control/internal/server/benchmark_failure_diagnostics_test.go</code>。</p>
 <p>依赖：DIA-01；冻结后增量回归。</p>
 <p>验收方法：回归原失败叠加取消/期限、成功后取消、服务停止、HTTP失败及样本/时间配对；验证真实 defer 使用终态归一逻辑。</p>
 <p>完成条件：不改变原失败，不阻塞主状态接口，任务取消及时结束；全部预期分片新鲜、超时、取消分开报告；当前完整补丁有新收据。</p>
 <p>对照ID：<code>key-cli-callbench</code>, <code>key-media-capacity</code>；验收/目标索引：<code>V1-17</code>。</p>
 <h3 id="dia-03-p0-不支持的socket丢弃计数显示未知">DIA-03 · P0 · 不支持的socket丢弃计数显示未知</h3>
-<p>**状态：**已完成私有补丁待合并。**验证：**test-02限定回归通过。</p>
+<p>**状态：**独立补丁已公开，待合入主工程。**验证：**test-02限定回归通过。</p>
 <p>已传递 socket_drop_counter_supported 和支持分片数；旧报告缺字段、部分支持或全不支持不能把0显示为无丢包。</p>
 <p>代码入口：<code>private/control/internal/server/benchmark.go</code>；<code>private/control/internal/server/benchmark_processing.go</code>；<code>private/control/internal/server/web/tests.js</code>。</p>
 <p>依赖：从已验证 test-02 六文件恢复范围选择补丁；集成回归。</p>
@@ -718,12 +719,13 @@
 <h2 id="五统一关单规则">五、统一关单规则</h2>
 <p>每项“完成”至少绑定精确源码与依赖集合、实际二进制、原始输入/输出、样本和时刻、正常及故障分支、资源释放、测试退出结果。证据来源或期限失效时重新验证或降低状态，不能只改passed/绿色、删除失败或延长时间。测试事件数含子项，不是独立能力数。</p>
 <p>容量分别运行RTP转发、真实音频处理、完整Agent三种profile，按1000→5000→10000逐档验收。FreeSWITCH比较必须同服务器、音频、质量、并发、时长与SLA，计入所有必需组件。远程模型成本可单列，本地模型必须计入；进阶目标不能从微基准推算。72小时混合负载和灰度/回退是独立退出条件。</p>
-<p>本清单列出40个交付工作包用于分工和验收；这不是3999条对照的替代品或兼容率分母。完整逐行清单保留原ID、实现状态、本地状态、原因和差异；后续每次更新应同时维护接口文档、对照表和机器证据。</p>
-<h2 id="六来源与本轮核对">六、来源与本轮核对</h2>
+<p>本清单保留40个工作包编号用于分工和验收（含已完成的DLV-04）；这不是3999条对照的替代品或兼容率分母。完整逐行清单保留原ID、实现状态、本地状态、原因和差异；后续每次更新应同时维护接口文档、对照表和机器证据。</p>
+<h2 id="六历史来源与校验记录">六、历史来源与校验记录</h2>
+<p>下表记录初次清单编制时的原工作区路径及哈希，用于历史追溯；这些路径不是公开仓库内的构建路径。当前文件位置见<a href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html">交付与源码说明</a>，当前文件完整性见 <code>manifest.json</code>。</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
-<th>原始来源（工作区相对路径）</th>
+<th>历史来源（原工作区相对路径）</th>
 <th>SHA-256</th>
 </tr>
 </thead>
@@ -776,5 +778,5 @@
 <td><code>a10677f9d4577a831706f27a16cdd25aef3c20c3f392c0965d9a3e3f843fc4f1</code></td>
 </tr>
 </tbody></table></div>
-<p>ASR候选当前相对full-review-01所绑定文件的内容变化数量：0。此处仅比较该收据的明确文件范围，不将范围外新增源码自动判为已测。私有benchmark相对test-02变化：<code>control/internal/server/benchmark_failure_diagnostics_test.go</code>, <code>control/internal/server/benchmark_runner.go</code>；两文件未复验。机器摘要见 <code>backlog-summary.json</code>。</p>
-</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>
+<p>ASR候选当前相对full-review-01所绑定文件的内容变化数量：0。此处仅比较该收据的明确文件范围，不将范围外新增源码自动判为已测。已公开 benchmark 工作稿相对 test-02 的变化：<code>control/internal/server/benchmark_failure_diagnostics_test.go</code>, <code>control/internal/server/benchmark_runner.go</code>；两文件未复验。历史机器摘要见 <a href="backlog/backlog-summary.json">backlog-summary.json</a>。</p>
+</article><div class="foot">RustSwitch · 文档修订 2026-09-08 · 主接口基线 1.13.0 · 候选与历史证据按各自范围适用。</div></main></body></html>

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-08T05:59:21.228112+00:00",
-  "scope": "本次公开分发文件完整性；不代表功能、兼容或容量通过。",
+  "generated_at": "2026-09-08T07:55:13.609043+00:00",
+  "scope": "当前公开仓库文件完整性；文档修订不新增功能、兼容或容量验收结论。",
   "files": [
     {
       "path": "G722-SUPPORT-LICENSE.md",
@@ -29,8 +29,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 2325,
-      "sha256": "eb8cd1dbde4ff4f41a360cce4ce1f368be7c500e97fe5dd82236ecbd0938a879"
+      "bytes": 2930,
+      "sha256": "ff624283558eab4423fc5786157f25b78d1370da0ee40d86bc27c7c3771802f8"
     },
     {
       "path": "RUNTIME_SOURCE.md",

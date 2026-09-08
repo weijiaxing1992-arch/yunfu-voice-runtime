@@ -1,7 +1,9 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>03 软件架构图 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>RustSwitch<small>开源社区 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="active" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 03 软件架构图</div><article class="content"><div class="page-tools"><a href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#进程与模块">进程与模块</a><a href="#三条媒体路径">三条媒体路径</a><a href="#关键身份与时间线">关键身份与时间线</a><a href="#呼叫生命周期">呼叫生命周期</a><a href="#故障边界">故障边界</a></details><h1 id="03-软件架构图">03 软件架构图</h1>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>03 RustSwitch 软件架构 · RustSwitch 项目文档</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">R</span><span>RustSwitch<small>项目文档 · 开发预览</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">项目首页</a><a href="DOCUMENTATION.html">文档中心</a><a href="QUICKSTART.html">快速开始</a><a href="CHANGELOG.html">更新日志</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="active" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">RustSwitch 文档 / 03 RustSwitch 软件架构</div><article class="content"><div class="page-tools"><a href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 8 节</summary><a href="#进程与模块">进程与模块</a><a href="#代码组织与扩展入口">代码组织与扩展入口</a><a href="#三条媒体路径">三条媒体路径</a><a href="#关键身份与时间线">关键身份与时间线</a><a href="#呼叫生命周期">呼叫生命周期</a><a href="#管理状态与持久化">管理状态与持久化</a><a href="#故障边界">故障边界</a><a href="#架构变化的验证要求">架构变化的验证要求</a></details><h1 id="03-rustswitch-软件架构">03 RustSwitch 软件架构</h1>
+<p>本章面向开发者说明模块责任、媒体路径、状态归属与故障边界。网络部署见 <a href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html">部署拓扑</a>，字段和报文格式见 <a href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html">HTTP 接口</a> 与 <a href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">协议和 SDK</a>。主工程代码位于 <code>source/main/</code>，ASR 候选位于 <code>source/asr-candidate/</code>。</p>
 <h2 id="进程与模块">进程与模块</h2>
-<p><a href="figures/02-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84.svg" title="打开矢量原图"><img src="figures/02-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84.svg" alt="软件架构" loading="lazy"/></a></p>
+<p><a href="figures/02-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84.svg" title="打开原图"><img src="figures/02-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84.svg" alt="软件架构" loading="lazy"/></a></p>
 <p>Go 主循环拥有呼叫和事务状态，Rust worker 拥有分片内的媒体可变状态。固定数量的控制、IO、文件加载及清理执行者处理有界任务，不采用“一路通话一个 OS 线程”的媒体模型。候选 ASR 每流仍有固定三条 Go I/O 协程，不能扩大为整个系统协程数与并发完全无关。</p>
+<p>一个 worker 对应独立的 Rust 媒体子进程，由 Go 分配通话并监督。分片数量在启动配置中确定；状态归属、队列容量和取消期限比单纯增加线程数量更关键。ASR 候选源码已公开，但尚未合入主工程及其默认运行路径。</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -41,10 +43,49 @@
 <td>不直接装载 FreeSWITCH 原模块或跨 ABI 抛 C++ 异常</td>
 </tr>
 </tbody></table></div>
+<h2 id="代码组织与扩展入口">代码组织与扩展入口</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>路径（相对 <code>source/main/</code>）</th>
+<th>修改时需要关注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>control/internal/server/</code></td>
+<td>呼叫主循环、Guard、定时器、注册、IVR、管理事务和测试任务的生命周期</td>
+</tr>
+<tr>
+<td><code>control/internal/sip/</code>、<code>control/internal/esl/</code></td>
+<td>报文语法、传输边界、返回语义和事件顺序</td>
+</tr>
+<tr>
+<td><code>control/internal/media/</code></td>
+<td>子进程监管、命令超时、进程代次、PCM/RX 数据通道和清理责任</td>
+</tr>
+<tr>
+<td><code>media/src/media/</code></td>
+<td>端口池、包校验、实时调度、媒体槽位及本地 G.711 图</td>
+</tr>
+<tr>
+<td><code>media/src/audio/</code></td>
+<td>独立离线音频 SDK、编解码和重采样；不能直接等同于实时 worker 能力</td>
+</tr>
+<tr>
+<td><code>native/include/</code>、<code>native/audio/</code></td>
+<td>ABI、原生库加载、固定来源与第三方许可</td>
+</tr>
+<tr>
+<td><code>control/internal/server/web/</code>、<code>control/internal/server/doc_assets/</code></td>
+<td>内嵌页面和发布文档；接口变化必须同步机器合同和页面语义</td>
+</tr>
+</tbody></table></div>
+<p>候选新增的 <code>control/internal/asr/</code> 实现在候选树中评估。使用主工程时不能直接调用候选内部方法；将候选功能合入前，需要同时验证合同、资源限额、退出流程和真实业务集成。</p>
 <h2 id="三条媒体路径">三条媒体路径</h2>
 <p>**relay 路径：**RTP/RTCP 校验 → 固定对端校验 → 同格式透传。它不解码、不重采样，也不提供 RTP 混音和任意编码转码。</p>
 <p>**G.711 双腿路径：**每腿独立 RTP 接收状态 → 有界重排/播放时钟 → PCMA/PCMU 解码 → 原生 8 kHz PCM → 对腿编码 → 独立 RTP/RTCP 发送。可进行限定 PCMA↔PCMU 转换；不是 G.722/Opus 实时图。</p>
 <p>**本地 A 腿路径：**RX 接收/解码/观察与 TX 的 tone/WAV/PCM 各自推进。TX 供音需明确交接所有权；提示音、带提示的 read 与 PCM 不能任意混播。DTMF 与音频共享发送身份但保持各自时间语义。</p>
+<p>上述实时路径与 <code>media/src/audio/</code> 的离线 <code>AudioFrame</code> SDK 分别演进：离线 SDK 使用 16 kHz、单声道、10/20 ms 规范帧；当前 G.711 实时路径和 RVA1 送音仍使用其合同要求的 8 kHz。新增编码不能只改能力表，还必须补齐协商、拆包、时钟、状态恢复、播放调度和端到端验证。</p>
 <h2 id="关键身份与时间线">关键身份与时间线</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -94,11 +135,18 @@
 <td>RXS2 从 Rust 观察开始固定 100 ms；读取、转换和重试不续期</td>
 </tr>
 </tbody></table></div>
+<p>这些身份承担不同职责。SIP Call-ID 不能替代媒体会话或播放授权，重启后的进程代次不能复用旧连接结果。实现取消和超时处理时，必须保留对“请求可能已被远端受理”的资源清理责任。</p>
 <h2 id="呼叫生命周期">呼叫生命周期</h2>
-<p><a href="figures/05-%E5%91%BC%E5%8F%AB%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.svg" title="打开矢量原图"><img src="figures/05-%E5%91%BC%E5%8F%AB%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.svg" alt="呼叫生命周期" loading="lazy"/></a></p>
+<p><a href="figures/05-%E5%91%BC%E5%8F%AB%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.svg" title="打开原图"><img src="figures/05-%E5%91%BC%E5%8F%AB%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.svg" alt="呼叫生命周期" loading="lazy"/></a></p>
 <p>初始 INVITE 通过准入后才预留呼叫/媒体。双腿桥接会建立 B 侧对话；本地接听只分配 A 侧。媒体分配成功后的 200 还不能替代真正收到正确 ACK。已有通话的连接、释放和终结始终拥有有限的优先推进通道。</p>
 <p>挂断先撤销业务读写授权，再终止媒体并回收端口。事务重传缓存与短期 SIP 计时器可在 active_calls=0 后继续存活，必须在其合法期限后再判断泄漏。候选 ASR 还区分“网络/RX 资源关闭”与“业务取完 final”，不能只看槽位归零判断识别完成。</p>
+<h2 id="管理状态与持久化">管理状态与持久化</h2>
+<p>启动 JSON 定义基础配置，管理状态文件保存 <code>desired</code>、Guard 和 XML 工作区。<code>GET /v1/config</code> 分别返回运行中的 <code>active</code>、待启动的 <code>desired</code> 及 <code>restart_required</code>；保存配置不直接替换已经运行的监听、媒体进程和硬限制。</p>
+<p>管理写入采用共享 <code>revision</code> 处理并发更新，持久化成功后再提交相应状态。Guard 在线调整只影响后续新呼叫；配置和 XML 工作区的保存语义各不相同。事件日志使用有界异步队列，不是用于活动会话恢复的复制数据库。</p>
 <h2 id="故障边界">故障边界</h2>
 <p>慢媒体消费者：有限排队、到期拒绝/显式缺口；不无限缓存。媒体 worker 崩溃：该分片通话会中断，其他分片继续，监督器递增代次后重启。控制进程或整机故障：当前没有存量通话无损接管。事件日志异步批量持久化，不能承诺 RPO=0。</p>
 <p>Linux 已实现 recvmmsg 批量收包，发送仍逐包；sendmmsg、io_uring、AF_XDP、DPDK 和完整 NUMA 最优方案是后续可测方向。架构图不把这些优化画成当前已启用后端。</p>
-</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>
+<h2 id="架构变化的验证要求">架构变化的验证要求</h2>
+<p>修改状态归属或媒体路径时，应至少覆盖正常建立/释放、重复请求、取消与超时、消费者过慢、worker 重启及旧代次数据。协议兼容变更还需要固定 FreeSWITCH 参考版本的同条件差分；性能变更应在相同硬件、编码和业务功能下比较吞吐、尾延迟、资源消耗与音频正确性。</p>
+<p>固定分片和有界队列是当前设计手段，不是已经通过万路、故障零损失或全量 FreeSWITCH 兼容的证明。当前门禁与后续验收以 <a href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html">能力状态</a>、<a href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html">需求说明书</a> 和 <a href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">未完成清单</a> 为准。</p>
+</article><div class="foot">RustSwitch · 文档修订 2026-09-08 · 主接口基线 1.13.0 · 候选与历史证据按各自范围适用。</div></main></body></html>

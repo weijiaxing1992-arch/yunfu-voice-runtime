@@ -1,14 +1,70 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>04 HTTP 管理接口完整文档 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>RustSwitch<small>开源社区 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="active" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 04 HTTP 管理接口完整文档</div><article class="content"><div class="page-tools"><a href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 28 节</summary><a href="#通用调用合同">通用调用合同</a><a href="#操作目录">操作目录</a><a href="#gethealth-get-healthz">getHealth · GET /healthz</a><a href="#getreadiness-get-readyz">getReadiness · GET /readyz</a><a href="#getstatus-get-v1status">getStatus · GET /v1/status</a><a href="#getmetrics-get-metrics">getMetrics · GET /metrics</a><a href="#getconfig-get-v1config">getConfig · GET /v1/config</a><a href="#putconfig-put-v1config">putConfig · PUT /v1/config</a><a href="#getguard-get-v1guard">getGuard · GET /v1/guard</a><a href="#putguard-put-v1guard">putGuard · PUT /v1/guard</a><a href="#drain-post-v1drain">drain · POST /v1/drain</a><a href="#resume-post-v1resume">resume · POST /v1/resume</a><a href="#getfsconfig-get-v1fs-config">getFSConfig · GET /v1/fs-config</a><a href="#putfsconfig-put-v1fs-config">putFSConfig · PUT /v1/fs-config</a><a href="#getfsfile-get-v1fs-configfile">getFSFile · GET /v1/fs-config/file</a><a href="#putfsfile-put-v1fs-configfile">putFSFile · PUT /v1/fs-config/file</a><a href="#getfsexport-get-v1fs-configexport">getFSExport · GET /v1/fs-config/export</a><a href="#getdocs-get-v1docs">getDocs · GET /v1/docs</a><a href="#getopenapi-get-v1docsopenapijson">getOpenAPI · GET /v1/docs/openapi.json</a><a href="#getcomparison-get-v1docscomparisonjson">getComparison · GET /v1/docs/comparison.json</a><a href="#getdocument-get-v1docsfile">getDocument · GET /v1/docs/file</a><a href="#getdocsexport-get-v1docsexportzip">getDocsExport · GET /v1/docs/export.zip</a><a href="#gettests-get-v1tests">getTests · GET /v1/tests</a><a href="#starttest-post-v1tests">startTest · POST /v1/tests</a><a href="#gettest-get-v1testsid">getTest · GET /v1/tests/{id}</a><a href="#stoptest-post-v1testsidstop">stopTest · POST /v1/tests/{id}/stop</a><a href="#gettestreport-get-v1testsidreport">getTestReport · GET /v1/tests/{id}/report</a><a href="#getcodecs-get-v1codecs">getCodecs · GET /v1/codecs</a></details><h1 id="04-http-管理接口完整文档">04 HTTP 管理接口完整文档</h1>
-<p>基线：OpenAPI 3.1.0，文档 1.13.0。本章由主目录机器契约自动整理，覆盖全部 26 个操作；所有 77 个模型原文见 <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html">09</a>。完整 JSON 见 <a href="reference/docs/api/openapi.json">openapi.json</a>。ASR 候选不在本基线新增任何 HTTP path，其字段补充见候选合同。</p>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>04 HTTP 管理接口参考 · RustSwitch 项目文档</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">R</span><span>RustSwitch<small>项目文档 · 开发预览</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">项目首页</a><a href="DOCUMENTATION.html">文档中心</a><a href="QUICKSTART.html">快速开始</a><a href="CHANGELOG.html">更新日志</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="active" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">RustSwitch 文档 / 04 HTTP 管理接口参考</div><article class="content"><div class="page-tools"><a href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 30 节</summary><a href="#通用调用合同">通用调用合同</a><a href="#接入顺序与状态判读">接入顺序与状态判读</a><a href="#freeswitch-对照说明">FreeSWITCH 对照说明</a><a href="#操作目录">操作目录</a><a href="#gethealth-get-healthz">getHealth · GET /healthz</a><a href="#getreadiness-get-readyz">getReadiness · GET /readyz</a><a href="#getstatus-get-v1status">getStatus · GET /v1/status</a><a href="#getmetrics-get-metrics">getMetrics · GET /metrics</a><a href="#getconfig-get-v1config">getConfig · GET /v1/config</a><a href="#putconfig-put-v1config">putConfig · PUT /v1/config</a><a href="#getguard-get-v1guard">getGuard · GET /v1/guard</a><a href="#putguard-put-v1guard">putGuard · PUT /v1/guard</a><a href="#drain-post-v1drain">drain · POST /v1/drain</a><a href="#resume-post-v1resume">resume · POST /v1/resume</a><a href="#getfsconfig-get-v1fs-config">getFSConfig · GET /v1/fs-config</a><a href="#putfsconfig-put-v1fs-config">putFSConfig · PUT /v1/fs-config</a><a href="#getfsfile-get-v1fs-configfile">getFSFile · GET /v1/fs-config/file</a><a href="#putfsfile-put-v1fs-configfile">putFSFile · PUT /v1/fs-config/file</a><a href="#getfsexport-get-v1fs-configexport">getFSExport · GET /v1/fs-config/export</a><a href="#getdocs-get-v1docs">getDocs · GET /v1/docs</a><a href="#getopenapi-get-v1docsopenapijson">getOpenAPI · GET /v1/docs/openapi.json</a><a href="#getcomparison-get-v1docscomparisonjson">getComparison · GET /v1/docs/comparison.json</a><a href="#getdocument-get-v1docsfile">getDocument · GET /v1/docs/file</a><a href="#getdocsexport-get-v1docsexportzip">getDocsExport · GET /v1/docs/export.zip</a><a href="#gettests-get-v1tests">getTests · GET /v1/tests</a><a href="#starttest-post-v1tests">startTest · POST /v1/tests</a><a href="#gettest-get-v1testsid">getTest · GET /v1/tests/{id}</a><a href="#stoptest-post-v1testsidstop">stopTest · POST /v1/tests/{id}/stop</a><a href="#gettestreport-get-v1testsidreport">getTestReport · GET /v1/tests/{id}/report</a><a href="#getcodecs-get-v1codecs">getCodecs · GET /v1/codecs</a></details><h1 id="04-http-管理接口参考">04 HTTP 管理接口参考</h1>
+<p>本文面向管理后台集成和运维工具开发者，说明 RustSwitch 主源码的全部 <strong>26 个 HTTP 操作</strong>。接口基线为 <strong>1.13.0</strong>，描述格式为 OpenAPI 3.1.0；77 个数据模型见<a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html">数据模型参考</a>，机器可读合同见 <a href="reference/docs/api/openapi.json">OpenAPI JSON</a>。</p>
+<p>本文保留操作标识、参数、状态码、响应模型及 FreeSWITCH 对照。ASR 候选使用独立内部接口，未在此基线增加 HTTP 路径；候选字段建议见<a href="candidate/asr-openapi-update-proposal.html">ASR 模型增量</a>。版本关系与证据范围见<a href="DOCUMENTATION.html">文档中心</a>。</p>
 <h2 id="通用调用合同">通用调用合同</h2>
-<ul>
-<li>基地址示例 <code>http://127.0.0.1:9080</code>，管理监听为回环；CSRF不等于用户认证。</li>
-<li>GET/HEAD无需CSRF；写请求要求 <code>Content-Type: application/json</code>、正确 <code>X-RustSwitch-CSRF</code>，非空Origin需同源。</li>
-<li>用 GET /v1/config 取得令牌；revision由配置/Guard/XML共用。409保留草稿并合并；网络超时不盲重放写入。</li>
-<li>仅明确收到令牌失效403及 <code>X-RustSwitch-CSRF-Refresh: required</code> 时，可刷新并用同一原请求重试一次。</li>
-<li>完整PUT不自动合并省略字段；校验/HTTP资源预算及错误例外详见 <a href="reference/docs/api/http-reference.html">HTTP专题</a>。</li>
-<li>常见错误为JSON error对象；路由404/405可能为文本；readyz 503的Content-Type存在已记录例外，不能只凭类型判断服务是否可接入。</li>
-</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>调用规则</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>服务地址</td>
+<td>默认地址为 <code>http://127.0.0.1:9080</code>，以当前生效的管理监听配置为准。管理服务限定回环访问。</td>
+</tr>
+<tr>
+<td>Host 校验</td>
+<td>使用精确 <code>localhost</code> 或回环 IP 字面量；自定义域名即使解析到回环也会被拒绝。</td>
+</tr>
+<tr>
+<td>身份与请求保护</td>
+<td>CSRF 用于请求来源保护，不提供用户账户认证。GET / HEAD 无需 CSRF 令牌。</td>
+</tr>
+<tr>
+<td>写请求</td>
+<td>使用 <code>Content-Type: application/json</code> 和有效 <code>X-RustSwitch-CSRF</code>；非空 <code>Origin</code> 必须同源。</td>
+</tr>
+<tr>
+<td>令牌获取</td>
+<td>通过 <code>GET /v1/config</code> 取得令牌，字段和返回结构以 <code>getConfig</code> 操作为准。</td>
+</tr>
+<tr>
+<td>并发更新</td>
+<td>配置、Guard 与 XML 草稿共享 <code>revision</code>。收到 <code>409</code> 后保留本地草稿，读取新版本并处理冲突。</td>
+</tr>
+<tr>
+<td>令牌过期</td>
+<td>仅在明确收到令牌失效 <code>403</code> 且响应头为 <code>X-RustSwitch-CSRF-Refresh: required</code> 时，刷新并重试原请求一次。</td>
+</tr>
+<tr>
+<td>超时恢复</td>
+<td>写请求超时可能已产生副作用，应读取实际状态后核对；按具体操作的幂等规则决定是否重试。</td>
+</tr>
+<tr>
+<td>完整替换</td>
+<td>完整 <code>PUT</code> 不自动合并省略字段；XML 参数差量更新等例外以对应操作说明为准。</td>
+</tr>
+<tr>
+<td>错误解析</td>
+<td>常见错误使用 JSON <code>error</code> 对象；路由 <code>404</code> / <code>405</code> 可能为文本，<code>/readyz</code> 的 <code>503</code> 存在已记录的 Content-Type 例外。</td>
+</tr>
+</tbody></table></div>
+<p>输入校验、请求体预算、响应头和错误例外详见 <a href="reference/docs/api/http-reference.html">HTTP 专题</a>。</p>
+<h2 id="接入顺序与状态判读">接入顺序与状态判读</h2>
+<ol>
+<li>使用 <code>GET /healthz</code> 核对进程响应与组件版本，再通过 <code>GET /readyz</code> 判断新呼叫准入是否就绪。</li>
+<li>读取 <code>GET /v1/status</code> 获取控制面和媒体状态；服务存活、媒体健康和可用容量应分别判读。</li>
+<li>需要修改配置时，先读取配置及共享版本，再按目标操作提交；区分即时生效和待重启草稿。</li>
+<li>启动测试后，按任务 ID 跟踪进度并读取最终报告；同时确认发生器结果、实际负载及资源清理。</li>
+</ol>
+<pre><code class="language-bash">curl --fail-with-body http://127.0.0.1:9080/healthz
+curl --fail-with-body http://127.0.0.1:9080/readyz
+curl --fail-with-body http://127.0.0.1:9080/v1/status
+</code></pre>
+<p>以上命令要求本机服务已启动。<code>--fail-with-body</code> 在非成功 HTTP 响应时保留正文并返回失败退出码，便于检查就绪失败等实际原因。</p>
+<h2 id="freeswitch-对照说明">FreeSWITCH 对照说明</h2>
+<p>每个操作后附对应入口与语义差异。RustSwitch 自有 HTTP 管理接口与 FreeSWITCH 的 ESL、CLI 或 XML 配置属于不同调用方式；迁移时须同时核对参数、响应、事件、副作用和配置生效时机。对照关系提供迁移依据，单个 HTTP 操作存在不表示对应 FreeSWITCH 模块已完整实现。</p>
 <h2 id="操作目录">操作目录</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -2202,4 +2258,4 @@
   &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
 }
 </code></pre>
-</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>
+</article><div class="foot">RustSwitch · 文档修订 2026-09-08 · 主接口基线 1.13.0 · 候选与历史证据按各自范围适用。</div></main></body></html>

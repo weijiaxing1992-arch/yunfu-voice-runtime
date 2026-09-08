@@ -1,20 +1,23 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>01 项目说明 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>RustSwitch<small>开源社区 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="active" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 01 项目说明</div><article class="content"><div class="page-tools"><a href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 6 节</summary><a href="#产品目标">产品目标</a><a href="#当前版本口径">当前版本口径</a><a href="#技术栈与运行形态">技术栈与运行形态</a><a href="#已具备的业务基础">已具备的业务基础</a><a href="#工程目录与职责">工程目录与职责</a><a href="#尚未完成的产品范围">尚未完成的产品范围</a></details><h1 id="01-项目说明">01 项目说明</h1>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>01 RustSwitch 项目说明 · RustSwitch 项目文档</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">R</span><span>RustSwitch<small>项目文档 · 开发预览</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">项目首页</a><a href="DOCUMENTATION.html">文档中心</a><a href="QUICKSTART.html">快速开始</a><a href="CHANGELOG.html">更新日志</a><a class="active" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">RustSwitch 文档 / 01 RustSwitch 项目说明</div><article class="content"><div class="page-tools"><a href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 8 节</summary><a href="#产品目标">产品目标</a><a href="#当前版本口径">当前版本口径</a><a href="#技术栈与运行形态">技术栈与运行形态</a><a href="#已具备的业务基础">已具备的业务基础</a><a href="#工程目录与职责">工程目录与职责</a><a href="#采用与评估流程">采用与评估流程</a><a href="#尚未完成的产品范围">尚未完成的产品范围</a><a href="#开源与第三方边界">开源与第三方边界</a></details><h1 id="01-rustswitch-项目说明">01 RustSwitch 项目说明</h1>
+<p>本文说明项目定位、交付组成、实现边界与版本规则，供接入评估、开发和运维人员使用。首次运行见 <a href="QUICKSTART.html">快速开始</a>，逐项验收状态见 <a href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html">当前能力与验证状态</a>。</p>
 <h2 id="产品目标">产品目标</h2>
-<p>云蝠 Voice Runtime（工程名 RustSwitch）是面向电话呼入、呼出及语音智能体的实时语音内核。技术方向是 <strong>Rust 媒体内核、Go 控制面、C/C++ 成熟生态适配</strong>。现阶段先打通电话与 AI 媒体闭环，并逐步兼容有实际迁移价值的 FreeSWITCH 接口。</p>
+<p><strong>RustSwitch</strong> 是面向电话呼入、呼出及语音智能体的开源实时语音内核，历史工程与交付材料中也使用“云蝠 Voice Runtime”名称。项目采用 <strong>Rust 媒体内核、Go 控制面、C/C++ 编解码适配</strong>，优先完善线路接入、呼叫生命周期、实时收音与播放、按键采集和资源保护，并逐步兼容有实际迁移价值的 FreeSWITCH 接口。</p>
+<p>项目的职责是为电话业务与语音智能体提供信令、媒体及控制基础。线路运营商、SBC、ASR/TTS 服务和业务模型由部署方接入；当前代码没有内置完整的 ASR–LLM–TTS 业务系统。采用现有 SIP 发起端的用户可以评估已支持的桥接路径；依赖完整 FreeSWITCH 模块体系的用户，应先按命令、事件、配置和通信场景逐项核对迁移条件。</p>
 <p>同硬件、同音质和同业务功能下更高并发、更低 CPU/内存，以及 1000/5000/10000 路、72 小时混合负载，是研发和验收目标。当前没有证据支持“100% FreeSWITCH 等价”“万路完整 Agent 已通过”或“任意故障零丢包”。</p>
 <h2 id="当前版本口径">当前版本口径</h2>
+<p>公开发行入口为 <a href="https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908" target="_blank" rel="noopener noreferrer">v0.1.0-preview.20260908</a>。这是开发预览分发编号；源码组件版本、文档基线和原版对照版本分别管理。</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
 <th>对象</th>
-<th>本次资料依据</th>
+<th>当前依据</th>
 <th>如何使用</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>工程主目录</td>
-<td><code>outputs/rustswitch</code>，文档版本 1.13.0</td>
-<td>本包 HTTP、协议和配置基线</td>
+<td>主工程</td>
+<td><a href="source/main"><code>source/main/</code></a>，文档基线 1.13.0</td>
+<td>当前公开 HTTP、协议和配置实现的主要依据</td>
 </tr>
 <tr>
 <td>应用身份</td>
@@ -28,15 +31,16 @@
 </tr>
 <tr>
 <td>ASR 开发候选</td>
-<td><code>work/voice-runtime-m2-asr/project</code></td>
-<td>独立内部接口和真实链路验收；尚未合并发布到主服务</td>
+<td><a href="source/asr-candidate"><code>source/asr-candidate/</code></a></td>
+<td>已公开的独立候选快照，尚未合入主工程；内部 ASR1 与 mock 验证不等于真实模型验收</td>
 </tr>
 <tr>
-<td>实际运行服务</td>
-<td>本次 9080 探测未连接成功</td>
-<td>不能从代码或资料包推定已部署版本</td>
+<td>实际部署版本</td>
+<td>由部署方使用的二进制、配置与运行记录决定</td>
+<td><code>/v1/docs</code> 可查询内嵌文档版本；不能仅凭本章推定服务器已更新</td>
 </tr>
 </tbody></table></div>
+<p>历史证据中的 <code>outputs/</code>、<code>work/</code> 或脱敏绝对路径用于定位当时的构建和测试，不是公开仓库的安装路径。公开版进行了信息脱敏；旧证据哈希保留历史含义，当前包的完整性以本次分发清单为准。</p>
 <h2 id="技术栈与运行形态">技术栈与运行形态</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -72,17 +76,18 @@
 <td>没有已交付的数据库集群、消息总线或 Kubernetes 控制面</td>
 </tr>
 </tbody></table></div>
-<p><code>control/go.mod</code> 要求 Go 1.23，已固定并 vendor <code>golang.org/x/sys v0.30.0</code>，因此不能描述成“无任何第三方 Go 依赖”。Rust <code>rust-version</code> 为 1.85，依赖由 <code>Cargo.lock</code> 固定；实际构建用支持该工程的 stable 工具链。C 编译器和 Python 3 用于原生示例、构建及验收。</p>
+<p>主工程的 <code>control/go.mod</code> 要求 Go 1.23，并固定使用 <code>golang.org/x/sys v0.30.0</code>；Go 依赖源码随 <code>control/vendor/</code> 提供。Rust 声明的最低版本为 1.85，依赖由 <code>media/Cargo.lock</code> 固定，离线源码位于仓库根 <code>dependencies/rust-vendor/</code>。交付脚本要求 Python 3.9+，原生适配还需要 C11 编译器。声明的最低版本组合尚未全部实测，已有构建记录使用 Go 1.27.1、Rust 1.98.1。</p>
 <h2 id="已具备的业务基础">已具备的业务基础</h2>
 <ol>
 <li>可信 IPv4 SIP 中继间的 UDP/TCP/TLS 双腿呼叫、单固定上游 REGISTER/Digest 客户端、本地精确号码接听。</li>
 <li>同格式 relay；有限 PCMA/PCMU 双腿处理与本地 A 腿图、提示音/WAV、DTMF 接收/发送与受限 read。</li>
 <li>本机同 UID 的 RVA1 流式 PCM 下行；RXS2 本地 A 腿原生收音；带代次、会话和轮次的旧数据隔离。</li>
 <li>并发/CPS/建立中限制、分片过载保护、排空、资源和生命周期日志、可视化配置与隔离测试。</li>
-<li>ASR 候选已完成独立代理协议、按需 8→16 kHz 转换、结果来源校验、取消和清理验证。模拟代理返回 PCM 摘要，真实厂商 ASR/TTS/LLM 尚未形成完整产品闭环。</li>
+<li>独立 ASR 候选包含代理协议、按需 8→16 kHz 转换、结果来源校验、取消和清理实现及对应历史验证。模拟代理返回 PCM 摘要；真实厂商 ASR/TTS/LLM 尚未形成完整产品闭环。</li>
 </ol>
+<p>上述内容表示存在相应实现，具体参数、错误行为及验证范围仍以接口合同和证据为准。尤其应区分编码协商、RTP 透传、离线编解码和实时转码：G.722/Opus 原生后端可供独立探测与离线 SDK 使用，尚未接入完整实时处理路径。</p>
 <h2 id="工程目录与职责">工程目录与职责</h2>
-<pre><code class="language-text">outputs/rustswitch/
+<pre><code class="language-text">source/main/
   control/cmd/rustswitch/     主控制程序入口
   control/cmd/callbench/      SIP/RTP 流量发生器
   control/internal/server/   呼叫、IVR、注册、管理、压测编排
@@ -103,7 +108,49 @@
   tests/、tools/             真实通话、故障、压测和文档验收
   docs/                      接口、对照、架构、验收和历史记录
 </code></pre>
-<p>峰值保护与呼叫编排同属 server 包。候选另含 <code>control/internal/asr</code> 与 <code>control/cmd/asr-mock</code>，不包含在主目录基线中。</p>
+<p>峰值保护与呼叫编排同属 <code>control/internal/server</code> 包。候选另含 <code>control/internal/asr</code> 与 <code>control/cmd/asr-mock</code>，不属于主工程基线。管理页面与机器合同嵌入控制程序，修改外部文档不会自动更新已经运行的二进制。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>公开材料</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="source/patches"><code>source/patches/</code></a></td>
+<td>已测试补丁快照与后续工作稿分别保留，不自动视为主工程实现</td>
+</tr>
+<tr>
+<td><a href="source/design-reference"><code>source/design-reference/</code></a></td>
+<td>ASR1 设计夹具和离线原型，不能作为正式服务直接替代部署</td>
+</tr>
+<tr>
+<td><a href="delivery-tools"><code>delivery-tools/</code></a></td>
+<td>固定源码离线构建与分发文件校验</td>
+</tr>
+<tr>
+<td><a href="backlog"><code>backlog/</code></a>、<a href="requirements"><code>requirements/</code></a></td>
+<td>FreeSWITCH 对照、需求追踪与剩余工作</td>
+</tr>
+<tr>
+<td><a href="evidence"><code>evidence/</code></a>、<a href="reference"><code>reference/</code></a></td>
+<td>注明来源的历史测试、审查和参考文档</td>
+</tr>
+<tr>
+<td><a href="https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases" target="_blank" rel="noopener noreferrer">GitHub Releases</a></td>
+<td>完整资料、源码、平台编译包与校验文件</td>
+</tr>
+</tbody></table></div>
+<h2 id="采用与评估流程">采用与评估流程</h2>
+<ol>
+<li>选择固定 Release 或提交，记录平台、主工程或候选版本及使用的配置。</li>
+<li>按快速开始完成文件校验、配置校验和隔离单路 SIP/媒体测试。</li>
+<li>列出实际线路、编解码、ESL 命令、IVR 动作和媒体接口，逐项核对合同及 FreeSWITCH 差异。</li>
+<li>在代表实际业务的环境中验证失败处理、资源回收、负载和音频正确性，再评估是否进入试运行。</li>
+</ol>
+<p>编译成功、管理页面可打开、某个探针通过与完整业务验收是不同层次。历史测试事件数量或对照目录条目数均不能直接换算成兼容率。</p>
 <h2 id="尚未完成的产品范围">尚未完成的产品范围</h2>
-<p>真实 ASR/TTS 供应商、VAD/自动打断、双轨录音、完整 Agent 编排、G.722/Opus 实时处理、WebRTC/SRTP/ICE、完整 SIP 扩展、终端注册服务器、多网关、完整 originate/转接、任意 XML/Lua、会议/传真/视频和跨机存量会话接管，均不能由当前局部能力推导为已完成。完整清单和后续验收见 <a href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html">08</a>。</p>
-</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>
+<p>真实 ASR/TTS 供应商、VAD/自动打断、双轨录音、完整 Agent 编排、G.722/Opus 实时处理、WebRTC/SRTP/ICE、完整 SIP 扩展、终端注册服务器、多网关、完整 originate/转接、任意 XML/Lua、会议/传真/视频和跨机存量会话接管，均不能由当前局部能力推导为已完成。当前主工程仍有 PCM 证据有效性门禁问题，候选存在字段字典与机器合同不同步问题。具体工作包和完成条件见 <a href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">项目未完成清单</a>。</p>
+<h2 id="开源与第三方边界">开源与第三方边界</h2>
+<p>原创代码和原创资料采用 Apache-2.0，G.722 支持文件及第三方内容按各自许可分发。FreeSWITCH 名称用于兼容对照与来源说明，本项目没有其官方认证或背书。分发组合产物前请阅读 <a href="OPEN_SOURCE.html">开源说明</a>、<a href="LICENSE_SCOPE.html">许可范围</a> 和 <a href="THIRD_PARTY_NOTICES.html">第三方声明</a>。</p>
+</article><div class="foot">RustSwitch · 文档修订 2026-09-08 · 主接口基线 1.13.0 · 候选与历史证据按各自范围适用。</div></main></body></html>

@@ -1,15 +1,44 @@
-# 04 HTTP 管理接口完整文档
+# 04 HTTP 管理接口参考
 
-基线：OpenAPI 3.1.0，文档 1.13.0。本章由主目录机器契约自动整理，覆盖全部 26 个操作；所有 77 个模型原文见 [09](09-数据模型全文.md)。完整 JSON 见 [openapi.json](reference/docs/api/openapi.json)。ASR 候选不在本基线新增任何 HTTP path，其字段补充见候选合同。
+本文面向管理后台集成和运维工具开发者，说明 RustSwitch 主源码的全部 **26 个 HTTP 操作**。接口基线为 **1.13.0**，描述格式为 OpenAPI 3.1.0；77 个数据模型见[数据模型参考](09-数据模型全文.md)，机器可读合同见 [OpenAPI JSON](reference/docs/api/openapi.json)。
+
+本文保留操作标识、参数、状态码、响应模型及 FreeSWITCH 对照。ASR 候选使用独立内部接口，未在此基线增加 HTTP 路径；候选字段建议见[ASR 模型增量](candidate/asr-openapi-update-proposal.md)。版本关系与证据范围见[文档中心](DOCUMENTATION.md)。
 
 ## 通用调用合同
 
-- 基地址示例 `http://127.0.0.1:9080`，管理监听为回环；CSRF不等于用户认证。
-- GET/HEAD无需CSRF；写请求要求 `Content-Type: application/json`、正确 `X-RustSwitch-CSRF`，非空Origin需同源。
-- 用 GET /v1/config 取得令牌；revision由配置/Guard/XML共用。409保留草稿并合并；网络超时不盲重放写入。
-- 仅明确收到令牌失效403及 `X-RustSwitch-CSRF-Refresh: required` 时，可刷新并用同一原请求重试一次。
-- 完整PUT不自动合并省略字段；校验/HTTP资源预算及错误例外详见 [HTTP专题](reference/docs/api/http-reference.md)。
-- 常见错误为JSON error对象；路由404/405可能为文本；readyz 503的Content-Type存在已记录例外，不能只凭类型判断服务是否可接入。
+| 项目 | 调用规则 |
+| --- | --- |
+| 服务地址 | 默认地址为 `http://127.0.0.1:9080`，以当前生效的管理监听配置为准。管理服务限定回环访问。 |
+| Host 校验 | 使用精确 `localhost` 或回环 IP 字面量；自定义域名即使解析到回环也会被拒绝。 |
+| 身份与请求保护 | CSRF 用于请求来源保护，不提供用户账户认证。GET / HEAD 无需 CSRF 令牌。 |
+| 写请求 | 使用 `Content-Type: application/json` 和有效 `X-RustSwitch-CSRF`；非空 `Origin` 必须同源。 |
+| 令牌获取 | 通过 `GET /v1/config` 取得令牌，字段和返回结构以 `getConfig` 操作为准。 |
+| 并发更新 | 配置、Guard 与 XML 草稿共享 `revision`。收到 `409` 后保留本地草稿，读取新版本并处理冲突。 |
+| 令牌过期 | 仅在明确收到令牌失效 `403` 且响应头为 `X-RustSwitch-CSRF-Refresh: required` 时，刷新并重试原请求一次。 |
+| 超时恢复 | 写请求超时可能已产生副作用，应读取实际状态后核对；按具体操作的幂等规则决定是否重试。 |
+| 完整替换 | 完整 `PUT` 不自动合并省略字段；XML 参数差量更新等例外以对应操作说明为准。 |
+| 错误解析 | 常见错误使用 JSON `error` 对象；路由 `404` / `405` 可能为文本，`/readyz` 的 `503` 存在已记录的 Content-Type 例外。 |
+
+输入校验、请求体预算、响应头和错误例外详见 [HTTP 专题](reference/docs/api/http-reference.md)。
+
+## 接入顺序与状态判读
+
+1. 使用 `GET /healthz` 核对进程响应与组件版本，再通过 `GET /readyz` 判断新呼叫准入是否就绪。
+2. 读取 `GET /v1/status` 获取控制面和媒体状态；服务存活、媒体健康和可用容量应分别判读。
+3. 需要修改配置时，先读取配置及共享版本，再按目标操作提交；区分即时生效和待重启草稿。
+4. 启动测试后，按任务 ID 跟踪进度并读取最终报告；同时确认发生器结果、实际负载及资源清理。
+
+```bash
+curl --fail-with-body http://127.0.0.1:9080/healthz
+curl --fail-with-body http://127.0.0.1:9080/readyz
+curl --fail-with-body http://127.0.0.1:9080/v1/status
+```
+
+以上命令要求本机服务已启动。`--fail-with-body` 在非成功 HTTP 响应时保留正文并返回失败退出码，便于检查就绪失败等实际原因。
+
+## FreeSWITCH 对照说明
+
+每个操作后附对应入口与语义差异。RustSwitch 自有 HTTP 管理接口与 FreeSWITCH 的 ESL、CLI 或 XML 配置属于不同调用方式；迁移时须同时核对参数、响应、事件、副作用和配置生效时机。对照关系提供迁移依据，单个 HTTP 操作存在不表示对应 FreeSWITCH 模块已完整实现。
 
 ## 操作目录
 

@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-08T05:59:21.288806+00:00",
-  "scope": "本次公开分发文件完整性；不代表功能、兼容或容量通过。",
+  "generated_at": "2026-09-08T07:55:13.609043+00:00",
+  "scope": "当前公开仓库文件完整性；文档修订不新增功能、兼容或容量验收结论。",
   "files": [
     {
       "path": "README.md",
-      "bytes": 329,
-      "sha256": "2d666a0981c748354fc826759fd7b18540d728f9bbc14a470cec0a3789c91375"
+      "bytes": 1224,
+      "sha256": "53e34d1dc22fe75f13206760f5faf250c826f61b71e0bf93ddcbb9e68fd0d8ef"
     },
     {
       "path": "linux-arm64/G722-SUPPORT-LICENSE.md",
@@ -34,8 +34,8 @@
     },
     {
       "path": "linux-arm64/README.md",
-      "bytes": 2346,
-      "sha256": "92c2a7f8b82309b793d8347b73597275facd3b32e83227bc7d2d153b2dc8752f"
+      "bytes": 2951,
+      "sha256": "b3c352c6e8699b114f99350d9c84265d55ddd6a74b9c87f6c023a5d9a5c54bd3"
     },
     {
       "path": "linux-arm64/RUNTIME_SOURCE.md",
@@ -564,8 +564,8 @@
     },
     {
       "path": "linux-arm64/manifest.json",
-      "bytes": 22478,
-      "sha256": "02747b85e3f9722061c03338a5e984d2f649cedbeec27459ed9291e58779c717"
+      "bytes": 22496,
+      "sha256": "72f0c6622f1c404c7da490e8c859924749ea401e57541c9a5061865615533dfd"
     },
     {
       "path": "linux-arm64/open-source/PUBLICATION.html",
@@ -699,8 +699,8 @@
     },
     {
       "path": "macos-arm64/README.md",
-      "bytes": 2325,
-      "sha256": "eb8cd1dbde4ff4f41a360cce4ce1f368be7c500e97fe5dd82236ecbd0938a879"
+      "bytes": 2930,
+      "sha256": "ff624283558eab4423fc5786157f25b78d1370da0ee40d86bc27c7c3771802f8"
     },
     {
       "path": "macos-arm64/RUNTIME_SOURCE.md",
@@ -1324,8 +1324,8 @@
     },
     {
       "path": "macos-arm64/manifest.json",
-      "bytes": 28648,
-      "sha256": "2bf17be1f87d52c636729258dbf4899813a3bf2e92bc0bcd2e4a28bafffaf0af"
+      "bytes": 28666,
+      "sha256": "ff571b762ce9b49f907d6785d51d5264ad65888b885c43e1727b1182c44d904c"
     },
     {
       "path": "macos-arm64/native-source/native/audio/OPUS-COPYING",

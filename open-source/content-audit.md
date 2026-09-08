@@ -1,71 +1,66 @@
-# 公开内容独立审查报告
+# 公开内容审查报告
 
-审查日期：2026-09-08。审查对象是当前完整项目资料 ZIP 解压后的 4,899 个文件（724,601,707 字节）。本次只读审查没有修改原交付包，也没有上传任何内容。
+本报告描述 RustSwitch 在 2026-09-08 首次公开前完成的内容审查，以及公开副本已执行的处理。它是该次发行的审查摘要；main 后续文档更新不自动扩展其扫描范围，也不改变旧 Release 的文件或证据。
 
-## 结论
+## 审查对象与结果
 
-未发现符合规则的私钥、GitHub/AWS/provider token、JWT 或带用户名密码的 HTTP URL。密码赋值命中均位于测试固定值或 FreeSWITCH 原版的注释配置示例。公开前应处理个人构建路径和一个历史测试内网地址；其他明确标识的第三方作者署名、示例地址和测试固定值应保留。
+原始交付资料包含 **4,899 个文件、724,601,707 字节**，其中 4,858 个文本文件、41 个二进制或压缩文件。此数量描述公开整理前的输入，不是后续 Git 仓库或发行 ZIP 的文件数。
 
-这是针对现有内容的静态审查结果，不是对所有秘密形式的穷尽证明。扫描没有网络验证任何凭据。
+模式扫描与人工复核未发现符合本次规则的私钥、GitHub/AWS/供应商访问令牌、JWT 或带用户名密码的 HTTP URL。疑似密码赋值均归属于固定测试值、示例或原版配置注释；扫描没有联网验证任何凭据。
 
-## 扫描范围与复核
+个人文本路径和一项历史运行地址已经在公开副本中处理。原始本地资料保持不变，预编译文件保留原始字节。该静态审查是对列明规则和材料的检查，不是对所有秘密形式或安全缺陷的穷尽证明。
 
-- 4,858 个文本文件、41 个二进制/压缩文件。
-- 对所有文件扫描高置信秘密模式与个人绝对路径。首次全量扫描还扫描了二进制内嵌文本中的赋值、URL 与邮箱；疑似密码赋值来自内嵌原版模板。
-- 对 10 个 `.json.zlib` / `.jsonl.gz` 测试资料进行内存解压检查，未命中本次秘密、个人路径和内网地址规则。没有改写压缩 fixture。
-- 对唯一截图 `source/main/docs/verification-v0.3/protection-desktop.png` 人工查看：为峰值保护页面，不含账户、电话记录或凭据。另两份为相同来源副本。
-- Opus 上游压缩包及第三方 vendored 内容不应因作者邮箱、上游网址或示例路径而被修改；发布时应保留许可证和来源摘要。
-- 补充检索 hostname、serialnumber、client_secret、refresh_token 等字段，没有在 evidence / candidate evidence / binaries evidence 中发现这类字段。
+## 执行范围
 
-## 应处理项
+| 检查项 | 范围与复核结果 |
+| --- | --- |
+| 文本与二进制内嵌内容 | 扫描高置信秘密模式、个人绝对路径、赋值、URL 和邮箱；疑似密码命中按上下文人工分类 |
+| 压缩测试资料 | 对 10 个 `.json.zlib`／`.jsonl.gz` fixture 在内存中解压检查；未命中本次秘密、个人路径和内网地址规则，文件未改写 |
+| 管理后台截图 | 人工检查峰值保护历史截图及同源副本；未发现账户、通话记录或凭据 |
+| 第三方归档与 vendor | 区分作者版权、上游链接、示例路径与私有信息；保留原许可证和来源 |
+| 补充字段 | 检索 hostname、serialnumber、client_secret、refresh_token 等；在历史证据目录中未发现这些字段 |
 
-| 类型 | 范围 | 最小处理 |
+## 公开副本已执行的处理
+
+| 类型 | 数量与范围 | 已执行处理 |
 | --- | --- | --- |
-| 个人本机 home 前缀 | 99 个文本文件，主要为 evidence receipt/build log 和源码中的历史文档 | 公开副本以中性绝对前缀替换个人 home；保留路径剩余部分及原测试数值/结论。 |
-| 个人本机路径嵌入二进制 | 14 个可执行文件或 dylib | 不直接替换二进制字节；保留已验证原二进制并说明其含非秘密构建路径元数据，或重新编译独立去路径版本并重新检查。 |
-| 历史压测内网白名单 | 下述 3 份 `10000.evidence.json`，各第 9、27 行 | 公开副本将地址替换为保留的文档地址 `192.0.2.160/32`，明确说明它是脱敏占位值。 |
+| 个人文本路径 | 99 个文件，主要为历史收据、构建日志和源码文档 | 使用中性目录前缀替换个人路径，保留其余结构及测试结果 |
+| 历史压测白名单 | 3 份 `10000.evidence.json` | 以 `192.0.2.160` 文档地址替换原内网地址；该值明确为脱敏占位符 |
+| 二进制构建元数据 | 14 个可执行文件或动态库 | 保留已验证原字节，在公开说明中披露非秘密构建路径的存在 |
+| 运行与开发私有材料 | 实际凭据、服务状态、socket、缓存等 | 未纳入源码分发范围 |
 
-历史白名单文件：
+已处理的历史白名单材料：
 
 - `source/main/docs/benchmarks-v0.2/10000.evidence.json`
 - `source/asr-candidate/docs/benchmarks-v0.2/10000.evidence.json`
 - `reference/docs/benchmarks-v0.2/10000.evidence.json`
 
-完整逐文件位置在 `redaction-policy.json` 和 `findings.json`；匹配值不保存明文凭据，仅记录 SHA-256、长度与位置。
+14 个保留非秘密构建元数据的文件分布在平台包的 Go 控制程序、Rust 媒体程序，以及 macOS 的 Opus、G.711、G.722 动态库中。逐文件路径见 [content-review.json](content-review.json)；这些可执行文件通过 Release 附件分发，Git 仓库不直接保存其 `bin/`、`lib/` 字节。
 
-14 个二进制位置：
+## 保留的测试和上游内容
 
-- `binaries/linux-arm64/{main,asr-candidate}/bin/rustswitch`
-- `binaries/linux-arm64/{main,asr-candidate}/bin/rustswitch-media`
-- `binaries/macos-arm64/{main,asr-candidate}/bin/rustswitch`
-- `binaries/macos-arm64/{main,asr-candidate}/bin/rustswitch-media`
-- `binaries/macos-arm64/{main,asr-candidate}/lib/libopus.dylib`
-- `binaries/macos-arm64/{main,asr-candidate}/lib/librustswitch_g711.dylib`
-- `binaries/macos-arm64/{main,asr-candidate}/lib/librustswitch_g722.dylib`
+| 内容 | 保留原因 |
+| --- | --- |
+| ESL 单元测试与 conformance 测试中的固定密码 | 用于 loopback 临时端口、mock 环境、连接拒绝和超时场景，非生产账户 |
+| FreeSWITCH `hash.conf.xml` 注释中的 Test1 示例 | 上游配置示例，应保留来源与许可 |
+| 线路说明中的隔离部署网段 | 文档已标为需要自行替换的示例 |
+| 第三方作者邮箱、来源网址及测试路径 | 版权或上游测试的一部分，不作匿名化 |
+| `127.0.0.1`、localhost、`.invalid`、`.example` | 本地测试或保留示例地址，非内部生产端点 |
+| 故意非法的 JSON 及压缩／二进制向量 | 用于错误处理和协议测试，不能按普通配置修正 |
 
-## 已判断无需脱敏的命中
+## 证据与文件完整性
 
-- `source/{main,asr-candidate}/control/internal/esl/server_test.go` 第 25、450 行：loopback 临时端口单元测试的固定密码，文件注明不使用现网凭据。
-- `source/{main,asr-candidate}/tools/test_conformance.py` 第 186、209、231、382 行：mock.patch.dict 注入的测试环境密码，用于连接拒绝/超时等测试。
-- `source/{main,asr-candidate}/control/internal/server/fs_templates/autoload_configs/hash.conf.xml` 第 4 行：原版 XML 注释内 Test1 示例。应保持原版模板及其许可来源，而不将其当成真实账户。
-- `docs/api/trunk-registration.md` 及副本中的 `10.20.0.0/24` 等：正文已明示为需自行替换的隔离部署示例。
-- FreeSWITCH 原版模板、Rust vendor 中的内网地址、作者邮箱及示例 `/home/...`：属于上游源代码/版权说明或测试数据，应保留。
-- 本机 `127.0.0.1`、localhost、`.invalid` / `.example`：本地验收或保留测试域名，不是内部生产端点。
+首次公开处理保留了历史失败、未运行、未验证和文档门禁阻塞的结论。历史收据内部的原始哈希用于识别原执行对象；公开文本经过处理后，应按公开清单校验其当前字节，不能将其当成新执行结果。
 
-## 公开副本与证据完整性
+[publication-changes.json](publication-changes.json)记录首次公开整理阶段的变更类型及前后哈希。其范围不包括后续持续维护的全部文件，也不取代最终包清单或 Git 历史。新的 main 文档修订与新的验证结果应分别记录，不修改原 Release 的校验文件。
 
-1. 原始 ZIP 与原证据应在私有本地保留，公开材料明确标识“脱敏公开副本”。
-2. 生成一份脱敏日志，记录路径、原文件哈希、公开文件哈希和修改类型。不要把旧测试哈希改成新哈希并伪称历史测试已验证了修改后内容。
-3. 新公开包应生成新的 manifest 与校验值；旧证据中引用的原哈希可以作为历史记录保留，但应明确不适用于修改后的公开字节。
-4. 文档门禁失败、未验证功能、历史高并发失败结论均须原样保留。
-5. 本报告的工作区扫描原始 `summary.json` 包含私有本机前缀，用于审查定位，不宜不经处理直接复制为公开报告。此 Markdown 报告不包含该个人前缀。
+原始扫描中间文件含私有定位信息，保留在本地审查工作区，未作为公开报告的依赖。以下已分发材料可供公共读者核验：
 
-## 输出
+| 公共材料 | 用途 |
+| --- | --- |
+| [content-review.json](content-review.json) | 处理范围、保留二进制元数据的文件清单及结果说明 |
+| [publication-changes.json](publication-changes.json) | 首次公开整理阶段的差异与哈希 |
+| [PUBLICATION.md](PUBLICATION.md) | 发布、历史证据、源码清单和二进制之间的关系 |
+| [首个 Release](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908) 中的校验附件 | 发行资产的 SHA-256、包清单、公开构建与分发验证结果 |
 
-- `scan.py`：只读扫描脚本。
-- `findings.json`：逐文件规则、位置、匹配哈希。
-- `summary.json`：内部汇总（含本机前缀，仅本地使用）。
-- `compressed-findings.json`：压缩测试资料扫描记录。
-- `redaction-policy.json`：建议处理清单。
-- `additional-field-review.json`：补充字段检索的位置记录。
-
+首次发行已完成公开上传。此报告只说明内容处理和审查依据；运行安全、协议兼容、音质、容量与功能验收按各自测试合同继续验证。

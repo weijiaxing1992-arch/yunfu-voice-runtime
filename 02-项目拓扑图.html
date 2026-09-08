@@ -1,7 +1,9 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>02 项目拓扑图 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>RustSwitch<small>开源社区 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="active" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 02 项目拓扑图</div><article class="content"><div class="page-tools"><a href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 4 节</summary><a href="#基线部署拓扑">基线部署拓扑</a><a href="#语音智能体接入拓扑">语音智能体接入拓扑</a><a href="#压测拓扑与资源隔离">压测拓扑与资源隔离</a><a href="#端口与容量规划">端口与容量规划</a></details><h1 id="02-项目拓扑图">02 项目拓扑图</h1>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>02 RustSwitch 部署拓扑 · RustSwitch 项目文档</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">R</span><span>RustSwitch<small>项目文档 · 开发预览</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">项目首页</a><a href="DOCUMENTATION.html">文档中心</a><a href="QUICKSTART.html">快速开始</a><a href="CHANGELOG.html">更新日志</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="active" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">RustSwitch 文档 / 02 RustSwitch 部署拓扑</div><article class="content"><div class="page-tools"><a href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#基线部署拓扑">基线部署拓扑</a><a href="#语音智能体接入拓扑">语音智能体接入拓扑</a><a href="#压测拓扑与资源隔离">压测拓扑与资源隔离</a><a href="#端口与容量规划">端口与容量规划</a><a href="#部署形态与交接资料">部署形态与交接资料</a></details><h1 id="02-rustswitch-部署拓扑">02 RustSwitch 部署拓扑</h1>
+<p>本章描述主工程的进程部署、网络连线与资源隔离。图中的外部系统需要部署方另行提供；候选或规划连线不代表已经完成业务集成。模块内部职责见 <a href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html">软件架构</a>。</p>
 <h2 id="基线部署拓扑">基线部署拓扑</h2>
-<p><a href="figures/01-%E9%83%A8%E7%BD%B2%E6%8B%93%E6%89%91.svg" title="打开矢量原图"><img src="figures/01-%E9%83%A8%E7%BD%B2%E6%8B%93%E6%89%91.svg" alt="基线部署拓扑" loading="lazy"/></a></p>
-<p>主服务由一个 Go 控制进程和多个 Rust 媒体子进程组成。SIP 信令到 Go，RTP/RTCP 到 Rust；后台访问回环 HTTP。外部线路或可信 SBC 是独立系统，不包含在工程中。管理端通过本机浏览器或 SSH 隧道接入。</p>
+<p><a href="figures/01-%E9%83%A8%E7%BD%B2%E6%8B%93%E6%89%91.svg" title="打开原图"><img src="figures/01-%E9%83%A8%E7%BD%B2%E6%8B%93%E6%89%91.svg" alt="基线部署拓扑" loading="lazy"/></a></p>
+<p>主服务由一个 Go 控制进程和多个 Rust 媒体子进程组成。SIP 信令进入 Go，RTP/RTCP 进入承担该通话的 Rust 进程。控制进程启动和监督自己的媒体子进程，同时提供回环 HTTP 管理接口；无需单独部署 Node.js 前端服务。</p>
+<p>外部线路、可信 SBC 和 SIP 终端属于独立系统。当前主要接入模型是可信 IPv4 对端和单个固定上游，不能据此推定已提供完整终端注册服务器、多运营商网关或公网 NAT 穿越。管理端通过服务器本机浏览器或 SSH 隧道接入。</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -13,7 +15,7 @@
 <tbody><tr>
 <td>SIP</td>
 <td>可信 A 侧 ↔ Go ↔ 固定上游 B 侧</td>
-<td>本地 UDP 5060，上游 5070；TCP/TLS 需显式配置</td>
+<td><code>sip.listen</code> 本地 UDP 5060；<code>sip.upstream</code> 上游 5070；TCP/TLS 需显式配置</td>
 </tr>
 <tr>
 <td>媒体</td>
@@ -38,7 +40,7 @@
 <tr>
 <td>PCM/RX</td>
 <td>Go ↔ Rust</td>
-<td>独立继承 FD3/FD4，不是网络监听端口</td>
+<td>分别经继承的 FD3/FD4 传递媒体数据，不是网络监听端口</td>
 </tr>
 <tr>
 <td>RVA1</td>
@@ -48,18 +50,71 @@
 <tr>
 <td>文件</td>
 <td>Go → 本地持久化目录</td>
-<td>journal.path、追加 .admin.json 的管理状态</td>
+<td><code>journal.path</code> 事件文件，及其路径追加 <code>.admin.json</code> 后的管理状态文件</td>
 </tr>
 </tbody></table></div>
+<p>本地地址和端口来自 <a href="source/main/config/local.json"><code>source/main/config/local.json</code></a>。监听地址、对外通告地址和远端地址职责不同：修改本机监听不会自动修改对端 SDP；SIP 与媒体白名单也需分别维护。当前管理监听必须为 IPv4 回环地址，不能直接将 <code>admin.listen</code> 改为公网或通配地址。</p>
 <h2 id="语音智能体接入拓扑">语音智能体接入拓扑</h2>
-<p><a href="figures/03-AI%E5%AA%92%E4%BD%93%E8%B7%AF%E5%BE%84.svg" title="打开矢量原图"><img src="figures/03-AI%E5%AA%92%E4%BD%93%E8%B7%AF%E5%BE%84.svg" alt="智能体媒体路径" loading="lazy"/></a></p>
-<p>蓝色部分是基线已有媒体路径；橙色 ASR1 是已验证的独立候选；灰色模型和业务编排是外部/待集成范围。当前没有已实现的通用 gRPC/WebSocket Agent 服务，不应按图中的外部模块推断新增接口。</p>
+<p><a href="figures/03-AI%E5%AA%92%E4%BD%93%E8%B7%AF%E5%BE%84.svg" title="打开原图"><img src="figures/03-AI%E5%AA%92%E4%BD%93%E8%B7%AF%E5%BE%84.svg" alt="智能体媒体路径" loading="lazy"/></a></p>
+<p>蓝色部分表示主工程已有媒体路径；橙色 ASR1 表示已有实现和限定历史验证的独立候选；灰色模型和业务编排属于外部或待集成范围。候选源码已随公开交付包提供，但未合入主工程。当前没有通用 gRPC/WebSocket Agent 服务，图中的外部模块不对应额外的已实现 API。</p>
 <p>本地 RX 与下行 TX 相互独立。上行只观察对端 A 腿，不把本地 TTS 播放回灌成用户音频。内部保留原生采样率，ASR 分支需要 16 kHz 时才转换；不能将所有媒体写成统一 16 kHz 在线处理已完成。</p>
+<p>RVA1 是本机私有 Unix socket 下行入口，RXS2 是收音合同，ASR1 是候选代理合同，三者格式和身份约束不同。Unix socket 所在目录、服务用户及文件权限必须与运行配置匹配；把进程移动到另一台机器不能直接沿用这些本机通道。</p>
 <h2 id="压测拓扑与资源隔离">压测拓扑与资源隔离</h2>
-<p><a href="figures/04-%E5%8E%8B%E6%B5%8B%E6%8B%93%E6%89%91.svg" title="打开矢量原图"><img src="figures/04-%E5%8E%8B%E6%B5%8B%E6%8B%93%E6%89%91.svg" alt="隔离压测拓扑" loading="lazy"/></a></p>
-<p>后台测试页启动自己的控制实例、媒体进程和发生器；主服务总览应将主业务与测试数据分开展示。同机测试仍共享 CPU、内核和网卡，端口分离不等于硬件隔离。独立 Linux 压测机是目标容量验收的推荐部署形式，不是本次已取得的运行环境。</p>
+<p><a href="figures/04-%E5%8E%8B%E6%B5%8B%E6%8B%93%E6%89%91.svg" title="打开原图"><img src="figures/04-%E5%8E%8B%E6%B5%8B%E6%8B%93%E6%89%91.svg" alt="隔离压测拓扑" loading="lazy"/></a></p>
+<p>后台测试页启动独立的被测控制实例、媒体进程和发生器，并在运行总览中单独展示测试观测。判断数据时仍需核对任务 ID、进程身份和样本时间，不能把测试连接数计入主业务通话数。</p>
+<p>同机测试共享 CPU、内核、内存和网卡，端口分离不等于硬件隔离。目标容量验收应使用明确分配资源的 Linux 被测机，并考虑独立发生器；本地开发测试或已有有限 VM 探针不等同于这种环境的完整容量结果。</p>
 <p>测试子实例不会使用主服务线路凭据注册真实运营商。容量模式仅关闭它自己的业务软保护，硬并发/CPS、媒体健康和资源边界仍生效。不能占用主媒体范围来消除压测预检失败。</p>
 <h2 id="端口与容量规划">端口与容量规划</h2>
-<p>四端口块预算：<code>floor((port_end - port_start + 1) / 4)</code>。至少满足 <code>max_calls + ceil(calls_per_second × port_reuse_delay_ms / 1000)</code>。还需考虑每 worker 分区、已占用块、文件描述符与实际网络能力。</p>
-<p>本地示例只有 100 路硬上限，不是万路部署配置。Linux 目标示例见 <a href="reference/config/linux-10000.example.json">原始配置</a>，必须按真实 IP、CPU 和压测机调整并重新校验；填入 10000 不等于已经达到该性能。</p>
-</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>
+<p>当前分配器以 A/B 两腿各自的 RTP/RTCP 四端口块规划资源，尾部不足四端口的部分不可用。存在 <code>excluded_port_blocks</code> 时还需扣除显式排除块：</p>
+<pre><code class="language-text">可用块数 = floor((port_end - port_start + 1) / 4) - 排除块数
+最低全局预算 = max_calls + ceil(calls_per_second × port_reuse_delay_ms / 1000)
+</code></pre>
+<p>端口范围必须从不小于 1024 的偶数开始，结束端口不大于 65535；排除项必须是范围内按起点对齐的完整四端口块。全局预算通过后，还需考虑各媒体进程的端口分区、短时周转、文件描述符以及实际收发能力。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>示例</th>
+<th>可用块数与启动预算</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>本地 <code>20000–21999</code>，100 路、20 CPS、2 秒隔离</td>
+<td>500 块；最低预算 140 块</td>
+<td>回环开发和受限功能验证</td>
+</tr>
+<tr>
+<td>Linux <code>10000–64999</code>，10000 路、1000 CPS、2 秒隔离</td>
+<td>13750 块；最低预算 12000 块</td>
+<td>待按目标环境验证的配置模板</td>
+</tr>
+</tbody></table></div>
+<p>上述是静态资源预算，不是吞吐结果。示例未启用排除块；使用排除块或变更周转速率后须重新计算。</p>
+<h2 id="部署形态与交接资料">部署形态与交接资料</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>形态</th>
+<th>适用阶段</th>
+<th>需要明确的边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单机回环</td>
+<td>安装试用、单路模拟、接口开发</td>
+<td>默认上游没有真实线路；主工程与候选端口相同</td>
+</tr>
+<tr>
+<td>单台 Linux + 可信 SBC</td>
+<td>线路互通与受控试运行</td>
+<td>实际通告 IP、两类白名单、密钥文件、端口和服务用户</td>
+</tr>
+<tr>
+<td>Linux 被测机 + 独立发生器</td>
+<td>业务等价性能和长时间测试</td>
+<td>硬件、网络、编码、时长、发生器能力、原版基准与逐流结果</td>
+</tr>
+</tbody></table></div>
+<p>部署交接至少应记录版本/哈希、地址与端口表、服务用户、配置与状态文件位置、排空/回滚流程，以及已通过和未覆盖的验证范围。主控制进程或整机故障时，当前没有活动通话跨机无损接管。</p>
+<p>Linux 配置入口为 <a href="source/main/config/linux-10000.example.json"><code>source/main/config/linux-10000.example.json</code></a>。其中 <code>198.51.100.*</code> 是文档示例地址，必须按真实 IP、CPU、线路和压测机调整；不要将示例直接安装为生产配置。具体启动和运维步骤见 <a href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html">使用说明</a> 与 <a href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html">运维和压力测试</a>。</p>
+</article><div class="foot">RustSwitch · 文档修订 2026-09-08 · 主接口基线 1.13.0 · 候选与历史证据按各自范围适用。</div></main></body></html>

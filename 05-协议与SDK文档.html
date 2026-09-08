@@ -1,11 +1,13 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>05 通信协议与 SDK 文档 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>RustSwitch<small>开源社区 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="active" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 05 通信协议与 SDK 文档</div><article class="content"><div class="page-tools"><a href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 3 节</summary><a href="#sip-与-codec-使用边界">SIP 与 Codec 使用边界</a><a href="#控制与媒体报文示例">控制与媒体报文示例</a><a href="#原版对照如何使用">原版对照如何使用</a></details><h1 id="05-通信协议与-sdk-文档">05 通信协议与 SDK 文档</h1>
-<p>本章给出全部非 HTTP 接口的入口和责任。下方链接的专题原文随包提供，包含完整字段、状态、错误和示例；不需要到互联网补齐内部协议。</p>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>05 通信协议与 SDK 文档 · RustSwitch 项目文档</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">R</span><span>RustSwitch<small>项目文档 · 开发预览</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">项目首页</a><a href="DOCUMENTATION.html">文档中心</a><a href="QUICKSTART.html">快速开始</a><a href="CHANGELOG.html">更新日志</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="active" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">RustSwitch 文档 / 05 通信协议与 SDK 文档</div><article class="content"><div class="page-tools"><a href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#接口分类与适用范围">接口分类与适用范围</a><a href="#sip-与音频编码支持范围">SIP 与音频编码支持范围</a><a href="#控制与媒体报文示例">控制与媒体报文示例</a><a href="#freeswitch-迁移验证">FreeSWITCH 迁移验证</a><a href="#实现与调试入口">实现与调试入口</a></details><h1 id="05-通信协议与-sdk-文档">05 通信协议与 SDK 文档</h1>
+<p>本文面向电话接入、实时音频和原生适配开发者，按调用边界汇总 RustSwitch 主源码及 ASR 候选的非 HTTP 接口。主文档基线为 <strong>1.13.0</strong>；HTTP 管理入口另见 <a href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html">04</a>，版本关系见<a href="DOCUMENTATION.html">文档中心</a>。</p>
+<h2 id="接口分类与适用范围">接口分类与适用范围</h2>
+<p>接入前先选择接口层级：SIP、ESL 等面向对端或应用；Go/Rust JSON IPC、FD3/FD4 面向受控进程；RVA1 和 ASR1 按各自本机权限及生命周期合同使用。内部接口不应直接作为公网服务暴露。下表链接的专题提供帧格式、字段、状态、错误及示例。</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
 <th>接口</th>
-<th>状态</th>
-<th>完整合同</th>
+<th>实现范围</th>
+<th>技术参考</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -21,7 +23,7 @@
 <tr>
 <td>入站 ESL / fs_cli 子集</td>
 <td>显式开启，有限命令/事件</td>
-<td><a href="reference/docs/api/esl-reference.html">ESL 完整说明</a></td>
+<td><a href="reference/docs/api/esl-reference.html">ESL 参考</a></td>
 </tr>
 <tr>
 <td>IVR/read/playback 等</td>
@@ -30,12 +32,12 @@
 </tr>
 <tr>
 <td>通道变量与批量设置</td>
-<td>有限容器、真实副作用</td>
+<td>有限变量容器与指定应用副作用</td>
 <td><a href="reference/docs/api/variables-reference.html">变量</a></td>
 </tr>
 <tr>
 <td>通道快照/uuid_dump</td>
-<td>单腿真实快照</td>
+<td>单腿状态快照</td>
 <td><a href="reference/docs/api/channel-snapshot-reference.html">快照</a></td>
 </tr>
 <tr>
@@ -45,12 +47,12 @@
 </tr>
 <tr>
 <td>运行 XML Dialplan</td>
-<td>显式启动冻结的有限条件/动作</td>
+<td>启动时冻结的条件与动作子集</td>
 <td><a href="reference/docs/api/dialplan-reference.html">拨号计划</a></td>
 </tr>
 <tr>
 <td>媒体 JSON IPC</td>
-<td>Go→Rust 私有内部协议</td>
+<td>Go → Rust 进程间内部协议</td>
 <td><a href="reference/docs/api/protocol-reference.html">协议总册</a>、<a href="reference/docs/api/media-ipc.schema.json">JSON Schema</a></td>
 </tr>
 <tr>
@@ -96,10 +98,10 @@
 <tr>
 <td>ASR1 / StartASR</td>
 <td>独立候选，非公开 HTTP</td>
-<td><a href="candidate/asr-stream-reference.html">候选完整合同</a>、<a href="candidate/asr-openapi-update-proposal.html">模型增量</a></td>
+<td><a href="candidate/asr-stream-reference.html">候选接口合同</a>、<a href="candidate/asr-openapi-update-proposal.html">模型增量</a></td>
 </tr>
 </tbody></table></div>
-<h2 id="sip-与-codec-使用边界">SIP 与 Codec 使用边界</h2>
+<h2 id="sip-与音频编码支持范围">SIP 与音频编码支持范围</h2>
 <p>初始 INVITE、ACK、CANCEL、BYE、OPTIONS 和显式 INFO 子集可用；入站 REGISTER、REFER、UPDATE、PRACK、完整 re-INVITE/保持恢复及复杂路由不能按 FreeSWITCH 原功能使用。上游 REGISTER 客户端不等于允许分机向本项目注册。</p>
 <div class="table-wrap"><table>
 <thead>
@@ -169,7 +171,10 @@ event-lock: true
 </code></pre>
 <p>RVA1 的 BEGIN 必须以真实已 ACK 本地通道授权，再通过独立数据连接送 8 kHz mono S16LE；END 后继续确认排空，INTERRUPT 支持 0/20/40 ms。<code>uuid_break</code> 不自动等价于 PCM 轮次中断。</p>
 <p>RXS2 每消息固定 168 字节头、正文最多 480 字节，单订阅出口队列 8 项；160 个原生样本表示 20 ms。传出/写入计数不等于业务实际消费。候选 ASR1 每帧最多 8196 字节、64 个来源区间、8 项结果队列，FINISH/DONE 精确确认完整前缀；其完整二进制偏移、JSON 类型和错误定义见候选合同。</p>
-<h2 id="原版对照如何使用">原版对照如何使用</h2>
+<h2 id="freeswitch-迁移验证">FreeSWITCH 迁移验证</h2>
 <p>优先检查调用入口、参数、响应字节、事件顺序、副作用、超时/取消和资源释放这七项。某一错误码或命令正向例通过，不能扩大到同模块全部语义。原版 <code>detect_speech</code>、<code>play_and_detect_speech</code>、MRCP、完整 originate 并未因内部 ASR 候选出现而实现。</p>
-<p>完整 3999 条原始对照、CSV 和验收定义见 <a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">10</a>。未完成条目仍保留，不把产品范围后延计为兼容通过。</p>
-</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>
+<p>完整 3,999 条原始对照、CSV 和验收定义见<a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">专题索引</a>，待完成工作见<a href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">项目未完成清单</a>。迁移验证应固定 FreeSWITCH 版本、目标线路及必要接口集合，逐项保存双方输入、输出和资源释放结果；延期能力保持未完成状态。</p>
+<h2 id="实现与调试入口">实现与调试入口</h2>
+<p>主源码位于 <code>source/main/</code>，候选源码位于 <code>source/asr-candidate/</code>。从对应根目录进入 <code>control/</code> 查看 Go 协议及控制逻辑，进入 <code>media/</code> 查看 Rust 媒体处理，进入 <code>native/include/</code> 查看 C ABI。</p>
+<p>调试时应关联通道 UUID、媒体会话、worker 代次和音频轮次。信令成功、媒体收到、SDK 写入及业务实际消费是不同阶段；故障报告应明确发生阶段、实际报文、完成事件与最终释放状态。命令和日志采集方式见<a href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html">运维说明</a>。</p>
+</article><div class="foot">RustSwitch · 文档修订 2026-09-08 · 主接口基线 1.13.0 · 候选与历史证据按各自范围适用。</div></main></body></html>

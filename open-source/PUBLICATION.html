@@ -1,13 +1,82 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>公开分发与信息处理说明 · 云蝠项目资料</title><link rel="stylesheet" href="../handbook.css"></head><body><aside><a class="brand" href="../index.html"><span class="brand-icon">Y</span><span>RustSwitch<small>开源社区 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../index.html">资料首页</a><a class="" href="../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 公开分发与信息处理说明</div><article class="content"><div class="page-tools"><a href="PUBLICATION.md" download>Markdown 原稿</a><a href="../reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 3 节</summary><a href="#文本与证据">文本与证据</a><a href="#预编译文件">预编译文件</a><a href="#分发位置">分发位置</a></details><h1 id="公开分发与信息处理说明">公开分发与信息处理说明</h1>
-<p>本次公开发布包含当前交付材料中的两套源码、候选补丁、设计原型、固定依赖、项目资料、测试工具、历史证据和两个 ARM64 平台编译包。原始本地资料保留不动，公开版本在单独目录生成。</p>
-<h2 id="文本与证据">文本与证据</h2>
-<p>个人开发目录在公开文本中替换为 <code>/workspace/yunfu-voice-runtime</code> 或 <code>/home/developer</code>；历史压测材料的一项实际内网白名单地址替换为文档地址 <code>192.0.2.160</code>。测试 fixture、示例密码与文档地址保留，第三方作者版权与联系信息不作匿名化。</p>
-<p><code>publication-changes.json</code> 记录公开副本相对于本地交付包的文件哈希变化。根清单与源码清单以公开副本重新生成；原始历史报告内部的旧哈希和结果保留，用于注明历史构建身份。脱敏后的报告不是新的执行证据，不应用其文本哈希直接冒充原报告身份。</p>
-<p>源码README的Go依赖说明、当前使用入口和开源许可状态已更新。Linux运行脚本的可选动态库扩展名由<code>.dylib</code>修正为<code>.so</code>。其余功能状态与门禁失败未被改为通过。</p>
-<h2 id="预编译文件">预编译文件</h2>
-<p>编译文件保持既有构建的原始字节，执行文件哈希未变。部分二进制和动态库包含开发机的用户名/构建路径，或者嵌入的历史文档。这些是构建元数据，不是运行凭据。本次没有为清除元数据修改二进制、重签名或把历史测试结果转移到另一个构建。</p>
-<p>源码公开副本包含文本说明和证据脱敏变化；预编译程序依然对应原始构建，内嵌文档没有随GitHub开源说明更新。要生成与公开副本一致的内嵌资料，可按QUICKSTART从源码构建；这仍不代表已通过功能发布门禁。</p>
-<h2 id="分发位置">分发位置</h2>
-<p>Git仓库保存完整源材料和运行包说明，实际可执行文件和动态库通过同一标签的GitHub Releases提供。完整资料ZIP同时包含源码与编译包；源代码ZIP和平台ZIP供分开下载。</p>
-<p>所附完整性校验只证明分发文件未损坏；历史兼容、容量与供应商接入测试各自保留原范围。源码中故意非法的JSON测试向量不能按普通文档JSON统一判定为错误。</p>
-</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>公开分发与版本追踪说明 · RustSwitch 项目文档</title><link rel="stylesheet" href="../handbook.css"></head><body><aside><a class="brand" href="../index.html"><span class="brand-icon">R</span><span>RustSwitch<small>项目文档 · 开发预览</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../index.html">项目首页</a><a href="../DOCUMENTATION.html">文档中心</a><a href="../QUICKSTART.html">快速开始</a><a href="../CHANGELOG.html">更新日志</a><a class="" href="../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">RustSwitch 文档 / 公开分发与版本追踪说明</div><article class="content"><div class="page-tools"><a href="PUBLICATION.md" download>Markdown 原稿</a><a href="../reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#已发布的固定版本">已发布的固定版本</a><a href="#已执行的文本与信息处理">已执行的文本与信息处理</a><a href="#历史证据与公开清单">历史证据与公开清单</a><a href="#预编译程序与内嵌文档">预编译程序与内嵌文档</a><a href="#许可与内容追溯">许可与内容追溯</a></details><h1 id="公开分发与版本追踪说明">公开分发与版本追踪说明</h1>
+<p>本说明解释 RustSwitch 公开源码、发行附件、历史证据与后续文档之间的关系。公开版本由独立副本整理，包含主工程、ASR 候选、补丁、设计参考、固定依赖、项目资料、测试工具和两个 ARM64 平台的运行包。</p>
+<h2 id="已发布的固定版本">已发布的固定版本</h2>
+<p><a href="https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908" target="_blank" rel="noopener noreferrer">首个开发预览版 v0.1.0-preview.20260908</a> 已公开，绑定提交 <code>54fcd571874d599b10611dc7f38f2a751a433c94</code>。首发的 4,991 个 Git 文件已核对远端路径、Git 对象哈希及权限模式；8 个发行附件已核对名称、大小和 SHA-256。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分发入口</th>
+<th>内容</th>
+<th>校验与更新方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Git main 分支</td>
+<td>当前社区说明、源码与资料</td>
+<td>通过 Git 提交记录后续修改；不沿用旧快照文件数作为当前数量</td>
+</tr>
+<tr>
+<td>固定 Git 标签</td>
+<td>首个预览版源码树</td>
+<td>固定在对应发行提交，用于复现该次源材料</td>
+</tr>
+<tr>
+<td>完整资料 ZIP</td>
+<td>资料、源码、依赖及两个平台运行文件</td>
+<td>按同次 <code>SHA256SUMS.txt</code> 与包内清单校验</td>
+</tr>
+<tr>
+<td>源码 ZIP</td>
+<td>主工程、候选、补丁、构建工具与依赖</td>
+<td>独立的源码分发快照</td>
+</tr>
+<tr>
+<td>平台 ZIP</td>
+<td>可执行文件、动态库（按平台）、配置、来源与许可</td>
+<td>按包内 <code>verify.py</code> 和清单核对解压内容</td>
+</tr>
+</tbody></table></div>
+<p>发行附件保持冻结；后续说明修订不会覆盖其 ZIP、哈希、内嵌文档或原始收据。下载方式与平台要求见 <a href="../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html">交付说明</a>。GitHub 自动生成的源码归档不包含仅放在平台附件中的运行程序。</p>
+<h2 id="已执行的文本与信息处理">已执行的文本与信息处理</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>内容</th>
+<th>公开副本的处理</th>
+<th>保留事项</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>个人开发目录</td>
+<td>99 个文本文件中的个人路径按范围替换为 <code>/workspace/yunfu-voice-runtime</code> 或 <code>/home/developer</code></td>
+<td>保留剩余路径结构、测试数值、结论和历史记录身份</td>
+</tr>
+<tr>
+<td>历史压测地址</td>
+<td>3 份 <code>10000.evidence.json</code> 中的一项实际内网白名单替换为文档地址 <code>192.0.2.160</code></td>
+<td>该值是占位符，不能直接用于真实部署白名单</td>
+</tr>
+<tr>
+<td>固定测试与示例</td>
+<td>保留测试密码、保留域名、异常 JSON、二进制或压缩测试向量</td>
+<td>它们是用例数据，不作为运行凭据或生产配置推荐</td>
+</tr>
+<tr>
+<td>第三方内容</td>
+<td>保留作者署名、联系信息、源码、许可证和来源</td>
+<td>不因示例地址或上游路径改变第三方原件</td>
+</tr>
+</tbody></table></div>
+<p><a href="content-review.json">内容审查摘要</a>记录 99 个处理文件和 14 个保留构建元数据的文件。<a href="publication-changes.json">首次公开处理差异</a>记录整理阶段的新增或修改类型及前后哈希；其范围按该 JSON 的 <code>scope</code> 解释，不是 main 分支持续更新的完整变更日志。后续变更以 Git 历史和对应版本清单为准。</p>
+<p>首次公开整理还修正了源码 README 的 Go 依赖及许可说明，并将 Linux 启动脚本的可选动态库扩展名改为 <code>.so</code>。功能未完成项、文档门禁失败和历史高并发失败记录保持原结论。</p>
+<h2 id="历史证据与公开清单">历史证据与公开清单</h2>
+<p>历史收据中的旧源码、二进制和日志哈希保留为当次执行身份。报告文字经公开处理后，其文件哈希会改变；不能用处理后的文本哈希冒充原始收据，也不能把旧测试结果自动绑定到后续源码。</p>
+<p>根清单、源码清单和运行包清单分别核验各自公开文件。更新当前 main 的材料时可以生成当前清单，但不得改写旧 Release 的校验值。文件完整性检查说明分发字节是否一致，不证明兼容、音质、容量或供应商接入通过。</p>
+<h2 id="预编译程序与内嵌文档">预编译程序与内嵌文档</h2>
+<p>首个预览版的 20 个编译文件保留原构建字节。部分程序和动态库含开发机用户名、构建路径或历史内嵌文档；这些已识别内容属于构建元数据，不是运行凭据。本次没有对二进制做路径替换、重签名或将旧运行证据转移到另一份构建。</p>
+<p><code>delivery-tools/build_source.py</code> 从公开源码执行基础离线编译，<strong>复用现有内嵌文档</strong>，不会将新的社区说明自动嵌入后台。要更新后台内嵌资料，需先解决对应文档门禁、同步派生资源，再单独构建和验证；直接基础编译不能代替该流程。</p>
+<p>因此，GitHub main 上的说明、固定 Release 的离线手册、程序内嵌后台文档可能属于不同快照。集成时以所用源码和接口合同为依据，版本关系见 <a href="../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html">当前能力与验证状态</a>。</p>
+<h2 id="许可与内容追溯">许可与内容追溯</h2>
+<p>原创材料采用 Apache-2.0，G.722 支持文件和 SpanDSP、FreeSWITCH 模板、Opus、Go/Rust 依赖及运行时分别保留自己的许可。公开处理不重新授权第三方内容。详见 <a href="../OPEN_SOURCE.html">开源说明</a>、<a href="../LICENSE_SCOPE.html">许可范围</a>和<a href="../THIRD_PARTY_NOTICES.html">第三方清单</a>。</p>
+<p>内容审查方法、发现和范围限制见 <a href="content-audit.html">公开内容审查报告</a>。私有原始材料及含本机定位信息的扫描中间文件不作为公共使用入口，公开读者以仓库已分发的摘要、版本和校验文件为准。</p>
+</article><div class="foot">RustSwitch · 文档修订 2026-09-08 · 主接口基线 1.13.0 · 候选与历史证据按各自范围适用。</div></main></body></html>

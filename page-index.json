@@ -1,9 +1,36 @@
 {
+  ".github/PULL_REQUEST_TEMPLATE.html": [
+    {
+      "id": "解决的问题",
+      "level": 2,
+      "text": "解决的问题"
+    },
+    {
+      "id": "行为变化与范围",
+      "level": 2,
+      "text": "行为变化与范围"
+    },
+    {
+      "id": "验证结果",
+      "level": 2,
+      "text": "验证结果"
+    },
+    {
+      "id": "接口与迁移影响",
+      "level": 2,
+      "text": "接口与迁移影响"
+    },
+    {
+      "id": "提交检查",
+      "level": 2,
+      "text": "提交检查"
+    }
+  ],
   "01-项目说明.html": [
     {
-      "id": "01-项目说明",
+      "id": "01-rustswitch-项目说明",
       "level": 1,
-      "text": "01 项目说明"
+      "text": "01 RustSwitch 项目说明"
     },
     {
       "id": "产品目标",
@@ -31,16 +58,26 @@
       "text": "工程目录与职责"
     },
     {
+      "id": "采用与评估流程",
+      "level": 2,
+      "text": "采用与评估流程"
+    },
+    {
       "id": "尚未完成的产品范围",
       "level": 2,
       "text": "尚未完成的产品范围"
+    },
+    {
+      "id": "开源与第三方边界",
+      "level": 2,
+      "text": "开源与第三方边界"
     }
   ],
   "02-项目拓扑图.html": [
     {
-      "id": "02-项目拓扑图",
+      "id": "02-rustswitch-部署拓扑",
       "level": 1,
-      "text": "02 项目拓扑图"
+      "text": "02 RustSwitch 部署拓扑"
     },
     {
       "id": "基线部署拓扑",
@@ -61,18 +98,28 @@
       "id": "端口与容量规划",
       "level": 2,
       "text": "端口与容量规划"
+    },
+    {
+      "id": "部署形态与交接资料",
+      "level": 2,
+      "text": "部署形态与交接资料"
     }
   ],
   "03-软件架构图.html": [
     {
-      "id": "03-软件架构图",
+      "id": "03-rustswitch-软件架构",
       "level": 1,
-      "text": "03 软件架构图"
+      "text": "03 RustSwitch 软件架构"
     },
     {
       "id": "进程与模块",
       "level": 2,
       "text": "进程与模块"
+    },
+    {
+      "id": "代码组织与扩展入口",
+      "level": 2,
+      "text": "代码组织与扩展入口"
     },
     {
       "id": "三条媒体路径",
@@ -90,21 +137,41 @@
       "text": "呼叫生命周期"
     },
     {
+      "id": "管理状态与持久化",
+      "level": 2,
+      "text": "管理状态与持久化"
+    },
+    {
       "id": "故障边界",
       "level": 2,
       "text": "故障边界"
+    },
+    {
+      "id": "架构变化的验证要求",
+      "level": 2,
+      "text": "架构变化的验证要求"
     }
   ],
   "04-HTTP接口文档.html": [
     {
-      "id": "04-http-管理接口完整文档",
+      "id": "04-http-管理接口参考",
       "level": 1,
-      "text": "04 HTTP 管理接口完整文档"
+      "text": "04 HTTP 管理接口参考"
     },
     {
       "id": "通用调用合同",
       "level": 2,
       "text": "通用调用合同"
+    },
+    {
+      "id": "接入顺序与状态判读",
+      "level": 2,
+      "text": "接入顺序与状态判读"
+    },
+    {
+      "id": "freeswitch-对照说明",
+      "level": 2,
+      "text": "FreeSWITCH 对照说明"
     },
     {
       "id": "操作目录",
@@ -679,9 +746,14 @@
       "text": "05 通信协议与 SDK 文档"
     },
     {
-      "id": "sip-与-codec-使用边界",
+      "id": "接口分类与适用范围",
       "level": 2,
-      "text": "SIP 与 Codec 使用边界"
+      "text": "接口分类与适用范围"
+    },
+    {
+      "id": "sip-与音频编码支持范围",
+      "level": 2,
+      "text": "SIP 与音频编码支持范围"
     },
     {
       "id": "控制与媒体报文示例",
@@ -689,16 +761,21 @@
       "text": "控制与媒体报文示例"
     },
     {
-      "id": "原版对照如何使用",
+      "id": "freeswitch-迁移验证",
       "level": 2,
-      "text": "原版对照如何使用"
+      "text": "FreeSWITCH 迁移验证"
+    },
+    {
+      "id": "实现与调试入口",
+      "level": 2,
+      "text": "实现与调试入口"
     }
   ],
   "06-使用说明.html": [
     {
-      "id": "06-使用说明",
+      "id": "06-rustswitch-使用说明",
       "level": 1,
-      "text": "06 使用说明"
+      "text": "06 RustSwitch 使用说明"
     },
     {
       "id": "1-确认工程和版本",
@@ -748,14 +825,19 @@
   ],
   "07-运维与压测说明.html": [
     {
-      "id": "07-运维与压力测试说明",
+      "id": "07-rustswitch-运维与压力测试",
       "level": 1,
-      "text": "07 运维与压力测试说明"
+      "text": "07 RustSwitch 运维与压力测试"
     },
     {
       "id": "容量保护的实际语义",
       "level": 2,
       "text": "容量保护的实际语义"
+    },
+    {
+      "id": "日常观测入口",
+      "level": 2,
+      "text": "日常观测入口"
     },
     {
       "id": "正确执行压力测试",
@@ -768,9 +850,9 @@
       "text": "通过条件与计数"
     },
     {
-      "id": "本次已知性能与诊断状态",
+      "id": "已知历史结果与诊断缺口",
       "level": 2,
-      "text": "本次已知性能与诊断状态"
+      "text": "已知历史结果与诊断缺口"
     },
     {
       "id": "日常观测与故障排查",
@@ -790,26 +872,46 @@
       "text": "08 当前能力与验证状态"
     },
     {
-      "id": "工程基线的对照计数",
+      "id": "版本与证据基线",
       "level": 2,
-      "text": "工程基线的对照计数"
+      "text": "版本与证据基线"
     },
     {
-      "id": "本轮-asr-候选的已执行验证",
+      "id": "如何理解状态",
       "level": 2,
-      "text": "本轮 ASR 候选的已执行验证"
+      "text": "如何理解状态"
     },
     {
-      "id": "产品缺口与优先顺序",
+      "id": "当前工程能力",
       "level": 2,
-      "text": "产品缺口与优先顺序"
+      "text": "当前工程能力"
+    },
+    {
+      "id": "freeswitch-对照目录快照",
+      "level": 2,
+      "text": "FreeSWITCH 对照目录快照"
+    },
+    {
+      "id": "已记录的-asr-候选验证",
+      "level": 2,
+      "text": "已记录的 ASR 候选验证"
+    },
+    {
+      "id": "尚未通过的文档门禁",
+      "level": 2,
+      "text": "尚未通过的文档门禁"
+    },
+    {
+      "id": "后续验收重点",
+      "level": 2,
+      "text": "后续验收重点"
     }
   ],
   "09-数据模型全文.html": [
     {
-      "id": "09-数据模型全文",
+      "id": "09-http-数据模型参考",
       "level": 1,
-      "text": "09 数据模型全文"
+      "text": "09 HTTP 数据模型参考"
     },
     {
       "id": "sipconfig",
@@ -1199,9 +1301,19 @@
   ],
   "10-全部专题文档目录.html": [
     {
-      "id": "10-全部专题文档目录",
+      "id": "10-专题文档与原始资料索引",
       "level": 1,
-      "text": "10 全部专题文档目录"
+      "text": "10 专题文档与原始资料索引"
+    },
+    {
+      "id": "核心入口",
+      "level": 2,
+      "text": "核心入口"
+    },
+    {
+      "id": "资料范围与阅读约定",
+      "level": 2,
+      "text": "资料范围与阅读约定"
     },
     {
       "id": "candidate",
@@ -1361,41 +1473,46 @@
       "text": "11 交付与源码说明"
     },
     {
-      "id": "交付目录",
+      "id": "获取与选择",
       "level": 2,
-      "text": "交付目录"
+      "text": "获取与选择"
     },
     {
-      "id": "哪套代码用于哪项工作",
+      "id": "材料目录",
       "level": 2,
-      "text": "哪套代码用于哪项工作"
+      "text": "材料目录"
     },
     {
-      "id": "已完成代码的具体增量",
+      "id": "源码版本与完成范围",
       "level": 2,
-      "text": "已完成代码的具体增量"
+      "text": "源码版本与完成范围"
     },
     {
-      "id": "离线编译步骤",
+      "id": "已交付的主要开发增量",
       "level": 2,
-      "text": "离线编译步骤"
+      "text": "已交付的主要开发增量"
     },
     {
-      "id": "发布前仍需完成的检查",
+      "id": "离线构建",
       "level": 2,
-      "text": "发布前仍需完成的检查"
+      "text": "离线构建"
     },
     {
-      "id": "交接时应核对什么",
+      "id": "预编译程序与验证材料",
       "level": 2,
-      "text": "交接时应核对什么"
+      "text": "预编译程序与验证材料"
+    },
+    {
+      "id": "完整性许可与后续修改",
+      "level": 2,
+      "text": "完整性、许可与后续修改"
     }
   ],
   "12-需求说明书.html": [
     {
-      "id": "12-云蝠-voice-runtime-需求说明书",
+      "id": "12-rustswitch-产品需求说明书",
       "level": 1,
-      "text": "12 云蝠 Voice Runtime 需求说明书"
+      "text": "12 RustSwitch 产品需求说明书"
     },
     {
       "id": "1-产品目标依据与解释规则",
@@ -1413,9 +1530,9 @@
       "text": "1.2 优先级、现状与关闭条件"
     },
     {
-      "id": "2-当前事实与目标分别记录",
+      "id": "2-实现基线与目标范围",
       "level": 2,
-      "text": "2. 当前事实与目标分别记录"
+      "text": "2. 实现基线与目标范围"
     },
     {
       "id": "3-功能需求fr32项",
@@ -1468,9 +1585,9 @@
       "text": "10. 测试、证据与交付验收（ACC，10项）"
     },
     {
-      "id": "11-指标与决策待定项t01t22",
+      "id": "11-指标与决策登记t01t22",
       "level": 2,
-      "text": "11. 指标与决策待定项（T01～T22）"
+      "text": "11. 指标与决策登记（T01～T22）"
     },
     {
       "id": "12-阶段依赖与退出条件",
@@ -1505,9 +1622,9 @@
       "text": "13 项目未完成清单"
     },
     {
-      "id": "一当前必须区分的交付状态",
+      "id": "一实现与交付基线",
       "level": 2,
-      "text": "一、当前必须区分的交付状态"
+      "text": "一、实现与交付基线"
     },
     {
       "id": "二3999条原始状态统计",
@@ -1735,70 +1852,184 @@
       "text": "五、统一关单规则"
     },
     {
-      "id": "六来源与本轮核对",
+      "id": "六历史来源与校验记录",
       "level": 2,
-      "text": "六、来源与本轮核对"
+      "text": "六、历史来源与校验记录"
+    }
+  ],
+  "CHANGELOG.html": [
+    {
+      "id": "rustswitch-更新日志",
+      "level": 1,
+      "text": "RustSwitch 更新日志"
+    },
+    {
+      "id": "2026-09-08-项目文档修订",
+      "level": 2,
+      "text": "2026-09-08 · 项目文档修订"
+    },
+    {
+      "id": "v010-preview20260908-首次公开开发预览",
+      "level": 2,
+      "text": "v0.1.0-preview.20260908 · 首次公开开发预览"
     }
   ],
   "COMMUNITY.html": [
     {
-      "id": "rustswitch-社区参与指南",
+      "id": "rustswitch-社区指南",
       "level": 1,
-      "text": "RustSwitch 社区参与指南"
+      "text": "RustSwitch 社区指南"
     },
     {
-      "id": "找到合适的入口",
+      "id": "参与入口",
       "level": 2,
-      "text": "找到合适的入口"
+      "text": "参与入口"
     },
     {
-      "id": "第一次参与从这些方向开始",
+      "id": "第一次参与",
       "level": 2,
-      "text": "第一次参与，从这些方向开始"
+      "text": "第一次参与"
     },
     {
-      "id": "提交一份容易复现的问题",
+      "id": "问题报告与技术讨论",
       "level": 2,
-      "text": "提交一份容易复现的问题"
+      "text": "问题报告与技术讨论"
     },
     {
-      "id": "协作约定",
+      "id": "协作与决策",
       "level": 2,
-      "text": "协作约定"
+      "text": "协作与决策"
     },
     {
-      "id": "让更多真正需要它的人看到",
+      "id": "共同约定",
       "level": 2,
-      "text": "让更多真正需要它的人看到"
+      "text": "共同约定"
     },
     {
-      "id": "许可与来源",
+      "id": "传播与认可",
       "level": 2,
-      "text": "许可与来源"
+      "text": "传播与认可"
+    },
+    {
+      "id": "许可与项目关系",
+      "level": 2,
+      "text": "许可与项目关系"
+    },
+    {
+      "id": "for-english-speaking-contributors",
+      "level": 2,
+      "text": "For English-speaking contributors"
     }
   ],
   "CONTRIBUTING.html": [
     {
-      "id": "贡献说明",
+      "id": "rustswitch-贡献指南",
       "level": 1,
-      "text": "贡献说明"
+      "text": "RustSwitch 贡献指南"
+    },
+    {
+      "id": "1-选择正确的修改范围",
+      "level": 2,
+      "text": "1. 选择正确的修改范围"
+    },
+    {
+      "id": "2-准备开发环境",
+      "level": 2,
+      "text": "2. 准备开发环境"
+    },
+    {
+      "id": "3-实现与注释",
+      "level": 2,
+      "text": "3. 实现与注释"
+    },
+    {
+      "id": "4-根据变化选择验证",
+      "level": 2,
+      "text": "4. 根据变化选择验证"
+    },
+    {
+      "id": "5-更新合同文档与证据",
+      "level": 2,
+      "text": "5. 更新合同、文档与证据"
+    },
+    {
+      "id": "6-提交-pull-request",
+      "level": 2,
+      "text": "6. 提交 Pull Request"
+    },
+    {
+      "id": "7-许可与第三方内容",
+      "level": 2,
+      "text": "7. 许可与第三方内容"
+    },
+    {
+      "id": "english-contribution-checklist",
+      "level": 2,
+      "text": "English contribution checklist"
     }
   ],
   "DELIVERY.html": [
     {
-      "id": "云蝠-voice-runtime-项目资料包",
+      "id": "rustswitch-项目资料与交付索引",
       "level": 1,
-      "text": "云蝠 Voice Runtime 项目资料包"
+      "text": "RustSwitch 项目资料与交付索引"
     },
     {
-      "id": "本次新增完整源码与交付资料",
+      "id": "版本与阅读范围",
       "level": 2,
-      "text": "本次新增完整源码与交付资料"
+      "text": "版本与阅读范围"
     },
     {
-      "id": "预编译运行程序",
+      "id": "完整资料目录",
       "level": 2,
-      "text": "预编译运行程序"
+      "text": "完整资料目录"
+    },
+    {
+      "id": "推荐阅读路线",
+      "level": 2,
+      "text": "推荐阅读路线"
+    },
+    {
+      "id": "源码与预编译程序",
+      "level": 2,
+      "text": "源码与预编译程序"
+    },
+    {
+      "id": "开源与协作入口",
+      "level": 2,
+      "text": "开源与协作入口"
+    }
+  ],
+  "DOCUMENTATION.html": [
+    {
+      "id": "rustswitch-项目文档中心",
+      "level": 1,
+      "text": "RustSwitch 项目文档中心"
+    },
+    {
+      "id": "按工作场景阅读",
+      "level": 2,
+      "text": "按工作场景阅读"
+    },
+    {
+      "id": "版本与发布基线",
+      "level": 2,
+      "text": "版本与发布基线"
+    },
+    {
+      "id": "文档与证据的使用规则",
+      "level": 2,
+      "text": "文档与证据的使用规则"
+    },
+    {
+      "id": "核心术语",
+      "level": 2,
+      "text": "核心术语"
+    },
+    {
+      "id": "文档维护要求",
+      "level": 2,
+      "text": "文档维护要求"
     }
   ],
   "G722-SUPPORT-LICENSE.html": [
@@ -1822,31 +2053,36 @@
       "text": "FreeSWITCH 平替 RustSwitch · 开源说明"
     },
     {
-      "id": "本次开源清单",
+      "id": "项目状态与公开发行",
       "level": 2,
-      "text": "本次开源清单"
+      "text": "项目状态与公开发行"
     },
     {
-      "id": "授权方式",
+      "id": "公开材料清单",
       "level": 2,
-      "text": "授权方式"
+      "text": "公开材料清单"
     },
     {
-      "id": "当前验证边界",
+      "id": "许可证与第三方边界",
       "level": 2,
-      "text": "当前验证边界"
+      "text": "许可证与第三方边界"
     },
     {
-      "id": "参与方式",
+      "id": "兼容与性能的表述原则",
       "level": 2,
-      "text": "参与方式"
+      "text": "兼容与性能的表述原则"
+    },
+    {
+      "id": "参与项目",
+      "level": 2,
+      "text": "参与项目"
     }
   ],
   "QUICKSTART.html": [
     {
-      "id": "快速开始",
+      "id": "rustswitch-快速开始",
       "level": 1,
-      "text": "快速开始"
+      "text": "RustSwitch 快速开始"
     },
     {
       "id": "1-选择源码或运行包",
@@ -1864,9 +2100,14 @@
       "text": "3. 从源码离线编译"
     },
     {
-      "id": "4-理解验收状态",
+      "id": "4-常见首次运行问题",
       "level": 2,
-      "text": "4. 理解验收状态"
+      "text": "4. 常见首次运行问题"
+    },
+    {
+      "id": "5-理解验收状态",
+      "level": 2,
+      "text": "5. 理解验收状态"
     }
   ],
   "README.html": [
@@ -1876,14 +2117,24 @@
       "text": "FreeSWITCH 平替 RustSwitch"
     },
     {
-      "id": "为什么做-rustswitch",
+      "id": "项目与版本",
       "level": 2,
-      "text": "为什么做 RustSwitch"
+      "text": "项目与版本"
     },
     {
-      "id": "现在可以做什么",
+      "id": "适合哪些工作",
       "level": 2,
-      "text": "现在可以做什么"
+      "text": "适合哪些工作"
+    },
+    {
+      "id": "核心设计",
+      "level": 2,
+      "text": "核心设计"
+    },
+    {
+      "id": "当前能力与边界",
+      "level": 2,
+      "text": "当前能力与边界"
     },
     {
       "id": "架构一览",
@@ -1891,71 +2142,76 @@
       "text": "架构一览"
     },
     {
-      "id": "管理后台预览",
+      "id": "管理后台",
       "level": 2,
-      "text": "管理后台预览"
+      "text": "管理后台"
     },
     {
-      "id": "快速体验",
+      "id": "快速开始",
       "level": 2,
-      "text": "快速体验"
+      "text": "快速开始"
     },
     {
-      "id": "方式一下载编译包",
+      "id": "使用预编译运行包",
       "level": 3,
-      "text": "方式一：下载编译包"
+      "text": "使用预编译运行包"
     },
     {
-      "id": "方式二从源码构建",
+      "id": "从源码构建",
       "level": 3,
-      "text": "方式二：从源码构建"
+      "text": "从源码构建"
     },
     {
-      "id": "与-freeswitch-的关系",
+      "id": "freeswitch-兼容与验收",
       "level": 2,
-      "text": "与 FreeSWITCH 的关系"
+      "text": "FreeSWITCH 兼容与验收"
     },
     {
-      "id": "路线图围绕真实语音智能体推进",
+      "id": "开发重点",
       "level": 2,
-      "text": "路线图：围绕真实语音智能体推进"
+      "text": "开发重点"
     },
     {
-      "id": "完整项目资料",
+      "id": "项目资料与源码",
       "level": 2,
-      "text": "完整项目资料"
+      "text": "项目资料与源码"
     },
     {
-      "id": "代码在哪里",
+      "id": "参与社区",
       "level": 2,
-      "text": "代码在哪里"
+      "text": "参与社区"
     },
     {
-      "id": "一起建设-rustswitch",
+      "id": "许可与致谢",
       "level": 2,
-      "text": "一起建设 RustSwitch"
-    },
-    {
-      "id": "开源许可与致谢",
-      "level": 2,
-      "text": "开源许可与致谢"
+      "text": "许可与致谢"
     }
   ],
   "README_EN.html": [
     {
-      "id": "rustswitch-a-freeswitch-alternative-for-voice-agents",
+      "id": "rustswitch-a-freeswitch-alternative",
       "level": 1,
-      "text": "RustSwitch — a FreeSWITCH alternative for Voice Agents"
+      "text": "RustSwitch — a FreeSWITCH alternative"
     },
     {
-      "id": "why-rustswitch",
+      "id": "project-and-version-identifiers",
       "level": 2,
-      "text": "Why RustSwitch?"
+      "text": "Project and version identifiers"
     },
     {
-      "id": "what-is-available-today",
+      "id": "who-this-is-for",
       "level": 2,
-      "text": "What is available today?"
+      "text": "Who this is for"
+    },
+    {
+      "id": "design-principles",
+      "level": 2,
+      "text": "Design principles"
+    },
+    {
+      "id": "current-capabilities-and-boundaries",
+      "level": 2,
+      "text": "Current capabilities and boundaries"
     },
     {
       "id": "architecture",
@@ -1963,9 +2219,14 @@
       "text": "Architecture"
     },
     {
-      "id": "try-it-locally",
+      "id": "administration-console",
       "level": 2,
-      "text": "Try it locally"
+      "text": "Administration console"
+    },
+    {
+      "id": "quick-start",
+      "level": 2,
+      "text": "Quick start"
     },
     {
       "id": "prebuilt-runtime",
@@ -1978,19 +2239,24 @@
       "text": "Build from source"
     },
     {
-      "id": "read-the-project",
+      "id": "freeswitch-compatibility-and-acceptance",
       "level": 2,
-      "text": "Read the project"
+      "text": "FreeSWITCH compatibility and acceptance"
     },
     {
-      "id": "acceptance-and-roadmap",
+      "id": "development-priorities",
       "level": 2,
-      "text": "Acceptance and roadmap"
+      "text": "Development priorities"
     },
     {
-      "id": "build-this-with-us",
+      "id": "source-and-documentation",
       "level": 2,
-      "text": "Build this with us"
+      "text": "Source and documentation"
+    },
+    {
+      "id": "contribute",
+      "level": 2,
+      "text": "Contribute"
     },
     {
       "id": "license-and-attribution",
@@ -2000,9 +2266,34 @@
   ],
   "SECURITY.html": [
     {
-      "id": "安全报告",
+      "id": "rustswitch-安全政策",
       "level": 1,
-      "text": "安全报告"
+      "text": "RustSwitch 安全政策"
+    },
+    {
+      "id": "当前支持状态",
+      "level": 2,
+      "text": "当前支持状态"
+    },
+    {
+      "id": "私密报告",
+      "level": 2,
+      "text": "私密报告"
+    },
+    {
+      "id": "协调处理与披露",
+      "level": 2,
+      "text": "协调处理与披露"
+    },
+    {
+      "id": "当前部署边界",
+      "level": 2,
+      "text": "当前部署边界"
+    },
+    {
+      "id": "security-reporting-in-english",
+      "level": 2,
+      "text": "Security reporting in English"
     }
   ],
   "THIRD_PARTY_NOTICES.html": [
@@ -2153,68 +2444,73 @@
   ],
   "community/assets/README.html": [
     {
-      "id": "社区首页图源",
+      "id": "rustswitch-社区视觉资源",
       "level": 1,
-      "text": "社区首页图源"
+      "text": "RustSwitch 社区视觉资源"
     }
   ],
   "open-source/PUBLICATION.html": [
     {
-      "id": "公开分发与信息处理说明",
+      "id": "公开分发与版本追踪说明",
       "level": 1,
-      "text": "公开分发与信息处理说明"
+      "text": "公开分发与版本追踪说明"
     },
     {
-      "id": "文本与证据",
+      "id": "已发布的固定版本",
       "level": 2,
-      "text": "文本与证据"
+      "text": "已发布的固定版本"
     },
     {
-      "id": "预编译文件",
+      "id": "已执行的文本与信息处理",
       "level": 2,
-      "text": "预编译文件"
+      "text": "已执行的文本与信息处理"
     },
     {
-      "id": "分发位置",
+      "id": "历史证据与公开清单",
       "level": 2,
-      "text": "分发位置"
+      "text": "历史证据与公开清单"
+    },
+    {
+      "id": "预编译程序与内嵌文档",
+      "level": 2,
+      "text": "预编译程序与内嵌文档"
+    },
+    {
+      "id": "许可与内容追溯",
+      "level": 2,
+      "text": "许可与内容追溯"
     }
   ],
   "open-source/content-audit.html": [
     {
-      "id": "公开内容独立审查报告",
+      "id": "公开内容审查报告",
       "level": 1,
-      "text": "公开内容独立审查报告"
+      "text": "公开内容审查报告"
     },
     {
-      "id": "结论",
+      "id": "审查对象与结果",
       "level": 2,
-      "text": "结论"
+      "text": "审查对象与结果"
     },
     {
-      "id": "扫描范围与复核",
+      "id": "执行范围",
       "level": 2,
-      "text": "扫描范围与复核"
+      "text": "执行范围"
     },
     {
-      "id": "应处理项",
+      "id": "公开副本已执行的处理",
       "level": 2,
-      "text": "应处理项"
+      "text": "公开副本已执行的处理"
     },
     {
-      "id": "已判断无需脱敏的命中",
+      "id": "保留的测试和上游内容",
       "level": 2,
-      "text": "已判断无需脱敏的命中"
+      "text": "保留的测试和上游内容"
     },
     {
-      "id": "公开副本与证据完整性",
+      "id": "证据与文件完整性",
       "level": 2,
-      "text": "公开副本与证据完整性"
-    },
-    {
-      "id": "输出",
-      "level": 2,
-      "text": "输出"
+      "text": "证据与文件完整性"
     }
   ],
   "reference/README.html": [
@@ -6508,14 +6804,24 @@
       "text": "FreeSWITCH 平替 RustSwitch"
     },
     {
-      "id": "为什么做-rustswitch",
+      "id": "项目与版本",
       "level": 2,
-      "text": "为什么做 RustSwitch"
+      "text": "项目与版本"
     },
     {
-      "id": "现在可以做什么",
+      "id": "适合哪些工作",
       "level": 2,
-      "text": "现在可以做什么"
+      "text": "适合哪些工作"
+    },
+    {
+      "id": "核心设计",
+      "level": 2,
+      "text": "核心设计"
+    },
+    {
+      "id": "当前能力与边界",
+      "level": 2,
+      "text": "当前能力与边界"
     },
     {
       "id": "架构一览",
@@ -6523,54 +6829,49 @@
       "text": "架构一览"
     },
     {
-      "id": "管理后台预览",
+      "id": "管理后台",
       "level": 2,
-      "text": "管理后台预览"
+      "text": "管理后台"
     },
     {
-      "id": "快速体验",
+      "id": "快速开始",
       "level": 2,
-      "text": "快速体验"
+      "text": "快速开始"
     },
     {
-      "id": "方式一下载编译包",
+      "id": "使用预编译运行包",
       "level": 3,
-      "text": "方式一：下载编译包"
+      "text": "使用预编译运行包"
     },
     {
-      "id": "方式二从源码构建",
+      "id": "从源码构建",
       "level": 3,
-      "text": "方式二：从源码构建"
+      "text": "从源码构建"
     },
     {
-      "id": "与-freeswitch-的关系",
+      "id": "freeswitch-兼容与验收",
       "level": 2,
-      "text": "与 FreeSWITCH 的关系"
+      "text": "FreeSWITCH 兼容与验收"
     },
     {
-      "id": "路线图围绕真实语音智能体推进",
+      "id": "开发重点",
       "level": 2,
-      "text": "路线图：围绕真实语音智能体推进"
+      "text": "开发重点"
     },
     {
-      "id": "完整项目资料",
+      "id": "项目资料与源码",
       "level": 2,
-      "text": "完整项目资料"
+      "text": "项目资料与源码"
     },
     {
-      "id": "代码在哪里",
+      "id": "参与社区",
       "level": 2,
-      "text": "代码在哪里"
+      "text": "参与社区"
     },
     {
-      "id": "一起建设-rustswitch",
+      "id": "许可与致谢",
       "level": 2,
-      "text": "一起建设 RustSwitch"
-    },
-    {
-      "id": "开源许可与致谢",
-      "level": 2,
-      "text": "开源许可与致谢"
+      "text": "许可与致谢"
     }
   ]
 }

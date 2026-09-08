@@ -1,136 +1,203 @@
-# RustSwitch — a FreeSWITCH alternative for Voice Agents
+<div align="center">
 
-**Rust media. Go call control. C/C++ codec adapters. Built around real-time telephone audio.**
+# RustSwitch — a FreeSWITCH alternative
+
+**An open-source real-time voice runtime for Voice Agents**
+
+Rust media · Go call control · C/C++ codec adapters
 
 [简体中文](README.md) · **English**
 
-[Get the source](source/main) · [Download a preview](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases) · [Quick start](QUICKSTART.md) · [Architecture](03-软件架构图.md) · [API reference](04-HTTP接口文档.md) · [Contribute](CONTRIBUTING.md)
+[![Development preview](https://img.shields.io/badge/status-development_preview-efb366?style=flat-square)](08-当前能力与验证状态.md)
+[![Original code Apache-2.0](https://img.shields.io/badge/original_code-Apache--2.0-087f79?style=flat-square)](LICENSE_SCOPE.md)
+[![GitHub stars](https://img.shields.io/github/stars/weijiaxing1992-arch/yunfu-voice-runtime?style=flat-square)](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/stargazers)
 
-RustSwitch, also called Yunfu Voice Runtime in the code and documentation, is an open-source voice runtime for inbound calls, outbound calling, and telephone Voice Agents. It aims to offer a focused alternative to FreeSWITCH, with gradual compatibility where it helps real migrations.
+[**Quick start**](QUICKSTART.md) · [**Download the preview**](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908) · [**Documentation**](DOCUMENTATION.md) · [**API reference**](04-HTTP接口文档.md) · [**Contribute**](CONTRIBUTING.md)
 
-**Development preview:** the repository contains working implementations, buildable source, ARM64 runtime packages, and documented gaps. It is not yet a drop-in FreeSWITCH replacement. Full Voice Agent calls, complete protocol compatibility, and 5,000/10,000-call production capacity have not passed acceptance testing.
+![RustSwitch: a development-preview voice runtime using Rust, Go and C/C++](community/assets/hero.svg)
 
-## Why RustSwitch?
+</div>
 
-Voice Agents need more than a connected call. They need timely audio, clear ownership of each conversation turn, bounded resource use, and evidence that survives failures.
+RustSwitch, also named **Yunfu Voice Runtime** in the source and delivery materials, is a real-time telephony infrastructure project for Voice Agents. It separates Rust media processing, Go call control, and native C/C++ adapters, with a focus on telephone access, continuous audio, playback, digit interaction, resource protection, and observability.
 
-RustSwitch's design puts those needs at the center:
+The goal is to become a **FreeSWITCH alternative for telephone Voice Agent workloads**, adding compatibility where it supports actual migration requirements. This repository contains the main source, a separate ASR candidate, tests, pinned dependencies, documentation, and a published backlog. Runtime binaries and resource archives are distributed through GitHub Releases.
 
-- **Separate media from control.** Rust workers handle RTP and media state; Go manages calls, admission, supervision, and the administration console.
-- **Expose audio to agent integrations.** Local PCM streaming and receive-audio interfaces provide a foundation for speech pipelines. A separate ASR candidate adds a mock-backed protocol implementation.
-- **Make overload visible and controllable.** Concurrency, calls per second, and calls being established have explicit limits, with local configuration and test pages.
-- **Make migration measurable.** Published interface contracts, a pinned FreeSWITCH comparison, and failure records show what is implemented, what is partial, and what still needs verification.
+> **Development preview.** RustSwitch is not currently a drop-in replacement for every FreeSWITCH deployment. Complete 5,000/10,000-call capacity acceptance and a real ASR–LLM–TTS application loop remain unfinished. Implementation, limited validation, and engineering goals are reported separately in the [capability status](08-当前能力与验证状态.md).
 
-Higher capacity and lower resource use are engineering goals. This preview does not claim a measured advantage over FreeSWITCH.
+Most detailed documentation, diagrams, administration screens, and code comments are currently in Chinese. This English overview provides an entry point; it does not imply that all materials have been translated.
 
-## What is available today?
+## Project and version identifiers
 
-| Area | Included in this preview | Current boundary |
-| --- | --- | --- |
-| Telephone signaling | Restricted IPv4 SIP calls over UDP/TCP/TLS, a single fixed-upstream REGISTER/Digest client, exact-number local answering | No complete Sofia equivalent, multi-gateway registrar, or general-purpose originate API |
-| Media | RTP/RTCP relay, limited real-time PCMA/PCMU processing, prompt/WAV playback, DTMF receive/send and restricted digit collection | Full IVR semantics and real-time G.722/Opus processing remain open |
-| Agent audio foundation | Local PCM downlink, receive-audio access, session/generation/turn boundaries | A complete ASR–LLM–TTS agent is not included |
-| ASR candidate | Separate ASR1 protocol, mock supplier, lifecycle controls, resampling and result provenance checks | Not merged into the main tree; the mock does not recognize speech |
-| Operations | Embedded Chinese administration UI, admission limits, process supervision, SIP/media quick tests, load-test tooling | Production security, capacity and recovery require further acceptance work |
-| Migration materials | HTTP contracts, SDK/protocol docs, editable diagrams, requirements, and 3,999 comparison records | Records include declarations and configuration entries; they are not a count of supported features |
+| Identifier | Meaning |
+|---|---|
+| RustSwitch / Yunfu Voice Runtime | Project names; the repository is `yunfu-voice-runtime` |
+| [`v0.1.0-preview.20260908`](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908) | Published initial development preview; source and runtime archives have their own integrity manifests |
+| `source/main/` | The main project directory, distinct from the Git branch named `main` |
+| `source/asr-candidate/` | A separately published ASR candidate that has not been merged into the main project |
+| `1.13.0` | Main documentation baseline, separate from the release tag, Go application `0.3.0`, and Rust crate `0.2.0` |
+| FreeSWITCH `1.11.3` | Pinned compatibility research baseline, not a statement about the latest upstream version or certification |
 
-The G.722 and Opus native adapters are available as optional backends. Their presence does not mean that every real-time media path supports those codecs. See the [current capability report](08-当前能力与验证状态.md) and [remaining work](13-项目未完成清单.md).
+See the [changelog](CHANGELOG.md) for documentation and delivery changes. Reports should identify the release tag or Git commit and the source variant; a UI version alone does not establish that source, documentation, and binaries match.
+
+## Who this is for
+
+- **Voice Agent developers** evaluating telephone access and audio interfaces before integrating their own ASR, TTS, and application logic.
+- **FreeSWITCH migration engineers** testing the specific trunks, commands, events, and media scenarios required by a deployment.
+- **Media and systems developers** improving worker isolation, resource cleanup, overload handling, and reproducible benchmarks.
+- **Operations and test engineers** validating behavior with the administration console, isolated call tests, metrics, and logs.
+
+Start with the main project's isolated single-call SIP/media test. The current preview is intended for controlled development and acceptance environments; see [SECURITY](SECURITY.md) for deployment boundaries and vulnerability reporting.
+
+## Design principles
+
+| Concern | Approach |
+|---|---|
+| Separate media and control | Rust processes own RTP and media state; Go manages call lifecycle, admission, and process supervision |
+| Explicit resource budgets | Fixed worker shards, bounded queues, port pools, and limits for concurrency, calls being established, and calls per second |
+| Agent audio boundaries | G.711 real-time audio graph, PCM downlink, receive-audio interfaces, and session/generation/turn constraints |
+| Native ecosystem reuse | Versioned C ABI adapters, with negotiation, relay, codec execution, and real-time processing assessed separately |
+| Observable acceptance | Management APIs, samples, failure records, and isolated load tests tied to source, environment, and workload |
+| Gradual compatibility | A fixed FreeSWITCH reference with differences, missing capabilities, and failed results retained |
+
+Higher concurrency, lower resource use, and stable long-running calls are engineering goals. This preview has not demonstrated a complete, like-for-like performance advantage over FreeSWITCH.
+
+## Current capabilities and boundaries
+
+| Area | Available scope | Remaining work |
+|---|---|---|
+| Telephone access | Restricted IPv4 SIP UDP/TCP/TLS bridging, two-leg call lifecycle, fixed-upstream REGISTER/Digest client | General originate, multiple trunks, a complete registration server, and additional SIP dialog behavior |
+| Media transport | RTP/RTCP validation and relay, negotiated telephone-event relay | SRTP, WebRTC/ICE, full terminating RTCP behavior |
+| Audio and interaction | G.711 real-time graph, local playback/digit collection, PCM downlink/interruption, receive audio, limited IVR | Full IVR semantics, complete audio-path coverage, and dual-track recording |
+| Codecs | G.711; optional G.722/Opus native backends and independent checks | Per-path real-time codec coverage and audio-quality acceptance; G.729/AMR/EVS extensions |
+| Control interfaces | Project HTTP APIs, inbound ESL and runtime XML dialplan subsets | Complete FreeSWITCH commands, events, dialplan, and plugin semantics |
+| Operations | Chinese console, admission protection, worker supervision, logs, single-call and load-test tools | Broader authentication/authorization, reliable statistics, and cross-host preservation of active calls |
+| ASR candidate | Separate internal ASR1 contract, mock supplier, lifecycle and audio-provenance checks | Mainline integration, real recognition, TTS/LLM integration, and complete Agent acceptance |
+
+The ASR mock does not recognize speech. A G.722 or Opus backend does not establish support for that codec in every real-time path. Detailed completion criteria are in the [remaining-work register](13-项目未完成清单.md).
 
 ## Architecture
 
+![RustSwitch architecture: Go control, Rust media, C codec adapters and separate AI integration boundaries](community/assets/architecture.svg)
+
+Solid lines identify existing main-project paths; dashed lines identify candidate or planned integrations. Neither implies complete semantic acceptance. See [deployment topology](02-项目拓扑图.md), [software architecture](03-软件架构图.md), and [protocols and SDKs](05-协议与SDK文档.md).
+
 ```mermaid
 flowchart LR
-    SIP["SIP peers / trunks"] --> Control["Go control plane"]
+    SIP["SIP peers / trunks"] --> Control["Go call control"]
     Console["Embedded admin UI"] --> Control
     Control --> Workers["Rust media workers"]
     RTP["RTP / RTCP"] <--> Workers
     Workers <--> Native["C ABI codec adapters"]
     Workers <--> PCM["Local PCM / receive-audio interfaces"]
     PCM -. "separate candidate" .-> ASR["ASR1 + mock supplier"]
+    ASR -. "planned integration" .-> AI["Real ASR / LLM / TTS"]
 ```
 
-The default UI is embedded in the Go executable; it does not need a separate Node.js service. [Deployment topology](02-项目拓扑图.md), [software architecture](03-软件架构图.md), and [editable diagram sources](figures) explain process boundaries and the planned agent path.
+## Administration console
 
-## Try it locally
+![Historical RustSwitch admission-protection screen](reference/docs/verification-v0.3/protection-desktop.png)
+
+*This is an unmodified screenshot from the project's v0.3 historical verification. Values such as 8,000 are configuration or resource budgets, not achieved capacity. Current fields and behavior are defined by the accompanying API documents.*
+
+The console is embedded in the Go executable and needs no separate frontend service. It covers runtime overview, admission protection, SIP/media configuration, tests, interface documents, and the FreeSWITCH comparison.
+
+## Quick start
 
 ### Prebuilt runtime
 
-Download the matching runtime archive from [Releases](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases), extract it, then run from the extracted package root:
+Download a matching runtime archive from the [preview release](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908), extract it, and run from the package root:
 
 ```sh
 python3 verify.py
 cd main
 chmod +x run.sh bin/*
 ./run.sh -check-config
-# After configuration passes and the example ports are free:
+# Start after configuration passes and the example ports are available.
 ./run.sh
 ```
 
-Open `http://127.0.0.1:9080`. The examples bind to loopback and do not provide a real SIP trunk. Start with the isolated single-call test in the administration console; it does not use a browser microphone. Read [Quick start](QUICKSTART.md) before connecting a real line or changing listen addresses.
+Open the [local administration console](http://127.0.0.1:9080) and begin with the isolated single-call SIP/media simulation. This test does not use a browser microphone, and the defaults do not include a real SIP trunk.
 
-| Runtime archive | Platform | Notes |
-| --- | --- | --- |
-| macOS ARM64 | Apple Silicon, macOS 26+ | Includes optional G.722/Opus native libraries; development binaries are not Developer ID notarized |
-| Linux ARM64 | Linux aarch64 | Static core binaries; optional G.722/Opus shared libraries are not included |
+| Runtime | Platform and boundary |
+|---|---|
+| macOS ARM64 | Apple Silicon, macOS 26+; optional G.722/Opus native libraries included; development binaries are not Developer ID notarized |
+| Linux ARM64 | Linux aarch64 static core; optional G.722/Opus shared libraries are not included; the ASR candidate combination has not completed an integrated runtime test |
 
-No prebuilt x86_64 package is provided in this preview. The Linux ASR candidate package has not passed a combined runtime test. Main and candidate use the same example ports and should not be started together.
+No prebuilt x86_64 runtime is provided. Defaults bind to loopback: SIP `5060`, fixed upstream `5070`, administration `9080`, a 100-call limit and 20 CPS. Main and candidate use the same ports and should be run separately. These values are defaults, not measured capacity. Follow [QUICKSTART](QUICKSTART.md) for complete instructions.
 
 ### Build from source
 
-Install Python 3.9+, Go 1.23+, Rust/Cargo 1.85+, and a C11 compiler with your platform's development tools. These are declared minimums; not every minimum-version combination has been rebuilt. Vendored dependencies are included; compilers are not.
+Install Python 3.9+, Go 1.23+, Rust/Cargo 1.85+, and a C11 development environment. Minimums come from source declarations and have not been tested in every combination; recorded builds use Go 1.27.1 and Rust 1.98.1.
 
 ```sh
 git clone https://github.com/weijiaxing1992-arch/yunfu-voice-runtime.git
 cd yunfu-voice-runtime
 python3 delivery-tools/verify_delivery.py
 python3 delivery-tools/build_source.py \
-  --variant main \
-  --output ../voice-runtime-build-main
+  --variant main --output ../rustswitch-build
 ```
 
-Choose a new output directory outside the repository. This offline build does not start network services. The [Quick start](QUICKSTART.md) covers assembling the runtime, the optional native backends, and the separate ASR candidate.
+Pinned dependency source is included, so the delivery build does not fetch dependencies online; compilers must be installed separately. Choose a new output directory outside the repository. This script verifies source snapshot manifests and only builds unmodified delivery source; it rejects edited source. For development changes, use the source project's Go/Cargo/Makefile entry points and report documentation-gate blockers explicitly. Snapshot mismatches after local edits are expected; do not rewrite historical manifests to bypass checks. See [Quick start](QUICKSTART.md) for runtime assembly and [CONTRIBUTING](CONTRIBUTING.md) for the development workflow.
 
-## Read the project
+## FreeSWITCH compatibility and acceptance
 
-Most detailed documentation and code comments are currently in Chinese. This English overview is an entry point, not a claim that every document is translated.
+RustSwitch prioritizes common telephone Voice Agent paths and incrementally supports interfaces required by real migrations. Existing FreeSWITCH modules cannot be loaded directly as binary plugins. General PBX functionality, conferencing, video, fax, and all third-party modules are not claimed as completed in this preview.
 
-| Looking for | Start here |
-| --- | --- |
-| Main source and build tools | [source/main](source/main), [delivery-tools](delivery-tools) |
-| Candidate work and patch provenance | [source/asr-candidate](source/asr-candidate), [source/patches](source/patches) |
-| HTTP operations and data models | [HTTP API](04-HTTP接口文档.md), [data models](09-数据模型全文.md) |
-| Protocols and SDKs | [Protocol and SDK guide](05-协议与SDK文档.md) |
-| Running, diagnosing and testing | [User guide](06-使用说明.md), [operations and load testing](07-运维与压测说明.md) |
-| FreeSWITCH migration gaps | [Capability status](08-当前能力与验证状态.md), [comparison data](backlog), [remaining work](13-项目未完成清单.md) |
-| Requirements and full delivery inventory | [Requirements](12-需求说明书.md), [delivery inventory](DELIVERY.md) |
-| Source and binary licensing | [Open-source scope](OPEN_SOURCE.md), [license scope](LICENSE_SCOPE.md), [third-party notices](THIRD_PARTY_NOTICES.md) |
+The [3,999 comparison records](backlog/FreeSWITCH-全部逐项状态.csv) mix interfaces, declarations, configuration, and acceptance definitions. They **cannot be used directly as a compatibility-percentage denominator**. Migration decisions need these separate checks:
 
-The full materials archive also contains an offline `index.html`, source snapshots, editable diagrams, and selected historical evidence. Large archives and binaries are distributed through Releases.
+| Check | Evidence |
+|---|---|
+| Required protocol, command, and return semantics | [Pinned FreeSWITCH comparison standard](source/main/docs/freeswitch-compatibility/README.md) |
+| Accepted inputs, configuration, and errors | [HTTP API](04-HTTP接口文档.md), [protocol and SDK guide](05-协议与SDK文档.md) |
+| Runtime implementation versus configuration export | [Machine-readable comparison](backlog/FreeSWITCH-全部逐项状态.json) |
+| Tests that apply to the selected source | [Validation status](08-当前能力与验证状态.md), [remaining work](13-项目未完成清单.md) |
 
-## Acceptance and roadmap
+The current main documentation gate records expired `key-api-pcm-stream` evidence; the candidate gate records a field dictionary behind its machine contract. These are encountered blockers, not an exhaustive list. Integrity checks, builds, functional tests, paired interoperability, and capacity acceptance establish different things. Historical passes do not automatically become current green results; see the [documentation and evidence guide](DOCUMENTATION.md).
 
-The next priorities are concrete engineering work:
+## Development priorities
 
-1. Repair documentation gates and refresh evidence against the exact published source.
-2. Make load-test statistics consistent and diagnose the recorded relay failures.
-3. Integrate real speech suppliers, VAD, streaming TTS and conversation-turn cancellation.
-4. Extend call origination, registration, DTMF/IVR and useful ESL compatibility with paired tests.
-5. Validate core codecs, complete Voice Agent calls, and sustained capacity on target Linux hardware.
+1. Repair delivery gates and statistical consistency, and refresh evidence against specific source revisions.
+2. Improve registration, call lifecycle, audio receive/playback, digits, and cleanup across success and failure paths.
+3. Integrate real ASR/TTS, conversation turns, cancellation, timeouts, VAD/interruption, and audio correctness.
+4. Close deployment-relevant SIP, ESL, XML, and codec gaps with reproducible paired tests.
+5. Compare against FreeSWITCH under the same hardware, features, and audio quality, then validate 1,000/5,000/10,000-call workloads and sustained mixed load.
 
-The current main documentation gate reports expired `key-api-pcm-stream` evidence; the candidate gate reports a field dictionary that is behind its machine contract. Builds and package integrity checks do not resolve those gates. Historical pass counts must not be treated as a current compatibility percentage. See the [40 work packages and their acceptance conditions](13-项目未完成清单.md).
+These are engineering priorities, without promised delivery dates or achieved performance gains. See [requirements](12-需求说明书.md) and [work packages](13-项目未完成清单.md) for priorities and completion conditions.
 
-## Build this with us
+## Source and documentation
 
-Useful contributions include a reproducible SIP interoperability case, a fix with failure-path coverage, a clearer first-run guide, or a benchmark whose workload and hardware are fully described.
+| Reader | Starting points |
+|---|---|
+| Evaluators | [Quick start](QUICKSTART.md), [project overview](01-项目说明.md), [current status](08-当前能力与验证状态.md) |
+| Developers and integrators | [Architecture](03-软件架构图.md), [26 HTTP operations](04-HTTP接口文档.md), [77 data models](09-数据模型全文.md), [protocols and SDKs](05-协议与SDK文档.md) |
+| Operations and testing | [User guide](06-使用说明.md), [operations and load testing](07-运维与压测说明.md) |
+| Project handover | [Source delivery](11-交付与源码说明.md), [requirements](12-需求说明书.md), [remaining work](13-项目未完成清单.md) |
+| Open source and community | [Open-source scope](OPEN_SOURCE.md), [license scope](LICENSE_SCOPE.md), [community guide](COMMUNITY.md), [changelog](CHANGELOG.md) |
 
-- [Report a bug or propose an improvement](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues)
-- [Read the contribution guide](CONTRIBUTING.md) and [community guide](COMMUNITY.md)
-- [Report a security issue](SECURITY.md)
+The [documentation center](DOCUMENTATION.md) explains reading order and source authority. The full materials archive includes an offline `index.html`, editable diagrams, and detailed references; see the [delivery inventory](DELIVERY.md).
 
-If this direction is useful to you, **star the repository** to make it easier for other telephony and Voice Agent developers to discover. Real issue reports, reproducible results and thoughtful pull requests help the project move forward.
+```text
+source/main/              Main Go, Rust and C project, configuration and tests
+source/asr-candidate/     Separate ASR candidate and mock
+source/patches/           Tested patches and separately identified working drafts
+source/design-reference/ Protocol prototypes and design tests
+dependencies/            Pinned Rust dependencies and Opus source archive
+delivery-tools/          Offline build and distribution integrity checks
+backlog/                 FreeSWITCH comparison and work register
+requirements/            Project direction and requirements traceability
+evidence/                Historical evidence with version and scope
+```
+
+## Contribute
+
+Reproducible bugs, sanitized interoperability cases, fully described benchmarks, code improvements, and documentation corrections are welcome. Small changes can go directly to a pull request; discuss substantial interface or architecture changes in an issue first. See [COMMUNITY](COMMUNITY.md) and [CONTRIBUTING](CONTRIBUTING.md).
+
+[Report a bug](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues/new?template=bug_report.yml) · [Request a feature](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues/new?template=feature_request.yml) · [Report interoperability](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues/new?template=compatibility_report.yml) · [Report a security issue](SECURITY.md)
+
+If RustSwitch is useful to you, **star the repository** or share it with telephony and Voice Agent developers. Specific use cases, reproducible results, and sustained contributions help the project grow.
 
 ## License and attribution
 
-Project-owned original code and documentation are licensed under [Apache-2.0](LICENSE). Third-party code and materials retain their own licenses, including LGPL-covered G.722 components and the FreeSWITCH, Opus, Go and Rust materials listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Read [LICENSE_SCOPE.md](LICENSE_SCOPE.md) before redistributing a combined package.
+Original code and documentation that the project is entitled to license are provided under [Apache-2.0](LICENSE). G.722 support files, SpanDSP, FreeSWITCH templates, Opus, and Go/Rust dependencies retain applicable exceptions and upstream licenses. Review [LICENSE_SCOPE](LICENSE_SCOPE.md), [third-party notices](THIRD_PARTY_NOTICES.md), and the [machine inventory](third-party-inventory.json) before redistribution.
 
-FreeSWITCH is referenced for compatibility and attribution. RustSwitch is an independent project, not an official FreeSWITCH distribution, and does not claim endorsement or certification by its upstream project.
+Thanks to FreeSWITCH, Rust, Go, SpanDSP, Opus, and the dependency projects. RustSwitch is independent; references to FreeSWITCH describe compatibility research and attribution, not an official distribution, endorsement, or compatibility certification.
