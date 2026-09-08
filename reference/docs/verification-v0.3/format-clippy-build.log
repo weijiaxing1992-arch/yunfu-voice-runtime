@@ -1,0 +1,7 @@
+cargo fmt --check --manifest-path media/Cargo.toml
+cargo clippy --locked --all-targets --manifest-path media/Cargo.toml --target-dir /workspace/yunfu-voice-runtime/work/build/media -- -D warnings
+    Checking rustswitch-media v0.2.0 (/workspace/yunfu-voice-runtime/outputs/rustswitch/media)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.82s
+cd control && go vet ./...
+mkdir -p bin
+cd control && go build -trimpath -o ../bin/rustswitch ./cmd/rustswitch

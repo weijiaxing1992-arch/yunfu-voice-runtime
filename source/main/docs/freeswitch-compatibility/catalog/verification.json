@@ -1,0 +1,25 @@
+{
+  "verified_at": "2026-09-05T10:04:39.276397+00:00",
+  "scope": "DOCUMENT PACKAGE STATIC VALIDATION ONLY",
+  "reference_version": "1.11.3",
+  "reference_commit": "ef32e205295e29f034f1453ad245ba5efb07b94a",
+  "source_files_hash_verified": 712,
+  "registration_sites": 538,
+  "scenario_definitions": 169,
+  "capacity_profiles": 8,
+  "source_link_occurrences_checked": 784,
+  "json_syntax": "passed",
+  "local_links": "passed",
+  "source_links_local_file_and_line_bounds": "passed",
+  "scenario_unique_ids": "passed",
+  "extractor_balanced_expression_smoke_checks": "passed",
+  "false_native_macro_symbols_excluded": "passed",
+  "freeswitch_runtime_tested": false,
+  "rustswitch_compatibility_tested": false,
+  "certification": "not_certified",
+  "notes": [
+    "No original FreeSWITCH binary was built or run.",
+    "Statement-level source reviews do not substitute for runtime conformance.",
+    "Source catalogs omit macro-generated/ordinary extern/C++ symbols and runtime extensions; see catalog README."
+  ]
+}

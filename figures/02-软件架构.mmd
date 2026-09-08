@@ -1,0 +1,18 @@
+flowchart TB
+  subgraph Go["Go 控制进程"]
+    Protocol["SIP/SDP/REGISTER · 有限ESL/IVR/Dialplan"]
+    State["呼叫状态 / ACK资格 / Guard / 排空"]
+    Pool["worker监管 / generation / PCM与RX SDK"]
+    Admin["HTTP后台 / 配置 / 事件 / 隔离压测 / 文档"]
+    Protocol <--> State
+    State <--> Pool
+    Admin <--> State
+  end
+  subgraph Rust["Rust 分片媒体进程"]
+    RTP["非阻塞UDP / RTP与RTCP / 端口 / relay"]
+    Audio["G.711实时图 / 有界队列 / tone与WAV / PCM / DTMF"]
+    RTP <--> Audio
+  end
+  Pool <-->|"JSONL / FD3 / FD4"| Rust
+  Audio <-.-> Native["C ABI · 可选离线G.722/Opus后端"]
+  Pool <-->|"候选内部SDK"| ASR["ASR1候选 / 按需重采样 / 来源验证"]

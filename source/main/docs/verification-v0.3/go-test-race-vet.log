@@ -1,0 +1,7 @@
+ok  	rustswitch/control/cmd/callbench	(cached)
+?   	rustswitch/control/cmd/rustswitch	[no test files]
+ok  	rustswitch/control/internal/config	(cached)
+ok  	rustswitch/control/internal/journal	(cached)
+ok  	rustswitch/control/internal/media	(cached)
+ok  	rustswitch/control/internal/server	2.393s
+ok  	rustswitch/control/internal/sip	(cached)

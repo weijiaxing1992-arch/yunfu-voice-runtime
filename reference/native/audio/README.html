@@ -1,0 +1,59 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>原生音频依赖与离线 PCM SDK · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 原生音频依赖与离线 PCM SDK</div><article class="content"><div class="page-tools"><a href="README.md" download>Markdown 原稿</a><a href="../../docs/api/openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#构建与来源">构建与来源</a><a href="#cli-和输出语义">CLI 和输出语义</a><a href="#pcm-与媒体时钟边界">PCM 与媒体时钟边界</a><a href="#缺包dtxcn-与电话事件">缺包、DTX、CN 与电话事件</a><a href="#运行边界与复杂度">运行边界与复杂度</a></details><h1 id="原生音频依赖与离线-pcm-sdk">原生音频依赖与离线 PCM SDK</h1>
+<p>当前真实编解码范围为 PCMU、PCMA、G.722（64 kbit/s）和 Opus。G.729、G.726/AAL2-G.726、L16 的当前支持范围为同编码 RTP 直通；它们的 <code>encode/decode/available</code> 返回 false，不能解释为已经提供转码。现有 <code>rs_codec_get_v1</code> 自定义 ABI 及 G.711 示例不变。新增音频 SDK 直接调用官方库 ABI，没有冒充 FreeSWITCH 原生模块 ABI。</p>
+<h2 id="构建与来源">构建与来源</h2>
+<p>从项目目录运行，<code>--prefix</code> 必须指向操作者选择的私有输出目录。脚本不安装系统软件、不修改系统动态库搜索路径。需要 Python 3、C 编译器及 make；有本地官方归档时增加 <code>--opus-archive /absolute/opus-1.5.2.tar.gz</code>，仍验证同一校验和。</p>
+<pre><code class="language-sh">python3 native/audio/build_codecs.py --prefix /absolute/private/audio-deps
+</code></pre>
+<p>脚本最后输出两份库的绝对路径。Linux 扩展名为 <code>.so</code>，macOS 为 <code>.dylib</code>。macOS 已安装 Command Line Tools 且系统选择器指向其他 Xcode 时，可以仅对本次命令设置 <code>DEVELOPER_DIR=/Library/Developer/CommandLineTools</code>；脚本不会接受或修改系统许可协议。受限环境的 <code>sysctl</code> 不可用时，脚本给 libtool 提供保守命令长度，避免空探测值造成链接对象丢失。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>固定来源</th>
+<th>许可与交付方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Opus</td>
+<td>官方 1.5.2 归档，SHA256 <code>65c1d2f78b9f2fb20082c38cbe47c951ad5839345876e46941612ee87f9a7ce1</code></td>
+<td>保留上游 <a href="OPUS-COPYING">COPYING</a>；BSD 3 条款及上游列出的专利许可。完整归档在构建目录，未改源。</td>
+</tr>
+<tr>
+<td>G.722</td>
+<td><a href="https://github.com/freeswitch/spandsp/tree/8f1e1646bdec99eac5fd2cd92c35563f736b9b89" target="_blank" rel="noopener noreferrer">SpanDSP 固定提交</a>，源码子集在 <code>native/vendor/spandsp</code></td>
+<td>上游 G.722 源码与必要头文件原样保留，文件头为 LGPL 2.1；保留完整 <a href="../vendor/spandsp/COPYING">COPYING</a>。独立动态库可由操作者重新构建、替换。</td>
+</tr>
+<tr>
+<td>G.722 构建适配</td>
+<td><code>g722_support.c</code></td>
+<td>自研堆分配/循环点积适配，不改官方 G.722 算法，不包含其他 SpanDSP 模块。</td>
+</tr>
+<tr>
+<td>G.711</td>
+<td><code>media/src/audio/g711.rs</code></td>
+<td>自研标准压扩与重采样实现，65536 个 i16 输入逐个检查量化误差，覆盖静音码字。</td>
+</tr>
+</tbody></table></div>
+<p>每个保留上游源文件的 SHA256 在 <a href="sources.json">sources.json</a>。固定版本用于可复现构建，不声明为上游最新版本。Opus 官方许可说明见 <a href="https://opus-codec.org/license/" target="_blank" rel="noopener noreferrer">Opus license</a>；G.722 源码中的版权与许可说明保持原文。分发依赖时须同时保留其来源、许可证和可重建源码。</p>
+<h2 id="cli-和输出语义">CLI 和输出语义</h2>
+<pre><code class="language-sh">export RUSTSWITCH_G722_LIBRARY=/absolute/private/audio-deps/librustswitch_g722.dylib
+export RUSTSWITCH_OPUS_LIBRARY=/absolute/private/audio-deps/opus/lib/libopus.dylib
+rustswitch-media --audio-capabilities
+rustswitch-media --check-audio
+</code></pre>
+<p>两个环境变量仅接受绝对路径，指向操作者信任的原生库。原生代码在当前探测/SDK 宿主内执行，不能视为安全沙箱。未指定库时 <code>--audio-capabilities</code> 仍退出成功并逐条报告不可用原因；<code>--check-audio</code> 要求全部 P0 真编解码通过，缺任何库输出 <code>passed:false</code> JSON 并非零退出。二者与 <code>--worker-config</code>、旧 <code>--check-codec</code> 互斥。</p>
+<p>能力 JSON 保留 <code>codecs[].name/available/encode/decode/plc/reason</code>、规范 <code>pcm</code> 和 <code>live_transcoding:false</code>。<code>plc_mode</code> 区分 <code>codec_native</code>、<code>bounded_history_concealment</code>、<code>unavailable</code>。<code>relay:true</code> 表示 Rust RTP 路径支持该编码的协商类型，不表示已在所有设备、参数、网络或万路负载上认证。库缺失不影响纯 RTP 直通。生产管理服务可缓存此只读结果，避免每次页面轮询生成子进程。</p>
+<p>自检对每种 P0 编码处理 40 帧（10/20 ms），检查非空编码、解码长度、PCM 小端往返、信号能量和有界延迟对齐后的相关性。还检查 PLC 标签、CN 独立语义、CN 后缺包不重放旧语音、空包不被冒充丢包。G.722 的 160 个 <code>fa</code> 字节和 Opus <code>f8 ff fe</code> 外部发生器码字均要求能解码为 320 个 16k 样本（20 ms）。这些是功能检查，不是语音主观质量评分、规范向量全覆盖或万路转码吞吐证明。</p>
+<h2 id="pcm-与媒体时钟边界">PCM 与媒体时钟边界</h2>
+<p>Rust <code>AudioFrame</code> 只接受 160/320 个有符号 i16 样本，固定为 16 kHz、单声道、10/20 ms；<code>from_s16le/to_s16le</code> 显式进行小端转换。RTP <code>L16</code> 的大端格式不与这个内部格式混用。帧字段私有，构造后不能被调用方修改长度。</p>
+<p>G.711 的 PCM 为 8k：进入/离开规范帧使用保留状态的 31 抽头 FIR，先低通再降采样，升采样先插零再低通。G.722 原生 PCM 为 16k，RTP 时钟仍为 8k，20ms 对应 320 样本、160 时间戳刻度。<a href="https://www.rfc-editor.org/rfc/rfc3551.html" target="_blank" rel="noopener noreferrer">RFC3551</a> 保留了这个历史时钟规则。Opus 在线 SDP 声明 <code>opus/48000/2</code>，SDK 使用官方 API 以 16k 单声道编码/解码；声道声明不会被内部单声道 PCM 覆盖。<a href="https://www.rfc-editor.org/rfc/rfc7587.html" target="_blank" rel="noopener noreferrer">RFC7587</a> 规定 Opus 的 RTP 48k 时钟及 SDP 声道声明。</p>
+<p><code>CodecSpec</code> 与内部帧长分别校验。直通支持更长的协商包时长；离线 SDK 当前每次只接收 10/20ms。SDK不提供任意立体声PCM、任意采样率重采样、RTP封包、播放调度或在线转码会话。</p>
+<h2 id="缺包dtxcn-与电话事件">缺包、DTX、CN 与电话事件</h2>
+<p><code>DecodeInput::Packet</code> 是真实码流，即使解码结果为零也标记 <code>Decoded</code>。<code>PacketLoss</code> 由调用方的媒体时间线判定；空字节包直接报错，不能代替丢包标记。Opus 调用官方解码器的空指针 PLC；G.711/G.722 使用上一帧乘以 0.75 的历史近似，最多连续 120ms，之后返回 <code>MissingAudio</code>。没有历史或帧时长变化时同样返回缺失。这个近似不是 G.711 附录 PLC，也不会修复 G.722 编码预测器状态；输出标签始终可区分估计与真实输入。</p>
+<p>RFC3389 CN 载荷先通过已协商 PT 分流。SDK 保留电平与谱系数，返回 <code>ComfortNoise</code>，当前不合成噪声、不伪造静音 PCM；CN 后的缺包返回 <code>MissingAudio</code>，直到下一份真实音频包。SDK 单份 SID 上限为 8192 字节，是内存边界而非 RFC 阶数限制。<a href="https://www.rfc-editor.org/rfc/rfc3389.html" target="_blank" rel="noopener noreferrer">RFC3389</a> 未固定谱模型阶数，且把噪声合成算法留给实现。Opus 自身 DTX 仍作为 Opus 码流处理，不能与独立 CN 类型混淆。</p>
+<p>RTP 热路径检查 DTMF 事件四字节边界、保留位及协商的 0..16 子集，保留事件时长/结束位原值，不把事件送给音频解码器。辅助 CN 时钟须与主 RTP 时钟相同；静态 PT13 只能为 8k。DTMF 的时钟独立声明，不按主编码名猜测。</p>
+<h2 id="运行边界与复杂度">运行边界与复杂度</h2>
+<p>默认 worker 从未加载这些原生库；只有离线 SDK/检查命令使用它们。单编码/解码实例拥有独立状态，不为每个包生成线程。G.711 重采样开销为每输入样本固定 31 次滤波运算；每个实例只保留两份 FIR 状态和一帧历史。Opus/G.722 开销取决于官方算法，尚未完成 Linux 万路 PCM 转码验收。</p>
+<p>RTP 每 worker 复用一个 8 包批次，单包缓冲 8192 字节。包长度达到或超过 8192 会计入拒绝，兼容缺少原始截断长度的回退系统；这个是实现包长边界，不保证所有合法 Opus 组合均小于它。普通协商下的 L16 48k 双声道20ms载荷为3840字节。协议扩展没有增加每会话收包缓冲，也没有在热路径解析 fmtp；同编码媒体字节、SSRC、序列号和时间戳原样转发。</p>
+<p>此次能力不包括 jitter buffer、重排、在线丢包检测、实时 PCM 管道、转码调度、VAD/ASR/TTS 或 AI 会话。UI/文档必须持续区分已实现的 RTP 直通、已实现的离线 PCM SDK，以及尚未接入实时会话的转码。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

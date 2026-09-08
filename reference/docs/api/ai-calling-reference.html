@@ -1,0 +1,91 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>AI 呼叫接入与本轮兼容范围 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / AI 呼叫接入与本轮兼容范围</div><article class="content"><div class="page-tools"><a href="ai-calling-reference.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 7 节</summary><a href="#业务链路">业务链路</a><a href="#配置本地接听号码">配置本地接听号码</a><a href="#控制一个已接通的本地通道">控制一个已接通的本地通道</a><a href="#info-模式">INFO 模式</a><a href="#压力页面读取恢复">压力页面读取恢复</a><a href="#验证入口和未完成范围">验证入口和未完成范围</a><a href="#外部实时供音的已完成部分">外部实时供音的已完成部分</a></details><h1 id="ai-呼叫接入与本轮兼容范围">AI 呼叫接入与本轮兼容范围</h1>
+<p>文档版本 1.12.0；参考 FreeSWITCH 1.11.3 固定提交。实现、实际运行结果和原版对照结果分别记录；本文件不声明完整 FreeSWITCH 替换已完成。</p>
+<h2 id="业务链路">业务链路</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>环节</th>
+<th>可调用能力</th>
+<th>当前边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>注册到运营商或 SIP 服务</td>
+<td>固定上游 REGISTER、Digest、刷新、注销和状态观测</td>
+<td>单上游客户端；不是允许分机注册进来的 registrar</td>
+</tr>
+<tr>
+<td>线路呼叫</td>
+<td>UDP/TCP/TLS 双腿 SIP、认证挑战后重试、ACK/CANCEL/BYE</td>
+<td>需要可信 SIP 发起方；ESL originate、完整路由和转接未实现</td>
+</tr>
+<tr>
+<td>本地呼入</td>
+<td><code>sip.local_extensions</code> 精确号码自动接听，只创建 A 腿</td>
+<td>只在媒体分配成功后应答；亦可部署受限 sip.dialplan XML，见<a href="dialplan-reference.html">XML合同</a></td>
+</tr>
+<tr>
+<td>实时媒体</td>
+<td>同格式双向 RTP、DTMF/RTCP；G.711 双腿/本地图，已 ACK 外部 8k PCM 轮次下行</td>
+<td>ASR/LLM/TTS 供应商/VAD/录音闭环和其他 Codec 实时处理未完成，见 <a href="release-validation-v1.12.html">1.12 验收</a></td>
+</tr>
+<tr>
+<td>按键采集</td>
+<td>RFC4733 完成事件、DTMF 事件、显式 INFO 模式、<code>read</code></td>
+<td>丢结束包/事件溢出使收号失败；没有音内检测和全部长事件分段；已 ACK 本地 telephone-event 主动发送见 <a href="dtmf-send-reference.html">发送合同</a></td>
+</tr>
+<tr>
+<td>IVR 应用</td>
+<td><code>sendmsg execute</code> 下的 <code>answer</code>、<code>set</code>、<code>unset</code>、<code>read</code>、<code>playback</code>、<code>sleep</code>、<code>park</code>、<code>hangup</code> 的限定子集</td>
+<td>调用者根据收号变量决定下一步；未执行原版菜单 XML、Lua、全部APP</td>
+</tr>
+</tbody></table></div>
+<p>固定上游注册配置及认证算法、私有密码文件、续期和退出行为见 <a href="trunk-registration.html">线路注册说明</a>。通道命令全部参数、事件和错误见 <a href="ivr-reference.html">IVR 应用说明</a>。媒体层字段及预算见 <a href="media-interaction.html">媒体交互接口</a>。</p>
+<h2 id="配置本地接听号码">配置本地接听号码</h2>
+<p>以下是完整启动配置中的 <code>sip</code> 字段补充，不能把片段直接当作完整 <code>PUT /v1/config</code> 请求：</p>
+<pre><code class="language-json">{
+  &quot;local_extensions&quot;: [&quot;1000&quot;, &quot;1001&quot;]
+}
+</code></pre>
+<p>管理后台「SIP 与媒体」提供本地接听号码表单；保存后等待重启生效。号码只能包含数字和 <code>+</code>，每个 1–32 字符，最多 256 个，不允许重复、正则或通配符。未配置sip.dialplan时保留原固定上游桥接行为；启用XML后未命中返回404。</p>
+<p>呼入仍必须通过信令和媒体来源白名单。命中本地号码后，服务实际分配 Rust 媒体资源，返回带 A 腿地址的 200/SDP；收到 ACK 后才允许收号和播放。此时没有 B 腿 UUID、B 腿呼叫或伪造的上游连接。RVA1 BEGIN 也须真实 ACK 后授权；仅看到 200 或 CHANNEL_ANSWER 不能代替该资格检查。没有 ACK、分配失败、最长时长到期及挂机仍沿用原有资源回收路径。当前资源分配仍预留四个端口，不把只使用 A 腿解释为容量翻倍。</p>
+<p>此路由本身自动应答；已支持受限 <code>answer</code> 应用，但未实现完整 FreeSWITCH 会话状态机。本地媒体可协商的格式与提示音可编码的格式分别处理：收号依赖协商的 telephone-event 或显式 INFO 模式；提示音只支持 PCMU/PCMA。</p>
+<h2 id="控制一个已接通的本地通道">控制一个已接通的本地通道</h2>
+<p>先按 <a href="esl-reference.html">ESL 连接说明</a> 启用并认证本地 ESL，再订阅真实通道和应用事件：</p>
+<pre><code class="language-text">event json CHANNEL_CREATE CHANNEL_ANSWER CHANNEL_HANGUP CHANNEL_EXECUTE CHANNEL_EXECUTE_COMPLETE DTMF
+</code></pre>
+<p>从当前呼入的 <code>CHANNEL_CREATE</code> 取得其真实 <code>Unique-ID</code>，核对 SIP Call-ID，等待通话实际接通；不能使用媒体 session 数字冒充 UUID。以下 <code>&lt;uuid&gt;</code> 需要替换为该通道标识，每帧以空行结束：</p>
+<pre><code class="language-text">sendmsg &lt;uuid&gt;
+call-command: execute
+execute-app-name: read
+execute-app-arg: 1 4 tone_stream://%(400,0,440) menu_choice 3000 #
+event-lock: true
+</code></pre>
+<p><code>+OK</code> 只表示受理。通过应用关联标识核对 <code>CHANNEL_EXECUTE_COMPLETE</code> 后，读取 <code>menu_choice</code>、<code>read_result</code>、<code>read_terminator_used</code>；成功收号、超时、媒体输入不完整和挂机是不同结果。完整示例及原版参数限制见 <a href="ivr-reference.html">IVR 说明</a>。</p>
+<p>外部业务可按 <code>menu_choice</code> 的实际值选择下一次提示或收号，形成多步菜单。未实现的应用明确返回错误，不能把 <code>play_and_get_digits</code>、<code>ivr</code>、<code>bridge</code>、<code>record_session</code> 或 TTS 命令当作本版本可执行入口。</p>
+<h2 id="info-模式">INFO 模式</h2>
+<p>通过 <code>uuid_setvar &lt;uuid&gt; dtmf_type info</code> 或受限 <code>set</code> 应用为指定通道显式启用 INFO。此时 read 不要求 SDP telephone-event，RTP 电话事件不会同时重复送入该通道收号。</p>
+<pre><code class="language-text">Content-Type: application/dtmf-relay
+
+Signal=5
+Duration=100
+</code></pre>
+<p>只接受已建立对话、正确来源地址/连接、标签和递增 CSeq。相同事务重传只返回原响应，不重复收号。<code>Signal</code> 支持 0–9、<code>*</code>、<code>#</code>、A–D，以及 10–15 数字事件编号；<code>Duration</code> 必须显式提供 20–8191 毫秒。未启用返回 488，错误类型 415，错误正文 400，错误对话 481，未实现扩展 501。原版对缺省时长、无效文本及其他 INFO 类型的宽松行为不在此子集内。</p>
+<p>SIP 注册与事务依据 <a href="https://www.rfc-editor.org/rfc/rfc3261.html" target="_blank" rel="noopener noreferrer">RFC3261</a>，Digest 算法扩展参考 <a href="https://www.rfc-editor.org/rfc/rfc8760.html" target="_blank" rel="noopener noreferrer">RFC8760</a>，RTP 电话事件参考 <a href="https://www.rfc-editor.org/rfc/rfc4733.html" target="_blank" rel="noopener noreferrer">RFC4733</a>。精确原版行为继续以固定源码和实际对照报告为准。</p>
+<h2 id="压力页面读取恢复">压力页面读取恢复</h2>
+<p>页面不再保留已被淘汰或服务重启后不存在的任务选择。记录过期只清除该任务并重新读取当前任务；单条详情临时失败不会误报整个测试服务离线。网络错误保留上次数据，恢复后继续更新。服务明确以 <code>X-RustSwitch-CSRF-Refresh: required</code> 拒绝过期令牌时，页面只更新令牌并用同一请求重试一次，不覆盖配置草稿或幂等键；不确定的网络超时不会自动重放写入。</p>
+<p>后台历史仍是当前控制进程最近 20 条内存记录，跨重启需要事先下载报告。读取恢复通过不等于容量验收通过。容量必须同时核对实际建立、逐方向足量媒体、错误、缺包和清理；历史 5000 路成绩不能自动继承给新源码。</p>
+<h2 id="验证入口和未完成范围">验证入口和未完成范围</h2>
+<ul>
+<li><code>tests/esl_applications_e2e.py</code>：真实 SIP、Rust 媒体及 ESL 应用，在两种 UDP 模式中检查变量、收号、提示音、打断和清理。</li>
+<li><code>tests/media_interaction_e2e.py</code>：核对实际 RTP 波形、两个方向、来源拒绝、重复结束包、缺结束与资源释放。</li>
+<li><code>control/internal/server/trunk_wire_test.go</code>：真实 UDP/TCP/TLS 注册、认证呼叫、双向媒体和注销。</li>
+<li><code>tests/esl_applications_native.py</code>：对隔离原版与候选分别发起实际通话，再比较限定应用结果，所有失败证据保留。</li>
+<li><code>tools/test_testlab_ui.cjs</code>、<code>tools/test_admin_request_ui.cjs</code>：读取/重启恢复与明确拒绝后的有界重试。</li>
+</ul>
+<p>最新实际执行结果由 <a href="runtime-verification.html">运行验证</a> 和原版对照报告展示。全部模块宿主、终端注册服务器、多网关、完整 XML/拨号计划、originate/转接/重协商、完整文件后端/录音/会议、WebRTC/SRTP/ICE、实时 ASR/TTS 与全部原版应用仍需继续实现和验证。</p>
+<h2 id="外部实时供音的已完成部分">外部实时供音的已完成部分</h2>
+<p>当前可由本机同 UID 可信进程使用 <a href="rva1-reference.html">RVA1</a>：控制连接 BEGIN 取得已 ACK 本地通道的 token，独立数据连接提交原生 8k mono S16LE 完整帧，END 排空或 INTERRUPT(0/20/40ms) 使旧轮音频失效。固定队列、严格样本偏移和未知结果恢复见 <a href="pcm-turn-reference.html">PCM turn</a>。无需每 20ms 使用 HTTP JSON，也不创建每通话数据线程。</p>
+<p>静默 read 与 park 可以并行，真实主动 DTMF 共享 RTP 身份。带音频提示的 read/tone/WAV 与 PCM 相互排斥，业务应明确交接 TX；<code>uuid_break</code> 不自动停止 PCM。这个接口提供流式媒体下行基础，不代表已接通 TTS/ASR 供应商、LLM、VAD 自动打断或双轨录音。</p>
+<p>本轮真实外部 22 方法/12 子例、Go 899 个通过事件与既有 228 项协议回归按各自范围留证；不是所有 FreeSWITCH 原版模块认证。500 路处理失败与历史 5000 路失败继续保留，详见 <a href="release-validation-v1.12.html">候选验证</a>。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

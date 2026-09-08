@@ -1,0 +1,157 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>0.1 历史验证记录 · 2026-09-05 · 云蝠项目资料</title><link rel="stylesheet" href="../../handbook.css"></head><body><aside><a class="brand" href="../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../index.html">资料首页</a><a class="" href="../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 0.1 历史验证记录 · 2026-09-05</div><article class="content"><div class="page-tools"><a href="verification.md" download>Markdown 原稿</a><a href="api/openapi.json" download>OpenAPI JSON</a><a href="../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#结论">结论</a><a href="#功能与代码检查">功能与代码检查</a><a href="#运行测量">运行测量</a><a href="#已修正的实现问题">已修正的实现问题</a><a href="#下一阶段必须解决">下一阶段必须解决</a></details><h1 id="01-历史验证记录-2026-09-05">0.1 历史验证记录 · 2026-09-05</h1>
+<p>以下保留 0.1 时点的结果和待办，不代表当前源码状态。当前优化与验证见 <a href="optimization-v0.2.html">0.2 报告</a>。旧 Go 转发对照的标签错误已在本文和原始 JSON 中纠正。</p>
+<h2 id="结论">结论</h2>
+<p>已形成可以构建和运行的 Rust 媒体、Go 控制面、C/C++ 编解码适配原型，基本通话及故障回归通过。<strong>尚未通过单机 1000 路无丢包测试，更未通过 10000 路生产容量验收。</strong></p>
+<p>本轮所有运行测试在同一台 macOS ARM64 开发机上完成，发生器报告 10 个可用逻辑 CPU。Rust 为 1.98.1，Go 为 1.27.1，使用 Apple Clang。Linux 只进行了编译检查；没有把 Mac 回环测试结果当作 Linux 物理网卡测试结果。</p>
+<h2 id="功能与代码检查">功能与代码检查</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>检查</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Rust 单元测试</td>
+<td>5 项通过，包括包格式边界、端口隔离期、速率桶及随机字节输入</td>
+</tr>
+<tr>
+<td>Go 单元测试与 race detector</td>
+<td>通过，覆盖 SIP/SDP、配置和日志恢复/锁定</td>
+</tr>
+<tr>
+<td>标准端到端回归</td>
+<td>12 项通过</td>
+</tr>
+<tr>
+<td>使用 Go race detector 构建的控制面运行端到端回归</td>
+<td>同样 12 项通过</td>
+</tr>
+<tr>
+<td>Go vet</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>Rust Clippy，所有目标，警告视为错误</td>
+<td>macOS 与 Linux x86_64 编译目标均通过</td>
+</tr>
+<tr>
+<td>SIP 解析模糊测试</td>
+<td>3 秒，323514 次执行，无崩溃</td>
+</tr>
+<tr>
+<td>SDP 解析模糊测试</td>
+<td>约 3 秒预算，32379 次执行，无崩溃</td>
+</tr>
+<tr>
+<td>C 插件编译与 Rust 动态加载</td>
+<td>通过，160 个样本往返，最大绝对误差 501</td>
+</tr>
+<tr>
+<td>同一插件以 C++17 编译并由 Rust 加载</td>
+<td>通过，同样完成实际编解码往返</td>
+</tr>
+<tr>
+<td>Go Linux AMD64 构建</td>
+<td>通过；未在 Linux 运行</td>
+</tr>
+<tr>
+<td>本地配置与 Linux 万路目标配置校验</td>
+<td>通过；配置通过不代表容量达标</td>
+</tr>
+</tbody></table></div>
+<p>端到端场景：双向 RTP/RTCP/DTMF、占用端口跳过、CANCEL 与迟到 200 竞争、并发限额、排空期间媒体继续、重复 INVITE、183 早期媒体、媒体进程重启、缺失 ACK 回收、其他分片在故障时继续转发、优雅退出等待 BYE 事务完成、错误来源和畸形 RTP 丢弃。</p>
+<p>这些短测试验证了指定场景，没有证明完整 SIP 标准符合性、所有设备互通、持续 72 小时可靠性或不存在其他缺陷。</p>
+<h2 id="运行测量">运行测量</h2>
+<p>下表统计发生器成功提交的 RTP 包与模拟终端验证后的唯一包数，均为双向合计。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th align="right">接通数</th>
+<th align="right">媒体时长</th>
+<th align="right">提交包数</th>
+<th align="right">唯一收到</th>
+<th align="right">未收到</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Rust 转发，100 路</td>
+<td align="right">100/100</td>
+<td align="right">10 秒</td>
+<td align="right">99800</td>
+<td align="right">99800</td>
+<td align="right">0</td>
+<td>本轮短测试通过</td>
+</tr>
+<tr>
+<td>Rust 转发，PCMA 20 路，最终构建</td>
+<td align="right">20/20</td>
+<td align="right">3 秒</td>
+<td align="right">6000</td>
+<td align="right">6000</td>
+<td align="right">0</td>
+<td>本轮短测试通过</td>
+</tr>
+<tr>
+<td>Rust 转发，1000 路，集中发包</td>
+<td align="right">1000/1000</td>
+<td align="right">15 秒</td>
+<td align="right">1498000</td>
+<td align="right">786605</td>
+<td align="right">711395</td>
+<td>未通过</td>
+</tr>
+<tr>
+<td>Rust 转发，1000 路，分散相位</td>
+<td align="right">1000/1000</td>
+<td align="right">15 秒</td>
+<td align="right">1499904</td>
+<td align="right">741016</td>
+<td align="right">758888</td>
+<td>未通过</td>
+</tr>
+<tr>
+<td>终端直连对照，绕过媒体服务器</td>
+<td align="right">1000/1000</td>
+<td align="right">10 秒</td>
+<td align="right">999904</td>
+<td align="right">999904</td>
+<td align="right">0</td>
+<td>仅对照测试通过</td>
+</tr>
+<tr>
+<td>旧报告标记为 Go 转发对照（标签错误）</td>
+<td align="right">1000/1000</td>
+<td align="right">10 秒</td>
+<td align="right">999904</td>
+<td align="right">499905</td>
+<td align="right">499999</td>
+<td>已撤回，不能作为对照</td>
+</tr>
+</tbody></table></div>
+<p>原始报告保留在本目录的 <code>benchmark-*.json</code> 和 <code>diagnostic-*.json</code> 中，失败报告没有被覆盖为成功。</p>
+<p>最终构建的 PCMA 测试同时确认媒体进程的 CPU 时间、峰值驻留内存统计能够返回，挂断后所有控制面呼叫和媒体分配均归零。PCMA 测试验证的是透明转发，不代表已完成实时转码。</p>
+<p>1000 路分散相位场景中，Rust 应用层累计接收与成功提交发送的包数均为 <strong>1046368</strong>；来源拒绝、格式错误、包速率限制、发送错误及发送队列丢弃计数均为 0。发生器提交到媒体接收之间，以及媒体提交发送到发生器接收之间都有计数缺口。Mac 不支持本实现的 socket 丢包辅助计数，故不能据此证明内核没有丢包。</p>
+<p>直连对照说明发生器在较短路径上可以完成本轮负载。**后续源码审计发现 <code>--go-relay</code> 只修改报告标签，没有建立 Go 转发层，故撤回该对照以及“问题并非 Rust 独有”的结论。**原始数字保留并标记为无效对照证据。现有证据不足以确定具体根因，需要进一步对齐主机分层计数、分析调度和 I/O，并在独立 Linux 压测机与目标服务器之间复测。</p>
+<p>最初一次 100 路测试仅接通 99 路；当时尚缺少逐类失败记录，未能追溯该次失败的确定原因。随后增加了错误分类，修复了 RTP 65535 配合显式 RTCP 端口的解析边界，并补充回归测试；后续记录的 100 路测试通过。不能把后续通过当成首轮失败已被确定归因的证据。</p>
+<h2 id="已修正的实现问题">已修正的实现问题</h2>
+<ul>
+<li>发送给 A 端的 BYE 响应也必须按实际来源、Call-ID、From tag 和 CSeq 匹配事务。</li>
+<li>SIGTERM 排空时等待未完成的 SIP 终止事务，避免首个 BYE 丢失后服务直接退出。</li>
+<li>旧媒体进程代次的控制命令不能进入重启后的新进程。</li>
+<li>占用端口导致整组分配失败时，关闭已打开的 socket 并有限次尝试其他端口组。</li>
+<li>发送端来源校验先于包速率配额，避免错误来源消耗正常端点的配额。</li>
+<li>本地发送压力缓冲有长度与时间上限，分别记录队列溢出及过期。</li>
+<li>C ABI 先校验版本/结构尺寸前缀，再读取完整结构；销毁上下文后才卸载动态库。</li>
+</ul>
+<h2 id="下一阶段必须解决">下一阶段必须解决</h2>
+<ol>
+<li>定位 1000 路转发测试的丢包根因，建立独立 Linux 网络测试基线。</li>
+<li>接入正式 C/C++ SIP 协议提供器并补齐协议互通，原型 Go 提供器不承担最终生产兼容性承诺。</li>
+<li>完成动态过载准入、72 小时持续周转和故障注入验收。</li>
+<li>逐项实现录音、转码、SRTP、ESL 等能力，并为每种组合重新测量容量。</li>
+</ol>
+<p>交付中的最大并发配置、编译成功和单项测试结果，都不是“万路且零丢包”的证明。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

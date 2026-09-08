@@ -1,0 +1,177 @@
+{
+  "configuration": {
+    "sip": {
+      "listen": "127.0.0.1:60201",
+      "advertise": "127.0.0.1:60201",
+      "upstream": "127.0.0.1:53500",
+      "trusted_networks": [
+        "127.0.0.0/8"
+      ],
+      "setup_timeout_ms": 32000,
+      "ack_timeout_ms": 32000,
+      "max_call_seconds": 3600
+    },
+    "media": {
+      "binary": "/workspace/yunfu-voice-runtime/outputs/rustswitch/bin/rustswitch-media",
+      "bind_ip": "127.0.0.1",
+      "advertise_ip": "127.0.0.1",
+      "port_start": 20000,
+      "port_end": 43999,
+      "workers": 4,
+      "receive_buffer_bytes": 65536,
+      "port_reuse_delay_ms": 2000,
+      "max_packets_per_second_per_leg": 200,
+      "allowed_remote_networks": [
+        "127.0.0.0/8"
+      ],
+      "cpu_cores": [],
+      "connect_sockets": false
+    },
+    "limits": {
+      "max_calls": 1000,
+      "calls_per_second": 200,
+      "burst_calls": 1000,
+      "max_transactions": 10000
+    },
+    "admin": {
+      "listen": "127.0.0.1:53226"
+    },
+    "journal": {
+      "path": "/workspace/yunfu-voice-runtime/work/opt-slots-1000/events.jsonl",
+      "queue_capacity": 4096
+    }
+  },
+  "control_sha256": "dc7398053f184a472df53f0c86ad77928ed74bd032aeb9b899f8dc2a51249a73",
+  "media_sha256": "3c056df5c7251360222ed42ba9f565ff6fd43cb7e6859d91a6dc3f5e23e1c8a5",
+  "generator_sha256": "1b77ebd8319596bd38fabf39ade49054d68e1fe9bb6c29e44aa2ace29cd8a6d3",
+  "active_calls_after": 0,
+  "workers_after": [
+    {
+      "generation": 1,
+      "healthy": true,
+      "id": 0,
+      "pid": 14745,
+      "restarts": 0,
+      "stats": {
+        "active_calls": 0,
+        "available_blocks": 1250,
+        "invalid_packets": 0,
+        "max_receive_batch": 1,
+        "peak_resident_bytes": 2932736,
+        "peer_not_ready": 0,
+        "rate_limited": 0,
+        "receive_batches": 87871,
+        "receive_errors": 0,
+        "receive_syscalls": 263613,
+        "rx_bytes": 15113812,
+        "rx_packets": 87871,
+        "send_errors": 0,
+        "send_expired": 0,
+        "send_queue_drops": 0,
+        "socket_drop_counter_supported": false,
+        "socket_rx_drops": 0,
+        "source_rejected": 0,
+        "system_cpu_seconds": 0.862693,
+        "tx_bytes": 15113812,
+        "tx_packets": 87871,
+        "user_cpu_seconds": 0.084397
+      }
+    },
+    {
+      "generation": 1,
+      "healthy": true,
+      "id": 1,
+      "pid": 14743,
+      "restarts": 0,
+      "stats": {
+        "active_calls": 0,
+        "available_blocks": 1250,
+        "invalid_packets": 0,
+        "max_receive_batch": 1,
+        "peak_resident_bytes": 2916352,
+        "peer_not_ready": 0,
+        "rate_limited": 0,
+        "receive_batches": 87871,
+        "receive_errors": 0,
+        "receive_syscalls": 263613,
+        "rx_bytes": 15113812,
+        "rx_packets": 87871,
+        "send_errors": 0,
+        "send_expired": 0,
+        "send_queue_drops": 0,
+        "socket_drop_counter_supported": false,
+        "socket_rx_drops": 0,
+        "source_rejected": 0,
+        "system_cpu_seconds": 0.849304,
+        "tx_bytes": 15113812,
+        "tx_packets": 87871,
+        "user_cpu_seconds": 0.08667
+      }
+    },
+    {
+      "generation": 1,
+      "healthy": true,
+      "id": 2,
+      "pid": 14744,
+      "restarts": 0,
+      "stats": {
+        "active_calls": 0,
+        "available_blocks": 1250,
+        "invalid_packets": 0,
+        "max_receive_batch": 1,
+        "peak_resident_bytes": 2932736,
+        "peer_not_ready": 0,
+        "rate_limited": 0,
+        "receive_batches": 87793,
+        "receive_errors": 0,
+        "receive_syscalls": 263379,
+        "rx_bytes": 15100396,
+        "rx_packets": 87793,
+        "send_errors": 0,
+        "send_expired": 0,
+        "send_queue_drops": 0,
+        "socket_drop_counter_supported": false,
+        "socket_rx_drops": 0,
+        "source_rejected": 0,
+        "system_cpu_seconds": 0.857572,
+        "tx_bytes": 15100396,
+        "tx_packets": 87793,
+        "user_cpu_seconds": 0.086229
+      }
+    },
+    {
+      "generation": 1,
+      "healthy": true,
+      "id": 3,
+      "pid": 14742,
+      "restarts": 0,
+      "stats": {
+        "active_calls": 0,
+        "available_blocks": 1250,
+        "invalid_packets": 0,
+        "max_receive_batch": 1,
+        "peak_resident_bytes": 2932736,
+        "peer_not_ready": 0,
+        "rate_limited": 0,
+        "receive_batches": 87846,
+        "receive_errors": 0,
+        "receive_syscalls": 263538,
+        "rx_bytes": 15109512,
+        "rx_packets": 87846,
+        "send_errors": 0,
+        "send_expired": 0,
+        "send_queue_drops": 0,
+        "socket_drop_counter_supported": false,
+        "socket_rx_drops": 0,
+        "source_rejected": 0,
+        "system_cpu_seconds": 0.857278,
+        "tx_bytes": 15109512,
+        "tx_packets": 87846,
+        "user_cpu_seconds": 0.087194
+      }
+    }
+  ],
+  "journal_lost_events": 0,
+  "timeline_samples": 23,
+  "peak_active_calls": 1000
+}

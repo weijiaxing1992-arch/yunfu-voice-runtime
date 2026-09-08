@@ -1,0 +1,109 @@
+{
+  "scenario": "1000 calls, spread phases, 15 seconds, macOS loopback",
+  "sample": "after call teardown and next worker statistics refresh",
+  "active_reservations_after": 0,
+  "journal_lost_events": 0,
+  "socket_rx_drop_counter_supported": false,
+  "aggregate": {
+    "rx_packets": 1046368,
+    "tx_packets": 1046368,
+    "send_errors": 0,
+    "send_expired": 0,
+    "send_queue_drops": 0,
+    "rate_limited": 0,
+    "invalid_packets": 0,
+    "source_rejected": 0,
+    "peer_not_ready": 0,
+    "receive_errors": 0
+  },
+  "workers": [
+    {
+      "id": 0,
+      "generation": 1,
+      "stats": {
+        "active_calls": 0,
+        "available_blocks": 1250,
+        "invalid_packets": 0,
+        "peer_not_ready": 0,
+        "rate_limited": 0,
+        "receive_errors": 0,
+        "rx_bytes": 45002080,
+        "rx_packets": 261640,
+        "send_errors": 0,
+        "send_expired": 0,
+        "send_queue_drops": 0,
+        "socket_drop_counter_supported": false,
+        "socket_rx_drops": 0,
+        "source_rejected": 0,
+        "tx_bytes": 45002080,
+        "tx_packets": 261640
+      }
+    },
+    {
+      "id": 1,
+      "generation": 1,
+      "stats": {
+        "active_calls": 0,
+        "available_blocks": 1250,
+        "invalid_packets": 0,
+        "peer_not_ready": 0,
+        "rate_limited": 0,
+        "receive_errors": 0,
+        "rx_bytes": 44979548,
+        "rx_packets": 261509,
+        "send_errors": 0,
+        "send_expired": 0,
+        "send_queue_drops": 0,
+        "socket_drop_counter_supported": false,
+        "socket_rx_drops": 0,
+        "source_rejected": 0,
+        "tx_bytes": 44979548,
+        "tx_packets": 261509
+      }
+    },
+    {
+      "id": 2,
+      "generation": 1,
+      "stats": {
+        "active_calls": 0,
+        "available_blocks": 1250,
+        "invalid_packets": 0,
+        "peer_not_ready": 0,
+        "rate_limited": 0,
+        "receive_errors": 0,
+        "rx_bytes": 44994168,
+        "rx_packets": 261594,
+        "send_errors": 0,
+        "send_expired": 0,
+        "send_queue_drops": 0,
+        "socket_drop_counter_supported": false,
+        "socket_rx_drops": 0,
+        "source_rejected": 0,
+        "tx_bytes": 44994168,
+        "tx_packets": 261594
+      }
+    },
+    {
+      "id": 3,
+      "generation": 1,
+      "stats": {
+        "active_calls": 0,
+        "available_blocks": 1250,
+        "invalid_packets": 0,
+        "peer_not_ready": 0,
+        "rate_limited": 0,
+        "receive_errors": 0,
+        "rx_bytes": 44999500,
+        "rx_packets": 261625,
+        "send_errors": 0,
+        "send_expired": 0,
+        "send_queue_drops": 0,
+        "socket_drop_counter_supported": false,
+        "socket_rx_drops": 0,
+        "source_rejected": 0,
+        "tx_bytes": 44999500,
+        "tx_packets": 261625
+      }
+    }
+  ]
+}

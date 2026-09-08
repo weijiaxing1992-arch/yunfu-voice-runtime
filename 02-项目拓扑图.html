@@ -1,0 +1,65 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>02 项目拓扑图 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="active" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 02 项目拓扑图</div><article class="content"><div class="page-tools"><a href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 4 节</summary><a href="#基线部署拓扑">基线部署拓扑</a><a href="#语音智能体接入拓扑">语音智能体接入拓扑</a><a href="#压测拓扑与资源隔离">压测拓扑与资源隔离</a><a href="#端口与容量规划">端口与容量规划</a></details><h1 id="02-项目拓扑图">02 项目拓扑图</h1>
+<h2 id="基线部署拓扑">基线部署拓扑</h2>
+<p><a href="figures/01-%E9%83%A8%E7%BD%B2%E6%8B%93%E6%89%91.svg" title="打开矢量原图"><img src="figures/01-%E9%83%A8%E7%BD%B2%E6%8B%93%E6%89%91.svg" alt="基线部署拓扑" loading="lazy"/></a></p>
+<p>主服务由一个 Go 控制进程和多个 Rust 媒体子进程组成。SIP 信令到 Go，RTP/RTCP 到 Rust；后台访问回环 HTTP。外部线路或可信 SBC 是独立系统，不包含在工程中。管理端通过本机浏览器或 SSH 隧道接入。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>连线</th>
+<th>方向与用途</th>
+<th>默认/示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SIP</td>
+<td>可信 A 侧 ↔ Go ↔ 固定上游 B 侧</td>
+<td>本地 UDP 5060，上游 5070；TCP/TLS 需显式配置</td>
+</tr>
+<tr>
+<td>媒体</td>
+<td>A/B ↔ 分配该通话的 Rust worker</td>
+<td>本地示例 UDP 20000–21999，每通话预留四端口</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>管理员/脚本 → Go</td>
+<td>127.0.0.1:9080；26 个操作及静态页面</td>
+</tr>
+<tr>
+<td>ESL</td>
+<td>本机业务控制 → Go</td>
+<td>默认关闭；显式示例 127.0.0.1:8021</td>
+</tr>
+<tr>
+<td>JSONL IPC</td>
+<td>Go ↔ 每个 Rust 子进程</td>
+<td>stdin/stdout；诊断走 stderr</td>
+</tr>
+<tr>
+<td>PCM/RX</td>
+<td>Go ↔ Rust</td>
+<td>独立继承 FD3/FD4，不是网络监听端口</td>
+</tr>
+<tr>
+<td>RVA1</td>
+<td>本机业务代理 → Go → Rust</td>
+<td>显式私有 Unix socket；流式 PCM 下行</td>
+</tr>
+<tr>
+<td>文件</td>
+<td>Go → 本地持久化目录</td>
+<td>journal.path、追加 .admin.json 的管理状态</td>
+</tr>
+</tbody></table></div>
+<h2 id="语音智能体接入拓扑">语音智能体接入拓扑</h2>
+<p><a href="figures/03-AI%E5%AA%92%E4%BD%93%E8%B7%AF%E5%BE%84.svg" title="打开矢量原图"><img src="figures/03-AI%E5%AA%92%E4%BD%93%E8%B7%AF%E5%BE%84.svg" alt="智能体媒体路径" loading="lazy"/></a></p>
+<p>蓝色部分是基线已有媒体路径；橙色 ASR1 是已验证的独立候选；灰色模型和业务编排是外部/待集成范围。当前没有已实现的通用 gRPC/WebSocket Agent 服务，不应按图中的外部模块推断新增接口。</p>
+<p>本地 RX 与下行 TX 相互独立。上行只观察对端 A 腿，不把本地 TTS 播放回灌成用户音频。内部保留原生采样率，ASR 分支需要 16 kHz 时才转换；不能将所有媒体写成统一 16 kHz 在线处理已完成。</p>
+<h2 id="压测拓扑与资源隔离">压测拓扑与资源隔离</h2>
+<p><a href="figures/04-%E5%8E%8B%E6%B5%8B%E6%8B%93%E6%89%91.svg" title="打开矢量原图"><img src="figures/04-%E5%8E%8B%E6%B5%8B%E6%8B%93%E6%89%91.svg" alt="隔离压测拓扑" loading="lazy"/></a></p>
+<p>后台测试页启动自己的控制实例、媒体进程和发生器；主服务总览应将主业务与测试数据分开展示。同机测试仍共享 CPU、内核和网卡，端口分离不等于硬件隔离。独立 Linux 压测机是目标容量验收的推荐部署形式，不是本次已取得的运行环境。</p>
+<p>测试子实例不会使用主服务线路凭据注册真实运营商。容量模式仅关闭它自己的业务软保护，硬并发/CPS、媒体健康和资源边界仍生效。不能占用主媒体范围来消除压测预检失败。</p>
+<h2 id="端口与容量规划">端口与容量规划</h2>
+<p>四端口块预算：<code>floor((port_end - port_start + 1) / 4)</code>。至少满足 <code>max_calls + ceil(calls_per_second × port_reuse_delay_ms / 1000)</code>。还需考虑每 worker 分区、已占用块、文件描述符与实际网络能力。</p>
+<p>本地示例只有 100 路硬上限，不是万路部署配置。Linux 目标示例见 <a href="reference/config/linux-10000.example.json">原始配置</a>，必须按真实 IP、CPU 和压测机调整并重新校验；填入 10000 不等于已经达到该性能。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

@@ -1,0 +1,101 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>1.6 线路注册、按键与 IVR 实测记录 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 1.6 线路注册、按键与 IVR 实测记录</div><article class="content"><div class="page-tools"><a href="release-validation-v1.6.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#本轮新增与修复">本轮新增与修复</a><a href="#实际回归结果">实际回归结果</a><a href="#与原版的真实成对检查">与原版的真实成对检查</a><a href="#压测页面读取失败与实测">压测页面读取失败与实测</a><a href="#完整对照与剩余缺口">完整对照与剩余缺口</a></details><h1 id="16-线路注册按键与-ivr-实测记录">1.6 线路注册、按键与 IVR 实测记录</h1>
+<p>核对日期：2026-09-06。FreeSWITCH 固定参考 1.11.3，提交 <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>。本轮实现面向电话接入和基础 IVR，尚未达到全部 FreeSWITCH 功能、全部协议或无感替换。</p>
+<h2 id="本轮新增与修复">本轮新增与修复</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>层次</th>
+<th>实际能力</th>
+<th>主要检查</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线路注册</td>
+<td>固定上游 REGISTER、Digest 401/407、刷新、423 期限调整、失败退避与注销</td>
+<td>UDP/TCP/TLS 真实注册及 64 包双向 Rust RTP；认证错误、重试循环、超时和注销</td>
+</tr>
+<tr>
+<td>呼叫</td>
+<td>INVITE 挑战 ACK 与新事务重试；精确本地号码自动应答</td>
+<td>取消与迟到挑战、双腿独立事务、本地仅 A 腿、无 ACK 释放、未命中号码仍走上游</td>
+</tr>
+<tr>
+<td>实时按键</td>
+<td>RFC4733 结束去重、缺结束失败；显式 SIP INFO 模式；DTMF 事件</td>
+<td>原始包仍透传，业务按键仅一次；来源与载荷校验；INFO 大小写统一且不混入 RTP 按键</td>
+</tr>
+<tr>
+<td>IVR</td>
+<td>有界 <code>sendmsg execute</code> 的 <code>set / unset / read / playback</code> 子集</td>
+<td>实际变量、收号、超时、音调、提示音打断、挂机取消、开始和完成事件</td>
+</tr>
+<tr>
+<td>媒体</td>
+<td>PCMU/PCMA 单频提示音及桥接恢复、独立按键事件缓冲</td>
+<td>独立解码核对真实波形；反向语音和双方按键继续；迟到或发送失败显式失败</td>
+</tr>
+<tr>
+<td>管理后台</td>
+<td>任务详情失效恢复、服务重启旧令牌有界刷新、注册状态与本地接听配置</td>
+<td>不刷新页面清理旧任务选择，保留未提交参数；随后测试小电话成功</td>
+</tr>
+<tr>
+<td>接口契约</td>
+<td>OpenAPI 输入/输出均收录新增 SIP 配置，补齐 4 个媒体操作</td>
+<td>真实媒体回复符合 JSON Schema；不能分成 20ms 帧的提示音时长被机器模型拒绝</td>
+</tr>
+</tbody></table></div>
+<p>新增实现与关键状态机均有中文注释，参数与限制见 <a href="ai-calling-reference.html">AI 呼叫总览</a>、<a href="trunk-registration.html">线路注册</a>、<a href="ivr-reference.html">IVR</a> 和 <a href="media-interaction.html">媒体交互</a>。</p>
+<h2 id="实际回归结果">实际回归结果</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>检查</th>
+<th>结果</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Go 全量竞态回归</td>
+<td>495 项测试及子测试通过，失败 0、测试跳过 0</td>
+<td>包含真实 UDP/TCP/TLS 注册与媒体测试；无测试文件的包不计为通过测试</td>
+</tr>
+<tr>
+<td>Rust 全量测试</td>
+<td>35 项通过，失败 0、跳过 0</td>
+<td>媒体状态、真实 UDP 路径与子进程生命周期</td>
+</tr>
+<tr>
+<td>SIP/Codec/ESL/应用/媒体交互</td>
+<td>两种 UDP 模式共 10 组、130 项通过，失败 0、跳过 0</td>
+<td>实际控制进程、Rust worker、隔离 SIP/RTP 端点</td>
+</tr>
+<tr>
+<td>证据发布与验收工具</td>
+<td>95 项通过</td>
+<td>缺失/篡改/过期/重复证据不标绿，原始对照 ID 不缩减</td>
+</tr>
+<tr>
+<td>测试页轮询恢复</td>
+<td>11 项通过</td>
+<td>服务重启、历史淘汰、详情 404/410/503、报告重试、保留草稿</td>
+</tr>
+<tr>
+<td>页面写入恢复</td>
+<td>8 项通过</td>
+<td>只在明确的令牌拒绝后重试一次，保留正文和幂等键；结果未知不重放</td>
+</tr>
+</tbody></table></div>
+<p>Go 当前收据：<code>go-3ca2fb69177f4dd6ad803fb8496772c7</code>。端到端收据：<code>e2e-50cb2ce088814ff2b2d3a7ab765fa0ea</code>。执行前后源码、测试结果及实际构建产物指纹由<a href="runtime-verification.json">运行验证</a>保存，过期或代码变化时撤销绿色。</p>
+<h2 id="与原版的真实成对检查">与原版的真实成对检查</h2>
+<p><a href="conformance-report.html">独立协议报告</a>覆盖 26 个探针：21 项限定语义通过、3 项 SIP 能力声明差异、2 项身份/目录观测。另有<a href="ai-calling-verification.html">原版三应用实测</a>：<code>set / unset / read</code> 与真实 RTP <code>12#</code>、完成事件和变量读取一致。两套探针是不同集合，不合并为整个模块已通过。</p>
+<p>原版的 <code>playback</code> 文件/音调全面差分本轮未执行；本地真实提示音通过不能代替此项原版认证。原版与候选的实际二进制、配置、脚本及源码指纹在报告中分别保留。</p>
+<h2 id="压测页面读取失败与实测">压测页面读取失败与实测</h2>
+<p>旧页在服务重启或历史淘汰后继续查询旧任务详情，会重复报读取失败并保留错误的运行锁。现在以成功取得的任务目录确认记录是否存在；失效时自动恢复选择，详情临时错误与服务整体连通性分别显示。进程令牌变化时只根据服务明确的刷新提示重试一次原请求。</p>
+<p>在本次真实页面验收中，500 路以 100 CPS 建立并保持 10 秒：发送 500000 包、唯一接收 500000 包，双向每路各 500 包，无缺包、重复、发生器写入错误或拆线失败，全部资源清理完成。随后保持页面打开重启服务，旧记录自动清除，表单中的 500 路、75 CPS、12 秒草稿保留；不刷新页面再次拨号成功，2 秒双向发送/接收均为 200 包。<a href="testlab-verification-v1.6.json">可公开的实际测量</a>保留任务号、结果与清理状态。</p>
+<p>以上是 macOS 同机 PCMU 透传与页面恢复检查；不是 5000 路、万路、完整 AI 对话组合或原版性能对比。上轮 1.5 的 5000 路失败和 1.4 的历史成功继续保留，本轮不沿用旧容量绿色。物理 Linux 服务器和业务流量环境仍待提供。</p>
+<h2 id="完整对照与剩余缺口">完整对照与剩余缺口</h2>
+<p>全部 3983 条原始和关键对照均保留：2857 条未实现、178 条未验证、39 条部分实现、882 条仅配置导出、17 条自有接口实现、10 条内部接口。46 条显示本地限定验证通过；这些数字含源码声明、原生 C 接口和重复配置项，不能换算为产品兼容百分比。</p>
+<p>本轮尚未完成：终端注册服务器与多网关位置库、原 Sofia/XML 拨号计划运行、完整 originate/bridge/transfer/park、文件/TTS/录音/会议、ASR/LLM/TTS 双向流、完整 AudioGraph 与跨格式转码、WebRTC 的 WS/WSS/ICE/DTLS/SRTP、IPv6/DNS/SRV、全部事件字段和原版原生模块宿主。当前普通同格式双向语音持续转发与按键、提示音能力，不能称为完整 Voice Agent 实时对话系统。</p>
+<p>原始状态和测试证据分开维护；不把未知、仅列出用例或未运行的模块变成绿色。后续按上述依赖逐项补实现和原版对测。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

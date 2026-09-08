@@ -1,0 +1,266 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>兼容缺口逐项推进清单 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 兼容缺口逐项推进清单</div><article class="content"><div class="page-tools"><a href="compatibility-worklist.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 4 节</summary><a href="#当前计数">当前计数</a><a href="#按层剩余条目">按层剩余条目</a><a href="#本轮新增限定通过">本轮新增限定通过</a><a href="#全量任务及推进顺序">全量任务及推进顺序</a></details><h1 id="兼容缺口逐项推进清单">兼容缺口逐项推进清单</h1>
+<p>通过数只代表当前源码下的限定本地断言。目录条目并非独立功能数量；增量不是FreeSWITCH完整兼容率。</p>
+<p>基线 1.12.0 → 当前 1.13.0：限定本地通过 77 → 82，新增 5、撤回 0。</p>
+<p>“完整契约待验收”是177份验收定义和容量目标的实现分类；“本地未执行”是尚无绑定当前源码运行证据的条目。两者不可相加或替代。</p>
+<h2 id="当前计数">当前计数</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>状态</th>
+<th>条数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实现</td>
+<td><code>export_only</code></td>
+<td>882</td>
+</tr>
+<tr>
+<td>实现</td>
+<td><code>implemented</code></td>
+<td>19</td>
+</tr>
+<tr>
+<td>实现</td>
+<td><code>internal_only</code></td>
+<td>23</td>
+</tr>
+<tr>
+<td>实现</td>
+<td><code>not_implemented</code></td>
+<td>2844</td>
+</tr>
+<tr>
+<td>实现</td>
+<td><code>not_verified</code></td>
+<td>178</td>
+</tr>
+<tr>
+<td>实现</td>
+<td><code>partial</code></td>
+<td>53</td>
+</tr>
+<tr>
+<td>本地执行</td>
+<td><code>failed</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td>本地执行</td>
+<td><code>not_run</code></td>
+<td>3916</td>
+</tr>
+<tr>
+<td>本地执行</td>
+<td><code>passed</code></td>
+<td>82</td>
+</tr>
+</tbody></table></div>
+<h2 id="按层剩余条目">按层剩余条目</h2>
+<p>下表按目录记录统计，原生声明、重复配置和验收定义不是独立业务能力。各列是不同维度，不能横向相加。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>层／类别</th>
+<th align="right">全部</th>
+<th align="right">未实现入口</th>
+<th align="right">本地未执行</th>
+<th align="right">本地限定通过</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>acceptance_definition</code></td>
+<td align="right">177</td>
+<td align="right">0</td>
+<td align="right">177</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td><code>fs_api</code></td>
+<td align="right">292</td>
+<td align="right">279</td>
+<td align="right">284</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td><code>fs_application</code></td>
+<td align="right">222</td>
+<td align="right">214</td>
+<td align="right">214</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td><code>fs_channel_variable</code></td>
+<td align="right">100</td>
+<td align="right">100</td>
+<td align="right">100</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td><code>fs_chat_application</code></td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td><code>fs_conference_subcommand</code></td>
+<td align="right">90</td>
+<td align="right">90</td>
+<td align="right">90</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td><code>fs_event</code></td>
+<td align="right">94</td>
+<td align="right">83</td>
+<td align="right">84</td>
+<td align="right">10</td>
+</tr>
+<tr>
+<td><code>fs_json_api</code></td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td><code>fs_module</code></td>
+<td align="right">144</td>
+<td align="right">144</td>
+<td align="right">144</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td><code>fs_native_function</code></td>
+<td align="right">1865</td>
+<td align="right">1865</td>
+<td align="right">1865</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td><code>fs_sofia_subcommand</code></td>
+<td align="right">40</td>
+<td align="right">40</td>
+<td align="right">40</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td><code>fs_vanilla_parameter</code></td>
+<td align="right">875</td>
+<td align="right">0</td>
+<td align="right">875</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td><code>key_api</code></td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td><code>key_c_abi</code></td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td><code>key_cli</code></td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td><code>key_config</code></td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td><code>key_esl</code></td>
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">6</td>
+</tr>
+<tr>
+<td><code>key_guard</code></td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td><code>key_http</code></td>
+<td align="right">9</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td><code>key_ipc</code></td>
+<td align="right">22</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">19</td>
+</tr>
+<tr>
+<td><code>key_media</code></td>
+<td align="right">10</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td><code>key_sip</code></td>
+<td align="right">8</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">5</td>
+</tr>
+</tbody></table></div>
+<h2 id="本轮新增限定通过">本轮新增限定通过</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>原始ID</th>
+<th>名称</th>
+<th>已测范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>key-api-rx-sdk</code></td>
+<td>内部Go服务端上行音频SDK</td>
+<td>内部Go收音句柄、SIP授权、交付期限及挂断清理；PCMU/PCMA×普通/connected UDP 的真实 Rust→RXS2→Go SDK、本地 A 腿、8kHz/20ms；正常样本/250ms接收暂停/实际SIP授权清理共12子例。仅内部SDK，非HTTP、原版FS成对、ASR供应商、Linux运行或容量认证。MSG_PEEK仅核实OS队首，不代表整个队列抓包。</td>
+</tr>
+<tr>
+<td><code>key-ipc-rx-status</code></td>
+<td>内部上行订阅状态与对账</td>
+<td>实际身份、事件/样本计数和失败后仍可查询；PCMU/PCMA×普通/connected UDP 的真实 Rust→RXS2→Go SDK、本地 A 腿、8kHz/20ms；正常样本/250ms接收暂停/实际SIP授权清理共12子例。仅内部SDK，非HTTP、原版FS成对、ASR供应商、Linux运行或容量认证。MSG_PEEK仅核实OS队首，不代表整个队列抓包。</td>
+</tr>
+<tr>
+<td><code>key-ipc-rx-stream</code></td>
+<td>内部RXS2原生音频数据流</td>
+<td>真实G.711输入逐样本核对、原始期限和过期拒绝；PCMU/PCMA×普通/connected UDP 的真实 Rust→RXS2→Go SDK、本地 A 腿、8kHz/20ms；正常样本/250ms接收暂停/实际SIP授权清理共12子例。仅内部SDK，非HTTP、原版FS成对、ASR供应商、Linux运行或容量认证。MSG_PEEK仅核实OS队首，不代表整个队列抓包。</td>
+</tr>
+<tr>
+<td><code>key-ipc-rx-subscribe</code></td>
+<td>内部原生音频上行订阅</td>
+<td>真实订阅及ACK前/错误来源ACK拒绝；PCMU/PCMA×普通/connected UDP 的真实 Rust→RXS2→Go SDK、本地 A 腿、8kHz/20ms；正常样本/250ms接收暂停/实际SIP授权清理共12子例。仅内部SDK，非HTTP、原版FS成对、ASR供应商、Linux运行或容量认证。MSG_PEEK仅核实OS队首，不代表整个队列抓包。</td>
+</tr>
+<tr>
+<td><code>key-ipc-rx-unsubscribe</code></td>
+<td>内部上行停止与终态</td>
+<td>明确退订、挂断撤销、资源归零及端口重新绑定；PCMU/PCMA×普通/connected UDP 的真实 Rust→RXS2→Go SDK、本地 A 腿、8kHz/20ms；正常样本/250ms接收暂停/实际SIP授权清理共12子例。仅内部SDK，非HTTP、原版FS成对、ASR供应商、Linux运行或容量认证。MSG_PEEK仅核实OS队首，不代表整个队列抓包。</td>
+</tr>
+</tbody></table></div>
+<h2 id="全量任务及推进顺序">全量任务及推进顺序</h2>
+<p>按云蝠Voice Runtime首期范围排序：P0核心媒体与稳定性；P1电话业务兼容适配；P2按现网需求纳入或首期延后。完整3999个原始ID及状态保留；延后不标绿、不改变分母。产品阶段里程碑和性能目标见<a href="voice-runtime-direction.html">研发方向</a>及<a href="voice-runtime-roadmap.json">研发清单</a>。</p>
+<p><a href="compatibility-worklist.json">下载全部逐项任务 JSON</a> · <a href="compatibility-worklist.csv">下载全部逐项任务 CSV</a> · <a href="compatibility-progress.json">查看计数变化及原始ID</a></p>
+<p>后续每轮必须先冻结上版证据，再实现、执行、记录失败或通过并重新发布；不能缩减分母、把订阅成功当事件已实现、把API目录存在当业务成功，或给未执行记录标绿。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

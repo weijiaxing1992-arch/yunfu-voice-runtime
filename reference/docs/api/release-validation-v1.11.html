@@ -1,0 +1,60 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>v1.11：本地单腿 PCM 与 IVR 验证记录 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / v1.11：本地单腿 PCM 与 IVR 验证记录</div><article class="content"><div class="page-tools"><a href="release-validation-v1.11.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 4 节</summary><a href="#本轮实际修复">本轮实际修复</a><a href="#单腿实际执行与独立复核">单腿实际执行与独立复核</a><a href="#既有功能的当前源码回归">既有功能的当前源码回归</a><a href="#后台页面的实际单腿观察">后台页面的实际单腿观察</a></details><h1 id="v111本地单腿-pcm-与-ivr-验证记录">v1.11：本地单腿 PCM 与 IVR 验证记录</h1>
+<p>本页记录1.11隔离候选的构建与验证，当前实际部署版本以 <code>GET /v1/docs</code> 返回的 <code>version</code> 字段为准。本轮将电话 IVR 的本地处理接入真实 G.711 图；完整 Voice Agent、Linux 容量和原版全量兼容仍待验收。测试结果按实际执行和独立复核分别记录，不将已有测试文件或能力名称计为成功。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>验证范围</th>
+<th>当前记录</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Go 完整竞态回归</td>
+<td>当前候选完整 <code>-race -count=1</code>：282 个顶层测试、471 个子测试，共 753 个通过记录，零失败/跳过；包含新增真实 Rust 启动/关闭检查</td>
+</tr>
+<tr>
+<td>Rust 本地图、PCM、时间线与 RTCP</td>
+<td>134 个单元测试 + 1 个集成测试通过，clippy <code>-D warnings</code> 通过；包括超限 DTMF 原子拒绝</td>
+</tr>
+<tr>
+<td>单腿独立 E2E</td>
+<td>两种 UDP 各 13 项，共 26 项通过，另有 14 子例；原收据时间解析错误保留，独立原证据复核通过，见下文</td>
+</tr>
+<tr>
+<td>既有 SIP/ESL/IVR 与双腿回归</td>
+<td>24 阶段 228 项、双腿 G.711 固定 22 项、暂停恢复 4 项在当前 build-01 全部重跑通过，零跳过/超时/强制清理</td>
+</tr>
+<tr>
+<td>管理页面</td>
+<td>实际单腿总览、挂机归零、本地能力就绪和对照四卡已验证；49 项文档证据 UI 门禁及相关页面回归通过</td>
+</tr>
+<tr>
+<td>Go 日志诊断</td>
+<td>11 项解析测试通过；实际小型 Go 夹具 4 GC/5 SCHED 全部识别；不属于压力证明</td>
+</tr>
+<tr>
+<td>500/5000/10000 路</td>
+<td>本轮尚未重测，v1.10 的 500 路失败保持</td>
+</tr>
+<tr>
+<td>部署</td>
+<td>实际安装以 <code>GET /v1/docs</code> 返回的 <code>version</code> 字段与部署回执核对；更新需空闲检查、保留活动配置/峰值策略、优雅退出</td>
+</tr>
+</tbody></table></div>
+<p>接口细节见 <a href="processed-local-reference.html">本地单腿处理</a>、<a href="runtime-diagnostics-reference.html">运行时诊断</a>；既有结果与失败见 <a href="release-validation-v1.10.html">v1.10</a>。源码更新后需重新绑定构建、运行与证据，旧测试回执不能直接授予当前源码绿色。</p>
+<h2 id="本轮实际修复">本轮实际修复</h2>
+<p>启动握手现在要求固定 <code>id=0</code>，错误 ID 不会建立健康 worker。另一个真实 UDP 反例发现 484 字节复合按键包先产生收号事件、随后才被图拒绝。修复将共用 480 字节上限校验前置到事件采集之前；本地和桥接处理图的超限包均无事件、无发送且只增加无效计数，480 字节边界及正常短包仍通过，relay 的原包透传保持。修复前失败原文与修复后回归独立保留。</p>
+<p>媒体图正常 PCM/RTP/RTCP 使用固定缓冲，但整个 worker 仍有有界计时器、按键日志和任务释放开销，尚无全 worker 热路径零分配结论。20ms 过期期限也不等于任何负载下都能保证最小包间隔；真实质量门槛继续保留。</p>
+<h2 id="单腿实际执行与独立复核">单腿实际执行与独立复核</h2>
+<p>build-01 控制 SHA 为 <code>99a362cb26e174e8170527ac40d3b6ba3ada75cd7b5c8e7bfe1921aeba265c4e</code>，媒体 SHA 为 <code>efbfbfbb5f4ccb11bb9d2c4e187b4b97bcfb4518eacbbcaa68e87f8c985994ba</code>。构建与本次执行前后 403 个功能源码文件一致。实际执行于 2026-09-07 03:21:50 至 03:23:12 北京时间，两种模式耗时约 40.48/40.58 秒。</p>
+<p>26 个测试方法与 14 个子例实际通过，失败、错误、跳过均为零。原始记录涵盖 28 次真实 ACK/BYE 周期、2 次已分配但缺 ACK 的回收，以及 6 次分配前 488 拒绝；26 个测试实例均正常退出，端口释放通过实际重新绑定确认。SIP、ESL、RTP、RTCP 合计 1,366 条原记录，293,060 字节；不为拒绝场景伪造 BYE。</p>
+<p>首轮记录器使用系统 Python 3.9，无法解析一个合法的 Go RFC3339 五位小数时间，因此 <code>local-01/local.receipt.json</code> 保持 <strong>false</strong>。这不是 26 项测试失败，也不能覆盖原收据把它改为 true。随后使用 Python 3.12，对已存档的记录器、全部 case 原帧/产物 SHA、新鲜零统计、实际构建和二进制做独立只读复核；复核于 03:25:22 完成，通过时间与原测试执行时间分别保存，没有重新运行网络或补写执行前快照。</p>
+<p><a href="processed-local-verification-v1.11.json">单腿验证摘要</a> 同时公开原收据失败原因和独立复核结果。原文件与详细复核分别在 <code>work/voice-runtime-m2-local/local-01</code> 和 <code>review/local-01-rfc3339-review.json</code>，原始收据 SHA 为 <code>626140a3b8ff88377305899d878d15cc5e194c735187eb7503c624e5d9f15d2f</code>。单腿集合不并入旧双腿固定 22 项绿色，也不授予 FreeSWITCH 全量兼容、ASR/TTS、500 路或更高容量认证。</p>
+<h2 id="既有功能的当前源码回归">既有功能的当前源码回归</h2>
+<p>Go 完整执行收据为 <code>runtime-evidence/go-513811f3e6204cf28cdfd0d6cfbfa396.receipt.json</code>，原有 24 阶段为 <code>runtime-evidence/e2e-698987c46b184770b1c5689c24a41e84.receipt.json</code>。双腿与恢复分别记录于 <code>processed-01/processed.receipt.json</code> 和 <code>recovery-01/summary.json</code>，均在本轮 build-01 上实际运行，执行前后源码与二进制相同。新本地集合、旧双腿固定 22 项和暂停恢复 4 项不互相混用。</p>
+<p>本轮继续保留容量条目的原失败收据及其构建、发生器报告、状态采样和清理证据，没有因为迁移证据目录而删除失败条目，也没有把历史 5000 路失败改为当前源码已测。v1.10 的 500 路 G.711 内容/迟发失败也继续保留。本批功能回归不包含新的压力执行。</p>
+<h2 id="后台页面的实际单腿观察">后台页面的实际单腿观察</h2>
+<p>使用内嵌119份文档的 admin-build-01 隔离实例，浏览器实际观察到本地活跃1路，PCM消费为1,546帧/247,360样本；挂机后变为0路，累计消费保留1,998帧/319,680样本，能量最大值为1,982,949,216。页面本地处理就绪为1/1，FreeSWITCH对照四卡为71通过、3916未运行、1失败、0无效，显示文档版本1.11.0。DOM、实际worker统计、原帧和清理结果保留于 <code>work/voice-runtime-m2-local/ui-local-01</code>。</p>
+<p>这个页面观察夹具在五个8秒发送段之间读取HTTP统计，不能当作连续媒体质量负载。实际收到2000个RTP包、解码1989帧、消费1998帧，保留9个迟到和9个PLC；没有将补偿计成真实解码，也没有把页面显示正确解释为媒体零缺口。正式独立26项音频场景与本次UI观察分别记录；该实例正常退出，主服务9080未用于本次单腿呼叫。</p>
+<p>收到的2000包中，1989包解码、9包迟到，另有2包未消费。通话释放会取消计时器并销毁图中的待消费缓冲，此次差额与该行为一致；缺少释放前的队列深度及截止时间记录，不能将2包逐包归因为尾部取消。<code>processed_queue_reset_drops</code> 不统计 Release 销毁的尾部缓冲，因此该指标为0不表示已收到的所有包都已消费。消费累计包含9帧PLC，并不因通话释放清零。</p>
+<p>固定原版FreeSWITCH 1.11.3在本轮源码下重新执行26个成对探针：21限定通过、3真实差异、2身份/目录观测。原版243文件在运行前后保持原SHA，原版、候选及VM正常关闭。当前成对报告、实际构建与原版安装清单已同步，原3项差异继续保留。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

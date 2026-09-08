@@ -1,0 +1,358 @@
+[
+  {
+    "path": ".gitignore",
+    "main_sha256": "2d21c5acc3b94a91ed30a03ad1fc1d55b24b8eab019289c948e4e9f8b27aedd6",
+    "asr_sha256": null,
+    "change": "removed"
+  },
+  {
+    "path": "Makefile",
+    "main_sha256": "06d21f03c9b6f141cd0383a1292c753c549d052bdee53509d7ee200e6d17cd05",
+    "asr_sha256": "5cb3067b546532b6f1d335cf0bd3147f3188637c23cde84fbf800301a735e3e5",
+    "change": "modified"
+  },
+  {
+    "path": "control/cmd/asr-mock/README.md",
+    "main_sha256": null,
+    "asr_sha256": "7c3d15e8d985a60b2015a74facd69ff6707f4030f6fb4ba3312674d3eef5548f",
+    "change": "added"
+  },
+  {
+    "path": "control/cmd/asr-mock/evidence.go",
+    "main_sha256": null,
+    "asr_sha256": "16d827022fa83f63a3c1e1eff17dbae7dfdbb4d50e52fd16791f27a291cb3c7a",
+    "change": "added"
+  },
+  {
+    "path": "control/cmd/asr-mock/evidence_test.go",
+    "main_sha256": null,
+    "asr_sha256": "0fe158636b48ce9a03a4cc8a06ac43023ccee0fcbd5c55049bf6a7027bb049bf",
+    "change": "added"
+  },
+  {
+    "path": "control/cmd/asr-mock/main.go",
+    "main_sha256": null,
+    "asr_sha256": "b0b8acb2af9933626d7c6f908338084de3e033132f46404a850116d3b0d30d62",
+    "change": "added"
+  },
+  {
+    "path": "control/cmd/asr-mock/provider.go",
+    "main_sha256": null,
+    "asr_sha256": "0a8f458b6b24aed1c7c88e37a970d87f70f9fb80c27915a661c13ca998dc2712",
+    "change": "added"
+  },
+  {
+    "path": "control/cmd/asr-mock/provider_initial_test.go",
+    "main_sha256": null,
+    "asr_sha256": "a3a88a418a2c91a2aa0b702d91f92fca292151c503fdf317da22495e859a958b",
+    "change": "added"
+  },
+  {
+    "path": "control/cmd/asr-mock/provider_test.go",
+    "main_sha256": null,
+    "asr_sha256": "da7af549b5c39ebc6b337c99360729428a2d7a7699e5ae9d24d8bc2c69274f94",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/frames.go",
+    "main_sha256": null,
+    "asr_sha256": "b5d81824e500f52a0355bcad798119a3a63f097473a6fd5d6bcc22b4e880371c",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/frames_test.go",
+    "main_sha256": null,
+    "asr_sha256": "8ec46c5fb037d40aa1993d7cacba4fe3125c43a03beeaa72a2924a331dab3bfa",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/provenance.go",
+    "main_sha256": null,
+    "asr_sha256": "62998b427847bd7d60112ea07194430b6e9e088bb1cc563a75acda4860499138",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/provenance_test.go",
+    "main_sha256": null,
+    "asr_sha256": "edfd89665fbc9e403fd2000728438c8bde7f6f5903c74add14bc26fdd45310c3",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/reader.go",
+    "main_sha256": null,
+    "asr_sha256": "7258044e7561cd6c1dfecfff88d2212341033893006e10411c19654941f17220",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/resample/coefficients.go",
+    "main_sha256": null,
+    "asr_sha256": "d4406508d80b4e83f1ed119f7df73910b09f0b1f08a5fec9cea000c9928d4d06",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/resample/converter.go",
+    "main_sha256": null,
+    "asr_sha256": "1017ead73412fb875bbcfbc59759007fbfbd0fd1ee3658bb29f73ca4d302898e",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/resample/converter_test.go",
+    "main_sha256": null,
+    "asr_sha256": "ee9e2b06db7678ad0d383c38f4edf8b9bd47105950e60e1ecd46e99b2e8710e4",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/resample/testdata/README.md",
+    "main_sha256": null,
+    "asr_sha256": "febf7a79a744adf83d7e9b2ee6453739a34438f23290bf87e78ddb43f629b162",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/resample/testdata/coefficients.f64le",
+    "main_sha256": null,
+    "asr_sha256": "e7d108779e82bc025af440ac3f2fbf4434972f93298b4bdfc79c56dc50795f01",
+    "change": "added",
+    "binary_in_full_source_only": true
+  },
+  {
+    "path": "control/internal/asr/resample/testdata/rust_reference.bin",
+    "main_sha256": null,
+    "asr_sha256": "080c4ade6dbeb777e8cdf1a751d65b842a7650ee0f22e27fc9927964b2e7fc8e",
+    "change": "added",
+    "binary_in_full_source_only": true
+  },
+  {
+    "path": "control/internal/asr/stream.go",
+    "main_sha256": null,
+    "asr_sha256": "9b968bcc3bff1a0b91cf2d17cc389fcaa2fb5ce60205470b79071587b588162b",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/stream_real_test.go",
+    "main_sha256": null,
+    "asr_sha256": "39be2b12e42c1f04ed09a77b69f500e5a5afc3e5ec55553bd5a5a03c60b6d247",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/stream_review_test.go",
+    "main_sha256": null,
+    "asr_sha256": "260a5c354f987eef75b786f35e841da8b18f429752f39628300c5ca40ca733da",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/stream_test.go",
+    "main_sha256": null,
+    "asr_sha256": "c90c15819ffaf1db688374a5db9071387396d441718e15409cda82b0a4b6aee7",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/types.go",
+    "main_sha256": null,
+    "asr_sha256": "de8e8162ed34f43470844116025599b907c9c3a190f9a9f099a9ef2a04f4d0c6",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/wire/json.go",
+    "main_sha256": null,
+    "asr_sha256": "f7eab54753a4055c87657276090264a80333798530db79e5272c1baa342729f8",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/wire/marker.go",
+    "main_sha256": null,
+    "asr_sha256": "aedfdd793bddefdf4de87628e6404b024ad6a1747386fdad4529ac7b97d65116",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/wire/marker_inheritance_test.go",
+    "main_sha256": null,
+    "asr_sha256": "c2dc3e08e431bde23b806cc9e543f6e884190c1096fc9764458eb07df35bc39c",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/wire/platform_darwin.go",
+    "main_sha256": null,
+    "asr_sha256": "e3f200e66572300ea51f11dddd57a57d242951412403c52fdb96677ba6a57c1d",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/wire/platform_linux.go",
+    "main_sha256": null,
+    "asr_sha256": "31b5dc4bf5274aafdd480911b69896ecda64d499715a9904377e4ef8dee231e3",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/wire/platform_other.go",
+    "main_sha256": null,
+    "asr_sha256": "a23f966be840b65ed3e42c772c4b81d793c905299eaba706c3892bcd27901603",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/wire/types.go",
+    "main_sha256": null,
+    "asr_sha256": "ca93a47e13d0b29469ac5c67571b8f5fe821acdee9706703289d5bd14e72ca46",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/wire/wire.go",
+    "main_sha256": null,
+    "asr_sha256": "f73261aea5fd5b58107b415129d0c5bcf939b9ccca38b45d21169bb045587410",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/wire/wire_test.go",
+    "main_sha256": null,
+    "asr_sha256": "c795d0e6ddfb0a03fe2b4987ebf57ef72fedb80d1eb0102b195b28cfbd8534c6",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/asr/writer.go",
+    "main_sha256": null,
+    "asr_sha256": "1e1dd685a6f5e2335bf36c79b5319eea2ad66e06953d9a21367577ff8faf60e1",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/config/asr_stream.go",
+    "main_sha256": null,
+    "asr_sha256": "a85d92218fda871e674788a16beadd476d495e36cdb0cb35141aef7149400832",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/config/asr_stream_test.go",
+    "main_sha256": null,
+    "asr_sha256": "c795fa0f980bfec6b72075158c5b01ee9b81a1f6de208fb3657447557ca8d1f2",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/config/config.go",
+    "main_sha256": "ff8c5099c90fd62ef8d353942cdeb5036a2546cbb07a7bea38686c134d9d446b",
+    "asr_sha256": "49912e2d2803f63d2ea1c5734f344534b16fd3e9466113d43f948c6f64149c14",
+    "change": "modified"
+  },
+  {
+    "path": "control/internal/media/rx_clock.go",
+    "main_sha256": "10deea27b84272cc75af8597a480c67ce3e2ed3ec70d591924ca91134dcdb99e",
+    "asr_sha256": "bb1082e456f3422d10bdb9e116e58d5dd1273eb5091efed665ad4e83284f2547",
+    "change": "modified"
+  },
+  {
+    "path": "control/internal/media/rx_discard_metadata_test.go",
+    "main_sha256": null,
+    "asr_sha256": "b2fe58b2095e622248804943b47275f48d6fccde44f2b351c3cb589cd5ae8a76",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/media/rx_remaining_budget_test.go",
+    "main_sha256": null,
+    "asr_sha256": "19402eece1e271072aca2d7b27a46dd564e20d2fca42ff91cf3a401f31eeedf0",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/media/rx_stream.go",
+    "main_sha256": "b1cf1a88818bb5b694339c8deac8f281a562fac9a3c59d1a816944c530d2d42e",
+    "asr_sha256": "3c625bcbe3a718edbc2054e4238750914378503a22b914e2e4fd1e28d5273e09",
+    "change": "modified"
+  },
+  {
+    "path": "control/internal/server/admin.go",
+    "main_sha256": "6cce56f9acb3d3fb32f038501778c9c2de398346e50ac9d9cbc2d9345cf49ef9",
+    "asr_sha256": "570cf357438edc6fc728b40b7705d982ef0137f83064bac83b7e65774de7dd49",
+    "change": "modified"
+  },
+  {
+    "path": "control/internal/server/admin_asr_stream_test.go",
+    "main_sha256": null,
+    "asr_sha256": "edb6afebc4df35c2b58c56aeb45ef146e8ec4182c40e9bf5dd119b03831b48fa",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/server/asr_observe.go",
+    "main_sha256": null,
+    "asr_sha256": "c9aa0a3b4eef2bcb1bd2a99299c1e1f9f452455b28807e55627e3a08d26ff7b5",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/server/asr_observe_test.go",
+    "main_sha256": null,
+    "asr_sha256": "54ac70c1dcbddd0389558e971b7cbf9397633f19d51ccf3a4f723bdd47bbf620",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/server/asr_stream.go",
+    "main_sha256": null,
+    "asr_sha256": "4847a041b13e0e5d299d7759a4adbca22b63a48e36690db69e1674e96b8fbd79",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/server/asr_stream_real_test.go",
+    "main_sha256": null,
+    "asr_sha256": "5c7b56c24d3b5eeffabb1b7f484ea71c6aa3c8a1b1a78ddc2e736319b2b01789",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/server/asr_stream_test.go",
+    "main_sha256": null,
+    "asr_sha256": "6e8a5375aa7864eed4db1f4e9b9e69db4c1c234a78ef850501ebdbced4607ee7",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/server/rx_lifetime_test.go",
+    "main_sha256": null,
+    "asr_sha256": "a3d445be3b161267c35538e58ca8316d85f274f92c868764f7eec49ec9048f1b",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/server/rx_no_binding_test.go",
+    "main_sha256": null,
+    "asr_sha256": "fd19cc8ff991e5c9edf02b34b0acce695fc76f57cf93d8b584440207f55ebe8e",
+    "change": "added"
+  },
+  {
+    "path": "control/internal/server/rx_stream.go",
+    "main_sha256": "42265747104ede1ed63c24972f48fdf717b909850cace548d6187b00b95903d5",
+    "asr_sha256": "58101fdecebbc72bbc7fe32f8f9bc8d060a7d1f2b2d871224285f7bdc732c8e1",
+    "change": "modified"
+  },
+  {
+    "path": "control/internal/server/server.go",
+    "main_sha256": "3c323afe3726387d1e3726a62cd32e3e1b63de68e2c9f00482d46d6ff9b7bd2c",
+    "asr_sha256": "2a6413d90c60af543c3523368f63e9b8a38c0092b753de18a772c9c6ea58d553",
+    "change": "modified"
+  },
+  {
+    "path": "control/internal/server/web/app.js",
+    "main_sha256": "7fa0d66b9799482b2df92663b7f248eeff0b06aa40d005323924a50b7f32e3a4",
+    "asr_sha256": "ce8c389932cb5d3d363c2783f2da1ef85cb52001d07fed7e9050f1bf35144661",
+    "change": "modified"
+  },
+  {
+    "path": "deploy/rustswitch.service",
+    "main_sha256": "d00b58f3f608151dcd802a46b497cc2e05c872f6301ed446913fe6f6e5c5292b",
+    "asr_sha256": null,
+    "change": "removed"
+  },
+  {
+    "path": "docs/api/README.md",
+    "main_sha256": "a9fe4695495b5a7ca34c3d94a79cd26b4d32048a35c0879a503a6ab136ba6246",
+    "asr_sha256": "ffb65daf51c1dc9c485ed117a5de14fdc0eead98f9e8843a83570261fd4f2691",
+    "change": "modified"
+  },
+  {
+    "path": "docs/api/asr-stream-reference.md",
+    "main_sha256": null,
+    "asr_sha256": "c4c12487d66a4c35159279f62e12944470ce73f0e3cf4340383f81dd47f5e2f5",
+    "change": "added"
+  },
+  {
+    "path": "docs/api/openapi.json",
+    "main_sha256": "bcbeb96c9080b99a96597a99790d38babc41b29f956476fb8dcbacaf0e02c307",
+    "asr_sha256": "617704d2d783b90e1515df3ad6051688c441263699e447db0899cb9bc7d229ed",
+    "change": "modified"
+  },
+  {
+    "path": "tools/test_asr_overview_ui.cjs",
+    "main_sha256": null,
+    "asr_sha256": "747927ced5872a0e1cf4615a8c25726507d554b3a7a5023b6f63607c9377a8f9",
+    "change": "added"
+  }
+]

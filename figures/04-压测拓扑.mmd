@@ -1,0 +1,12 @@
+flowchart LR
+  Main["主服务后台：测试页 / 运行总览"] -->|"预检通过后创建"| Control
+  subgraph Owned["隔离测试任务；同机仍共享CPU/内核/网卡"]
+    Control["独立Go实例：硬限制与媒体准入"]
+    Rust["专用Rust workers与独立媒体范围"]
+    Bench["callbench模拟A/B端点"]
+    Control <--> Rust
+    Bench <-->|SIP| Control
+    Bench <-->|"RTP/RTCP"| Rust
+  end
+  Control -->|"独立数据来源 / 报告 / 错误"| Main
+  Linux["后续容量验收：独立Linux发生器 + Linux被测服务器"]

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="930" viewBox="0 0 1400 930" role="img" aria-label="01  部署拓扑">
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto-start-reverse"><path d="M0 0L8 4L0 8" fill="none" stroke="#65818e" stroke-width="1.4"/></marker></defs>
+<style>text{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#1b3440} .small{font-size:17px;fill:#58717e} .label{font-size:17px;fill:#456777} .node{font-size:19px} .title{font-size:23px;font-weight:650}</style>
+<rect width="1400" height="930" fill="#ffffff"/>
+<rect x="35" y="33" width="6" height="66" rx="3" fill="#0b827b"/>
+<text x="58" y="61" font-size="30" font-weight="700">01  部署拓扑</text>
+<text x="58" y="92" class="small">信令进入 Go，媒体进入 Rust；图示为单机进程布局，不代表容量已验收。</text>
+<rect x="355" y="139" width="690" height="685" rx="20" fill="#f9fbfc" stroke="#cbdce2"/>
+<text x="377" y="171" class="title">一台 Voice Runtime 主机</text>
+<polyline points="290,237 390,237" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="300" y="196" class="label">HTTP / SSH 隧道</text>
+<polyline points="290,431 330,431 330,298 390,298" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="300" y="375" class="label">SIP</text>
+<polyline points="995,282 1085,282 1085,420 1120,420" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="1055" y="256" class="label">SIP</text>
+<polyline points="290,500 330,500 330,600 390,600" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="220" y="573" class="label">RTP/RTCP</text>
+<polyline points="995,600 1085,600 1085,485 1120,485" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="1080" y="570" class="label">RTP/RTCP</text>
+<polyline points="692,359 692,510" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="712" y="453" class="label">JSONL · FD3 PCM · FD4 RX</text>
+<polyline points="510,359 510,401 160,401 160,653" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="55" y="630" class="label">RVA1 / 可选 ESL</text>
+<polyline points="995,337 1022,337 1022,770 995,770" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="650" y="712" class="label">Go 写事件与状态</text>
+<rect x="50" y="177" width="240" height="126" rx="12" fill="#f5f6f7" stroke="#7b8993" stroke-width="1.5" stroke-dasharray="8 5"/>
+<text x="68" y="209" class="title">管理员 / 脚本</text>
+<text x="68" y="240" class="node">回环 HTTP :9080</text>
+<text x="68" y="267" class="node">页面、REST、指标</text>
+<rect x="50" y="410" width="240" height="130" rx="12" fill="#f5f6f7" stroke="#7b8993" stroke-width="1.5" stroke-dasharray="8 5"/>
+<text x="68" y="442" class="title">A 侧电话 / SBC</text>
+<text x="68" y="473" class="node">可信 SIP 发起方</text>
+<text x="68" y="500" class="node">本地测试端点亦可</text>
+<rect x="50" y="654" width="240" height="141" rx="12" fill="#f5f6f7" stroke="#7b8993" stroke-width="1.5" stroke-dasharray="8 5"/>
+<text x="68" y="686" class="title">本机业务代理</text>
+<text x="68" y="717" class="node">同 UID Unix socket</text>
+<text x="68" y="744" class="node">ESL 默认关闭</text>
+<text x="68" y="771" class="node">实际模型需另接入</text>
+<rect x="390" y="204" width="605" height="155" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="408" y="236" class="title">Go 控制进程</text>
+<text x="408" y="267" class="node">SIP :5060 / 固定上游 :5070（本地示例）</text>
+<text x="408" y="294" class="node">呼叫状态、准入、媒体监管、IVR、HTTP</text>
+<text x="408" y="321" class="node">可选 ESL :8021；生产地址需按部署调整</text>
+<rect x="390" y="510" width="605" height="175" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="408" y="542" class="title">Rust 媒体 worker × N</text>
+<text x="408" y="573" class="node">每通话归属一个分片；RTP/RTCP 直接进出</text>
+<text x="408" y="600" class="node">本地示例：2 worker，UDP 20000–21999</text>
+<text x="408" y="627" class="node">四端口 / 通话；默认硬并发仅 100 路</text>
+<text x="408" y="654" class="node">worker 崩溃会影响该分片存量通话</text>
+<rect x="610" y="735" width="385" height="70" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="628" y="767" class="title">本地配置 / JSONL 日志</text>
+<rect x="1120" y="390" width="235" height="150" rx="12" fill="#f5f6f7" stroke="#7b8993" stroke-width="1.5" stroke-dasharray="8 5"/>
+<text x="1138" y="422" class="title">B 侧上游 / SBC</text>
+<text x="1138" y="453" class="node">单固定 IPv4 上游</text>
+<text x="1138" y="480" class="node">可选 REGISTER 客户端</text>
+<text x="1138" y="507" class="node">外部线路独立提供</text>
+<rect x="50" y="875" width="22" height="18" rx="4" fill="#eef7fb" stroke="#167799"/>
+<text x="82" y="890" class="small">主目录基线已有实现</text>
+<rect x="415" y="875" width="22" height="18" rx="4" fill="#fff4e6" stroke="#b87019"/>
+<text x="447" y="890" class="small">独立候选，尚未发布</text>
+<rect x="805" y="875" width="22" height="18" rx="4" fill="#f5f6f7" stroke="#7b8993"/>
+<text x="837" y="890" class="small">外部系统 / 待集成范围</text>
+</svg>

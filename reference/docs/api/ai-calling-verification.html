@@ -1,0 +1,52 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>AI电话能力复核记录 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / AI电话能力复核记录</div><article class="content"><div class="page-tools"><a href="ai-calling-verification.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 4 节</summary><a href="#三应用的真实成对结果">三应用的真实成对结果</a><a href="#与26个协议探针分别展示">与26个协议探针分别展示</a><a href="#输入与构建绑定">输入与构建绑定</a><a href="#尚未完成的范围">尚未完成的范围</a></details><h1 id="ai电话能力复核记录">AI电话能力复核记录</h1>
+<p>当前原版与候选的有限IVR成对测试有3项通过；独立的26个协议回归探针有21项限定通过、3项真实差异，另有身份和目录观测。完整FreeSWITCH兼容、所有通信协议与生产容量均未认证。</p>
+<h2 id="三应用的真实成对结果">三应用的真实成对结果</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>应用</th>
+<th>原版与候选共同实际结果</th>
+<th>通过范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>set</td>
+<td>customer=中文客户；Application-Response=<em>none</em></td>
+<td>单通道设置变量及关联执行完成</td>
+</tr>
+<tr>
+<td>unset</td>
+<td>customer返回_undef_；Application-Response=<em>none</em></td>
+<td>清除上述变量及关联执行完成</td>
+</tr>
+<tr>
+<td>read</td>
+<td>digits=12，read_result=success，read_terminator_used=#；Application-Response=<em>none</em></td>
+<td>silence正常收号及终止符</td>
+</tr>
+</tbody></table></div>
+<p>原版为FreeSWITCH 1.11.3的9197 answer+park，候选为明确配置的9197直接本地A腿。两端使用同一份冻结探针，接通后持续发送20 ms PCMU静音和真实RFC4733按键1、2、#。每键三个重复结束包只形成一个DTMF事件，事件时长480，核对了同一通道、唯一Application-UUID和执行开始/完成字段；候选呼叫归零且进程正常回收。</p>
+<h2 id="与26个协议探针分别展示">与26个协议探针分别展示</h2>
+<p>26个探针验证ESL与SIP的指定请求、事件与边界；它们与上述三项IVR应用属于独立测试集合。版本身份、API目录枚举也单独记录。SIP能力声明的三个差异继续保留，不通过发布尚未实现的能力来消除差异。当前对照总条目为3983，完整合同通过数仍为0。</p>
+<h2 id="输入与构建绑定">输入与构建绑定</h2>
+<p>原版和候选都保存执行前后实际文件指纹。候选Go/Rust产物、运行配置与真实构建收据一致，完整源码集合在执行前后相同；原版主配置、完整配置树、核心库、模块库与冻结来源一致。公开JSON仅提供观察结果、时间和SHA；完整原帧及内部配置由专属取证归档保留。</p>
+<ul>
+<li>原版二进制SHA256：<code>7351b3d7ee0df136d575978cac528323acc8a7de27ef7492b7bc624b3981e21a</code>。</li>
+<li>候选控制程序SHA256：<code>adca2df3b8bfd7a356879ed3ccdb69bece1969106d15167d309d7981d2e58555</code>。</li>
+<li>候选媒体程序SHA256：<code>569d40f014741cf6a026bde4e0aedc5cf029dabc4596a32b08e4270ce0f8755e</code>。</li>
+<li>成对执行源码SHA256：<code>413444d042c3cbede52b5fdacf3a25e4bbcc1faed5d473b2947218fae2585b86</code>。</li>
+</ul>
+<p>首轮原版失败仍保留：当时未先提供媒体输入，park没有推进已接收的应用命令。加入真实媒体输入后，同一原版配置通过；本次最终报告又对DTMF模式大小写修复后的新构建进行了重测，没有把历史结果移作新版本通过。</p>
+<h2 id="尚未完成的范围">尚未完成的范围</h2>
+<ul>
+<li>仅一个本地A腿、PCMU与RFC4733正常收号；不覆盖全编解码器或全传输协议。</li>
+<li>未成对验证read超时、最短/最长数字边界、缺失RTP结束包、SIP INFO、并发执行、抢占或通话中断分支。</li>
+<li>未成对验证文件/TTS提示音、play_and_get_digits、ivr菜单、脚本语言、完整dialplan和所有模块。</li>
+<li>原版与候选事件中时间、地址、通道UUID和其他业务字段不在本次完整逐字段合同范围。</li>
+<li>单路功能通过不证明5000路或万路容量，更不代表FreeSWITCH全产品100%兼容。</li>
+<li>这两组结果分别展示；不能把26个协议探针与3个应用解释为完整模块、所有调用方式或全事件字段已覆盖。</li>
+<li>本成对摘要未验证playback；如该条目显示本地绿色，应以另外的本地提示音测试及其范围为依据。</li>
+<li>SIP能力声明仍有三个真实差异，未补齐的功能不通过虚报Allow来掩盖。</li>
+</ul>
+<p>机器摘要：<a href="ai-calling-verification.json">ai-calling-verification.json</a>。每个通过仅代表明确列出的范围，不能据此将完整模块、接口总表或容量目标全部标绿。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

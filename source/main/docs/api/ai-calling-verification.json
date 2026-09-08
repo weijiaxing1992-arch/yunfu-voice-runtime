@@ -1,0 +1,338 @@
+{
+  "schema_version": "1.0.0",
+  "release": "1.6",
+  "title": "AI电话能力的实际验证范围",
+  "generated_at": "2026-09-06T11:03:43.417335+00:00",
+  "summary": {
+    "native_ivr_applications_passed_scoped": 3,
+    "protocol_regression_probes": 26,
+    "protocol_regression_states": {
+      "identity_observed": 1,
+      "passed_scoped": 21,
+      "inventory_observed": 1,
+      "failed_difference": 3
+    },
+    "original_comparison_entries": 3983,
+    "full_compatibility_passed": false,
+    "all_protocols_passed": false,
+    "full_superiority_proven": false,
+    "capacity_certified": false
+  },
+  "native_ivr_pair": {
+    "state": "passed_scoped",
+    "scope": "原版9197 answer+park与候选local_extensions9197的直接本地A腿，三个应用正常路径；没有伪上游应答。",
+    "applications": [
+      {
+        "application": "set",
+        "comparison_ids": [
+          "registration:app:mod_dptools:set:6690"
+        ],
+        "state": "passed_scoped",
+        "scope": "同一本地通话上设置 customer=中文客户，读取变量并核对唯一执行完成事件。",
+        "reference_observed": {
+          "value": "中文客户",
+          "application_response": "_none_"
+        },
+        "candidate_observed": {
+          "value": "中文客户",
+          "application_response": "_none_"
+        },
+        "execution_events_correlated_by_channel_and_application_uuid": true,
+        "full_application_contract_passed": false
+      },
+      {
+        "application": "unset",
+        "comparison_ids": [
+          "registration:app:mod_dptools:unset:6706"
+        ],
+        "state": "passed_scoped",
+        "scope": "清除上述customer，读取_undef_并核对唯一执行完成事件。",
+        "reference_observed": {
+          "value": "_undef_",
+          "application_response": "_none_"
+        },
+        "candidate_observed": {
+          "value": "_undef_",
+          "application_response": "_none_"
+        },
+        "execution_events_correlated_by_channel_and_application_uuid": true,
+        "full_application_contract_passed": false
+      },
+      {
+        "application": "read",
+        "comparison_ids": [
+          "registration:app:mod_dptools:read:6797"
+        ],
+        "state": "passed_scoped",
+        "scope": "read 1 4 silence digits 3000 #，通过真实RTP接收12#；检查数字、结果、终止符、DTMF去重及完成事件。",
+        "reference_observed": {
+          "variables": {
+            "digits": "12",
+            "read_result": "success",
+            "read_terminator_used": "#"
+          },
+          "application_response": "_none_"
+        },
+        "candidate_observed": {
+          "variables": {
+            "digits": "12",
+            "read_result": "success",
+            "read_terminator_used": "#"
+          },
+          "application_response": "_none_"
+        },
+        "execution_events_correlated_by_channel_and_application_uuid": true,
+        "full_application_contract_passed": false
+      }
+    ],
+    "probe_sha256": "d5b1188cd02332aaa11213324d53b18f9bd841c6521ddad34baae0488670d435",
+    "probe_helper_sha256": "7bcab5b4ffa3537926b12a8f5d990e7808bcc86a9ae126ab492ef93cebd750f1",
+    "reference": {
+      "version": "1.11.3",
+      "commit": "ef32e205295e29f034f1453ad245ba5efb07b94a",
+      "window": {
+        "started_at": "2026-09-06T10:58:34.035682+00:00",
+        "finished_at": "2026-09-06T10:58:34.772186+00:00",
+        "input_bytes_unchanged": true
+      },
+      "binary_sha256": "7351b3d7ee0df136d575978cac528323acc8a7de27ef7492b7bc624b3981e21a",
+      "core_library_sha256": "a6bb9d11de9262f0d3a6e9cb509c1c75d79ffb607993a719f0f51e88ab6571e4",
+      "main_config_sha256": "9022c155929885a6b2cad69506db1aa710746d33e578baeeb41daa7f70a660c5",
+      "config_tree_sha256": "42d109f3da87a7c9713c7687d89e472504f5c88a1731d58b8f273e32f6ce1c03",
+      "config_tree_files": 11,
+      "installation_manifest_sha256": "8a82cc3c07ffa8eb416f67896ffccfe53e6ebed94715239a8019036f770b0e8e"
+    },
+    "candidate": {
+      "window": {
+        "started_at": "2026-09-06T10:58:34.832479+00:00",
+        "finished_at": "2026-09-06T10:58:35.676325+00:00",
+        "input_bytes_unchanged": true
+      },
+      "control_binary_sha256": "adca2df3b8bfd7a356879ed3ccdb69bece1969106d15167d309d7981d2e58555",
+      "media_binary_sha256": "569d40f014741cf6a026bde4e0aedc5cf029dabc4596a32b08e4270ce0f8755e",
+      "main_config_sha256": "534f1ec86bcaf0a3575773fcee594635bf6e3eaf1ce9779b46e3fdfd86da2581",
+      "build_receipt_sha256": "1c41a4b1eace818aacb4e18af6668ef970cde1d424a56589440c4a157e36b2cb",
+      "runtime_build_receipt_sha256": "e36c586124cd8749fa0209248bd04225a3218feb3a3cf26d8f8e4feb746b68b1",
+      "runtime_source_map_sha256": "987d8d4f6afdba1f55eab02ed6b15005931cbdb6b42e6bb02187aa4b628f18fb",
+      "conformance_source_sha256": "413444d042c3cbede52b5fdacf3a25e4bbcc1faed5d473b2947218fae2585b86",
+      "calls_returned_to_zero": true,
+      "owned_process_exited_normally": true
+    },
+    "media_observed": {
+      "codec": "PCMU",
+      "audio_frame_ms": 20,
+      "telephone_event_payload_type": 101,
+      "digits": [
+        "1",
+        "2",
+        "#"
+      ],
+      "duration_each_rtp_ticks": 480,
+      "repeated_end_packets_each": 3,
+      "unique_dtmf_events_each": 1,
+      "reference_pcm_packets": 24,
+      "candidate_pcm_packets": 17,
+      "rtp_sequence_continuity_verified": true
+    },
+    "evidence": [
+      {
+        "artifact": "native-ivr-04.json",
+        "bytes": 129527,
+        "sha256": "3558bdde9b88e46d36576afdc5df569fdcf8f6faf7c1dc74b80f7bdcc72e92ec"
+      },
+      {
+        "artifact": "native-ivr-candidate-02.json",
+        "bytes": 29624,
+        "sha256": "908c9c57059ed3378e23d73462f34022623a93431f332d8fb8d0aada5a789a0c"
+      },
+      {
+        "artifact": "native-ivr-04-reference-before.json",
+        "bytes": 53488,
+        "sha256": "fa2774783edec7801aa16d99a10d53ca87062eec0db59339075e79dfe114e755"
+      },
+      {
+        "artifact": "native-ivr-04-reference-after.json",
+        "bytes": 53488,
+        "sha256": "a823f62ad284fbb1aaae9ec4a501b9bd639419da68275153d7301c560461ee99"
+      },
+      {
+        "artifact": "native-ivr-candidate-02-before.json",
+        "bytes": 131094,
+        "sha256": "3b1010ddb59da767f7ed6c624e6366e7c3142d0e6d7335841e8a354d5f4b3963"
+      },
+      {
+        "artifact": "native-ivr-candidate-02-after.json",
+        "bytes": 131094,
+        "sha256": "43b31a7d45b17ab61ec225f6dab6b79e19ef1b60ef51842eb34081599c01cb5e"
+      },
+      {
+        "artifact": "native-ivr-candidate-02-execution.json",
+        "bytes": 3069,
+        "sha256": "a9d280843f9af6c43eacc5ca0a1a9d3119546dd8362fc11f9f4e157b66acd982"
+      }
+    ]
+  },
+  "protocol_regression": {
+    "scope": "与native三应用独立的一组26个ESL/SIP有限探针；身份和目录观测不能计为功能兼容通过。",
+    "finished_at": "2026-09-06T10:59:15.218976Z",
+    "counts": {
+      "identity_observed": 1,
+      "passed_scoped": 21,
+      "inventory_observed": 1,
+      "failed_difference": 3
+    },
+    "probes": [
+      {
+        "id": "identity.esl",
+        "state": "identity_observed",
+        "scope": "读取两端真实版本并核实 reference 发行版本；不比较版本字符串"
+      },
+      {
+        "id": "esl.auth.fragmented",
+        "state": "passed_scoped",
+        "scope": "认证请求逐字节发送、成功身份和固定 echo 正文"
+      },
+      {
+        "id": "esl.auth.wrong",
+        "state": "passed_scoped",
+        "scope": "一个错误密码的回复及随后关闭；不包含 ACL、锁定、空密码、认证超时"
+      },
+      {
+        "id": "esl.auth.required",
+        "state": "passed_scoped",
+        "scope": "认证前 api echo 被拒绝且不获取身份，同连接随后有效认证和 echo 成功"
+      },
+      {
+        "id": "esl.echo",
+        "state": "passed_scoped",
+        "scope": "api echo 固定 UTF-8 正文、Content-Length 字节数"
+      },
+      {
+        "id": "esl.console.single",
+        "state": "passed_scoped",
+        "scope": "fs_cli -x 的 console_execute 单命令包装：UTF-8、空 echo、首尾空格、单分号和 false 字面参数；不代表别名、批处理或交互客户端"
+      },
+      {
+        "id": "esl.api.unknown",
+        "state": "passed_scoped",
+        "scope": "单个固定未知 API 命令的错误响应"
+      },
+      {
+        "id": "esl.frames.pipeline",
+        "state": "passed_scoped",
+        "scope": "一次写入两条 echo；逐帧读取并核对两个正文；不代表事件洪峰"
+      },
+      {
+        "id": "esl.frames.crlf",
+        "state": "passed_scoped",
+        "scope": "CRLF 命令分隔的认证和 echo；不代表所有头部/长度边界"
+      },
+      {
+        "id": "esl.frames.split_positions",
+        "state": "passed_scoped",
+        "scope": "固定 echo 请求在每个字节边界拆成两次发送，每次独立连接"
+      },
+      {
+        "id": "esl.bgapi.echo",
+        "state": "passed_scoped",
+        "scope": "固定 Job-UUID、bgapi echo 回复及 BACKGROUND_JOB 结果；不包含并发作业/重连重放"
+      },
+      {
+        "id": "identity.api_inventory",
+        "state": "inventory_observed",
+        "scope": "真实 show api as json 注册目录；逐个对照全部 fs_api 原始 ID，接口存在不表示语义通过"
+      },
+      {
+        "id": "esl.api.echo_empty",
+        "state": "passed_scoped",
+        "scope": "echo 无参数、尾空格、首尾空格的完整原始响应；不预设空白归一化"
+      },
+      {
+        "id": "esl.api.create_uuid",
+        "state": "passed_scoped",
+        "scope": "连续两次生成合法且不同 UUID，保留原字节；仅随机 UUID 值可规范化"
+      },
+      {
+        "id": "esl.api.uuid_exists_missing",
+        "state": "passed_scoped",
+        "scope": "固定 nil UUID 实际不存在时返回 false；不代表存在通道完整契约"
+      },
+      {
+        "id": "esl.api.uuid_getvar_missing",
+        "state": "passed_scoped",
+        "scope": "先核实固定 nil UUID 不存在，再读取变量并比较完整错误"
+      },
+      {
+        "id": "esl.api.uuid_setvar_missing",
+        "state": "passed_scoped",
+        "scope": "仅隔离 fixture，确认 nil UUID 不存在后尝试设置并比较错误；不修改真实通道"
+      },
+      {
+        "id": "esl.api.uuid_kill_missing",
+        "state": "passed_scoped",
+        "scope": "仅隔离 fixture，确认 nil UUID 不存在后调用并比较错误；不挂断真实通道"
+      },
+      {
+        "id": "esl.api.uuid_syntax",
+        "state": "passed_scoped",
+        "scope": "uuid_exists/getvar/setvar/kill 缺参数的真实错误/usage；不执行有效通道动作"
+      },
+      {
+        "id": "esl.command.case",
+        "state": "passed_scoped",
+        "scope": "混合大小写 AUTH/API/EVENT、格式沿用及 nixevent/noevents 开关"
+      },
+      {
+        "id": "esl.filter.lifecycle",
+        "state": "passed_scoped",
+        "scope": "filter delete all、空值清除、noevents/nixevent；以真实后台事件交付证明过滤已清除"
+      },
+      {
+        "id": "esl.bgapi.echo.json",
+        "state": "passed_scoped",
+        "scope": "JSON BACKGROUND_JOB、固定 UUID、原始正文与内层字节长度"
+      },
+      {
+        "id": "esl.bgapi.echo.xml",
+        "state": "passed_scoped",
+        "scope": "XML BACKGROUND_JOB、固定 UUID、headers/root-body 结构、原始正文与内层字节长度"
+      },
+      {
+        "id": "sip.options.udp",
+        "state": "failed_difference",
+        "scope": "一个 OPTIONS 事务、状态码/能力头和回显事务标识；不代表完成呼叫"
+      },
+      {
+        "id": "sip.options.tcp",
+        "state": "failed_difference",
+        "scope": "TCP 连接上一个 OPTIONS 请求及完整响应；不代表 TCP 呼叫/复用/背压"
+      },
+      {
+        "id": "sip.options.tls",
+        "state": "failed_difference",
+        "scope": "验证证书的 TLS 连接上一个 OPTIONS；不允许跳过证书验证"
+      }
+    ],
+    "evidence": {
+      "artifact": "paired-02.json",
+      "bytes": 3774675,
+      "sha256": "37ecc471eacb2fb86e07a4c74ea7d3efa1b732e99e26dbd9b41754fceb3e61b6"
+    },
+    "source_snapshot_sha256": "413444d042c3cbede52b5fdacf3a25e4bbcc1faed5d473b2947218fae2585b86",
+    "full_contract_passed": 0
+  },
+  "history": {
+    "original_first_attempt": "保留失败：未先发送媒体时，原版park未推进已接收的set；加入接通后持续PCMU输入后同一原版配置通过。",
+    "pre_final_build": "DTMF模式大小写修复前的native/26探针通过与差异均留档，本摘要来自新构建重新执行。"
+  },
+  "limits": [
+    "仅一个本地A腿、PCMU与RFC4733正常收号；不覆盖全编解码器或全传输协议。",
+    "未成对验证read超时、最短/最长数字边界、缺失RTP结束包、SIP INFO、并发执行、抢占或通话中断分支。",
+    "未成对验证文件/TTS提示音、play_and_get_digits、ivr菜单、脚本语言、完整dialplan和所有模块。",
+    "原版与候选事件中时间、地址、通道UUID和其他业务字段不在本次完整逐字段合同范围。",
+    "单路功能通过不证明5000路或万路容量，更不代表FreeSWITCH全产品100%兼容。",
+    "这两组结果分别展示；不能把26个协议探针与3个应用解释为完整模块、所有调用方式或全事件字段已覆盖。",
+    "本成对摘要未验证playback；如该条目显示本地绿色，应以另外的本地提示音测试及其范围为依据。",
+    "SIP能力声明仍有三个真实差异，未补齐的功能不通过虚报Allow来掩盖。"
+  ]
+}

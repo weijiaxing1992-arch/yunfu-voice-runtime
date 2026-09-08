@@ -1,0 +1,371 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>RustSwitch 0.3.0 中文管理功能交付说明 · 云蝠项目资料</title><link rel="stylesheet" href="../../handbook.css"></head><body><aside><a class="brand" href="../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../index.html">资料首页</a><a class="" href="../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / RustSwitch 0.3.0 中文管理功能交付说明</div><article class="content"><div class="page-tools"><a href="management-v0.3.md" download>Markdown 原稿</a><a href="api/openapi.json" download>OpenAPI JSON</a><a href="../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 7 节</summary><a href="#1-启动与页面">1. 启动与页面</a><a href="#2-峰值保护的三个口径">2. 峰值保护的三个口径</a><a href="#3-配置保存重启与部署优先级">3. 配置保存、重启与部署优先级</a><a href="#4-freeswitch-配置覆盖与限制">4. FreeSWITCH 配置覆盖与限制</a><a href="#5-管理-api">5. 管理 API</a><a href="#6-中文注释与来源边界">6. 中文注释与来源边界</a><a href="#7-验证记录与仍未完成的工作">7. 验证记录与仍未完成的工作</a></details><h1 id="rustswitch-030-中文管理功能交付说明">RustSwitch 0.3.0 中文管理功能交付说明</h1>
+<p>版本：0.3.0 开发原型。日期：2026-09-05。</p>
+<p>本轮交付六页面中文管理控制台、即时峰值保护、持久化启动配置草稿，以及 FreeSWITCH 官方配置的编辑与导出。核心架构仍是 Rust 媒体、Go 控制面与 C/C++ 原生适配接口。页面和字段编辑能力不代表 FreeSWITCH 的应用、协议、脚本或模块已实现，也不构成单机一万路容量认证。</p>
+<h2 id="1-启动与页面">1. 启动与页面</h2>
+<p>从项目根目录构建、校验并启动：</p>
+<pre><code class="language-sh">make all
+bin/rustswitch -check-config -config config/local.json
+bin/rustswitch -config config/local.json
+</code></pre>
+<p>浏览器打开 <code>http://127.0.0.1:9080</code>。默认配置采用 100 路启动并发、20 次/秒的新呼叫速率、40 次启动突发容量；固定 SIP 上游是 <code>127.0.0.1:5070</code>。页面、样式、脚本和官方 XML 随 Go 可执行文件内嵌，无需 CDN、联网加载资源或单独的前端服务。交付的本机二进制不能直接用于 Linux，Linux 必须重新构建。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>页面</th>
+<th>可使用功能</th>
+<th>提交或观测的实际含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>运行总览</td>
+<td>活跃/接通通话、分片与进程代次、媒体包计数、趋势、日志健康、当前告警</td>
+<td>每 3 秒读取真实状态，后台标签页暂停定时采集；趋势仅包含本次浏览器采样</td>
+</tr>
+<tr>
+<td>峰值保护</td>
+<td>总并发、建立中、CPS、突发容量、柔性降速和 Retry-After</td>
+<td>策略即时生效并保存；下方启动硬上限独立保存待重启</td>
+</tr>
+<tr>
+<td>SIP 与媒体</td>
+<td>监听/对外/上游地址、CIDR、超时、端口、工作进程、缓冲、CPU 绑定、媒体压力准入</td>
+<td>保存完整启动配置草稿；当前进程继续使用原配置</td>
+</tr>
+<tr>
+<td>运维配置</td>
+<td>管理地址、日志队列、持久化计数、配置快照、排空/恢复</td>
+<td>配置待重启；排空与恢复即时处理新准入</td>
+</tr>
+<tr>
+<td>FreeSWITCH 配置</td>
+<td>分类、搜索、文件筛选、批量字段编辑、XML、高级新增参数、用户/网关/路由模板、ZIP 导出</td>
+<td>保存文本草稿，当前 RustSwitch 不执行这些 XML</td>
+</tr>
+<tr>
+<td>兼容能力</td>
+<td>各项功能的已实现、部分实现、导出可用、待实现、待验收状态</td>
+<td>以服务端能力清单为准，不显示未经认证的完成百分比</td>
+</tr>
+</tbody></table></div>
+<p>运行轮询不会重绘正在编辑的配置输入。离线时保留最后成功采样，并标记数据未更新。日志页面没有原始服务器日志接口；“日志与观察”仅显示真实累计计数与当前浏览器观察到的状态变化，不能代替持久化审计日志。</p>
+<p>当前限流使用 <code>guard.limit_reason</code> 与 <code>guard.throttled</code>。<code>last_reject_reason</code> 是最近一次拒绝的历史原因，负载恢复后仍可能非空，页面不会据此持续报警。</p>
+<h2 id="2-峰值保护的三个口径">2. 峰值保护的三个口径</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>默认目标</th>
+<th>单位与计算口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>max_active_calls</code></td>
+<td>8,000</td>
+<td>路桥接通话；已预留且尚未释放的活跃资源数，包含建立阶段</td>
+</tr>
+<tr>
+<td><code>max_establishing_calls</code></td>
+<td>1,000</td>
+<td>路；<code>max(活跃数 - 已建立数, 0)</code>，也包含结束后仍待释放的资源</td>
+</tr>
+<tr>
+<td><code>calls_per_second</code></td>
+<td>1,000</td>
+<td>次新呼叫准入/秒；令牌补充速率，不是同一时刻的并发数</td>
+</tr>
+<tr>
+<td><code>burst_calls</code></td>
+<td>最多 1,000，且不高于启动突发上限及默认 CPS</td>
+<td>次；令牌桶的短时突发容量</td>
+</tr>
+<tr>
+<td><code>soft_limit_ratio</code></td>
+<td>0.8</td>
+<td>任一并发保护阈值使用率达到 80% 后开始降速</td>
+</tr>
+<tr>
+<td><code>minimum_rate_ratio</code></td>
+<td>0.1</td>
+<td>尚未因硬阈值拒绝时，令牌补充速率最低为基准的 10%</td>
+</tr>
+<tr>
+<td><code>retry_after_seconds</code></td>
+<td>1</td>
+<td>秒；拒绝新呼叫时返回的建议重试间隔</td>
+</tr>
+</tbody></table></div>
+<p>保护器只检查全新的初始 <code>INVITE</code>。同一事务的重传，以及已有通话的 <code>ACK</code>、<code>BYE</code>、媒体转发等，不按新呼叫再次扣减令牌。降低阈值不会遍历或挂断已有通话；即使当前通话数高于新阈值，也只是停止接纳后续新呼叫，等待正常结束释放。</p>
+<p>该策略控制新呼叫进入系统的速度，<strong>不限制实际 <code>200 OK</code> 接通响应的产生时间或每秒接通数</strong>。不会把已产生的 <code>200</code> 延迟到某个节拍，也不会将被拒绝的呼叫放入服务端等待队列。达到总并发/建立中阈值，或令牌不足时，返回 <code>503</code> 与 <code>Retry-After</code>；对端决定是否按建议等待后发起新的事务。建议重试时间不保证届时一定存在容量。</p>
+<h3 id="线性降速">线性降速</h3>
+<p>取两个使用率中的较大值：</p>
+<pre><code class="language-text">u = max(活跃资源数 / 总并发保护上限,
+        建立中资源数 / 建立中保护上限)
+
+u &lt;= 0.8：有效 CPS = 配置 CPS
+u &gt; 0.8：有效 CPS = 配置 CPS × max(0.1, 1 - min(1, (u - 0.8) / 0.2) × 0.9)
+</code></pre>
+<p>默认配置下，<code>u=0.9</code> 时令牌补充速率为基准的 55%。达到任一完整并发阈值时，仍会拒绝新准入，即使令牌桶尚有余额。令牌按时间补充，短时接入量还受 <code>burst_calls</code> 约束，不能把该机制解释为每个自然秒严格等量接入。</p>
+<p><code>enabled=false</code> 只关闭额外的动态并发阈值和柔性降速；启动并发、CPS 与突发硬上限仍然生效。日志异常、排空、媒体分片压力和实际资源分配也可以独立拒绝新呼叫。</p>
+<h3 id="启动硬上限与本地自动收缩">启动硬上限与本地自动收缩</h3>
+<p>即时策略必须同时满足当前有效启动配置和已经保存的待重启配置的硬边界。网页不能通过热更新把本地 100 路实例提升到 8,000 路。应先保存合适的启动硬上限、端口等配置，正常重启后，再提升即时策略。反向降低启动容量时，应先将即时策略调低到新容量以内。</p>
+<p>首次使用未保存策略的本地配置时，默认保护值自动成为：总并发 100 路、建立中 100 路、20 次/秒，保护层突发容量 20 次。启动突发上限仍为 40 次；两者是独立层次。页面“使用建议值”仅填入受启动硬上限约束的本地表单，点击“立即应用”才会提交。</p>
+<p>本实现一条桥接通话有 A/B 两条呼叫腿，各自使用 RTP/RTCP，共四个媒体端口。启动配置校验采用以下预算：</p>
+<pre><code class="language-text">可分配端口组 = floor((port_end - port_start + 1) / 4)
+所需端口组 = max_calls + ceil(calls_per_second × port_reuse_delay_ms / 1000)
+要求：可分配端口组 &gt;= 所需端口组
+</code></pre>
+<p><code>10000–64999</code> 提供 13,750 组；一万路启动并发、1,000 CPS、2 秒隔离期需要 12,000 组。本地 <code>20000–21999</code> 提供 500 组，100 路、20 CPS、2 秒需要 140 组。全局预算通过不保证各分片端口周转均匀，也不证明 CPU、网卡或发生器达到所需能力。</p>
+<h3 id="容量测量与保护验收分开">容量测量与保护验收分开</h3>
+<p>Linux 一万路示例的启动硬上限是 10,000，但未保存策略时的默认业务保护仍是 8,000 路。直接发起万路请求可能得到符合策略的 503，不能据此判断性能失败。容量实验之前，应在管理页面检查总并发、建立中、CPS、突发容量和柔性降速，明确采用可承载实验目标的策略；过载保护验收则应单独保留或设定业务保护阈值。</p>
+<p>本地编排工具提供显式 <code>--capacity-mode</code>：只关闭脚本自己启动的隔离服务的业务 Guard 额外阈值与柔性降速，保留启动并发/CPS/突发硬限制、媒体健康准入和实际资源分配校验，并在报告记录该模式。该开关不修改其他运行服务，不是通用的无限制模式。独立 <code>callbench</code> 不会更改远端服务策略。</p>
+<pre><code class="language-sh">python3 tools/local_bench.py --calls 1000 --cps 200 --seconds 60 \
+  --capacity-mode --connected --endpoint-connected \
+  --work-dir run/capacity-1000 --report run/capacity-1000/report.json
+</code></pre>
+<p>不传 <code>--capacity-mode</code> 时采用正常保护策略。容量结果和保护策略效果应使用不同验收目标与报告，避免把预期拒接误报为性能失败，也避免用关闭业务保护后的测量证明正常策略下的接纳能力。</p>
+<h2 id="3-配置保存重启与部署优先级">3. 配置保存、重启与部署优先级</h2>
+<p>管理状态文件由<strong>原始启动文件中的 <code>journal.path</code></strong> 加 <code>.admin.json</code> 得到。默认是 <code>run/events.jsonl.admin.json</code>，Linux 示例是 <code>/var/lib/rustswitch/events.jsonl.admin.json</code>。相对路径按进程工作目录解析。</p>
+<p>单个管理文件保存共享 <code>revision</code>、原始配置摘要、完整 <code>desired</code>、即时 <code>policy</code> 和相对官方基线修改/新增的 <code>fs_files</code>。浏览器不会改写原始启动 JSON，也不会把 XML 写入任意主机路径。媒体可执行程序 <code>media.binary</code> 与日志 <code>journal.path</code> 在页面只读，后端同时拒绝对此两项进行网页修改；部署人员可在启动文件中调整。</p>
+<p>启动文件解析后的配置摘要未改变时，下次启动采用已保存的 <code>desired</code>。人工改变启动配置后，启动文件成为新的有效配置；已有保护策略保留。如果新的启动硬上限更低，只收紧相应的总并发、建立中、CPS 和突发数值，保留开启状态、软降速比例、最低比例和重试间隔。原管理状态可读取时，XML 草稿也保留。启动载入本身不写盘，随后一次成功保存会写入新的状态。</p>
+<p>如果部署人员改动 <code>journal.path</code>，派生出的管理状态文件路径也会改变，旧文件不会被自动搜索和迁移。需要按明确的部署步骤处理状态迁移，不能将“保留 XML”理解为跨任意路径自动查找旧草稿。</p>
+<p>提交先写同目录临时文件并同步，然后原子重命名；文件替换成功后才发布内存版本。目录同步失败会记录警告，因为文件已经替换，不能把这次提交当作从未发生。该流程不构成任意断电场景下零数据丢失的承诺。</p>
+<p>所有配置页共享一个乐观并发版本。版本过期返回 <code>409</code>；页面保留本地输入，可导出本地草稿，再重新载入并人工合并。不会自动带新版本重试旧表单。自己的保存成功仅推进同一旧版本的本地状态；已经过期的其他草稿仍保留旧版本。提交过程中锁定编辑入口，防止返回响应覆盖新输入。</p>
+<h2 id="4-freeswitch-配置覆盖与限制">4. FreeSWITCH 配置覆盖与限制</h2>
+<p>固定参考为 FreeSWITCH <strong>1.11.3</strong>，commit <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>，来自官方 <a href="https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a/conf/vanilla" target="_blank" rel="noopener noreferrer">conf/vanilla</a>。源码与逐文件 SHA-256 保存在 <a href="../control/internal/server/fs_templates/SOURCE.json">SOURCE.json</a>，许可见 <a href="../control/internal/server/fs_templates/LICENSE.freeswitch">LICENSE.freeswitch</a>。</p>
+<p>未修改基线包含 <strong>189 份 XML、4,304 个可编辑字段</strong>。这个统计包含不同文件和不同语言中的重复条目，不能解释为 4,304 个独立功能，更不能作为 FreeSWITCH 兼容完成率。用户增加文件或改变结构后，文件和字段计数随之变化。</p>
+<p>表单覆盖 <code>param/variable/option</code> 的值、<code>action/anti-action</code> 参数、<code>condition</code> 表达式、<code>load</code> 模块名、<code>X-PRE-PROCESS set</code> 的取值以及 ACL CIDR。其他结构、顺序、include、嵌套条件等通过 XML 编辑器修改。分类包含 Sofia/SIP、目录、拨号计划、语言与提示音、编解码、录音话单、会议、脚本、控制接口和访问控制。</p>
+<p>用户、Sofia 网关和拨号计划生成器将输入转义后生成可查看的 XML 草稿。生成不等于保存，保存不等于运行；include 位置、模块依赖、号码路由和完整业务语义仍需在对应的 FreeSWITCH 环境验证。配置响应始终带 <code>mode: &quot;export_only&quot;</code> 与 <code>runtime_supported: false</code>。</p>
+<p>参数修改按相对路径与字段次序构成的 ID 提交，因此必须绑定目录读取时的版本。返回的 <code>parameters.value</code> 已包含已保存修改，<code>overrides</code> 返回空对象作为本次编辑入口；提交时只发送这次修改的 ID/值，后端保留其他已保存配置。XML 结构保存后重新生成字段目录；不能跨版本猜测旧 ID。</p>
+<p>高级编辑支持多根 XML 片段、变量表达式和预处理标签，但不会执行预处理、加载模块、读取外部实体或发出网络请求。拒绝 DTD/实体声明、目录穿越和非法路径；单文件最多 256 KiB，最多保存 512 份文件修改，XML 草稿合计最多 5 MiB。XML 草稿使用 UTF-8；基线中五份声明 Windows-1252、实际仅含 ASCII 的文件，在读取/导出时统一为 UTF-8 声明，原始模板与来源清单仍保留。</p>
+<p>导出 ZIP 包含已保存的 <code>conf/</code> 配置树、许可证及来源信息。本地未保存的参数和 XML 不进入导出包。批量参数修改尽量保留原文本；高级 XML 编辑以提交内容为准，不保证人工重新序列化后的空白排版与官方逐字一致。</p>
+<h2 id="5-管理-api">5. 管理 API</h2>
+<p>服务仅监听回环地址，检查请求 Host；浏览器写请求还检查同源 Origin。CSRF token 通过 <code>GET /v1/config</code> 获得，进程重启后应重新读取。CSRF 不是用户登录认证，不提供多用户账户或权限管理；远程管理应使用 SSH 隧道访问回环地址。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方法与路径</th>
+<th>请求要点</th>
+<th>响应/效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>GET /</code></td>
+<td>无</td>
+<td>内嵌中文管理页面；静态资源为 <code>/app.css</code>、<code>/app.js</code></td>
+</tr>
+<tr>
+<td><code>GET /healthz</code></td>
+<td>无</td>
+<td>HTTP 入口存活和版本</td>
+</tr>
+<tr>
+<td><code>GET /readyz</code></td>
+<td>无</td>
+<td><code>ready</code>；排空、日志异常、无可准入分片或当前保护拒绝时为 503</td>
+</tr>
+<tr>
+<td><code>GET /v1/status</code></td>
+<td>无</td>
+<td>呼叫、进程、媒体、日志、保护、配置版本、<code>restart_required</code></td>
+</tr>
+<tr>
+<td><code>GET /metrics</code></td>
+<td>无</td>
+<td>Prometheus 文本，包括有效 CPS、阈值与分原因拒绝累计数</td>
+</tr>
+<tr>
+<td><code>GET /v1/config</code></td>
+<td>无</td>
+<td><code>revision</code>、<code>csrf_token</code>、<code>active</code>、<code>desired</code>、<code>restart_required</code>、<code>guard</code>、<code>persisted</code>、<code>notice</code></td>
+</tr>
+<tr>
+<td><code>PUT /v1/config</code></td>
+<td><code>{revision, config: 完整配置}</code></td>
+<td>保存待重启配置；返回新的配置快照</td>
+</tr>
+<tr>
+<td><code>GET /v1/guard</code></td>
+<td>无</td>
+<td><code>{revision, guard}</code>，包括策略、有效速率、令牌、当前原因、累计拒绝</td>
+</tr>
+<tr>
+<td><code>PUT /v1/guard</code></td>
+<td><code>{revision, policy: 完整策略}</code></td>
+<td>先保存成功，再更新当前准入；返回新版本与保护快照</td>
+</tr>
+<tr>
+<td><code>POST /v1/drain</code></td>
+<td><code>{}</code></td>
+<td>停止新呼叫准入，保留已有通话，不自动退出</td>
+</tr>
+<tr>
+<td><code>POST /v1/resume</code></td>
+<td><code>{}</code></td>
+<td>恢复正常排空后的新准入；收到停止信号后的退出流程返回 409</td>
+</tr>
+<tr>
+<td><code>GET /v1/fs-config</code></td>
+<td>无</td>
+<td>文件、分类、字段、版本、修改文件数、能力与仅导出标记</td>
+</tr>
+<tr>
+<td><code>PUT /v1/fs-config</code></td>
+<td><code>{revision, overrides: {字段ID: 值}}</code></td>
+<td>保存本次参数修改；不加载 XML</td>
+</tr>
+<tr>
+<td><code>GET /v1/fs-config/file?path=…</code></td>
+<td>已知相对 <code>.xml</code> 路径</td>
+<td><code>{revision, path, xml}</code>；未知路径返回 404</td>
+</tr>
+<tr>
+<td><code>PUT /v1/fs-config/file</code></td>
+<td><code>{revision, path, xml}</code></td>
+<td>校验并保存/新增 XML；返回新版本及 <code>runtime_supported: false</code></td>
+</tr>
+<tr>
+<td><code>GET /v1/fs-config/export</code></td>
+<td>无</td>
+<td>下载当前已保存配置的 ZIP</td>
+</tr>
+</tbody></table></div>
+<p>所有写请求都必须使用 <code>Content-Type: application/json</code> 和 <code>X-RustSwitch-CSRF</code>。配置类 <code>PUT</code> 共享递增版本；排空/恢复改变运行状态，不要求配置版本。正文最多 4 MiB，只接受单个 JSON 对象并拒绝未知字段。常见错误包括 400 请求格式、403 Host/Origin/token、409 版本冲突或退出中禁止恢复、415 正文类型、422 配置/XML 校验、500 读取或保存失败；响应提供 <code>error</code>，配置版本冲突还提供当前 <code>revision</code>。</p>
+<p><code>readyz</code> 是瞬时信号；返回 200 不预留下一次呼叫的媒体端口。当前准入原因为空也不等于所有依赖、资源和网络均可用。保护计数只覆盖经过保护器的检查，不能代替所有 SIP 拒绝统计。</p>
+<h3 id="正确发送带-csrf-的排空请求">正确发送带 CSRF 的排空请求</h3>
+<p>旧的 <code>curl -X POST .../v1/drain</code> 不再适用。以下示例不依赖 jq，运行后会排空当前实例；把 <code>action</code> 改为 <code>resume</code> 可恢复正常排空后的准入：</p>
+<pre><code class="language-sh">python3 - &lt;&lt;&#39;PYTHON&#39;
+import json
+import urllib.request
+
+base_url = &quot;http://127.0.0.1:9080&quot;
+action = &quot;drain&quot;
+with urllib.request.urlopen(base_url + &quot;/v1/config&quot;, timeout=10) as response:
+    config = json.load(response)
+request = urllib.request.Request(
+    base_url + &quot;/v1/&quot; + action, data=b&quot;{}&quot;, method=&quot;POST&quot;,
+    headers={&quot;Content-Type&quot;: &quot;application/json&quot;,
+             &quot;X-RustSwitch-CSRF&quot;: config[&quot;csrf_token&quot;]},
+)
+with urllib.request.urlopen(request, timeout=10) as response:
+    print(response.read().decode())
+PYTHON
+</code></pre>
+<h3 id="即时保存一组受硬上限约束的保护值">即时保存一组受硬上限约束的保护值</h3>
+<p>以下示例保留现有其他策略字段，将三种容量目标调整到当前/待重启硬上限以内，再以读取到的版本提交。若其他操作者同时保存导致 409，应重新读取并检查冲突，不自动重试：</p>
+<pre><code class="language-sh">python3 - &lt;&lt;&#39;PYTHON&#39;
+import json
+import urllib.request
+
+base_url = &quot;http://127.0.0.1:9080&quot;
+with urllib.request.urlopen(base_url + &quot;/v1/config&quot;, timeout=10) as response:
+    config = json.load(response)
+active = config[&quot;active&quot;][&quot;limits&quot;]
+desired = config[&quot;desired&quot;][&quot;limits&quot;]
+policy = dict(config[&quot;guard&quot;][&quot;policy&quot;])
+policy.update(
+    enabled=True,
+    max_active_calls=min(8000, active[&quot;max_calls&quot;], desired[&quot;max_calls&quot;]),
+    max_establishing_calls=min(1000, active[&quot;max_calls&quot;], desired[&quot;max_calls&quot;]),
+    calls_per_second=min(1000, active[&quot;calls_per_second&quot;], desired[&quot;calls_per_second&quot;]),
+    burst_calls=min(1000, active[&quot;burst_calls&quot;], desired[&quot;burst_calls&quot;]),
+)
+request = urllib.request.Request(
+    base_url + &quot;/v1/guard&quot;,
+    data=json.dumps({&quot;revision&quot;: config[&quot;revision&quot;], &quot;policy&quot;: policy}).encode(),
+    method=&quot;PUT&quot;, headers={&quot;Content-Type&quot;: &quot;application/json&quot;,
+                           &quot;X-RustSwitch-CSRF&quot;: config[&quot;csrf_token&quot;]},
+)
+with urllib.request.urlopen(request, timeout=10) as response:
+    print(response.read().decode())
+PYTHON
+</code></pre>
+<h2 id="6-中文注释与来源边界">6. 中文注释与来源边界</h2>
+<p>自研 Go、Rust、C/C++ ABI 头文件及 C 示例、JavaScript、Python 的入口、关键结构、函数和复杂控制逻辑补充中文注释；HTML 区域和 CSS 布局也有中文说明。注释解释实现行为和边界，不改变 ABI 符号、SIP 字段、配置键或第三方协议名称，也不表示每一行都已获得完整正确性证明。</p>
+<p>第三方 FreeSWITCH XML 保留上游原注释、许可证与来源校验信息。参数文案与管理页面是本项目补充内容，不把原版 XML、模块或文档声明为自研实现。Rust 依赖继续由锁文件固定，原生库仍通过自定义 ABI 适配；现有 FreeSWITCH 模块不能直接二进制加载。</p>
+<h2 id="7-验证记录与仍未完成的工作">7. 验证记录与仍未完成的工作</h2>
+<p>以下记录针对本轮代码，由主开发任务执行并回报；功能回归通过不等于容量或 FreeSWITCH 兼容验收。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>验证项</th>
+<th>当前结果</th>
+<th>证据边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Go 全包竞争检测 <code>go test -race ./...</code></td>
+<td>已通过</td>
+<td>不检测所有协议次序或外部系统问题</td>
+</tr>
+<tr>
+<td>Go 静态检查 <code>go vet ./...</code></td>
+<td>已通过</td>
+<td>不等同于完整行为认证</td>
+</tr>
+<tr>
+<td>Rust 单元测试</td>
+<td>6 项通过</td>
+<td>当前媒体基础行为范围</td>
+</tr>
+<tr>
+<td>Rust Clippy</td>
+<td>已通过</td>
+<td>按工程检查参数执行</td>
+</tr>
+<tr>
+<td>C 示例与 Rust 宿主编解码往返</td>
+<td>已通过</td>
+<td>独立 G.711 ABI 验证，不是转码通话</td>
+</tr>
+<tr>
+<td>原 14 项通话端到端场景，两种 UDP 模式</td>
+<td>均通过</td>
+<td>保留原功能回归范围</td>
+</tr>
+<tr>
+<td>新增第 15 项在线降限并保留已有通话，两种 UDP 模式</td>
+<td>均通过；合计 30 个场景</td>
+<td>已有通话、热更新拒接与释放，不是高并发实测</td>
+</tr>
+<tr>
+<td>前端 JavaScript</td>
+<td>语法与 16 项隔离逻辑检查通过</td>
+<td>DOM 桩逻辑检查不替代真实浏览器交互</td>
+</tr>
+<tr>
+<td>管理接口加固</td>
+<td>全包竞态回归通过</td>
+<td>覆盖重启保留人工收紧策略、重复 XML 属性、命名空间及 Unicode 属性错改</td>
+</tr>
+<tr>
+<td>实际浏览器交互</td>
+<td>已通过本轮操作验收</td>
+<td>在线策略、参数/XML 保存、路由模板、待重启配置、排空/恢复、409 保留草稿、移动菜单；390/1280 像素无横向溢出</td>
+</tr>
+<tr>
+<td>100 路、10 秒双向媒体</td>
+<td>99,992 包发送并全部接收；零异常挂断，结束后资源为零</td>
+<td>macOS ARM64、连接式 UDP；显式容量模式，结束恢复原保护开关，不能外推万路</td>
+</tr>
+<tr>
+<td>Go Linux amd64 交叉构建</td>
+<td>通过</td>
+<td>仅构建，不是 Linux 运行验收</td>
+</tr>
+<tr>
+<td>Linux 一万路持续媒体、混合持续建拆与故障验收</td>
+<td>未完成</td>
+<td>目标 Linux 服务器尚待提供</td>
+</tr>
+<tr>
+<td>完整 FreeSWITCH 无感替换认证</td>
+<td>未完成</td>
+<td>标准与模板已经交付，运行功能仍存在大量缺口</td>
+</tr>
+</tbody></table></div>
+<p>本轮原始记录见 <a href="verification-v0.3/README.html">verification-v0.3</a>，包含最终 Go 检查、Rust/编解码检查、两种通话回归、百路测试结果、页面检查记录和构建哈希。两种通话模式顺序运行，页面使用独立空闲实例，不将演示实例的一万路配置视为已承载一万路。</p>
+<p>0.2 历史最终千路 60 秒完整收发 5,999,904 个 RTP 包；万路共享发生器端点测试曾建立一万个会话，但负载不足、收包和清理严重失败，因此不能作为万路媒体通过证据。前后失败和通过记录都保留在<a href="optimization-v0.2.html">历史测量报告</a>，本轮没有用管理页计数替代重测。</p>
+<p><a href="optimization-review-2026-09-05.html">既有代码与容量审查</a>中的“媒体失败后未接通 B 腿遗漏 CANCEL”已在本轮修复并加入回归。仍待逐项闭环的问题包括媒体命令执行次序、控制查询超时扩大为分片故障、控制面重启时媒体续存、端口隔离与分片选择、日志积压恢复，以及发送调度预算。管理页面和峰值保护不能自动消除这些风险。</p>
+<p>当前容量工具仍有分阶段建呼叫/发媒体/拆呼叫、实时延迟和逐路负载测量不足等限制，需补持续混合业务模型与独立 Linux 发生器/主机证据。整机故障接管、控制面崩溃后保留通话、持久化零数据损失、满载零丢包仍没有实现或验证保证。</p>
+<p>FreeSWITCH 目录、拨号计划、ESL、模块、脚本、CDR 等完整运行语义仍须按照<a href="freeswitch-compatibility/README.html">无感替换接口标准</a>逐项实现和差分验收。配置编辑与导出是本轮已交付能力，完整替换 FreeSWITCH 仍是后续目标。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

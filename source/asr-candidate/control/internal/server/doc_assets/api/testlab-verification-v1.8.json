@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "passed": true,
+  "pressure_requested": true,
+  "runs": [
+    {
+      "id": "4d940fa305cf95d1c3a81c4e8e1976e7",
+      "status": "completed",
+      "cleanup_complete": true,
+      "requested_calls": 1,
+      "duration_seconds": 3,
+      "raw_passed": true,
+      "established_calls": 1,
+      "nominal_packets": 300,
+      "sent_packets": 300,
+      "received_unique_packets": 300,
+      "unreceived_packets": 0,
+      "offered_load_ratio": 1,
+      "generator_write_errors": 0,
+      "verified": true
+    },
+    {
+      "id": "d7f0dbc06d1b203eb0bd9dc9d5f00c19",
+      "status": "completed",
+      "cleanup_complete": true,
+      "requested_calls": 500,
+      "duration_seconds": 10,
+      "raw_passed": true,
+      "established_calls": 500,
+      "nominal_packets": 500000,
+      "sent_packets": 500000,
+      "received_unique_packets": 500000,
+      "unreceived_packets": 0,
+      "offered_load_ratio": 1,
+      "generator_write_errors": 0,
+      "verified": true
+    }
+  ],
+  "errors": [],
+  "main_service_unchanged": {
+    "revision": true,
+    "active": true,
+    "guard_policy": true
+  },
+  "scope": "仅本次回环独立实例的 HTTP、SIP 与双向 RTP 验收，不构成万路或生产容量认证",
+  "invalid_requests": [
+    {
+      "case": "unknown-field",
+      "http_status": 400
+    },
+    {
+      "case": "extra-json",
+      "http_status": 400
+    },
+    {
+      "case": "phone-two-calls",
+      "http_status": 422
+    },
+    {
+      "case": "zero-cps",
+      "http_status": 422
+    },
+    {
+      "case": "unsupported-payload",
+      "http_status": 422
+    },
+    {
+      "case": "wrong-content-type",
+      "http_status": 415
+    },
+    {
+      "case": "missing-csrf",
+      "http_status": 403
+    }
+  ],
+  "idempotency": {
+    "same_request_http_status": 200,
+    "changed_request_http_status": 409,
+    "same_task_id": true
+  },
+  "sampling_read_attempts": 115,
+  "sampling_read_errors": 0,
+  "sampling_max_consecutive_read_errors": 0,
+  "sampling_max_read_seconds": 0.008053334022406489,
+  "sampling_read_error_categories": {},
+  "sampling_read_error_details": [],
+  "stop_test": {
+    "id": "acb52d855ea647e9ca859dd639810569",
+    "media_observed": true,
+    "stop_http_status": 202,
+    "status": "stopped",
+    "cleanup_complete": true,
+    "report_available": true
+  },
+  "cleanup_errors": [],
+  "elapsed_seconds": 23.013
+}

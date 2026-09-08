@@ -1,0 +1,286 @@
+{
+  "template_version": "1.0.0",
+  "document_type": "interface_contract",
+  "document_status": "draft",
+  "contract_id": null,
+  "contract_version": null,
+  "baseline_profile_id": null,
+  "scope_version": null,
+  "reference_source": {
+    "product": "FreeSWITCH",
+    "version": "1.11.3",
+    "git_tag": "v1.11.3",
+    "git_commit": "ef32e205295e29f034f1453ad245ba5efb07b94a",
+    "repository": "https://github.com/signalwire/freeswitch"
+  },
+  "statuses": {
+    "specification": "draft",
+    "baseline_capture": "not_captured",
+    "implementation": "unknown",
+    "candidate_capture": "not_captured",
+    "differential_test": "not_run",
+    "certification": "not_certified"
+  },
+  "identity": {
+    "surface_id": null,
+    "module": null,
+    "interface_type": null,
+    "name": null,
+    "aliases": [],
+    "subcommands": [],
+    "entry_point": null,
+    "transport": null,
+    "source_path": null,
+    "source_line": null,
+    "source_blob_sha": null
+  },
+  "scope_membership": {
+    "mandatory": null,
+    "membership_status": "unknown",
+    "discovery_sources": [],
+    "required_test_case_ids": [],
+    "test_case_enumeration_complete": false
+  },
+  "availability": {
+    "compile_conditions": [],
+    "load_conditions": [],
+    "dependency_versions": [],
+    "module_lifecycle_requirements": [],
+    "discovery_output_evidence_ids": []
+  },
+  "parameters": {
+    "enumeration_status": "unknown",
+    "raw_grammar": null,
+    "encoding": null,
+    "framing": null,
+    "case_rules": null,
+    "escaping_rules": null,
+    "duplicate_field_rules": null,
+    "positional_order": null,
+    "items": [
+      {
+        "name": null,
+        "position": null,
+        "required": null,
+        "type": null,
+        "unit": null,
+        "valid_values": null,
+        "minimum": null,
+        "maximum": null,
+        "empty_value_semantics": null,
+        "missing_value_semantics": null,
+        "compiled_default": null,
+        "shipped_configuration_default": null,
+        "evaluation_time": null,
+        "validation_order": null,
+        "evidence_ids": []
+      }
+    ]
+  },
+  "preconditions": {
+    "status": "not_captured",
+    "channel_states": [],
+    "session_and_leg_relationships": [],
+    "authentication_state": null,
+    "configuration_requirements": [],
+    "resource_requirements": [],
+    "invalid_state_behavior": null
+  },
+  "synchronous_output": {
+    "status": "not_captured",
+    "acceptance_is_completion": null,
+    "content_type": null,
+    "encoding": null,
+    "framing": null,
+    "line_endings": null,
+    "headers_and_duplicate_rules": null,
+    "body_comparison": "exact_bytes_unless_whitelisted",
+    "response_schema": null,
+    "exit_code": null,
+    "samples": [],
+    "sample_entry_fields": [
+      "input_evidence_id",
+      "raw_output_evidence_id",
+      "expected_state_change",
+      "result_class"
+    ]
+  },
+  "asynchronous_result": {
+    "status": "not_captured",
+    "applicable": null,
+    "acceptance_signal": null,
+    "start_signal": null,
+    "completion_signal": null,
+    "failure_signal": null,
+    "job_identifier": null,
+    "correlation_rules": [],
+    "late_result_behavior": null,
+    "disconnect_behavior": null,
+    "evidence_ids": []
+  },
+  "events": {
+    "status": "not_captured",
+    "required": [],
+    "optional": [],
+    "forbidden": [],
+    "partial_order": [],
+    "partial_order_entry_fields": [
+      "before_event",
+      "after_event",
+      "condition",
+      "leg_or_job_scope",
+      "evidence_ids"
+    ],
+    "cross_call_total_order_required": false,
+    "duplicate_rules": null,
+    "loss_and_backpressure_behavior": null,
+    "identifier_relationships": [],
+    "state_visibility_at_emit": null
+  },
+  "side_effects": {
+    "status": "not_captured",
+    "channel_variables": [],
+    "caller_profiles": [],
+    "media": [],
+    "files": [],
+    "databases": [],
+    "network_requests": [],
+    "timers_and_jobs": [],
+    "module_state": [],
+    "resource_release": [],
+    "side_effect_entry_fields": [
+      "target",
+      "before",
+      "after",
+      "visibility_time",
+      "ownership",
+      "evidence_ids"
+    ]
+  },
+  "errors": {
+    "enumeration_status": "unknown",
+    "cases": [],
+    "case_entry_fields": [
+      "case_id",
+      "trigger",
+      "validation_priority",
+      "raw_response_evidence_id",
+      "connection_effect",
+      "application_effect",
+      "call_effect",
+      "cdr_effect",
+      "retryability",
+      "evidence_ids"
+    ],
+    "generic_success_on_failure_allowed": false
+  },
+  "concurrency": {
+    "status": "not_captured",
+    "ordering_scope": null,
+    "reentrancy": null,
+    "simultaneous_call_behavior": null,
+    "cancel_completion_race": null,
+    "hangup_execution_race": null,
+    "reload_unload_race": null,
+    "queue_limits": null,
+    "resource_limits": null,
+    "test_case_ids": []
+  },
+  "timeout_cancellation_retry": {
+    "status": "not_captured",
+    "clock_and_units": null,
+    "timeouts": [],
+    "cancellation": null,
+    "retry_trigger": null,
+    "maximum_attempts": null,
+    "backoff": null,
+    "idempotency_scope": null,
+    "late_response_handling": null,
+    "disconnect_recovery": null,
+    "crash_recovery": null,
+    "evidence_ids": []
+  },
+  "permissions": {
+    "status": "not_captured",
+    "authentication": null,
+    "authorization": null,
+    "acl": null,
+    "tenant_scope": null,
+    "script_or_native_permissions": null,
+    "privilege_failure_behavior": null,
+    "sensitive_output_contract": null,
+    "evidence_ids": []
+  },
+  "normalization_whitelist": {
+    "status": "not_defined",
+    "default": "exact_comparison",
+    "rules": [],
+    "rule_entry_fields": [
+      "rule_id",
+      "exact_field_or_byte_range",
+      "transformation",
+      "business_justification",
+      "baseline_evidence_ids",
+      "positive_test_case_ids",
+      "negative_test_case_ids",
+      "reviewer",
+      "approved_at"
+    ],
+    "identifier_mapping_policy": "若允许映射，必须一一对应且维持跨命令、信令、事件、CDR、文件的关联。",
+    "time_policy": "仅允许已登记偏移或可控时钟；不得删除持续时间、超时和因果顺序。",
+    "blanket_field_removal_allowed": false
+  },
+  "test_cases": {
+    "enumeration_status": "unknown",
+    "mandatory_cases": [],
+    "optional_cases": [],
+    "case_entry_fields": [
+      "test_case_id",
+      "mandatory",
+      "input_fixture_sha256",
+      "initial_state_fixture_sha256",
+      "baseline_evidence_ids",
+      "candidate_evidence_ids",
+      "result",
+      "difference_ids",
+      "normalization_rule_ids"
+    ]
+  },
+  "evidence": {
+    "capture_status": "not_captured",
+    "entries": [],
+    "entry_fields": [
+      "evidence_id",
+      "producer",
+      "captured_at",
+      "path",
+      "sha256",
+      "media_type",
+      "baseline_or_candidate",
+      "binary_sha256",
+      "profile_id",
+      "test_case_id"
+    ]
+  },
+  "differences": {
+    "status": "unknown",
+    "enumeration_complete": false,
+    "entries": [],
+    "entry_fields": [
+      "difference_id",
+      "description",
+      "classification",
+      "business_impact",
+      "required_fix",
+      "related_test_case_ids",
+      "resolution_status",
+      "evidence_ids"
+    ]
+  },
+  "review": {
+    "status": "not_reviewed",
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "模板中的空数组表示尚未采集，不代表该接口不存在此类行为或自动不适用。"
+  }
+}

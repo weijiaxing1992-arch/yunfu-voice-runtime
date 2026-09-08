@@ -1,0 +1,126 @@
+{
+  "at": "2026-09-08T04:31:25.317470+00:00",
+  "entries": [
+    {
+      "platform": "macos-arm64",
+      "variant": "main",
+      "path": "main/bin/rustswitch",
+      "original": "work/project-delivery-2026-09-08/build-main-01/rustswitch",
+      "bytes": 70875106,
+      "sha256": "c8c2294cf0fc767bcff46b3a24124672f4a70a99e0da7546fe7ce3f5e34c178b",
+      "file": "Mach-O 64-bit executable arm64"
+    },
+    {
+      "platform": "macos-arm64",
+      "variant": "main",
+      "path": "main/bin/callbench",
+      "original": "work/project-delivery-2026-09-08/build-main-01/callbench",
+      "bytes": 5113122,
+      "sha256": "3acb9e266a3f749dccb741999e3be0ccbdbfccfd86329cd7afa322868ec209ab",
+      "file": "Mach-O 64-bit executable arm64"
+    },
+    {
+      "platform": "macos-arm64",
+      "variant": "main",
+      "path": "main/bin/rustswitch-media",
+      "original": "work/project-delivery-2026-09-08/build-main-01/cargo-target/release/rustswitch-media",
+      "bytes": 1459312,
+      "sha256": "efef8ace38b122e267d245d25a48060bac5fd6fd0ad900781864f1ebd859ad45",
+      "file": "Mach-O 64-bit executable arm64"
+    },
+    {
+      "platform": "macos-arm64",
+      "variant": "main",
+      "path": "main/lib/librustswitch_g711.dylib",
+      "original": "work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib",
+      "bytes": 33560,
+      "sha256": "f3c9f34e6c7d91291b642b2c4f23a3de6cd643a28993bfdeae6bf60e8de85bf0",
+      "file": "Mach-O 64-bit dynamically linked shared library arm64"
+    },
+    {
+      "platform": "macos-arm64",
+      "variant": "main",
+      "path": "main/lib/librustswitch_g722.dylib",
+      "original": "work/audio-deps/librustswitch_g722.dylib",
+      "bytes": 34312,
+      "sha256": "ccd3e3b911d291feba5cf3f128bc94ce803a68ceb40cb2577182350463bfdb39",
+      "file": "Mach-O 64-bit dynamically linked shared library arm64"
+    },
+    {
+      "platform": "macos-arm64",
+      "variant": "main",
+      "path": "main/lib/libopus.dylib",
+      "original": "work/audio-deps/opus/lib/libopus.0.dylib",
+      "bytes": 502464,
+      "sha256": "39d7bce655ec29da6e0fb16b1206504ec9774d7e2d509865289a58c36762f0a0",
+      "file": "Mach-O 64-bit dynamically linked shared library arm64"
+    },
+    {
+      "platform": "macos-arm64",
+      "variant": "asr-candidate",
+      "path": "asr-candidate/bin/rustswitch",
+      "original": "work/project-delivery-2026-09-08/build-asr-candidate-01/rustswitch",
+      "bytes": 71106514,
+      "sha256": "131be094e26af33f11211baa71046f7d6bcc28b97de6908cc38bc91130da0036",
+      "file": "Mach-O 64-bit executable arm64"
+    },
+    {
+      "platform": "macos-arm64",
+      "variant": "asr-candidate",
+      "path": "asr-candidate/bin/callbench",
+      "original": "work/project-delivery-2026-09-08/build-asr-candidate-01/callbench",
+      "bytes": 5113122,
+      "sha256": "211a0a8b77907ff4ca26e3ec0d5f78aef3faf2b2e8577c23de09380855c47afb",
+      "file": "Mach-O 64-bit executable arm64"
+    },
+    {
+      "platform": "macos-arm64",
+      "variant": "asr-candidate",
+      "path": "asr-candidate/bin/rustswitch-media",
+      "original": "work/project-delivery-2026-09-08/build-asr-candidate-01/cargo-target/release/rustswitch-media",
+      "bytes": 1459360,
+      "sha256": "91cec005331e3befdfd767705d1d87d2a04e3405e9a0e84f179f175acc2b5a71",
+      "file": "Mach-O 64-bit executable arm64"
+    },
+    {
+      "platform": "macos-arm64",
+      "variant": "asr-candidate",
+      "path": "asr-candidate/lib/librustswitch_g711.dylib",
+      "original": "work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib",
+      "bytes": 33560,
+      "sha256": "d8e9801baddf878429a36900d1e57dbd848fba35ba871c7e31eb7f61337dcfd1",
+      "file": "Mach-O 64-bit dynamically linked shared library arm64"
+    },
+    {
+      "platform": "macos-arm64",
+      "variant": "asr-candidate",
+      "path": "asr-candidate/bin/asr-mock",
+      "original": "work/project-delivery-2026-09-08/build-asr-candidate-01/asr-mock",
+      "bytes": 4819266,
+      "sha256": "109e9c32aed2d2d35852dc2ac0c7d0f1067bb95b2d557b02ecb48ff862f594f7",
+      "file": "Mach-O 64-bit executable arm64"
+    },
+    {
+      "platform": "macos-arm64",
+      "variant": "asr-candidate",
+      "path": "asr-candidate/lib/librustswitch_g722.dylib",
+      "original": "work/audio-deps/librustswitch_g722.dylib",
+      "bytes": 34312,
+      "sha256": "ccd3e3b911d291feba5cf3f128bc94ce803a68ceb40cb2577182350463bfdb39",
+      "file": "Mach-O 64-bit dynamically linked shared library arm64"
+    },
+    {
+      "platform": "macos-arm64",
+      "variant": "asr-candidate",
+      "path": "asr-candidate/lib/libopus.dylib",
+      "original": "work/audio-deps/opus/lib/libopus.0.dylib",
+      "bytes": 502464,
+      "sha256": "39d7bce655ec29da6e0fb16b1206504ec9774d7e2d509865289a58c36762f0a0",
+      "file": "Mach-O 64-bit dynamically linked shared library arm64"
+    }
+  ],
+  "source_main_manifest_sha256": "0decebac78abfbb27257c2796ad91f444dac84a9d403e2da71d0c2ad3ef99c02",
+  "source_asr_manifest_sha256": "f68f5d27ed5007d3766f11da15de6485df2520523eccb83e74c0b14e7b0fb3c3",
+  "release_gate_passed": false,
+  "main_service_started_or_stopped": false
+}

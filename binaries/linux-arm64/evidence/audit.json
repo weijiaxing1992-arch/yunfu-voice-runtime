@@ -1,0 +1,882 @@
+{
+  "schema": "binary-delivery-readonly-audit-v1",
+  "at": "2026-09-08T04:30:07.193907+00:00",
+  "no_compilation_or_service_execution": true,
+  "binary_files_stable": true,
+  "binaries": [
+    {
+      "path": "work/project-delivery-2026-09-08/build-main-01/rustswitch",
+      "bytes": 70875106,
+      "sha256": "c8c2294cf0fc767bcff46b3a24124672f4a70a99e0da7546fe7ce3f5e34c178b",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/rustswitch"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/rustswitch: Mach-O 64-bit executable arm64\n",
+        "stderr": ""
+      },
+      "dependencies": {
+        "argv": [
+          "otool",
+          "-L",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/rustswitch"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/rustswitch:\n\t/usr/lib/libSystem.B.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/usr/lib/libresolv.9.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 0.0.0, current version 0.0.0)\n\t/System/Library/Frameworks/Security.framework/Versions/A/Security (compatibility version 0.0.0, current version 0.0.0)\n",
+        "stderr": ""
+      },
+      "load_commands": {
+        "argv": [
+          "otool",
+          "-l",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/rustswitch"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/rustswitch:\nLoad command 0\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __PAGEZERO\n   vmaddr 0x0000000000000000\n   vmsize 0x0000000100000000\n  fileoff 0\n filesize 0\n  maxprot 0x00000000\n initprot 0x00000000\n   nsects 0\n    flags 0x0\nLoad command 1\n      cmd LC_SEGMENT_64\n  cmdsize 392\n  segname __TEXT\n   vmaddr 0x0000000100000000\n   vmsize 0x0000000003d8c000\n  fileoff 0\n filesize 64536576\n  maxprot 0x00000007\n initprot 0x00000005\n   nsects 4\n    flags 0x0\nSection\n  sectname __text\n   segname __TEXT\n      addr 0x0000000100001000\n      size 0x00000000003c73a4\n    offset 4096\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x80000400\n reserved1 0\n reserved2 0\nSection\n  sectname __symbol_stub1\n   segname __TEXT\n      addr 0x00000001003c83c0\n      size 0x00000000000005c4\n    offset 3965888\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x80000408\n reserved1 0 (index into indirect symbol table)\n reserved2 6 (size of stubs)\nSection\n  sectname __rodata\n   segname __TEXT\n      addr 0x00000001003c89a0\n      size 0x00000000036accd9\n    offset 3967392\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __gopclntab\n   segname __TEXT\n      addr 0x0000000103a75680\n      size 0x000000000031545c\n    offset 61298304\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 2\n      cmd LC_SEGMENT_64\n  cmdsize 392\n  segname __DATA_CONST\n   vmaddr 0x0000000103d8c000\n   vmsize 0x00000000000eae78\n  fileoff 64536576\n filesize 962168\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 4\n    flags 0x10\nSection\n  sectname __rodata\n   segname __DATA_CONST\n      addr 0x0000000103d8c000\n      size 0x00000000000137b8\n    offset 64536576\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_type\n   segname __DATA_CONST\n      addr 0x0000000103d9f7c0\n      size 0x00000000000d61d0\n    offset 64616384\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_func\n   segname __DATA_CONST\n      addr 0x0000000103e75990\n      size 0x0000000000001110\n    offset 65493392\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __got\n   segname __DATA_CONST\n      addr 0x0000000103e76aa0\n      size 0x00000000000003d8\n    offset 65497760\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x00000006\n reserved1 123 (index into indirect symbol table)\n reserved2 0\nLoad command 3\n      cmd LC_SEGMENT_64\n  cmdsize 632\n  segname __DATA\n   vmaddr 0x0000000103e78000\n   vmsize 0x0000000002098d80\n  fileoff 65503232\n filesize 393856\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 7\n    flags 0x0\nSection\n  sectname __go_buildinfo\n   segname __DATA\n      addr 0x0000000103e78000\n      size 0x00000000000002a0\n    offset 65503232\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_fipsinfo\n   segname __DATA\n      addr 0x0000000103e782a0\n      size 0x0000000000000078\n    offset 65503904\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_module\n   segname __DATA\n      addr 0x0000000103e78320\n      size 0x0000000000000238\n    offset 65504032\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __noptrdata\n   segname __DATA\n      addr 0x0000000103e78560\n      size 0x000000000004afa1\n    offset 65504608\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __data\n   segname __DATA\n      addr 0x0000000103ec3520\n      size 0x0000000000014d52\n    offset 65811744\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __bss\n   segname __DATA\n      addr 0x0000000103ed8280\n      size 0x0000000000029c38\n    offset 0\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nSection\n  sectname __noptrbss\n   segname __DATA\n      addr 0x0000000103f01ec0\n      size 0x000000000200eec0\n    offset 0\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nLoad command 4\n      cmd LC_SEGMENT_64\n  cmdsize 632\n  segname __DWARF\n   vmaddr 0x0000000105f14000\n   vmsize 0x0000000000000000\n  fileoff 65912832\n filesize 3550383\n  maxprot 0x00000000\n initprot 0x00000000\n   nsects 7\n    flags 0x0\nSection\n  sectname __zdebug_abbrev\n   segname __DWARF\n      addr 0x0000000105f14000\n      size 0x000000000000015e\n    offset 65912832\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_line\n   segname __DWARF\n      addr 0x0000000105f1415e\n      size 0x00000000000a5b40\n    offset 65913182\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_frame\n   segname __DWARF\n      addr 0x0000000105fb9c9e\n      size 0x0000000000024c74\n    offset 66591902\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __debug_gdb_scri\n   segname __DWARF\n      addr 0x0000000105fde912\n      size 0x0000000000000018\n    offset 66742546\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_info\n   segname __DWARF\n      addr 0x0000000105fde92a\n      size 0x0000000000178c30\n    offset 66742570\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_loc\n   segname __DWARF\n      addr 0x000000010615755a\n      size 0x00000000000e3495\n    offset 68285786\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_ranges\n   segname __DWARF\n      addr 0x000000010623a9ef\n      size 0x000000000003c2c0\n    offset 69216751\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nLoad command 5\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __LINKEDIT\n   vmaddr 0x0000000105f14000\n   vmsize 0x00000000001577e2\n  fileoff 69468160\n filesize 1406946\n  maxprot 0x00000001\n initprot 0x00000001\n   nsects 0\n    flags 0x0\nLoad command 6\n      cmd LC_BUILD_VERSION\n  cmdsize 24\n platform 1\n    minos 13.0\n      sdk 26.2\n   ntools 0\nLoad command 7\n       cmd LC_MAIN\n   cmdsize 24\n  entryoff 546256\n stacksize 0\nLoad command 8\n            cmd LC_DYLD_INFO_ONLY\n        cmdsize 48\n     rebase_off 69468160\n    rebase_size 206200\n       bind_off 69674360\n      bind_size 2480\n  weak_bind_off 0\n weak_bind_size 0\n  lazy_bind_off 0\n lazy_bind_size 0\n     export_off 0\n    export_size 0\nLoad command 9\n     cmd LC_SYMTAB\n cmdsize 24\n  symoff 69676840\n   nsyms 12110\n  stroff 69871584\n strsize 453968\nLoad command 10\n            cmd LC_DYSYMTAB\n        cmdsize 80\n      ilocalsym 0\n      nlocalsym 11987\n     iextdefsym 11987\n     nextdefsym 0\n      iundefsym 11987\n      nundefsym 123\n         tocoff 0\n           ntoc 0\n      modtaboff 0\n        nmodtab 0\n   extrefsymoff 0\n    nextrefsyms 0\n indirectsymoff 69870600\n  nindirectsyms 246\n      extreloff 0\n        nextrel 0\n      locreloff 0\n        nlocrel 0\nLoad command 11\n          cmd LC_LOAD_DYLINKER\n      cmdsize 32\n         name /usr/lib/dyld (offset 12)\nLoad command 12\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libSystem.B.dylib (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 13\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libresolv.9.dylib (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 14\n          cmd LC_LOAD_DYLIB\n      cmdsize 104\n         name /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 15\n          cmd LC_LOAD_DYLIB\n      cmdsize 96\n         name /System/Library/Frameworks/Security.framework/Versions/A/Security (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 16\n     cmd LC_UUID\n cmdsize 24\n    uuid 673EF21F-91AD-3751-925F-2B62A714567F\nLoad command 17\n      cmd LC_CODE_SIGNATURE\n  cmdsize 16\n  dataoff 70325552\n datasize 549554\n",
+        "stderr": ""
+      },
+      "code_signature_check": {
+        "argv": [
+          "codesign",
+          "--verify",
+          "--verbose=1",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/rustswitch"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/rustswitch: valid on disk\n/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/rustswitch: satisfies its Designated Requirement\n"
+      },
+      "minimum_macos": [
+        "13.0"
+      ],
+      "id_dylib": [],
+      "load_dylibs": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libresolv.9.dylib",
+        "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "/System/Library/Frameworks/Security.framework/Versions/A/Security"
+      ],
+      "non_system_load_dependencies": []
+    },
+    {
+      "path": "work/project-delivery-2026-09-08/build-main-01/callbench",
+      "bytes": 5113122,
+      "sha256": "3acb9e266a3f749dccb741999e3be0ccbdbfccfd86329cd7afa322868ec209ab",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/callbench"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/callbench: Mach-O 64-bit executable arm64\n",
+        "stderr": ""
+      },
+      "dependencies": {
+        "argv": [
+          "otool",
+          "-L",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/callbench"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/callbench:\n\t/usr/lib/libSystem.B.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/usr/lib/libresolv.9.dylib (compatibility version 0.0.0, current version 0.0.0)\n",
+        "stderr": ""
+      },
+      "load_commands": {
+        "argv": [
+          "otool",
+          "-l",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/callbench"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/callbench:\nLoad command 0\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __PAGEZERO\n   vmaddr 0x0000000000000000\n   vmsize 0x0000000100000000\n  fileoff 0\n filesize 0\n  maxprot 0x00000000\n initprot 0x00000000\n   nsects 0\n    flags 0x0\nLoad command 1\n      cmd LC_SEGMENT_64\n  cmdsize 392\n  segname __TEXT\n   vmaddr 0x0000000100000000\n   vmsize 0x00000000002b4000\n  fileoff 0\n filesize 2834432\n  maxprot 0x00000007\n initprot 0x00000005\n   nsects 4\n    flags 0x0\nSection\n  sectname __text\n   segname __TEXT\n      addr 0x0000000100001000\n      size 0x0000000000162894\n    offset 4096\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x80000400\n reserved1 0\n reserved2 0\nSection\n  sectname __symbol_stub1\n   segname __TEXT\n      addr 0x00000001001638a0\n      size 0x000000000000036c\n    offset 1456288\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x80000408\n reserved1 0 (index into indirect symbol table)\n reserved2 6 (size of stubs)\nSection\n  sectname __rodata\n   segname __TEXT\n      addr 0x0000000100163c20\n      size 0x0000000000011f41\n    offset 1457184\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __gopclntab\n   segname __TEXT\n      addr 0x0000000100175b68\n      size 0x000000000013c6b5\n    offset 1530728\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 2\n      cmd LC_SEGMENT_64\n  cmdsize 392\n  segname __DATA_CONST\n   vmaddr 0x00000001002b4000\n   vmsize 0x0000000000056560\n  fileoff 2834432\n filesize 353632\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 4\n    flags 0x10\nSection\n  sectname __rodata\n   segname __DATA_CONST\n      addr 0x00000001002b4000\n      size 0x0000000000005560\n    offset 2834432\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_type\n   segname __DATA_CONST\n      addr 0x00000001002b9560\n      size 0x0000000000050430\n    offset 2856288\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_func\n   segname __DATA_CONST\n      addr 0x0000000100309990\n      size 0x0000000000000988\n    offset 3185040\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __got\n   segname __DATA_CONST\n      addr 0x000000010030a318\n      size 0x0000000000000248\n    offset 3187480\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x00000006\n reserved1 73 (index into indirect symbol table)\n reserved2 0\nLoad command 3\n      cmd LC_SEGMENT_64\n  cmdsize 632\n  segname __DATA\n   vmaddr 0x000000010030c000\n   vmsize 0x0000000002042fa8\n  fileoff 3194880\n filesize 88096\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 7\n    flags 0x0\nSection\n  sectname __go_buildinfo\n   segname __DATA\n      addr 0x000000010030c000\n      size 0x00000000000002a0\n    offset 3194880\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_fipsinfo\n   segname __DATA\n      addr 0x000000010030c2a0\n      size 0x0000000000000078\n    offset 3195552\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_module\n   segname __DATA\n      addr 0x000000010030c320\n      size 0x0000000000000238\n    offset 3195680\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __noptrdata\n   segname __DATA\n      addr 0x000000010030c560\n      size 0x000000000000e181\n    offset 3196256\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __data\n   segname __DATA\n      addr 0x000000010031a700\n      size 0x0000000000007112\n    offset 3254016\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __bss\n   segname __DATA\n      addr 0x0000000100321820\n      size 0x0000000000027378\n    offset 0\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nSection\n  sectname __noptrbss\n   segname __DATA\n      addr 0x0000000100348ba0\n      size 0x0000000002006408\n    offset 0\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nLoad command 4\n      cmd LC_SEGMENT_64\n  cmdsize 632\n  segname __DWARF\n   vmaddr 0x0000000102350000\n   vmsize 0x0000000000000000\n  fileoff 3293184\n filesize 1469502\n  maxprot 0x00000000\n initprot 0x00000000\n   nsects 7\n    flags 0x0\nSection\n  sectname __zdebug_abbrev\n   segname __DWARF\n      addr 0x0000000102350000\n      size 0x000000000000015e\n    offset 3293184\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_line\n   segname __DWARF\n      addr 0x000000010235015e\n      size 0x0000000000045ee0\n    offset 3293534\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_frame\n   segname __DWARF\n      addr 0x000000010239603e\n      size 0x000000000000e6b8\n    offset 3579966\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __debug_gdb_scri\n   segname __DWARF\n      addr 0x00000001023a46f6\n      size 0x0000000000000018\n    offset 3639030\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_info\n   segname __DWARF\n      addr 0x00000001023a470e\n      size 0x00000000000a100e\n    offset 3639054\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_loc\n   segname __DWARF\n      addr 0x000000010244571c\n      size 0x0000000000057b25\n    offset 4298524\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_ranges\n   segname __DWARF\n      addr 0x000000010249d241\n      size 0x00000000000199fd\n    offset 4657729\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nLoad command 5\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __LINKEDIT\n   vmaddr 0x0000000102350000\n   vmsize 0x0000000000054522\n  fileoff 4767744\n filesize 345378\n  maxprot 0x00000001\n initprot 0x00000001\n   nsects 0\n    flags 0x0\nLoad command 6\n      cmd LC_BUILD_VERSION\n  cmdsize 24\n platform 1\n    minos 13.0\n      sdk 26.2\n   ntools 0\nLoad command 7\n       cmd LC_MAIN\n   cmdsize 24\n  entryoff 534864\n stacksize 0\nLoad command 8\n            cmd LC_DYLD_INFO_ONLY\n        cmdsize 48\n     rebase_off 4767744\n    rebase_size 73728\n       bind_off 4841472\n      bind_size 1424\n  weak_bind_off 0\n weak_bind_size 0\n  lazy_bind_off 0\n lazy_bind_size 0\n     export_off 0\n    export_size 0\nLoad command 9\n     cmd LC_SYMTAB\n cmdsize 24\n  symoff 4842896\n   nsyms 4895\n  stroff 4921800\n strsize 151560\nLoad command 10\n            cmd LC_DYSYMTAB\n        cmdsize 80\n      ilocalsym 0\n      nlocalsym 4822\n     iextdefsym 4822\n     nextdefsym 0\n      iundefsym 4822\n      nundefsym 73\n         tocoff 0\n           ntoc 0\n      modtaboff 0\n        nmodtab 0\n   extrefsymoff 0\n    nextrefsyms 0\n indirectsymoff 4921216\n  nindirectsyms 146\n      extreloff 0\n        nextrel 0\n      locreloff 0\n        nlocrel 0\nLoad command 11\n          cmd LC_LOAD_DYLINKER\n      cmdsize 32\n         name /usr/lib/dyld (offset 12)\nLoad command 12\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libSystem.B.dylib (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 13\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libresolv.9.dylib (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 14\n     cmd LC_UUID\n cmdsize 24\n    uuid 935139B2-0712-3CD6-8C06-058D81AF7024\nLoad command 15\n      cmd LC_CODE_SIGNATURE\n  cmdsize 16\n  dataoff 5073360\n datasize 39762\n",
+        "stderr": ""
+      },
+      "code_signature_check": {
+        "argv": [
+          "codesign",
+          "--verify",
+          "--verbose=1",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/callbench"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/callbench: valid on disk\n/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/callbench: satisfies its Designated Requirement\n"
+      },
+      "minimum_macos": [
+        "13.0"
+      ],
+      "id_dylib": [],
+      "load_dylibs": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libresolv.9.dylib"
+      ],
+      "non_system_load_dependencies": []
+    },
+    {
+      "path": "work/project-delivery-2026-09-08/build-main-01/cargo-target/release/rustswitch-media",
+      "bytes": 1459312,
+      "sha256": "efef8ace38b122e267d245d25a48060bac5fd6fd0ad900781864f1ebd859ad45",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/cargo-target/release/rustswitch-media"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/cargo-target/release/rustswitch-media: Mach-O 64-bit executable arm64\n",
+        "stderr": ""
+      },
+      "dependencies": {
+        "argv": [
+          "otool",
+          "-L",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/cargo-target/release/rustswitch-media"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/cargo-target/release/rustswitch-media:\n\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n",
+        "stderr": ""
+      },
+      "load_commands": {
+        "argv": [
+          "otool",
+          "-l",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/cargo-target/release/rustswitch-media"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/cargo-target/release/rustswitch-media:\nLoad command 0\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __PAGEZERO\n   vmaddr 0x0000000000000000\n   vmsize 0x0000000100000000\n  fileoff 0\n filesize 0\n  maxprot 0x00000000\n initprot 0x00000000\n   nsects 0\n    flags 0x0\nLoad command 1\n      cmd LC_SEGMENT_64\n  cmdsize 712\n  segname __TEXT\n   vmaddr 0x0000000100000000\n   vmsize 0x00000000000fc000\n  fileoff 0\n filesize 1032192\n  maxprot 0x00000005\n initprot 0x00000005\n   nsects 8\n    flags 0x0\nSection\n  sectname __text\n   segname __TEXT\n      addr 0x00000001000008c0\n      size 0x00000000000d7718\n    offset 2240\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000400\n reserved1 0\n reserved2 0\nSection\n  sectname __stubs\n   segname __TEXT\n      addr 0x00000001000d7fd8\n      size 0x0000000000000528\n    offset 884696\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000408\n reserved1 0 (index into indirect symbol table)\n reserved2 12 (size of stubs)\nSection\n  sectname __stub_helper\n   segname __TEXT\n      addr 0x00000001000d8500\n      size 0x0000000000000540\n    offset 886016\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000400\n reserved1 0\n reserved2 0\nSection\n  sectname __cstring\n   segname __TEXT\n      addr 0x00000001000d8a40\n      size 0x0000000000004237\n    offset 887360\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x00000002\n reserved1 0\n reserved2 0\nSection\n  sectname __gcc_except_tab\n   segname __TEXT\n      addr 0x00000001000dcc78\n      size 0x00000000000014dc\n    offset 904312\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __const\n   segname __TEXT\n      addr 0x00000001000de180\n      size 0x0000000000011200\n    offset 909696\n     align 2^6 (64)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __unwind_info\n   segname __TEXT\n      addr 0x00000001000ef380\n      size 0x0000000000001df8\n    offset 979840\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __eh_frame\n   segname __TEXT\n      addr 0x00000001000f1178\n      size 0x0000000000007ac0\n    offset 987512\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x6800000b\n reserved1 0\n reserved2 0\nLoad command 2\n      cmd LC_SEGMENT_64\n  cmdsize 232\n  segname __DATA_CONST\n   vmaddr 0x00000001000fc000\n   vmsize 0x0000000000008000\n  fileoff 1032192\n filesize 32768\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 2\n    flags 0x10\nSection\n  sectname __got\n   segname __DATA_CONST\n      addr 0x00000001000fc000\n      size 0x0000000000000010\n    offset 1032192\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000006\n reserved1 110 (index into indirect symbol table)\n reserved2 0\nSection\n  sectname __const\n   segname __DATA_CONST\n      addr 0x00000001000fc010\n      size 0x0000000000007a18\n    offset 1032208\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 3\n      cmd LC_SEGMENT_64\n  cmdsize 632\n  segname __DATA\n   vmaddr 0x0000000100104000\n   vmsize 0x0000000000004000\n  fileoff 1064960\n filesize 16384\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 7\n    flags 0x0\nSection\n  sectname __la_symbol_ptr\n   segname __DATA\n      addr 0x0000000100104000\n      size 0x0000000000000370\n    offset 1064960\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000007\n reserved1 112 (index into indirect symbol table)\n reserved2 0\nSection\n  sectname __data\n   segname __DATA\n      addr 0x0000000100104370\n      size 0x0000000000000a18\n    offset 1065840\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __thread_vars\n   segname __DATA\n      addr 0x0000000100104d88\n      size 0x00000000000000f0\n    offset 1068424\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000013\n reserved1 0\n reserved2 0\nSection\n  sectname __thread_data\n   segname __DATA\n      addr 0x0000000100104e78\n      size 0x0000000000000040\n    offset 1068664\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000011\n reserved1 0\n reserved2 0\nSection\n  sectname __thread_bss\n   segname __DATA\n      addr 0x0000000100104eb8\n      size 0x0000000000000060\n    offset 0\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000012\n reserved1 0\n reserved2 0\nSection\n  sectname __common\n   segname __DATA\n      addr 0x0000000100104f80\n      size 0x0000000000002268\n    offset 0\n     align 2^7 (128)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nSection\n  sectname __bss\n   segname __DATA\n      addr 0x00000001001071e8\n      size 0x0000000000000080\n    offset 0\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nLoad command 4\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __LINKEDIT\n   vmaddr 0x0000000100108000\n   vmsize 0x0000000000060000\n  fileoff 1081344\n filesize 377968\n  maxprot 0x00000001\n initprot 0x00000001\n   nsects 0\n    flags 0x0\nLoad command 5\n            cmd LC_DYLD_INFO_ONLY\n        cmdsize 48\n     rebase_off 1081344\n    rebase_size 688\n       bind_off 1082032\n      bind_size 48\n  weak_bind_off 0\n weak_bind_size 0\n  lazy_bind_off 1082080\n lazy_bind_size 2240\n     export_off 1084320\n    export_size 38224\nLoad command 6\n     cmd LC_SYMTAB\n cmdsize 24\n  symoff 1125216\n   nsyms 4802\n  stroff 1202936\n strsize 244904\nLoad command 7\n            cmd LC_DYSYMTAB\n        cmdsize 80\n      ilocalsym 0\n      nlocalsym 4191\n     iextdefsym 4191\n     nextdefsym 499\n      iundefsym 4690\n      nundefsym 112\n         tocoff 0\n           ntoc 0\n      modtaboff 0\n        nmodtab 0\n   extrefsymoff 0\n    nextrefsyms 0\n indirectsymoff 1202048\n  nindirectsyms 222\n      extreloff 0\n        nextrel 0\n      locreloff 0\n        nlocrel 0\nLoad command 8\n          cmd LC_LOAD_DYLINKER\n      cmdsize 32\n         name /usr/lib/dyld (offset 12)\nLoad command 9\n     cmd LC_UUID\n cmdsize 24\n    uuid 7BBA79E8-FE71-39E1-B0CC-C76772AE8B47\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform 1\n    minos 11.0\n      sdk 26.5\n   ntools 1\n     tool 3\n  version 1267.0\nLoad command 11\n      cmd LC_SOURCE_VERSION\n  cmdsize 16\n  version 0.0\nLoad command 12\n       cmd LC_MAIN\n   cmdsize 24\n  entryoff 651332\n stacksize 0\nLoad command 13\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libiconv.2.dylib (offset 24)\n   time stamp 2 Thu Jan  1 08:00:02 1970\n      current version 7.0.0\ncompatibility version 7.0.0\nLoad command 14\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libSystem.B.dylib (offset 24)\n   time stamp 2 Thu Jan  1 08:00:02 1970\n      current version 1356.0.0\ncompatibility version 1.0.0\nLoad command 15\n      cmd LC_FUNCTION_STARTS\n  cmdsize 16\n  dataoff 1122544\n datasize 2672\nLoad command 16\n      cmd LC_DATA_IN_CODE\n  cmdsize 16\n  dataoff 1125216\n datasize 0\nLoad command 17\n      cmd LC_CODE_SIGNATURE\n  cmdsize 16\n  dataoff 1447840\n datasize 11472\n",
+        "stderr": ""
+      },
+      "code_signature_check": {
+        "argv": [
+          "codesign",
+          "--verify",
+          "--verbose=1",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/cargo-target/release/rustswitch-media"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/cargo-target/release/rustswitch-media: valid on disk\n/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/cargo-target/release/rustswitch-media: satisfies its Designated Requirement\n"
+      },
+      "minimum_macos": [
+        "11.0"
+      ],
+      "id_dylib": [],
+      "load_dylibs": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "non_system_load_dependencies": []
+    },
+    {
+      "path": "work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib",
+      "bytes": 33560,
+      "sha256": "f3c9f34e6c7d91291b642b2c4f23a3de6cd643a28993bfdeae6bf60e8de85bf0",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib: Mach-O 64-bit dynamically linked shared library arm64\n",
+        "stderr": ""
+      },
+      "dependencies": {
+        "argv": [
+          "otool",
+          "-L",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib:\n\t/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n",
+        "stderr": ""
+      },
+      "load_commands": {
+        "argv": [
+          "otool",
+          "-l",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib:\nLoad command 0\n      cmd LC_SEGMENT_64\n  cmdsize 392\n  segname __TEXT\n   vmaddr 0x0000000000000000\n   vmsize 0x0000000000004000\n  fileoff 0\n filesize 16384\n  maxprot 0x00000005\n initprot 0x00000005\n   nsects 4\n    flags 0x0\nSection\n  sectname __text\n   segname __TEXT\n      addr 0x00000000000004c8\n      size 0x0000000000000898\n    offset 1224\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000400\n reserved1 0\n reserved2 0\nSection\n  sectname __stubs\n   segname __TEXT\n      addr 0x0000000000000d60\n      size 0x0000000000000018\n    offset 3424\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000408\n reserved1 0 (index into indirect symbol table)\n reserved2 12 (size of stubs)\nSection\n  sectname __const\n   segname __TEXT\n      addr 0x0000000000000d80\n      size 0x0000000000000060\n    offset 3456\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __unwind_info\n   segname __TEXT\n      addr 0x0000000000000de0\n      size 0x0000000000000070\n    offset 3552\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 1\n      cmd LC_SEGMENT_64\n  cmdsize 232\n  segname __DATA_CONST\n   vmaddr 0x0000000000004000\n   vmsize 0x0000000000004000\n  fileoff 16384\n filesize 16384\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 2\n    flags 0x10\nSection\n  sectname __got\n   segname __DATA_CONST\n      addr 0x0000000000004000\n      size 0x0000000000000010\n    offset 16384\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000006\n reserved1 2 (index into indirect symbol table)\n reserved2 0\nSection\n  sectname __const\n   segname __DATA_CONST\n      addr 0x0000000000004010\n      size 0x0000000000000058\n    offset 16400\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 2\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __LINKEDIT\n   vmaddr 0x0000000000008000\n   vmsize 0x0000000000004000\n  fileoff 32768\n filesize 792\n  maxprot 0x00000001\n initprot 0x00000001\n   nsects 0\n    flags 0x0\nLoad command 3\n          cmd LC_ID_DYLIB\n      cmdsize 152\n         name /workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib (offset 24)\n   time stamp 1 Thu Jan  1 08:00:01 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 4\n      cmd LC_DYLD_CHAINED_FIXUPS\n  cmdsize 16\n  dataoff 32768\n datasize 96\nLoad command 5\n      cmd LC_DYLD_EXPORTS_TRIE\n  cmdsize 16\n  dataoff 32864\n datasize 32\nLoad command 6\n     cmd LC_SYMTAB\n cmdsize 24\n  symoff 32904\n   nsyms 8\n  stroff 33048\n strsize 80\nLoad command 7\n            cmd LC_DYSYMTAB\n        cmdsize 80\n      ilocalsym 0\n      nlocalsym 5\n     iextdefsym 5\n     nextdefsym 1\n      iundefsym 6\n      nundefsym 2\n         tocoff 0\n           ntoc 0\n      modtaboff 0\n        nmodtab 0\n   extrefsymoff 0\n    nextrefsyms 0\n indirectsymoff 33032\n  nindirectsyms 4\n      extreloff 0\n        nextrel 0\n      locreloff 0\n        nlocrel 0\nLoad command 8\n     cmd LC_UUID\n cmdsize 24\n    uuid D817AE19-27D8-3F44-9452-EB652F4850C6\nLoad command 9\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform 1\n    minos 26.0\n      sdk 26.5\n   ntools 1\n     tool 3\n  version 1267.0\nLoad command 10\n      cmd LC_SOURCE_VERSION\n  cmdsize 16\n  version 0.0\nLoad command 11\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libSystem.B.dylib (offset 24)\n   time stamp 2 Thu Jan  1 08:00:02 1970\n      current version 1356.0.0\ncompatibility version 1.0.0\nLoad command 12\n      cmd LC_FUNCTION_STARTS\n  cmdsize 16\n  dataoff 32896\n datasize 8\nLoad command 13\n      cmd LC_DATA_IN_CODE\n  cmdsize 16\n  dataoff 32904\n datasize 0\nLoad command 14\n      cmd LC_CODE_SIGNATURE\n  cmdsize 16\n  dataoff 33136\n datasize 424\n",
+        "stderr": ""
+      },
+      "code_signature_check": {
+        "argv": [
+          "codesign",
+          "--verify",
+          "--verbose=1",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib: valid on disk\n/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib: satisfies its Designated Requirement\n"
+      },
+      "minimum_macos": [
+        "26.0"
+      ],
+      "id_dylib": [
+        "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib"
+      ],
+      "load_dylibs": [
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "non_system_load_dependencies": []
+    },
+    {
+      "path": "work/project-delivery-2026-09-08/build-asr-candidate-01/rustswitch",
+      "bytes": 71106514,
+      "sha256": "131be094e26af33f11211baa71046f7d6bcc28b97de6908cc38bc91130da0036",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/rustswitch"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/rustswitch: Mach-O 64-bit executable arm64\n",
+        "stderr": ""
+      },
+      "dependencies": {
+        "argv": [
+          "otool",
+          "-L",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/rustswitch"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/rustswitch:\n\t/usr/lib/libSystem.B.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/usr/lib/libresolv.9.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 0.0.0, current version 0.0.0)\n\t/System/Library/Frameworks/Security.framework/Versions/A/Security (compatibility version 0.0.0, current version 0.0.0)\n",
+        "stderr": ""
+      },
+      "load_commands": {
+        "argv": [
+          "otool",
+          "-l",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/rustswitch"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/rustswitch:\nLoad command 0\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __PAGEZERO\n   vmaddr 0x0000000000000000\n   vmsize 0x0000000100000000\n  fileoff 0\n filesize 0\n  maxprot 0x00000000\n initprot 0x00000000\n   nsects 0\n    flags 0x0\nLoad command 1\n      cmd LC_SEGMENT_64\n  cmdsize 392\n  segname __TEXT\n   vmaddr 0x0000000100000000\n   vmsize 0x0000000003db0000\n  fileoff 0\n filesize 64684032\n  maxprot 0x00000007\n initprot 0x00000005\n   nsects 4\n    flags 0x0\nSection\n  sectname __text\n   segname __TEXT\n      addr 0x0000000100001000\n      size 0x00000000003da0c4\n    offset 4096\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x80000400\n reserved1 0\n reserved2 0\nSection\n  sectname __symbol_stub1\n   segname __TEXT\n      addr 0x00000001003db0e0\n      size 0x00000000000005d0\n    offset 4042976\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x80000408\n reserved1 0 (index into indirect symbol table)\n reserved2 6 (size of stubs)\nSection\n  sectname __rodata\n   segname __TEXT\n      addr 0x00000001003db6c0\n      size 0x00000000036ae099\n    offset 4044480\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __gopclntab\n   segname __TEXT\n      addr 0x0000000103a89760\n      size 0x0000000000323aed\n    offset 61380448\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 2\n      cmd LC_SEGMENT_64\n  cmdsize 392\n  segname __DATA_CONST\n   vmaddr 0x0000000103db0000\n   vmsize 0x00000000000efc58\n  fileoff 64684032\n filesize 982104\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 4\n    flags 0x10\nSection\n  sectname __rodata\n   segname __DATA_CONST\n      addr 0x0000000103db0000\n      size 0x00000000000138b8\n    offset 64684032\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_type\n   segname __DATA_CONST\n      addr 0x0000000103dc38c0\n      size 0x00000000000dae98\n    offset 64764096\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_func\n   segname __DATA_CONST\n      addr 0x0000000103e9e758\n      size 0x0000000000001120\n    offset 65660760\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __got\n   segname __DATA_CONST\n      addr 0x0000000103e9f878\n      size 0x00000000000003e0\n    offset 65665144\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x00000006\n reserved1 124 (index into indirect symbol table)\n reserved2 0\nLoad command 3\n      cmd LC_SEGMENT_64\n  cmdsize 632\n  segname __DATA\n   vmaddr 0x0000000103ea0000\n   vmsize 0x00000000020993a8\n  fileoff 65667072\n filesize 395424\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 7\n    flags 0x0\nSection\n  sectname __go_buildinfo\n   segname __DATA\n      addr 0x0000000103ea0000\n      size 0x00000000000002a0\n    offset 65667072\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_fipsinfo\n   segname __DATA\n      addr 0x0000000103ea02a0\n      size 0x0000000000000078\n    offset 65667744\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_module\n   segname __DATA\n      addr 0x0000000103ea0320\n      size 0x0000000000000238\n    offset 65667872\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __noptrdata\n   segname __DATA\n      addr 0x0000000103ea0560\n      size 0x000000000004b3a1\n    offset 65668448\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __data\n   segname __DATA\n      addr 0x0000000103eeb920\n      size 0x0000000000014f72\n    offset 65976608\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __bss\n   segname __DATA\n      addr 0x0000000103f008a0\n      size 0x0000000000029c38\n    offset 0\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nSection\n  sectname __noptrbss\n   segname __DATA\n      addr 0x0000000103f2a4e0\n      size 0x000000000200eec8\n    offset 0\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nLoad command 4\n      cmd LC_SEGMENT_64\n  cmdsize 632\n  segname __DWARF\n   vmaddr 0x0000000105f3c000\n   vmsize 0x0000000000000000\n  fileoff 66076672\n filesize 3598501\n  maxprot 0x00000000\n initprot 0x00000000\n   nsects 7\n    flags 0x0\nSection\n  sectname __zdebug_abbrev\n   segname __DWARF\n      addr 0x0000000105f3c000\n      size 0x000000000000015e\n    offset 66076672\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_line\n   segname __DWARF\n      addr 0x0000000105f3c15e\n      size 0x00000000000a89cc\n    offset 66077022\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_frame\n   segname __DWARF\n      addr 0x0000000105fe4b2a\n      size 0x000000000002593d\n    offset 66767658\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __debug_gdb_scri\n   segname __DWARF\n      addr 0x000000010600a467\n      size 0x0000000000000018\n    offset 66921575\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_info\n   segname __DWARF\n      addr 0x000000010600a47f\n      size 0x000000000017d0f9\n    offset 66921599\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_loc\n   segname __DWARF\n      addr 0x0000000106187578\n      size 0x00000000000e64e9\n    offset 68482424\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_ranges\n   segname __DWARF\n      addr 0x000000010626da61\n      size 0x000000000003ce44\n    offset 69425761\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nLoad command 5\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __LINKEDIT\n   vmaddr 0x0000000105f3c000\n   vmsize 0x000000000015bfd2\n  fileoff 69681152\n filesize 1425362\n  maxprot 0x00000001\n initprot 0x00000001\n   nsects 0\n    flags 0x0\nLoad command 6\n      cmd LC_BUILD_VERSION\n  cmdsize 24\n platform 1\n    minos 13.0\n      sdk 26.2\n   ntools 0\nLoad command 7\n       cmd LC_MAIN\n   cmdsize 24\n  entryoff 546256\n stacksize 0\nLoad command 8\n            cmd LC_DYLD_INFO_ONLY\n        cmdsize 48\n     rebase_off 69681152\n    rebase_size 210568\n       bind_off 69891720\n      bind_size 2496\n  weak_bind_off 0\n weak_bind_size 0\n  lazy_bind_off 0\n lazy_bind_size 0\n     export_off 0\n    export_size 0\nLoad command 9\n     cmd LC_SYMTAB\n cmdsize 24\n  symoff 69894216\n   nsyms 12298\n  stroff 70091976\n strsize 463192\nLoad command 10\n            cmd LC_DYSYMTAB\n        cmdsize 80\n      ilocalsym 0\n      nlocalsym 12174\n     iextdefsym 12174\n     nextdefsym 0\n      iundefsym 12174\n      nundefsym 124\n         tocoff 0\n           ntoc 0\n      modtaboff 0\n        nmodtab 0\n   extrefsymoff 0\n    nextrefsyms 0\n indirectsymoff 70090984\n  nindirectsyms 248\n      extreloff 0\n        nextrel 0\n      locreloff 0\n        nlocrel 0\nLoad command 11\n          cmd LC_LOAD_DYLINKER\n      cmdsize 32\n         name /usr/lib/dyld (offset 12)\nLoad command 12\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libSystem.B.dylib (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 13\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libresolv.9.dylib (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 14\n          cmd LC_LOAD_DYLIB\n      cmdsize 104\n         name /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 15\n          cmd LC_LOAD_DYLIB\n      cmdsize 96\n         name /System/Library/Frameworks/Security.framework/Versions/A/Security (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 16\n     cmd LC_UUID\n cmdsize 24\n    uuid 8CFD1FF5-01EE-3F4C-A0A3-263CE09B189A\nLoad command 17\n      cmd LC_CODE_SIGNATURE\n  cmdsize 16\n  dataoff 70555168\n datasize 551346\n",
+        "stderr": ""
+      },
+      "code_signature_check": {
+        "argv": [
+          "codesign",
+          "--verify",
+          "--verbose=1",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/rustswitch"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/rustswitch: valid on disk\n/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/rustswitch: satisfies its Designated Requirement\n"
+      },
+      "minimum_macos": [
+        "13.0"
+      ],
+      "id_dylib": [],
+      "load_dylibs": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libresolv.9.dylib",
+        "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "/System/Library/Frameworks/Security.framework/Versions/A/Security"
+      ],
+      "non_system_load_dependencies": []
+    },
+    {
+      "path": "work/project-delivery-2026-09-08/build-asr-candidate-01/callbench",
+      "bytes": 5113122,
+      "sha256": "211a0a8b77907ff4ca26e3ec0d5f78aef3faf2b2e8577c23de09380855c47afb",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/callbench"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/callbench: Mach-O 64-bit executable arm64\n",
+        "stderr": ""
+      },
+      "dependencies": {
+        "argv": [
+          "otool",
+          "-L",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/callbench"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/callbench:\n\t/usr/lib/libSystem.B.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/usr/lib/libresolv.9.dylib (compatibility version 0.0.0, current version 0.0.0)\n",
+        "stderr": ""
+      },
+      "load_commands": {
+        "argv": [
+          "otool",
+          "-l",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/callbench"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/callbench:\nLoad command 0\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __PAGEZERO\n   vmaddr 0x0000000000000000\n   vmsize 0x0000000100000000\n  fileoff 0\n filesize 0\n  maxprot 0x00000000\n initprot 0x00000000\n   nsects 0\n    flags 0x0\nLoad command 1\n      cmd LC_SEGMENT_64\n  cmdsize 392\n  segname __TEXT\n   vmaddr 0x0000000100000000\n   vmsize 0x00000000002b4000\n  fileoff 0\n filesize 2834432\n  maxprot 0x00000007\n initprot 0x00000005\n   nsects 4\n    flags 0x0\nSection\n  sectname __text\n   segname __TEXT\n      addr 0x0000000100001000\n      size 0x0000000000162894\n    offset 4096\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x80000400\n reserved1 0\n reserved2 0\nSection\n  sectname __symbol_stub1\n   segname __TEXT\n      addr 0x00000001001638a0\n      size 0x000000000000036c\n    offset 1456288\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x80000408\n reserved1 0 (index into indirect symbol table)\n reserved2 6 (size of stubs)\nSection\n  sectname __rodata\n   segname __TEXT\n      addr 0x0000000100163c20\n      size 0x0000000000011f41\n    offset 1457184\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __gopclntab\n   segname __TEXT\n      addr 0x0000000100175b68\n      size 0x000000000013c6bd\n    offset 1530728\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 2\n      cmd LC_SEGMENT_64\n  cmdsize 392\n  segname __DATA_CONST\n   vmaddr 0x00000001002b4000\n   vmsize 0x0000000000056560\n  fileoff 2834432\n filesize 353632\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 4\n    flags 0x10\nSection\n  sectname __rodata\n   segname __DATA_CONST\n      addr 0x00000001002b4000\n      size 0x0000000000005560\n    offset 2834432\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_type\n   segname __DATA_CONST\n      addr 0x00000001002b9560\n      size 0x0000000000050430\n    offset 2856288\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_func\n   segname __DATA_CONST\n      addr 0x0000000100309990\n      size 0x0000000000000988\n    offset 3185040\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __got\n   segname __DATA_CONST\n      addr 0x000000010030a318\n      size 0x0000000000000248\n    offset 3187480\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x00000006\n reserved1 73 (index into indirect symbol table)\n reserved2 0\nLoad command 3\n      cmd LC_SEGMENT_64\n  cmdsize 632\n  segname __DATA\n   vmaddr 0x000000010030c000\n   vmsize 0x0000000002042fa8\n  fileoff 3194880\n filesize 88096\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 7\n    flags 0x0\nSection\n  sectname __go_buildinfo\n   segname __DATA\n      addr 0x000000010030c000\n      size 0x00000000000002a0\n    offset 3194880\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_fipsinfo\n   segname __DATA\n      addr 0x000000010030c2a0\n      size 0x0000000000000078\n    offset 3195552\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_module\n   segname __DATA\n      addr 0x000000010030c320\n      size 0x0000000000000238\n    offset 3195680\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __noptrdata\n   segname __DATA\n      addr 0x000000010030c560\n      size 0x000000000000e181\n    offset 3196256\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __data\n   segname __DATA\n      addr 0x000000010031a700\n      size 0x0000000000007112\n    offset 3254016\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __bss\n   segname __DATA\n      addr 0x0000000100321820\n      size 0x0000000000027378\n    offset 0\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nSection\n  sectname __noptrbss\n   segname __DATA\n      addr 0x0000000100348ba0\n      size 0x0000000002006408\n    offset 0\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nLoad command 4\n      cmd LC_SEGMENT_64\n  cmdsize 632\n  segname __DWARF\n   vmaddr 0x0000000102350000\n   vmsize 0x0000000000000000\n  fileoff 3293184\n filesize 1469455\n  maxprot 0x00000000\n initprot 0x00000000\n   nsects 7\n    flags 0x0\nSection\n  sectname __zdebug_abbrev\n   segname __DWARF\n      addr 0x0000000102350000\n      size 0x000000000000015e\n    offset 3293184\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_line\n   segname __DWARF\n      addr 0x000000010235015e\n      size 0x0000000000045eb6\n    offset 3293534\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_frame\n   segname __DWARF\n      addr 0x0000000102396014\n      size 0x000000000000e6b8\n    offset 3579924\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __debug_gdb_scri\n   segname __DWARF\n      addr 0x00000001023a46cc\n      size 0x0000000000000018\n    offset 3638988\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_info\n   segname __DWARF\n      addr 0x00000001023a46e4\n      size 0x00000000000a1009\n    offset 3639012\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_loc\n   segname __DWARF\n      addr 0x00000001024456ed\n      size 0x0000000000057b25\n    offset 4298477\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_ranges\n   segname __DWARF\n      addr 0x000000010249d212\n      size 0x00000000000199fd\n    offset 4657682\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nLoad command 5\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __LINKEDIT\n   vmaddr 0x0000000102350000\n   vmsize 0x0000000000054522\n  fileoff 4767744\n filesize 345378\n  maxprot 0x00000001\n initprot 0x00000001\n   nsects 0\n    flags 0x0\nLoad command 6\n      cmd LC_BUILD_VERSION\n  cmdsize 24\n platform 1\n    minos 13.0\n      sdk 26.2\n   ntools 0\nLoad command 7\n       cmd LC_MAIN\n   cmdsize 24\n  entryoff 534864\n stacksize 0\nLoad command 8\n            cmd LC_DYLD_INFO_ONLY\n        cmdsize 48\n     rebase_off 4767744\n    rebase_size 73728\n       bind_off 4841472\n      bind_size 1424\n  weak_bind_off 0\n weak_bind_size 0\n  lazy_bind_off 0\n lazy_bind_size 0\n     export_off 0\n    export_size 0\nLoad command 9\n     cmd LC_SYMTAB\n cmdsize 24\n  symoff 4842896\n   nsyms 4895\n  stroff 4921800\n strsize 151560\nLoad command 10\n            cmd LC_DYSYMTAB\n        cmdsize 80\n      ilocalsym 0\n      nlocalsym 4822\n     iextdefsym 4822\n     nextdefsym 0\n      iundefsym 4822\n      nundefsym 73\n         tocoff 0\n           ntoc 0\n      modtaboff 0\n        nmodtab 0\n   extrefsymoff 0\n    nextrefsyms 0\n indirectsymoff 4921216\n  nindirectsyms 146\n      extreloff 0\n        nextrel 0\n      locreloff 0\n        nlocrel 0\nLoad command 11\n          cmd LC_LOAD_DYLINKER\n      cmdsize 32\n         name /usr/lib/dyld (offset 12)\nLoad command 12\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libSystem.B.dylib (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 13\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libresolv.9.dylib (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 14\n     cmd LC_UUID\n cmdsize 24\n    uuid 039CDB13-B8FF-300F-8601-6D344AD1B1C1\nLoad command 15\n      cmd LC_CODE_SIGNATURE\n  cmdsize 16\n  dataoff 5073360\n datasize 39762\n",
+        "stderr": ""
+      },
+      "code_signature_check": {
+        "argv": [
+          "codesign",
+          "--verify",
+          "--verbose=1",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/callbench"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/callbench: valid on disk\n/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/callbench: satisfies its Designated Requirement\n"
+      },
+      "minimum_macos": [
+        "13.0"
+      ],
+      "id_dylib": [],
+      "load_dylibs": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libresolv.9.dylib"
+      ],
+      "non_system_load_dependencies": []
+    },
+    {
+      "path": "work/project-delivery-2026-09-08/build-asr-candidate-01/cargo-target/release/rustswitch-media",
+      "bytes": 1459360,
+      "sha256": "91cec005331e3befdfd767705d1d87d2a04e3405e9a0e84f179f175acc2b5a71",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/cargo-target/release/rustswitch-media"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/cargo-target/release/rustswitch-media: Mach-O 64-bit executable arm64\n",
+        "stderr": ""
+      },
+      "dependencies": {
+        "argv": [
+          "otool",
+          "-L",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/cargo-target/release/rustswitch-media"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/cargo-target/release/rustswitch-media:\n\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n",
+        "stderr": ""
+      },
+      "load_commands": {
+        "argv": [
+          "otool",
+          "-l",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/cargo-target/release/rustswitch-media"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/cargo-target/release/rustswitch-media:\nLoad command 0\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __PAGEZERO\n   vmaddr 0x0000000000000000\n   vmsize 0x0000000100000000\n  fileoff 0\n filesize 0\n  maxprot 0x00000000\n initprot 0x00000000\n   nsects 0\n    flags 0x0\nLoad command 1\n      cmd LC_SEGMENT_64\n  cmdsize 712\n  segname __TEXT\n   vmaddr 0x0000000100000000\n   vmsize 0x00000000000fc000\n  fileoff 0\n filesize 1032192\n  maxprot 0x00000005\n initprot 0x00000005\n   nsects 8\n    flags 0x0\nSection\n  sectname __text\n   segname __TEXT\n      addr 0x00000001000008c0\n      size 0x00000000000d7718\n    offset 2240\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000400\n reserved1 0\n reserved2 0\nSection\n  sectname __stubs\n   segname __TEXT\n      addr 0x00000001000d7fd8\n      size 0x0000000000000528\n    offset 884696\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000408\n reserved1 0 (index into indirect symbol table)\n reserved2 12 (size of stubs)\nSection\n  sectname __stub_helper\n   segname __TEXT\n      addr 0x00000001000d8500\n      size 0x0000000000000540\n    offset 886016\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000400\n reserved1 0\n reserved2 0\nSection\n  sectname __cstring\n   segname __TEXT\n      addr 0x00000001000d8a40\n      size 0x0000000000004237\n    offset 887360\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x00000002\n reserved1 0\n reserved2 0\nSection\n  sectname __gcc_except_tab\n   segname __TEXT\n      addr 0x00000001000dcc78\n      size 0x00000000000014dc\n    offset 904312\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __const\n   segname __TEXT\n      addr 0x00000001000de180\n      size 0x0000000000011200\n    offset 909696\n     align 2^6 (64)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __unwind_info\n   segname __TEXT\n      addr 0x00000001000ef380\n      size 0x0000000000001df8\n    offset 979840\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __eh_frame\n   segname __TEXT\n      addr 0x00000001000f1178\n      size 0x0000000000007ac0\n    offset 987512\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x6800000b\n reserved1 0\n reserved2 0\nLoad command 2\n      cmd LC_SEGMENT_64\n  cmdsize 232\n  segname __DATA_CONST\n   vmaddr 0x00000001000fc000\n   vmsize 0x0000000000008000\n  fileoff 1032192\n filesize 32768\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 2\n    flags 0x10\nSection\n  sectname __got\n   segname __DATA_CONST\n      addr 0x00000001000fc000\n      size 0x0000000000000010\n    offset 1032192\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000006\n reserved1 110 (index into indirect symbol table)\n reserved2 0\nSection\n  sectname __const\n   segname __DATA_CONST\n      addr 0x00000001000fc010\n      size 0x0000000000007a18\n    offset 1032208\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 3\n      cmd LC_SEGMENT_64\n  cmdsize 632\n  segname __DATA\n   vmaddr 0x0000000100104000\n   vmsize 0x0000000000004000\n  fileoff 1064960\n filesize 16384\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 7\n    flags 0x0\nSection\n  sectname __la_symbol_ptr\n   segname __DATA\n      addr 0x0000000100104000\n      size 0x0000000000000370\n    offset 1064960\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000007\n reserved1 112 (index into indirect symbol table)\n reserved2 0\nSection\n  sectname __data\n   segname __DATA\n      addr 0x0000000100104370\n      size 0x0000000000000a18\n    offset 1065840\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __thread_vars\n   segname __DATA\n      addr 0x0000000100104d88\n      size 0x00000000000000f0\n    offset 1068424\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000013\n reserved1 0\n reserved2 0\nSection\n  sectname __thread_data\n   segname __DATA\n      addr 0x0000000100104e78\n      size 0x0000000000000040\n    offset 1068664\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000011\n reserved1 0\n reserved2 0\nSection\n  sectname __thread_bss\n   segname __DATA\n      addr 0x0000000100104eb8\n      size 0x0000000000000060\n    offset 0\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000012\n reserved1 0\n reserved2 0\nSection\n  sectname __common\n   segname __DATA\n      addr 0x0000000100104f80\n      size 0x0000000000002268\n    offset 0\n     align 2^7 (128)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nSection\n  sectname __bss\n   segname __DATA\n      addr 0x00000001001071e8\n      size 0x0000000000000080\n    offset 0\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nLoad command 4\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __LINKEDIT\n   vmaddr 0x0000000100108000\n   vmsize 0x0000000000060000\n  fileoff 1081344\n filesize 378016\n  maxprot 0x00000001\n initprot 0x00000001\n   nsects 0\n    flags 0x0\nLoad command 5\n            cmd LC_DYLD_INFO_ONLY\n        cmdsize 48\n     rebase_off 1081344\n    rebase_size 688\n       bind_off 1082032\n      bind_size 48\n  weak_bind_off 0\n weak_bind_size 0\n  lazy_bind_off 1082080\n lazy_bind_size 2240\n     export_off 1084320\n    export_size 38224\nLoad command 6\n     cmd LC_SYMTAB\n cmdsize 24\n  symoff 1125216\n   nsyms 4802\n  stroff 1202936\n strsize 244952\nLoad command 7\n            cmd LC_DYSYMTAB\n        cmdsize 80\n      ilocalsym 0\n      nlocalsym 4191\n     iextdefsym 4191\n     nextdefsym 499\n      iundefsym 4690\n      nundefsym 112\n         tocoff 0\n           ntoc 0\n      modtaboff 0\n        nmodtab 0\n   extrefsymoff 0\n    nextrefsyms 0\n indirectsymoff 1202048\n  nindirectsyms 222\n      extreloff 0\n        nextrel 0\n      locreloff 0\n        nlocrel 0\nLoad command 8\n          cmd LC_LOAD_DYLINKER\n      cmdsize 32\n         name /usr/lib/dyld (offset 12)\nLoad command 9\n     cmd LC_UUID\n cmdsize 24\n    uuid 4B67A848-8850-3B0C-93C5-33D40503FBD1\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform 1\n    minos 11.0\n      sdk 26.5\n   ntools 1\n     tool 3\n  version 1267.0\nLoad command 11\n      cmd LC_SOURCE_VERSION\n  cmdsize 16\n  version 0.0\nLoad command 12\n       cmd LC_MAIN\n   cmdsize 24\n  entryoff 651332\n stacksize 0\nLoad command 13\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libiconv.2.dylib (offset 24)\n   time stamp 2 Thu Jan  1 08:00:02 1970\n      current version 7.0.0\ncompatibility version 7.0.0\nLoad command 14\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libSystem.B.dylib (offset 24)\n   time stamp 2 Thu Jan  1 08:00:02 1970\n      current version 1356.0.0\ncompatibility version 1.0.0\nLoad command 15\n      cmd LC_FUNCTION_STARTS\n  cmdsize 16\n  dataoff 1122544\n datasize 2672\nLoad command 16\n      cmd LC_DATA_IN_CODE\n  cmdsize 16\n  dataoff 1125216\n datasize 0\nLoad command 17\n      cmd LC_CODE_SIGNATURE\n  cmdsize 16\n  dataoff 1447888\n datasize 11472\n",
+        "stderr": ""
+      },
+      "code_signature_check": {
+        "argv": [
+          "codesign",
+          "--verify",
+          "--verbose=1",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/cargo-target/release/rustswitch-media"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/cargo-target/release/rustswitch-media: valid on disk\n/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/cargo-target/release/rustswitch-media: satisfies its Designated Requirement\n"
+      },
+      "minimum_macos": [
+        "11.0"
+      ],
+      "id_dylib": [],
+      "load_dylibs": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "non_system_load_dependencies": []
+    },
+    {
+      "path": "work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib",
+      "bytes": 33560,
+      "sha256": "d8e9801baddf878429a36900d1e57dbd848fba35ba871c7e31eb7f61337dcfd1",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib: Mach-O 64-bit dynamically linked shared library arm64\n",
+        "stderr": ""
+      },
+      "dependencies": {
+        "argv": [
+          "otool",
+          "-L",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib:\n\t/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n",
+        "stderr": ""
+      },
+      "load_commands": {
+        "argv": [
+          "otool",
+          "-l",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib:\nLoad command 0\n      cmd LC_SEGMENT_64\n  cmdsize 392\n  segname __TEXT\n   vmaddr 0x0000000000000000\n   vmsize 0x0000000000004000\n  fileoff 0\n filesize 16384\n  maxprot 0x00000005\n initprot 0x00000005\n   nsects 4\n    flags 0x0\nSection\n  sectname __text\n   segname __TEXT\n      addr 0x00000000000004d8\n      size 0x0000000000000898\n    offset 1240\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000400\n reserved1 0\n reserved2 0\nSection\n  sectname __stubs\n   segname __TEXT\n      addr 0x0000000000000d70\n      size 0x0000000000000018\n    offset 3440\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000408\n reserved1 0 (index into indirect symbol table)\n reserved2 12 (size of stubs)\nSection\n  sectname __const\n   segname __TEXT\n      addr 0x0000000000000d90\n      size 0x0000000000000060\n    offset 3472\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __unwind_info\n   segname __TEXT\n      addr 0x0000000000000df0\n      size 0x0000000000000070\n    offset 3568\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 1\n      cmd LC_SEGMENT_64\n  cmdsize 232\n  segname __DATA_CONST\n   vmaddr 0x0000000000004000\n   vmsize 0x0000000000004000\n  fileoff 16384\n filesize 16384\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 2\n    flags 0x10\nSection\n  sectname __got\n   segname __DATA_CONST\n      addr 0x0000000000004000\n      size 0x0000000000000010\n    offset 16384\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000006\n reserved1 2 (index into indirect symbol table)\n reserved2 0\nSection\n  sectname __const\n   segname __DATA_CONST\n      addr 0x0000000000004010\n      size 0x0000000000000058\n    offset 16400\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 2\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __LINKEDIT\n   vmaddr 0x0000000000008000\n   vmsize 0x0000000000004000\n  fileoff 32768\n filesize 792\n  maxprot 0x00000001\n initprot 0x00000001\n   nsects 0\n    flags 0x0\nLoad command 3\n          cmd LC_ID_DYLIB\n      cmdsize 168\n         name /workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib (offset 24)\n   time stamp 1 Thu Jan  1 08:00:01 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 4\n      cmd LC_DYLD_CHAINED_FIXUPS\n  cmdsize 16\n  dataoff 32768\n datasize 96\nLoad command 5\n      cmd LC_DYLD_EXPORTS_TRIE\n  cmdsize 16\n  dataoff 32864\n datasize 32\nLoad command 6\n     cmd LC_SYMTAB\n cmdsize 24\n  symoff 32904\n   nsyms 8\n  stroff 33048\n strsize 80\nLoad command 7\n            cmd LC_DYSYMTAB\n        cmdsize 80\n      ilocalsym 0\n      nlocalsym 5\n     iextdefsym 5\n     nextdefsym 1\n      iundefsym 6\n      nundefsym 2\n         tocoff 0\n           ntoc 0\n      modtaboff 0\n        nmodtab 0\n   extrefsymoff 0\n    nextrefsyms 0\n indirectsymoff 33032\n  nindirectsyms 4\n      extreloff 0\n        nextrel 0\n      locreloff 0\n        nlocrel 0\nLoad command 8\n     cmd LC_UUID\n cmdsize 24\n    uuid 2D446C2F-1DEF-3789-A633-BD9D99D2EC00\nLoad command 9\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform 1\n    minos 26.0\n      sdk 26.5\n   ntools 1\n     tool 3\n  version 1267.0\nLoad command 10\n      cmd LC_SOURCE_VERSION\n  cmdsize 16\n  version 0.0\nLoad command 11\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libSystem.B.dylib (offset 24)\n   time stamp 2 Thu Jan  1 08:00:02 1970\n      current version 1356.0.0\ncompatibility version 1.0.0\nLoad command 12\n      cmd LC_FUNCTION_STARTS\n  cmdsize 16\n  dataoff 32896\n datasize 8\nLoad command 13\n      cmd LC_DATA_IN_CODE\n  cmdsize 16\n  dataoff 32904\n datasize 0\nLoad command 14\n      cmd LC_CODE_SIGNATURE\n  cmdsize 16\n  dataoff 33136\n datasize 424\n",
+        "stderr": ""
+      },
+      "code_signature_check": {
+        "argv": [
+          "codesign",
+          "--verify",
+          "--verbose=1",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib: valid on disk\n/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib: satisfies its Designated Requirement\n"
+      },
+      "minimum_macos": [
+        "26.0"
+      ],
+      "id_dylib": [
+        "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib"
+      ],
+      "load_dylibs": [
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "non_system_load_dependencies": []
+    },
+    {
+      "path": "work/project-delivery-2026-09-08/build-asr-candidate-01/asr-mock",
+      "bytes": 4819266,
+      "sha256": "109e9c32aed2d2d35852dc2ac0c7d0f1067bb95b2d557b02ecb48ff862f594f7",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/asr-mock"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/asr-mock: Mach-O 64-bit executable arm64\n",
+        "stderr": ""
+      },
+      "dependencies": {
+        "argv": [
+          "otool",
+          "-L",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/asr-mock"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/asr-mock:\n\t/usr/lib/libSystem.B.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/usr/lib/libresolv.9.dylib (compatibility version 0.0.0, current version 0.0.0)\n",
+        "stderr": ""
+      },
+      "load_commands": {
+        "argv": [
+          "otool",
+          "-l",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/asr-mock"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/asr-mock:\nLoad command 0\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __PAGEZERO\n   vmaddr 0x0000000000000000\n   vmsize 0x0000000100000000\n  fileoff 0\n filesize 0\n  maxprot 0x00000000\n initprot 0x00000000\n   nsects 0\n    flags 0x0\nLoad command 1\n      cmd LC_SEGMENT_64\n  cmdsize 392\n  segname __TEXT\n   vmaddr 0x0000000100000000\n   vmsize 0x0000000000288000\n  fileoff 0\n filesize 2654208\n  maxprot 0x00000007\n initprot 0x00000005\n   nsects 4\n    flags 0x0\nSection\n  sectname __text\n   segname __TEXT\n      addr 0x0000000100001000\n      size 0x0000000000149294\n    offset 4096\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x80000400\n reserved1 0\n reserved2 0\nSection\n  sectname __symbol_stub1\n   segname __TEXT\n      addr 0x000000010014a2a0\n      size 0x0000000000000378\n    offset 1352352\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x80000408\n reserved1 0 (index into indirect symbol table)\n reserved2 6 (size of stubs)\nSection\n  sectname __rodata\n   segname __TEXT\n      addr 0x000000010014a620\n      size 0x0000000000010ee1\n    offset 1353248\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __gopclntab\n   segname __TEXT\n      addr 0x000000010015b508\n      size 0x000000000012aea3\n    offset 1422600\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 2\n      cmd LC_SEGMENT_64\n  cmdsize 392\n  segname __DATA_CONST\n   vmaddr 0x0000000100288000\n   vmsize 0x0000000000051190\n  fileoff 2654208\n filesize 332176\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 4\n    flags 0x10\nSection\n  sectname __rodata\n   segname __DATA_CONST\n      addr 0x0000000100288000\n      size 0x0000000000004f00\n    offset 2654208\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_type\n   segname __DATA_CONST\n      addr 0x000000010028cf00\n      size 0x000000000004b718\n    offset 2674432\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_func\n   segname __DATA_CONST\n      addr 0x00000001002d8618\n      size 0x0000000000000928\n    offset 2983448\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __got\n   segname __DATA_CONST\n      addr 0x00000001002d8f40\n      size 0x0000000000000250\n    offset 2985792\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x00000006\n reserved1 74 (index into indirect symbol table)\n reserved2 0\nLoad command 3\n      cmd LC_SEGMENT_64\n  cmdsize 632\n  segname __DATA\n   vmaddr 0x00000001002dc000\n   vmsize 0x000000000203fe10\n  fileoff 2998272\n filesize 82880\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 7\n    flags 0x0\nSection\n  sectname __go_buildinfo\n   segname __DATA\n      addr 0x00000001002dc000\n      size 0x00000000000002a0\n    offset 2998272\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_fipsinfo\n   segname __DATA\n      addr 0x00000001002dc2a0\n      size 0x0000000000000078\n    offset 2998944\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __go_module\n   segname __DATA\n      addr 0x00000001002dc320\n      size 0x0000000000000238\n    offset 2999072\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __noptrdata\n   segname __DATA\n      addr 0x00000001002dc560\n      size 0x000000000000ce21\n    offset 2999648\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __data\n   segname __DATA\n      addr 0x00000001002e93a0\n      size 0x0000000000007012\n    offset 3052448\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __bss\n   segname __DATA\n      addr 0x00000001002f03c0\n      size 0x0000000000027438\n    offset 0\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nSection\n  sectname __noptrbss\n   segname __DATA\n      addr 0x0000000100317800\n      size 0x0000000002004610\n    offset 0\n     align 2^5 (32)\n    reloff 0\n    nreloc 0\n     flags 0x00000001\n reserved1 0\n reserved2 0\nLoad command 4\n      cmd LC_SEGMENT_64\n  cmdsize 632\n  segname __DWARF\n   vmaddr 0x000000010231c000\n   vmsize 0x0000000000000000\n  fileoff 3096576\n filesize 1381344\n  maxprot 0x00000000\n initprot 0x00000000\n   nsects 7\n    flags 0x0\nSection\n  sectname __zdebug_abbrev\n   segname __DWARF\n      addr 0x000000010231c000\n      size 0x000000000000015e\n    offset 3096576\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_line\n   segname __DWARF\n      addr 0x000000010231c15e\n      size 0x00000000000419ad\n    offset 3096926\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_frame\n   segname __DWARF\n      addr 0x000000010235db0b\n      size 0x000000000000dd3c\n    offset 3365643\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __debug_gdb_scri\n   segname __DWARF\n      addr 0x000000010236b847\n      size 0x0000000000000018\n    offset 3422279\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_info\n   segname __DWARF\n      addr 0x000000010236b85f\n      size 0x0000000000098935\n    offset 3422303\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_loc\n   segname __DWARF\n      addr 0x0000000102404194\n      size 0x0000000000051521\n    offset 4047252\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nSection\n  sectname __zdebug_ranges\n   segname __DWARF\n      addr 0x00000001024556b5\n      size 0x0000000000017d2b\n    offset 4380341\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x02000000\n reserved1 0\n reserved2 0\nLoad command 5\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __LINKEDIT\n   vmaddr 0x000000010231c000\n   vmsize 0x0000000000050942\n  fileoff 4489216\n filesize 330050\n  maxprot 0x00000001\n initprot 0x00000001\n   nsects 0\n    flags 0x0\nLoad command 6\n      cmd LC_BUILD_VERSION\n  cmdsize 24\n platform 1\n    minos 13.0\n      sdk 26.2\n   ntools 0\nLoad command 7\n       cmd LC_MAIN\n   cmdsize 24\n  entryoff 534192\n stacksize 0\nLoad command 8\n            cmd LC_DYLD_INFO_ONLY\n        cmdsize 48\n     rebase_off 4489216\n    rebase_size 69432\n       bind_off 4558648\n      bind_size 1424\n  weak_bind_off 0\n weak_bind_size 0\n  lazy_bind_off 0\n lazy_bind_size 0\n     export_off 0\n    export_size 0\nLoad command 9\n     cmd LC_SYMTAB\n cmdsize 24\n  symoff 4560072\n   nsyms 4697\n  stroff 4635816\n strsize 145960\nLoad command 10\n            cmd LC_DYSYMTAB\n        cmdsize 80\n      ilocalsym 0\n      nlocalsym 4623\n     iextdefsym 4623\n     nextdefsym 0\n      iundefsym 4623\n      nundefsym 74\n         tocoff 0\n           ntoc 0\n      modtaboff 0\n        nmodtab 0\n   extrefsymoff 0\n    nextrefsyms 0\n indirectsymoff 4635224\n  nindirectsyms 148\n      extreloff 0\n        nextrel 0\n      locreloff 0\n        nlocrel 0\nLoad command 11\n          cmd LC_LOAD_DYLINKER\n      cmdsize 32\n         name /usr/lib/dyld (offset 12)\nLoad command 12\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libSystem.B.dylib (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 13\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libresolv.9.dylib (offset 24)\n   time stamp 0 Thu Jan  1 08:00:00 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 14\n     cmd LC_UUID\n cmdsize 24\n    uuid EBC78463-FA31-3D52-B34D-DBFC5CB2D3E4\nLoad command 15\n      cmd LC_CODE_SIGNATURE\n  cmdsize 16\n  dataoff 4781776\n datasize 37490\n",
+        "stderr": ""
+      },
+      "code_signature_check": {
+        "argv": [
+          "codesign",
+          "--verify",
+          "--verbose=1",
+          "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/asr-mock"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/asr-mock: valid on disk\n/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/asr-mock: satisfies its Designated Requirement\n"
+      },
+      "minimum_macos": [
+        "13.0"
+      ],
+      "id_dylib": [],
+      "load_dylibs": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libresolv.9.dylib"
+      ],
+      "non_system_load_dependencies": []
+    },
+    {
+      "path": "work/audio-deps/librustswitch_g722.dylib",
+      "bytes": 34312,
+      "sha256": "ccd3e3b911d291feba5cf3f128bc94ce803a68ceb40cb2577182350463bfdb39",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib: Mach-O 64-bit dynamically linked shared library arm64\n",
+        "stderr": ""
+      },
+      "dependencies": {
+        "argv": [
+          "otool",
+          "-L",
+          "/workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib:\n\t/workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n",
+        "stderr": ""
+      },
+      "load_commands": {
+        "argv": [
+          "otool",
+          "-l",
+          "/workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib:\nLoad command 0\n      cmd LC_SEGMENT_64\n  cmdsize 392\n  segname __TEXT\n   vmaddr 0x0000000000000000\n   vmsize 0x0000000000004000\n  fileoff 0\n filesize 16384\n  maxprot 0x00000005\n initprot 0x00000005\n   nsects 4\n    flags 0x0\nSection\n  sectname __text\n   segname __TEXT\n      addr 0x0000000000000460\n      size 0x0000000000000f14\n    offset 1120\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000400\n reserved1 0\n reserved2 0\nSection\n  sectname __stubs\n   segname __TEXT\n      addr 0x0000000000001374\n      size 0x0000000000000018\n    offset 4980\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000408\n reserved1 0 (index into indirect symbol table)\n reserved2 12 (size of stubs)\nSection\n  sectname __const\n   segname __TEXT\n      addr 0x0000000000001390\n      size 0x0000000000000292\n    offset 5008\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __unwind_info\n   segname __TEXT\n      addr 0x0000000000001624\n      size 0x0000000000000088\n    offset 5668\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 1\n      cmd LC_SEGMENT_64\n  cmdsize 152\n  segname __DATA_CONST\n   vmaddr 0x0000000000004000\n   vmsize 0x0000000000004000\n  fileoff 16384\n filesize 16384\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 1\n    flags 0x10\nSection\n  sectname __got\n   segname __DATA_CONST\n      addr 0x0000000000004000\n      size 0x0000000000000010\n    offset 16384\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000006\n reserved1 2 (index into indirect symbol table)\n reserved2 0\nLoad command 2\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __LINKEDIT\n   vmaddr 0x0000000000008000\n   vmsize 0x0000000000004000\n  fileoff 32768\n filesize 1544\n  maxprot 0x00000001\n initprot 0x00000001\n   nsects 0\n    flags 0x0\nLoad command 3\n          cmd LC_ID_DYLIB\n      cmdsize 128\n         name /workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib (offset 24)\n   time stamp 1 Thu Jan  1 08:00:01 1970\n      current version 0.0.0\ncompatibility version 0.0.0\nLoad command 4\n      cmd LC_DYLD_CHAINED_FIXUPS\n  cmdsize 16\n  dataoff 32768\n datasize 96\nLoad command 5\n      cmd LC_DYLD_EXPORTS_TRIE\n  cmdsize 16\n  dataoff 32864\n datasize 200\nLoad command 6\n     cmd LC_SYMTAB\n cmdsize 24\n  symoff 33088\n   nsyms 29\n  stroff 33568\n strsize 312\nLoad command 7\n            cmd LC_DYSYMTAB\n        cmdsize 80\n      ilocalsym 0\n      nlocalsym 16\n     iextdefsym 16\n     nextdefsym 11\n      iundefsym 27\n      nundefsym 2\n         tocoff 0\n           ntoc 0\n      modtaboff 0\n        nmodtab 0\n   extrefsymoff 0\n    nextrefsyms 0\n indirectsymoff 33552\n  nindirectsyms 4\n      extreloff 0\n        nextrel 0\n      locreloff 0\n        nlocrel 0\nLoad command 8\n     cmd LC_UUID\n cmdsize 24\n    uuid DD189555-A5A2-3538-8647-96D4184AECD9\nLoad command 9\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform 1\n    minos 26.0\n      sdk 26.5\n   ntools 1\n     tool 3\n  version 1267.0\nLoad command 10\n      cmd LC_SOURCE_VERSION\n  cmdsize 16\n  version 0.0\nLoad command 11\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libSystem.B.dylib (offset 24)\n   time stamp 2 Thu Jan  1 08:00:02 1970\n      current version 1356.0.0\ncompatibility version 1.0.0\nLoad command 12\n      cmd LC_FUNCTION_STARTS\n  cmdsize 16\n  dataoff 33064\n datasize 24\nLoad command 13\n      cmd LC_DATA_IN_CODE\n  cmdsize 16\n  dataoff 33088\n datasize 0\nLoad command 14\n      cmd LC_CODE_SIGNATURE\n  cmdsize 16\n  dataoff 33888\n datasize 424\n",
+        "stderr": ""
+      },
+      "code_signature_check": {
+        "argv": [
+          "codesign",
+          "--verify",
+          "--verbose=1",
+          "/workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "/workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib: valid on disk\n/workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib: satisfies its Designated Requirement\n"
+      },
+      "minimum_macos": [
+        "26.0"
+      ],
+      "id_dylib": [
+        "/workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib"
+      ],
+      "load_dylibs": [
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "non_system_load_dependencies": []
+    },
+    {
+      "path": "work/audio-deps/opus/lib/libopus.0.dylib",
+      "bytes": 502464,
+      "sha256": "39d7bce655ec29da6e0fb16b1206504ec9774d7e2d509865289a58c36762f0a0",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.0.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.0.dylib: Mach-O 64-bit dynamically linked shared library arm64\n",
+        "stderr": ""
+      },
+      "dependencies": {
+        "argv": [
+          "otool",
+          "-L",
+          "/workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.0.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.0.dylib:\n\t/workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.0.dylib (compatibility version 11.0.0, current version 11.1.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n",
+        "stderr": ""
+      },
+      "load_commands": {
+        "argv": [
+          "otool",
+          "-l",
+          "/workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.0.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.0.dylib:\nLoad command 0\n      cmd LC_SEGMENT_64\n  cmdsize 472\n  segname __TEXT\n   vmaddr 0x0000000000000000\n   vmsize 0x0000000000060000\n  fileoff 0\n filesize 393216\n  maxprot 0x00000005\n initprot 0x00000005\n   nsects 5\n    flags 0x0\nSection\n  sectname __text\n   segname __TEXT\n      addr 0x0000000000000500\n      size 0x0000000000050ef8\n    offset 1280\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000400\n reserved1 0\n reserved2 0\nSection\n  sectname __stubs\n   segname __TEXT\n      addr 0x00000000000513f8\n      size 0x00000000000000cc\n    offset 332792\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x80000408\n reserved1 0 (index into indirect symbol table)\n reserved2 12 (size of stubs)\nSection\n  sectname __cstring\n   segname __TEXT\n      addr 0x00000000000514c4\n      size 0x00000000000029c4\n    offset 332996\n     align 2^0 (1)\n    reloff 0\n    nreloc 0\n     flags 0x00000002\n reserved1 0\n reserved2 0\nSection\n  sectname __const\n   segname __TEXT\n      addr 0x0000000000053e90\n      size 0x000000000000b8aa\n    offset 343696\n     align 2^4 (16)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nSection\n  sectname __unwind_info\n   segname __TEXT\n      addr 0x000000000005f73c\n      size 0x00000000000004b8\n    offset 390972\n     align 2^2 (4)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 1\n      cmd LC_SEGMENT_64\n  cmdsize 232\n  segname __DATA_CONST\n   vmaddr 0x0000000000060000\n   vmsize 0x0000000000004000\n  fileoff 393216\n filesize 16384\n  maxprot 0x00000003\n initprot 0x00000003\n   nsects 2\n    flags 0x10\nSection\n  sectname __got\n   segname __DATA_CONST\n      addr 0x0000000000060000\n      size 0x00000000000000a0\n    offset 393216\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000006\n reserved1 17 (index into indirect symbol table)\n reserved2 0\nSection\n  sectname __const\n   segname __DATA_CONST\n      addr 0x00000000000600a0\n      size 0x0000000000000478\n    offset 393376\n     align 2^3 (8)\n    reloff 0\n    nreloc 0\n     flags 0x00000000\n reserved1 0\n reserved2 0\nLoad command 2\n      cmd LC_SEGMENT_64\n  cmdsize 72\n  segname __LINKEDIT\n   vmaddr 0x0000000000064000\n   vmsize 0x0000000000018000\n  fileoff 409600\n filesize 92864\n  maxprot 0x00000001\n initprot 0x00000001\n   nsects 0\n    flags 0x0\nLoad command 3\n          cmd LC_ID_DYLIB\n      cmdsize 128\n         name /workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.0.dylib (offset 24)\n   time stamp 1 Thu Jan  1 08:00:01 1970\n      current version 11.1.0\ncompatibility version 11.0.0\nLoad command 4\n      cmd LC_DYLD_CHAINED_FIXUPS\n  cmdsize 16\n  dataoff 409600\n datasize 360\nLoad command 5\n      cmd LC_DYLD_EXPORTS_TRIE\n  cmdsize 16\n  dataoff 409960\n datasize 1488\nLoad command 6\n     cmd LC_SYMTAB\n cmdsize 24\n  symoff 412064\n   nsyms 2743\n  stroff 456104\n strsize 42320\nLoad command 7\n            cmd LC_DYSYMTAB\n        cmdsize 80\n      ilocalsym 0\n      nlocalsym 2643\n     iextdefsym 2643\n     nextdefsym 80\n      iundefsym 2723\n      nundefsym 20\n         tocoff 0\n           ntoc 0\n      modtaboff 0\n        nmodtab 0\n   extrefsymoff 0\n    nextrefsyms 0\n indirectsymoff 455952\n  nindirectsyms 37\n      extreloff 0\n        nextrel 0\n      locreloff 0\n        nlocrel 0\nLoad command 8\n     cmd LC_UUID\n cmdsize 24\n    uuid AFBFC20A-45C2-3ACB-942B-2B20C21EAF1E\nLoad command 9\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform 1\n    minos 26.0\n      sdk 26.5\n   ntools 1\n     tool 3\n  version 1267.0\nLoad command 10\n      cmd LC_SOURCE_VERSION\n  cmdsize 16\n  version 0.0\nLoad command 11\n          cmd LC_LOAD_DYLIB\n      cmdsize 56\n         name /usr/lib/libSystem.B.dylib (offset 24)\n   time stamp 2 Thu Jan  1 08:00:02 1970\n      current version 1356.0.0\ncompatibility version 1.0.0\nLoad command 12\n      cmd LC_FUNCTION_STARTS\n  cmdsize 16\n  dataoff 411448\n datasize 616\nLoad command 13\n      cmd LC_DATA_IN_CODE\n  cmdsize 16\n  dataoff 412064\n datasize 0\nLoad command 14\n      cmd LC_CODE_SIGNATURE\n  cmdsize 16\n  dataoff 498432\n datasize 4032\n",
+        "stderr": ""
+      },
+      "code_signature_check": {
+        "argv": [
+          "codesign",
+          "--verify",
+          "--verbose=1",
+          "/workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.0.dylib"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "/workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.0.dylib: valid on disk\n/workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.0.dylib: satisfies its Designated Requirement\n"
+      },
+      "minimum_macos": [
+        "26.0"
+      ],
+      "id_dylib": [
+        "/workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.0.dylib"
+      ],
+      "load_dylibs": [
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "non_system_load_dependencies": []
+    },
+    {
+      "path": "work/linux-vm/share/voice-runtime-m2-rx/rustswitch",
+      "bytes": 67701531,
+      "sha256": "fb4285ae0e35acc0e41f72fc0f87519023e2c4e38bc96d4357ef54c2868e4c99",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/rustswitch"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/rustswitch: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, Go BuildID=f6kD1eJkrFJsYtuap9rx/1mhVMjew1BRVU3htah1P/yad-J-D8tQ9WMfpH4l0R/JpN_hKC1HX-zW-otLxzE, BuildID[sha1]=6f35f48947976e44da37ade15568512b23274823, with debug_info, not stripped\n",
+        "stderr": ""
+      },
+      "go_build_info": {
+        "argv": [
+          "/workspace/yunfu-voice-runtime/work/toolchain/go/bin/go",
+          "version",
+          "-m",
+          "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/rustswitch"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/rustswitch: go1.27.1\n\tpath\trustswitch/control/cmd/rustswitch\n\tmod\trustswitch/control\t(devel)\t\n\tdep\tgolang.org/x/sys\tv0.30.0\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,gotestjsonbuildtext=1,httpcookiemaxnum=0,multipathtcp=0,randseednop=0,rsa1024min=0,tlsmlkem=0,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlmaxqueryparams=0,urlstrictcolons=0,x509rsacrt=0,x509sha256skid=0,x509sslcertoverrideplatform=0,x509usepolicies=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=linux\n\tbuild\tGOARM64=v8.0\n",
+        "stderr": ""
+      }
+    },
+    {
+      "path": "work/linux-vm/share/voice-runtime-m2-rx/rustswitch-media",
+      "bytes": 4164680,
+      "sha256": "5868122d3119e4aeb0ce6074519dd265f8b78df906200a27a1f8466d6101861d",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/rustswitch-media"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/rustswitch-media: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, with debug_info, not stripped\n",
+        "stderr": ""
+      },
+      "go_build_info": {
+        "argv": [
+          "/workspace/yunfu-voice-runtime/work/toolchain/go/bin/go",
+          "version",
+          "-m",
+          "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/rustswitch-media"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/rustswitch-media: could not read Go build info from /workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/rustswitch-media: not a Go executable\n"
+      }
+    },
+    {
+      "path": "work/linux-vm/share/voice-runtime-m2-rx/callbench",
+      "bytes": 5139322,
+      "sha256": "12209449f2e773d4f1e6412c2505a7916a8771f056711b523907b4c23c9da556",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/callbench"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/callbench: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, Go BuildID=6NC62FmL0QeiX_U0kh-A/4EqYRwqjdbdbaG3ss625/60BzIR7TD0TqhozLt4SW/-CTPi3-AdSNQQFZHHY2M, BuildID[sha1]=e6be7dbbee47b0c567533354589ef36cabcd714f, with debug_info, not stripped\n",
+        "stderr": ""
+      },
+      "go_build_info": {
+        "argv": [
+          "/workspace/yunfu-voice-runtime/work/toolchain/go/bin/go",
+          "version",
+          "-m",
+          "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/callbench"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/callbench: go1.27.1\n\tpath\trustswitch/control/cmd/callbench\n\tmod\trustswitch/control\t(devel)\t\n\tdep\tgolang.org/x/sys\tv0.30.0\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,gotestjsonbuildtext=1,httpcookiemaxnum=0,multipathtcp=0,randseednop=0,rsa1024min=0,tlsmlkem=0,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlmaxqueryparams=0,urlstrictcolons=0,x509rsacrt=0,x509sha256skid=0,x509sslcertoverrideplatform=0,x509usepolicies=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=linux\n\tbuild\tGOARM64=v8.0\n",
+        "stderr": ""
+      }
+    },
+    {
+      "path": "work/voice-runtime-m2-asr/full-review-01/rustswitch-linux-arm64",
+      "bytes": 70319887,
+      "sha256": "9d89b063054aa9e7562b5fa65e06c274bdebe573ba39e0c45cec090bdbd9e0cc",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/voice-runtime-m2-asr/full-review-01/rustswitch-linux-arm64"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/voice-runtime-m2-asr/full-review-01/rustswitch-linux-arm64: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, Go BuildID=BbEH2YUSJGfGJVlyPvk6/789eKsvLX9y8_sdojQZV/1xLgJU3i5vPUw3p6n0g_/5tmz5ZEcct3Uuj65XaQv, BuildID[sha1]=9758ce6ca64b81197148985731e394b9ad41dd0e, with debug_info, not stripped\n",
+        "stderr": ""
+      },
+      "go_build_info": {
+        "argv": [
+          "/workspace/yunfu-voice-runtime/work/toolchain/go/bin/go",
+          "version",
+          "-m",
+          "/workspace/yunfu-voice-runtime/work/voice-runtime-m2-asr/full-review-01/rustswitch-linux-arm64"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/voice-runtime-m2-asr/full-review-01/rustswitch-linux-arm64: go1.27.1\n\tpath\trustswitch/control/cmd/rustswitch\n\tmod\trustswitch/control\t(devel)\t\n\tdep\tgolang.org/x/sys\tv0.30.0\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,gotestjsonbuildtext=1,httpcookiemaxnum=0,multipathtcp=0,randseednop=0,rsa1024min=0,tlsmlkem=0,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlmaxqueryparams=0,urlstrictcolons=0,x509rsacrt=0,x509sha256skid=0,x509sslcertoverrideplatform=0,x509usepolicies=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=linux\n\tbuild\tGOARM64=v8.0\n",
+        "stderr": ""
+      }
+    },
+    {
+      "path": "work/voice-runtime-m2-asr/mock-build-04/asr-mock-linux-arm64",
+      "bytes": 4778559,
+      "sha256": "fd2ca585d2bbb00c13010a00b8fa12d44f2d8d788192ea77da4cd23da030e54a",
+      "file": {
+        "argv": [
+          "file",
+          "/workspace/yunfu-voice-runtime/work/voice-runtime-m2-asr/mock-build-04/asr-mock-linux-arm64"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/voice-runtime-m2-asr/mock-build-04/asr-mock-linux-arm64: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, Go BuildID=TNZyAB0D-baNxwuPhEaE/j-uxd7jfyY8tesbn2EBJ/lUxpRFK1Nkz644sTjlgW/y-B6DIeeXWkQaLRm-4Ci, BuildID[sha1]=3a83b99697c8c537b3c1a8c3c21524bd62db38d7, with debug_info, not stripped\n",
+        "stderr": ""
+      },
+      "go_build_info": {
+        "argv": [
+          "/workspace/yunfu-voice-runtime/work/toolchain/go/bin/go",
+          "version",
+          "-m",
+          "/workspace/yunfu-voice-runtime/work/voice-runtime-m2-asr/mock-build-04/asr-mock-linux-arm64"
+        ],
+        "exit_code": 0,
+        "stdout": "/workspace/yunfu-voice-runtime/work/voice-runtime-m2-asr/mock-build-04/asr-mock-linux-arm64: go1.27.1\n\tpath\trustswitch/control/cmd/asr-mock\n\tmod\trustswitch/control\t(devel)\t\n\tdep\tgolang.org/x/sys\tv0.30.0\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,gotestjsonbuildtext=1,httpcookiemaxnum=0,multipathtcp=0,randseednop=0,rsa1024min=0,tlsmlkem=0,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlmaxqueryparams=0,urlstrictcolons=0,x509rsacrt=0,x509sha256skid=0,x509sslcertoverrideplatform=0,x509usepolicies=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=linux\n\tbuild\tGOARM64=v8.0\n",
+        "stderr": ""
+      }
+    }
+  ],
+  "native_audio": {
+    "manifest_sha256": "22b6bdcfb1c12186e19ad95072fe1f89e3dca77b81db6a7b626967da2158722e",
+    "source_manifest": {
+      "spandsp": {
+        "repository": "https://github.com/freeswitch/spandsp",
+        "commit": "8f1e1646bdec99eac5fd2cd92c35563f736b9b89",
+        "license": "LGPL-2.1",
+        "source_modified": false,
+        "files": [
+          {
+            "path": "COPYING",
+            "sha256": "366576cb0b869cd9e95a4882878607314650488ac635e5df0692180382e9666a"
+          },
+          {
+            "path": "src/floating_fudge.h",
+            "sha256": "82e276666bb1f68296a05b402b634f58bb2d607d40fed28bf536d2d4534c461a"
+          },
+          {
+            "path": "src/g722.c",
+            "sha256": "06b89a436c8afe3fa6552ab66ad19bcfbcfd8634e731e4e7238d6bc52bb75065"
+          },
+          {
+            "path": "src/spandsp/alloc.h",
+            "sha256": "6d1915f2fd4691a1003b00a73cf9baec2e88716a1cc3ce1fcc650d1f6d5e70cb"
+          },
+          {
+            "path": "src/spandsp/fast_convert.h",
+            "sha256": "45cb9717c09d7ff20cfbff03dcb6ca0b9cc4449c46f7dbf4ea3c85c06332ecab"
+          },
+          {
+            "path": "src/spandsp/g722.h",
+            "sha256": "b202aeb6d5a4d0c7bf6da92a9ef27fa3fe0a88f491b5bf4d2cae81c345c80409"
+          },
+          {
+            "path": "src/spandsp/private/g722.h",
+            "sha256": "db31680908f14e9dce046bda29127519529219a2a879c979bc6fe56d2ceb0aa0"
+          },
+          {
+            "path": "src/spandsp/saturated.h",
+            "sha256": "73beed1ab3dd3729400fbb12c68b15b1004b70984d6c44b3ab04c6bdc3df6335"
+          },
+          {
+            "path": "src/spandsp/telephony.h",
+            "sha256": "8b9b436a4ffb89f3e8a6bd96114fb45115bffe1585863d9d35a6d1e1292025d0"
+          },
+          {
+            "path": "src/spandsp/vector_int.h",
+            "sha256": "21a255de9ee58ae75ea98ec253ab77f5a8127046532915a479eeec1f2087364f"
+          }
+        ]
+      },
+      "opus": {
+        "version": "1.5.2",
+        "url": "https://downloads.xiph.org/releases/opus/opus-1.5.2.tar.gz",
+        "sha256": "65c1d2f78b9f2fb20082c38cbe47c951ad5839345876e46941612ee87f9a7ce1",
+        "license": "BSD-3-Clause; patent grants in upstream COPYING"
+      }
+    },
+    "spandsp_source_binding": {
+      "total": 10,
+      "matched": 10,
+      "mismatches": []
+    },
+    "opus_archive_sha256": "65c1d2f78b9f2fb20082c38cbe47c951ad5839345876e46941612ee87f9a7ce1",
+    "historical_receipt": "work/voice-runtime-m1/rust-final-verification.json",
+    "historical_receipt_sha256": "ce1a43d218fbf24e0fc62ed0fa56f0d223100bc8554938a3c11b2d278da68307",
+    "historical_native_libraries": {
+      "RUSTSWITCH_G722_LIBRARY": {
+        "path": "/workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib",
+        "sha256": "ccd3e3b911d291feba5cf3f128bc94ce803a68ceb40cb2577182350463bfdb39"
+      },
+      "RUSTSWITCH_OPUS_LIBRARY": {
+        "path": "/workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.dylib",
+        "sha256": "39d7bce655ec29da6e0fb16b1206504ec9774d7e2d509865289a58c36762f0a0"
+      }
+    },
+    "native_library_hashes_still_match": true,
+    "note": "历史测试库身份与当前相同；未发现为这两份库单独保留的编译前后完整来源收据，不扩大为可逐字节重现构建证明。当前构建不作重新载入测试。"
+  },
+  "linux": {
+    "build_receipt_sha256": "478d4163b34990c47e49f3be57b272d083b81b5564d8a0700ac81724bb394d0f",
+    "runtime_receipt_sha256": "b356c413aa30f313dfa8719b2cc863df0d3d6eb0bf4bb4e7b4251ca86d451886",
+    "build_returncode": 0,
+    "build_source_stable": true,
+    "main_build_binding": {
+      "total": 529,
+      "matched": 529,
+      "mismatches": []
+    },
+    "main_runtime_binding": {
+      "total": 758,
+      "matched": 758,
+      "mismatches": []
+    },
+    "recorded_binaries": {
+      "control": {
+        "path": "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/rustswitch",
+        "sha256": "fb4285ae0e35acc0e41f72fc0f87519023e2c4e38bc96d4357ef54c2868e4c99"
+      },
+      "media": {
+        "path": "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/rustswitch-media",
+        "sha256": "5868122d3119e4aeb0ce6074519dd265f8b78df906200a27a1f8466d6101861d"
+      },
+      "generator": {
+        "path": "/workspace/yunfu-voice-runtime/work/linux-vm/share/voice-runtime-m2-rx/callbench",
+        "sha256": "12209449f2e773d4f1e6412c2505a7916a8771f056711b523907b4c23c9da556"
+      }
+    },
+    "binary_hashes_match": true,
+    "paired_receipt_sha256": "a5ad1f93827467b2e232bc10dbcfa5c6593e223301a0a057fd6ba625bad8409c",
+    "paired_counts": {
+      "original_entries": 3999,
+      "full_contract_passed": 0,
+      "probes_by_state": {
+        "failed_difference": 3,
+        "identity_observed": 1,
+        "inventory_observed": 1,
+        "passed_scoped": 21
+      },
+      "paired_scoped_passes": 21
+    },
+    "paired_runner_exit_code": 2,
+    "asr_control_source_binding": {
+      "total": 896,
+      "matched": 896,
+      "mismatches": []
+    },
+    "asr_control_linux_binary_matches": true,
+    "shared_media_candidate_source_binding": {
+      "total": 39,
+      "matched": 39,
+      "mismatches": []
+    },
+    "shared_generator_candidate_source_binding": {
+      "total": 26,
+      "matched": 26,
+      "mismatches": []
+    },
+    "asr_mock_source_binding": {
+      "total": 340,
+      "matched": 340,
+      "mismatches": []
+    },
+    "asr_mock_linux_binary_matches": true,
+    "linux_asr_whole_set_executed": false,
+    "scope": "main核心3产物为同批构建且有Linux固定探针实跑；ASR的Linux控制面与mock来自各自通过构建，media/generator复用相同源码产物，尚无Linux整组ASR验收。"
+  }
+}

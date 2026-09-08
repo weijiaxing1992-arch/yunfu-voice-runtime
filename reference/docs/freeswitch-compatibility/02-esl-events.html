@@ -1,0 +1,436 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>ESL、事件与 fs_cli 无改动接入标准 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / ESL、事件与 fs_cli 无改动接入标准</div><article class="content"><div class="page-tools"><a href="02-esl-events.md" download>Markdown 原稿</a><a href="../api/openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 9 节</summary><a href="#1-无感替换的判定边界">1. 无感替换的判定边界</a><a href="#2-tcp-连接与帧格式">2. TCP 连接与帧格式</a><a href="#3-inbound-连接与认证">3. Inbound 连接与认证</a><a href="#4-outbound-socket-应用">4. Outbound socket 应用</a><a href="#5-api后台任务与通道执行">5. API、后台任务与通道执行</a><a href="#6-订阅过滤事件格式与日志">6. 订阅、过滤、事件格式与日志</a><a href="#7-事件偏序错误与连接故障">7. 事件偏序、错误与连接故障</a><a href="#8-原版客户端验收步骤">8. 原版客户端验收步骤</a><a href="#9-比较规则与发布门槛">9. 比较规则与发布门槛</a></details><h1 id="esl事件与-fs_cli-无改动接入标准">ESL、事件与 fs_cli 无改动接入标准</h1>
+<p>本章规定 RustSwitch 对 FreeSWITCH Event Socket 的<strong>目标兼容合同</strong>。<code>MUST</code> 表示发布验收要求，<code>MUST NOT</code> 表示禁止行为，均不表示已经实现。当前应用版本 RustSwitch v0.3、文档发行版本 1.5 已提供可选入站 ESL 的有限子集：9 个 API 入口、4 类事件、api/bgapi、基础订阅与筛选，以及 console_execute 的单 API 命令路径。原版 fs_cli 的中文回显、版本身份与 API JSON 目录三条命令已经实际通过。原版已运行，独立成对报告记录26项探针：21项限定场景通过、3项 SIP OPTIONS 能力差异、2项身份/入口发现；这不是本章完整合同通过数。出站 ESL、sendmsg 应用执行、完整事件/变量语义、控制台批处理/别名/补全及完整交互仍未完成，详见 <a href="../api/esl-reference.html">当前 ESL 能力</a> 与 <a href="../api/conformance-report.html">成对报告</a>。</p>
+<p>唯一参考版本为 <strong>FreeSWITCH v1.11.3，提交 <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code></strong>。后续出现新版不自动改变本合同。模块启用情况、构建选项、目录认证、拨号计划和业务客户端版本必须随验收记录冻结。一个裸 TCP 服务能接受 <code>auth</code>，或者 <code>fs_cli -x status</code> 能返回文字，都不构成 ESL 全兼容。</p>
+<h2 id="1-无感替换的判定边界">1. 无感替换的判定边界</h2>
+<p>ESL-001：现有 <code>fs_cli</code>、原版 C libesl、C++ ESLconnection 及用户正在使用的语言绑定 MUST 无须修改源代码、替换库或增加代理专用参数即可接入。替换服务器地址、沿用已有 VIP/DNS 和原有端口、密码属于部署动作；把业务程序从 ESL 改成 RustSwitch HTTP API 不算无感替换。</p>
+<p>ESL-002：验收 MUST 同时覆盖传输、命令、状态变化、事件、配置、错误和客户端等待行为。接口名称相同而桥接对象、变量作用域、应答时机、挂断原因或业务事件不同，判定失败。协议载荷中的 UUID、时间和地址允许按本章规则归一化，业务结果不得归一化掉。</p>
+<p>ESL-003：每一项必须关联原版运行轨迹和替代实现运行轨迹。源码可确定实现入口和边界，但不能代替动态验证，特别是并发、模块回调、挂断竞态及慢消费者。未采集对照证据的项目标记 <code>UNVERIFIED</code>，不得记为通过或“不适用”。</p>
+<p>ESL-004：ESL 是传输入口。其 <code>api</code> 可访问的全部 API、<code>sendmsg execute</code> 可访问的全部应用、CUSTOM 事件子类，以及 <code>event_sink</code> 等模块导出的 API，必须进入总接口清单逐项验收。本章不把“能转发任意字符串”当作这些业务接口已经兼容。</p>
+<h2 id="2-tcp-连接与帧格式">2. TCP 连接与帧格式</h2>
+<h3 id="21-字节流解析">2.1 字节流解析</h3>
+<p>ESL-010：MUST 按 TCP 字节流组帧，处理任意拆包、粘包、一次读取多帧以及一次写入只能发送部分数据的情况。不能用一次 <code>read</code> 对应一次命令，不能用空行查找代替有正文的长度解析。</p>
+<p>ESL-011：请求使用命令行、可选头字段、空行、可选正文；响应使用头字段、空行、可选正文。MUST 接受原版接受的 LF 和 CRLF 行结束，发出的格式必须能由原版 libesl 解析。头字段查找大小写行为、命令分隔空格和参数保留规则按参考版本逐项比较；禁止统一小写业务参数或对整条命令做 URL 解码。</p>
+<p>ESL-012：<code>Content-Length</code> 计量序列化后正文的<strong>字节数</strong>，不是 Unicode 字符数。长度以内的 CR、LF、空行均为正文；读取恰好该长度后，后续字节属于下一帧。外层事件正文可能包含内层事件自己的 <code>Content-Length</code>，两者独立。</p>
+<p>ESL-013：必须测试缺失正文、零长度、超长头、负数长度、超限长度、数值溢出、非数值、重复长度字段和正文内 NUL。v1.11.3 服务端设置了 16 MiB 正文上限，但原版采用文本事件存储，<strong>不得据此宣称 ESL 是任意二进制透明协议</strong>。有效文本的边界必须相同；畸形输入的原版响应、断连和副作用必须记录，任何主动收紧规则均作为显式兼容差异评审，不得悄悄改变后仍声称百分之百相同。</p>
+<p>ESL-014：连接的命令响应、日志和异步事件 MUST 共用合法的有序字节流，不得交叉写坏帧。短写重试、输出队列和关闭过程不能切断一个随后仍被宣称完整送达的消息。实际 EOF、RST 或失败的部分发送必须可在验收证据中区分。</p>
+<p>以上解析入口可由固定版本的 <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_event_socket/mod_event_socket.c" target="_blank" rel="noopener noreferrer"><code>read_packet</code> 与发送分支</a> 对照；客户端兼容性还须按原版 <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/libs/esl/src/esl.c" target="_blank" rel="noopener noreferrer"><code>esl_recv_event</code>、<code>esl_send_recv_timed</code></a> 验证。</p>
+<h3 id="22-帧类别">2.2 帧类别</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>外层 Content-Type</th>
+<th>必须保留的含义</th>
+<th>不能混淆的事项</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>auth/request</code></td>
+<td>inbound 连接认证提示</td>
+<td>不是事件订阅已生效</td>
+</tr>
+<tr>
+<td><code>command/reply</code></td>
+<td>命令层回复，检查 <code>Reply-Text</code> 及附加头</td>
+<td><code>+OK</code> 不普遍等于业务成功或媒体动作完成</td>
+</tr>
+<tr>
+<td><code>api/response</code></td>
+<td>API 执行返回的正文</td>
+<td>正文可能是 <code>-ERR</code>、多行列表或其他命令专用格式</td>
+</tr>
+<tr>
+<td><code>text/event-plain</code></td>
+<td>外层正文为 plain 事件</td>
+<td>内层头、正文和长度另行解析</td>
+</tr>
+<tr>
+<td><code>text/event-json</code></td>
+<td>外层正文为 JSON 事件</td>
+<td>不能转换成自创的统一 JSON 信封</td>
+</tr>
+<tr>
+<td><code>text/event-xml</code></td>
+<td>外层正文为 XML 事件</td>
+<td>不能只输出与 plain 大致相似的字段</td>
+</tr>
+<tr>
+<td><code>log/data</code></td>
+<td>日志载荷及日志元数据</td>
+<td>不等同于事件订阅，不得改成 CUSTOM 事件</td>
+</tr>
+<tr>
+<td><code>text/disconnect-notice</code></td>
+<td>协议层断连或 linger 提示</td>
+<td>notice、TCP EOF 与通道挂断是不同事实</td>
+</tr>
+</tbody></table></div>
+<p>用于测试长度的文本正文可取 <code>你好\n\nx</code>：UTF-8 正好 9 字节。发送端必须发送实际换行；文档中的 <code>\n</code> 只是表示法。</p>
+<p>以下为固定参考实现的边界采样点，必须带入测试；它们不等于对任意客户端输入的安全保证，也不是可以随意移植到其他版本的通用常数：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>v1.11.3 参考值/行为</th>
+<th>替代实现的验收要求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>入站正文范围检查</td>
+<td>大于 16 MiB 或转换后为负数时关闭读取路径</td>
+<td>对有效上下界及转换歧义单独测试，不能只测试 1 KiB 消息</td>
+</tr>
+<tr>
+<td>命令头读取阈值</td>
+<td>10 MiB 阈值进入原版解析路径；不是“所有超长头都规范回复错误”</td>
+<td>对照实际关闭/回复；任何更低限制标为差异</td>
+</tr>
+<tr>
+<td>inbound 认证读取、outbound 初次读取</td>
+<td>调用读取函数时传入 25 秒</td>
+<td>测量超时边界和不完整正文行为；不能据此承诺整个命令都有 25 秒绝对期限</td>
+</tr>
+<tr>
+<td>每个 listener 的事件队列、日志队列</td>
+<td>分别最多 100,000 项</td>
+<td>比较上界、副作用和故障域；更改上界要进入部署合同</td>
+</tr>
+<tr>
+<td>过量入队失败</td>
+<td>对应丢失计数超过 500 时终止 listener；后续成功入队会清零该计数</td>
+<td>区分累计历史丢失与这一计数，不能错误实现为进程全局总计</td>
+</tr>
+</tbody></table></div>
+<p>这些值来自同一固定提交的 <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_event_socket/mod_event_socket.c" target="_blank" rel="noopener noreferrer"><code>mod_event_socket.c</code></a>，必须与运行轨迹一起留证。</p>
+<h2 id="3-inbound-连接与认证">3. Inbound 连接与认证</h2>
+<p>ESL-020：MUST 读取原有 <code>event_socket.conf.xml</code> 配置对应的监听地址、端口、密码、ACL、绑定失败策略等设置，并验证 IPv4/IPv6 行为。不得在兼容部署时静默改端口、扩大监听地址或绕过原有访问控制。原版默认端口为 8021；验收以用户配置为准。</p>
+<p>ESL-021：inbound 由客户端发起 TCP 连接。服务器发出认证提示；客户端发送 <code>auth &lt;password&gt;</code>。正确和错误密码、未认证先发命令、空密码、认证超时、ACL 拒绝、客户端在提示前发送数据，均必须与原版对照。原版普通密码认证的成功回复为 <code>+OK accepted</code>，错误密码返回 <code>-ERR invalid</code> 并结束该连接；不得为了方便客户端而把错误认证维持为已认证状态。</p>
+<p>ESL-022：MUST 支持基线使用的 <code>userauth</code> 目录用户认证及 <code>esl-password</code>、<code>esl-allowed-api</code>、<code>esl-allowed-events</code>、<code>esl-allowed-log</code> 的继承与回复头。域、组、用户覆盖关系、API 包装命令的授权检查和 CUSTOM 子类限制必须逐项验收。仅实现全局密码会破坏使用目录授权的既有系统。</p>
+<p>ESL-023：认证成功只建立本连接的身份和权限。订阅、过滤器、日志级别、myevents 绑定和未完成请求都不能从其他连接泄漏过来。重新连接需要按原客户端流程重新认证及订阅；不得在无协议协商的情况下自动套用别人的连接状态。</p>
+<p>配置和授权入口见固定版本 <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_event_socket/mod_event_socket.c" target="_blank" rel="noopener noreferrer"><code>config</code>、<code>parse_command</code>、<code>auth_api_command</code></a>。认证与 ACL 的存在不表示本协议自动提供 TLS；原有隧道或 TLS 终结部署也必须纳入环境清单。</p>
+<h2 id="4-outbound-socket-应用">4. Outbound socket 应用</h2>
+<p>ESL-030：MUST 支持拨号计划 <code>socket</code> 应用，由服务器主动连接既有业务服务。原业务服务接受连接后发送 <code>connect</code>，服务器返回包含当前通道数据的连接信息帧。不得反向要求业务端先等待 inbound 的 <code>auth/request</code>。连接信息须可被原版 <code>ESLconnection(fd)</code>、<code>getInfo()</code> 正常消费。</p>
+<p>ESL-031：<code>Socket-Mode</code>、<code>Control</code>、通道 UUID、通道变量及应用执行位置必须与原版一致。MUST 覆盖 <code>socket host:port</code>、<code>socket host:port async</code>、<code>socket host:port full</code>、<code>socket host:port async full</code> 四种组合，以及基线使用的多目标连接、IPv6、超时和连接失败继续拨号计划的行为。</p>
+<p>ESL-032：<code>async</code> 控制事件命令进入通道执行路径的方式；它不等于另开业务会话，也不等于 <code>bgapi</code>。单条 <code>sendmsg</code> 的 <code>async: true</code>、原版客户端 <code>setAsyncExecute</code>/<code>executeAsync</code> 和 socket 应用参数必须分别验收。</p>
+<p>ESL-033：<code>full</code> 是原版命令入口的模式标志，不能重新解释为任意自行设计的权限角色。特别是参考实现的 <code>sendmsg</code> 分支位于部分 full 限制检查之前，因此不得仅凭名称宣称 single-channel 模式已经隔离全部跨通道操作。必须用“模式 × 命令 × 目标 UUID × 授权配置”矩阵记录真实允许/拒绝行为。</p>
+<p>ESL-034：MUST 支持 <code>getvar</code>、<code>myevents</code>、<code>divert_events</code>、<code>resume</code>、<code>linger</code>、<code>nolinger</code> 在适用连接上的行为。<code>resume</code>、<code>socket_resume</code>、转移、通道 reset 和 socket 断连后的拨号计划续行必须按状态分别测试；不能将所有 outbound 断连都统一转成挂机或统一继续执行。</p>
+<p>ESL-035：<code>linger</code> 只改变受控通道结束后 socket 的保留行为，不是通话保活，也不等于持久消息订阅。MUST 支持无参数和指定秒数，保留 <code>Content-Disposition</code>、<code>Controlled-Session-UUID</code>、<code>Linger-Time</code> 等原版通知字段。无参数、零值、正常期限、显式 <code>nolinger</code> 和客户端主动退出要分别测量；不得把源码中未最终使用的初始值当作无参数默认期限。</p>
+<p>以上 socket 应用和连接生命周期由固定版本 <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_event_socket/mod_event_socket.c" target="_blank" rel="noopener noreferrer"><code>socket_function</code>、<code>listener_run</code></a> 定义；原版客户端接管 socket 的动作见 <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/libs/esl/src/esl.c" target="_blank" rel="noopener noreferrer"><code>esl_attach_handle</code></a>。</p>
+<h2 id="5-api后台任务与通道执行">5. API、后台任务与通道执行</h2>
+<h3 id="51-三种不同的完成语义">5.1 三种不同的完成语义</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>立即可观察的结果</th>
+<th>业务完成判据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>api &lt;name&gt; &lt;args&gt;</code></td>
+<td>该次 API 调用返回后得到 <code>api/response</code></td>
+<td>按具体 API 契约；调用返回不保证所安排的通话、定时任务已经结束</td>
+</tr>
+<tr>
+<td><code>bgapi &lt;name&gt; &lt;args&gt;</code></td>
+<td>命令层收到 Job UUID</td>
+<td>对应 <code>BACKGROUND_JOB</code> 表示该次后台 API 调用返回；API 创建的长期业务还要观察其通道/应用事件</td>
+</tr>
+<tr>
+<td><code>sendmsg ...</code> 的 execute</td>
+<td>命令层响应，可能只是入队成功</td>
+<td>正确关联的应用执行事件、最终业务状态和媒体效果共同判定</td>
+</tr>
+</tbody></table></div>
+<p>ESL-040：<code>api</code> MUST 保留原 API 的原生文本、多行结构、尾随换行、列表列名、JSON/XML 选项、错误正文以及 <code>console_execute</code> 行为。不得统一包装成 <code>{success:true}</code>，也不得给失败操作补一个假的成功文本。</p>
+<p>ESL-041：<code>bgapi</code> MUST 支持服务器生成的 Job UUID 和客户端提供的 <code>Job-UUID</code> 头；回复中的 UUID 与最终后台事件匹配。MUST 保留 <code>Job-Command</code>、存在时的 <code>Job-Command-Arg</code>、<code>Job-Owner-UUID</code> 和正文结果。后台任务完成先后由实际工作决定，不按提交顺序伪造排序。</p>
+<p>ESL-042：Job UUID 是关联标识，<strong>不是协议级幂等键</strong>。客户端重复提交同一 Job UUID，不得未经标准变更就去重、合并任务或重放缓存结果。原版是否截断异常长度、接受非规范 UUID 等边界必须记录；自动把“客户端超时重发”解释为“原任务未执行”属于错误。</p>
+<p>ESL-043：业务端须按原来方式订阅 <code>BACKGROUND_JOB</code> 才能依赖该事件。服务端不得把所有后台结果偷偷变成当前请求的同步响应；也不能由于发起 socket 已断开就假定后台工作必然撤销。验收必须分开检查后台 API 是否继续、结果事件是否发出及该连接是否收到。</p>
+<h3 id="52-sendmsg-执行合同">5.2 sendmsg 执行合同</h3>
+<p>ESL-050：MUST 保留 <code>sendmsg &lt;uuid&gt;</code>、<code>session-id</code> 头及 outbound 当前会话省略 UUID 的寻址规则、优先级和错误。至少覆盖 <code>call-command</code> 的 <code>execute</code>、<code>hangup</code>、<code>nomedia</code>、<code>unicast</code>、<code>xferext</code>，并按基线实际使用的应用继续扩展；接收这些头但没有实施状态变化不能通过。</p>
+<p>ESL-051：execute MUST 支持 <code>execute-app-name</code>、<code>execute-app-arg</code>；适用情况下支持 <code>Content-Type: text/plain</code> 正文作为参数。参数中的变量展开、空值、空格、换行、循环 <code>loops</code>、<code>lead-frames</code>、<code>hold-bleg</code> 和应用错误按原版应用执行层验收，不能只在 ESL 解析层做字符串相等测试。</p>
+<p>ESL-052：客户端提供的 <code>event-uuid</code> MUST 按参考执行路径关联到事件中的 <code>Application-UUID</code>，与通道的 <code>Unique-ID</code>、后台任务的 <code>Job-UUID</code> 分开。存在的 <code>event-uuid-name</code> 与 <code>Application-UUID-Name</code> 也须对应。未指定时使用原版等价的自动关联行为，不复用另一个正在执行的应用标识。</p>
+<p>ESL-053：<code>event-lock: true</code>/<code>event-lock-pri</code> 是通道事件执行顺序控制，MUST 与原版私有事件队列及应用执行行为一致；不得实现成锁住全局所有通话，也不得声称它令 TCP 上的每个响应都阻塞到应用成功完成。应用内等待媒体、DTMF、嵌套执行、break、hangup、转移时必须检查锁的释放及后续命令效果。</p>
+<p>ESL-054：对不存在的会话、已经挂机的会话、尚在结束的会话、未知应用、缺少应用名和入队失败，必须分别保留原版可观察行为。有些错误可能在应用执行阶段体现而不是立即的 <code>command/reply</code>，不能提前统一改写，也不能因为立即 <code>+OK</code> 就算用例成功。</p>
+<p>以下为用于验证 UUID 关联和顺序的请求形式，<code>&lt;U&gt;</code> 和 <code>&lt;E&gt;</code> 分别替换为测试通道 UUID 与独立应用 UUID；实际结尾必须有空行：</p>
+<pre><code class="language-text">sendmsg &lt;U&gt;
+call-command: execute
+execute-app-name: sleep
+execute-app-arg: 100
+event-uuid: &lt;E&gt;
+event-lock: true
+</code></pre>
+<p>通道执行的实际头解析见 <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/switch_ivr.c" target="_blank" rel="noopener noreferrer"><code>switch_ivr_parse_event</code></a>，应用事件字段见 <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/switch_core_session.c" target="_blank" rel="noopener noreferrer"><code>switch_core_session_exec</code></a>，客户端设置见原版 <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/libs/esl/src/esl_oop.cpp" target="_blank" rel="noopener noreferrer"><code>ESLconnection</code></a>。</p>
+<h2 id="6-订阅过滤事件格式与日志">6. 订阅、过滤、事件格式与日志</h2>
+<p>ESL-060：MUST 支持 <code>event plain|json|xml</code>、事件名列表、<code>ALL</code>、<code>CUSTOM</code> 子类，以及 <code>nixevent</code>、<code>noevents</code>。连续多次订阅的累加/删除行为、格式切换、无关键字、未知关键字、权限拒绝时已发生的部分变化，均按固定版本验证。不能自行将每次 <code>event</code> 解释成替换全部订阅。</p>
+<p>ESL-061：<code>filter</code>、<code>filter add</code>、按头删除、按头和值删除、<code>filter delete all</code> 的行为必须保留。**不能采用常见但不正确的“不同头 AND、同名头 OR”概括。**固定版本按过滤项遍历：至少一个正向匹配可选中事件，负向匹配可否决；仅有负向项不自动产生“默认允许”。普通值的比较、以斜杠起始的正则、前缀正负号和缺失头的行为必须以真值表固化，不能替换成 SQL 条件或另一套正则语言。</p>
+<p>ESL-062：<code>myevents</code> 是连接与会话相关的事件模式，不是普通 <code>filter Unique-ID</code> 的别名。默认事件集合、格式选择、重复启用、无效 UUID、与 <code>event</code>/<code>noevents</code>/filter 的组合，以及由 <code>Job-Owner-UUID</code> 关联的后台事件必须测试。不得用一个全局订阅再给所有 socket 广播来代替会话隔离。</p>
+<p>ESL-063：plain 事件 MUST 保留头名、字段缺失与空值的区别、百分号编码、数组表示、重复字段和正文。libesl 消费后的值必须与原版一致；不能双重 URL 解码，也不能把 <code>+</code> 一律当成空格。JSON 必须保留原版字符串/数组类型及 <code>_body</code> 表示，不能把数字形态字符串强制转为数字。XML 必须保留事件、头、正文结构与相应编码；不能采用自定义 SOAP 格式。</p>
+<p>ESL-064：<code>Event-Name</code>、<code>Event-Subclass</code>、<code>Core-UUID</code>、<code>Event-Sequence</code>、<code>Event-Date-*</code>、<code>Unique-ID</code>、<code>Other-Leg-Unique-ID</code>、<code>Channel-*</code>、<code>Caller-*</code>、<code>variable_*</code> 等存在条件、作用域和语义必须进入事件样本契约。每种事件并不必然具备表中所有头；不得为了“字段齐全”补造不存在的值。扩展字段只能采用不会覆盖标准字段的命名，并检查旧客户端是否拒绝额外字段。</p>
+<p>ESL-065：<code>sendevent</code> MUST 按原版处理事件名称、自定义子类、正文、路由相关 UUID、生成的事件标识和回复。用户自定义头不得被统一转换成只供 RustSwitch 使用的字段。发布到事件系统、转送到会话、收到 TCP 确认及终端媒体效果是四个不同阶段。</p>
+<p>ESL-066：<code>log</code>/<code>nolog</code>、日志级别解析、授权、重复取消及日志头字段 MUST 可被原版 fs_cli 使用。服务器日志与业务事件各自的缓冲和取消操作必须保持语义；取消日志不能连带清空通道事件。日志文件名/源代码行等实现标识的差异需要明确映射，不得在报告中直接忽略。</p>
+<p>序列化及通用事件字段以固定版本 <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/switch_event.c" target="_blank" rel="noopener noreferrer"><code>switch_event.c</code></a> 为依据；过滤逻辑以 <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_event_socket/mod_event_socket.c" target="_blank" rel="noopener noreferrer"><code>event_handler</code></a> 为依据。源码中的事件枚举只代表可能的事件名称，不能替代每个启用模块产生事件的条件测试。</p>
+<h2 id="7-事件偏序错误与连接故障">7. 事件偏序、错误与连接故障</h2>
+<p>ESL-070：一个连接上的 TCP 字节顺序必须正确；但不同线程、不同通道、不同后台任务的事件不存在本合同凭空增加的全局业务顺序。<code>Event-Sequence</code> 是进程事件元数据，<strong>不是持久投递序号、订阅确认、断线续传游标或跨重启事务编号</strong>。过滤造成序号间隙也不直接证明丢失。</p>
+<p>ESL-071：验收比较因果关系及同一对象的约束。例如，成功返回的普通应用具有对应的执行开始和完成关联；应用动作发生在其执行区间内；正常终结用例的完成状态与挂断原因一致。不得把“CREATE → ANSWER → BRIDGE → HANGUP → DESTROY”强制要求为所有呼叫都出现的事件全集；未接通、早期媒体、取消、转移、嵌套应用具有不同路径。因异步派发造成的网络到达顺序须与原版观测范围对照，不能以本地生成先后直接推断到达先后。</p>
+<p>ESL-072：普通命令响应没有通用请求 ID。保持串行请求的原版客户端必须正常工作；流水线、API 与事件交错、多个 <code>bgapi</code> 同时完成必须额外测试。原版 libesl 在等待响应时会缓存遇到的非响应消息；替代端不能依赖客户端丢掉这些消息或要求先停订阅再发命令。</p>
+<p>ESL-073：未知命令、未知 API、未知应用、权限拒绝、语法错误、资源不足、无效 UUID、连接关闭，必须按类别分别测试帧类型、错误内容、是否继续连接及副作用。错误拼写和尾随换行可能被旧程序直接匹配，修改为更友好的文字也属于可观察差异。</p>
+<p>ESL-074：ESL 原生 TCP 订阅不提供全局 exactly-once、持久事件重放或自动重连恢复。本标准不得虚构这些保证。若需要审计存储、按游标重放或业务幂等服务，应作为单独接口交付；不得把历史重放事件混入旧客户端的实时流而不做协商。</p>
+<p>ESL-075：慢消费者必须有独立、可观测的资源边界，不能使媒体线程阻塞在 ESL 输出。参考实现存在队列上限、事件/日志入队失败记录及过量丢失后断连的路径；“原版也可能丢事件”不能作为替代实现静默丢失的合格理由。兼容模式须记录边界行为差异；服务目标要求额外测试在规定负载及消费速率内零事件缺失，超载时明确暴露不完整结果，不能仍报告投递成功。</p>
+<p>ESL-076：必须测试 FIN、RST、半关闭、超时、未读完响应即断连、bgapi 已受理但回复未收到，以及 outbound 业务进程退出。重连后应重新查询业务状态；服务端不能未经依据撤销或再次执行结果未知的操作。HA 切换若不能保留 TCP 连接及事件状态，必须作为切换能力缺口，不能因新连接成功就宣称存量 ESL 会话无感。</p>
+<h2 id="8-原版客户端验收步骤">8. 原版客户端验收步骤</h2>
+<p>测试使用两个隔离环境：R 为固定版本原版 FreeSWITCH，S 为 RustSwitch；模块、配置、拨号计划、媒体样本、客户端二进制及试验输入相同。每轮创建独立租户/测试用户、呼叫 UUID 和 CUSTOM 子类后缀，避免事件串入。涉及挂机、长循环或大量事件的用例只操作本轮测试对象。</p>
+<p>每个用例至少保存：基线版本和构建清单、输入原始字节、双向 TCP 原始记录、解析后帧、SIP/RTP 证据（适用时）、通道/后台任务关联图、错误及资源统计。报告必须标识 <code>PASS/FAIL/UNVERIFIED</code>、首次分歧位置和未采集原因。</p>
+<h3 id="81-必须运行的客户端组合">8.1 必须运行的客户端组合</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>客户端</th>
+<th>实际操作</th>
+<th>通过条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原版 <code>fs_cli</code> 命令模式</td>
+<td>使用已有配置/凭据连接 R 和 S；运行 <code>status</code>、<code>version</code>、<code>show channels</code>、业务实际 API</td>
+<td>原进程可正常退出；输出结构、错误和业务结果符合冻结契约；版本身份差异有明确规定</td>
+</tr>
+<tr>
+<td>原版 <code>fs_cli</code> 交互模式</td>
+<td>自动终端输入状态命令、Tab 补全、<code>/event</code>、<code>/filter</code>、<code>/log</code>、<code>/nolog</code>、退出</td>
+<td><code>console_complete</code>、<code>console_execute</code>、日志和事件交错均可用；不允许仅命令模式通过</td>
+</tr>
+<tr>
+<td>原版 C libesl</td>
+<td>认证、send/recv、带正文事件、定时等待、订阅中调用 API</td>
+<td>不修改库；帧、超时、错误和缓存事件行为等价</td>
+</tr>
+<tr>
+<td>原版 C++ ESLconnection</td>
+<td>inbound 构造、outbound 已接受 fd 构造、getInfo、execute、executeAsync、bgapi、recvEventTimed</td>
+<td>UUID 关联、等待行为和应用效果等价</td>
+</tr>
+<tr>
+<td>用户现有语言绑定和业务服务</td>
+<td>原构建产物回放生产代表性场景</td>
+<td>不修改业务代码；不能以新写的测试客户端通过替代此项</td>
+</tr>
+</tbody></table></div>
+<p>原版 fs_cli 的交互命令并非只转发一个 <code>status</code> 字符串，其实现见 <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/libs/esl/fs_cli.c" target="_blank" rel="noopener noreferrer"><code>fs_cli.c</code></a>。</p>
+<h3 id="82-正向负向与并发用例">8.2 正向、负向与并发用例</h3>
+<p>表中“对照”表示用同一脚本先执行 R，再执行 S，按帧与业务状态比较；不是允许实现者自选预期。<code>U1/U2</code> 为本轮存活通道，<code>E1/E2</code> 为应用关联 UUID，<code>J1/J2</code> 为后台任务关联 UUID。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>操作和边界</th>
+<th>必须检查的结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ESL-T01</td>
+<td>inbound 正确密码；按 1 字节分片发送认证</td>
+<td>原版客户端成功；只有该连接获得身份</td>
+</tr>
+<tr>
+<td>ESL-T02</td>
+<td>错密码、空值、未认证 <code>api status</code>、认证超时</td>
+<td>回复/断连与 R 一致；无业务副作用</td>
+</tr>
+<tr>
+<td>ESL-T03</td>
+<td>ACL 放行/拒绝；IPv4/IPv6；端口被占用</td>
+<td>监听、拒绝和进程可用性符合原配置</td>
+</tr>
+<tr>
+<td>ESL-T04</td>
+<td><code>userauth</code> 域/组/用户覆盖，受限 API 与嵌套包装 API</td>
+<td>相同授权结果及 Allowed 头；事件/日志不越权</td>
+</tr>
+<tr>
+<td>ESL-T05</td>
+<td>LF、CRLF；两个命令一次写入；在每个字节位置拆开一次</td>
+<td>响应个数及帧边界正确；无多执行</td>
+</tr>
+<tr>
+<td>ESL-T06</td>
+<td>9 字节 UTF-8 正文含空行，紧接下一条命令</td>
+<td>正文完整；下一帧不被吞入</td>
+</tr>
+<tr>
+<td>ESL-T07</td>
+<td>正文长度 0、1、16 MiB、16 MiB+1；负数、溢出、重复长度</td>
+<td>有效上界与畸形输入逐项对照；无失控分配/跨连接影响</td>
+</tr>
+<tr>
+<td>ESL-T08</td>
+<td>只发送部分正文后 FIN/RST；超长未结束的头</td>
+<td>不执行半条业务消息；资源回收与关闭证据完整</td>
+</tr>
+<tr>
+<td>ESL-T09</td>
+<td><code>api</code> 正常/未知/错误参数/无输出/多行/JSON 输出</td>
+<td>Content-Type、正文及错误层次一致</td>
+</tr>
+<tr>
+<td>ESL-T10</td>
+<td><code>api</code> 带 <code>console_execute</code>，原版 fs_cli Tab 补全</td>
+<td>交互客户端无需修改；输出和补全契约正确</td>
+</tr>
+<tr>
+<td>ESL-T11</td>
+<td><code>bgapi</code> 自动 UUID 与指定 J1；订阅 BACKGROUND_JOB</td>
+<td>回复与事件 UUID 对应，正文为 API 结果</td>
+</tr>
+<tr>
+<td>ESL-T12</td>
+<td>并行 J1/J2，一个慢一个快；重复 J1</td>
+<td>按实际任务完成；不串结果、不擅自幂等去重</td>
+</tr>
+<tr>
+<td>ESL-T13</td>
+<td>bgapi 受理后立即断开，再建新连接</td>
+<td>记录任务真实结果与事件缺口；不虚构重放/撤销</td>
+</tr>
+<tr>
+<td>ESL-T14</td>
+<td>四种 outbound socket 模式，用原版 fd 构造客户端</td>
+<td>connect/getInfo、Socket-Mode、Control、当前 UUID 正确</td>
+</tr>
+<tr>
+<td>ESL-T15</td>
+<td>outbound 目标拒绝、超时、多目标、业务进程退出</td>
+<td>呼叫状态及拨号计划后续动作与 R 一致</td>
+</tr>
+<tr>
+<td>ESL-T16</td>
+<td>每种模式中向当前 U1、另一 U2、不存在 UUID 发 sendmsg</td>
+<td>形成实际模式权限矩阵；不将 full 误当完整隔离</td>
+</tr>
+<tr>
+<td>ESL-T17</td>
+<td>sendmsg 命令行 UUID、session-id、无 UUID 的优先级组合</td>
+<td>仅目标通道发生动作；失败路径无误操作</td>
+</tr>
+<tr>
+<td>ESL-T18</td>
+<td>execute sleep，指定 E1，随后执行带 E2 的 set/log</td>
+<td>两组 Application-UUID、开始/完成、变量效果对应</td>
+</tr>
+<tr>
+<td>ESL-T19</td>
+<td>executeAsync 与默认 execute；event-lock 开/关</td>
+<td>原版等待行为与应用顺序对照；TCP 回复不当完成证据</td>
+</tr>
+<tr>
+<td>ESL-T20</td>
+<td>锁内等待 DTMF/媒体；同时 break、hangup、转移</td>
+<td>无死锁；后续执行、挂断原因和结束事件一致</td>
+</tr>
+<tr>
+<td>ESL-T21</td>
+<td>应用参数用头/正文；空参数、Unicode、空行、变量展开</td>
+<td>应用收到相同参数与作用域；不双解码</td>
+</tr>
+<tr>
+<td>ESL-T22</td>
+<td>loops=0/1/2/负值，随后中断；lead-frames、hold-bleg</td>
+<td>循环数、关联事件、中断与 B 腿状态符合 R</td>
+</tr>
+<tr>
+<td>ESL-T23</td>
+<td>未知应用、无应用名、无效/已挂机/正在结束 UUID</td>
+<td>区分命令接收与执行失败；错误及副作用一致</td>
+</tr>
+<tr>
+<td>ESL-T24</td>
+<td>sendmsg hangup、nomedia、unicast、xferext 的有效/无效参数</td>
+<td>不只检查回复；核验 SIP、媒体和拨号计划效果</td>
+</tr>
+<tr>
+<td>ESL-T25</td>
+<td>event 两次累加、ALL 后 nixevent、noevents 后重订阅</td>
+<td>对照收到的事件集合和队列清理边界</td>
+</tr>
+<tr>
+<td>ESL-T26</td>
+<td>订阅中切换 plain/json/xml；正文含百分号、加号、中文</td>
+<td>原版解析值、数组、空值、正文均等价</td>
+</tr>
+<tr>
+<td>ESL-T27</td>
+<td>filter 正值、两种不同头、两个同名头、负值、仅负值、缺头</td>
+<td>对照完整真值表，特别排除错误的跨头 AND 实现</td>
+</tr>
+<tr>
+<td>ESL-T28</td>
+<td>filter 正则及正负前缀；删除单值、单头、全部</td>
+<td>匹配语言与删除范围正确；其他连接不受影响</td>
+</tr>
+<tr>
+<td>ESL-T29</td>
+<td>myevents U1、同时 U2 活动；重复启用及无效 UUID</td>
+<td>事件集合、错误和 Job-Owner 例外均对照</td>
+</tr>
+<tr>
+<td>ESL-T30</td>
+<td>myevents 与 filter/event/noevents 交叉切换</td>
+<td>会话绑定与订阅状态不被简单别名化</td>
+</tr>
+<tr>
+<td>ESL-T31</td>
+<td>sendevent CUSTOM，指定业务头、正文和 Unique-ID</td>
+<td>发布/路由/返回标识及接收者内容与 R 一致</td>
+</tr>
+<tr>
+<td>ESL-T32</td>
+<td>log 全级别、非法级别、nolog 两次、受限目录用户</td>
+<td>级别和错误准确；不损坏事件订阅</td>
+</tr>
+<tr>
+<td>ESL-T33</td>
+<td>linger 无参数/0/2 秒、nolinger，通道正常/异常挂机</td>
+<td>notice 头、保留时间和 TCP 关闭对照</td>
+</tr>
+<tr>
+<td>ESL-T34</td>
+<td>resume/socket_resume 开/关，socket 断开及显式退出</td>
+<td>后续拨号计划只按正确状态执行</td>
+</tr>
+<tr>
+<td>ESL-T35</td>
+<td>多 socket 同时控制 U1；U1/U2 并行执行相同应用</td>
+<td>不串通道、UUID、回复；只验证原版支持的因果约束</td>
+</tr>
+<tr>
+<td>ESL-T36</td>
+<td>一个连接持续事件流中顺序调用 API/bgapi</td>
+<td>原版 sendRecv 能取得回复，并在后续 recv 中取回交错事件</td>
+</tr>
+<tr>
+<td>ESL-T37</td>
+<td>一个消费者暂停读，另一个正常读，同时媒体承载</td>
+<td>资源有界；慢连接影响及丢失/断连可观测；正常连接和媒体符合 SLO</td>
+</tr>
+<tr>
+<td>ESL-T38</td>
+<td>consumer 重连、服务端重启、Core-UUID 变化</td>
+<td>重新认证订阅；不复用旧 epoch，也不伪造断档的事件</td>
+</tr>
+<tr>
+<td>ESL-T39</td>
+<td>1 万双腿通话（通常约 2 万 channel），另冻结 ESL 连接/订阅数；统计事件总量/延迟/队列</td>
+<td>全量事件与窄订阅分别验收；媒体负载与事件负载均需证据</td>
+</tr>
+<tr>
+<td>ESL-T40</td>
+<td>用户原业务产物完成呼叫、DTMF、播放、转接、挂断流程</td>
+<td>业务代码零改动，输出/CDR/事件/媒体结果均合格</td>
+</tr>
+</tbody></table></div>
+<p>T07、T22、T37、T39 必须设置外部超时和资源上限；这属于可重复测试的运行约束，不得把超时终止的测试记为通过。涉及参考实现边界缺陷时，必须留下完整分歧记录，并将拟采取的修复列为标准差异。</p>
+<h2 id="9-比较规则与发布门槛">9. 比较规则与发布门槛</h2>
+<p>ESL-080：字节比较首先验证长度、分隔符、帧类别和原版客户端可解析性；语义比较再使用显式允许清单处理本来就动态的值。UUID 必须保持全程一一映射及 A/B 腿、Job、Application 三类关系；时间只能调整环境偏移，不能掩盖先后关系或超时差异。</p>
+<p>ESL-081：字段存在性、空字符串、<code>_undef_</code>、<code>_none_</code>、数字形态字符串、数组、失败原因和返回格式不能全局删除后再比较。主机名、IP、Core UUID、源文件/行号及真实产品版本属于需要逐项决定的实现身份字段。兼容产品不得仅伪装版本字符串来欺骗客户端探测；如果既有客户端严格依赖这些值，必须在兼容合同中明确映射及影响。</p>
+<p>ESL-082：一次“命令成功”的验收至少包含接受结果、最终业务状态、关联事件及副作用四类证据中适用的全部项。一次“无感切换”的验收还包括现有客户端产物零修改和原部署配置生效。SIP 接通率、媒体无丢包和 ESL 事件完整率分别统计，不得互相替代。</p>
+<p>发布为“v1.11.3 ESL 全兼容”之前，本章所有适用条款、总清单中的 API/应用/事件合同和用户业务回归必须全部通过；任何 <code>FAIL</code> 或 <code>UNVERIFIED</code> 都阻止该宣称。当前状态是<strong>接口标准已定义，有限 ESL 实现及限定探针已实测；完整 ESL 实现与全部合同对照验收仍未完成</strong>。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

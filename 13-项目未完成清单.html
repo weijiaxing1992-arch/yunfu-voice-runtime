@@ -1,0 +1,780 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>13 项目未完成清单 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="active" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 13 项目未完成清单</div><article class="content"><div class="page-tools"><a href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 6 节</summary><a href="#一当前必须区分的交付状态">一、当前必须区分的交付状态</a><a href="#二3999条原始状态统计">二、3999条原始状态统计</a><a href="#三当前已确认的失败与证据限制">三、当前已确认的失败与证据限制</a><a href="#四逐项工作包">四、逐项工作包</a><a href="#五统一关单规则">五、统一关单规则</a><a href="#六来源与本轮核对">六、来源与本轮核对</a></details><h1 id="13-项目未完成清单">13 项目未完成清单</h1>
+<p>整理日期：2026-09-08。本文记录可交接的真实缺口与验收条件，不提供“100%兼容”或已达到5000/10000路的结论。项目方向是服务语音智能体的高性能实时语音内核，前期尽量兼容FreeSWITCH入口；延期的PBX能力仍公开保留。</p>
+<p>配套资料：<a href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html">交付与源码说明</a>、<a href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html">需求说明书</a>、<a href="backlog/FreeSWITCH-%E5%85%A8%E9%83%A8%E9%80%90%E9%A1%B9%E7%8A%B6%E6%80%81.json">完整3999行JSON</a>、<a href="backlog/FreeSWITCH-%E5%85%A8%E9%83%A8%E9%80%90%E9%A1%B9%E7%8A%B6%E6%80%81.csv">完整CSV</a>、<a href="backlog/%E6%9C%AA%E5%AE%9E%E7%8E%B0%E4%B8%8E%E9%83%A8%E5%88%86%E5%AE%9E%E7%8E%B0.csv">未实现与部分实现2897行</a>、<a href="backlog/%E6%9C%AA%E9%80%9A%E8%BF%87%E6%9C%AC%E5%9C%B0%E9%AA%8C%E8%AF%81.csv">未通过本地验证3917行</a>。原始参考：<a href="reference/docs/api/comparison.json">对照数据</a>、<a href="reference/docs/api/runtime-verification.json">运行验证数据</a>、<a href="reference/docs/api/compatibility-worklist.html">兼容工作清单</a>、<a href="reference/docs/api/voice-runtime-v1-acceptance.html">Voice Runtime V1验收</a>。</p>
+<h2 id="一当前必须区分的交付状态">一、当前必须区分的交付状态</h2>
+<ol>
+<li><strong>正式存量目录</strong>：3999条对照记录，历史本地passed为82条；这仅是文件中的存量状态。<strong>本轮打包文档门禁实际失败，不能把82条称作当前全部有效绿色</strong>。主源码失败原因为“绿色已失效：key-api-pcm-stream”，ASR候选失败原因为“字段字典落后于机器合同”。原日志位于交付包 <code>evidence/delivery-doc-gate</code>，当前有效绿色总数尚待重新评估。</li>
+<li><strong>ASR隔离候选</strong>：已有内部ASR1、时效/生命周期保护、重采样、来源对账和资源统计；<code>full-review-01</code>实际完成1471个通过测试事件（其中504个顶层测试），0失败/跳过，含限定本机真实链路、race、vet、页面检查与双平台编译。它尚未合并到主源码或发布，不包含真实识别模型。CHECKPOINT中较早“回归运行中”的记录由实际完成收据更新解释。</li>
+<li><strong>私有压测补丁</strong>：test-02对应的六文件可按SHA恢复，并有定向回归；当前工作稿后来改动runner和test两文件，没有test-03收据。原子Stats方案仅有合同，无实现和验证，不能列为已修复。</li>
+<li><strong>本轮交付构建</strong>：两套源码的Go/Rust/C ABI离线编译已通过，候选另含asr-mock；编译通过不等于文档发布门禁或容量验收通过。本次公开分发已新增项目Apache-2.0许可与第三方例外说明，原历史审查时尚无根许可。本文未操作主服务、未部署，也未重新读取在线服务版本。</li>
+</ol>
+<h2 id="二3999条原始状态统计">二、3999条原始状态统计</h2>
+<p>参考：FreeSWITCH 1.11.3，提交 <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>。以下保留原JSON状态，不按工作包重新归类或删减分母。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>实现状态</th>
+<th>原始标识</th>
+<th align="right">条数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>未实现</td>
+<td><code>not_implemented</code></td>
+<td align="right">2844</td>
+</tr>
+<tr>
+<td>部分实现</td>
+<td><code>partial</code></td>
+<td align="right">53</td>
+</tr>
+<tr>
+<td>实现状态未验证</td>
+<td><code>not_verified</code></td>
+<td align="right">178</td>
+</tr>
+<tr>
+<td>仅配置导出</td>
+<td><code>export_only</code></td>
+<td align="right">882</td>
+</tr>
+<tr>
+<td>自有接口已实现</td>
+<td><code>implemented</code></td>
+<td align="right">19</td>
+</tr>
+<tr>
+<td>内部接口</td>
+<td><code>internal_only</code></td>
+<td align="right">23</td>
+</tr>
+<tr>
+<td>合计</td>
+<td></td>
+<td align="right">3999</td>
+</tr>
+</tbody></table></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>存量本地验证状态</th>
+<th align="right">条数</th>
+<th>当前解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>passed</td>
+<td align="right">82</td>
+<td>限定断言的历史通过记录；本轮发布门禁失败，不能照抄为当前全绿</td>
+</tr>
+<tr>
+<td>failed</td>
+<td align="right">1</td>
+<td>失败保留，不能用代码存在替代验收</td>
+</tr>
+<tr>
+<td>not_run</td>
+<td align="right">3916</td>
+<td>没有满足该条目门禁的本地运行证据</td>
+</tr>
+<tr>
+<td>合计</td>
+<td align="right">3999</td>
+<td>实现状态与验证状态是两个维度</td>
+</tr>
+</tbody></table></div>
+<p>未实现+部分实现为2844+53=2897行；未通过本地验证为1+3916=3917行。882条配置导出由875条vanilla参数与7条关键映射组成；177条验收定义由169场景和8容量profile组成，当前均为not_run。144个<code>fs_module</code>和1865个原生函数声明不能按独立业务模块相加计算兼容率。<code>implemented</code>指自有入口已实现，<code>internal_only</code>不是公共HTTP或FreeSWITCH线协议兼容。</p>
+<p>运行证据文件的 <code>paired_status=not_run</code>、<code>upstream_runtime_executed=false</code>、<code>production_capacity_certified=false</code> 仍保留。历史部分模块存在原版隔离实验，不等于该份运行证据完成全部原版成对验收。当前没有可信全量兼容百分比。</p>
+<h3 id="按原始类别展开">按原始类别展开</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th align="right">总数</th>
+<th align="right">未实现</th>
+<th align="right">部分</th>
+<th align="right">未验证</th>
+<th align="right">仅导出</th>
+<th align="right">自有接口</th>
+<th align="right">内部接口</th>
+<th align="right">历史passed</th>
+<th align="right">failed</th>
+<th align="right">not_run</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>acceptance_definition</td>
+<td align="right">177</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">177</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">177</td>
+</tr>
+<tr>
+<td>fs_api</td>
+<td align="right">292</td>
+<td align="right">279</td>
+<td align="right">13</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">284</td>
+</tr>
+<tr>
+<td>fs_application</td>
+<td align="right">222</td>
+<td align="right">214</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">214</td>
+</tr>
+<tr>
+<td>fs_channel_variable</td>
+<td align="right">100</td>
+<td align="right">100</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td>fs_chat_application</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">14</td>
+</tr>
+<tr>
+<td>fs_conference_subcommand</td>
+<td align="right">90</td>
+<td align="right">90</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">90</td>
+</tr>
+<tr>
+<td>fs_event</td>
+<td align="right">94</td>
+<td align="right">83</td>
+<td align="right">11</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0</td>
+<td align="right">84</td>
+</tr>
+<tr>
+<td>fs_json_api</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">10</td>
+</tr>
+<tr>
+<td>fs_module</td>
+<td align="right">144</td>
+<td align="right">144</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">144</td>
+</tr>
+<tr>
+<td>fs_native_function</td>
+<td align="right">1865</td>
+<td align="right">1865</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1865</td>
+</tr>
+<tr>
+<td>fs_sofia_subcommand</td>
+<td align="right">40</td>
+<td align="right">40</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">40</td>
+</tr>
+<tr>
+<td>fs_vanilla_parameter</td>
+<td align="right">875</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">875</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">875</td>
+</tr>
+<tr>
+<td>key_api</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td>key_c_abi</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td>key_cli</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td>key_config</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td>key_esl</td>
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td>key_guard</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td>key_http</td>
+<td align="right">9</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td>key_ipc</td>
+<td align="right">22</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">22</td>
+<td align="right">19</td>
+<td align="right">0</td>
+<td align="right">3</td>
+</tr>
+<tr>
+<td>key_media</td>
+<td align="right">10</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td>key_sip</td>
+<td align="right">8</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">3</td>
+</tr>
+</tbody></table></div>
+<h2 id="三当前已确认的失败与证据限制">三、当前已确认的失败与证据限制</h2>
+<p>历史2000路转发任务 <code>a4eb04b740b16479113f91b1c78e6d41</code> 建立2000路，媒体10秒发送2,000,000包，仅接收456,233个唯一包，缺失1,543,767，任务失败。10个Rust worker缓存累计RX/TX均约921,898；最终HTTP返回的worker发布时间比发生器退出早约729–735ms，不能用它定位整个测试的最终损失。控制器活动数为0而旧媒体缓存为2000也不能单独判通道泄漏。</p>
+<p>本次Darwin portable路径发生器为8发送worker、256接收reader，服务侧每批约1包；256次末尾超时不等于256次读错误。所有分片的内核socket丢弃计数均不支持，原始0值不能说明内核无丢包。发生器约12 CPU秒包含20秒建呼等全生命周期，Rust累计约6 CPU秒；不能直接除媒体10秒后宣称精确媒体CPU率，更不能断定10核饱和。需先修同源统计和未知计数，再用目标Linux环境定位。</p>
+<p>本机5000路任务曾因隔离端口不足拒绝完整运行，该结果不构成5000路或10000路能力验证。ASR的9项Unix测试与5项SIP/Rust测试仅验证内部ASR1和mock；现有真实BYE用例不覆盖等待final期间挂断。Linux二进制构建、DSP微基准和本机有限回归均不能外推Linux容量、真实模型或生产无损切换。</p>
+<h2 id="四逐项工作包">四、逐项工作包</h2>
+<p>P0优先处理可信交付、核心AI业务和容量承诺；P1推进电话接入、运维与渐进兼容；P2可按首期业务延期，但不得隐藏差异。以下代码位置是接手入口，不表示标题功能已经实现。普通路径相对ASR候选项目根目录；<code>private/</code>相对 <code>work/voice-runtime-m2-asr/benchmark-fix-01/</code>；<code>governance</code>表示待确定的项目级许可，不是现存文件。</p>
+<h3 id="dlv-01-p0-asr隔离候选合并文档和发布">DLV-01 · P0 · ASR隔离候选合并、文档和发布</h3>
+<p>**状态：**已完成限定实现待合并/发布。**验证：**限定回归通过，正式文档尚未接入。</p>
+<p>真实 Unix 9 例、真实 SIP/Rust 5 例及整包回归已通过；供应商为校验 PCM 的 mock，不是识别模型。</p>
+<p>代码入口：<code>control/internal/asr</code>；<code>control/internal/server/asr_stream.go</code>；<code>control/internal/server/asr_observe.go</code>。</p>
+<p>依赖：DLV-03；冻结源码和发布窗口。</p>
+<p>验收方法：核对整包收据与源码，合并后重跑受影响检查、文档门禁，并核验实际运行二进制和页面。</p>
+<p>完成条件：源码、文档、原始证据、构建和发布收据一致；仍明确内部 SDK 与 mock 范围。</p>
+<p>对照ID：<code>key-api-rx-sdk</code>, <code>key-http-status</code>, <code>key-http-metrics</code>；验收/目标索引：<code>A09-ASR</code>, <code>V1-08</code>, <code>V1-16</code>。</p>
+<h3 id="dlv-02-p0-rx时效和通话生命周期增量发布">DLV-02 · P0 · RX时效和通话生命周期增量发布</h3>
+<p>**状态：**已完成限定实现待合并/发布。**验证：**候选回归通过，未部署。</p>
+<p>候选已有 LifetimeDone 和 RemainingBudget；主动退订不等于通话结束，100ms 预算不能重置。</p>
+<p>代码入口：<code>control/internal/media/rx_clock.go</code>；<code>control/internal/media/rx_stream.go</code>；<code>control/internal/server/rx_stream.go</code>。</p>
+<p>依赖：DLV-01。</p>
+<p>验收方法：验证正常 Finish/Unsubscribe 可等 final/DONE，真实挂断、代次变化、替换与服务停止及时撤权；旧音频绝对期限不续期。</p>
+<p>完成条件：发布后保留两种生命周期边界和期限失败原件，不能将 summary 当新音频预算。</p>
+<p>对照ID：<code>key-api-rx-sdk</code>, <code>key-ipc-rx-stream</code>；验收/目标索引：<code>A05</code>, <code>A09-ASR</code>。</p>
+<h3 id="dlv-03-p0-修复两套源码的文档发布门禁">DLV-03 · P0 · 修复两套源码的文档发布门禁</h3>
+<p>**状态：**未完成。**验证：**本轮打包检查实际失败。</p>
+<p>主源码检查报“绿色已失效：key-api-pcm-stream”；ASR 候选报“字段字典落后于机器合同”。历史 82 条 passed 不能当当前有效绿色总数。</p>
+<p>代码入口：<code>tools/build_api_docs.py</code>；<code>docs/api</code>。</p>
+<p>依赖：证据有效期/源码绑定核查；候选字段字典更新。</p>
+<p>验收方法：分别对打包主源码和候选运行 python3 -B tools/build_api_docs.py --check；按失效原因补真实证据或降级状态，禁止只延长过期时间。</p>
+<p>完成条件：两套门禁通过且页面、机器合同、字段字典、证据与实际源码一致；当前可绿数量重新计算。</p>
+<p>对照ID：<code>key-api-pcm-stream</code>；验收/目标索引：<code>发布门禁</code>。</p>
+<h3 id="dlv-04-p0-确定项目自有源码许可和分发范围">DLV-04 · P0 · 确定项目自有源码许可和分发范围</h3>
+<p>**状态：**未完成交付决定。**验证：**两套根目录无项目自有 LICENSE。</p>
+<p>公开发布更新：已提供项目Apache-2.0 LICENSE、NOTICE、第三方清单与各自许可文本。本项许可与分发材料已完成；其余功能/容量验收状态不受影响。</p>
+<p>代码入口：<code>governance</code>。</p>
+<p>依赖：项目权利人决定许可、商业分发边界；第三方许可复核。</p>
+<p>验收方法：确认代码归属、项目许可文本、codec/依赖再分发要求和归属说明，检查源码包与二进制包。</p>
+<p>完成条件：由有权人员确定项目许可并随交付提供，保留第三方许可与必要声明。</p>
+<p>验收/目标索引：<code>交付要求</code>。</p>
+<h3 id="dia-01-p0-stats原子快照与真正退出后采集边界">DIA-01 · P0 · Stats原子快照与真正退出后采集边界</h3>
+<p>**状态：**未实现。**验证：**已确证现有口径缺陷，修复未验证。</p>
+<p>当前 Stats 和 Admission 分别发布/读取。旧 RPC 结果可在发生器退出后发布，SampledAt 新不能证明 Rust 在退出后生成统计。原子方案只有合同，无实现目录和测试收据。</p>
+<p>代码入口：<code>control/internal/media/pool.go</code>；<code>control/internal/server/server.go</code>；<code>control/internal/server/benchmark_runner.go</code>。</p>
+<p>依赖：确定原子 Stats、请求开始/返回时间、PID、generation 字段合同。</p>
+<p>验收方法：注入退出前请求退出后返回、跨代更新、分片缺失、旧字段缺失和时间异常；成功验收与失败诊断使用同一新鲜判据。</p>
+<p>完成条件：每个预期 worker 的原子行身份一致，请求开始晚于发生器退出且返回不早于开始；缺失或旧格式为未知。</p>
+<p>对照ID：<code>key-ipc-stats</code>, <code>key-http-status</code>, <code>key-media-capacity</code>；验收/目标索引：<code>V1-16</code>, <code>V1-17</code>。</p>
+<h3 id="dia-02-p0-失败末尾有界采样与取消终态">DIA-02 · P0 · 失败末尾有界采样与取消终态</h3>
+<p>**状态：**部分实现于私有副本。**验证：**test-02限定通过，后改两文件未复验。</p>
+<p>私有补丁最多补采样5秒，继承取消、保留最后有效样本和原失败；旧判据仍依赖 Admission。后加 benchmarkContextOutcome 和8项用例未有 test-03。</p>
+<p>代码入口：<code>private/control/internal/server/benchmark_runner.go</code>；<code>private/control/internal/server/benchmark_failure_diagnostics_test.go</code>。</p>
+<p>依赖：DIA-01；冻结后增量回归。</p>
+<p>验收方法：回归原失败叠加取消/期限、成功后取消、服务停止、HTTP失败及样本/时间配对；验证真实 defer 使用终态归一逻辑。</p>
+<p>完成条件：不改变原失败，不阻塞主状态接口，任务取消及时结束；全部预期分片新鲜、超时、取消分开报告；当前完整补丁有新收据。</p>
+<p>对照ID：<code>key-cli-callbench</code>, <code>key-media-capacity</code>；验收/目标索引：<code>V1-17</code>。</p>
+<h3 id="dia-03-p0-不支持的socket丢弃计数显示未知">DIA-03 · P0 · 不支持的socket丢弃计数显示未知</h3>
+<p>**状态：**已完成私有补丁待合并。**验证：**test-02限定回归通过。</p>
+<p>已传递 socket_drop_counter_supported 和支持分片数；旧报告缺字段、部分支持或全不支持不能把0显示为无丢包。</p>
+<p>代码入口：<code>private/control/internal/server/benchmark.go</code>；<code>private/control/internal/server/benchmark_processing.go</code>；<code>private/control/internal/server/web/tests.js</code>。</p>
+<p>依赖：从已验证 test-02 六文件恢复范围选择补丁；集成回归。</p>
+<p>验收方法：验证新旧报告、全支持/部分/不支持、0与非0计数、字段缺失；原始计数和可观测范围同时展示。</p>
+<p>完成条件：合并后报告及页面对未知显示“未提供”，部分计数不伪称完整计数；本项不能替代DIA-01。</p>
+<p>对照ID：<code>key-http-status</code>, <code>key-cli-callbench</code>；验收/目标索引：<code>V1-16</code>, <code>V1-17</code>。</p>
+<h3 id="ai-01-p0-真实asr供应商与识别质量">AI-01 · P0 · 真实ASR供应商与识别质量</h3>
+<p>**状态：**未实现真实模型接入。**验证：**内部ASR1链路有限通过，识别未验证。</p>
+<p>当前内部 Server.StartASR 和私有 Unix ASR1 已实现；mock 只校验音频/协议，不识别语音，不是公共 HTTP API。</p>
+<p>代码入口：<code>control/internal/asr/stream.go</code>；<code>control/internal/asr/wire</code>；<code>control/cmd/asr-mock</code>。</p>
+<p>依赖：供应商协议、模型版本、凭证、语料与质量门槛。</p>
+<p>验收方法：对真实供应商跑流式 partial/final、错误、超时、取消、慢读与连接恢复；真实语料核对文字来源和时延。</p>
+<p>完成条件：真实识别模型输出可追溯到音频范围；准确率、首字/最终时延、丢弃和资源成本达到约定值。</p>
+<p>对照ID：<code>key-api-rx-sdk</code>；验收/目标索引：<code>A09-ASR</code>, <code>V1-08</code>。</p>
+<h3 id="ai-02-p0-实时vad与语音端点检测">AI-02 · P0 · 实时VAD与语音端点检测</h3>
+<p>**状态：**未实现。**验证：**未验证。</p>
+<p>已有丢包、PLC、CN和来源元数据，不等于具备VAD和ASR端点算法。</p>
+<p>代码入口：<code>media/src/audio</code>；<code>control/internal/asr/frames.go</code>。</p>
+<p>依赖：算法/模型与阈值；噪声回声测试集。</p>
+<p>验收方法：测试噪声、短句、连续说话、CN、丢包、播放回声及用户同时说话；对照媒体时间和人工标签。</p>
+<p>完成条件：可输出有来源时间的语音起止，丢包不被当沉默；误检/漏检和端点时延有测量及有界配置。</p>
+<p>验收/目标索引：<code>V1-07</code>, <code>EV06</code>, <code>EV07</code>, <code>A09-ASR</code>。</p>
+<h3 id="ai-03-p0-真实流式tts适配">AI-03 · P0 · 真实流式TTS适配</h3>
+<p>**状态：**未实现供应商接入。**验证：**下行PCM基础有限验证。</p>
+<p>RVA1和PCM轮次下发已提供基础，不等于真实流式TTS供应商适配。</p>
+<p>代码入口：<code>control/internal/server/pcm_endpoint.go</code>；<code>control/internal/server/pcm_stream.go</code>；<code>media/src/media/worker_pcm.rs</code>。</p>
+<p>依赖：TTS供应商、格式、流协议、取消语义。</p>
+<p>验收方法：测试首块、分块、突发、慢发送、部分写、超时及取消后旧块；验证字节和毫秒双重队列上限。</p>
+<p>完成条件：真实TTS可边生成边播放；迟到旧块不复活，媒体worker不等待模型或网络。</p>
+<p>对照ID：<code>key-api-pcm-stream</code>, <code>key-ipc-pcm-push</code>；验收/目标索引：<code>A09-TTS</code>, <code>V1-09</code>, <code>CMD04</code>。</p>
+<h3 id="ai-04-p0-agentllm轮次编排与上下文更新">AI-04 · P0 · Agent/LLM轮次编排与上下文更新</h3>
+<p>**状态：**未实现。**验证：**未验证。</p>
+<p>PCM轮次及ASR状态不是完整Agent编排，尚无真实ASR→LLM→TTS上下文循环。</p>
+<p>代码入口：<code>control/internal/server</code>；<code>control/internal/asr/types.go</code>。</p>
+<p>依赖：AI-01、AI-03；模型与上下文版本合同。</p>
+<p>验收方法：重复多轮对话，注入迟到模型响应、上下文更新、取消和并发会话，检查每个事件的session/turn/version。</p>
+<p>完成条件：会话隔离、旧轮次不可覆盖新上下文，错误/取消和完成事件可对账。</p>
+<p>验收/目标索引：<code>CMD09</code>, <code>V1-15</code>, <code>A14</code>。</p>
+<h3 id="ai-05-p0-语音自动打断与旧轮次撤销">AI-05 · P0 · 语音自动打断与旧轮次撤销</h3>
+<p>**状态：**部分实现。**验证：**PCM中断/渐变有限验证，完整语音打断未验证。</p>
+<p>已有PCM轮次中断和0/20/40ms渐变；没有完整VAD触发、LLM/TTS取消与旧结果撤销闭环。</p>
+<p>代码入口：<code>media/src/media/pcm_turn.rs</code>；<code>control/internal/server/pcm_stream.go</code>；<code>control/internal/asr/stream.go</code>。</p>
+<p>依赖：AI-02、AI-03、AI-04。</p>
+<p>验收方法：播放时说话、连续打断、旧TTS迟到，测最后旧媒体发送时间和用户实际听到的声音；覆盖取消竞态。</p>
+<p>完成条件：所有旧轮次结果失权，打断时延和声学效果达到约定，不能仅以控制API返回成功判通过。</p>
+<p>对照ID：<code>key-ipc-pcm-turn-interrupt</code>；验收/目标索引：<code>V1-11</code>, <code>V1-12</code>, <code>EV08</code>, <code>A10</code>。</p>
+<h3 id="ai-06-p0-对齐双轨录音与异步持久化">AI-06 · P0 · 对齐双轨录音与异步持久化</h3>
+<p>**状态：**仅配置导出，运行链路未实现。**验证：**未验证。</p>
+<p>录音配置/映射不等于RX/TX双轨录音、时间对齐、文件完成与上传功能。</p>
+<p>代码入口：<code>media/src/media/processed.rs</code>；<code>media/src/media/worker_pcm.rs</code>；<code>control/internal/server/esl_api.go</code>。</p>
+<p>依赖：录音格式、存储和保留策略。</p>
+<p>验收方法：真实通话同时采集RX/TX并核对样本/时间/文件摘要；注入磁盘慢/满、上传失败及挂断。</p>
+<p>完成条件：双轨可重放并对齐，完成和失败可见；媒体线程不等磁盘或上传，资源及时释放。</p>
+<p>对照ID：<code>key-media-recording</code>；验收/目标索引：<code>V1-13</code>, <code>CMD07</code>, <code>CMD08</code>, <code>A13</code>。</p>
+<h3 id="ai-07-p0-统一10命令和11事件控制合同">AI-07 · P0 · 统一10命令和11事件控制合同</h3>
+<p>**状态：**部分实现。**验证：**完整业务合同未验证。</p>
+<p>已有HTTP、ESL和IPC子集，不代表新的10命令/11事件全部完成；JobUUID不自动提供业务幂等。</p>
+<p>代码入口：<code>control/internal/server/esl_api.go</code>；<code>control/internal/server/server.go</code>；<code>control/internal/asr/types.go</code>。</p>
+<p>依赖：各AI模块、版本及事件序列规范。</p>
+<p>验收方法：逐个实例化接受/执行/完成/失败/超时/取消、重复请求、事件背压和重连恢复用例。</p>
+<p>完成条件：每项有真实业务效果和可对账结果，未知操作明确拒绝，无仅返回OK的空实现。</p>
+<p>对照ID：<code>key-esl-api</code>, <code>key-esl-bgapi</code>, <code>key-http-concurrency</code>；验收/目标索引：<code>A14</code>, <code>CMD01–CMD10</code>, <code>EV01–EV11</code>, <code>V1-15</code>。</p>
+<h3 id="ai-08-p0-一通完整真实ai电话闭环">AI-08 · P0 · 一通完整真实AI电话闭环</h3>
+<p>**状态：**未完成集成。**验证：**当前模拟供应商SIP路径通过，真实业务未验证。</p>
+<p>已有5项真实SIP/Rust/ASR1用例；mock不识别。现有BYE发生在Finish/DONE和资源关闭后，不能证明等待final时的真实挂断窗口。</p>
+<p>代码入口：<code>control/internal/server/asr_stream_real_test.go</code>；<code>control/internal/server/pcm_stream.go</code>。</p>
+<p>依赖：AI-01至AI-06；真实线路。</p>
+<p>验收方法：外呼/呼入、识别、回答、DTMF/IVR、语音打断、录音和挂断；专测final等待期间实际BYE及错误恢复。</p>
+<p>完成条件：原始音频、SIP、模型事件、轮次和资源清理贯通，所有关键故障分支有真实证据。</p>
+<p>验收/目标索引：<code>M2</code>, <code>V1-07</code>, <code>V1-08</code>, <code>V1-09</code>, <code>V1-11</code>, <code>V1-13</code>。</p>
+<h3 id="med-01-p0-g722与opus实时媒体图">MED-01 · P0 · G.722与Opus实时媒体图</h3>
+<p>**状态：**部分实现。**验证：**离线/透传与实时处理必须分开。</p>
+<p>现有离线/原生编解码基础或RTP透传不能证明通话中完成G.722/Opus解码、处理、编码。</p>
+<p>代码入口：<code>media/src/audio/native.rs</code>；<code>media/src/audio/branch.rs</code>；<code>media/src/media/processed.rs</code>。</p>
+<p>依赖：固定编解码库版本和许可；实时packetizer/depacketizer。</p>
+<p>验收方法：逐codec真实双向通话和独立PCM oracle；G.722按16k音频/8k RTP时钟，Opus按48k RTP时钟，覆盖包长/绕回/损坏。</p>
+<p>完成条件：真实处理链质量、时钟、时延和CPU预算通过，状态表明确透传与转码差别。</p>
+<p>对照ID：<code>key-media-transcoding</code>, <code>key-http-codecs</code>；验收/目标索引：<code>A06</code>, <code>V1-02</code>, <code>M1</code>。</p>
+<h3 id="med-02-p1-g729g726及移动音频兼容">MED-02 · P1 · G.729/G.726及移动音频兼容</h3>
+<p>**状态：**部分实现/预留。**验证：**运营商互通和完整转码未验证。</p>
+<p>Payload配置/透传不能当G.729/G.726实时转码；AMR-NB/WB、EVS按IMS接入需求继续演进。</p>
+<p>代码入口：<code>control/internal/codecprofile</code>；<code>media/src/codec.rs</code>；<code>media/src/audio/native.rs</code>。</p>
+<p>依赖：线路真实codec需求；库和专利/分发许可。</p>
+<p>验收方法：按codec逐项测试SDP、时钟、帧长、动态Payload、真实解编码与运营商样本；分别记录支持层级。</p>
+<p>完成条件：当前业务必需codec可实际互通；可选codec未做时保留不支持状态，不宣传已具备。</p>
+<p>对照ID：<code>key-media-rtp</code>, <code>key-c_abi-codec</code>；验收/目标索引：<code>A06</code>。</p>
+<h3 id="med-03-p0-抖动丢包cndtxplcfec策略">MED-03 · P0 · 抖动、丢包、CN/DTX/PLC/FEC策略</h3>
+<p>**状态：**部分实现。**验证：**限定G.711路径通过，完整策略未验证。</p>
+<p>已有有界处理和PLC/CN元数据；完整自适应策略及各codec的FEC/DTX尚需实现与验收。</p>
+<p>代码入口：<code>media/src/media/jitter.rs</code>；<code>media/src/media/processed.rs</code>；<code>control/internal/asr/provenance.go</code>。</p>
+<p>依赖：故障发生器、codec能力矩阵、语音质量语料。</p>
+<p>验收方法：注入迟到、突发丢失、乱序、序号绕回、CN转语音，测试不同延迟档位；对账全部丢弃与媒体时间。</p>
+<p>完成条件：不凭空造新鲜音频或将丢包当沉默；延迟与质量策略明确、有上限且有真实测量。</p>
+<p>对照ID：<code>key-media-rtp</code>, <code>key-media-transcoding</code>；验收/目标索引：<code>A11</code>, <code>V1-04</code>, <code>V1-05</code>。</p>
+<h3 id="med-04-p1-rtcp-mux安全反馈与质量事件">MED-04 · P1 · RTCP mux、安全反馈与质量事件</h3>
+<p>**状态：**部分实现。**验证：**有限报告路径已测，扩展未验证。</p>
+<p>已有RTCP转发或G.711 SR/RR/SDES/BYE；不等于mux、SRTCP、完整反馈和自适应报告周期。</p>
+<p>代码入口：<code>media/src/media/rtcp.rs</code>；<code>media/src/media/worker.rs</code>。</p>
+<p>依赖：SEC-01；质量事件定义。</p>
+<p>验收方法：真实复合报告、mux、加密/重放、反馈和周期变化，区分网络抖动、排队和调度迟到。</p>
+<p>完成条件：相关协议与质量事件均有独立对端和原始报文验收。</p>
+<p>对照ID：<code>key-media-rtcp</code>；验收/目标索引：<code>V1-01</code>, <code>V1-16</code>。</p>
+<h3 id="med-05-p1-通用静态audiograph与有界内存">MED-05 · P1 · 通用静态AudioGraph与有界内存</h3>
+<p>**状态：**部分实现。**验证：**限定分支通过，完整图未验证。</p>
+<p>有固定媒体分支、AudioFrame和127抽头8→16k重采样；不能外推所有节点、整条链零分配或任意图性能。</p>
+<p>代码入口：<code>media/src/audio</code>；<code>media/src/media/processed.rs</code>；<code>control/internal/asr/resample</code>。</p>
+<p>依赖：AI分支合同、静态模板和内存预算。</p>
+<p>验收方法：对慢分支、取消、版本切换测队列年龄、复制、分配和锁等待；重采样与独立oracle及频响比较。</p>
+<p>完成条件：所支持静态图的历史/输出/队列有硬上限，任一慢分支不能拖垮主媒体。</p>
+<p>验收/目标索引：<code>A07</code>, <code>A08</code>, <code>A16</code>, <code>V1-05</code>, <code>V1-06</code>。</p>
+<h3 id="cap-01-p0-定位2000路历史转发失败">CAP-01 · P0 · 定位2000路历史转发失败</h3>
+<p>**状态：**未完成优化。**验证：**真实失败。</p>
+<p>2,000,000发送仅456,233唯一接收；末端服务统计是早约729–735ms的缓存。没有证据定位每一跳丢失。</p>
+<p>代码入口：<code>control/cmd/callbench</code>；<code>media/src/media/io.rs</code>。</p>
+<p>依赖：DIA-01至DIA-03；隔离网络与资源预算。</p>
+<p>验收方法：采集真实socket缓冲、计数可用性、各阶段一致时间窗口，重跑同档位并对比独立Linux发生器与portable路径。</p>
+<p>完成条件：可解释丢失来源并通过原阈值；不能靠减少实际媒体量、修改阈值或把尾部超时当读错误来修报告。</p>
+<p>对照ID：<code>key-cli-callbench</code>, <code>key-media-capacity</code>；验收/目标索引：<code>V1-17</code>, <code>M1</code>。</p>
+<h3 id="cap-02-p0-linux-1000500010000路转发容量">CAP-02 · P0 · Linux 1000/5000/10000路转发容量</h3>
+<p>**状态：**未验证。**验证：**尚无目标Linux容量验收通过。</p>
+<p>Linux交叉编译通过不等于运行容量；本机5000路隔离端口不足的拒绝不是已完成压测。</p>
+<p>代码入口：<code>config/linux-10000.example.json</code>；<code>control/cmd/callbench</code>；<code>media/src/media/worker.rs</code>。</p>
+<p>依赖：用户提供Linux CPU/NUMA/内存/网卡；独立发生器、地址/端口和FD预算。</p>
+<p>验收方法：按1000→5000→10000真实双向媒体逐档测试，保存完整负载、唯一包、时间、资源、错误和清理证据。</p>
+<p>完成条件：每档足量、完整运行、符合指标，任何阶段失败保留失败；不得把建呼数代替媒体服务数。</p>
+<p>对照ID：<code>key-media-capacity</code>；验收/目标索引：<code>V1-01</code>, <code>V1-17</code>, <code>M1</code>。</p>
+<h3 id="cap-03-p0-linux实时g711及核心codec容量">CAP-03 · P0 · Linux实时G.711及核心codec容量</h3>
+<p>**状态：**未验证。**验证：**转发结果不能代替解码/编码结果。</p>
+<p>真实decode→PCM→encode的1000/5000/10000路容量仍需验收，且要计入重采样和必要分支成本。</p>
+<p>代码入口：<code>media/src/media/processed.rs</code>；<code>control/cmd/callbench/media_processed.go</code>。</p>
+<p>依赖：CAP-02、MED-01；独立样本oracle。</p>
+<p>验收方法：逐档、逐codec实际解码编码，核对PCM内容、RTP时间、PLC/丢弃、发送迟到和资源。</p>
+<p>完成条件：每条流都有真实处理及正确样本，稳定服务能力和资源在同口径下达到门槛。</p>
+<p>对照ID：<code>key-media-capacity</code>, <code>key-media-transcoding</code>；验收/目标索引：<code>M1</code>, <code>V1-02</code>, <code>V1-17</code>。</p>
+<h3 id="cap-04-p0-完整agent等价成本与容量优势">CAP-04 · P0 · 完整Agent等价成本与容量优势</h3>
+<p>**状态：**未验证。**验证：**性能目标未获真实证明。</p>
+<p>DSP微基准和relay容量都不能证明完整Agent优势；真实ASR/LLM/TTS/录音尚未组成等价负载。</p>
+<p>代码入口：<code>control/internal/asr</code>；<code>control/internal/server/pcm_stream.go</code>。</p>
+<p>依赖：AI-08、CAP-03；固定FreeSWITCH基线与等价业务。</p>
+<p>验收方法：同机、同音频、同质量、同并发和SLA对比，计入Go/Rust/SIP或SBC、DSP、适配器、录音上传与内核成本。</p>
+<p>完成条件：证明至少1.5倍稳定容量目标（进阶2倍），同并发CPU/内存各降30%目标及TX迟到P99≤2ms/P99.9≤5ms；不调整口径制造优势。</p>
+<p>对照ID：<code>key-media-capacity</code>；验收/目标索引：<code>M2</code>, <code>M3</code>, <code>V1-17</code>。</p>
+<h3 id="cap-05-p0-72小时混合负载与故障恢复">CAP-05 · P0 · 72小时混合负载与故障恢复</h3>
+<p>**状态：**未验证。**验证：**尚无生产级长稳认证。</p>
+<p>局部限流和清理测试不能替代72小时负载、资源回收和故障恢复。</p>
+<p>代码入口：<code>control/internal/server</code>；<code>control/internal/media/pool.go</code>；<code>media/src/media/worker.rs</code>。</p>
+<p>依赖：AI-08、CAP-04；故障注入环境。</p>
+<p>验收方法：突发建呼、ASR停读、TTS突发、慢盘、网络异常、worker退出、端口复用，持续观测线程、内存和最忙分片。</p>
+<p>完成条件：72小时满足混合负载与稳定门槛，故障影响和恢复时间可量化，不通过少接业务掩盖服务损失。</p>
+<p>对照ID：<code>key-guard-capacity</code>, <code>key-media-failover</code>；验收/目标索引：<code>M3</code>, <code>M4</code>, <code>A17</code>。</p>
+<h3 id="sip-01-p1-真实运营商注册与多网关">SIP-01 · P1 · 真实运营商注册与多网关</h3>
+<p>**状态：**部分实现。**验证：**固定上游客户端子集通过，现网互通未验证。</p>
+<p>已有Digest、刷新、423、退避和退订等客户端能力；没有完整registrar/location、多账号网关、DNS和Sofia运行时。</p>
+<p>代码入口：<code>control/internal/server/trunk_registration.go</code>；<code>control/internal/server/trunk_auth.go</code>。</p>
+<p>依赖：真实线路账号、运营商认证规格和网关需求。</p>
+<p>验收方法：对真实运营商验证鉴权、刷新、挑战重试、失效回退与呼叫；多账号、注册服务端分别验收。</p>
+<p>完成条件：所需线路稳定注册并可实际呼叫；不将客户端注册能力宣称成完整注册服务器。</p>
+<p>对照ID：<code>key-sip-register</code>；验收/目标索引：<code>A15</code>。</p>
+<h3 id="sip-02-p1-主动外呼路由桥接与转接">SIP-02 · P1 · 主动外呼、路由、桥接与转接</h3>
+<p>**状态：**部分实现。**验证：**业务/API完整语义未验证。</p>
+<p>固定上游和有限本地动作不等于完整originate、多路路由、bridge或transfer。</p>
+<p>代码入口：<code>control/internal/server/esl_api.go</code>；<code>control/internal/server/server.go</code>；<code>control/internal/server/dialplan.go</code>。</p>
+<p>依赖：SIP-01；路由、失败回退和呼叫状态合同。</p>
+<p>验收方法：真实呼入/主动外呼及转接，对比信令、双向媒体、失败回退和资源原子释放，注入重复控制。</p>
+<p>完成条件：业务命令真正改变对话和媒体，无重复外呼、僵尸通道或仅返回成功的占位实现。</p>
+<p>对照ID：<code>key-sip-invite</code>, <code>key-esl-api</code>, <code>key-config-dialplan-runtime</code>；验收/目标索引：<code>CMD01</code>, <code>CMD06</code>, <code>A14</code>, <code>A15</code>。</p>
+<h3 id="sip-03-p1-对话重协商与sip扩展">SIP-03 · P1 · 对话重协商与SIP扩展</h3>
+<p>**状态：**未实现/部分基础。**验证：**扩展未验证。</p>
+<p>基础INVITE/ACK/CANCEL/BYE已覆盖子集；完整re-INVITE、UPDATE、PRACK、REFER、订阅及会话刷新不能据此标通过。</p>
+<p>代码入口：<code>control/internal/server/server.go</code>；<code>control/internal/sip</code>。</p>
+<p>依赖：固定RFC/FreeSWITCH行为与对端能力。</p>
+<p>验收方法：逐场景测试保持恢复、转接、早期媒体、重传、迟到200及取消交叉；对比原始消息和实际媒体。</p>
+<p>完成条件：所声明扩展均有对端互通和失败分支证据，未声明的明确拒绝。</p>
+<p>对照ID：<code>key-sip-renegotiation</code>, <code>key-sip-extensions</code>, <code>key-sip-cancel</code>, <code>key-sip-bye</code>；验收/目标索引：<code>A15</code>。</p>
+<h3 id="sip-04-p1-ipv6dnssrv及wswss信令">SIP-04 · P1 · IPv6、DNS/SRV及WS/WSS信令</h3>
+<p>**状态：**部分实现。**验证：**IPv4 UDP/TCP/TLS之外未完整验证。</p>
+<p>已有IPv4 UDP及可选TCP/TLS；没有完整IPv6、DNS-SRV、WS/WSS、客户端证书及SIPS全语义。</p>
+<p>代码入口：<code>control/internal/server/transport.go</code>；<code>control/internal/sip</code>。</p>
+<p>依赖：传输方案、证书、DNS及浏览器对端。</p>
+<p>验收方法：测试解析故障切换、连接身份、证书校验、分帧/背压和多地址会话，记录真实端点。</p>
+<p>完成条件：协议矩阵逐项通过并保持连接资源上限；TLS信令不能当安全媒体通过。</p>
+<p>对照ID：<code>key-sip-transports</code>, <code>key-sip-sdp</code>；验收/目标索引：<code>A15</code>。</p>
+<h3 id="sip-05-p1-nat学习端口迁移和移动终端">SIP-05 · P1 · NAT学习、端口迁移和移动终端</h3>
+<p>**状态：**部分实现。**验证：**固定来源校验通过，迁移未验证。</p>
+<p>当前固定协商来源/CIDR及connected模式不等于NAT新源学习；端口变更会拒绝，内核拒绝也未必计入应用计数。</p>
+<p>代码入口：<code>media/src/media/worker.rs</code>；<code>control/internal/sip/sdp.go</code>。</p>
+<p>依赖：来源认证、安全学习或SBC方案。</p>
+<p>验收方法：模拟对称NAT、重绑定、移动切换、伪造包和旧队列，核对来源切换与媒体连续性。</p>
+<p>完成条件：授权端点可按合同迁移，攻击来源不能接管；拒绝计数注明内核/应用覆盖范围。</p>
+<p>对照ID：<code>key-media-nat</code>；验收/目标索引：<code>A15</code>。</p>
+<h3 id="sec-01-p1-srtpdtlsice和webrtc安全媒体">SEC-01 · P1 · SRTP、DTLS、ICE和WebRTC安全媒体</h3>
+<p>**状态：**未实现。**验证：**未验证。</p>
+<p>信令TLS不提供SRTP；当前没有完整DTLS-SRTP、ICE和安全媒体生命周期。</p>
+<p>代码入口：<code>media/src/media/worker.rs</code>；<code>control/internal/server/transport.go</code>。</p>
+<p>依赖：选择自实现或固定SBC组件；密钥与互通策略。</p>
+<p>验收方法：真实密钥协商、重放/损坏包拒绝、ICE切换、重协商、超时清理及SRTCP，计入所有组件成本。</p>
+<p>完成条件：端到端安全媒体和故障分支通过；复用外部SBC时明确依赖与成本，不能称内核原生已实现。</p>
+<p>对照ID：<code>key-media-security</code>；验收/目标索引：<code>A15</code>。</p>
+<h3 id="tel-01-p1-完整dtmf发送和采集语义">TEL-01 · P1 · 完整DTMF发送和采集语义</h3>
+<p>**状态：**部分实现。**验证：**本地A腿子集通过，其余未验证。</p>
+<p>已有telephone-event及有限INFO接收、本地A腿发送；桥接/B腿发送、INFO发送、带内检测和完整长事件/格式仍有缺口。</p>
+<p>代码入口：<code>media/src/media/dtmf_sender.rs</code>；<code>media/src/media/interaction.rs</code>；<code>control/internal/server/esl_send_dtmf.go</code>。</p>
+<p>依赖：电话侧DTMF方式、桥接与发送合同。</p>
+<p>验收方法：真实对端识别16个键，检查时钟、持续时间、结束重传、连续/重叠事件和取消；分别验证各腿和协议。</p>
+<p>完成条件：业务真正收到正确按键且无重复、丢键或无限持续事件；各发送完成状态有实际依据。</p>
+<p>对照ID：<code>key-media-dtmf</code>, <code>key-ipc-dtmf-send</code>, <code>key-esl-dtmf-send-status</code>；验收/目标索引：<code>V1-14</code>, <code>EV05</code>。</p>
+<h3 id="tel-02-p1-完整ivr与xml拨号计划运行">TEL-02 · P1 · 完整IVR与XML拨号计划运行</h3>
+<p>**状态：**部分实现。**验证：**有限动作通过，完整FS行为未验证。</p>
+<p>当前单RE2条件和answer/set/unset/read/playback/sleep/park/hangup等有限动作，不支持完整预处理、include、变量扩展、反动作、continue、reloadxml与全部应用。</p>
+<p>代码入口：<code>control/internal/server/dialplan.go</code>；<code>control/internal/dialplan</code>；<code>control/internal/server/esl_applications.go</code>。</p>
+<p>依赖：明确首批IVR动作/变量规则；TEL-01、SIP-02。</p>
+<p>验收方法：真实菜单播放、超时重试、非法输入、打断、分支转接、挂断及热更新，逐项对比原版轨迹。</p>
+<p>完成条件：支持动作真实执行，未支持动作明确报错；保存或导出XML不得算运行兼容。</p>
+<p>对照ID：<code>key-config-dialplan-runtime</code>, <code>key-esl-sendmsg</code>；验收/目标索引：<code>A14</code>。</p>
+<h3 id="fs-01-p1-esl完整命令事件与outbound会话">FS-01 · P1 · ESL完整命令、事件与Outbound会话</h3>
+<p>**状态：**部分实现。**验证：**部分线协议通过，全集未验证。</p>
+<p>已有有限framing/API/事件行为；Outbound ESL、全部输出格式、过滤、linger与连接语义仍存在缺口。</p>
+<p>代码入口：<code>control/internal/esl</code>；<code>control/internal/server/esl_api.go</code>。</p>
+<p>依赖：固定FreeSWITCH及真实业务ESL客户端。</p>
+<p>验收方法：逐命令检查字节、头、编码、输出格式、事件顺序、重连和背压；Outbound需真实会话控制，不能用固定SIP上游替代。</p>
+<p>完成条件：声明支持的命令/事件在实际客户端无改动通过，尚未覆盖的保留缺口。</p>
+<p>对照ID：<code>key-esl-api</code>, <code>key-esl-bgapi</code>, <code>key-esl-framing</code>, <code>key-esl-outbound</code>, <code>key-esl-sendmsg</code>, <code>key-esl-subscriptions</code>, <code>key-cli-fs-cli</code>；验收/目标索引：<code>API-T01</code>。</p>
+<h3 id="fs-02-p1-882条配置导出的真实执行映射">FS-02 · P1 · 882条配置导出的真实执行映射</h3>
+<p>**状态：**仅配置导出。**验证：**不构成运行验证。</p>
+<p>882=875条vanilla参数+7条关键映射；配置可读写/导出不代表运行时加载、默认值和模块行为已兼容。</p>
+<p>代码入口：<code>control/internal/server/fs_templates</code>；<code>control/internal/server/fs_config.go</code>。</p>
+<p>依赖：模块优先级、配置生效/重启/回滚合同。</p>
+<p>验收方法：逐项用真实配置加载并触发行为，检查默认值、错误、include、热加载/重启和回滚。</p>
+<p>完成条件：只对实际支持的运行参数提升状态，模板与目录类条目保留导出范围，不批量改绿。</p>
+<p>对照ID：<code>key-config-directory</code>, <code>key-config-export</code>, <code>key-config-parameter-edit</code>, <code>key-config-raw-xml</code>, <code>key-config-runtime-xml</code>。</p>
+<h3 id="fs-03-p2-cc模块宿主与协议插件abi">FS-03 · P2 · C/C++模块宿主与协议插件ABI</h3>
+<p>**状态：**部分实现/预留。**验证：**自定义示例有限通过，FS ABI未验证。</p>
+<p>已有自定义codec ABI和G.711示例；无完整switch_<em>宿主符号，不能直接加载原版mod_</em>.so；协议provider未实现。</p>
+<p>代码入口：<code>native/include</code>；<code>media/src/codec.rs</code>。</p>
+<p>依赖：是否需要原版二进制插件；ABI版本、许可、故障隔离策略。</p>
+<p>验收方法：用实际插件测试装载、卸载、生命周期、并发、异常和版本匹配，明确二进制/源码适配边界。</p>
+<p>完成条件：所承诺插件实际运行；自定义C ABI不能被宣传为FreeSWITCH原生模块ABI。</p>
+<p>对照ID：<code>key-c_abi-codec</code>, <code>key-c_abi-protocol-provider</code>。</p>
+<h3 id="fs-04-p2-会议及复杂pbx脚本传真和视频模块">FS-04 · P2 · 会议及复杂PBX、脚本、传真和视频模块</h3>
+<p>**状态：**未实现/仅配置导出。**验证：**未验证。</p>
+<p>目录内144个fs_module条目均为未实现，另有90条会议子命令；会议、队列/语音信箱、Lua/JS、传真、视频等不能从模板推断已具备。</p>
+<p>代码入口：<code>control/internal/server/fs_templates</code>；<code>media/src/media/processed.rs</code>。</p>
+<p>依赖：按Voice Agent业务选择外部复用或后续实现；保留全部差异。</p>
+<p>验收方法：按原模块场景逐项验证音视频/混音/控制/故障和容量；不以主路径单元测试替代模块行为。</p>
+<p>完成条件：首期可延期，但公开能力表仍列未实现；只对实际完成并有证据的子模块更新状态。</p>
+<p>对照ID：<code>key-media-conference</code>。</p>
+<h3 id="fs-05-p1-3999条对照与177验收定义逐项证据">FS-05 · P1 · 3999条对照与177验收定义逐项证据</h3>
+<p>**状态：**未完成整体验证。**验证：**成对验证未运行，绝大多数条目未运行。</p>
+<p>3999含原生声明、接口、模板和验收定义，不是3999个独立模块；177=169场景+8容量profile且均not_run。现有局部原版实验不代表全部原版行为执行。</p>
+<p>代码入口：<code>tools/build_runtime_verification.py</code>；<code>docs/freeswitch-compatibility</code>；<code>docs/api/comparison.json</code>。</p>
+<p>依赖：固定原版版本/提交、动态模块注册和原始用例；DLV-03。</p>
+<p>验收方法：实例化每项场景，绑定双方源码、构建配置、二进制、输入/输出、失败及资源；以全部原始行导出追踪。</p>
+<p>完成条件：不缩分母、不从实现状态算兼容百分比；缺原始轨迹或源码失配不判通过，失败/未运行可查。</p>
+<p>验收/目标索引：<code>API-T01</code>。</p>
+<h3 id="ops-01-p1-numa系统调用队列和最忙worker观测">OPS-01 · P1 · NUMA、系统调用、队列和最忙worker观测</h3>
+<p>**状态：**部分实现。**验证：**完整运行成本与采样边界未验证。</p>
+<p>已有部分资源指标和ASR计数；完整队列年龄、真实socket缓冲、同窗口CPU/内存、最忙分片和NUMA策略仍需完善。</p>
+<p>代码入口：<code>control/internal/server/asr_observe.go</code>；<code>control/internal/server/server.go</code>；<code>media/src/media/worker.rs</code>。</p>
+<p>依赖：DIA-01；Linux实际部署拓扑。</p>
+<p>验收方法：同profile采集前后CPU增量、火焰图、IRQ/RSS、内存和队列年龄，优化前后对比并保持真实负载。</p>
+<p>完成条件：指标口径与生成时间可解释；累计CPU不冒称媒体窗口CPU率，各进程独立峰值之和不冒称同一时刻峰值。</p>
+<p>对照ID：<code>key-http-metrics</code>, <code>key-http-status</code>；验收/目标索引：<code>M3</code>, <code>A16</code>, <code>A17</code>, <code>V1-16</code>。</p>
+<h3 id="ops-02-p0-灰度回退与活动通话故障边界">OPS-02 · P0 · 灰度、回退与活动通话故障边界</h3>
+<p>**状态：**部分实现。**验证：**生产灰度/完整故障恢复未验证。</p>
+<p>worker监督可结束受影响通话、继续其他分片和恢复新服务；不是活动通话或ESL TCP无缝迁移。主源码、候选和运行服务是三个状态。</p>
+<p>代码入口：<code>control/internal/media/pool.go</code>；<code>control/internal/server/server.go</code>。</p>
+<p>依赖：DLV-01、DLV-03、AI-08、CAP-05；明确发布授权及窗口。</p>
+<p>验收方法：按1%→5%→20%→50%→100%灰度核对质量、容量与错误，验证新呼叫回旧服务、旧通话排空、配置回滚和进程故障。</p>
+<p>完成条件：每档达到退出条件再推进，回退有实测收据；未实现的活动通话迁移不得宣称无损切换。</p>
+<p>对照ID：<code>key-media-failover</code>, <code>key-guard-drain-resume</code>；验收/目标索引：<code>M4</code>, <code>A17</code>。</p>
+<h2 id="五统一关单规则">五、统一关单规则</h2>
+<p>每项“完成”至少绑定精确源码与依赖集合、实际二进制、原始输入/输出、样本和时刻、正常及故障分支、资源释放、测试退出结果。证据来源或期限失效时重新验证或降低状态，不能只改passed/绿色、删除失败或延长时间。测试事件数含子项，不是独立能力数。</p>
+<p>容量分别运行RTP转发、真实音频处理、完整Agent三种profile，按1000→5000→10000逐档验收。FreeSWITCH比较必须同服务器、音频、质量、并发、时长与SLA，计入所有必需组件。远程模型成本可单列，本地模型必须计入；进阶目标不能从微基准推算。72小时混合负载和灰度/回退是独立退出条件。</p>
+<p>本清单列出40个交付工作包用于分工和验收；这不是3999条对照的替代品或兼容率分母。完整逐行清单保留原ID、实现状态、本地状态、原因和差异；后续每次更新应同时维护接口文档、对照表和机器证据。</p>
+<h2 id="六来源与本轮核对">六、来源与本轮核对</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>原始来源（工作区相对路径）</th>
+<th>SHA-256</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>outputs/rustswitch/docs/api/comparison.json</code></td>
+<td><code>507e7cd6f0325a432630574f8321b7baaec351dd2dda4fee45732285214a376e</code></td>
+</tr>
+<tr>
+<td><code>outputs/rustswitch/docs/api/runtime-verification.json</code></td>
+<td><code>7416935c18a70665ab7be6fd9a878a06c737fb8fab1329f6f82631770aba45f5</code></td>
+</tr>
+<tr>
+<td><code>outputs/rustswitch/docs/api/compatibility-worklist.md</code></td>
+<td><code>5d46a2f19a497825a65a11a30418c773d2df125662285f227a9ed01a4bf3459a</code></td>
+</tr>
+<tr>
+<td><code>outputs/rustswitch/docs/api/voice-runtime-v1-acceptance.md</code></td>
+<td><code>a96ea6ec025bc7e98ad2d7fd3a8a22f0a6b318183cf01eb7ba0c5d4cbe22c8e2</code></td>
+</tr>
+<tr>
+<td><code>work/voice-runtime-m2-asr/CHECKPOINT.md</code></td>
+<td><code>4ad8337bdfc730740a82e93594603d09494237c7d2601c9171ac481a42dad2ed</code></td>
+</tr>
+<tr>
+<td><code>work/voice-runtime-m2-asr/full-review-01/receipt.json</code></td>
+<td><code>961f33471bc34b00473ab1ff2394b6a81dca005f1c7ec8ab327cd0845f44e781</code></td>
+</tr>
+<tr>
+<td><code>work/voice-runtime-m2-asr/benchmark-fix-01/baseline.json</code></td>
+<td><code>fa784c08a342a2bfdfc38bcc107f5374b3adbbcb79a768b6f09a98866ee05a53</code></td>
+</tr>
+<tr>
+<td><code>work/voice-runtime-m2-asr/benchmark-fix-01/test-02/receipt.json</code></td>
+<td><code>96fecc4cd3b1fa442edad934a05d301b9039928f4e8d4dd7f4fad42eb3aa9799</code></td>
+</tr>
+<tr>
+<td><code>work/voice-runtime-m2-asr/benchmark-fix-01/unified.patch</code></td>
+<td><code>0f369c2b5f34e9c0316aa4ad8c1c53fa7e909ef51bcd09012bbbed059118d8fd</code></td>
+</tr>
+<tr>
+<td><code>work/project-delivery-2026-09-08/patch-state.json</code></td>
+<td><code>d472fa77d73e7212072d036b860856f62eb8bcd91dd9639217e42eafe8205838</code></td>
+</tr>
+<tr>
+<td><code>work/project-delivery-2026-09-08/build-main-01/receipt.json</code></td>
+<td><code>02d4846ce28e02d835b3bf785b1499f74c08c59383d1e2a6d826d8df2ba988df</code></td>
+</tr>
+<tr>
+<td><code>work/project-delivery-2026-09-08/build-asr-candidate-01/receipt.json</code></td>
+<td><code>a10677f9d4577a831706f27a16cdd25aef3c20c3f392c0965d9a3e3f843fc4f1</code></td>
+</tr>
+</tbody></table></div>
+<p>ASR候选当前相对full-review-01所绑定文件的内容变化数量：0。此处仅比较该收据的明确文件范围，不将范围外新增源码自动判为已测。私有benchmark相对test-02变化：<code>control/internal/server/benchmark_failure_diagnostics_test.go</code>, <code>control/internal/server/benchmark_runner.go</code>；两文件未复验。机器摘要见 <code>backlog-summary.json</code>。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

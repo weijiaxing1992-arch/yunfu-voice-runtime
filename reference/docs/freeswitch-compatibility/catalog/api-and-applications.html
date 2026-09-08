@@ -1,0 +1,3780 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>FreeSWITCH 1.11.3 API 与应用注册目录 · 云蝠项目资料</title><link rel="stylesheet" href="../../../../handbook.css"></head><body><aside><a class="brand" href="../../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../../index.html">资料首页</a><a class="" href="../../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / FreeSWITCH 1.11.3 API 与应用注册目录</div><article class="content"><div class="page-tools"><a href="api-and-applications.md" download>Markdown 原稿</a><a href="../../api/openapi.json" download>OpenAPI JSON</a><a href="../../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><h1 id="freeswitch-1113-api-与应用注册目录">FreeSWITCH 1.11.3 API 与应用注册目录</h1>
+<p>此表从固定提交的注册点抽取。记录数是注册点数，包含条件编译与重名实现，不是已加载接口数、已实现数或兼容率。<code>待解析</code> 项必须人工核实；CSV 保留原始语法表达式。子命令、运行期注册和第三方模块还需运行清单补齐。行为契约见 <a href="../05-api-contracts.html">API 标准</a>。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>模块</th>
+<th>名称</th>
+<th>注册语法</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>api</td>
+<td>mod_av</td>
+<td><code>av</code></td>
+<td><code>debug [on|off] | show &lt;formats | codecs&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_av/mod_av.c#L237" target="_blank" rel="noopener noreferrer">L237</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_avmd</td>
+<td><code>avmd_start</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_avmd/mod_avmd.c#L1199" target="_blank" rel="noopener noreferrer">L1199</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_avmd</td>
+<td><code>avmd_stop</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_avmd/mod_avmd.c#L1200" target="_blank" rel="noopener noreferrer">L1200</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_avmd</td>
+<td><code>avmd</code></td>
+<td><code>&lt;uuid&gt; &lt; start | stop | set [inbound|outbound|default] | load [inbound|outbound] | reload | show &gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_avmd/mod_avmd.c#L1201" target="_blank" rel="noopener noreferrer">L1201</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_avmd</td>
+<td><code>avmd</code></td>
+<td><code>&lt;uuid&gt; &lt; start | stop | set [inbound|outbound|default] | load [inbound|outbound] | reload | show &gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_avmd/mod_avmd.c#L1203" target="_blank" rel="noopener noreferrer">L1203</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_bert</td>
+<td><code>bert_test</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_bert/mod_bert.c#L400" target="_blank" rel="noopener noreferrer">L400</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_blacklist</td>
+<td><code>blacklist</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_blacklist/mod_blacklist.c#L328" target="_blank" rel="noopener noreferrer">L328</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_callcenter</td>
+<td><code>callcenter</code></td>
+<td><code>queue_name</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_callcenter/mod_callcenter.c#L4262" target="_blank" rel="noopener noreferrer">L4262</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_callcenter</td>
+<td><code>callcenter_track</code></td>
+<td><code>queue_name</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_callcenter/mod_callcenter.c#L4263" target="_blank" rel="noopener noreferrer">L4263</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_callcenter</td>
+<td><code>callcenter_config</code></td>
+<td><code>callcenter_config &lt;target&gt; &lt;args&gt;, 	callcenter_config agent add [name] [type] |  	callcenter_config agent del [name] |  	callcenter_config agent reload [name] |  	callcenter_config agent set status [agent_name] [status] |  	callcenter_config agent set state [agent_name] [state] |  	callcenter_config agent set contact [agent_name] [contact] |  	callcenter_config agent set ready_time [agent_name] [wait till epoch] |  	callcenter_config agent set reject_delay_time [agent_name] [wait second] |  	callcenter_config agent set busy_delay_time [agent_name] [wait second] |  	callcenter_config agent set no_answer_delay_time [agent_name] [wait second] |  	callcenter_config agent get status [agent_name] |  	callcenter_config agent get state [agent_name] |  	callcenter_config agent get uuid [agent_name] |  	callcenter_config agent list [[agent_name]] |  	callcenter_config tier add [queue_name] [agent_name] [[level]] [[position]] |  	callcenter_config tier set state [queue_name] [agent_name] [state] |  	callcenter_config tier set level [queue_name] [agent_name] [level] |  	callcenter_config tier set position [queue_name] [agent_name] [position] |  	callcenter_config tier del [queue_name] [agent_name] |  	callcenter_config tier reload [queue_name] [agent_name] |  	callcenter_config tier list |  	callcenter_config queue load [queue_name] |  	callcenter_config queue unload [queue_name] |  	callcenter_config queue reload [queue_name] |  	callcenter_config queue list |  	callcenter_config queue list agents [queue_name] [status] [state] |  	callcenter_config queue list members [queue_name] |  	callcenter_config queue list tiers [queue_name] |  	callcenter_config queue count |  	callcenter_config queue count agents [queue_name] [status] [state] |  	callcenter_config queue count members [queue_name] |  	callcenter_config queue count tiers [queue_name]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_callcenter/mod_callcenter.c#L4264" target="_blank" rel="noopener noreferrer">L4264</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_callcenter</td>
+<td><code>callcenter_break</code></td>
+<td><code>callcenter_break agent &lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_callcenter/mod_callcenter.c#L4265" target="_blank" rel="noopener noreferrer">L4265</a></td>
+</tr>
+<tr>
+<td>json_api</td>
+<td>mod_callcenter</td>
+<td><code>callcenter_config</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_callcenter/mod_callcenter.c#L4267" target="_blank" rel="noopener noreferrer">L4267</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_cidlookup</td>
+<td><code>cidlookup</code></td>
+<td><code>待解析：SYNTAX</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_cidlookup/mod_cidlookup.c#L835" target="_blank" rel="noopener noreferrer">L835</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_cidlookup</td>
+<td><code>cidlookup</code></td>
+<td><code>[number [skipurl]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_cidlookup/mod_cidlookup.c#L836" target="_blank" rel="noopener noreferrer">L836</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_cluechoo</td>
+<td><code>cluechoo</code></td>
+<td><code>syntax</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_cluechoo/mod_cluechoo.c#L85" target="_blank" rel="noopener noreferrer">L85</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_cluechoo</td>
+<td><code>cluechoo</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_cluechoo/mod_cluechoo.c#L87" target="_blank" rel="noopener noreferrer">L87</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>bg_system</code></td>
+<td><code>&lt;command&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7632" target="_blank" rel="noopener noreferrer">L7632</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>system</code></td>
+<td><code>&lt;command&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7633" target="_blank" rel="noopener noreferrer">L7633</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>bg_spawn</code></td>
+<td><code>&lt;command&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7634" target="_blank" rel="noopener noreferrer">L7634</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>spawn</code></td>
+<td><code>&lt;command&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7635" target="_blank" rel="noopener noreferrer">L7635</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>spawn_stream</code></td>
+<td><code>&lt;command&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7636" target="_blank" rel="noopener noreferrer">L7636</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>interface_allowlist_dump</code></td>
+<td><code>[modules] [plain]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7639" target="_blank" rel="noopener noreferrer">L7639</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>acl</code></td>
+<td><code>&lt;ip&gt; &lt;list_name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7644" target="_blank" rel="noopener noreferrer">L7644</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>alias</code></td>
+<td><code>[add|stickyadd] &lt;alias&gt; &lt;command&gt; | del [&lt;alias&gt;|*]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7645" target="_blank" rel="noopener noreferrer">L7645</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>coalesce</code></td>
+<td><code>[^^&lt;delim&gt;]&lt;value1&gt;,&lt;value2&gt;,...</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7645" target="_blank" rel="noopener noreferrer">L7645</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>banner</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7646" target="_blank" rel="noopener noreferrer">L7646</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>bgapi</code></td>
+<td><code>&lt;command&gt;[ &lt;arg&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7647" target="_blank" rel="noopener noreferrer">L7647</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>break</code></td>
+<td><code>&lt;uuid&gt; [all]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7648" target="_blank" rel="noopener noreferrer">L7648</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>complete</code></td>
+<td><code>add &lt;word&gt;|del [&lt;word&gt;|*]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7649" target="_blank" rel="noopener noreferrer">L7649</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>cond</code></td>
+<td><code>&lt;expr&gt; ? &lt;true val&gt; : &lt;false val&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7650" target="_blank" rel="noopener noreferrer">L7650</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>console_complete</code></td>
+<td><code>&lt;line&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7651" target="_blank" rel="noopener noreferrer">L7651</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>console_complete_xml</code></td>
+<td><code>&lt;line&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7652" target="_blank" rel="noopener noreferrer">L7652</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>create_uuid</code></td>
+<td><code>&lt;uuid&gt; &lt;other_uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7653" target="_blank" rel="noopener noreferrer">L7653</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>db_cache</code></td>
+<td><code>status</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7654" target="_blank" rel="noopener noreferrer">L7654</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>domain_data</code></td>
+<td><code>&lt;domain&gt; [var|param|attr] &lt;name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7655" target="_blank" rel="noopener noreferrer">L7655</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>domain_exists</code></td>
+<td><code>&lt;domain&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7656" target="_blank" rel="noopener noreferrer">L7656</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>echo</code></td>
+<td><code>&lt;data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7657" target="_blank" rel="noopener noreferrer">L7657</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>event_channel_broadcast</code></td>
+<td><code>&lt;channel&gt; &lt;json&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7658" target="_blank" rel="noopener noreferrer">L7658</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>escape</code></td>
+<td><code>&lt;data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7659" target="_blank" rel="noopener noreferrer">L7659</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>eval</code></td>
+<td><code>[uuid:&lt;uuid&gt; ]&lt;expression&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7660" target="_blank" rel="noopener noreferrer">L7660</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>expand</code></td>
+<td><code>[uuid:&lt;uuid&gt; ]&lt;cmd&gt; &lt;args&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7661" target="_blank" rel="noopener noreferrer">L7661</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>find_user_xml</code></td>
+<td><code>&lt;key&gt; &lt;user&gt; &lt;domain&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7662" target="_blank" rel="noopener noreferrer">L7662</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>fsctl</code></td>
+<td><code>[api_expansion [on|off]|recover|send_sighup|hupall|pause [inbound|outbound]|resume [inbound|outbound]|shutdown [cancel|elegant|asap|now|restart]|uuid_version [4|7]|sps|sps_peak_reset|sync_clock|sync_clock_when_idle|reclaim_mem|max_sessions|min_dtmf_duration [num]|max_dtmf_duration [num]|default_dtmf_duration [num]|min_idle_cpu|loglevel [level]|debug_level [level]|mdns_resolve [enable|disable]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7663" target="_blank" rel="noopener noreferrer">L7663</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>...</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7664" target="_blank" rel="noopener noreferrer">L7664</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>shutdown</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7665" target="_blank" rel="noopener noreferrer">L7665</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>version</code></td>
+<td><code>[short]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7666" target="_blank" rel="noopener noreferrer">L7666</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>global_getvar</code></td>
+<td><code>&lt;var&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7667" target="_blank" rel="noopener noreferrer">L7667</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>global_setvar</code></td>
+<td><code>&lt;var&gt;=&lt;value&gt; [=&lt;value2&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7668" target="_blank" rel="noopener noreferrer">L7668</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>group_call</code></td>
+<td><code>&lt;group&gt;[@&lt;domain&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7669" target="_blank" rel="noopener noreferrer">L7669</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>help</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7670" target="_blank" rel="noopener noreferrer">L7670</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>host_lookup</code></td>
+<td><code>&lt;hostname&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7671" target="_blank" rel="noopener noreferrer">L7671</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>hostname</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7672" target="_blank" rel="noopener noreferrer">L7672</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>interface_ip</code></td>
+<td><code>[auto|ipv4|ipv6] &lt;ifname&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7673" target="_blank" rel="noopener noreferrer">L7673</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>switchname</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7674" target="_blank" rel="noopener noreferrer">L7674</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>gethost</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7675" target="_blank" rel="noopener noreferrer">L7675</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>getenv</code></td>
+<td><code>&lt;name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7676" target="_blank" rel="noopener noreferrer">L7676</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>hupall</code></td>
+<td><code>&lt;cause&gt; [&lt;var&gt; &lt;value&gt;] [&lt;var2&gt; &lt;value2&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7677" target="_blank" rel="noopener noreferrer">L7677</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>in_group</code></td>
+<td><code>&lt;user&gt;[@&lt;domain&gt;] &lt;group_name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7678" target="_blank" rel="noopener noreferrer">L7678</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>is_lan_addr</code></td>
+<td><code>&lt;ip&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7679" target="_blank" rel="noopener noreferrer">L7679</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>limit_usage</code></td>
+<td><code>&lt;backend&gt; &lt;realm&gt; &lt;id&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7680" target="_blank" rel="noopener noreferrer">L7680</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>limit_hash_usage</code></td>
+<td><code>&lt;realm&gt; &lt;id&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7681" target="_blank" rel="noopener noreferrer">L7681</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>limit_status</code></td>
+<td><code>&lt;backend&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7682" target="_blank" rel="noopener noreferrer">L7682</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>limit_reset</code></td>
+<td><code>&lt;backend&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7683" target="_blank" rel="noopener noreferrer">L7683</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>limit_interval_reset</code></td>
+<td><code>&lt;backend&gt; &lt;realm&gt; &lt;resource&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7684" target="_blank" rel="noopener noreferrer">L7684</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>list_users</code></td>
+<td><code>[group &lt;group&gt;] [domain &lt;domain&gt;] [user &lt;user&gt;] [context &lt;context&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7685" target="_blank" rel="noopener noreferrer">L7685</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>load</code></td>
+<td><code>&lt;mod_name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7686" target="_blank" rel="noopener noreferrer">L7686</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>log</code></td>
+<td><code>&lt;level&gt; &lt;message&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7687" target="_blank" rel="noopener noreferrer">L7687</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>md5</code></td>
+<td><code>&lt;data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7688" target="_blank" rel="noopener noreferrer">L7688</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>module_exists</code></td>
+<td><code>&lt;module&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7689" target="_blank" rel="noopener noreferrer">L7689</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>msleep</code></td>
+<td><code>&lt;milliseconds&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7690" target="_blank" rel="noopener noreferrer">L7690</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>nat_map</code></td>
+<td><code>[status|republish|reinit] | [add|del] &lt;port&gt; [tcp|udp] [static]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7691" target="_blank" rel="noopener noreferrer">L7691</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>originate</code></td>
+<td><code>&lt;call url&gt; &lt;exten&gt;|&amp;&lt;application_name&gt;(&lt;app_args&gt;) [&lt;dialplan&gt;] [&lt;context&gt;] [&lt;cid_name&gt;] [&lt;cid_num&gt;] [&lt;timeout_sec&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7692" target="_blank" rel="noopener noreferrer">L7692</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>pause</code></td>
+<td><code>&lt;uuid&gt; &lt;on|off&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7693" target="_blank" rel="noopener noreferrer">L7693</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>pool_stats</code></td>
+<td><code>Core pool memory usage.</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7694" target="_blank" rel="noopener noreferrer">L7694</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>quote_shell_arg</code></td>
+<td><code>&lt;data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7695" target="_blank" rel="noopener noreferrer">L7695</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>regex</code></td>
+<td><code>&lt;data&gt;|&lt;pattern&gt;[|&lt;subst string&gt;][n|b]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7696" target="_blank" rel="noopener noreferrer">L7696</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>reloadacl</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7697" target="_blank" rel="noopener noreferrer">L7697</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>reload</code></td>
+<td><code>[-f] &lt;mod_name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7698" target="_blank" rel="noopener noreferrer">L7698</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>reloadxml</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7699" target="_blank" rel="noopener noreferrer">L7699</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>reloadcert</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7700" target="_blank" rel="noopener noreferrer">L7700</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>replace</code></td>
+<td><code>&lt;data&gt;|&lt;string1&gt;|&lt;string2&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7701" target="_blank" rel="noopener noreferrer">L7701</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>say_string</code></td>
+<td><code>&lt;module_name&gt;[.&lt;ext&gt;] &lt;lang&gt;[.&lt;ext&gt;] &lt;say_type&gt; &lt;say_method&gt; [&lt;say_gender&gt;] &lt;text&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7702" target="_blank" rel="noopener noreferrer">L7702</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>sched_api</code></td>
+<td><code>[+@]&lt;time&gt; &lt;group_name&gt; &lt;command_string&gt;[&amp;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7703" target="_blank" rel="noopener noreferrer">L7703</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>sched_broadcast</code></td>
+<td><code>[[+]&lt;time&gt;|@time] &lt;uuid&gt; &lt;path&gt; [aleg|bleg|both]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7704" target="_blank" rel="noopener noreferrer">L7704</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>sched_del</code></td>
+<td><code>&lt;task_id&gt;|&lt;group_id&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7705" target="_blank" rel="noopener noreferrer">L7705</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>sched_hangup</code></td>
+<td><code>[+]&lt;time&gt; &lt;uuid&gt; [&lt;cause&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7706" target="_blank" rel="noopener noreferrer">L7706</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>sched_transfer</code></td>
+<td><code>[+]&lt;time&gt; &lt;uuid&gt; &lt;extension&gt; [&lt;dialplan&gt;] [&lt;context&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7707" target="_blank" rel="noopener noreferrer">L7707</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>show</code></td>
+<td><code>codec|endpoint|application|api|dialplan|file|timer|calls [count]|channels [count|like &lt;match string&gt;]|calls|detailed_calls|bridged_calls|detailed_bridged_calls|aliases|complete|chat|management|modules|nat_map|say|interfaces|interface_types|tasks|limits|status</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7708" target="_blank" rel="noopener noreferrer">L7708</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>sql_escape</code></td>
+<td><code>&lt;string&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7709" target="_blank" rel="noopener noreferrer">L7709</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>status</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7710" target="_blank" rel="noopener noreferrer">L7710</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>strftime_tz</code></td>
+<td><code>&lt;timezone_name&gt; [&lt;epoch&gt;|][format string]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7711" target="_blank" rel="noopener noreferrer">L7711</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>stun</code></td>
+<td><code>&lt;stun_server&gt;[:port] [&lt;source_ip&gt;[:&lt;source_port]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7712" target="_blank" rel="noopener noreferrer">L7712</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>time_test</code></td>
+<td><code>&lt;mss&gt; [count]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7713" target="_blank" rel="noopener noreferrer">L7713</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>timer_test</code></td>
+<td><code>&lt;10|20|40|60|120&gt; [&lt;1..200&gt;] [&lt;timer_name&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7714" target="_blank" rel="noopener noreferrer">L7714</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>tone_detect</code></td>
+<td><code>&lt;uuid&gt; &lt;key&gt; &lt;tone_spec&gt; [&lt;flags&gt; &lt;timeout&gt; &lt;app&gt; &lt;args&gt; &lt;hits&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7715" target="_blank" rel="noopener noreferrer">L7715</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>unload</code></td>
+<td><code>[-f] &lt;mod_name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7716" target="_blank" rel="noopener noreferrer">L7716</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>unsched_api</code></td>
+<td><code>&lt;task_id&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7717" target="_blank" rel="noopener noreferrer">L7717</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uptime</code></td>
+<td><code>[us|ms|s|m|h|d|microseconds|milliseconds|seconds|minutes|hours|days]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7718" target="_blank" rel="noopener noreferrer">L7718</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>reg_url</code></td>
+<td><code>&lt;user&gt;@&lt;realm&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7719" target="_blank" rel="noopener noreferrer">L7719</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>url_decode</code></td>
+<td><code>&lt;string&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7720" target="_blank" rel="noopener noreferrer">L7720</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>url_encode</code></td>
+<td><code>&lt;string&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7721" target="_blank" rel="noopener noreferrer">L7721</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>toupper</code></td>
+<td><code>&lt;string&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7722" target="_blank" rel="noopener noreferrer">L7722</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>tolower</code></td>
+<td><code>&lt;string&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7723" target="_blank" rel="noopener noreferrer">L7723</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>user_data</code></td>
+<td><code>&lt;user&gt;@&lt;domain&gt; [var|param|attr] &lt;name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7724" target="_blank" rel="noopener noreferrer">L7724</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_early_ok</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7725" target="_blank" rel="noopener noreferrer">L7725</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>user_exists</code></td>
+<td><code>&lt;key&gt; &lt;user&gt; &lt;domain&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7726" target="_blank" rel="noopener noreferrer">L7726</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_answer</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7727" target="_blank" rel="noopener noreferrer">L7727</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_audio</code></td>
+<td><code>&lt;uuid&gt; [start [read|write] [mute|level &lt;level&gt;]|stop]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7728" target="_blank" rel="noopener noreferrer">L7728</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_break</code></td>
+<td><code>&lt;uuid&gt; [all]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7729" target="_blank" rel="noopener noreferrer">L7729</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_bridge</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7730" target="_blank" rel="noopener noreferrer">L7730</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_broadcast</code></td>
+<td><code>&lt;uuid&gt; &lt;path&gt; [aleg|bleg|holdb|both]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7731" target="_blank" rel="noopener noreferrer">L7731</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_buglist</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7732" target="_blank" rel="noopener noreferrer">L7732</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_chat</code></td>
+<td><code>&lt;uuid&gt; &lt;text&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7733" target="_blank" rel="noopener noreferrer">L7733</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_send_text</code></td>
+<td><code>&lt;uuid&gt; &lt;text&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7734" target="_blank" rel="noopener noreferrer">L7734</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_capture_text</code></td>
+<td><code>&lt;uuid&gt; &lt;on|off&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7735" target="_blank" rel="noopener noreferrer">L7735</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_codec_debug</code></td>
+<td><code>&lt;uuid&gt; audio|video &lt;level&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7736" target="_blank" rel="noopener noreferrer">L7736</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_codec_param</code></td>
+<td><code>&lt;uuid&gt; audio|video read|write &lt;param&gt; &lt;val&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7737" target="_blank" rel="noopener noreferrer">L7737</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_debug_media</code></td>
+<td><code>&lt;uuid&gt; &lt;read|write|both|vread|vwrite|vboth|all&gt; &lt;on|off&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7738" target="_blank" rel="noopener noreferrer">L7738</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_deflect</code></td>
+<td><code>&lt;uuid&gt; &lt;uri&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7739" target="_blank" rel="noopener noreferrer">L7739</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_displace</code></td>
+<td><code>&lt;uuid&gt; [start|stop] &lt;path&gt; [&lt;limit&gt;] [mux]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7740" target="_blank" rel="noopener noreferrer">L7740</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_display</code></td>
+<td><code>&lt;uuid&gt; &lt;display&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7741" target="_blank" rel="noopener noreferrer">L7741</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_media_params</code></td>
+<td><code>&lt;uuid&gt; &lt;json&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7742" target="_blank" rel="noopener noreferrer">L7742</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_drop_dtmf</code></td>
+<td><code>&lt;uuid&gt; [on | off ] [ mask_digits &lt;digits&gt; | mask_file &lt;file&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7743" target="_blank" rel="noopener noreferrer">L7743</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_dump</code></td>
+<td><code>&lt;uuid&gt; [format]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7744" target="_blank" rel="noopener noreferrer">L7744</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_exists</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7745" target="_blank" rel="noopener noreferrer">L7745</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_fileman</code></td>
+<td><code>&lt;uuid&gt; &lt;cmd&gt;:&lt;val&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7746" target="_blank" rel="noopener noreferrer">L7746</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_flush_dtmf</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7747" target="_blank" rel="noopener noreferrer">L7747</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_getvar</code></td>
+<td><code>&lt;uuid&gt; &lt;var&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7748" target="_blank" rel="noopener noreferrer">L7748</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_hold</code></td>
+<td><code>[off|toggle] &lt;uuid&gt; [&lt;display&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7749" target="_blank" rel="noopener noreferrer">L7749</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_kill</code></td>
+<td><code>&lt;uuid&gt; [cause]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7750" target="_blank" rel="noopener noreferrer">L7750</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_send_message</code></td>
+<td><code>&lt;uuid&gt; &lt;message&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7751" target="_blank" rel="noopener noreferrer">L7751</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_send_info</code></td>
+<td><code>&lt;uuid&gt; [&lt;mime_type&gt; &lt;mime_subtype&gt;] &lt;message&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7752" target="_blank" rel="noopener noreferrer">L7752</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_set_media_stats</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7753" target="_blank" rel="noopener noreferrer">L7753</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_video_bitrate</code></td>
+<td><code>&lt;uuid&gt; &lt;bitrate&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7754" target="_blank" rel="noopener noreferrer">L7754</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_video_bandwidth</code></td>
+<td><code>&lt;uuid&gt; &lt;bitrate&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7755" target="_blank" rel="noopener noreferrer">L7755</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_video_refresh</code></td>
+<td><code>&lt;uuid&gt; [auto|manual]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7756" target="_blank" rel="noopener noreferrer">L7756</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_outgoing_answer</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7757" target="_blank" rel="noopener noreferrer">L7757</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_limit</code></td>
+<td><code>&lt;uuid&gt; &lt;backend&gt; &lt;realm&gt; &lt;resource&gt; [&lt;max&gt;[/interval]] [number [dialplan [context]]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7758" target="_blank" rel="noopener noreferrer">L7758</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_limit_release</code></td>
+<td><code>&lt;uuid&gt; &lt;backend&gt; [realm] [resource]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7759" target="_blank" rel="noopener noreferrer">L7759</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_loglevel</code></td>
+<td><code>&lt;uuid&gt; &lt;level&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7760" target="_blank" rel="noopener noreferrer">L7760</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_media</code></td>
+<td><code>[off] &lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7761" target="_blank" rel="noopener noreferrer">L7761</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_media_3p</code></td>
+<td><code>[off] &lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7762" target="_blank" rel="noopener noreferrer">L7762</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_media_reneg</code></td>
+<td><code>&lt;uuid&gt;[ &lt;codec_string&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7763" target="_blank" rel="noopener noreferrer">L7763</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_park</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7764" target="_blank" rel="noopener noreferrer">L7764</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_pause</code></td>
+<td><code>&lt;uuid&gt; &lt;on|off&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7765" target="_blank" rel="noopener noreferrer">L7765</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_phone_event</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7766" target="_blank" rel="noopener noreferrer">L7766</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_ring_ready</code></td>
+<td><code>&lt;uuid&gt; [queued]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7767" target="_blank" rel="noopener noreferrer">L7767</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_pre_answer</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7768" target="_blank" rel="noopener noreferrer">L7768</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_preprocess</code></td>
+<td><code>&lt;&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7769" target="_blank" rel="noopener noreferrer">L7769</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_record</code></td>
+<td><code>&lt;uuid&gt; [start|stop|mask|unmask] &lt;path&gt; [&lt;limit&gt;] [&lt;recording_vars&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7770" target="_blank" rel="noopener noreferrer">L7770</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_recovery_refresh</code></td>
+<td><code>&lt;uuid&gt; &lt;uri&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7771" target="_blank" rel="noopener noreferrer">L7771</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_recv_dtmf</code></td>
+<td><code>&lt;uuid&gt; &lt;dtmf_data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7772" target="_blank" rel="noopener noreferrer">L7772</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_redirect</code></td>
+<td><code>&lt;uuid&gt; &lt;uri&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7773" target="_blank" rel="noopener noreferrer">L7773</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_send_dtmf</code></td>
+<td><code>&lt;uuid&gt; &lt;dtmf_data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7774" target="_blank" rel="noopener noreferrer">L7774</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_session_heartbeat</code></td>
+<td><code>&lt;uuid&gt; [sched] [0|&lt;seconds&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7775" target="_blank" rel="noopener noreferrer">L7775</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_setvar_multi</code></td>
+<td><code>&lt;uuid&gt; &lt;var&gt;=&lt;value&gt;;&lt;var&gt;=&lt;value&gt;...</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7776" target="_blank" rel="noopener noreferrer">L7776</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_setvar</code></td>
+<td><code>&lt;uuid&gt; &lt;var&gt; [value]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7777" target="_blank" rel="noopener noreferrer">L7777</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_transfer</code></td>
+<td><code>&lt;uuid&gt; [-bleg|-both] &lt;dest-exten&gt; [&lt;dialplan&gt;] [&lt;context&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7778" target="_blank" rel="noopener noreferrer">L7778</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_dual_transfer</code></td>
+<td><code>&lt;uuid&gt; &lt;A-dest-exten&gt;[/&lt;A-dialplan&gt;][/&lt;A-context&gt;] &lt;B-dest-exten&gt;[/&lt;B-dialplan&gt;][/&lt;B-context&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7779" target="_blank" rel="noopener noreferrer">L7779</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_simplify</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7780" target="_blank" rel="noopener noreferrer">L7780</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_jitterbuffer</code></td>
+<td><code>&lt;uuid&gt; [0|&lt;min_msec&gt;[:&lt;max_msec&gt;]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7781" target="_blank" rel="noopener noreferrer">L7781</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_zombie_exec</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7782" target="_blank" rel="noopener noreferrer">L7782</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>uuid_xfer_zombie</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7783" target="_blank" rel="noopener noreferrer">L7783</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>xml_flush_cache</code></td>
+<td><code>&lt;id&gt; &lt;key&gt; &lt;val&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7784" target="_blank" rel="noopener noreferrer">L7784</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>xml_locate</code></td>
+<td><code>[root | &lt;section&gt; &lt;tag&gt; &lt;tag_attr_name&gt; &lt;tag_attr_val&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7785" target="_blank" rel="noopener noreferrer">L7785</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>xml_wrap</code></td>
+<td><code>&lt;command&gt; &lt;args&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7786" target="_blank" rel="noopener noreferrer">L7786</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>file_exists</code></td>
+<td><code>&lt;file&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7787" target="_blank" rel="noopener noreferrer">L7787</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>getcputime</code></td>
+<td><code>[reset]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7788" target="_blank" rel="noopener noreferrer">L7788</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>json</code></td>
+<td><code>JSON</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7789" target="_blank" rel="noopener noreferrer">L7789</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_commands</td>
+<td><code>memory</code></td>
+<td><code>memory</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7790" target="_blank" rel="noopener noreferrer">L7790</a></td>
+</tr>
+<tr>
+<td>json_api</td>
+<td>mod_commands</td>
+<td><code>mediaStats</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7792" target="_blank" rel="noopener noreferrer">L7792</a></td>
+</tr>
+<tr>
+<td>json_api</td>
+<td>mod_commands</td>
+<td><code>status</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7794" target="_blank" rel="noopener noreferrer">L7794</a></td>
+</tr>
+<tr>
+<td>json_api</td>
+<td>mod_commands</td>
+<td><code>fsapi</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7795" target="_blank" rel="noopener noreferrer">L7795</a></td>
+</tr>
+<tr>
+<td>json_api</td>
+<td>mod_commands</td>
+<td><code>execute</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7796" target="_blank" rel="noopener noreferrer">L7796</a></td>
+</tr>
+<tr>
+<td>json_api</td>
+<td>mod_commands</td>
+<td><code>channelData</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7797" target="_blank" rel="noopener noreferrer">L7797</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_conference</td>
+<td><code>conference</code></td>
+<td><code>待解析：p</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/mod_conference.c#L4037" target="_blank" rel="noopener noreferrer">L4037</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_conference</td>
+<td><code>mod_conference_app_name</code></td>
+<td><code>待解析：NULL</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/mod_conference.c#L4038" target="_blank" rel="noopener noreferrer">L4038</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_conference</td>
+<td><code>conference_set_auto_outcall</code></td>
+<td><code>待解析：NULL</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/mod_conference.c#L4039" target="_blank" rel="noopener noreferrer">L4039</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_curl</td>
+<td><code>curl</code></td>
+<td><code>待解析：SYNTAX</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_curl/mod_curl.c#L1163" target="_blank" rel="noopener noreferrer">L1163</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_curl</td>
+<td><code>curl</code></td>
+<td><code>待解析：SYNTAX</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_curl/mod_curl.c#L1164" target="_blank" rel="noopener noreferrer">L1164</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_curl</td>
+<td><code>curl_sendfile</code></td>
+<td><code>&lt;url&gt; &lt;filenameParamName=filepath&gt; [nopost|postparam1=foo&amp;postparam2=bar... [event|stream|both|none  [identifier ]]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_curl/mod_curl.c#L1167" target="_blank" rel="noopener noreferrer">L1167</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_curl</td>
+<td><code>curl_sendfile</code></td>
+<td><code>&lt;url&gt; &lt;filenameParamName=filepath&gt; [nopost|postparam1=foo&amp;postparam2=bar... [event|none  [identifier ]]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_curl/mod_curl.c#L1168" target="_blank" rel="noopener noreferrer">L1168</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_cv</td>
+<td><code>cv</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_cv/mod_cv.cpp#L1399" target="_blank" rel="noopener noreferrer">L1399</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_cv</td>
+<td><code>cv_bug</code></td>
+<td><code>[&lt;/path/to/haar.xml&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_cv/mod_cv.cpp#L1401" target="_blank" rel="noopener noreferrer">L1401</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_cv</td>
+<td><code>cv_bug</code></td>
+<td><code>&lt;uuid&gt; [start|stop]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_cv/mod_cv.cpp#L1404" target="_blank" rel="noopener noreferrer">L1404</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_db</td>
+<td><code>db</code></td>
+<td><code>[insert|delete]/&lt;realm&gt;/&lt;key&gt;/&lt;val&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_db/mod_db.c#L673" target="_blank" rel="noopener noreferrer">L673</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_db</td>
+<td><code>group</code></td>
+<td><code>[insert|delete]:&lt;group name&gt;:&lt;val&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_db/mod_db.c#L674" target="_blank" rel="noopener noreferrer">L674</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_db</td>
+<td><code>db</code></td>
+<td><code>[insert|delete|select|exists|count|list]/&lt;realm&gt;/&lt;key&gt;/&lt;value&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_db/mod_db.c#L675" target="_blank" rel="noopener noreferrer">L675</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_db</td>
+<td><code>group</code></td>
+<td><code>[insert|delete|call]:&lt;group name&gt;:&lt;url&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_db/mod_db.c#L682" target="_blank" rel="noopener noreferrer">L682</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_directory</td>
+<td><code>directory</code></td>
+<td><code>&lt;profile_name&gt; &lt;domain_name&gt; [&lt;context_name&gt;] | [&lt;dialplan_name&gt; &lt;context_name&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_directory/mod_directory.c#L1092" target="_blank" rel="noopener noreferrer">L1092</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_distributor</td>
+<td><code>distributor</code></td>
+<td><code>&lt;list name&gt;[ &lt;exception1&gt; &lt;exceptionN&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_distributor/mod_distributor.c#L509" target="_blank" rel="noopener noreferrer">L509</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_distributor</td>
+<td><code>distributor_ctl</code></td>
+<td><code>[reload]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_distributor/mod_distributor.c#L510" target="_blank" rel="noopener noreferrer">L510</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_distributor</td>
+<td><code>distributor</code></td>
+<td><code>&lt;list name&gt;[ &lt;exception1&gt; &lt;exceptionN&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_distributor/mod_distributor.c#L511" target="_blank" rel="noopener noreferrer">L511</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_dptools</td>
+<td><code>strepoch</code></td>
+<td><code>&lt;string&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6621" target="_blank" rel="noopener noreferrer">L6621</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_dptools</td>
+<td><code>page</code></td>
+<td><code>(var1=val1,var2=val2)&lt;var1=val1,var2=val2&gt;&lt;chan1&gt;[:_:&lt;chanN&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6622" target="_blank" rel="noopener noreferrer">L6622</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_dptools</td>
+<td><code>strmicroepoch</code></td>
+<td><code>&lt;string&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6623" target="_blank" rel="noopener noreferrer">L6623</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_dptools</td>
+<td><code>chat</code></td>
+<td><code>&lt;proto&gt;|&lt;from&gt;|&lt;to&gt;|&lt;message&gt;|[&lt;content-type&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6624" target="_blank" rel="noopener noreferrer">L6624</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_dptools</td>
+<td><code>strftime</code></td>
+<td><code>&lt;format_string&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6625" target="_blank" rel="noopener noreferrer">L6625</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_dptools</td>
+<td><code>presence</code></td>
+<td><code>[in|out] &lt;user&gt; &lt;rpid&gt; &lt;message&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6626" target="_blank" rel="noopener noreferrer">L6626</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>blind_transfer_ack</code></td>
+<td><code>[true|false]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6628" target="_blank" rel="noopener noreferrer">L6628</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>bind_digit_action</code></td>
+<td><code>&lt;realm&gt;,&lt;digits|~regex&gt;,&lt;string&gt;[,&lt;value&gt;][,&lt;dtmf target leg&gt;][,&lt;event target leg&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6630" target="_blank" rel="noopener noreferrer">L6630</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>capture</code></td>
+<td><code>&lt;varname&gt;|&lt;data&gt;|&lt;regex&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6633" target="_blank" rel="noopener noreferrer">L6633</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>clear_digit_action</code></td>
+<td><code>&lt;realm&gt;|all[,target]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6636" target="_blank" rel="noopener noreferrer">L6636</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>digit_action_set_realm</code></td>
+<td><code>&lt;realm&gt;[,&lt;target&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6639" target="_blank" rel="noopener noreferrer">L6639</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>privacy</code></td>
+<td><code>off|on|name|full|number</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6642" target="_blank" rel="noopener noreferrer">L6642</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>set_audio_level</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6645" target="_blank" rel="noopener noreferrer">L6645</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>set_mute</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6646" target="_blank" rel="noopener noreferrer">L6646</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>flush_dtmf</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6648" target="_blank" rel="noopener noreferrer">L6648</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>hold</code></td>
+<td><code>[&lt;display message&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6649" target="_blank" rel="noopener noreferrer">L6649</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>unhold</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6650" target="_blank" rel="noopener noreferrer">L6650</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>mutex</code></td>
+<td><code>&lt;keyname&gt;[ on|off]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6651" target="_blank" rel="noopener noreferrer">L6651</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>page</code></td>
+<td><code>&lt;var1=val1,var2=val2&gt;&lt;chan1&gt;[:_:&lt;chanN&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6652" target="_blank" rel="noopener noreferrer">L6652</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>transfer</code></td>
+<td><code>&lt;exten&gt; [&lt;dialplan&gt; &lt;context&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6653" target="_blank" rel="noopener noreferrer">L6653</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>check_acl</code></td>
+<td><code>&lt;ip&gt; &lt;acl | cidr&gt; [&lt;hangup_cause&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6655" target="_blank" rel="noopener noreferrer">L6655</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>verbose_events</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6657" target="_blank" rel="noopener noreferrer">L6657</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>novideo</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6659" target="_blank" rel="noopener noreferrer">L6659</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>cng_plc</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6661" target="_blank" rel="noopener noreferrer">L6661</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>early_hangup</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6663" target="_blank" rel="noopener noreferrer">L6663</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>sleep</code></td>
+<td><code>&lt;pausemilliseconds&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6664" target="_blank" rel="noopener noreferrer">L6664</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>delay_echo</code></td>
+<td><code>&lt;delay ms&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6665" target="_blank" rel="noopener noreferrer">L6665</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>strftime</code></td>
+<td><code>[&lt;epoch&gt;|]&lt;format string&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6666" target="_blank" rel="noopener noreferrer">L6666</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>phrase</code></td>
+<td><code>&lt;macro_name&gt;,&lt;data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6667" target="_blank" rel="noopener noreferrer">L6667</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>eval</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6668" target="_blank" rel="noopener noreferrer">L6668</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>set_media_stats</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6669" target="_blank" rel="noopener noreferrer">L6669</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>stop</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6670" target="_blank" rel="noopener noreferrer">L6670</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>set_zombie_exec</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6671" target="_blank" rel="noopener noreferrer">L6671</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>pre_answer</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6673" target="_blank" rel="noopener noreferrer">L6673</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>answer</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6674" target="_blank" rel="noopener noreferrer">L6674</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>wait_for_answer</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6675" target="_blank" rel="noopener noreferrer">L6675</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>wait_for_video_ready</code></td>
+<td><code>[&lt;ms, 1..10000&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6676" target="_blank" rel="noopener noreferrer">L6676</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>hangup</code></td>
+<td><code>[&lt;cause&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6677" target="_blank" rel="noopener noreferrer">L6677</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>set_name</code></td>
+<td><code>&lt;name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6678" target="_blank" rel="noopener noreferrer">L6678</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>presence</code></td>
+<td><code>&lt;rpid&gt; &lt;status&gt; [&lt;id&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6679" target="_blank" rel="noopener noreferrer">L6679</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>log</code></td>
+<td><code>&lt;log_level&gt; &lt;log_string&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6681" target="_blank" rel="noopener noreferrer">L6681</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>info</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6683" target="_blank" rel="noopener noreferrer">L6683</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>event</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6684" target="_blank" rel="noopener noreferrer">L6684</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>sound_test</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6685" target="_blank" rel="noopener noreferrer">L6685</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>export</code></td>
+<td><code>&lt;varname&gt;=&lt;value&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6686" target="_blank" rel="noopener noreferrer">L6686</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>bridge_export</code></td>
+<td><code>&lt;varname&gt;=&lt;value&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6688" target="_blank" rel="noopener noreferrer">L6688</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>set</code></td>
+<td><code>&lt;varname&gt;=&lt;value&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6690" target="_blank" rel="noopener noreferrer">L6690</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>multiset</code></td>
+<td><code>[^^&lt;delim&gt;]&lt;varname&gt;=&lt;value&gt; &lt;var2&gt;=&lt;val2&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6693" target="_blank" rel="noopener noreferrer">L6693</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>push</code></td>
+<td><code>&lt;varname&gt;=&lt;value&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6696" target="_blank" rel="noopener noreferrer">L6696</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>unshift</code></td>
+<td><code>&lt;varname&gt;=&lt;value&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6699" target="_blank" rel="noopener noreferrer">L6699</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>set_global</code></td>
+<td><code>&lt;varname&gt;=&lt;value&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6702" target="_blank" rel="noopener noreferrer">L6702</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>set_profile_var</code></td>
+<td><code>&lt;varname&gt;=&lt;value&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6704" target="_blank" rel="noopener noreferrer">L6704</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>unset</code></td>
+<td><code>&lt;varname&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6706" target="_blank" rel="noopener noreferrer">L6706</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>multiunset</code></td>
+<td><code>[^^&lt;delim&gt;]&lt;varname&gt; &lt;var2&gt; &lt;var3&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6708" target="_blank" rel="noopener noreferrer">L6708</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>capture_text</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6711" target="_blank" rel="noopener noreferrer">L6711</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>acknowledge_call</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6712" target="_blank" rel="noopener noreferrer">L6712</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>ring_ready</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6713" target="_blank" rel="noopener noreferrer">L6713</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>remove_bugs</code></td>
+<td><code>[&lt;function&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6714" target="_blank" rel="noopener noreferrer">L6714</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>break</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6715" target="_blank" rel="noopener noreferrer">L6715</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>detect_speech</code></td>
+<td><code>&lt;mod_name&gt; &lt;gram_name&gt; &lt;gram_path&gt; [&lt;addr&gt;] OR grammar &lt;gram_name&gt; [&lt;path&gt;] OR nogrammar &lt;gram_name&gt; OR grammaron/grammaroff &lt;gram_name&gt; OR grammarsalloff OR pause OR resume OR start_input_timers OR stop OR param &lt;name&gt; &lt;value&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6716" target="_blank" rel="noopener noreferrer">L6716</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>play_and_detect_speech</code></td>
+<td><code>&lt;file&gt; detect:&lt;engine&gt; {param1=val1,param2=val2}&lt;grammar&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6717" target="_blank" rel="noopener noreferrer">L6717</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>ivr</code></td>
+<td><code>&lt;menu_name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6718" target="_blank" rel="noopener noreferrer">L6718</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>redirect</code></td>
+<td><code>&lt;redirect_data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6719" target="_blank" rel="noopener noreferrer">L6719</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>video_refresh</code></td>
+<td><code>[manual|auto]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6721" target="_blank" rel="noopener noreferrer">L6721</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>video_decode</code></td>
+<td><code>[[on|wait]|off]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6723" target="_blank" rel="noopener noreferrer">L6723</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>send_info</code></td>
+<td><code>&lt;info&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6725" target="_blank" rel="noopener noreferrer">L6725</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>jitterbuffer</code></td>
+<td><code>&lt;jitterbuffer_data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6726" target="_blank" rel="noopener noreferrer">L6726</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>send_display</code></td>
+<td><code>&lt;text&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6728" target="_blank" rel="noopener noreferrer">L6728</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>respond</code></td>
+<td><code>&lt;respond_data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6730" target="_blank" rel="noopener noreferrer">L6730</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>deflect</code></td>
+<td><code>&lt;deflect_data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6732" target="_blank" rel="noopener noreferrer">L6732</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>recovery_refresh</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6733" target="_blank" rel="noopener noreferrer">L6733</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>reuse_caller_profile</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6734" target="_blank" rel="noopener noreferrer">L6734</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>queue_dtmf</code></td>
+<td><code>&lt;dtmf_data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6735" target="_blank" rel="noopener noreferrer">L6735</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>send_dtmf</code></td>
+<td><code>&lt;dtmf_data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6737" target="_blank" rel="noopener noreferrer">L6737</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>sched_cancel</code></td>
+<td><code>[group]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6739" target="_blank" rel="noopener noreferrer">L6739</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>sched_hangup</code></td>
+<td><code>[+]&lt;time&gt; [&lt;cause&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6741" target="_blank" rel="noopener noreferrer">L6741</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>sched_broadcast</code></td>
+<td><code>[+]&lt;time&gt; &lt;path&gt; [aleg|bleg|both]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6743" target="_blank" rel="noopener noreferrer">L6743</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>sched_transfer</code></td>
+<td><code>[+]&lt;time&gt; &lt;extension&gt; &lt;dialplan&gt; &lt;context&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6745" target="_blank" rel="noopener noreferrer">L6745</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>execute_extension</code></td>
+<td><code>&lt;extension&gt; &lt;dialplan&gt; &lt;context&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6747" target="_blank" rel="noopener noreferrer">L6747</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>sched_heartbeat</code></td>
+<td><code>[0|&lt;seconds&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6748" target="_blank" rel="noopener noreferrer">L6748</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>enable_heartbeat</code></td>
+<td><code>[0|&lt;seconds&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6750" target="_blank" rel="noopener noreferrer">L6750</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>filter_codecs</code></td>
+<td><code>&lt;codec string&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6753" target="_blank" rel="noopener noreferrer">L6753</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>enable_keepalive</code></td>
+<td><code>[0|&lt;seconds&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6755" target="_blank" rel="noopener noreferrer">L6755</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>media_reset</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6758" target="_blank" rel="noopener noreferrer">L6758</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>mkdir</code></td>
+<td><code>&lt;path&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6759" target="_blank" rel="noopener noreferrer">L6759</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>rename</code></td>
+<td><code>&lt;from_path&gt; &lt;to_path&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6760" target="_blank" rel="noopener noreferrer">L6760</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>transfer_vars</code></td>
+<td><code>&lt;~variable_prefix|variable&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6761" target="_blank" rel="noopener noreferrer">L6761</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>soft_hold</code></td>
+<td><code>&lt;unhold key&gt; [&lt;moh_a&gt;] [&lt;moh_b&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6763" target="_blank" rel="noopener noreferrer">L6763</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>bind_meta_app</code></td>
+<td><code>&lt;key&gt; [a|b|ab] [a|b|o|s|i|1] &lt;app&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6765" target="_blank" rel="noopener noreferrer">L6765</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>unbind_meta_app</code></td>
+<td><code>[&lt;key&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6767" target="_blank" rel="noopener noreferrer">L6767</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>block_dtmf</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6769" target="_blank" rel="noopener noreferrer">L6769</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>unblock_dtmf</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6770" target="_blank" rel="noopener noreferrer">L6770</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>intercept</code></td>
+<td><code>[-bleg] &lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6771" target="_blank" rel="noopener noreferrer">L6771</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>eavesdrop</code></td>
+<td><code>[all | &lt;uuid&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6772" target="_blank" rel="noopener noreferrer">L6772</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>native_eavesdrop</code></td>
+<td><code>&lt;uuid&gt; [read|write]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6773" target="_blank" rel="noopener noreferrer">L6773</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>three_way</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6774" target="_blank" rel="noopener noreferrer">L6774</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>set_user</code></td>
+<td><code>&lt;user&gt;@&lt;domain&gt; [prefix]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6776" target="_blank" rel="noopener noreferrer">L6776</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>stop_dtmf</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6777" target="_blank" rel="noopener noreferrer">L6777</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>start_dtmf</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6778" target="_blank" rel="noopener noreferrer">L6778</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>stop_dtmf_generate</code></td>
+<td><code>[write]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6779" target="_blank" rel="noopener noreferrer">L6779</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>start_dtmf_generate</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6781" target="_blank" rel="noopener noreferrer">L6781</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>stop_tone_detect</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6783" target="_blank" rel="noopener noreferrer">L6783</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>fax_detect</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6784" target="_blank" rel="noopener noreferrer">L6784</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>tone_detect</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6785" target="_blank" rel="noopener noreferrer">L6785</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>echo</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6786" target="_blank" rel="noopener noreferrer">L6786</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>park</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6787" target="_blank" rel="noopener noreferrer">L6787</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>park_state</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6788" target="_blank" rel="noopener noreferrer">L6788</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>gentones</code></td>
+<td><code>&lt;tgml_script&gt;[|&lt;loops&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6789" target="_blank" rel="noopener noreferrer">L6789</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>playback</code></td>
+<td><code>&lt;path&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6790" target="_blank" rel="noopener noreferrer">L6790</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>broadcast</code></td>
+<td><code>&lt;path&gt; &lt;leg&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6791" target="_blank" rel="noopener noreferrer">L6791</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>endless_playback</code></td>
+<td><code>&lt;path&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6792" target="_blank" rel="noopener noreferrer">L6792</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>loop_playback</code></td>
+<td><code>[+loops] &lt;path&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6794" target="_blank" rel="noopener noreferrer">L6794</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>att_xfer</code></td>
+<td><code>&lt;channel_url&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6796" target="_blank" rel="noopener noreferrer">L6796</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>read</code></td>
+<td><code>&lt;min&gt; &lt;max&gt; &lt;file&gt; &lt;var_name&gt; &lt;timeout&gt; &lt;terminators&gt; &lt;digit_timeout&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6797" target="_blank" rel="noopener noreferrer">L6797</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>play_and_get_digits</code></td>
+<td><code> 	&lt;min&gt; &lt;max&gt; &lt;tries&gt; &lt;timeout&gt; &lt;terminators&gt; &lt;file&gt; &lt;invalid_file&gt; &lt;var_name&gt; &lt;regexp&gt; [&lt;digit_timeout&gt;] [&#39;&lt;failure_ext&gt; [failure_dp [failure_context]]&#39;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6799" target="_blank" rel="noopener noreferrer">L6799</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>stop_video_write_overlay</code></td>
+<td><code>&lt;path&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6803" target="_blank" rel="noopener noreferrer">L6803</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>video_write_overlay</code></td>
+<td><code>&lt;path&gt; [&lt;pos&gt;] [&lt;alpha&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6804" target="_blank" rel="noopener noreferrer">L6804</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>stop_record_session</code></td>
+<td><code>&lt;path&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6806" target="_blank" rel="noopener noreferrer">L6806</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>record_session</code></td>
+<td><code>&lt;path&gt; [+&lt;timeout&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6807" target="_blank" rel="noopener noreferrer">L6807</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>record_session_mask</code></td>
+<td><code>&lt;path&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6808" target="_blank" rel="noopener noreferrer">L6808</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>record_session_unmask</code></td>
+<td><code>&lt;path&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6809" target="_blank" rel="noopener noreferrer">L6809</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>record_session_pause</code></td>
+<td><code>&lt;path&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6810" target="_blank" rel="noopener noreferrer">L6810</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>record_session_resume</code></td>
+<td><code>&lt;path&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6811" target="_blank" rel="noopener noreferrer">L6811</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>record</code></td>
+<td><code>&lt;path&gt; [&lt;time_limit_secs&gt;] [&lt;silence_thresh&gt;] [&lt;silence_hits&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6812" target="_blank" rel="noopener noreferrer">L6812</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>preprocess</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6814" target="_blank" rel="noopener noreferrer">L6814</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>stop_displace_session</code></td>
+<td><code>&lt;path&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6815" target="_blank" rel="noopener noreferrer">L6815</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>displace_session</code></td>
+<td><code>&lt;path&gt; [&lt;flags&gt;] [+time_limit_ms]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6817" target="_blank" rel="noopener noreferrer">L6817</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>speak</code></td>
+<td><code>&lt;engine&gt;|&lt;voice&gt;|&lt;text&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6819" target="_blank" rel="noopener noreferrer">L6819</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>clear_speech_cache</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6820" target="_blank" rel="noopener noreferrer">L6820</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>bridge</code></td>
+<td><code>&lt;channel_url&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6822" target="_blank" rel="noopener noreferrer">L6822</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>system</code></td>
+<td><code>&lt;command&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6825" target="_blank" rel="noopener noreferrer">L6825</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>bgsystem</code></td>
+<td><code>&lt;command&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6827" target="_blank" rel="noopener noreferrer">L6827</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>say</code></td>
+<td><code>&lt;module_name&gt;[:&lt;lang&gt;] &lt;say_type&gt; &lt;say_method&gt; [&lt;say_gender&gt;] &lt;text&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6830" target="_blank" rel="noopener noreferrer">L6830</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>detect_audio</code></td>
+<td><code>&lt;threshold&gt; &lt;audio_hits&gt; &lt;timeout_ms&gt; [&lt;file&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6832" target="_blank" rel="noopener noreferrer">L6832</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>detect_silence</code></td>
+<td><code>&lt;threshold&gt; &lt;silence_hits&gt; &lt;timeout_ms&gt; [&lt;file&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6834" target="_blank" rel="noopener noreferrer">L6834</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>wait_for_silence</code></td>
+<td><code>&lt;silence_thresh&gt; &lt;silence_hits&gt; &lt;listen_hits&gt; &lt;timeout_ms&gt; [&lt;file&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6836" target="_blank" rel="noopener noreferrer">L6836</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>session_loglevel</code></td>
+<td><code>&lt;level&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6838" target="_blank" rel="noopener noreferrer">L6838</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>limit</code></td>
+<td><code>&lt;backend&gt; &lt;realm&gt; &lt;id&gt; [&lt;max&gt;[/interval]] [number [dialplan [context]]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6840" target="_blank" rel="noopener noreferrer">L6840</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>limit_hash</code></td>
+<td><code>&lt;realm&gt; &lt;id&gt; [&lt;max&gt;[/interval]] [number [dialplan [context]]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6841" target="_blank" rel="noopener noreferrer">L6841</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>limit_execute</code></td>
+<td><code>&lt;backend&gt; &lt;realm&gt; &lt;id&gt; &lt;max&gt;[/interval] &lt;application&gt; [application arguments]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6842" target="_blank" rel="noopener noreferrer">L6842</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>limit_hash_execute</code></td>
+<td><code>&lt;realm&gt; &lt;id&gt; &lt;max&gt;[/interval] &lt;application&gt; [application arguments]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6843" target="_blank" rel="noopener noreferrer">L6843</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>pickup</code></td>
+<td><code>[&lt;key&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6845" target="_blank" rel="noopener noreferrer">L6845</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>deduplicate_dtmf</code></td>
+<td><code>[only_rtp]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6846" target="_blank" rel="noopener noreferrer">L6846</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>vad_test</code></td>
+<td><code>[mode]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6848" target="_blank" rel="noopener noreferrer">L6848</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dptools</td>
+<td><code>debug_media</code></td>
+<td><code>&lt;read|write|both|vread|vwrite|vboth|all&gt; &lt;on|off&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6849" target="_blank" rel="noopener noreferrer">L6849</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_easyroute</td>
+<td><code>easyroute</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_easyroute/mod_easyroute.c#L407" target="_blank" rel="noopener noreferrer">L407</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_easyroute</td>
+<td><code>easyroute</code></td>
+<td><code>&lt;number&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_easyroute/mod_easyroute.c#L408" target="_blank" rel="noopener noreferrer">L408</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_enum</td>
+<td><code>enum</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_enum/mod_enum.c#L914" target="_blank" rel="noopener noreferrer">L914</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_enum</td>
+<td><code>enum_auto</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_enum/mod_enum.c#L915" target="_blank" rel="noopener noreferrer">L915</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_enum</td>
+<td><code>enum</code></td>
+<td><code>[reload | &lt;number&gt; [&lt;root&gt;]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_enum/mod_enum.c#L916" target="_blank" rel="noopener noreferrer">L916</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_esf</td>
+<td><code>esf_page_group</code></td>
+<td><code>待解析：NULL</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_esf/mod_esf.c#L568" target="_blank" rel="noopener noreferrer">L568</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_esl</td>
+<td><code>single_esl</code></td>
+<td><code>[&lt;user&gt;]|&lt;password&gt; &lt;host&gt;[:&lt;port&gt;] &lt;timeout&gt; &lt;remote api&gt; &lt;arguments&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_esl/mod_esl.c#L127" target="_blank" rel="noopener noreferrer">L127</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_expr</td>
+<td><code>expr</code></td>
+<td><code>&lt;expr&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_expr/mod_expr.c#L213" target="_blank" rel="noopener noreferrer">L213</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_fifo</td>
+<td><code>fifo</code></td>
+<td><code>&lt;fifo name&gt;[!&lt;importance_number&gt;] [in [&lt;announce file&gt;|undef] [&lt;music file&gt;|undef] [early|noans] | out [wait|nowait] [&lt;announce file&gt;|undef] [&lt;music file&gt;|undef]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fifo/mod_fifo.c#L4893" target="_blank" rel="noopener noreferrer">L4893</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_fifo</td>
+<td><code>fifo_track_call</code></td>
+<td><code>&lt;fifo_outbound_uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fifo/mod_fifo.c#L4894" target="_blank" rel="noopener noreferrer">L4894</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_fifo</td>
+<td><code>fifo</code></td>
+<td><code>list|list_verbose|count|debug|status|has_outbound|importance [&lt;fifo name&gt;]|reparse [del_all]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fifo/mod_fifo.c#L4896" target="_blank" rel="noopener noreferrer">L4896</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_fifo</td>
+<td><code>fifo_member</code></td>
+<td><code>[add &lt;fifo_name&gt; &lt;originate_string&gt; [&lt;simo_count&gt;] [&lt;timeout&gt;] [&lt;lag&gt;] [&lt;expires&gt;] [&lt;taking_calls&gt;] | del &lt;fifo_name&gt; &lt;originate_string&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fifo/mod_fifo.c#L4897" target="_blank" rel="noopener noreferrer">L4897</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_fifo</td>
+<td><code>fifo_add_outbound</code></td>
+<td><code>&lt;node&gt; &lt;url&gt; [&lt;priority&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fifo/mod_fifo.c#L4898" target="_blank" rel="noopener noreferrer">L4898</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_fifo</td>
+<td><code>fifo_check_bridge</code></td>
+<td><code>&lt;uuid&gt;|&lt;outbound_id&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fifo/mod_fifo.c#L4899" target="_blank" rel="noopener noreferrer">L4899</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_fsk</td>
+<td><code>fsk_send</code></td>
+<td><code>待解析：NULL</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fsk/mod_fsk.c#L461" target="_blank" rel="noopener noreferrer">L461</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_fsk</td>
+<td><code>fsk_recv</code></td>
+<td><code>待解析：NULL</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fsk/mod_fsk.c#L462" target="_blank" rel="noopener noreferrer">L462</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_fsk</td>
+<td><code>fsk_simplify</code></td>
+<td><code>待解析：NULL</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fsk/mod_fsk.c#L463" target="_blank" rel="noopener noreferrer">L463</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_fsk</td>
+<td><code>fsk_display</code></td>
+<td><code>待解析：NULL</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fsk/mod_fsk.c#L464" target="_blank" rel="noopener noreferrer">L464</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_fsv</td>
+<td><code>play_fsv</code></td>
+<td><code>&lt;file&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fsv/mod_fsv.c#L1276" target="_blank" rel="noopener noreferrer">L1276</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_fsv</td>
+<td><code>record_fsv</code></td>
+<td><code>&lt;file&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fsv/mod_fsv.c#L1277" target="_blank" rel="noopener noreferrer">L1277</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_fsv</td>
+<td><code>play_yuv</code></td>
+<td><code>&lt;file&gt; [width] [height]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fsv/mod_fsv.c#L1278" target="_blank" rel="noopener noreferrer">L1278</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_fsv</td>
+<td><code>decode_video</code></td>
+<td><code>[max_pictures]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_fsv/mod_fsv.c#L1279" target="_blank" rel="noopener noreferrer">L1279</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_hash</td>
+<td><code>hash</code></td>
+<td><code>[insert|insert_ifempty|delete|delete_ifmatch]/&lt;realm&gt;/&lt;key&gt;/&lt;val&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_hash/mod_hash.c#L973" target="_blank" rel="noopener noreferrer">L973</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_hash</td>
+<td><code>hash</code></td>
+<td><code>[insert|delete|select]/&lt;realm&gt;/&lt;key&gt;/&lt;value&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_hash/mod_hash.c#L974" target="_blank" rel="noopener noreferrer">L974</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_hash</td>
+<td><code>hash_dump</code></td>
+<td><code>all|limit|db [&lt;realm&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_hash/mod_hash.c#L975" target="_blank" rel="noopener noreferrer">L975</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_hash</td>
+<td><code>hash_remote</code></td>
+<td><code>list|kill [name]|rescan</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_hash/mod_hash.c#L976" target="_blank" rel="noopener noreferrer">L976</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_hiredis</td>
+<td><code>hiredis_raw</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_hiredis/mod_hiredis.c#L441" target="_blank" rel="noopener noreferrer">L441</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_hiredis</td>
+<td><code>hiredis_raw</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_hiredis/mod_hiredis.c#L442" target="_blank" rel="noopener noreferrer">L442</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_httapi</td>
+<td><code>httapi</code></td>
+<td><code>[debug_on|debug_off]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_httapi/mod_httapi.c#L3259" target="_blank" rel="noopener noreferrer">L3259</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_httapi</td>
+<td><code>httapi</code></td>
+<td><code>{&lt;param1&gt;=&lt;val1&gt;}</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_httapi/mod_httapi.c#L3262" target="_blank" rel="noopener noreferrer">L3262</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_http_cache</td>
+<td><code>http_get</code></td>
+<td><code>{param=val}&lt;url&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_http_cache/mod_http_cache.c#L1975" target="_blank" rel="noopener noreferrer">L1975</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_http_cache</td>
+<td><code>http_tryget</code></td>
+<td><code>{param=val}&lt;url&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_http_cache/mod_http_cache.c#L1976" target="_blank" rel="noopener noreferrer">L1976</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_http_cache</td>
+<td><code>http_put</code></td>
+<td><code>{param=val}&lt;url&gt; &lt;file&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_http_cache/mod_http_cache.c#L1977" target="_blank" rel="noopener noreferrer">L1977</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_http_cache</td>
+<td><code>http_clear_cache</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_http_cache/mod_http_cache.c#L1978" target="_blank" rel="noopener noreferrer">L1978</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_http_cache</td>
+<td><code>http_remove_cache</code></td>
+<td><code>&lt;url&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_http_cache/mod_http_cache.c#L1979" target="_blank" rel="noopener noreferrer">L1979</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_http_cache</td>
+<td><code>http_prefetch</code></td>
+<td><code>{param=val}&lt;url&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_http_cache/mod_http_cache.c#L1980" target="_blank" rel="noopener noreferrer">L1980</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_lcr</td>
+<td><code>lcr</code></td>
+<td><code>lcr &lt;digits&gt; [&lt;lcr profile&gt;] [caller_id] [intrastate] [as xml]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_lcr/mod_lcr.c#L2102" target="_blank" rel="noopener noreferrer">L2102</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_lcr</td>
+<td><code>lcr_admin</code></td>
+<td><code>lcr_admin show profiles</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_lcr/mod_lcr.c#L2103" target="_blank" rel="noopener noreferrer">L2103</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_lcr</td>
+<td><code>lcr</code></td>
+<td><code>&lt;number&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_lcr/mod_lcr.c#L2104" target="_blank" rel="noopener noreferrer">L2104</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_memcache</td>
+<td><code>memcache</code></td>
+<td><code>syntax</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_memcache/mod_memcache.c#L601" target="_blank" rel="noopener noreferrer">L601</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_mongo</td>
+<td><code>mongo_find_one</code></td>
+<td><code>mongo_find_one ns; query; fields; options</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_mongo/mod_mongo.c#L896" target="_blank" rel="noopener noreferrer">L896</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_mongo</td>
+<td><code>mongo_find_n</code></td>
+<td><code>mongo_find_n ns; query; fields; options; n</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_mongo/mod_mongo.c#L897" target="_blank" rel="noopener noreferrer">L897</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_mongo</td>
+<td><code>mongo_mapreduce</code></td>
+<td><code>mongo_mapreduce ns; query</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_mongo/mod_mongo.c#L898" target="_blank" rel="noopener noreferrer">L898</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_nibblebill</td>
+<td><code>nibblebill</code></td>
+<td><code>&lt;uuid&gt; [pause | resume | reset | adjust &lt;amount&gt; | heartbeat &lt;seconds&gt; | check]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_nibblebill/mod_nibblebill.c#L1049" target="_blank" rel="noopener noreferrer">L1049</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_nibblebill</td>
+<td><code>nibblebill</code></td>
+<td><code>pause | resume | reset | adjust &lt;amount&gt; | heartbeat &lt;seconds&gt; | check</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_nibblebill/mod_nibblebill.c#L1052" target="_blank" rel="noopener noreferrer">L1052</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_osp</td>
+<td><code>osp</code></td>
+<td><code>status</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_osp/mod_osp.c#L2980" target="_blank" rel="noopener noreferrer">L2980</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_osp</td>
+<td><code>osplookup</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_osp/mod_osp.c#L2984" target="_blank" rel="noopener noreferrer">L2984</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_osp</td>
+<td><code>ospnext</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_osp/mod_osp.c#L2985" target="_blank" rel="noopener noreferrer">L2985</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_prefix</td>
+<td><code>prefix</code></td>
+<td><code>get &lt;table&gt; &lt;key&gt; | load &lt;table&gt; &lt;file&gt; | drop &lt;table&gt; | reload</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_prefix/mod_prefix.c#L235" target="_blank" rel="noopener noreferrer">L235</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_signalwire</td>
+<td><code>signalwire</code></td>
+<td><code>token | token-reset | adoption | adopted | reload | update | debug &lt;level&gt; | kslog &lt;on|off|logfile e.g. /tmp/ks.log&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_signalwire/mod_signalwire.c#L952" target="_blank" rel="noopener noreferrer">L952</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_skel</td>
+<td><code>skel</code></td>
+<td><code>syntax</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_skel/mod_skel.c#L258" target="_blank" rel="noopener noreferrer">L258</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_sms</td>
+<td><code>info</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_sms/mod_sms.c#L637" target="_blank" rel="noopener noreferrer">L637</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_sms</td>
+<td><code>reply</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_sms/mod_sms.c#L638" target="_blank" rel="noopener noreferrer">L638</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_sms</td>
+<td><code>stop</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_sms/mod_sms.c#L639" target="_blank" rel="noopener noreferrer">L639</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_sms</td>
+<td><code>final</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_sms/mod_sms.c#L640" target="_blank" rel="noopener noreferrer">L640</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_sms</td>
+<td><code>set</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_sms/mod_sms.c#L641" target="_blank" rel="noopener noreferrer">L641</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_sms</td>
+<td><code>unset</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_sms/mod_sms.c#L642" target="_blank" rel="noopener noreferrer">L642</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_sms</td>
+<td><code>send</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_sms/mod_sms.c#L643" target="_blank" rel="noopener noreferrer">L643</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_sms</td>
+<td><code>fire</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_sms/mod_sms.c#L644" target="_blank" rel="noopener noreferrer">L644</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_sms</td>
+<td><code>system</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_sms/mod_sms.c#L645" target="_blank" rel="noopener noreferrer">L645</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_snapshot</td>
+<td><code>uuid_snapshot</code></td>
+<td><code>&lt;uuid&gt; snap|start [&lt;sec&gt; read|write &lt;base&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_snapshot/mod_snapshot.c#L330" target="_blank" rel="noopener noreferrer">L330</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_snapshot</td>
+<td><code>snapshot</code></td>
+<td><code>start &lt;sec&gt; &lt;read|write&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_snapshot/mod_snapshot.c#L331" target="_blank" rel="noopener noreferrer">L331</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>t38_gateway</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L827" target="_blank" rel="noopener noreferrer">L827</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>rxfax</code></td>
+<td><code>&lt;filename&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L830" target="_blank" rel="noopener noreferrer">L830</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>txfax</code></td>
+<td><code>&lt;filename&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L832" target="_blank" rel="noopener noreferrer">L832</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>stopfax</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L834" target="_blank" rel="noopener noreferrer">L834</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>spandsp_stop_dtmf</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L836" target="_blank" rel="noopener noreferrer">L836</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>spandsp_start_dtmf</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L837" target="_blank" rel="noopener noreferrer">L837</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>spandsp_stop_inject_tdd</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L840" target="_blank" rel="noopener noreferrer">L840</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>spandsp_inject_tdd</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L841" target="_blank" rel="noopener noreferrer">L841</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>spandsp_stop_detect_tdd</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L843" target="_blank" rel="noopener noreferrer">L843</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>spandsp_detect_tdd</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L844" target="_blank" rel="noopener noreferrer">L844</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>spandsp_send_tdd</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L847" target="_blank" rel="noopener noreferrer">L847</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>spandsp_start_fax_detect</code></td>
+<td><code>&lt;app&gt;[ &lt;arg&gt;][ &lt;timeout&gt;][ &lt;tone_type&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L849" target="_blank" rel="noopener noreferrer">L849</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>spandsp_stop_fax_detect</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L852" target="_blank" rel="noopener noreferrer">L852</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>spandsp_start_tone_detect</code></td>
+<td><code>&lt;name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L863" target="_blank" rel="noopener noreferrer">L863</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spandsp</td>
+<td><code>spandsp_stop_tone_detect</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L864" target="_blank" rel="noopener noreferrer">L864</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_spandsp</td>
+<td><code>spandsp_start_tone_detect</code></td>
+<td><code>&lt;uuid&gt; &lt;name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L865" target="_blank" rel="noopener noreferrer">L865</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_spandsp</td>
+<td><code>spandsp_stop_tone_detect</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L866" target="_blank" rel="noopener noreferrer">L866</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_spandsp</td>
+<td><code>start_tdd_detect</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L871" target="_blank" rel="noopener noreferrer">L871</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_spandsp</td>
+<td><code>stop_tdd_detect</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L872" target="_blank" rel="noopener noreferrer">L872</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_spandsp</td>
+<td><code>uuid_send_tdd</code></td>
+<td><code>&lt;uuid&gt; &lt;text&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spandsp/mod_spandsp.c#L874" target="_blank" rel="noopener noreferrer">L874</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_spy</td>
+<td><code>userspy</code></td>
+<td><code>&lt;user@domain&gt; [uuid]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spy/mod_spy.c#L353" target="_blank" rel="noopener noreferrer">L353</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_spy</td>
+<td><code>userspy_show</code></td>
+<td><code>userspy_show</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_spy/mod_spy.c#L354" target="_blank" rel="noopener noreferrer">L354</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_translate</td>
+<td><code>translate</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_translate/mod_translate.c#L414" target="_blank" rel="noopener noreferrer">L414</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_translate</td>
+<td><code>translate</code></td>
+<td><code>&lt;number&gt; &lt;profile&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_translate/mod_translate.c#L415" target="_blank" rel="noopener noreferrer">L415</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_valet_parking</td>
+<td><code>valet_park</code></td>
+<td><code>&lt;lotname&gt; &lt;extension&gt;|[ask [&lt;min&gt;] [&lt;max&gt;] [&lt;to&gt;] [&lt;prompt&gt;]|auto [in|out] [min] [max]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_valet_parking/mod_valet_parking.c#L999" target="_blank" rel="noopener noreferrer">L999</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_valet_parking</td>
+<td><code>valet_info</code></td>
+<td><code>[&lt;lot name&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_valet_parking/mod_valet_parking.c#L1000" target="_blank" rel="noopener noreferrer">L1000</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_video_filter</td>
+<td><code>chromakey</code></td>
+<td><code>&lt;#mask_color&gt; [threshold] [#bg_color|path/to/image.png]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_video_filter/mod_video_filter.c#L1187" target="_blank" rel="noopener noreferrer">L1187</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_video_filter</td>
+<td><code>chromakey</code></td>
+<td><code>待解析：CHROMAKEY_API_SYNTAX</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_video_filter/mod_video_filter.c#L1190" target="_blank" rel="noopener noreferrer">L1190</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_video_filter</td>
+<td><code>video_replace</code></td>
+<td><code>[read|write] &lt;file&gt; | stop</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_video_filter/mod_video_filter.c#L1192" target="_blank" rel="noopener noreferrer">L1192</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_video_filter</td>
+<td><code>uuid_video_replace</code></td>
+<td><code>&lt;uuid&gt; &lt;stop|start&gt; [read|write] &lt;file&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_video_filter/mod_video_filter.c#L1195" target="_blank" rel="noopener noreferrer">L1195</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_vmd</td>
+<td><code>vmd</code></td>
+<td><code>[start] [stop]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_vmd/mod_vmd.c#L523" target="_blank" rel="noopener noreferrer">L523</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_vmd</td>
+<td><code>vmd</code></td>
+<td><code>&lt;uuid&gt; &lt;command&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_vmd/mod_vmd.c#L525" target="_blank" rel="noopener noreferrer">L525</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_voicemail</td>
+<td><code>voicemail</code></td>
+<td><code>[check] [auth] &lt;profile_name&gt; &lt;domain_name&gt; [&lt;id&gt;] [uuid]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6228" target="_blank" rel="noopener noreferrer">L6228</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>voicemail</code></td>
+<td><code>rss [&lt;host&gt; &lt;port&gt; &lt;uri&gt; &lt;user&gt; &lt;domain&gt;] | [load|unload|reload] &lt;profile&gt; [reloadxml]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6229" target="_blank" rel="noopener noreferrer">L6229</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>voicemail_inject</code></td>
+<td><code>[group=&lt;group&gt;[@domain]|domain=&lt;domain&gt;|&lt;box&gt;[@&lt;domain&gt;]] &lt;sound_file&gt; [&lt;cid_num&gt;] [&lt;cid_name&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6230" target="_blank" rel="noopener noreferrer">L6230</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_inject</code></td>
+<td><code>[group=&lt;group&gt;[@domain]|domain=&lt;domain&gt;|&lt;box&gt;[@&lt;domain&gt;]] &lt;sound_file&gt; [&lt;cid_num&gt;] [&lt;cid_name&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6231" target="_blank" rel="noopener noreferrer">L6231</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_boxcount</code></td>
+<td><code>[profile/]&lt;user&gt;@&lt;domain&gt;[|[new|saved|new-urgent|saved-urgent|all]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6232" target="_blank" rel="noopener noreferrer">L6232</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_prefs</code></td>
+<td><code>[profile/]&lt;user&gt;@&lt;domain&gt;[|[name_path|greeting_path|password]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6233" target="_blank" rel="noopener noreferrer">L6233</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_delete</code></td>
+<td><code>&lt;id&gt;@&lt;domain&gt;[/profile] [&lt;uuid&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6234" target="_blank" rel="noopener noreferrer">L6234</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_read</code></td>
+<td><code>&lt;id&gt;@&lt;domain&gt;[/profile] &lt;read|unread&gt; [&lt;uuid&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6235" target="_blank" rel="noopener noreferrer">L6235</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_list</code></td>
+<td><code>&lt;id&gt;@&lt;domain&gt;[/profile] [xml]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6236" target="_blank" rel="noopener noreferrer">L6236</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_auth_login</code></td>
+<td><code>&lt;profile&gt; &lt;domain&gt; &lt;user&gt; &lt;password&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6239" target="_blank" rel="noopener noreferrer">L6239</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_msg_count</code></td>
+<td><code>&lt;format&gt; &lt;profile&gt; &lt;domain&gt; &lt;user&gt; &lt;folder&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6242" target="_blank" rel="noopener noreferrer">L6242</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_msg_list</code></td>
+<td><code>&lt;format&gt; &lt;profile&gt; &lt;domain&gt; &lt;user&gt; &lt;folder&gt; &lt;filter&gt; [msg-order = ASC | DESC]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6243" target="_blank" rel="noopener noreferrer">L6243</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_msg_get</code></td>
+<td><code>&lt;format&gt; &lt;profile&gt; &lt;domain&gt; &lt;user&gt; &lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6244" target="_blank" rel="noopener noreferrer">L6244</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_msg_delete</code></td>
+<td><code>&lt;profile&gt; &lt;domain&gt; &lt;user&gt; &lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6245" target="_blank" rel="noopener noreferrer">L6245</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_msg_undelete</code></td>
+<td><code>&lt;profile&gt; &lt;domain&gt; &lt;user&gt; &lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6246" target="_blank" rel="noopener noreferrer">L6246</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_msg_email</code></td>
+<td><code>&lt;profile&gt; &lt;domain&gt; &lt;user&gt; &lt;uuid&gt; &lt;email&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6247" target="_blank" rel="noopener noreferrer">L6247</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_msg_purge</code></td>
+<td><code>&lt;profile&gt; &lt;domain&gt; &lt;user&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6248" target="_blank" rel="noopener noreferrer">L6248</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_msg_save</code></td>
+<td><code>&lt;profile&gt; &lt;domain&gt; &lt;user&gt; &lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6249" target="_blank" rel="noopener noreferrer">L6249</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_msg_forward</code></td>
+<td><code>&lt;profile&gt; &lt;domain&gt; &lt;user&gt; &lt;uuid&gt; &lt;dst_domain&gt; &lt;dst_user&gt; [prepend_file_location]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6250" target="_blank" rel="noopener noreferrer">L6250</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_pref_greeting_set</code></td>
+<td><code>&lt;profile&gt; &lt;domain&gt; &lt;user&gt; &lt;slot&gt; [file-path]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6253" target="_blank" rel="noopener noreferrer">L6253</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_pref_greeting_get</code></td>
+<td><code>&lt;format&gt; &lt;profile&gt; &lt;domain&gt; &lt;user&gt; [slot]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6254" target="_blank" rel="noopener noreferrer">L6254</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_pref_recname_set</code></td>
+<td><code>&lt;profile&gt; &lt;domain&gt; &lt;user&gt; &lt;file-path&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6255" target="_blank" rel="noopener noreferrer">L6255</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_voicemail</td>
+<td><code>vm_fsdb_pref_password_set</code></td>
+<td><code>&lt;profile&gt; &lt;domain&gt; &lt;user&gt; &lt;password&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail/mod_voicemail.c#L6256" target="_blank" rel="noopener noreferrer">L6256</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_voicemail_ivr</td>
+<td><code>voicemail_ivr</code></td>
+<td><code>&lt;check&gt; profile domain [id]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_voicemail_ivr/mod_voicemail_ivr.c#L115" target="_blank" rel="noopener noreferrer">L115</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_amr</td>
+<td><code>amr_debug</code></td>
+<td><code>&lt;on|off&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/codecs/mod_amr/mod_amr.c#L679" target="_blank" rel="noopener noreferrer">L679</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_amrwb</td>
+<td><code>amrwb_debug</code></td>
+<td><code>&lt;on|off&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/codecs/mod_amrwb/mod_amrwb.c#L609" target="_blank" rel="noopener noreferrer">L609</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_opus</td>
+<td><code>opus_debug</code></td>
+<td><code>&lt;on|off&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/codecs/mod_opus/mod_opus.c#L1407" target="_blank" rel="noopener noreferrer">L1407</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_skel_codec</td>
+<td><code>skel_sayhi</code></td>
+<td><code>待解析：NULL</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/codecs/mod_skel_codec/mod_skel_codec.c#L205" target="_blank" rel="noopener noreferrer">L205</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dialplan_asterisk</td>
+<td><code>Dial</code></td>
+<td><code>Dial</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/dialplans/mod_dialplan_asterisk/mod_dialplan_asterisk.c#L375" target="_blank" rel="noopener noreferrer">L375</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dialplan_asterisk</td>
+<td><code>Goto</code></td>
+<td><code>Goto</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/dialplans/mod_dialplan_asterisk/mod_dialplan_asterisk.c#L376" target="_blank" rel="noopener noreferrer">L376</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_dialplan_asterisk</td>
+<td><code>AvoidingDeadlock</code></td>
+<td><code>Avoid</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/dialplans/mod_dialplan_asterisk/mod_dialplan_asterisk.c#L377" target="_blank" rel="noopener noreferrer">L377</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_alsa</td>
+<td><code>alsa</code></td>
+<td><code>&lt;command&gt; [&lt;args&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_alsa/mod_alsa.c#L817" target="_blank" rel="noopener noreferrer">L817</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_loopback</td>
+<td><code>unloop</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_loopback/mod_loopback.c#L1961" target="_blank" rel="noopener noreferrer">L1961</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_rtmp</td>
+<td><code>rtmp</code></td>
+<td><code>profile [profilename] [start | stop | rescan | restart] status profile [profilename] status profile [profilename] [reg | sessions] session [session_id] [kill | login [user@domain] | logout [user@domain]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_rtmp/mod_rtmp.c#L2063" target="_blank" rel="noopener noreferrer">L2063</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_rtmp</td>
+<td><code>rtmp_contact</code></td>
+<td><code>profile/user@domain[/[!]nickname]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_rtmp/mod_rtmp.c#L2064" target="_blank" rel="noopener noreferrer">L2064</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_skinny</td>
+<td><code>skinny</code></td>
+<td><code>&lt;cmd&gt; &lt;args&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_skinny/skinny_api.c#L663" target="_blank" rel="noopener noreferrer">L663</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_sofia</td>
+<td><code>sofia_sla</code></td>
+<td><code>&lt;uuid&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L6848" target="_blank" rel="noopener noreferrer">L6848</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_sofia</td>
+<td><code>sofia_stir_shaken_vs</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L6851" target="_blank" rel="noopener noreferrer">L6851</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_sofia</td>
+<td><code>sofia</code></td>
+<td><code>&lt;cmd&gt; &lt;args&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L6854" target="_blank" rel="noopener noreferrer">L6854</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_sofia</td>
+<td><code>sofia_gateway_data</code></td>
+<td><code>&lt;gateway_name&gt; [ivar|ovar|var] &lt;name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L6855" target="_blank" rel="noopener noreferrer">L6855</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_sofia</td>
+<td><code>sofia_username_of</code></td>
+<td><code>[profile/]&lt;user&gt;@&lt;domain&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L6887" target="_blank" rel="noopener noreferrer">L6887</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_sofia</td>
+<td><code>sofia_contact</code></td>
+<td><code>[profile/]&lt;user&gt;@&lt;domain&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L6888" target="_blank" rel="noopener noreferrer">L6888</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_sofia</td>
+<td><code>sofia_count_reg</code></td>
+<td><code>[profile/]&lt;user&gt;@&lt;domain&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L6889" target="_blank" rel="noopener noreferrer">L6889</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_sofia</td>
+<td><code>sofia_dig</code></td>
+<td><code>&lt;url&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L6890" target="_blank" rel="noopener noreferrer">L6890</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_sofia</td>
+<td><code>sofia_presence_data</code></td>
+<td><code>[list|status|rpid|user_agent] [profile/]&lt;user&gt;@domain</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L6891" target="_blank" rel="noopener noreferrer">L6891</a></td>
+</tr>
+<tr>
+<td>json_api</td>
+<td>mod_sofia</td>
+<td><code>sofia.status</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/sofia_json_api.c#L213" target="_blank" rel="noopener noreferrer">L213</a></td>
+</tr>
+<tr>
+<td>json_api</td>
+<td>mod_sofia</td>
+<td><code>sofia.status.info</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/sofia_json_api.c#L214" target="_blank" rel="noopener noreferrer">L214</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_verto</td>
+<td><code>verto</code></td>
+<td><code>syntax</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_verto/mod_verto.c#L6988" target="_blank" rel="noopener noreferrer">L6988</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_verto</td>
+<td><code>verto_contact</code></td>
+<td><code>user@domain</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_verto/mod_verto.c#L6989" target="_blank" rel="noopener noreferrer">L6989</a></td>
+</tr>
+<tr>
+<td>json_api</td>
+<td>mod_verto</td>
+<td><code>store</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_verto/mod_verto.c#L6998" target="_blank" rel="noopener noreferrer">L6998</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_amqp</td>
+<td><code>amqp</code></td>
+<td><code>syntax</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_amqp/mod_amqp.c#L76" target="_blank" rel="noopener noreferrer">L76</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_cdr_csv</td>
+<td><code>cdr_csv</code></td>
+<td><code>parameters</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_cdr_csv/mod_cdr_csv.c#L457" target="_blank" rel="noopener noreferrer">L457</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_erlang_event</td>
+<td><code>erlang</code></td>
+<td><code>&lt;registered name&gt; &lt;node@host&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_erlang_event/mod_erlang_event.c#L1986" target="_blank" rel="noopener noreferrer">L1986</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_erlang_event</td>
+<td><code>erlang_sendmsg</code></td>
+<td><code>&lt;registered name&gt; &lt;node@host&gt; &lt;message&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_erlang_event/mod_erlang_event.c#L1988" target="_blank" rel="noopener noreferrer">L1988</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_erlang_event</td>
+<td><code>erlang</code></td>
+<td><code>&lt;command&gt; [&lt;args&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_erlang_event/mod_erlang_event.c#L1990" target="_blank" rel="noopener noreferrer">L1990</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_event_multicast</td>
+<td><code>multicast_peers</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_event_multicast/mod_event_multicast.c#L895" target="_blank" rel="noopener noreferrer">L895</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_event_socket</td>
+<td><code>socket</code></td>
+<td><code>&lt;ip&gt;[:&lt;port&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_event_socket/mod_event_socket.c#L1201" target="_blank" rel="noopener noreferrer">L1201</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_event_socket</td>
+<td><code>event_sink</code></td>
+<td><code>&lt;web data&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_event_socket/mod_event_socket.c#L1202" target="_blank" rel="noopener noreferrer">L1202</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_smpp</td>
+<td><code>smpp_debug</code></td>
+<td><code>待解析：NULL</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_smpp/mod_smpp.c#L235" target="_blank" rel="noopener noreferrer">L235</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_smpp</td>
+<td><code>smpp_send</code></td>
+<td><code>待解析：NULL</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_smpp/mod_smpp.c#L236" target="_blank" rel="noopener noreferrer">L236</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_smpp</td>
+<td><code>smpp_send</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_smpp/mod_smpp.c#L237" target="_blank" rel="noopener noreferrer">L237</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_smpp</td>
+<td><code>smpp_send</code></td>
+<td><code>smpp_send</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/event_handlers/mod_smpp/mod_smpp.c#L239" target="_blank" rel="noopener noreferrer">L239</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_local_stream</td>
+<td><code>local_stream</code></td>
+<td><code>&lt;show|start|reload|stop|hup&gt; &lt;local_stream_name&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/formats/mod_local_stream/mod_local_stream.c#L1567" target="_blank" rel="noopener noreferrer">L1567</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_opusfile</td>
+<td><code>opusfile_debug</code></td>
+<td><code>&lt;on|off&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/formats/mod_opusfile/mod_opusfile.c#L1161" target="_blank" rel="noopener noreferrer">L1161</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_png</td>
+<td><code>uuid_write_png</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/formats/mod_png/mod_png.c#L443" target="_blank" rel="noopener noreferrer">L443</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_shout</td>
+<td><code>telecast</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/formats/mod_shout/mod_shout.c#L1798" target="_blank" rel="noopener noreferrer">L1798</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_sndfile</td>
+<td><code>sndfile_debug</code></td>
+<td><code>&lt;on|off&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/formats/mod_sndfile/mod_sndfile.c#L649" target="_blank" rel="noopener noreferrer">L649</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_vlc</td>
+<td><code>play_video</code></td>
+<td><code>&lt;file&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/formats/mod_vlc/mod_vlc.c#L2651" target="_blank" rel="noopener noreferrer">L2651</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_vlc</td>
+<td><code>capture_video</code></td>
+<td><code>&lt;file&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/formats/mod_vlc/mod_vlc.c#L2652" target="_blank" rel="noopener noreferrer">L2652</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_basic</td>
+<td><code>basic</code></td>
+<td><code>syntax</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_basic/mod_basic.c#L378" target="_blank" rel="noopener noreferrer">L378</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_basic</td>
+<td><code>basic</code></td>
+<td><code>&lt;file&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_basic/mod_basic.c#L379" target="_blank" rel="noopener noreferrer">L379</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_java</td>
+<td><code>java</code></td>
+<td><code>待解析：NULL</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_java/modjava.c#L360" target="_blank" rel="noopener noreferrer">L360</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_lua</td>
+<td><code>luarun</code></td>
+<td><code>&lt;script&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_lua/mod_lua.cpp#L687" target="_blank" rel="noopener noreferrer">L687</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_lua</td>
+<td><code>lua</code></td>
+<td><code>&lt;script&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_lua/mod_lua.cpp#L688" target="_blank" rel="noopener noreferrer">L688</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_lua</td>
+<td><code>lua</code></td>
+<td><code>&lt;script&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_lua/mod_lua.cpp#L689" target="_blank" rel="noopener noreferrer">L689</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_lua</td>
+<td><code>lua</code></td>
+<td><code>&lt;script&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_lua/mod_lua.cpp#L693" target="_blank" rel="noopener noreferrer">L693</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_managed</td>
+<td><code>managedrun</code></td>
+<td><code>&lt;module&gt; [&lt;args&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_managed/mod_managed.cpp#L366" target="_blank" rel="noopener noreferrer">L366</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_managed</td>
+<td><code>managed</code></td>
+<td><code>&lt;module&gt; [&lt;args&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_managed/mod_managed.cpp#L367" target="_blank" rel="noopener noreferrer">L367</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_managed</td>
+<td><code>managed</code></td>
+<td><code>&lt;modulename&gt; [&lt;args&gt;]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_managed/mod_managed.cpp#L368" target="_blank" rel="noopener noreferrer">L368</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_managed</td>
+<td><code>managedreload</code></td>
+<td><code>&lt;filename&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_managed/mod_managed.cpp#L369" target="_blank" rel="noopener noreferrer">L369</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_managed</td>
+<td><code>managedlist</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_managed/mod_managed.cpp#L370" target="_blank" rel="noopener noreferrer">L370</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_perl</td>
+<td><code>perl</code></td>
+<td><code>待解析：NULL</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_perl/mod_perl.c#L528" target="_blank" rel="noopener noreferrer">L528</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_perl</td>
+<td><code>perlrun</code></td>
+<td><code>&lt;script&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_perl/mod_perl.c#L529" target="_blank" rel="noopener noreferrer">L529</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_perl</td>
+<td><code>perl</code></td>
+<td><code>&lt;script&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_perl/mod_perl.c#L530" target="_blank" rel="noopener noreferrer">L530</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_perl</td>
+<td><code>perl</code></td>
+<td><code>&lt;script&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_perl/mod_perl.c#L531" target="_blank" rel="noopener noreferrer">L531</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_python3</td>
+<td><code>pyrun</code></td>
+<td><code>python &lt;/path/to/script&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_python3/mod_python3.c#L619" target="_blank" rel="noopener noreferrer">L619</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_python3</td>
+<td><code>python</code></td>
+<td><code>python &lt;/path/to/script&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_python3/mod_python3.c#L620" target="_blank" rel="noopener noreferrer">L620</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_python3</td>
+<td><code>python</code></td>
+<td><code>&lt;script&gt; [additional_vars [...]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_python3/mod_python3.c#L621" target="_blank" rel="noopener noreferrer">L621</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_python3</td>
+<td><code>python</code></td>
+<td><code>&lt;script&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_python3/mod_python3.c#L623" target="_blank" rel="noopener noreferrer">L623</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_v8</td>
+<td><code>jsrun</code></td>
+<td><code>jsrun &lt;script&gt; [additional_vars [...]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_v8/mod_v8.cpp#L1578" target="_blank" rel="noopener noreferrer">L1578</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_v8</td>
+<td><code>jsapi</code></td>
+<td><code>jsapi &lt;script&gt; [additional_vars [...]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_v8/mod_v8.cpp#L1579" target="_blank" rel="noopener noreferrer">L1579</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_v8</td>
+<td><code>jsmon</code></td>
+<td><code>jsmon on|off</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_v8/mod_v8.cpp#L1580" target="_blank" rel="noopener noreferrer">L1580</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_v8</td>
+<td><code>jsps</code></td>
+<td><code>jsps [as plain|json|xml|delim|csv [&lt;delimeter&gt;]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_v8/mod_v8.cpp#L1581" target="_blank" rel="noopener noreferrer">L1581</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_v8</td>
+<td><code>jskill</code></td>
+<td><code>jskill &lt;task_id&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_v8/mod_v8.cpp#L1582" target="_blank" rel="noopener noreferrer">L1582</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>mod_v8</td>
+<td><code>javascript</code></td>
+<td><code>&lt;script&gt; [additional_vars [...]]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_v8/mod_v8.cpp#L1583" target="_blank" rel="noopener noreferrer">L1583</a></td>
+</tr>
+<tr>
+<td>chat_app</td>
+<td>mod_v8</td>
+<td><code>javascript</code></td>
+<td><code>&lt;script&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_v8/mod_v8.cpp#L1584" target="_blank" rel="noopener noreferrer">L1584</a></td>
+</tr>
+<tr>
+<td>json_api</td>
+<td>mod_v8</td>
+<td><code>jsjson</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/languages/mod_v8/mod_v8.cpp#L1586" target="_blank" rel="noopener noreferrer">L1586</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_console</td>
+<td><code>console</code></td>
+<td><code>loglevel [level]|colorize [on|toggle|off]|uuid [on|toggle|off]|json [on|toggle|off]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/loggers/mod_console/mod_console.c#L478" target="_blank" rel="noopener noreferrer">L478</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_xml_curl</td>
+<td><code>xml_curl</code></td>
+<td><code>[debug_on|debug_off]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/xml_int/mod_xml_curl/mod_xml_curl.c#L591" target="_blank" rel="noopener noreferrer">L591</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_xml_ldap</td>
+<td><code>xml_ldap</code></td>
+<td>``</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/xml_int/mod_xml_ldap/mod_xml_ldap.c#L161" target="_blank" rel="noopener noreferrer">L161</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>mod_xml_scgi</td>
+<td><code>xml_scgi</code></td>
+<td><code>[debug_on|debug_off]</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/xml_int/mod_xml_scgi/mod_xml_scgi.c#L394" target="_blank" rel="noopener noreferrer">L394</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>core</td>
+<td><code>msrp</code></td>
+<td><code>debug &lt;on|off&gt;|restart</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/switch_msrp.c#L1890" target="_blank" rel="noopener noreferrer">L1890</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>core</td>
+<td><code>uuid_msrp_send</code></td>
+<td><code>&lt;msg&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/switch_msrp.c#L1892" target="_blank" rel="noopener noreferrer">L1892</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>core</td>
+<td><code>msrp_recv_file</code></td>
+<td><code>&lt;filename&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/switch_msrp.c#L1893" target="_blank" rel="noopener noreferrer">L1893</a></td>
+</tr>
+<tr>
+<td>app</td>
+<td>core</td>
+<td><code>msrp_send_file</code></td>
+<td><code>&lt;filename&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/switch_msrp.c#L1894" target="_blank" rel="noopener noreferrer">L1894</a></td>
+</tr>
+<tr>
+<td>api</td>
+<td>core</td>
+<td><code>vpx</code></td>
+<td><code>&lt;reload|debug &lt;on|off&gt;&gt;</code></td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/switch_vpx.c#L2026" target="_blank" rel="noopener noreferrer">L2026</a></td>
+</tr>
+</tbody></table></div>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

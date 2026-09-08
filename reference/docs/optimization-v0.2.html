@@ -1,0 +1,253 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>RustSwitch 0.2：性能优化与验收记录 · 云蝠项目资料</title><link rel="stylesheet" href="../../handbook.css"></head><body><aside><a class="brand" href="../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../index.html">资料首页</a><a class="" href="../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / RustSwitch 0.2：性能优化与验收记录</div><article class="content"><div class="page-tools"><a href="optimization-v0.2.md" download>Markdown 原稿</a><a href="api/openapi.json" download>OpenAPI JSON</a><a href="../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#代码变化">代码变化</a><a href="#验证范围">验证范围</a><a href="#本机测量">本机测量</a><a href="#历史诊断纠错">历史诊断纠错</a><a href="#下一阶段与交付边界">下一阶段与交付边界</a></details><h1 id="rustswitch-02性能优化与验收记录">RustSwitch 0.2：性能优化与验收记录</h1>
+<p>日期：2026-09-05。架构继续采用 <strong>Rust 媒体核心、Go 控制面、C/C++ 原生库适配接口</strong>。</p>
+<p>本轮完成了可构建、可回归的优化版本。最终本机 1000 路、60 秒测试完整收发 5,999,904 个 RTP 包，通话与媒体分配正常释放。<strong>万路媒体验收尚未通过，Linux 运行性能尚未验证。</strong></p>
+<p>用户将稍后提供 Linux 服务器。本轮交付源码、构建结果、原始测量记录和 Linux 验收工具；不以配置上限、累计接通数或交叉编译检查代替容量结果。</p>
+<h2 id="代码变化">代码变化</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>范围</th>
+<th>已实现</th>
+<th>作用与边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Rust 媒体寻址</td>
+<td>固定会话槽位、带代次的 socket 就绪标识、索引去重队列</td>
+<td>成功转发路径避免会话哈希查询；旧就绪事件不能操作端口复用后的新通话</td>
+</tr>
+<tr>
+<td>Linux 接收</td>
+<td>预分配 8×2048 字节缓冲，非阻塞 <code>recvmmsg</code>，保留截断与 socket 丢包信息</td>
+<td>减少批量到达时的接收系统调用；继续读到 WouldBlock，避免丢失边沿就绪；本机 Mac 走兼容路径</td>
+</tr>
+<tr>
+<td>UDP 对端</td>
+<td>可选连接式 UDP；相同 183/200 端点不重复连接；端点变化清理旧待发包</td>
+<td>使用固定对端发送路径；不支持自动 NAT 学习；内核来源过滤可能早于应用计数</td>
+</tr>
+<tr>
+<td>Go 准入</td>
+<td>CPU、可观测丢包增量、控制积压、统计过期共同控制新分配</td>
+<td>按分片关闭准入，连续三个健康样本后恢复；已有通话连接与释放继续执行；不能保证发生拥塞时无丢包</td>
+</tr>
+<tr>
+<td>控制调度</td>
+<td>分配与连接/释放分别使用 64 项队列，优先处理已有呼叫操作</td>
+<td>限制新 INVITE 洪峰对接通和结束操作的排队影响；保留超时与进程代次保护</td>
+</tr>
+<tr>
+<td>定时器</td>
+<td>带索引的可取消堆，同键原位更新，接通/ACK/结束主动删除</td>
+<td>短通话不再堆积最长通话时长的废弃项；必要的 SIP 缓存与回收定时器仍有限保留</td>
+</tr>
+<tr>
+<td>发生器</td>
+<td>分方向/逐流校验、端口范围与打散分配、可配置相位、共享端点诊断、连接式发送</td>
+<td>报告实际提交量与名义负载比；SSRC、序列、时间戳、内容和来源共同验证；减少每包锁和临时对象开销</td>
+</tr>
+<tr>
+<td>验收证据</td>
+<td>二进制哈希、配置、并发采样、事件并发重建、资源清理与日志持久化检查</td>
+<td>HTTP 采样缺失和日志证据缺失不能被默认为通过；失败记录保留</td>
+</tr>
+<tr>
+<td>Linux 采集</td>
+<td>持续写入主机与应用 JSONL 指标，内存占用不随时长累积</td>
+<td>只读，不修改系统配置；实际 Linux 运行待验证，不自动生成容量通过结论</td>
+</tr>
+</tbody></table></div>
+<p>对应主要文件：</p>
+<ul>
+<li><a href="../media/src/media/worker.rs">Rust 媒体循环</a>、<a href="../media/src/media/io.rs">批量接收</a>。</li>
+<li><a href="../control/internal/media/pressure.go">Go 压力准入</a>、<a href="../control/internal/media/pool.go">媒体进程与队列</a>、<a href="../control/internal/server/timers.go">定时器</a>。</li>
+<li><a href="../control/cmd/callbench/main.go">流量发生器</a>、<a href="../tools/local_bench.py">本地验收编排</a>、<a href="../tools/collect_linux.py">Linux 采集器</a>。</li>
+</ul>
+<h2 id="验证范围">验证范围</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>检查</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Rust 单元测试</td>
+<td>6 项通过，包含真实 UDP 批量边界与超长包检测</td>
+</tr>
+<tr>
+<td>Go 单元测试和竞争检测</td>
+<td>全部通过；新增负载恢复迟滞、统计过期、队列积压、万项定时器替换/取消、短通话定时器回收与共享 SSRC 校验</td>
+</tr>
+<tr>
+<td>通话端到端回归</td>
+<td>普通 UDP 和连接式 UDP 各 14 项通过</td>
+</tr>
+<tr>
+<td>带竞争检测的 Go 控制面回归</td>
+<td>连接式 UDP 的 14 项通过</td>
+</tr>
+<tr>
+<td>带竞争检测的控制面和发生器</td>
+<td>独立连接端点、4 组共享端点各 20 路×3 秒通过，分别完整收发 6000 包；只作正确性验证</td>
+</tr>
+<tr>
+<td>Rust 格式与 Clippy</td>
+<td>Mac 和 Linux x86_64 检查目标全部通过，警告视为错误</td>
+</tr>
+<tr>
+<td>Go vet / Linux AMD64 构建</td>
+<td>通过；Linux 二进制尚未运行</td>
+</tr>
+<tr>
+<td>C 插件与 Rust ABI</td>
+<td>实际加载通过，160 个样本往返，最大绝对误差 501；转发仍不调用转码器</td>
+</tr>
+<tr>
+<td>配置与工具检查</td>
+<td>Linux 万路目标配置有效；Python 语法和 Linux 计数解析样本通过</td>
+</tr>
+</tbody></table></div>
+<p>14 项回归覆盖双向 RTP/RTCP/DTMF、端口占用、CANCEL/迟到 200 竞争、并发限制、排空、重复 INVITE、183 早期媒体、进程重启、缺失 ACK、其他分片继续服务、多批接收突发、旧来源与复用端口、优雅停止、错误来源和畸形包。它们不证明完整 SIP 互通或 72 小时稳定性。</p>
+<h2 id="本机测量">本机测量</h2>
+<p>环境为同一台 macOS ARM64 开发机，发生器报告 10 个逻辑 CPU，服务与发生器共享资源。Rust 1.98.1、Go 1.27.1。全部为 G.711、20ms，双向合计。除明确写明直连外，RTP 均经过 Rust 媒体进程。</p>
+<p>下表的“接通”是发生器累计成功应答数；只有结合事件时间顺序才能确认同时建立。附有证据文件的中间版本保留了二进制哈希，早期基线没有这一完整记录；不能把整张表当作最终源码的重复实验。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th align="right">接通/请求</th>
+<th align="right">媒体秒数</th>
+<th align="right">实际发送</th>
+<th align="right">唯一接收</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>旧二进制基线</td>
+<td align="right">1000/1000</td>
+<td align="right">5</td>
+<td align="right">499904</td>
+<td align="right">235999</td>
+<td>失败</td>
+</tr>
+<tr>
+<td>固定槽位、未连接 UDP</td>
+<td align="right">1000/1000</td>
+<td align="right">5</td>
+<td align="right">499904</td>
+<td align="right">252754</td>
+<td>失败</td>
+</tr>
+<tr>
+<td>仅服务器连接 UDP</td>
+<td align="right">1000/1000</td>
+<td align="right">5</td>
+<td align="right">499904</td>
+<td align="right">355727</td>
+<td>失败</td>
+</tr>
+<tr>
+<td>服务与发生器均连接 UDP</td>
+<td align="right">1000/1000</td>
+<td align="right">5</td>
+<td align="right">499904</td>
+<td align="right">499904</td>
+<td>单次通过</td>
+</tr>
+<tr>
+<td>双端连接、延长到 30 秒</td>
+<td align="right">1000/1000</td>
+<td align="right">30</td>
+<td align="right">2999904</td>
+<td align="right">2999904</td>
+<td>单次通过</td>
+</tr>
+<tr>
+<td>5000 路、顺序专用端口</td>
+<td align="right">5000/5000</td>
+<td align="right">5</td>
+<td align="right">2499504</td>
+<td align="right">901</td>
+<td>失败，1723 次清理失败</td>
+</tr>
+<tr>
+<td>5000 路、打散专用端口</td>
+<td align="right">5000/5000</td>
+<td align="right">5</td>
+<td align="right">2499504</td>
+<td align="right">1833</td>
+<td>失败</td>
+</tr>
+<tr>
+<td>5000 路、200 发包相位</td>
+<td align="right">5000/5000</td>
+<td align="right">5</td>
+<td align="right">2499952</td>
+<td align="right">1473</td>
+<td>失败</td>
+</tr>
+<tr>
+<td>5000 路直连诊断，绕过 Rust</td>
+<td align="right">5000/5000</td>
+<td align="right">5</td>
+<td align="right">2499928</td>
+<td align="right">948964</td>
+<td>诊断失败，不计服务容量</td>
+</tr>
+<tr>
+<td>万路请求、专用端点、同机不同 IP</td>
+<td align="right">2346/10000</td>
+<td align="right">5</td>
+<td align="right">1172718</td>
+<td align="right">0</td>
+<td>失败；事件重建峰值已建立 2176</td>
+</tr>
+<tr>
+<td>万路请求、512 组共享端点</td>
+<td align="right">10000/10000</td>
+<td align="right">5</td>
+<td align="right">1954792</td>
+<td align="right">728</td>
+<td>失败；媒体负载不足、清理失败</td>
+</tr>
+<tr>
+<td>中间版本持续测试</td>
+<td align="right">1000/1000</td>
+<td align="right">60</td>
+<td align="right">5999904</td>
+<td align="right">5993344</td>
+<td>失败，未收到 6560 包</td>
+</tr>
+<tr>
+<td>中间版本集中突发</td>
+<td align="right">1000/1000</td>
+<td align="right">5</td>
+<td align="right">498000</td>
+<td align="right">496466</td>
+<td>失败，未收到 1534 包</td>
+</tr>
+<tr>
+<td>最终版本，标准连接发送与冻结端点快照</td>
+<td align="right">1000/1000</td>
+<td align="right">60</td>
+<td align="right">5999904</td>
+<td align="right">5999904</td>
+<td>本次通过</td>
+</tr>
+</tbody></table></div>
+<p>完整 18 份报告，包括同机权限边界对照、分方向诊断与竞争检测小测试，见 <a href="benchmarks-v0.2/index.json">报告索引</a>。报告及原有证据原样保留；索引内 <code>derived_from_*</code> 明确标识事后从保存的事件/状态文件重建的数据。关键万路和最终千路测试附压缩事件原文，可复核会话并发。</p>
+<h3 id="最终千路结果的含义">最终千路结果的含义</h3>
+<p><a href="benchmarks-v0.2/final-dialudp-1000-60s.json">最终原始报告</a> 与 <a href="benchmarks-v0.2/final-dialudp-1000-60s.evidence.json">服务端证据</a>：4 个 Rust 工作进程，双方使用连接式 UDP，发生器每路独立四个端口，设定 500 CPS，建立阶段约 2.003 秒。60 秒的名义包数为 6000000，实际提交比例为 99.9984%。发生器唯一接收数与 Rust 收/发计数均为 5999904。</p>
+<p>没有观测到重复包、内容错误、发送错误、异常 BYE 或挂断失败；事件重建及状态采样均确认 1000 路同时建立，结束后控制面呼叫与媒体分配归零。4001 条当前运行事件已同步，丢失事件为零。发生器仍记录到调度迟到，它不等于服务器转发时延。</p>
+<p>这次通过发生在减少发生器热路径开销和避免重复 UDP 连接等改动之后，但单次前后测量不足以证明丢包根因或量化独立优化收益。此前 60 秒测试未收到 6560 包，媒体收发计数均为 5995573，计数缺口同时存在于媒体接收前和发送后；这不是已定位具体内核/网卡故障的证据。失败结果没有被最终通过覆盖。</p>
+<h3 id="万路结果的含义">万路结果的含义</h3>
+<p><a href="benchmarks-v0.2/grouped-10000.json">共享端点报告</a> 中，发生器使用 512 组、共 2048 个 UDP socket，服务端仍分配每路四个媒体端口。事件重建证实曾同时建立 10000 个会话，但实际发送量只有名义 5000000 包的 <strong>39.09584%</strong>，只收到 728 包。另有 9641 次清理失败，清理观察结束时控制面仍有 3001 个活跃会话，随后本地编排终止了该测试服务。</p>
+<p>该测试高负载期间 HTTP 采样未覆盖峰值，不能仅凭采样图推断未达到或维持了某一并发。事件原文证明的是会话数量，不证明万路持续媒体可用。专用端点万路请求测试同样失败。最终代码在本机没有再次执行万路容量测试，需在独立 Linux 压测机与目标机之间继续验证。</p>
+<p>有效的 5000 路终端直连诊断也出现丢包，说明发生器或同机网络路径存在额外限制；它不能排除 Rust 服务自身的瓶颈。现有 Mac 计数不足以确定最终根因。</p>
+<h2 id="历史诊断纠错">历史诊断纠错</h2>
+<p>源码审计发现旧 <code>--go-relay</code> 标志只更改报告标签，没有建立实际 Go 转发路径。已删除该标志，并将 <a href="diagnostic-local-1000-go-relay.json">历史 JSON</a> 标记为无效证据；撤回由此得出的“问题并非 Rust 独有”推断。旧 0.1 记录已追加纠正，0.2 源码包替代旧包。</p>
+<h2 id="下一阶段与交付边界">下一阶段与交付边界</h2>
+<p>按 <a href="linux-validation.html">Linux 验收步骤</a> 先测 1000、5000，再测 10000 路；同时记录实际包率、同时建立数、各媒体进程 CPU、socket 丢包、NIC/UDP 全局计数和资源回收。独立验证集中突发、持续呼叫周转、故障与过载。最终再测 P99/P99.99 转发时延和长时间稳定性。</p>
+<p>当前没有实现 <code>sendmmsg</code>、io_uring、AF_XDP、DPDK、生产级 C/C++ SIP 提供器、完整 FreeSWITCH 模块兼容或跨机接管。现有 C 编解码插件已实际验证，协议适配头仍是预留契约。整机或控制进程故障下保持存量通话、零业务损失与 RPO=0 均未实现；完整能力边界见 <a href="../README.html">README</a>。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

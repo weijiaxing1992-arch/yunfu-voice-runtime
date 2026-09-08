@@ -1,0 +1,19 @@
+{
+  "at": "2026-09-07T05:46:23.837097+00:00",
+  "scope": "pure manager/actual RX control code with fake transport; no network or deployment",
+  "passed": 98,
+  "top": 39,
+  "sub": 59,
+  "failed": [],
+  "skips": [],
+  "source_unchanged": true,
+  "source_binding": "six explicit RX/manager/lifetime production and test files; other package files under root parallel development, full source gate still required",
+  "test_log_sha256": "390d563d73d116a96400cb11a195ff514e094d30b130e1203af48e2ba525ec66",
+  "vet_exit_code": 0,
+  "vet_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "owned_frozen_files": {
+    "internal/server/rx_stream.go": "58101fdecebbc72bbc7fe32f8f9bc8d060a7d1f2b2d871224285f7bdc732c8e1",
+    "internal/server/asr_stream.go": "4847a041b13e0e5d299d7759a4adbca22b63a48e36690db69e1674e96b8fbd79",
+    "internal/server/rx_no_binding_test.go": "fd19cc8ff991e5c9edf02b34b0acce695fc76f57cf93d8b584440207f55ebe8e"
+  }
+}

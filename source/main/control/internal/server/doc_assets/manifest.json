@@ -1,0 +1,1037 @@
+{
+  "version": "1.13.0",
+  "reference_version": "1.11.3",
+  "reference_commit": "ef32e205295e29f034f1453ad245ba5efb07b94a",
+  "documents": [
+    {
+      "path": "api/README.md",
+      "title": "RustSwitch 接口文档中心",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 13463,
+      "sha256": "a9fe4695495b5a7ca34c3d94a79cd26b4d32048a35c0879a503a6ab136ba6246"
+    },
+    {
+      "path": "api/ai-calling-reference.md",
+      "title": "AI 呼叫接入与本轮兼容范围",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 8360,
+      "sha256": "acfcff2254ddc2dfbeab5a40763346e5acd482eb6eb0895b4e881c2d5f018913"
+    },
+    {
+      "path": "api/ai-calling-verification-v1.7.json",
+      "title": "ai-calling-verification-v1.7.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 63817,
+      "sha256": "b8acc2b44059005797a5f07ff351f64bede6a70dd50d29daa29536647ba6622a"
+    },
+    {
+      "path": "api/ai-calling-verification-v1.7.md",
+      "title": "基础应用、WAV播放与XML拨号计划的实际对照",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 3080,
+      "sha256": "3cdeeff6f7b74d402f0a69d20427addff452db132a2a9e70a8cf2611568621ab"
+    },
+    {
+      "path": "api/ai-calling-verification-v1.8.json",
+      "title": "ai-calling-verification-v1.8.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 99743,
+      "sha256": "b48ba52977cbbd62a933bad0705c7217abcc846be8069cfdce996ecd20a347be"
+    },
+    {
+      "path": "api/ai-calling-verification-v1.8.md",
+      "title": "基础应用、WAV播放与XML拨号计划的实际对照",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 3165,
+      "sha256": "054b43c79a38c4a889ea1aeb1a4f1031a871f9e19b4a7956de09cf5fa462d452"
+    },
+    {
+      "path": "api/ai-calling-verification-v1.9.json",
+      "title": "ai-calling-verification-v1.9.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 113435,
+      "sha256": "d23b99d6ef82ff2a566c8d303493bad8267e44f840cce37ebb77ef5a2fe4163f"
+    },
+    {
+      "path": "api/ai-calling-verification-v1.9.md",
+      "title": "基础应用、WAV/XML与真实DTMF发送的实际对照",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 4049,
+      "sha256": "55b03a6ad27514d3027359ed51495ccfe6234bdd3bcddae37a83f2f14acfe9cd"
+    },
+    {
+      "path": "api/ai-calling-verification.json",
+      "title": "ai-calling-verification.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 13775,
+      "sha256": "007f121135bda952d6900731df604a4e7974b91a487bb4f8e2cd7a1ca2476318"
+    },
+    {
+      "path": "api/ai-calling-verification.md",
+      "title": "AI电话能力复核记录",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 3720,
+      "sha256": "65637941b2d49ca80014315e0cdbe43dd1866a56379b563cfefc49de08e2c220"
+    },
+    {
+      "path": "api/audio-frame-reference.md",
+      "title": "多采样率 AudioFrame、借用帧与离线分支",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 7994,
+      "sha256": "3977263b7db1bef0ddb88039091dd2ad05df551afba7bdc1543d8cd1dc31a8a9"
+    },
+    {
+      "path": "api/audio-reference.md",
+      "title": "音频接口、编解码与 FreeSWITCH 对照",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 15237,
+      "sha256": "e6372c6a561841f5af39955d4e06904bbce15b8f8d02e26cb57fb3974adb2521"
+    },
+    {
+      "path": "api/audio-sdk-verification-v1.9.json",
+      "title": "audio-sdk-verification-v1.9.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 5935,
+      "sha256": "a52f26145e5381310c69e9970c8db8d1da91b64403ecc3610ff41a720d5b3da5"
+    },
+    {
+      "path": "api/build-validation-v1.9.json",
+      "title": "build-validation-v1.9.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 1932,
+      "sha256": "f2b12b00d03b7ff89e61ae47c240f88b1d7808946cc724984909a0526c203844"
+    },
+    {
+      "path": "api/channel-snapshot-reference.md",
+      "title": "通道快照 uuid_dump",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 2798,
+      "sha256": "8ef9987050abfa9fd61a1aac83f64789df82022d129cbf772587fe5b39557458"
+    },
+    {
+      "path": "api/comparison.json",
+      "title": "FreeSWITCH 全量接口对照数据",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 6388444,
+      "sha256": "507e7cd6f0325a432630574f8321b7baaec351dd2dda4fee45732285214a376e"
+    },
+    {
+      "path": "api/compatibility-baseline-v1.10.json",
+      "title": "compatibility-baseline-v1.10.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 725152,
+      "sha256": "b89d44cb56c912d026441d8e8da7c75c55262a5c8d5db40927eb00005b74999e"
+    },
+    {
+      "path": "api/compatibility-baseline-v1.11.json",
+      "title": "compatibility-baseline-v1.11.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 725179,
+      "sha256": "507544d3dc086d662ecc6ae5256c4ab6944157f006bc9cf90ccf1416828ba451"
+    },
+    {
+      "path": "api/compatibility-baseline-v1.12.json",
+      "title": "compatibility-baseline-v1.12.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 725979,
+      "sha256": "145b25f752a6c1072b7e800d57aa9133d5acd93d61910988111519a8356446ea"
+    },
+    {
+      "path": "api/compatibility-baseline-v1.7.json",
+      "title": "compatibility-baseline-v1.7.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 724837,
+      "sha256": "48356091b1ee1a5157e47094e075fbff475a25b96e52b5f7b83942697e3d5fd5"
+    },
+    {
+      "path": "api/compatibility-baseline-v1.8.json",
+      "title": "compatibility-baseline-v1.8.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 724729,
+      "sha256": "16b58fa63c12021167755db4c3fbc3ceb5201275677369cc7fe9e7d0a17c4115"
+    },
+    {
+      "path": "api/compatibility-baseline-v1.9.json",
+      "title": "compatibility-baseline-v1.9.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 725160,
+      "sha256": "aa93f9ee88802876fa01299cd0d98736066934173120124ebcc2b29cf01f0f12"
+    },
+    {
+      "path": "api/compatibility-progress.json",
+      "title": "compatibility-progress.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 4028,
+      "sha256": "9b275559d862cb0e5252dbe13729492c81a6c5e8b63e1575bfe5d4467f2d1945"
+    },
+    {
+      "path": "api/compatibility-worklist.csv",
+      "title": "compatibility-worklist.csv",
+      "category": "接口与对照文档",
+      "format": "csv",
+      "bytes": 2210624,
+      "sha256": "60d86d5c93c3fc7ffea1ddecfdae1e829ef19d3710d55b1ef28dd420ca80a50b"
+    },
+    {
+      "path": "api/compatibility-worklist.json",
+      "title": "compatibility-worklist.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 4586253,
+      "sha256": "1dfc6d217fc0ae36dc0b2048d74501f549525bcad6f5ef8e522f00b659b7ca9e"
+    },
+    {
+      "path": "api/compatibility-worklist.md",
+      "title": "兼容缺口逐项推进清单",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 4916,
+      "sha256": "5d46a2f19a497825a65a11a30418c773d2df125662285f227a9ed01a4bf3459a"
+    },
+    {
+      "path": "api/conformance-build.json",
+      "title": "conformance-build.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 139336,
+      "sha256": "478d4163b34990c47e49f3be57b272d083b81b5564d8a0700ac81724bb394d0f"
+    },
+    {
+      "path": "api/conformance-plan.json",
+      "title": "conformance-plan.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 6999994,
+      "sha256": "f17b3ccbcb6db8652f75ad8aa014c7830352969db18b6008af93aac6caadba8b"
+    },
+    {
+      "path": "api/conformance-reference.json",
+      "title": "conformance-reference.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 63462,
+      "sha256": "8a82cc3c07ffa8eb416f67896ffccfe53e6ebed94715239a8019036f770b0e8e"
+    },
+    {
+      "path": "api/conformance-report.json",
+      "title": "conformance-report.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 3898036,
+      "sha256": "82c5851a10119966c66e1e5bfc699c89e323073ad5671523e23c26f51fba82df"
+    },
+    {
+      "path": "api/conformance-report.md",
+      "title": "FreeSWITCH 成对协议验证报告",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 4070,
+      "sha256": "b18f0bfa206cb400b617a44a2dfe376790f12c82778cd67e70876d70828f4952"
+    },
+    {
+      "path": "api/conformance-summary.json",
+      "title": "conformance-summary.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 226982,
+      "sha256": "e381f5008bca659f4006220aaaf1c28ed96282c5dbb0eb639e79b5c4ab8af785"
+    },
+    {
+      "path": "api/conformance-testing.md",
+      "title": "完整兼容测试计划与成对协议执行器",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 12341,
+      "sha256": "5e65d28829b148edffa4d9fb04a95c3780b25692f6d03c81507aa6fd674a9a57"
+    },
+    {
+      "path": "api/dialplan-reference.md",
+      "title": "受限 FreeSWITCH XML 拨号计划与基础应用",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 11127,
+      "sha256": "ebff9447eac2b6f3b9f77bff6dbca361c3eadefd14f9a8f5f3e3bbb185f565fe"
+    },
+    {
+      "path": "api/dtmf-send-reference.md",
+      "title": "本地电话 DTMF 发送与状态查询",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 11617,
+      "sha256": "abc9b9bf2e4f9f637497ac8caea025bcf67f76a4ae631af277e96f05fa482ba3"
+    },
+    {
+      "path": "api/esl-reference.md",
+      "title": "入站 ESL 接口与 FreeSWITCH 对照",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 11215,
+      "sha256": "b8295c1ebbe2c3fb3f8fcca6598db69c43edcd4a111547d81319d343c8bca078"
+    },
+    {
+      "path": "api/event-lifecycle-reference.md",
+      "title": "应用与媒体生命周期事件（1.12 受限合同）",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 7332,
+      "sha256": "2d4abfc99f83d1970843091684ba3c17dd66f94befc939e8c5331ffdd9886ebb"
+    },
+    {
+      "path": "api/feature-audit.json",
+      "title": "feature-audit.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 455642,
+      "sha256": "80adb6349d0424469b07569451ab6d97a467a6acb880c8860c886ee2ba5c43d7"
+    },
+    {
+      "path": "api/feature-audit.md",
+      "title": "FreeSWITCH 功能覆盖与超越能力审计",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 59849,
+      "sha256": "702da803947e95f4a2c26d75bfc008e969e696bfb731effda2c999096f688141"
+    },
+    {
+      "path": "api/file-playback-reference.md",
+      "title": "受限 WAV 文件播放",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 12483,
+      "sha256": "654b6b3d92ed06c860ad486ccfceed0f6f4613fdc0eea836e6caa3720f1cb964"
+    },
+    {
+      "path": "api/freeswitch-comparison.md",
+      "title": "FreeSWITCH 1.11.3 与 RustSwitch 逐项接口对照",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 115600,
+      "sha256": "acccbdb7cf7b153b68071243ac1407f16f6a031a2d2108d52f3f843c70e32a37"
+    },
+    {
+      "path": "api/http-reference.md",
+      "title": "RustSwitch HTTP 管理接口参考",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 57252,
+      "sha256": "f77389e4e00e31141c18d4ac8bf178a8627e51b7185c9cd22426069783ad2c70"
+    },
+    {
+      "path": "api/ivr-reference.md",
+      "title": "ESL 应用、按键收集与本地 IVR",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 14156,
+      "sha256": "8d6fe30c5fe95fdc530c2d94b8283dfb8ba231429c91fa0e4e327759891de80e"
+    },
+    {
+      "path": "api/media-interaction.md",
+      "title": "媒体按键采集、提示音与 PCM 接口",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 12483,
+      "sha256": "27aef5e781db10982779de2022af2c4a2c70482ac15396887352ecf05148a55b"
+    },
+    {
+      "path": "api/media-ipc.schema.json",
+      "title": "媒体 IPC JSON Schema",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 108859,
+      "sha256": "ea3ab6d14466e1f1b7f28c18ca4a9bc19bd1b5067a689ca8bb5d0a751b645b61"
+    },
+    {
+      "path": "api/openapi.json",
+      "title": "OpenAPI 3.1 完整接口模型",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 269516,
+      "sha256": "bcbeb96c9080b99a96597a99790d38babc41b29f956476fb8dcbacaf0e02c307"
+    },
+    {
+      "path": "api/overview-testing-reference.md",
+      "title": "运行总览与隔离测试观测",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 8266,
+      "sha256": "fbb0b37d94cbf3cd941755aafeec69b069cba1b76217f08ceb47f26218d63819"
+    },
+    {
+      "path": "api/pcm-turn-reference.md",
+      "title": "PCM 轮次队列与内部数据通道（1.12.0）",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 19712,
+      "sha256": "c603d3fea64daea4acd3f545f3d8581c6e9af2c04da2831cb80b2da42f3e2e95"
+    },
+    {
+      "path": "api/processed-local-reference.md",
+      "title": "本地单腿 G.711：电话 IVR 与智能体媒体入口",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 9153,
+      "sha256": "5d428c044de1af246066bed6c7a21a5f559bd48ec6cc79a4ccfcf2386fadb858"
+    },
+    {
+      "path": "api/processed-local-verification-v1.11.json",
+      "title": "processed-local-verification-v1.11.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 3124,
+      "sha256": "feed6809008a548b23829c6fdfff4c6a8b0d581757828f4d9d196c1afbd5d458"
+    },
+    {
+      "path": "api/processed-media-reference.md",
+      "title": "实时 G.711 双向媒体处理说明",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 26605,
+      "sha256": "b6c5fc01ee5991b2dbf4069215debbbd1e700caa9ae9a691fcbf01e59e2c6ed6"
+    },
+    {
+      "path": "api/processed-media-verification.json",
+      "title": "processed-media-verification.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 8149,
+      "sha256": "ddcbf475b95ebc3f3cf3189562c41d045c26b9698139b8fd07cad8641f60684d"
+    },
+    {
+      "path": "api/processed-testing-reference.md",
+      "title": "真实音频处理压测与能力目录（1.10）",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 6898,
+      "sha256": "fc9d35eb7613d357fd5d02252fa3332c50f2b4657e5ec1a1f00a3b1d07dd510d"
+    },
+    {
+      "path": "api/protocol-reference.md",
+      "title": "SIP、媒体、内部通信与原生接口完整说明",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 40323,
+      "sha256": "40dd3cc568114c8d7ce34a4dc3682fc08903397a2f35be8935ea13960e72745a"
+    },
+    {
+      "path": "api/release-validation-m1.md",
+      "title": "M1 首轮 G.711 候选：历史验证记录",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 4716,
+      "sha256": "47e259eab20748ea7a79d8be5ceb9176d883ca5667e291aef0c2af778b32de11"
+    },
+    {
+      "path": "api/release-validation-v1.10.md",
+      "title": "v1.10：G.711 实时处理与管理测试复核",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 16379,
+      "sha256": "b00b42b311afe16e381f8d43df7e4b310002d6df1cfc2f5d70ea2a7bccea19e5"
+    },
+    {
+      "path": "api/release-validation-v1.11.md",
+      "title": "v1.11：本地单腿 PCM 与 IVR 验证记录",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 7023,
+      "sha256": "05f8e99351a63174bf61895cbc1f34b9deea14e2f05d511c0f6be83c32000b55"
+    },
+    {
+      "path": "api/release-validation-v1.12.md",
+      "title": "v1.12：PCM 轮次与已 ACK 外部流式入口验证",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 14526,
+      "sha256": "0f85f4acd530c925047162ae67369731a8f46e8b2ae9cc783243ed534193fd70"
+    },
+    {
+      "path": "api/release-validation-v1.13.md",
+      "title": "1.13：本地 A 腿持续收音与过期语音拒绝",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 7591,
+      "sha256": "fb6c1c5cd2a81b8849d07206d17e98cd068637fec978fcf2a1e7e1ffa61c7f8d"
+    },
+    {
+      "path": "api/release-validation-v1.5.md",
+      "title": "RustSwitch 1.5 开发交付与验证说明",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 10240,
+      "sha256": "917fa8767f1a6e86892cb033ae86e14f2ccdd0bb1d222ba078763beabdd0e211"
+    },
+    {
+      "path": "api/release-validation-v1.6.md",
+      "title": "1.6 线路注册、按键与 IVR 实测记录",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 5952,
+      "sha256": "824058787e7b03f3914d44b848203a76d3e3a12e3542f2b6fee9042cb978b814"
+    },
+    {
+      "path": "api/release-validation-v1.7.md",
+      "title": "RustSwitch 1.7 缺口实现与逐项验证",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 6437,
+      "sha256": "72943c65cc034916e6c1458120f527987fd66d49e8b43caefc88424b6c582544"
+    },
+    {
+      "path": "api/release-validation-v1.8.md",
+      "title": "RustSwitch 1.8 缺口推进与逐项验证",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 8916,
+      "sha256": "86189da34f22f82b66e0be2b753b545823253b51d929dfba2dae7d4e21ad96b2"
+    },
+    {
+      "path": "api/release-validation-v1.9.md",
+      "title": "云蝠 Voice Runtime 1.9：总览压测观测与语音智能体方向",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 7568,
+      "sha256": "5c8bd2c091243570c32aab1c172d6e303eb781a54f6c5950584ead480e812e2f"
+    },
+    {
+      "path": "api/runtime-diagnostics-reference.md",
+      "title": "压测 Go 运行时诊断：日志观察与边界",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 3415,
+      "sha256": "930f1a32ccb6eb18827d8df9b56c40d6bf92d0c06da9c33a1e1d35715855cb9f"
+    },
+    {
+      "path": "api/runtime-verification.json",
+      "title": "runtime-verification.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 6996095,
+      "sha256": "7416935c18a70665ab7be6fd9a878a06c737fb8fab1329f6f82631770aba45f5"
+    },
+    {
+      "path": "api/runtime-verification.md",
+      "title": "本地运行验证与绿色状态",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 22810,
+      "sha256": "52e7fdf776c862b00d7cc66234ff6c302f71a008e14b02315e9569bab86b114a"
+    },
+    {
+      "path": "api/rva1-reference.md",
+      "title": "RVA1 外部 PCM 流接口（1.12.0）",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 20061,
+      "sha256": "11001945d335900be79a2b289413cdfa096a1a2e8969f67cdfa2edc1e42d392b"
+    },
+    {
+      "path": "api/rx-stream-reference.md",
+      "title": "本地通话上行音频：RXS2 与 Go RX SDK",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 23907,
+      "sha256": "a3fb5a86e95b7e5c04ced1aa39957bf6c9695e701f129dae91de9599a8c89f22"
+    },
+    {
+      "path": "api/schema-reference.md",
+      "title": "完整接口字段字典",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 273956,
+      "sha256": "25b2f9f0f73f5e4f2b1be7dcddc373b8ac6c5463d384f6ef1760f70a33b268d0"
+    },
+    {
+      "path": "api/stability-reference.md",
+      "title": "通话稳定性、资源保护与验证边界",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 7836,
+      "sha256": "01c81b9dece63e431a52fe646b8358ad127138fb88c842bb6b51f7764c8edbcd"
+    },
+    {
+      "path": "api/testing-reference.md",
+      "title": "压力模拟与测试小电话接口",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 15375,
+      "sha256": "0916539fca238bddbca6bebcb56c264f62e64b9725a34ff63c1ca46397ee5938"
+    },
+    {
+      "path": "api/testlab-verification-v1.10.json",
+      "title": "testlab-verification-v1.10.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 34913,
+      "sha256": "2b173c92a981d7d5d52ab273e70926bbcf8524942749406d534caf48df0ddda4"
+    },
+    {
+      "path": "api/testlab-verification-v1.6.json",
+      "title": "testlab-verification-v1.6.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 7435,
+      "sha256": "9daa088175f636ec1c2717348c0929f1e6f78beb30d61b7ff3ceb83c4f30e94a"
+    },
+    {
+      "path": "api/testlab-verification-v1.7.json",
+      "title": "testlab-verification-v1.7.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 2384,
+      "sha256": "7a64fdf0e7ff36985a51c0700c4e7c2a7a363e75fa381d2327d54873907bb193"
+    },
+    {
+      "path": "api/testlab-verification-v1.8.json",
+      "title": "testlab-verification-v1.8.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 2384,
+      "sha256": "0369597c37590bfe037bbbf67bdba1ed9f26b5a0f3a86915cdb867a706502d92"
+    },
+    {
+      "path": "api/testlab-verification-v1.9.json",
+      "title": "testlab-verification-v1.9.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 51396,
+      "sha256": "fb3fdf7cdaec58e7901e05081bb83b977851dd46603a4eb0f13c04ca3a83e87f"
+    },
+    {
+      "path": "api/trunk-registration.md",
+      "title": "上游 SIP 中继注册与认证",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 12069,
+      "sha256": "5bc2ae15e10c7ac1db79bcabd66ec3a7131c5a2f170a65e0e171333ad4d9ef0b"
+    },
+    {
+      "path": "api/variables-reference.md",
+      "title": "批量通道变量与 FreeSWITCH 对照",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 2627,
+      "sha256": "84149da996d687ecb382f779dcdd9c4bc540b8772e3a3b194e0647c5d27be678"
+    },
+    {
+      "path": "api/verification-2026-09-05.md",
+      "title": "稳定性优化验证记录 · 2026-09-05",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 4167,
+      "sha256": "042d69735a13261484ff2daf06aed1802ca6803404afe23260e08512e555cc6a"
+    },
+    {
+      "path": "api/verification-2026-09-06.json",
+      "title": "verification-2026-09-06.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 24676,
+      "sha256": "2e258f71d5f2ade99c0c250d8b3fe1402d5e7a265122e5c3291de3cc36446fc0"
+    },
+    {
+      "path": "api/verification-2026-09-06.md",
+      "title": "2026-09-06 逐项核查、编码与压力实测记录",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 8288,
+      "sha256": "db62f7f5bf214444950c6e50ee711f3adc3c0c5bb573402aa0ea19dbe2596b66"
+    },
+    {
+      "path": "api/verification-5000-2026-09-06.json",
+      "title": "verification-5000-2026-09-06.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 33914,
+      "sha256": "42b019d124eb8a7c1b45f59c4db1f7e8c7571e20600408c730ef3e82e2b64a4b"
+    },
+    {
+      "path": "api/verification-5000-2026-09-06.md",
+      "title": "5000路验证与本轮逐项复核",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 7779,
+      "sha256": "036c6c986e24eb7d7918df4219c7634f628bdf2f2df1fcee4d8d7370b8febc50"
+    },
+    {
+      "path": "api/verification-5000-entries.csv",
+      "title": "verification-5000-entries.csv",
+      "category": "接口与对照文档",
+      "format": "csv",
+      "bytes": 1951988,
+      "sha256": "8e2e03a86c81d73751563bd761918fb1f7e311b18ecef993a0e59743da48be27"
+    },
+    {
+      "path": "api/verification-ledger.csv",
+      "title": "verification-ledger.csv",
+      "category": "接口与对照文档",
+      "format": "csv",
+      "bytes": 2036449,
+      "sha256": "2e0692370eefa231d017c68a52de428b25e8bb99a0377d99ef90f1408330d6d5"
+    },
+    {
+      "path": "api/verification-ledger.json",
+      "title": "verification-ledger.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 10360549,
+      "sha256": "44d54f220c3493b9bb595d4d68a87c4f8666d9f166d4d736943c7809731e25c7"
+    },
+    {
+      "path": "api/verification-ledger.md",
+      "title": "FreeSWITCH 逐项验证账本",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 3725,
+      "sha256": "28564308bf8b7439e03579139da7a9efb6e4c1bc115987748a7c2c96ad99256e"
+    },
+    {
+      "path": "api/voice-runtime-direction.md",
+      "title": "云蝠 Voice Runtime：研发方向与验收标准",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 15570,
+      "sha256": "89b2578efa848cb6cd70feb4ecad28bd5a934319e83a014b7dd49f9cc5d59b48"
+    },
+    {
+      "path": "api/voice-runtime-roadmap.json",
+      "title": "voice-runtime-roadmap.json",
+      "category": "接口与对照文档",
+      "format": "json",
+      "bytes": 10986,
+      "sha256": "04bd3a3d34e69d365a447612b67bab3c329dd91fdc1f812e22ef3caa5abf91f7"
+    },
+    {
+      "path": "api/voice-runtime-v1-acceptance.md",
+      "title": "云蝠 Voice Runtime V1 长期目标与逐项验收",
+      "category": "接口与对照文档",
+      "format": "md",
+      "bytes": 40608,
+      "sha256": "a96ea6ec025bc7e98ad2d7fd3a8a22f0a6b318183cf01eb7ba0c5d4cbe22c8e2"
+    },
+    {
+      "path": "freeswitch-compatibility/01-scope-and-contract.md",
+      "title": "01 · 范围、基线与统一契约",
+      "category": "FreeSWITCH 兼容标准",
+      "format": "md",
+      "bytes": 8531,
+      "sha256": "367fb80f8686503e1b3300d7bf58391234dad4dc53c5d1c5ca886fd36cb7e2ca"
+    },
+    {
+      "path": "freeswitch-compatibility/02-esl-events.md",
+      "title": "ESL、事件与 fs_cli 无改动接入标准",
+      "category": "FreeSWITCH 兼容标准",
+      "format": "md",
+      "bytes": 31982,
+      "sha256": "0c12c6997d4f728629cc5f2b5a919555c69cc63117b459a2b3861c43b5c351ca"
+    },
+    {
+      "path": "freeswitch-compatibility/03-config-dialplan-integrations.md",
+      "title": "03 · 配置、拨号计划与业务集成兼容契约",
+      "category": "FreeSWITCH 兼容标准",
+      "format": "md",
+      "bytes": 33964,
+      "sha256": "4f757fb204006a967bb50811a451e9a1c4b988b4ecf190c41b387a024146e896"
+    },
+    {
+      "path": "freeswitch-compatibility/04-sip-media-native.md",
+      "title": "04 SIP、媒体、原生模块与切换连续性标准",
+      "category": "FreeSWITCH 兼容标准",
+      "format": "md",
+      "bytes": 33838,
+      "sha256": "10b66a01a88a8ec6d32fcbf88c6715b11c451fc781ff5c52f9ad4b92ccf8ca1f"
+    },
+    {
+      "path": "freeswitch-compatibility/05-api-contracts.md",
+      "title": "05 · API 命令与业务行为契约",
+      "category": "FreeSWITCH 兼容标准",
+      "format": "md",
+      "bytes": 15026,
+      "sha256": "c1d557d0346b64468a22f13d2bd3577bda772ec4fee6fe36d505d0361209d002"
+    },
+    {
+      "path": "freeswitch-compatibility/06-conformance-and-cutover.md",
+      "title": "06 · 差分验收与无感切换",
+      "category": "FreeSWITCH 兼容标准",
+      "format": "md",
+      "bytes": 12157,
+      "sha256": "8c3ac53c44babfdc68001863f1a5cff4926fdaba89c2eb55be5962806666bf01"
+    },
+    {
+      "path": "freeswitch-compatibility/07-current-gap-and-roadmap.md",
+      "title": "07 · 当前实现差距与落实顺序",
+      "category": "FreeSWITCH 兼容标准",
+      "format": "md",
+      "bytes": 7958,
+      "sha256": "ad3fd9421d7432be3f11d955ff0cb5067f0f450249ebcf09b93946dca03fb312"
+    },
+    {
+      "path": "freeswitch-compatibility/FULL-STANDARD.md",
+      "title": "FreeSWITCH 1.11.3 无感替换接口标准 · 合订版",
+      "category": "FreeSWITCH 兼容标准",
+      "format": "md",
+      "bytes": 144115,
+      "sha256": "bfe9408d5bb4c15fdc4dadd48a23bb670de0d073450f165df40822aff1fbf938"
+    },
+    {
+      "path": "freeswitch-compatibility/README.md",
+      "title": "FreeSWITCH 无感替换接口标准",
+      "category": "FreeSWITCH 兼容标准",
+      "format": "md",
+      "bytes": 6786,
+      "sha256": "49b79b163f40cd667dc107ad613c9206440902353eb9684aee500170bae1d229"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/README.md",
+      "title": "源码目录、子命令与测试索引的使用范围",
+      "category": "FreeSWITCH 源码目录",
+      "format": "md",
+      "bytes": 3234,
+      "sha256": "d97d88610fceea97983f1027996784c35a2024b7b92cce8b878571e3e97fd16e"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/api-and-applications.csv",
+      "title": "api-and-applications.csv",
+      "category": "FreeSWITCH 源码目录",
+      "format": "csv",
+      "bytes": 167333,
+      "sha256": "f93101e29fe05d7ff63590c1c846d316544039fc1cb4c2748c19cfa417498090"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/api-and-applications.md",
+      "title": "FreeSWITCH 1.11.3 API 与应用注册目录",
+      "category": "FreeSWITCH 源码目录",
+      "format": "md",
+      "bytes": 118699,
+      "sha256": "509cbe3d0872d0a69bfdb590ce9781c852715e96a1e1f3830bdad9734f30df6a"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/channel-variable-macros.csv",
+      "title": "channel-variable-macros.csv",
+      "category": "FreeSWITCH 源码目录",
+      "format": "csv",
+      "bytes": 17406,
+      "sha256": "31f795f7a313bc31877d499eb74a0376707404041ece3e3d3ba4e5014ef23b90"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/conference-and-sofia-subcommands.json",
+      "title": "conference-and-sofia-subcommands.json",
+      "category": "FreeSWITCH 源码目录",
+      "format": "json",
+      "bytes": 107842,
+      "sha256": "5f764a02eac1728f780981765b4a094fcf695d0975990982ff13f7281d5c8975"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/conference-and-sofia-subcommands.md",
+      "title": "Conference与Sofia子命令源码目录",
+      "category": "FreeSWITCH 源码目录",
+      "format": "md",
+      "bytes": 38392,
+      "sha256": "41c56ef62664576b4425651af2a9226fdd1232033add7f6cf1cc06d98ac72a6f"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/conformance-cases.csv",
+      "title": "conformance-cases.csv",
+      "category": "FreeSWITCH 源码目录",
+      "format": "csv",
+      "bytes": 36019,
+      "sha256": "0779ed3927ed0310422434525b208d70107a070b01a5ab5ba678a18aec87067f"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/conformance-cases.json",
+      "title": "conformance-cases.json",
+      "category": "FreeSWITCH 源码目录",
+      "format": "json",
+      "bytes": 62439,
+      "sha256": "480ae99e6c8bc1a904da03b794162bf86b1b5de032bb98f51e9619dacbff773f"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/events.csv",
+      "title": "events.csv",
+      "category": "FreeSWITCH 源码目录",
+      "format": "csv",
+      "bytes": 16285,
+      "sha256": "1e94755c10f54613d2c9f2b646ae346b976b7cdddd67d2cbe6599b39a7e2564d"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/modules.csv",
+      "title": "modules.csv",
+      "category": "FreeSWITCH 源码目录",
+      "format": "csv",
+      "bytes": 3599,
+      "sha256": "e4af82a1331402977ec3164ed26f15982cc3db5293cffd937b9b0e42b361c956"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/native-functions.csv",
+      "title": "native-functions.csv",
+      "category": "FreeSWITCH 源码目录",
+      "format": "csv",
+      "bytes": 431340,
+      "sha256": "efd4ae5c37526a303203d5918bfc536e279495d7a0473e278ba8ed62f92f6ca4"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/reference-source-manifest.json",
+      "title": "reference-source-manifest.json",
+      "category": "FreeSWITCH 源码目录",
+      "format": "json",
+      "bytes": 171895,
+      "sha256": "b156d430acb70b9283fc933bea0278f6a07ef31fa686544aef5c23bb516f32d9"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/source-catalog.json",
+      "title": "source-catalog.json",
+      "category": "FreeSWITCH 源码目录",
+      "format": "json",
+      "bytes": 1521896,
+      "sha256": "0091a2e74c260a3790d3df44a0220ef28faff9fd9d5cd880f40dc1a084f6c703"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/vanilla-parameters.csv",
+      "title": "vanilla-parameters.csv",
+      "category": "FreeSWITCH 源码目录",
+      "format": "csv",
+      "bytes": 186437,
+      "sha256": "5dd4fe19ee692af50b57a0efa1a8d679ed461d064d950a54a788854831a08681"
+    },
+    {
+      "path": "freeswitch-compatibility/catalog/verification.json",
+      "title": "verification.json",
+      "category": "FreeSWITCH 源码目录",
+      "format": "json",
+      "bytes": 1014,
+      "sha256": "b6005c6be8ae85fa195a289d7abe8eccbe1bced8a42a4245be13aa001ce2e6e5"
+    },
+    {
+      "path": "freeswitch-compatibility/templates/README.md",
+      "title": "兼容验收记录模板",
+      "category": "兼容验收模板",
+      "format": "md",
+      "bytes": 6693,
+      "sha256": "94df1952cabd2c5b598ebf35a9859bab1c5390e1115fc9f494b8a1b327d6d9a9"
+    },
+    {
+      "path": "freeswitch-compatibility/templates/baseline-profile.json",
+      "title": "baseline-profile.json",
+      "category": "兼容验收模板",
+      "format": "json",
+      "bytes": 7451,
+      "sha256": "465791f6b5f351c0d52fc071fcbd3ece24f243c34cccb23f30b94f7d8f7df24b"
+    },
+    {
+      "path": "freeswitch-compatibility/templates/certification-report.json",
+      "title": "certification-report.json",
+      "category": "兼容验收模板",
+      "format": "json",
+      "bytes": 6670,
+      "sha256": "e95f8c61e086250ab275b1a20d837825b6b1e3e2646746476cf91b0ba02ca189"
+    },
+    {
+      "path": "freeswitch-compatibility/templates/interface-contract.json",
+      "title": "interface-contract.json",
+      "category": "兼容验收模板",
+      "format": "json",
+      "bytes": 7424,
+      "sha256": "48b3b6ae7ce294c00300c09c64296d30473a0589152f5ad3d5fa90563f2a5e2b"
+    },
+    {
+      "path": "native/audio/OPUS-COPYING",
+      "title": "OPUS-COPYING",
+      "category": "原生契约与来源许可",
+      "format": "",
+      "bytes": 1945,
+      "sha256": "01e1167d54a096d123cf6dfbbeb19587278845c6481d2d66d545669846079551"
+    },
+    {
+      "path": "native/audio/README.md",
+      "title": "原生音频依赖与离线 PCM SDK",
+      "category": "原生契约与来源许可",
+      "format": "md",
+      "bytes": 7804,
+      "sha256": "09f5a2140a5496cfb70863257a85210f95d224ba08931e352889abdd5f0a9baf"
+    },
+    {
+      "path": "native/audio/sources.json",
+      "title": "sources.json",
+      "category": "原生契约与来源许可",
+      "format": "json",
+      "bytes": 1894,
+      "sha256": "22b6bdcfb1c12186e19ad95072fe1f89e3dca77b81db6a7b626967da2158722e"
+    },
+    {
+      "path": "native/include/rustswitch_codec.h",
+      "title": "rustswitch_codec.h",
+      "category": "原生契约与来源许可",
+      "format": "h",
+      "bytes": 2543,
+      "sha256": "4388fe86aa99b9b7d5d7ae012a8e98ab3aeb3334676371a3240a5759cb66b14e"
+    },
+    {
+      "path": "native/include/rustswitch_protocol.h",
+      "title": "rustswitch_protocol.h",
+      "category": "原生契约与来源许可",
+      "format": "h",
+      "bytes": 1908,
+      "sha256": "4f21a43c469e3e94f4c19ff256244e7d8678dad9277428590895864ff5036f60"
+    },
+    {
+      "path": "native/vendor/spandsp/COPYING",
+      "title": "COPYING",
+      "category": "原生契约与来源许可",
+      "format": "",
+      "bytes": 44595,
+      "sha256": "366576cb0b869cd9e95a4882878607314650488ac635e5df0692180382e9666a"
+    },
+    {
+      "path": "reference/LICENSE.freeswitch.txt",
+      "title": "FreeSWITCH 原始许可",
+      "category": "原生契约与来源许可",
+      "format": "txt",
+      "bytes": 79977,
+      "sha256": "56eefe9960077097c6e9f4b70a46221711166e6e4b76676ad59f09772b6a0789"
+    },
+    {
+      "path": "reference/x-sys-LICENSE.txt",
+      "title": "x-sys-LICENSE.txt",
+      "category": "原生契约与来源许可",
+      "format": "txt",
+      "bytes": 1453,
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
+    },
+    {
+      "path": "reference/x-sys-PATENTS.txt",
+      "title": "x-sys-PATENTS.txt",
+      "category": "原生契约与来源许可",
+      "format": "txt",
+      "bytes": 1303,
+      "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc"
+    }
+  ],
+  "counts": {
+    "http_operations": 26,
+    "comparison_entries": 3999
+  },
+  "scope": "当前 RustSwitch 接口完整说明、固定 FreeSWITCH 源码目录逐项对照与兼容标准；动态模块运行全集和差分认证未完成。",
+  "notice": "文档中的运行接口、内部契约、仅导出配置和待实现功能分别标注；目录齐全不代表运行行为兼容。"
+}

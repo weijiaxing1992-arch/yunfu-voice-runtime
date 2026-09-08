@@ -1,0 +1,237 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>受限 WAV 文件播放 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 受限 WAV 文件播放</div><article class="content"><div class="page-tools"><a href="file-playback-reference.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 7 节</summary><a href="#启动配置与路径边界">启动配置与路径边界</a><a href="#格式范围">格式范围</a><a href="#媒体-ipc">媒体 IPC</a><a href="#有界加载缓存与取消">有界加载、缓存与取消</a><a href="#失败与原版应用映射">失败与原版应用映射</a><a href="#可复核验证">可复核验证</a><a href="#与流式-pcm-的发送所有权">与流式 PCM 的发送所有权</a></details><h1 id="受限-wav-文件播放">受限 WAV 文件播放</h1>
+<p>本文按 1.12.0 候选更新；真实本地 WAV 文件播放始于 1.7：在受限目录中加载完整文件、校验容器与音频格式，再生成实际 G.711 RTP。<code>loading</code> 或文件打开成功均不表示音频已经发送。停止、挂断、代际更换后，迟到的加载结果不能重新开始播放。</p>
+<p>这是自有媒体 IPC 的一个受限实现。它不等于 FreeSWITCH 全文件接口兼容，不支持任意路径、URL、压缩音频插件、TTS、重采样、立体声、文件偏移 seek 或无限长流。原版接口对照仍锁定 FreeSWITCH 1.11.3 提交 <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>；完整原版对测证据应以单独保存的运行报告为准。</p>
+<h2 id="启动配置与路径边界">启动配置与路径边界</h2>
+<p>在现有启动配置的 <code>media</code> 对象中加入：</p>
+<pre><code class="language-json">{&quot;playback_root&quot;:&quot;/srv/rustswitch/prompts&quot;}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>配置/边界</th>
+<th>实际行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>media.playback_root</code></td>
+<td>空值或省略关闭文件播放；不影响原有单音播放或桥接。非空必须是规范绝对路径，不能为 <code>/</code>，最长 4096 字节。</td>
+</tr>
+<tr>
+<td>目录检查</td>
+<td>Go 验证配置形状；Rust 启动时打开真实目录。不存在、不可打开或根目录自身是符号链接会启动失败。</td>
+</tr>
+<tr>
+<td>生效方式</td>
+<td>worker 启动时冻结，修改需重启生效；没有逐呼叫切换根目录的入口。</td>
+</tr>
+<tr>
+<td>相对文件路径</td>
+<td>最长 240 个 UTF-8 字节、最多 8 个组件，每个组件最多 128 字节；后缀 <code>.wav</code> 大小写均可。</td>
+</tr>
+<tr>
+<td>禁止项</td>
+<td>绝对路径、空组件、<code>.</code>、<code>..</code>、反斜线、冒号、控制字符和非 WAV 后缀。没有 URL、shell 或动态插件输入。</td>
+</tr>
+<tr>
+<td>文件对象</td>
+<td>每次逐级 <code>openat</code> 并使用 <code>O_NOFOLLOW</code>；拒绝中间及最终符号链接、硬链接、FIFO、设备、目录及不可读普通文件。</td>
+</tr>
+</tbody></table></div>
+<p>根目录在启动时固定为已打开的目录 fd，后续组件相对已打开的父目录寻找；路径检查和文件实际打开之间，不会因为符号链接被替换而跟随到根之外。加载过程不把文件内容当作命令。实际 Unix 读取权限仍由操作系统执行，本目录约束不是容器或完整文件系统沙箱。</p>
+<p>媒体层允许普通文件名空格；上层 ESL/XML/read 解析可能采用更窄的参数规则，不能由媒体层支持推断所有上层入口都接受含空格文件名。</p>
+<h2 id="格式范围">格式范围</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>WAV 编码</th>
+<th align="right">格式标签</th>
+<th>采样/声道</th>
+<th>文件样本</th>
+<th><code>fmt </code> 要求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PCM</td>
+<td align="right">1</td>
+<td>8000 Hz、单声道</td>
+<td>有符号 16 位、小端</td>
+<td>长度 16；或长度 18 且 <code>cbSize=0</code>。</td>
+</tr>
+<tr>
+<td>A-law</td>
+<td align="right">6</td>
+<td>8000 Hz、单声道</td>
+<td>8 位 G.711 A-law</td>
+<td>长度 18，<code>cbSize=0</code>。</td>
+</tr>
+<tr>
+<td>μ-law</td>
+<td align="right">7</td>
+<td>8000 Hz、单声道</td>
+<td>8 位 G.711 μ-law</td>
+<td>长度 18，<code>cbSize=0</code>。</td>
+</tr>
+</tbody></table></div>
+<p><code>byte_rate</code>、<code>block_align</code> 与位深须完全匹配所声明编码。线路输出只接受已协商 PCMU/PCMA、8 kHz、单声道，包括合法动态 RTP PT；输入先恢复 PCM，再按实际线路压扩，G.711 文件不保证保留原压扩字节的全部等价零码字。没有重采样，也不把内部 PCM 冒充网络 L16。<a href="https://learn.microsoft.com/en-us/windows/win32/api/mmreg/ns-mmreg-waveformatex" target="_blank" rel="noopener noreferrer">Microsoft WAVEFORMATEX</a></p>
+<p>容器限定 little-endian <code>RIFF</code> / <code>WAVE</code>，外层长度必须与实际文件长度恰好相等。<code>fmt </code> 和 <code>data</code> 必须各有且只有一项，<code>fmt </code> 在 <code>data</code> 前；<code>fact</code> 可省略，出现时须唯一、恰好四字节且样本数与 <code>data</code> 一致。未知块只检查长度和对齐，不执行内容。奇数长度块要求存在零值 padding；最多 128 个块。本实现的严格子集会拒绝其他合法但尚未支持的 WAVE 变体，例如扩展 <code>fmt</code>、非零 padding、RIFX、RF64、IEEE float 和 WAVEFORMATEXTENSIBLE。<a href="https://learn.microsoft.com/en-us/windows/win32/xaudio2/resource-interchange-file-format--riff-" target="_blank" rel="noopener noreferrer">Microsoft RIFF 结构说明</a></p>
+<p>文件总大小最多 1 MiB，包含头部和元数据；音频必须非空且最多 240000 个样本，即 30 秒。文件读取前后校验 inode、大小和修改元数据，读取中发生变化时不交付部分结果。</p>
+<h2 id="媒体-ipc">媒体 IPC</h2>
+<p>启动文件：</p>
+<pre><code class="language-json">{&quot;id&quot;:30,&quot;op&quot;:&quot;playback_file_start&quot;,&quot;session&quot;:42,&quot;playback_id&quot;:2,&quot;leg&quot;:&quot;a&quot;,&quot;path&quot;:&quot;menu/welcome.wav&quot;}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>id</code></td>
+<td>该次 RPC 的关联编号，与播放编号不同。</td>
+</tr>
+<tr>
+<td><code>session</code></td>
+<td>当前 worker 内有效媒体会话编号。</td>
+</tr>
+<tr>
+<td><code>playback_id</code></td>
+<td>非零 uint64；同会话新任务必须大于之前任务编号。</td>
+</tr>
+<tr>
+<td><code>leg</code></td>
+<td>relay 可为 <code>a</code> 或 <code>b</code>，向 B 播放须已有真实 B 对端；g711 仅 local A 腿可播放，bridge 明确拒绝。</td>
+</tr>
+<tr>
+<td><code>path</code></td>
+<td>上述根目录内相对 WAV 路径。Go 对应 <code>media.Request.FilePath</code>。</td>
+</tr>
+</tbody></table></div>
+<p>正常入队立即回复：</p>
+<pre><code class="language-json">{&quot;id&quot;:30,&quot;ok&quot;:true,&quot;type&quot;:&quot;playback_state&quot;,&quot;session&quot;:42,&quot;playback_id&quot;:2,&quot;state&quot;:&quot;loading&quot;,&quot;sent_packets&quot;:0,&quot;total_packets&quot;:0,&quot;message&quot;:&quot;&quot;}
+</code></pre>
+<p><code>ok:true</code> 在这里仅表示任务已进入有界加载流程。Go <code>Pool.Call</code> / <code>Pool.Submit</code> 仍复用既有串行 RPC，媒体循环不会等待磁盘。相同播放编号、相同路径和方向重复请求返回原状态，不重播；同编号参数不同、已有任务处于 loading/running 或使用旧编号均拒绝。</p>
+<p>状态与停止沿用：</p>
+<pre><code class="language-json">{&quot;id&quot;:31,&quot;op&quot;:&quot;playback_status&quot;,&quot;session&quot;:42,&quot;playback_id&quot;:2}
+{&quot;id&quot;:32,&quot;op&quot;:&quot;playback_stop&quot;,&quot;session&quot;:42,&quot;playback_id&quot;:2}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th><code>state</code></th>
+<th><code>sent_packets</code> / <code>total_packets</code></th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>loading</code></td>
+<td>0 / 0</td>
+<td>尚未取得完整验证后的 PCM；不能据零分母报完成。</td>
+</tr>
+<tr>
+<td><code>running</code></td>
+<td>实发 / 名义包数</td>
+<td>完整文件已装载，正在生成 RTP 或等待最后一帧的播放时间结束。</td>
+</tr>
+<tr>
+<td><code>completed</code></td>
+<td>必须相等且非零</td>
+<td>全部标称包被本机 UDP 接受，最后一帧时间已结束；仍需接收端证据才能证明实际音频到达。</td>
+</tr>
+<tr>
+<td><code>stopped</code></td>
+<td>保留停止时计数</td>
+<td>主动停止；加载中停止可为 0 / 0，不等于完成。</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>保留失败时计数</td>
+<td>加载失败/超时、调度迟到或 UDP 发送失败；<code>message</code> 给出原因。</td>
+</tr>
+</tbody></table></div>
+<p>输出固定 20 ms 一包、160 个 G.711 样本；RTP 序号逐包递增，时间戳每包增加 160。<code>total_packets = ceil(样本数/160)</code>，最大 1500 包。尾部不足 160 个样本补该线路的 G.711 数字静音，不丢掉剩余样本；播放时长向上补齐到 20 ms 边界。分母不因失败或少发缩小。</p>
+<p>文件只在完整装载后才替代目标腿原主音频及 CN；loading 期间桥照常转发。反方向音频、双向 telephone-event 与 RTCP 保持原通路。完成或停止后恢复桥；已排队的 DTMF 不会被文件启动清除。媒体层负责真实按键采集，上层应用决定终止符，并发送匹配编号的 stop 实现打断。</p>
+<h2 id="有界加载缓存与取消">有界加载、缓存与取消</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>资源</th>
+<th>硬边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文件线程</td>
+<td>每个开启文件播放的 worker 固定 1 个；空 root 不创建线程。</td>
+</tr>
+<tr>
+<td>待加载 / 待交付</td>
+<td>两个独立队列各最多 16 项，队列满即时拒绝新启动；不生成逐通话线程。</td>
+</tr>
+<tr>
+<td>同时交互任务</td>
+<td>单音与文件的 loading/running 合计每 worker 最多 64 项，每会话最多 1 项。</td>
+</tr>
+<tr>
+<td>加载交付期限</td>
+<td>从受理算起 2 秒，排队时间包含在内；超时由媒体循环独立标记失败并取消交付。</td>
+</tr>
+<tr>
+<td>单文件 / PCM</td>
+<td>输入最多 1 MiB；PCM 最多 240000 个 i16 样本，即 480000 字节。</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>每 worker 最多 8 项且 PCM 总量最多 4 MiB，LRU 淘汰。</td>
+</tr>
+<tr>
+<td>终态保留</td>
+<td>只保留最后任务的小型状态；完成、失败、停止立即归还大 PCM 引用，释放会话删除全部任务状态。</td>
+</tr>
+</tbody></table></div>
+<p>缓存只共享不可变 PCM。每次仍安全打开路径、检查权限与对象类型，再以设备/inode/大小/修改和变更时间匹配缓存；文件替换或元数据变化会重新读取校验。缓存淘汰不打断已有播放，活跃任务引用受 64 项上限约束。有限缓存并不代表任意多不同文件都不占内存，主动文件播放容量应另行实测。</p>
+<p>结果交付同时检查槽位、会话 token 代际、播放编号和仍为 loading 的状态。stop/释放会设置取消位并撤销计时项；旧任务、复用槽位、超时后的结果直接丢弃。取消不依赖文件线程先完成读取，不能迟到恢复旧播放。</p>
+<p>普通文件的底层文件系统读取可能不能由用户态即时中断；两秒期限取消的是播放任务交付，媒体线程继续转发，且不会额外生成替代加载线程。一个长期卡在文件系统中的加载线程会使后续文件任务超时或队列满，不能把这种情况报为成功。worker 退出不无限 join 该线程，进程退出统一回收它持有的 fd。部署应使用本地可用的提示文件目录，不能把此实现当作网络流播放器。</p>
+<h2 id="失败与原版应用映射">失败与原版应用映射</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>实际 IPC 结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空 root、无效相对路径、非 G.711 线路、无 B 对端、任务冲突、队列/并发满</td>
+<td>启动直接 <code>ok:false,type:error</code>，没有开始播放。</td>
+</tr>
+<tr>
+<td>根内相对文件不存在</td>
+<td>先 loading，后 failed；<code>message</code> 包含 <code>file_load_failed: file_not_found</code>。</td>
+</tr>
+<tr>
+<td>坏 RIFF、格式不支持、过大/过长、链接/设备/FIFO、读权限不符、读取中变更</td>
+<td>loading 后 failed，零已发包；不能截断播放有效前半段。</td>
+</tr>
+<tr>
+<td>加载期限到期</td>
+<td>failed，<code>file_load_timeout</code>，后到结果不能播放。</td>
+</tr>
+<tr>
+<td>已运行时调度超过一帧或 UDP 发送失败</td>
+<td>failed，原分母和实际发送计数保留；不补发突发、延长窗口或假报 completed。</td>
+</tr>
+<tr>
+<td>加载或运行中 stop、挂断</td>
+<td>停止或释放；无论加载结果何时返回，都不得复活。</td>
+</tr>
+</tbody></table></div>
+<p>原版 <code>mod_dptools</code> 的 <code>playback</code> 将正常/BREAK、找不到文件及其他失败分别映射为 <code>FILE PLAYED</code>、<code>FILE NOT FOUND</code>、<code>PLAYBACK ERROR</code>；应用层应根据实际媒体终态区分这些情况，不能在 loading 阶段提前发成功。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L3029" target="_blank" rel="noopener noreferrer">FreeSWITCH 1.11.3 mod_dptools</a></p>
+<p>原版文件接口可接受的路径、格式、变量、偏移及播放事件比本实现更多。本页仅说明新增媒体能力；完整 <code>playback</code> / <code>read</code> / XML 动作语义和原版对测结果应结合上层接口文档及逐项兼容账本阅读。</p>
+<h2 id="可复核验证">可复核验证</h2>
+<p>纯状态及文件测试覆盖 16 项 WAV 解析边界、5 项安全加载与预算场景、文件尾帧静音及终态释放 PCM、加载停止/释放/旧代际迟到结果、加载截止与成功状态区分。后两类 Engine 用例需要可绑定 UDP 的环境；权限被拒绝必须保留失败证据，不能列作通过。</p>
+<p><code>tests/file_playback_e2e.py</code> 包含 9 项独立真实 worker 用例：PCM16→PCMU/PCMA 的实际样本与尾帧、A-law/μ-law WAV、不存在与坏文件/链接/FIFO、非法路径/空 root、加载中 stop 后新单音、加载中释放无迟到音频和资源、真实 DTMF 打断后桥恢复。应顺序运行普通和 connected UDP 两种模式；测试从实际端点读取 RTP 并独立解码，不能用文件已打开或状态 completed 代替音频证据。</p>
+<p>这些测试不认证声卡听感、全部编解码、30 秒持续文件播放的并发容量或 FreeSWITCH 全量兼容。原版同文件对照需要另外固定 WAV SHA、双方运行版本、实际 RTP 与结束/打断事件；不能把本地功能回归冒充原版对测。</p>
+<h2 id="与流式-pcm-的发送所有权">与流式 PCM 的发送所有权</h2>
+<p>在 <a href="processed-local-reference.html">本地 G.711 图</a> 中，受限 WAV 解码出的原 PCM 直接进入图编码，与 tone、<a href="pcm-turn-reference.html">PCM turn</a> 和主动 DTMF 沿用同一 TX SSRC/包序/时钟。文件路径、格式、异步磁盘预算及播放 ID 幂等规则不因新流接口扩大。</p>
+<p>1.12 外部 SDK 在 PCM begin 时检查活动及排队的 WAV/tone TX 任务；反向启动播放也检查当前 PCM 所有权。loading、running、draining/stopping 或结果未知均不能靠本地取消标志冒充 TX 已释放。需要用原播放停止操作或 PCM INTERRUPT 取得真实结果后再交接，不自动混音或抢占。静默 read/park 可并存；read 提示音和普通 WAV 一样持有音频 TX。</p>
+<p><code>uuid_break</code> 与 playback_stop 只作用于原播放任务；流式 PCM 不伪造 PLAYBACK_START/STOP 或 FILE PLAYED，应通过 <a href="rva1-reference.html">RVA1</a> 的逐轮状态确认。未知受理、音频格式和供应商接入的边界保持独立。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

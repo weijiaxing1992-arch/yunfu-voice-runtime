@@ -1,0 +1,203 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>入站 ESL 接口与 FreeSWITCH 对照 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 入站 ESL 接口与 FreeSWITCH 对照</div><article class="content"><div class="page-tools"><a href="esl-reference.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 6 节</summary><a href="#启用与认证">启用与认证</a><a href="#字节协议与资源边界">字节协议与资源边界</a><a href="#已实现-api">已实现 API</a><a href="#sendmsg-应用执行">sendmsg 应用执行</a><a href="#后台命令与事件">后台命令与事件</a><a href="#验证与剩余工作">验证与剩余工作</a></details><h1 id="入站-esl-接口与-freeswitch-对照">入站 ESL 接口与 FreeSWITCH 对照</h1>
+<p>文档版本 1.9.0。目标参考 FreeSWITCH 1.11.3，固定提交 <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>。本页说明已接入 Go 控制面与 Rust 实际媒体的有限子集；完整原版命令、应用、事件和 outbound ESL 仍有缺口，不能据此宣称完整替换。应用参数见 <a href="ivr-reference.html">IVR 接口</a>，新增本地电话发送按键见 <a href="dtmf-send-reference.html">DTMF 发送接口</a>，组合调用见 <a href="ai-calling-reference.html">AI 呼叫接入</a>。</p>
+<h2 id="启用与认证">启用与认证</h2>
+<p>主进程增加 <code>-esl-listen 127.0.0.1:8021 -esl-password-file /absolute/private/esl.secret</code>。默认关闭。地址必须为字面回环 IP，密码从私有普通文件读取；权限不得向组或其他用户开放，最多 256 字节，可有一个结尾换行。密码不写入命令行、管理配置或日志。</p>
+<p>连接建立后服务发送 <code>Content-Type: auth/request</code>。客户端发送 <code>auth &lt;password&gt;</code> 和空行，成功返回 <code>command/reply</code>、<code>Reply-Text: +OK accepted</code>。错误密码返回 <code>-ERR invalid</code> 后断连；未认证的普通命令不执行。认证阶段有绝对时间限制。</p>
+<p>原版 <code>fs_cli -x</code> 通过 <code>console_execute: true</code> 请求调用已实现 API 的单命令子集，支持中文正文和空白处理。双分号批处理、别名在执行任何 API 前明确拒绝；单分号按普通参数保留。其补全、日志订阅及其他默认交互命令仍依赖尚未实现的接口，不保证完整交互体验。未提供 <code>userauth</code>、角色权限、目录口令认证、远程 ESL ACL、TLS ESL 和 outbound 会话接管。</p>
+<h2 id="字节协议与资源边界">字节协议与资源边界</h2>
+<p>请求为命令首行、可选头、空行及可选精确长度正文。接受 LF / CRLF，<code>Content-Length</code> 按字节计算，支持分片和粘包；重复长度、负数、溢出、截断或非法头拒绝。每连接单个写入者保持完整帧，异步事件可能出现在两个命令响应之间，客户端必须独立分派。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>当前边界</th>
+<th>对照含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>连接数</td>
+<td>默认 64，内部选项最大 1024</td>
+<td>不是原版所有连接策略的等价配置</td>
+</tr>
+<tr>
+<td>请求头 / 正文</td>
+<td>64KiB / 16MiB</td>
+<td>头预算比原版严格；不接受无限头空行</td>
+</tr>
+<tr>
+<td>认证 / 帧接收</td>
+<td>默认 5 秒 / 首字节后 10 秒</td>
+<td>慢速输入不能逐字节续期</td>
+</tr>
+<tr>
+<td>空闲连接</td>
+<td>等待下一帧最多 30 分钟</td>
+<td>连接保活策略仍须按客户应用复核</td>
+</tr>
+<tr>
+<td>写入</td>
+<td>默认 2 秒；有界消息及字节队列</td>
+<td>慢消费者或队列溢出关闭连接，不静默伪装完整事件流</td>
+</tr>
+<tr>
+<td>API</td>
+<td>默认 5 秒执行预算，通道命令队列 128</td>
+<td>超时与满队列明确失败；已开始的操作不承诺事务回滚</td>
+</tr>
+<tr>
+<td>bgapi</td>
+<td>固定 8 执行器、128 等待任务</td>
+<td>不为每个作业无上限创建线程；任务不落盘</td>
+</tr>
+</tbody></table></div>
+<p>服务退出时停止接入、取消回调并回收连接。SIP 主循环只收到有界控制请求；通道 UUID 使用直接索引，结束时回收索引，不在每次命令上扫描全部通话。</p>
+<h2 id="已实现-api">已实现 API</h2>
+<p>调用 <code>api &lt;command&gt; [arguments]</code>，响应为 <code>Content-Type: api/response</code> 与按字节数编码的实际正文。未知 API 返回 <code>-ERR &lt;command&gt; Command not found!</code> 加换行。响应帧到达不等于业务成功。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>输入</th>
+<th>当前结果与限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>echo</code></td>
+<td>任意参数文本</td>
+<td>返回参数正文；不用于执行脚本</td>
+</tr>
+<tr>
+<td><code>create_uuid</code></td>
+<td>无</td>
+<td>随机 RFC 4122 UUID；不是创建通话</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>无</td>
+<td>如实返回 RustSwitch 产品身份，不伪装 FreeSWITCH</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>无</td>
+<td>当前运行秒数、活动及已接通通话数；格式与原版不同</td>
+</tr>
+<tr>
+<td><code>show</code></td>
+<td><code>api as json</code></td>
+<td>实际可调用 API 目录，<code>row_count</code>/<code>rows</code>；<code>ikey=rustswitch</code>；其他 show 子命令未实现</td>
+</tr>
+<tr>
+<td><code>uuid_dump</code></td>
+<td>UUID、可选格式</td>
+<td>真实单腿快照，txt/plain/json/xml及未知格式回退；完整字段、资源和错误边界见<a href="channel-snapshot-reference.html">快照手册</a></td>
+</tr>
+<tr>
+<td><code>uuid_exists</code></td>
+<td>UUID</td>
+<td>当前活动通道存在为 <code>true</code>，否则 <code>false</code></td>
+</tr>
+<tr>
+<td><code>uuid_getvar</code></td>
+<td>UUID、变量名</td>
+<td>读取普通通道变量或内置 <code>uuid</code>/<code>sip_call_id</code>；不存在普通变量为 <code>_undef_</code></td>
+</tr>
+<tr>
+<td><code>uuid_setvar</code></td>
+<td>UUID、变量名、可选值</td>
+<td>写普通变量；省略值删除；每腿独立，最多 128 个且合计 64KiB；不支持数组、展开及覆盖受保护身份</td>
+</tr>
+<tr>
+<td><code>uuid_setvar_multi</code></td>
+<td>UUID、分号分隔的 name=value 列表</td>
+<td>实际逐项写入/删除；每批≤64项/16KiB，支持单引号、转义及有限自定义分隔。详见 <a href="variables-reference.html">批量变量</a></td>
+</tr>
+<tr>
+<td><code>uuid_break</code></td>
+<td>UUID</td>
+<td>中断当前受支持的playback/read，受理后仍等待真实停止/完成事件；all/both及其他应用未支持</td>
+</tr>
+<tr>
+<td><code>uuid_send_dtmf</code></td>
+<td>UUID、<code>digits[@milliseconds]</code></td>
+<td>已 ACK 本地 A 腿发送 telephone-event；1..32 个按键，默认 250 ms，可指定 50..1000 ms；<code>+OK</code> 仅表示队列受理</td>
+</tr>
+<tr>
+<td><code>uuid_send_dtmf_status</code></td>
+<td>UUID</td>
+<td><strong>云蝠自有扩展，非 FreeSWITCH API</strong>；返回发送状态、会话累计按键/包计数及错误；不能据查询成功认定原版兼容</td>
+</tr>
+<tr>
+<td><code>uuid_kill</code></td>
+<td>UUID、可选 <code>NORMAL_CLEARING</code></td>
+<td>真实终止两腿 SIP 并释放媒体；其他原因码未完成</td>
+</tr>
+</tbody></table></div>
+<p>每通桥接电话的 A/B 腿拥有不同 UUID，分别映射到自身 SIP Call-ID。本地 IVR 只有实际存在的 A 腿 UUID；通过 <code>sip.local_extensions</code> 精确号码启用，配置见 <a href="ai-calling-reference.html">本地呼入</a>。UUID 不是媒体槽位，不会因端口复用而指向新通话。UUID 控制接口尚未实现原版的全部变量容器、全部错误分支与通道保留时序。</p>
+<h3 id="本地按键发送与受理语义">本地按键发送与受理语义</h3>
+<p><code>api uuid_send_dtmf &lt;uuid&gt; 12#@100</code> 仅用于实际收到 SIP ACK 且媒体已分配的本地 A 腿。需要协商 telephone-event，事件时钟与主音频 RTP 时钟相同，<code>dtmf_type</code> 未设或为忽略大小写的 <code>rfc2833</code>；桥接 A/B 腿、INFO 发送、带内音频按键及原版暂停/分段参数明确拒绝。每通队列含当前按键最多 32 个，每 worker 最多 64 个活动发送器。</p>
+<p>正文 <code>+OK &lt;uuid&gt; sent DTMF 12#@100.</code> 加换行沿用原版的有限响应形状，表示 Rust 媒体队列已受理。随后通过自有 <code>uuid_send_dtmf_status</code> 查询 <code>idle/sending/failed</code>；<code>completed_digits</code> 只说明对应按键的三个结束包已成功提交给 UDP，不证明远端收到或业务执行。发送动作不会伪造接收侧 <code>DTMF</code> 事件。</p>
+<p>请求非幂等，超时或 ESL 断连不能推断没有执行；同一请求重发会再次排队。应先查询并结合此前累计计数判定，不确定且必须停止时可终止通话；<code>uuid_break</code> 只作用于受支持的播放/收号提示，不取消按键发送。完整字段、调度失败、取消与原版差异见 <a href="dtmf-send-reference.html">DTMF 发送合同</a>。离线 <a href="audio-reference.html">Audio SDK</a> 的可变采样率不改变这条实时发送路径，也不代表实时 ASR/TTS 或 AI 轮次控制已经接入。</p>
+<h2 id="sendmsg-应用执行">sendmsg 应用执行</h2>
+<p>已认证连接可向实际通道发送 <code>sendmsg &lt;UUID&gt;</code>，带 <code>call-command: execute</code>、<code>execute-app-name</code>、<code>execute-app-arg</code> 和末尾空行。目前执行 <code>answer</code>、<code>set</code>、<code>unset</code>、<code>read</code>、<code>playback</code>、<code>sleep</code>、<code>park</code>、<code>hangup</code> 的文档化子集。playback 支持受限单频提示音和 WAV，完整参数见 <a href="dialplan-reference.html">XML与应用</a>。这些应用真实修改通道变量、收集 RTP/INFO 按键或驱动 Rust 媒体发包；不支持的应用和控制头明确拒绝。</p>
+<p><code>+OK</code> 是通过通道及资源校验后的受理结果。使用 <code>event-uuid</code> 与实际 <code>CHANNEL_EXECUTE_COMPLETE.Application-UUID</code> 关联完成结果；不能把命令回复当成播放或收号成功。<code>event-lock: true</code> 允许串行排队，每腿最多八项、全局最多 20000 项且另有 16 MiB 记账预算；read/放音应用总期限60秒；sleep按实际指定时间，park等真实挂机，不使用60秒伪完成；全通话仍受max_call_seconds限制。准确的配置相关任务上限、参数默认值、DTMF 失效、挂断取消与未开始任务事件见 <a href="ivr-reference.html">IVR 详细说明</a>。</p>
+<h2 id="后台命令与事件">后台命令与事件</h2>
+<p><code>bgapi</code> 使用相同已实现命令集。服务先返回 <code>+OK Job-UUID: &lt;uuid&gt;</code> 与 <code>Job-UUID</code> 头，随后在订阅者连接上发布 <code>BACKGROUND_JOB</code>，事件正文是实际 API 结果。客户端可提供 <code>Job-UUID</code>，超长值按原版有限长度处理。关联号不是幂等键，同号两次提交仍分别执行。客户端断连不等同取消后台任务；进程退出会取消，未提供持久作业恢复。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>实际触发</th>
+<th>完整兼容边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CHANNEL_CREATE</code></td>
+<td>SIP 呼叫通过准入，实际通道身份建立；本地呼入仅 A 腿</td>
+<td>不含原版全部字段及模块事件</td>
+</tr>
+<tr>
+<td><code>CHANNEL_ANSWER</code></td>
+<td>实际收到并处理接通状态</td>
+<td>不替代 ACK 到达与双向语音检查</td>
+</tr>
+<tr>
+<td><code>CHANNEL_HANGUP</code></td>
+<td>通话进入结束状态</td>
+<td>不是媒体已回收的 <code>CHANNEL_HANGUP_COMPLETE</code></td>
+</tr>
+<tr>
+<td><code>CHANNEL_EXECUTE</code></td>
+<td>已受理应用实际开始执行</td>
+<td>不为挂断时尚未执行的排队任务伪造开始事件</td>
+</tr>
+<tr>
+<td><code>CHANNEL_EXECUTE_COMPLETE</code></td>
+<td>应用实际结束或已受理任务被取消</td>
+<td>必须核对关联标识、Application-Response、read_result 等变量；失败完成仍是完成事件</td>
+</tr>
+<tr>
+<td><code>DTMF</code></td>
+<td>完整去重的 RTP 电话事件，或通过对话校验的 INFO 按键</td>
+<td>接收侧事件；不由 <code>uuid_send_dtmf</code> 的受理或本地发包合成，不覆盖音内检测或全部通道缓存语义</td>
+</tr>
+<tr>
+<td><code>PLAYBACK_START</code> / <code>PLAYBACK_STOP</code></td>
+<td>当前放音的实际生命周期</td>
+<td>触发与错误场景见<a href="event-lifecycle-reference.html">事件手册</a>，不能把订阅成功当播放成功</td>
+</tr>
+<tr>
+<td><code>CHANNEL_PARK</code> / <code>CHANNEL_UNPARK</code></td>
+<td>进入及离开当前停泊应用</td>
+<td>当前应用范围；不代表停车检索、转接和完整事件字段</td>
+</tr>
+<tr>
+<td><code>BACKGROUND_JOB</code></td>
+<td>已受理后台 API 执行结束</td>
+<td>不代表业务正文成功或持久化完成</td>
+</tr>
+</tbody></table></div>
+<p>支持固定1.11.3目录的92个普通事件名订阅（ALL单独处理，CUSTOM子类另为未实现范围）；接收订阅不会合成尚未实现的事件。支持连接级 <code>event plain|json|xml</code>、普通字符串 <code>filter</code>、<code>nixevent</code> 和 <code>noevents</code>。plain 值按原事件百分号规则编码；JSON 正文使用 <code>_body</code>；不同格式均独立计算外层字节长度。普通过滤使用忽略大小写的正向 OR 匹配与负向排除，不支持正则、数组或索引过滤。全部选择 <code>ALL</code> 只包含当前实际产生的事件，不代表原版事件全集已经实现。</p>
+<p>受限应用调度已接入；outbound ESL、<code>myevents</code>、完整日志与 CUSTOM 子类、<code>CHANNEL_HANGUP_COMPLETE</code>、全部原版通道字段及上述八个应用之外的执行语义仍是独立缺口。未提供的行为不能返回固定 <code>+OK</code>。提示音媒体合同与失败状态见 <a href="media-interaction.html">媒体交互接口</a>。</p>
+<h2 id="验证与剩余工作">验证与剩余工作</h2>
+<p><a href="conformance-testing.html">测试用例与成对执行器</a> 保留全部原始对照 ID。协议单测验证分片、粘包、认证、并发、慢消费者及回收；真实 SIP/Rust 媒体测试验证事件、变量、正常拆线和 ESL 断连时语音继续。成对探针只认证各自明确断言，不推广为整个 API、模块或通信协议已经完全兼容。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

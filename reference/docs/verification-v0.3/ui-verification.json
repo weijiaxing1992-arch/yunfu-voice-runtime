@@ -1,0 +1,36 @@
+{
+  "revision": 10,
+  "policy": {
+    "enabled": true,
+    "max_active_calls": 8000,
+    "max_establishing_calls": 1000,
+    "calls_per_second": 1000,
+    "burst_calls": 1000,
+    "soft_limit_ratio": 0.8,
+    "minimum_rate_ratio": 0.1,
+    "retry_after_seconds": 1
+  },
+  "restart_required": false,
+  "draining": false,
+  "fs_files": 189,
+  "fs_fields": 4304,
+  "modified_files": 1,
+  "zip_bytes": 206260,
+  "zip_entries": 192,
+  "zip_integrity": "passed",
+  "browser_checks": [
+    "online_policy_save",
+    "xml_parameter_save",
+    "xml_editor_save",
+    "dialplan_template_generation_and_revert",
+    "config_pending_restart_and_revert",
+    "drain_and_resume_with_confirmation",
+    "conflict_409_preserves_local_7900_draft",
+    "390px_no_horizontal_overflow",
+    "mobile_navigation",
+    "1280px_no_horizontal_overflow",
+    "no_browser_js_errors_before_intentional_409"
+  ],
+  "final_restart_restored_policy": true,
+  "final_revision": 10
+}

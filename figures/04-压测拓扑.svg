@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="960" viewBox="0 0 1400 960" role="img" aria-label="04  压测与观测拓扑">
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto-start-reverse"><path d="M0 0L8 4L0 8" fill="none" stroke="#65818e" stroke-width="1.4"/></marker></defs>
+<style>text{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#1b3440} .small{font-size:17px;fill:#58717e} .label{font-size:17px;fill:#456777} .node{font-size:19px} .title{font-size:23px;font-weight:650}</style>
+<rect width="1400" height="960" fill="#ffffff"/>
+<rect x="35" y="33" width="6" height="66" rx="3" fill="#0b827b"/>
+<text x="58" y="61" font-size="30" font-weight="700">04  压测与观测拓扑</text>
+<text x="58" y="92" class="small">隔离测试自己拥有的端口和进程；同机仍共享 CPU、内核和网络资源。</text>
+<rect x="455" y="165" width="895" height="565" rx="20" fill="#f9fbfc" stroke="#cbdce2"/>
+<text x="477" y="197" class="title">本机测试任务：独立控制 / 媒体 / 发生器</text>
+<polyline points="355,267 490,267" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="365" y="247" class="label">创建 / 停止任务</text>
+<polyline points="355,517 405,517 405,343 490,343" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="366" y="385" class="label">采集 / 报告</text>
+<polyline points="950,300 1010,300" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="955" y="280" class="label">监管</text>
+<polyline points="700,402 700,457 720,457 720,515" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="740" y="452" class="label">SIP</text>
+<polyline points="1160,402 1160,470 995,470 995,570" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="1000" y="452" class="label">RTP / RTCP</text>
+<rect x="50" y="195" width="305" height="148" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="68" y="227" class="title">主服务后台 :9080</text>
+<text x="68" y="258" class="node">测试页创建参数</text>
+<text x="68" y="285" class="node">软保护 / 容量模式</text>
+<text x="68" y="312" class="node">资源预检失败不启动</text>
+<rect x="50" y="447" width="305" height="150" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="68" y="479" class="title">运行总览 / 报告</text>
+<text x="68" y="510" class="node">主业务与测试分列</text>
+<text x="68" y="537" class="node">数据应带来源和时间</text>
+<text x="68" y="564" class="node">失败保留任务错误</text>
+<rect x="490" y="227" width="460" height="175" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="508" y="259" class="title">隔离 Go 控制实例</text>
+<text x="508" y="290" class="node">独立配置 / 控制端口 / 生命周期</text>
+<text x="508" y="317" class="node">主服务的线路凭据不带入</text>
+<text x="508" y="344" class="node">容量模式仅关闭测试实例软保护</text>
+<text x="508" y="371" class="node">保留硬边界及媒体健康准入</text>
+<rect x="1010" y="227" width="305" height="175" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="1028" y="259" class="title">隔离 Rust workers</text>
+<text x="1028" y="290" class="node">专有媒体范围 / 地址</text>
+<text x="1028" y="317" class="node">不占用主服务端口</text>
+<text x="1028" y="344" class="node">分片统计 / 内核能力</text>
+<text x="1028" y="371" class="node">回收与代次检查</text>
+<rect x="530" y="515" width="700" height="155" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="548" y="547" class="title">callbench：模拟 A/B 端点</text>
+<text x="548" y="578" class="node">单路 / 500 / 1000 / 2000 / 3000 / 5000 / 自定义</text>
+<text x="548" y="605" class="node">SIP 建立 → 媒体序列收发 → 挂断 → 最终报告</text>
+<text x="548" y="632" class="node">发生器受限也会造成失败；建立成功不等于媒体通过</text>
+<rect x="70" y="775" width="1260" height="103" rx="12" fill="#f5f6f7" stroke="#7b8993" stroke-width="1.5" stroke-dasharray="8 5"/>
+<text x="88" y="807" class="title">目标容量部署：独立 Linux 流量发生器 → Linux 被测服务器</text>
+<text x="88" y="838" class="node">需补充同硬件、同音质、同业务的多档压力、丢包、尾延迟与长稳证据；当前不标记已验收。</text>
+<rect x="50" y="905" width="22" height="18" rx="4" fill="#eef7fb" stroke="#167799"/>
+<text x="82" y="920" class="small">主目录基线已有实现</text>
+<rect x="415" y="905" width="22" height="18" rx="4" fill="#fff4e6" stroke="#b87019"/>
+<text x="447" y="920" class="small">独立候选，尚未发布</text>
+<rect x="805" y="905" width="22" height="18" rx="4" fill="#f5f6f7" stroke="#7b8993"/>
+<text x="837" y="920" class="small">外部系统 / 待集成范围</text>
+</svg>

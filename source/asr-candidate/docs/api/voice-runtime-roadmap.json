@@ -1,0 +1,190 @@
+{
+  "schema_version": "1.0.0",
+  "document_version": "1.13.0",
+  "product": "云蝠 Voice Runtime",
+  "engineering_name": "RustSwitch",
+  "authority": "本轮确认的语音智能体研发需求",
+  "scope": "这是产品研发里程碑，不是FreeSWITCH原始对照计数；文档包1.13含已验证内部RX并保留1.12合同及候选测试来源，实际安装版本须GET /v1/docs及部署回执核对，状态不授予兼容绿色",
+  "targets_are_measured_results": false,
+  "targets": {
+    "stable_agent_concurrency_ratio": 1.5,
+    "advanced_ratio": 2.0,
+    "cpu_reduction_ratio": 0.3,
+    "memory_reduction_ratio": 0.3,
+    "send_lateness_p99_ms": 2,
+    "send_lateness_p999_ms": 5,
+    "mixed_soak_hours": 72
+  },
+  "benchmark_profiles": [
+    "rtp_forwarding",
+    "codec_processing",
+    "full_voice_agent"
+  ],
+  "first_release_exclusions": [
+    "通用会议系统",
+    "视频",
+    "传真",
+    "复杂分机管理",
+    "完整Dialplan",
+    "任意脚本插件市场",
+    "FreeSWITCH原模块二进制宿主",
+    "活动媒体自动迁移",
+    "完整WebRTC接入"
+  ],
+  "performance_verified": false,
+  "full_voice_agent_verified": false,
+  "milestones": [
+    {
+      "id": "VR-BASELINE",
+      "stage": 0,
+      "name": "等价现网性能基线",
+      "status": "not_run",
+      "current": "冻结硬件、编解码、ptime、录音、安全、ASR/TTS协议及全部辅助进程资源",
+      "acceptance": "输出优化FreeSWITCH与候选三类profile的配置、源/二进制指纹、负载和瓶颈",
+      "document_path": "api/conformance-testing.md"
+    },
+    {
+      "id": "VR-WORKER",
+      "stage": 1,
+      "name": "固定Worker与单会话单写者",
+      "status": "partial",
+      "current": "已发布固定Rust分片/单写者、每Worker独立PCM lane及50帧轮次队列；1.13候选每Worker固定RX接收循环、全Server固定4个控制执行者和64个在途预留。Graph/队列实验不证明全Worker零分配或容量。",
+      "acceptance": "补最忙worker、队列年龄、帧调度迟到和热路径分配的真实测量",
+      "document_path": "api/processed-media-reference.md"
+    },
+    {
+      "id": "VR-TELEPHONY",
+      "stage": 1,
+      "name": "电话接入与线路兼容",
+      "status": "partial",
+      "current": "已发布受限SIP双腿、早期媒体、注册客户端、TLS、本地号码及真实ACK后的PCM授权。1.13候选RX在受理/回执时重核ACK、本地G.711分配和健康同代能力；四组真实错ACK→正确ACK→BYE/32秒GC已验证，不授予完整SIP或目标线路认证。",
+      "acceptance": "目标运营商/网关互通；成熟协议适配、终端注册和转人工按需求补齐",
+      "document_path": "api/trunk-registration.md"
+    },
+    {
+      "id": "VR-CODEC",
+      "stage": 1,
+      "name": "核心Codec与按需AudioFrame",
+      "status": "partial",
+      "current": "已发布G.711双腿/本地图与PCM轮次、RVA1均保持原生8k/20ms；1.13候选RX导出同格式，未隐式转16k。G.722/Opus仍为离线SDK，24k来源及ASR16k分支需显式实时转换，尚未完成。",
+      "acceptance": "真实通话解码、分支转换、编码和时钟持续正确，质量及资源达标",
+      "document_path": "api/processed-media-reference.md"
+    },
+    {
+      "id": "VR-RTP",
+      "stage": 1,
+      "name": "RTP质量与缓冲",
+      "status": "partial",
+      "current": "已发布限定逐腿RX/TX、有界抖动、有限PLC、DTMF/CN和RTCP终结。1.13候选RXS2保留真实来源边界、辅助事件、缺失/PLC、连续丢弃摘要和不可续期观察期限；完整原版媒体合同与容量未完成，实际安装版本须GET /v1/docs及部署回执核对。",
+      "acceptance": "可配jitter buffer、丢帧/静音/DTX区分、终结RTCP及各线路乱序丢包测试",
+      "document_path": "api/processed-media-reference.md"
+    },
+    {
+      "id": "VR-DTMF",
+      "stage": 1,
+      "name": "按键采集和发送适配",
+      "status": "partial",
+      "current": "已发布RTP/INFO接收与read、已ACK本地A腿telephone-event发送；PCM中断与主动DTMF共用TX身份。1.13候选RX不占TX互斥，DTMF辅助记录不生成PCM；桥接/B腿/INFO发送和完整原版语义仍缺。",
+      "acceptance": "协商PT/clock/events、完整持续/结束、真实对端音频与按键，错误和挂机回收",
+      "document_path": "api/dtmf-send-reference.md"
+    },
+    {
+      "id": "VR-GRAPH",
+      "stage": 2,
+      "name": "预编译有限AudioGraph",
+      "status": "partial",
+      "current": "已发布有限G.711 bridge/local图、PCM图编码及RTP/RTCP，活动/排队提示音与PCM互斥。1.13候选在实际A/RX观察时取样一次，独立有界导出、不混TX。任意图更新、VAD、录音、供应商和其他Codec实时图未完成，历史500路失败保留。",
+      "acceptance": "会话前校验节点/缓冲，帧边界切版本，稳态不查配置不加载文件",
+      "document_path": "api/processed-media-reference.md"
+    },
+    {
+      "id": "VR-ASR",
+      "stage": 2,
+      "name": "真实流式ASR上行",
+      "status": "partial",
+      "current": "1.13候选已实现RXS2内部上行、Go SDK及已ACK本地A腿Server授权，真实SIP和接收进程暂停验证通过；8槽分层缓冲、100ms固定期限、缺口/慢读显式失败，unknown保留清理权。尚无外部ASR协议/API、供应商、分支重采样或完整识别链路；实际安装版本须GET /v1/docs及部署回执核对。",
+      "acceptance": "真实协议/连接模拟服务；仅对端接收轨，背压显式gap或流重置，持续收音",
+      "document_path": "api/rx-stream-reference.md"
+    },
+    {
+      "id": "VR-TTS",
+      "stage": 2,
+      "name": "真实流式TTS下行",
+      "status": "not_implemented",
+      "current": "已提供已 ACK 本地 A 腿的有界 8k PCM 下行、供音期限与轮次控制；尚未实现真实 TTS 供应商连接、格式适配、供应商错误/取消及完整流闭环，样本接口不等于TTS服务。",
+      "acceptance": "有界字节/毫秒队列、节奏发送、慢或突发服务和完成/失败可观测",
+      "document_path": "api/rva1-reference.md"
+    },
+    {
+      "id": "VR-TURN",
+      "stage": 2,
+      "name": "全双工与轮次打断",
+      "status": "partial",
+      "current": "1.12已发布递增turn_id、旧音频拒绝、原子替换、0/20/40ms淡出、实际sent/discarded/queued及尾帧完成，未知结果保留控制身份。1.13候选RX与TX可并行；仍缺VAD自动触发、ASR/LLM/TTS协同及真实业务打断时延。",
+      "acceptance": "旧版本排队与迟到音频拒绝，最终发送前版本检查，RTP连续，分段延迟与已发送进度",
+      "document_path": "api/pcm-turn-reference.md"
+    },
+    {
+      "id": "VR-RECORD",
+      "stage": 2,
+      "name": "双轨异步录音",
+      "status": "not_implemented",
+      "current": "事件journal与候选RX收音都不是双轨音频录音；TX轨道、对齐、异步持久化及错误恢复尚未实现。",
+      "acceptance": "对齐双轨、慢盘/满盘故障、完整性与时间缺口，必需录音策略显式处理",
+      "document_path": "api/voice-runtime-direction.md"
+    },
+    {
+      "id": "VR-SECURITY",
+      "stage": 2,
+      "name": "接口及租户/媒体安全",
+      "status": "partial",
+      "current": "已发布回环管理/来源白名单、有限SIP TLS、同UID私有RVA1入口及ACK/代次资格。1.13候选内部RX冻结身份、挂机撤读权及实际释放退休；不是新增租户认证、远程ASR接口、SRTP或恶意同UID隔离。",
+      "acceptance": "租户资源预算、鉴权、TLS/SRTP按接入要求、恶意包与FFI隔离",
+      "document_path": "api/stability-reference.md"
+    },
+    {
+      "id": "VR-OBSERVABILITY",
+      "stage": 3,
+      "name": "主服务与压测观测",
+      "status": "partial",
+      "current": "已发布总览分别展示主服务与隔离压测的真实会话/接通/媒体样本，轮询失败不补零，服务重启会清空内存作业历史。1.13候选新增内部RX状态/四项Worker统计及Go本地样本账本，Rust提交、Go交付与ASR识别分别解释；没有ASR识别成功计数。",
+      "acceptance": "数据源清晰、采样新鲜度、实例切换、错误不误报0、各进程CPU/RSS和媒体指标",
+      "document_path": "api/overview-testing-reference.md"
+    },
+    {
+      "id": "VR-CAPACITY",
+      "stage": 3,
+      "name": "多核稳定容量与准入",
+      "status": "partial",
+      "current": "已有固定配额/健康准入和峰值保护；build-03/testlab-02三项单路和100路30秒通过，500路仍失败。时间戳错误由历史443207降至0，有效源内容1498372/1500000，但988内容、499过密到达、2序号异常及3306发生器迟发保留；5000/10000路、72小时及相对FreeSWITCH目标未通过。",
+      "acceptance": "并发与CPS联合满足音质/尾延迟，最忙worker/池/队列年龄保护，计入网络磁盘",
+      "document_path": "api/runtime-verification.md"
+    },
+    {
+      "id": "VR-COMPAT",
+      "stage": 4,
+      "name": "Voice Agent优先FS接口",
+      "status": "partial",
+      "current": "原始对照ID、完整未实现/未验证缺口和1.12限定原版探针结果保留。1.13新增内部RX合同不等价FreeSWITCH同名/ABI；实际对照总量及绿色由独立证据和最终比较表生成，本路线不预填。",
+      "acceptance": "按现网ESL/事件/线路/IVR用法逐项对照，不把模块名或受理当业务完成",
+      "document_path": "api/compatibility-worklist.md"
+    },
+    {
+      "id": "VR-ROLLOUT",
+      "stage": 4,
+      "name": "灰度排空与生产回滚",
+      "status": "partial",
+      "current": "文档包1.13包含已验证内部RX，保留候选真实RX及完整Go/既有24阶段回归证据。实际安装版本须GET /v1/docs及部署回执核对，不能由文档版本推定；72小时、物理Linux容量、供应商及生产无感替换均未完成。",
+      "acceptance": "故障注入、72小时混合负载、线路互通、回滚与供应商链路通过",
+      "document_path": "api/voice-runtime-direction.md"
+    }
+  ],
+  "long_term_acceptance_document": "api/voice-runtime-v1-acceptance.md",
+  "goal_status": "active",
+  "candidate_increment": {
+    "name": "v1.13-local-rx-rxs2",
+    "verification_document": "api/release-validation-v1.13.md",
+    "scope": "本批候选测试来源：Rust08库170项；Go full-go-01为1077通过事件（363顶层/714子项）且vet通过；full-e2e-01为既有24阶段/228项。真实SIP四组与进程暂停四组各有绑定证据，部分集合重叠不相加，不授予供应商闭环、容量或完整FS兼容。",
+    "deployment_status_source": "文档包1.13含已验证内部RX；实际安装版本须以GET /v1/docs返回的version字段及实际部署回执核对，不由文档包版本推导已部署"
+  }
+}

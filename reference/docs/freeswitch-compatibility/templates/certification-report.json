@@ -1,0 +1,223 @@
+{
+  "template_version": "1.0.0",
+  "document_type": "certification_report",
+  "document_status": "draft",
+  "certification_status": "not_certified",
+  "report_id": null,
+  "created_at": null,
+  "completed_at": null,
+  "reference_source": {
+    "product": "FreeSWITCH",
+    "version": "1.11.3",
+    "git_tag": "v1.11.3",
+    "git_commit": "ef32e205295e29f034f1453ad245ba5efb07b94a",
+    "repository": "https://github.com/signalwire/freeswitch"
+  },
+  "baseline": {
+    "profile_id": null,
+    "profile_sha256": null,
+    "binary_sha256": null,
+    "configuration_manifest_sha256": null,
+    "module_manifest_sha256": null,
+    "dependency_manifest_sha256": null,
+    "script_manifest_sha256": null,
+    "runtime_capture_status": "not_captured"
+  },
+  "candidate": {
+    "product": "RustSwitch",
+    "version": null,
+    "git_commit": null,
+    "binary_sha256": null,
+    "build_manifest_sha256": null,
+    "runtime_capture_status": "not_captured"
+  },
+  "frozen_denominator": {
+    "status": "not_frozen",
+    "frozen": false,
+    "scope_version": null,
+    "scope_manifest_sha256": null,
+    "frozen_at": null,
+    "frozen_by": null,
+    "mandatory_interface_count": null,
+    "mandatory_test_case_count": null,
+    "interface_ids": [],
+    "mandatory_test_case_ids": [],
+    "discovery_complete": false,
+    "pre_freeze_exclusions": [],
+    "post_freeze_changes": [],
+    "changed_scope_requires_recapture_and_retest": true
+  },
+  "test_suite": {
+    "version": null,
+    "repository_commit": null,
+    "manifest_sha256": null,
+    "fixture_manifest_sha256": null,
+    "normalization_whitelist_sha256": null,
+    "harness_validation_status": "not_run",
+    "baseline_oracle_capture_status": "not_captured"
+  },
+  "accounting": {
+    "status": "not_enumerated",
+    "count_unit": "mandatory_test_case",
+    "total": null,
+    "passed": null,
+    "failed": null,
+    "not_run": null,
+    "skipped": null,
+    "blocked": null,
+    "unsupported": null,
+    "unknown": null,
+    "sum_of_categories_matches_total": null,
+    "mandatory_interface_status_counts": {
+      "total": null,
+      "passed": null,
+      "failed": null,
+      "not_run": null,
+      "skipped": null,
+      "blocked": null,
+      "unsupported": null,
+      "unknown": null
+    },
+    "compatibility_percentage": null,
+    "percentage_calculation_allowed": false,
+    "percentage_policy": "分母未冻结或任一强制项未知时不得展示兼容通过百分比；静态注册条目数不是已认证分母。"
+  },
+  "case_results": [],
+  "case_result_entry_fields": [
+    "test_case_id",
+    "contract_id",
+    "mandatory",
+    "status",
+    "baseline_evidence_ids",
+    "candidate_evidence_ids",
+    "difference_ids",
+    "normalization_rule_ids",
+    "started_at",
+    "finished_at",
+    "runner"
+  ],
+  "case_status_vocabulary": [
+    "passed",
+    "failed",
+    "not_run",
+    "skipped",
+    "blocked",
+    "unsupported",
+    "unknown"
+  ],
+  "unresolved_items": {
+    "enumeration_complete": false,
+    "items": [],
+    "item_fields": [
+      "item_id",
+      "kind",
+      "description",
+      "affected_contract_ids",
+      "affected_test_case_ids",
+      "owner",
+      "required_action",
+      "evidence_ids"
+    ]
+  },
+  "evidence_manifest": {
+    "status": "not_captured",
+    "path": null,
+    "sha256": null,
+    "entries": [],
+    "entry_fields": [
+      "evidence_id",
+      "path",
+      "sha256",
+      "captured_at",
+      "test_case_id",
+      "baseline_or_candidate",
+      "binary_sha256",
+      "media_type"
+    ]
+  },
+  "conclusions": {
+    "usage_compatibility": {
+      "status": "not_verified",
+      "certified": false,
+      "profile_id": null,
+      "scope_manifest_sha256": null,
+      "all_mandatory_contracts_passed": false,
+      "all_mandatory_cases_passed": false,
+      "evidence_ids": []
+    },
+    "performance_10000_calls": {
+      "status": "not_verified",
+      "certified": false,
+      "target_concurrent_calls": 10000,
+      "scenario_id": null,
+      "server_profile_id": null,
+      "codec": null,
+      "ptime_ms": null,
+      "media_mode": null,
+      "call_setup_rate": null,
+      "sustained_duration_seconds": null,
+      "offered_packets_per_second": null,
+      "required_thresholds": null,
+      "measured_results": null,
+      "full_offered_load_confirmed": false,
+      "evidence_ids": []
+    },
+    "drain_switch": {
+      "status": "not_verified",
+      "certified": false,
+      "scenario_id": null,
+      "same_external_service_address_verified": false,
+      "existing_calls_drained_verified": false,
+      "new_call_routing_verified": false,
+      "rollback_verified": false,
+      "registration_subscription_esl_job_handling": null,
+      "evidence_ids": []
+    },
+    "live_migration": {
+      "status": "not_verified",
+      "certified": false,
+      "scenario_id": null,
+      "in_progress_call_takeover_verified": false,
+      "signaling_state_takeover_verified": false,
+      "media_continuity_verified": false,
+      "script_queue_timer_state_takeover_verified": false,
+      "cdr_and_side_effect_ownership_verified": false,
+      "failure_and_rollback_verified": false,
+      "evidence_ids": []
+    },
+    "native_module_binary_compatibility": {
+      "status": "not_verified",
+      "certified": false,
+      "module_manifest_sha256": null,
+      "host_abi_manifest_sha256": null,
+      "original_module_files_unchanged": false,
+      "all_required_native_modules_verified": false,
+      "evidence_ids": []
+    }
+  },
+  "certification_gates": {
+    "baseline_runtime_captured": false,
+    "scope_frozen_and_complete": false,
+    "binary_configuration_module_dependency_hashes_complete": false,
+    "all_mandatory_interfaces_satisfied": false,
+    "all_mandatory_tests_passed": false,
+    "no_unknown_not_run_failed_skipped_blocked_unsupported_mandatory_items": false,
+    "no_unexplained_differences": false,
+    "normalization_rules_reviewed_and_negative_tests_passed": false,
+    "evidence_complete_and_hash_verified": false,
+    "review_complete": false,
+    "eligible_for_usage_compatibility_certification": false
+  },
+  "declaration": {
+    "public_claim_allowed": false,
+    "text": "未认证：现场基线、冻结分母和差分测试证据尚未完成；使用兼容、原生二进制兼容、万路性能、排空切换、在途迁移五项结论均未验证。",
+    "certified_by": null,
+    "certified_at": null
+  },
+  "review": {
+    "status": "not_reviewed",
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "不得将空结果集当作全部通过；任何强制项跳过、未知、未运行、失败、阻塞或不支持均阻止使用兼容认证。性能和切换认证相互独立。"
+  }
+}

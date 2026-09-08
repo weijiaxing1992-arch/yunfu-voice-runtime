@@ -1,0 +1,224 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>云蝠 Voice Runtime：研发方向与验收标准 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 云蝠 Voice Runtime：研发方向与验收标准</div><article class="content"><div class="page-tools"><a href="voice-runtime-direction.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 7 节</summary><a href="#成功标准与测量前提">成功标准与测量前提</a><a href="#技术与所有权约束">技术与所有权约束</a><a href="#音频对象与媒体图">音频对象与媒体图</a><a href="#首期范围与兼容层">首期范围与兼容层</a><a href="#对话时间线与有界背压">对话时间线与有界背压</a><a href="#三类压测与可靠性验收">三类压测与可靠性验收</a><a href="#推进顺序与交付">推进顺序与交付</a></details><h1 id="云蝠-voice-runtime研发方向与验收标准">云蝠 Voice Runtime：研发方向与验收标准</h1>
+<p>自文档1.9起，项目定位为面向语音智能体的高性能实时语音内核。沿用 RustSwitch 的工程名称、配置、程序和现有接口，优先兼容电话智能体实际使用的 FreeSWITCH 接口。首期交付以电话与AI媒体闭环验收，完整PBX功能及全部FreeSWITCH模块复刻不作为首期门槛。</p>
+<p>本页依据本轮确认的需求调整优先级。原有FreeSWITCH目录、差异、失败记录和完整契约标准仍保留，可用于迁移评估；改变首期范围不会把未实现项变成绿色，也不会改变完整兼容统计的分母。</p>
+<p>本文档包 <strong>1.13.0</strong> 包含已验证的内部 RX 收音，并保留 1.12 已有的 G.711 图、PCM 轮次和 RVA1 下行。实际安装版本须通过 <code>GET /v1/docs</code> 及部署回执核对，不能从文档包版本推定已安装。下文保留本批候选测试的冻结身份与通过范围；内部上行基础已验证，供应商 ASR/TTS 仍未接通。</p>
+<p>完整长期目标的20节、17项V1能力、10命令/11事件及M1—M4逐项门槛，见<a href="voice-runtime-v1-acceptance.html">Voice Runtime V1验收合同</a>。这是未完成目标的持续验收依据，不修改FreeSWITCH对照的原始ID或绿色。</p>
+<h2 id="成功标准与测量前提">成功标准与测量前提</h2>
+<p>在相同服务器、相同音质、相同业务功能和安全配置下，提高有效稳定媒体并发并降低每通话成本。Rust语言、共享端口、关闭录音或把协议处理移到外部进程，都不能单独作为性能提升证据。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>初始研发目标</th>
+<th>判定口径</th>
+<th>当前结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>完整Voice Agent稳定并发为现网1.5倍，进阶2倍</td>
+<td>冻结同硬件、线路、编码、ptime、录音与安全配置，含真实ASR/TTS连接成本</td>
+<td>目标待基线冻结，尚未证明</td>
+</tr>
+<tr>
+<td>同并发总CPU下降至少30%</td>
+<td>计入媒体、Go控制、SIP适配、录音、内核及保留的FreeSWITCH进程</td>
+<td>尚未证明</td>
+</tr>
+<tr>
+<td>同并发内存下降至少30%</td>
+<td>使用相同音频缓冲时长、功能与录音策略</td>
+<td>尚未证明</td>
+</tr>
+<tr>
+<td>发送调度迟到P99不高于2ms、P99.9不高于5ms</td>
+<td>已具备发送条件的包，从计划时刻到成功交给内核的迟到，失败另计</td>
+<td>尚无该完整指标验收</td>
+</tr>
+<tr>
+<td>72小时混合负载</td>
+<td>联合建呼、挂机、抢话、打断、录音和故障注入</td>
+<td>尚未执行</td>
+</tr>
+<tr>
+<td>音频正确</td>
+<td>无串音、无旧回复复播；所有缺口、补偿与丢帧可解释</td>
+<td>按实际场景逐项验收</td>
+</tr>
+</tbody></table></div>
+<p>这些是研发门槛，不是当前能力承诺。此前500／5000路转发测量不能折算成完整Voice Agent容量。1.5～3倍仅可作探索范围，不作为宣传数据。</p>
+<p>发送调度迟到、RTCP interarrival jitter、抖动缓冲等待、TTS预缓冲、网络传输和终端播放延迟分别计量，不使用一个“延迟”数字代替整条链路。最终可用并发要求CPS、媒体、音质和尾延迟同时达标。</p>
+<h2 id="技术与所有权约束">技术与所有权约束</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>层</th>
+<th>责任与边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Rust实时媒体</td>
+<td>RTP、音频时钟、编码／解码、按需重采样、播放时间线、打断和音频分发</td>
+</tr>
+<tr>
+<td>Go业务控制</td>
+<td>呼叫任务、路由、租户、智能体编排、幂等命令、事件及业务接口</td>
+</tr>
+<tr>
+<td>SIP接入适配</td>
+<td>优先复用成熟实现；当前受限Go提供器继续验证，Sofia/PJSIP等接入另设里程碑</td>
+</tr>
+<tr>
+<td>C/C++编解码与DSP</td>
+<td>通过受控接口复用成熟库；不要求为了纯Rust重写所有Codec</td>
+</tr>
+<tr>
+<td>部署与测量</td>
+<td>Linux优先；固定CPU、网卡、内核、NUMA及资源限制</td>
+</tr>
+</tbody></table></div>
+<p>一个媒体会话由一个固定Worker修改状态；桥接双腿尽量同Worker，首期不自动迁移活动媒体。禁止每通话创建操作系统线程。当前采用多个独立媒体进程，每进程一个媒体事件循环；故障影响范围按进程所属会话披露，不承诺进程崩溃只影响一通电话。</p>
+<p>Worker不等待数据库、磁盘、HTTP或模型服务。重DSP任务使用有容量、并发和截止时间的独立执行池。通用异步运行时不能替代媒体预算管理；Tokio的阻塞池对CPU任务需要额外限制，并且已经运行的阻塞任务不能简单依靠abort取消。<a href="https://docs.rs/tokio/latest/tokio/task/fn.spawn_blocking.html" target="_blank" rel="noopener noreferrer">Tokio官方文档</a></p>
+<p>收包、发送和控制各有公平预算，挂断／打断有专门配额；控制洪峰也不能饿死媒体。CPU亲和性、IRQ、RSS/RPS/RFS/XPS和NUMA按实际测量选取，避免无依据全部启用。</p>
+<h2 id="音频对象与媒体图">音频对象与媒体图</h2>
+<p>统一AudioFrame的接口、时间和生命周期；允许保留输入或目标分支所需的采样率。帧明确采样率、声道、样本格式、有效样本数、媒体时间和来源状态。G.711可以保持8k PCM，ASR需要16k时仅在ASR分支转换；TTS的24/48k音频在电话输出分支转换。同一区间避免重复解码和重复转换。</p>
+<p>G.722音频为16kHz而RTP时钟为8kHz；Opus的RTP时钟为48kHz。编码元数据必须分别保存这两个值。<a href="https://www.rfc-editor.org/rfc/rfc3551" target="_blank" rel="noopener noreferrer">RFC3551</a>、<a href="https://www.rfc-editor.org/rfc/rfc7587" target="_blank" rel="noopener noreferrer">RFC7587</a></p>
+<p>同Worker消费者优先借用或使用缓冲池句柄；跨线程可以选择一次受控复制来隔离慢消费者。录音或ASR不能长期占用实时收发池。稳态热路径以无通用堆分配为目标，必须用测量验证，包括第三方库；池耗尽不允许无限扩容。</p>
+<p>首期媒体图采用有限模板，在会话建立时验证节点、准备缓冲和执行顺序。已发布的 G.711 图包含双腿桥接与本地 A 腿两种独立模板，固定原生8kHz、单声道、20ms；双腿可以实际解码并在PCMU／PCMA之间转换，本地模板支持提示音、按键发送和有界PCM下行。该模式须显式启用并通过当前Worker能力校验，主服务采用relay时不会自动执行此图。见<a href="processed-media-reference.html">双腿媒体合同</a>和<a href="processed-local-reference.html">本地媒体合同</a>。</p>
+<p>1.13 候选将本地 A 腿实际观察经独立 FD4 RXS2 送到 Go SDK，保持原生 8kHz、20ms，并区分真实解码、历史 PLC、CN、缺口和来源边界；Server 只在实际 ACK、本地分配、同代健康及能力核验后授权。RX 不占用 TX 互斥，可与 PCM 下行并行。真实 SIP 与进程暂停试验已限定通过；实际安装版本须另核 <code>GET /v1/docs</code> 及部署回执，详见<a href="rx-stream-reference.html">RX 收音合同</a>。</p>
+<p>任意图变更、外部流式 ASR、VAD、双轨录音、G.722／Opus 实时处理及分支重采样仍待补齐；内部收音基础与离线 SDK 不授予这些运行能力。后续图变更必须在明确帧边界切换版本，热路径不查询动态配置、不解释脚本、不加载文件。</p>
+<h2 id="首期范围与兼容层">首期范围与兼容层</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>首期要求</th>
+<th>当前已有基础／待补</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电话接入</td>
+<td>呼入／呼出、应答／挂机、早期媒体、超时、目标线路SDP</td>
+<td>已有受限桥接、注册客户端与认证；多线路及成熟提供器仍待验证</td>
+</tr>
+<tr>
+<td>核心编码</td>
+<td>PCMA、PCMU、G.722、Opus</td>
+<td>已有同格式透传及8kHz／20ms的PCMU↔PCMA实时双腿转换；G.722／Opus仍为独立离线SDK，未接入实时图</td>
+</tr>
+<tr>
+<td>RTP／RTCP／DTMF</td>
+<td>收发、协商、序号／时钟、重复乱序、质量统计、按键采集与发送</td>
+<td>G.711图已有逐腿RX／TX、有界抖动、有限PLC及RTCP终结；已有受限收号与已ACK本地A腿按键发送，完整线路及原版语义仍待验证</td>
+</tr>
+<tr>
+<td>音频处理</td>
+<td>按需重采样、增益、播放、最小混音、VAD、PLC、可配抖动缓冲</td>
+<td>G.711双腿／本地实时图、放音和有限历史PLC已有；任意混音、实时分支重采样及VAD等仍待补</td>
+</tr>
+<tr>
+<td>AI媒体接口</td>
+<td>流式ASR上行、TTS下行、连接状态与错误</td>
+<td>1.12 已发布已 ACK 本地 A 腿的 RVA1 有界 8k PCM 下行；1.13 候选已验证内部 RXS2 上行与 Server SDK，外部 ASR 协议、真实 ASR/TTS 供应商及格式适配仍未实现</td>
+</tr>
+<tr>
+<td>全双工与打断</td>
+<td>播放期间持续收音，turn版本失效与迟到音频拒绝</td>
+<td>1.12 已有递增 turn_id、旧 PCM 拒绝、原子替换及 0／20／40ms 中断；1.13 候选授权 RX 可与 TX 并行，但模型持续交付、VAD 自动触发及供应商协同仍待补</td>
+</tr>
+<tr>
+<td>录音</td>
+<td>收发双轨、时间对齐、异步写入、完整性和失败事件</td>
+<td>尚无双轨音频录音执行</td>
+</tr>
+<tr>
+<td>安全隔离</td>
+<td>鉴权、租户隔离、来源校验，按线路需要TLS/SRTP</td>
+<td>当前回环管理边界／白名单及部分TLS；完整租户和SRTP未补齐</td>
+</tr>
+<tr>
+<td>运维</td>
+<td>容量限制、健康、停止接新呼叫、排空、指标与诊断</td>
+<td>已有准入／分片／排空；队列年龄、发送尾延迟等需补</td>
+</tr>
+</tbody></table></div>
+<p>优先兼容实际使用的ESL命令／事件、SIP线路、收放音、DTMF、最小IVR、桥接及转人工。主流接口的受理、返回、错误、真实副作用、事件和回收必须分别验证。telephone-event使用协商的PT、时钟及事件集合，持续时间和结束标记依据标准处理。<a href="https://www.rfc-editor.org/rfc/rfc4733" target="_blank" rel="noopener noreferrer">RFC4733</a></p>
+<p>会议、视频、传真、复杂分机管理、完整Dialplan、任意脚本插件及原生模块二进制宿主放入后续范围。G.729、AMR-WB、EVS按实际线路决定，不按编码数量排名。完整WebRTC单设里程碑，Opus支持不等同WebRTC就绪。</p>
+<h2 id="对话时间线与有界背压">对话时间线与有界背压</h2>
+<p>每轮TTS必须带turn_id或单调生成版本。已发布的PCM轮次具备严格递增turn_id、旧轮音频拒绝、原子替换和发送前版本复查；真实供应商取消尚待接入。后续取消上游不能成为本地停播的等待条件。1.12 本地 PCM 与入站 A 腿解码消费独立，不回灌为回声；1.13 候选增加独立上行 SDK，但仍未向外部 ASR 持续交付。ASR默认读取对端接收轨，不能混入自身TTS；回声与误打断单独测试。</p>
+<p>当前PCM中断允许0／20／40ms：0立即清除待发音频，20／40ms仅对已经排队的至多1／2帧淡出，不等待新音频或复制最后已发帧；重复淡出不会延长旧轮播放。PCM和主动DTMF共用本地TX身份，连续音频保持20ms／160ticks时间线。<code>uuid_break</code>、read终止键和VAD不会自动映射为PCM中断，业务须明确调用INTERRUPT。完整边界见<a href="pcm-turn-reference.html">内部PCM轮次</a>、<a href="rva1-reference.html">私有RVA1入口</a>和<a href="release-validation-v1.12.html">v1.12验证</a>。</p>
+<p>1.13 候选的普通 RX 观察携带从 Graph 原始观察开始、不可续期的 100ms 期限，覆盖 Rust 队列、OS socket 和 Go SDK 停留。接收、Read、Server 交付分别复查；到期、时钟不符、慢消费均显式失败，不能当成静音。挂机先撤读权再等待真实释放，未知控制结果保留同一清理句柄；同 ID 缓存回执不复活旧流。调用方在真正使用音频前仍须复查期限，函数检查点与后续供应商写入不是原子保证。</p>
+<p>完整智能体仍需分别记录用户开始讲话、确认打断、媒体开始停旧音频、最后旧包提交，以及回复已生成／已接收／已发送进度；当前样本和轮次计数不等同这些端到端时延已经验收。无法取消已进入网络和终端缓冲的数据，不承诺远端立即静音。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>队列</th>
+<th>满载行为与必需观测</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时RTP／PCM</td>
+<td>有界条数／字节／时间，记录内部丢帧与超时，触发准入保护</td>
+</tr>
+<tr>
+<td>ASR上行</td>
+<td>1.13 候选内部 Graph、Rust 导出与 Go SDK 各有独立 8 槽边界，另有摘要和 OS 缓冲；过期或慢消费显式缺口/失败。外部适配器仍须设置自身上限和恢复策略</td>
+</tr>
+<tr>
+<td>TTS下行</td>
+<td>限制超前生成和接收，取消后续生成；不任意掐掉一句话中间音频</td>
+</tr>
+<tr>
+<td>录音</td>
+<td>专用有界缓冲、异步写入；失败显式报告，必需录音故障按业务策略决定继续或挂机</td>
+</tr>
+<tr>
+<td>日志诊断</td>
+<td>限量采样，默认不逐包记录，不能阻塞通话</td>
+</tr>
+</tbody></table></div>
+<p>所有队列需暴露长度、字节量和最老数据年龄；音频队列同时以毫秒计预算。按线路设置抖动缓冲最小／目标／最大值。丢包、静音、DTX、CN与PLC保持可区分；FEC恢复和额外等待单独权衡。保护观察最忙Worker、发送迟到、池水位和队列年龄，优先拒绝新呼叫保护存量。</p>
+<h2 id="三类压测与可靠性验收">三类压测与可靠性验收</h2>
+<p>分别报告纯转发、编解码、完整Voice Agent链路。主验收包含真实非静音音频、电话Codec、流式ASR/TTS、VAD、打断及双轨录音。先用可控模拟供应商保留真实协议与连接成本，再接真实供应商，不用无连接的空函数代替。</p>
+<p>固定硬件、资源配额、CPU/网卡/内核、Codec、ptime、时长分布、加密、录音及网络条件；基线采用合理调优的FreeSWITCH并计入所有辅助进程。报告CPU、RSS、PPS、Worker负载、队列年龄、池水位、内部丢帧、发送迟到、录音完整性及ASR效果。</p>
+<p>故障集包含集中建呼／挂机、突发TTS、ASR停止读、慢磁盘、网络乱序／丢包、控制面断连、重复命令、畸形协议、端口复用与FFI错误。声音覆盖连续语音、双方抢话、短回答、长回复、频繁打断、长通话及采样率变化。原生库、模型或录音故障不能无界拖慢其他分片。</p>
+<p>网络后端先用非阻塞UDP与就绪循环。recvmmsg/sendmmsg每次作用于一个socket，独立RTP端口下的批处理收益需实测；不等待凑批或突发发送几百毫秒音频。共享端口必须证明线路兼容和正确分流。io_uring为可替换后端；AF_XDP/DPDK仅在分析确认瓶颈后评估。</p>
+<p>容量规划同时估算网络和磁盘：20ms连续媒体每单向流50包/秒，单腿双向万路约100万包/秒，双腿桥接约200万包/秒，额外RTCP和AI通信另计。双轨16k/16-bit PCM约64kB/s/通话，万路约640MB/s、2.3TB/小时；这些是格式算术，不是容量实测。</p>
+<h2 id="推进顺序与交付">推进顺序与交付</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>重点</th>
+<th>通过条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>现网基线</td>
+<td>固定等价配置并解释CPU／线程／网络／录音瓶颈</td>
+</tr>
+<tr>
+<td>1</td>
+<td>单Worker媒体闭环</td>
+<td>G.711、播放、时间线、基础缓冲，正确性和单核测量可复现</td>
+</tr>
+<tr>
+<td>2</td>
+<td>AI闭环</td>
+<td>ASR／TTS、全双工、版本打断、双轨录音，质量与异常测试通过</td>
+</tr>
+<tr>
+<td>3</td>
+<td>多核与容量</td>
+<td>分片、NUMA、网络I/O和准入，目标并发与尾延迟联合达标</td>
+</tr>
+<tr>
+<td>4</td>
+<td>生产替换</td>
+<td>线路互通、72小时、灰度、存量排空、回滚和故障策略通过</td>
+</tr>
+</tbody></table></div>
+<p>升级默认新呼叫切流、旧呼叫排空；首期不承诺活动媒体无损迁移。控制接口需幂等、事件序号、会话版本和断连后同步，现有局部能力必须在完整链路中复验。</p>
+<p>交付包含模块／接口契约、线路互通清单、可复现压测脚本、容量报告、部署调优和故障回滚手册。优先顺序为音频正确稳定、单核效率、多核扩展、内存复制优化、进一步网络后端。</p>
+<p>本批候选已完成 Rust 170 项库测试、真实 Pool/SIP 收音和暂停试验；<code>full-go-01</code> 为 1077 个通过事件（363 顶层、714 子项）且 vet 通过，<code>full-e2e-01</code> 为既有 24 阶段、228 项回归通过。这些集合包含重叠，按各自证据解释，不相加成兼容率或容量。候选测试具体身份与发布门禁见<a href="release-validation-v1.13.html">1.13 验证记录</a>；实际安装版本须通过 <code>GET /v1/docs</code> 及部署回执核对。</p>
+<p><a href="voice-runtime-roadmap.json">首期里程碑与当前缺口</a> · <a href="compatibility-worklist.html">FreeSWITCH全部差异清单</a> · <a href="runtime-verification.html">当前本地验证</a> · <a href="release-validation-v1.12.html">已发布1.12记录</a> · <a href="release-validation-v1.13.html">1.13候选记录</a></p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

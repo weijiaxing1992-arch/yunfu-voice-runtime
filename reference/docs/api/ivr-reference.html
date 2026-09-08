@@ -1,0 +1,163 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>ESL 应用、按键收集与本地 IVR · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / ESL 应用、按键收集与本地 IVR</div><article class="content"><div class="page-tools"><a href="ivr-reference.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 12 节</summary><a href="#连接与通道">连接与通道</a><a href="#发送应用">发送应用</a><a href="#基础变量">基础变量</a><a href="#收号-read">收号 read</a><a href="#rtp-与-sip-info-按键">RTP 与 SIP INFO 按键</a><a href="#真实提示音播放">真实提示音播放</a><a href="#本地-1000-ivr-呼入">本地 1000 IVR 呼入</a><a href="#资源与结束语义">资源与结束语义</a><a href="#可执行验证">可执行验证</a><a href="#wav-与基础动作17">WAV 与基础动作（1.7）</a><a href="#播放终止与原版响应17">播放终止与原版响应（1.7）</a><a href="#已-ack-的-pcm-供音与-ivr">已 ACK 的 PCM 供音与 IVR</a></details><h1 id="esl-应用按键收集与本地-ivr">ESL 应用、按键收集与本地 IVR</h1>
+<p>文档版本 1.12.0。连接协议见 <a href="esl-reference.html">ESL 接口</a>，整体调用链见 <a href="ai-calling-reference.html">AI 呼叫接入</a>，媒体字段见 <a href="media-interaction.html">媒体交互接口</a>。</p>
+<p>当前可实际执行的应用是 <code>answer</code>、<code>set</code>、<code>unset</code>、<code>read</code>、<code>playback</code>、<code>sleep</code>、<code>park</code>、<code>hangup</code> 的限定子集；新增基础动作和XML顺序执行见 <a href="dialplan-reference.html">拨号计划合同</a>。它们操作真实 SIP 通道与 Rust 媒体，不把命令受理等同于应用执行完成。本文描述当前已实现范围；不表示 FreeSWITCH 全部应用、XML 拨号计划、文件播放器或 AI 音频图已兼容。</p>
+<h2 id="连接与通道">连接与通道</h2>
+<p>使用已启用的 ESL 入站端点和专用凭据完成 <code>auth</code>，订阅：</p>
+<pre><code class="language-text">event json CHANNEL_CREATE CHANNEL_ANSWER CHANNEL_HANGUP CHANNEL_EXECUTE CHANNEL_EXECUTE_COMPLETE DTMF
+</code></pre>
+<p>通过真实 <code>CHANNEL_CREATE</code> 的 <code>Unique-ID</code> 选择通道，使用 <code>variable_sip_call_id</code> 关联自己的 SIP 呼叫。双腿桥接通话的 UUID 与变量各自独立；本地 IVR 通话只有实际存在的 A 腿 UUID。不要使用媒体会话数字编号或 SIP Call-ID 代替 UUID。</p>
+<p><code>read</code>、<code>playback</code> 要求通道已经接通、ACK 已处理且媒体资源可用；建立中的通道返回错误。<code>set</code>、<code>unset</code> 也可作用于已经创建但尚未接通的通道。</p>
+<h2 id="发送应用">发送应用</h2>
+<pre><code class="language-text">sendmsg &lt;通道UUID&gt;
+call-command: execute
+execute-app-name: set
+execute-app-arg: customer=中文客户
+event-lock: true
+event-uuid: &lt;本次应用UUID&gt;
+</code></pre>
+<p>末尾必须有空行。<code>event-uuid</code> 省略时生成新的 UUID；传入后可通过完成事件的 <code>Application-UUID</code> 关联本次请求。<code>sendmsg</code> 后省略通道 UUID 时可以使用 <code>session-id</code> 头，两处同时填写时必须一致。</p>
+<p><code>+OK</code> 仅表示实际通道已找到、请求校验通过并已进入有界业务队列。应用开始时发布 <code>CHANNEL_EXECUTE</code>，结束时发布 <code>CHANNEL_EXECUTE_COMPLETE</code>。检查 <code>Application</code>、<code>Application-UUID</code>、<code>Application-Response</code> 及相关变量，不要只检查 ESL 回复或客户端退出码。</p>
+<p><code>event-lock: true</code> 允许当前应用完成后再执行下一条应用。同一条腿最多八个已受理任务，包含正在运行的一条。已有长应用运行时，未声明 <code>event-lock: true</code> 的并发请求会被明确拒绝；抢占和嵌套执行尚未实现。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>当前规则</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>call-command</code></td>
+<td>只支持 <code>execute</code>。</td>
+</tr>
+<tr>
+<td><code>execute-app-name</code></td>
+<td>当前八个受限应用，名称最多 64 字节。</td>
+</tr>
+<tr>
+<td><code>execute-app-arg</code></td>
+<td>最多 4096 字节 UTF-8，不支持 <code>${...}</code> 展开。</td>
+</tr>
+<tr>
+<td><code>Content-Type: text/plain</code></td>
+<td>没有非空 <code>execute-app-arg</code> 时，可用精确 <code>Content-Length</code> 正文传参。</td>
+</tr>
+<tr>
+<td><code>loops</code></td>
+<td>省略或 <code>1</code>；无限循环和其他循环数明确拒绝。</td>
+</tr>
+<tr>
+<td><code>event-uuid</code></td>
+<td>36 字节的应用关联标识；建议标准 UUID。</td>
+</tr>
+<tr>
+<td><code>event-uuid-name</code></td>
+<td>可选关联名称，最多 128 字节。</td>
+</tr>
+<tr>
+<td><code>async</code></td>
+<td>入站目标始终进入通道队列；不新增无限后台线程。</td>
+</tr>
+<tr>
+<td>其他控制头</td>
+<td>重复字段、<code>hold-bleg</code>、优先级抢占等未实现语义明确拒绝。</td>
+</tr>
+</tbody></table></div>
+<h2 id="基础变量">基础变量</h2>
+<pre><code class="language-text">execute-app-name: set
+execute-app-arg: customer=中文客户
+</code></pre>
+<p><code>set name=value</code> 实际写入当前腿的基础变量；<code>set name</code> 或 <code>set name=</code> 删除该变量。<code>unset name</code> 显式删除变量。可以用 <code>api uuid_getvar &lt;UUID&gt; customer</code> 验证结果，不存在时返回 <code>_undef_</code>。</p>
+<p>当前仅支持基础变量空间，每腿最多 128 个变量、键值合计 64 KiB。变量名称最多 128 字节，禁止身份覆写、数组、空格及展开语法；<code>uuid</code>、<code>sip_call_id</code> 为受保护身份。设置任意变量不等于相关 FreeSWITCH 模块或变量副作用已经实现。这里明确接入收号方式的变量是 <code>dtmf_type=info</code>。</p>
+<h2 id="收号-read">收号 read</h2>
+<pre><code class="language-text">read &lt;最少位数&gt; &lt;最多位数&gt; &lt;silence或提示音&gt; &lt;结果变量&gt; [首位超时毫秒 [终止符 [位间超时毫秒]]]
+</code></pre>
+<p>例如在当前通道收取 1 至 4 位号码：</p>
+<pre><code class="language-text">sendmsg &lt;通道UUID&gt;
+call-command: execute
+execute-app-name: read
+execute-app-arg: 1 4 silence digits 3000 # 1000
+event-lock: true
+event-uuid: &lt;本次应用UUID&gt;
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>当前范围与默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最少、最多位数</td>
+<td>最少为 1 至 64，最多不小于最少且不超过 64；不支持无限收号。</td>
+</tr>
+<tr>
+<td>提示音</td>
+<td><code>silence</code> 按原版语义跳过提示文件；或者下节的单频 <code>tone_stream</code>、根目录内受限WAV（read分词不接受路径空格）。</td>
+</tr>
+<tr>
+<td>结果变量</td>
+<td>基础变量名；不能使用 <code>read_result</code>、<code>read_terminator_used</code> 作为结果变量。</td>
+</tr>
+<tr>
+<td>首位超时</td>
+<td>默认 1000 ms；接受 0 至 60000 ms，低于 1000 的值按原版 <code>read</code> 包装规则提升至 1000。</td>
+</tr>
+<tr>
+<td>终止符</td>
+<td>默认 <code>#</code>；支持 <code>0-9</code>、<code>*</code>、<code>#</code>、<code>A-D</code> 的字面集合。<code>none</code> 表示无终止符。</td>
+</tr>
+<tr>
+<td>位间超时</td>
+<td>默认沿用首位超时；显式 0 仍沿用首位超时，非零允许 1 至 60000 ms。</td>
+</tr>
+</tbody></table></div>
+<p>达到最大位数或收到终止符后结束。终止符不计入结果。普通终止或收满且满足最少位数时，<code>read_result=success</code>；计时到期且已有足够位数时为 <code>timeout</code>；不足最少位数时为 <code>failure</code>。有终止符时 <code>read_terminator_used</code> 保存该字符；非空号码写入结果变量。每次开始会清除旧的本次收号结果。</p>
+<p><code>read</code> 正常结束的 <code>Application-Response</code> 为 <code>_none_</code>，因此必须同时查看 <code>read_result</code>。媒体观测不完整、播放失败或资源不足则明确返回失败的完成事件，不把这些异常解释为用户沉默。</p>
+<p>当前整个应用另有 60 秒硬期限，避免持续按键反复续期后长期占用任务。提示音期间收到有效按键会申请停止提示音，并等待媒体停止确认；之后继续收号或完成当前应用。首位等待时间从无提示音开始、或提示音结束后计算；收到数字后使用位间超时。</p>
+<h2 id="rtp-与-sip-info-按键">RTP 与 SIP INFO 按键</h2>
+<p>默认收集真实、已协商的 RTP <code>telephone-event</code>。来源地址、载荷、事件集合、结束标志及重复结束包由 Rust 媒体校验；只有完整且去重后的按键交给业务。支持菜单按键 <code>0-9</code>、<code>*</code>、<code>#</code>、<code>A-D</code>。Hook flash 不作为菜单数字。</p>
+<p>媒体层使用每工作进程固定容量的事件记录；控制层每工作进程最多一个在途批量查询。事件记录溢出、缺少结束包或无法继续可靠去重时，会让相关收号失败，并保持该通话腿的 RTP 收号禁用状态直到挂机，后续 <code>read</code> 不能重新伪装成成功或普通超时。桥接媒体与通话释放仍继续处理。</p>
+<p>需要 SIP INFO 收号时，先在相应通道执行：</p>
+<pre><code class="language-text">execute-app-name: set
+execute-app-arg: dtmf_type=info
+</code></pre>
+<p>此模式接收经真实 SIP 对话、来源、标签和 CSeq 校验的 <code>application/dtmf-relay</code>。模式值忽略大小写，建议使用 <code>info</code>。同一事务重传不重复收号；同时到来的 RTP 按键不重复交给业务。INFO 不要求 SDP 协商 <code>telephone-event</code>。已经禁用的 RTP 观测不会否定独立的 INFO 输入；切回默认 RTP 后，原失效状态仍需挂机解除。<code>Signal</code> 接受菜单按键及数字事件编号 10–15，<code>Duration</code> 必须显式提供 20–8191 毫秒；其他 INFO 格式和缺省 Duration 尚不支持。</p>
+<p>两种方式都发布 <code>DTMF</code> 事件，包含 <code>DTMF-Digit</code>、<code>DTMF-Source</code> 和以 8 kHz 刻度表示的 <code>DTMF-Duration</code>。这不表示已实现带内音频 DTMF 检测。</p>
+<h2 id="真实提示音播放">真实提示音播放</h2>
+<pre><code class="language-text">execute-app-name: playback
+execute-app-arg: tone_stream://%(200,0,440)
+</code></pre>
+<p>上例向指定通道腿发送 200 ms、440 Hz 的单频音调。当前只支持零间隔、单个频率的格式；时长为 20 至 10000 ms 且必须为 20 的整数倍，频率为 200 至 2000 Hz。Rust 按 20 ms 发包，支持当前 PCMU/PCMA、8 kHz 通话。每媒体工作进程最多同时执行 64 路此类提示音。无效时长不能成功播放，调用者须检查受理回复及失败完成事件。</p>
+<p>播放期间替换目标腿的主音频，DTMF 和 RTCP 继续处理。自然结束须媒体确认所有目标包发送；主动break/终止键则确认实际停止。两者依原版都返回 <code>FILE PLAYED</code>，须结合终止变量和媒体计数区分；实际远端收到并播放仍需端到端媒体验证。完成后恢复正常桥接音频。本地 IVR 通道也可向真实 A 腿播放，不需要虚构上游通道。</p>
+<p>收号时附带提示音：</p>
+<pre><code class="language-text">execute-app-name: read
+execute-app-arg: 1 1 tone_stream://%(2000,0,440) choice 3000 #
+</code></pre>
+<p>当前支持受控根目录内的<a href="file-playback-reference.html">有限 WAV 文件</a>、受限 <code>sleep</code>、<code>answer</code>、<code>park</code> 与<a href="dialplan-reference.html">XML 顺序应用</a>。URL、供应商 TTS 应用、多频混音、循环语法、录音、任意格式 PCM 注入、<code>play_and_get_digits</code>、会议及完整原版应用合同仍未完成。G.711 实时图和本地播放范围见<a href="processed-local-reference.html">本地处理说明</a>。</p>
+<h2 id="本地-1000-ivr-呼入">本地 1000 IVR 呼入</h2>
+<p>在启动配置的 <code>sip</code> 中增加精确号码列表：</p>
+<pre><code class="language-json">{
+  &quot;sip&quot;: {
+    &quot;local_extensions&quot;: [&quot;1000&quot;]
+  }
+}
+</code></pre>
+<p>按完整配置校验并重启服务后，发往 <code>sip:1000@服务器地址</code> 的 INVITE 走本地自动应答路由。号码是精确匹配，不是正则拨号计划；每项只允许数字和 <code>+</code> 字符、长度 1–32，最多 256 项，不允许重复。收到实际 A 腿的 <code>CHANNEL_ANSWER</code>、确认 ACK 已处理后，即可发送上面的 <code>read</code> 或 <code>playback</code>。未配置 XML 时未命中号码仍走固定上游；启用 XML 后未命中规则返回 404。本地呼入缺少 ACK 时按期限清理。受限 <code>answer</code>、<code>park</code> 和 XML 顺序应用已有独立合同，不代表原版完整拨号计划或任意应用兼容。</p>
+<h2 id="资源与结束语义">资源与结束语义</h2>
+<p>ESL 应用受理队列为 128 条。全局已受理任务上限按配置呼叫数计算，为 <code>min(max(2 × max_calls + 128, 128), 20000)</code>；另有 16 MiB 应用记账预算。每条腿最多八条任务，满额时显式拒绝新请求。应用等待使用可更新的定时器堆，不为每条通话创建 goroutine 或轮询任务。</p>
+<p>真实挂断会取消活跃应用和未执行队列，释放应用额度与定时对象；媒体会话释放会停止该会话的提示音。未执行任务的失败完成事件带 <code>variable_rustswitch_application_state=cancelled_before_execution</code>，不伪造开始事件。已受理任务属于通话，ESL 客户端断开不会擅自终止通话或丢弃任务。</p>
+<p>目前尚无完整的原版通道 DTMF 缓存：已被控制层观察但尚未开始 <code>read</code> 的按键不保留为无限输入队列；媒体记录中尚未拉取的较早按键可能在 <code>read</code> 开始后被接收。严格的预收号、<code>flush_dtmf</code>、原版完整缓存时序和多菜单队列差分仍待实现，不能宣称开始前按键已经被严格隔离。</p>
+<h2 id="可执行验证">可执行验证</h2>
+<p><code>tests/esl_applications_e2e.py</code> 使用真实控制进程、Rust 媒体和 SIP/RTP 端点，提供九个有限场景：变量与菜单、真实音调及桥接恢复、提示音打断和缺结束包、INFO 去重、挂机取消、超时及未实现应用拒绝、本地无上游 IVR、本地缺 ACK 清理、未命中号码走上游。支持与既有回归一致的 <code>--control</code>、<code>--media</code>、<code>--connected</code> 参数。</p>
+<p><code>tests/esl_applications_native.py</code> 用于显式隔离的已启动服务，仅创建和清理一通自有呼叫，保存原始 SIP/ESL/RTP、真实 <code>set</code>/<code>unset</code>/<code>read silence</code> 结果。两端分别执行后可比较三个正常路径的结果；版本属于身份信息。脚本自测或候选自身回归不能替代原版差分结果，正常路径通过也不覆盖本文明确列出的缺口。</p>
+<h2 id="wav-与基础动作17">WAV 与基础动作（1.7）</h2>
+<p>playback也支持根目录内受限WAV，加载中、播放失败、停止和回收均有独立状态，详见<a href="file-playback-reference.html">file-playback-reference</a>。sleep按实际指定毫秒等待；park等实际挂机，不在60秒伪完成。两者仍受通话最大时长约束，完整顺序与限制见<a href="dialplan-reference.html">dialplan-reference</a>。</p>
+<h2 id="播放终止与原版响应17">播放终止与原版响应（1.7）</h2>
+<p><code>playback_terminators</code> 缺省为 <code>*</code>；<code>none</code>禁用，<code>any</code>匹配0–9、*、#，或设置文档化的字面菜单按键集合。每次播放先清除旧 <code>playback_terminator_used</code>，实际终止按键写入该变量；API <code>uuid_break &lt;uuid&gt;</code>没有按键，不伪造该变量。</p>
+<p>普通uuid_break受理返回+OK，当前playback需等待真实停止再以FILE PLAYED完成。read中的uuid_break仅停止仍在播放的提示音，继续按读号条件与期限等待；不是立即成功收号。all/both、任意应用打断和park抢占未实现并明确拒绝。</p>
+<p>缺失WAV的完成正文为FILE NOT FOUND；损坏/不支持格式仍明确错误。XML在加载失败后停止计划并挂机，不将FILE NOT FOUND误认成可继续的成功。FILE PLAYED同时覆盖原版的自然结束和主动中断，不能代替完整音频包数检查。</p>
+<h2 id="已-ack-的-pcm-供音与-ivr">已 ACK 的 PCM 供音与 IVR</h2>
+<p>1.12 提供自有 <a href="rva1-reference.html">RVA1 外部 PCM</a>，面向同 UID 可信进程，以已 ACK 的本地 A 腿 UUID 授权 8k mono S16LE 下行；不是新的 ESL <code>speak</code>、<code>play_and_get_digits</code> 或 FreeSWITCH TTS 模块实现。接收方向仍正常处理，客户端可根据实际按键结果选择供音或明确打断。</p>
+<p>PCM begin 与活动或已排队的 tone/WAV、带提示 read 互斥；有 PCM 所有权时启动这些播放也拒绝。<code>read ... silence ...</code> 和 park 可并存，避免为了持续收号创建假提示音。<code>uuid_break</code>、播放终止键与 read 完成不会自动执行 PCM INTERRUPT；应用需要显式以当前 token/turn_id 调用 0/20/40ms 中断，并查询实际终态。20/40ms 只使用已有待发头帧淡出，不撤回已成功提交的 RTP，不等待迟到的旧轮音频。</p>
+<p>外部媒体资格由真实 ACK 控制；无 ACK 到期发送 A 腿 BYE 并回收的修复及 1 秒测试定时器限制见 <a href="release-validation-v1.12.html">1.12 验证</a>。本轮没有接入 VAD 自动触发、ASR/TTS 供应商或双轨录音，ESL 的既有事件及受理/完成语义保持。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

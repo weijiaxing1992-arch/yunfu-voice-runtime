@@ -1,0 +1,21 @@
+Usage of ./bin/asr-mock:
+  -artifacts string
+    	不存在的新证据目录绝对路径
+  -delay-ms int
+    	显式故障暂停毫秒(0..5000) (default 150)
+  -fault string
+    	显式故障: none/ready-delay/read-pause/consume-pause/late-final/close-before-done/wrong-token/duplicate-final/wrong-done/oversize/half-eof (default "none")
+  -fault-after int
+    	读暂停在第N个AUDIO后；消费暂停在第N个AUDIO前 (default 1)
+  -final-gate
+    	final前等待证据目录final.release正规文件，至多2秒
+  -listen string
+    	同UID私有目录中的绝对Unix socket路径
+  -max-bytes int
+    	全进程原帧/PCM/事件预留预算 (default 67108864)
+  -max-connections int
+    	同时连接上限(1..64) (default 64)
+  -max-total-connections int
+    	本次总接入上限(至多4096) (default 256)
+  -per-connection-bytes int
+    	单连接证据预留预算 (default 8388608)

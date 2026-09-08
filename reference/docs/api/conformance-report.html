@@ -1,0 +1,146 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>FreeSWITCH 成对协议验证报告 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / FreeSWITCH 成对协议验证报告</div><article class="content"><div class="page-tools"><a href="conformance-report.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><h1 id="freeswitch-成对协议验证报告">FreeSWITCH 成对协议验证报告</h1>
+<p>本报告只记录已经实际执行的子场景。原始条目完整兼容、全部协议和全面超越均未通过认证。</p>
+<p>原始条目：3999；完整条目通过：0；真实成对子场景通过：21。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>探针</th>
+<th>本次结果</th>
+<th>严格范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>identity.esl</td>
+<td>identity_observed</td>
+<td>读取两端真实版本并核实 reference 发行版本；不比较版本字符串</td>
+</tr>
+<tr>
+<td>esl.auth.fragmented</td>
+<td>passed_scoped</td>
+<td>认证请求逐字节发送、成功身份和固定 echo 正文</td>
+</tr>
+<tr>
+<td>esl.auth.wrong</td>
+<td>passed_scoped</td>
+<td>一个错误密码的回复及随后关闭；不包含 ACL、锁定、空密码、认证超时</td>
+</tr>
+<tr>
+<td>esl.auth.required</td>
+<td>passed_scoped</td>
+<td>认证前 api echo 被拒绝且不获取身份，同连接随后有效认证和 echo 成功</td>
+</tr>
+<tr>
+<td>esl.echo</td>
+<td>passed_scoped</td>
+<td>api echo 固定 UTF-8 正文、Content-Length 字节数</td>
+</tr>
+<tr>
+<td>esl.console.single</td>
+<td>passed_scoped</td>
+<td>fs_cli -x 的 console_execute 单命令包装：UTF-8、空 echo、首尾空格、单分号和 false 字面参数；不代表别名、批处理或交互客户端</td>
+</tr>
+<tr>
+<td>esl.api.unknown</td>
+<td>passed_scoped</td>
+<td>单个固定未知 API 命令的错误响应</td>
+</tr>
+<tr>
+<td>esl.frames.pipeline</td>
+<td>passed_scoped</td>
+<td>一次写入两条 echo；逐帧读取并核对两个正文；不代表事件洪峰</td>
+</tr>
+<tr>
+<td>esl.frames.crlf</td>
+<td>passed_scoped</td>
+<td>CRLF 命令分隔的认证和 echo；不代表所有头部/长度边界</td>
+</tr>
+<tr>
+<td>esl.frames.split_positions</td>
+<td>passed_scoped</td>
+<td>固定 echo 请求在每个字节边界拆成两次发送，每次独立连接</td>
+</tr>
+<tr>
+<td>esl.bgapi.echo</td>
+<td>passed_scoped</td>
+<td>固定 Job-UUID、bgapi echo 回复及 BACKGROUND_JOB 结果；不包含并发作业/重连重放</td>
+</tr>
+<tr>
+<td>identity.api_inventory</td>
+<td>inventory_observed</td>
+<td>真实 show api as json 注册目录；逐个对照全部 fs_api 原始 ID，接口存在不表示语义通过</td>
+</tr>
+<tr>
+<td>esl.api.echo_empty</td>
+<td>passed_scoped</td>
+<td>echo 无参数、尾空格、首尾空格的完整原始响应；不预设空白归一化</td>
+</tr>
+<tr>
+<td>esl.api.create_uuid</td>
+<td>passed_scoped</td>
+<td>连续两次生成合法且不同 UUID，保留原字节；仅随机 UUID 值可规范化</td>
+</tr>
+<tr>
+<td>esl.api.uuid_exists_missing</td>
+<td>passed_scoped</td>
+<td>固定 nil UUID 实际不存在时返回 false；不代表存在通道完整契约</td>
+</tr>
+<tr>
+<td>esl.api.uuid_getvar_missing</td>
+<td>passed_scoped</td>
+<td>先核实固定 nil UUID 不存在，再读取变量并比较完整错误</td>
+</tr>
+<tr>
+<td>esl.api.uuid_setvar_missing</td>
+<td>passed_scoped</td>
+<td>仅隔离 fixture，确认 nil UUID 不存在后尝试设置并比较错误；不修改真实通道</td>
+</tr>
+<tr>
+<td>esl.api.uuid_kill_missing</td>
+<td>passed_scoped</td>
+<td>仅隔离 fixture，确认 nil UUID 不存在后调用并比较错误；不挂断真实通道</td>
+</tr>
+<tr>
+<td>esl.api.uuid_syntax</td>
+<td>passed_scoped</td>
+<td>uuid_exists/getvar/setvar/kill 缺参数的真实错误/usage；不执行有效通道动作</td>
+</tr>
+<tr>
+<td>esl.command.case</td>
+<td>passed_scoped</td>
+<td>混合大小写 AUTH/API/EVENT、格式沿用及 nixevent/noevents 开关</td>
+</tr>
+<tr>
+<td>esl.filter.lifecycle</td>
+<td>passed_scoped</td>
+<td>filter delete all、空值清除、noevents/nixevent；以真实后台事件交付证明过滤已清除</td>
+</tr>
+<tr>
+<td>esl.bgapi.echo.json</td>
+<td>passed_scoped</td>
+<td>JSON BACKGROUND_JOB、固定 UUID、原始正文与内层字节长度</td>
+</tr>
+<tr>
+<td>esl.bgapi.echo.xml</td>
+<td>passed_scoped</td>
+<td>XML BACKGROUND_JOB、固定 UUID、headers/root-body 结构、原始正文与内层字节长度</td>
+</tr>
+<tr>
+<td>sip.options.udp</td>
+<td>failed_difference</td>
+<td>一个 OPTIONS 事务、状态码/能力头和回显事务标识；不代表完成呼叫</td>
+</tr>
+<tr>
+<td>sip.options.tcp</td>
+<td>failed_difference</td>
+<td>TCP 连接上一个 OPTIONS 请求及完整响应；不代表 TCP 呼叫/复用/背压</td>
+</tr>
+<tr>
+<td>sip.options.tls</td>
+<td>failed_difference</td>
+<td>验证证书的 TLS 连接上一个 OPTIONS；不允许跳过证书验证</td>
+</tr>
+</tbody></table></div>
+<p>实际 API 目录：原版 189 个入口，候选 14 个入口；逐个对照 292 个原始 API 声明。存在入口仍需语义验证。</p>
+<p>完整原始请求/响应（密码帧脱敏）、差异、逐条后续步骤和哈希见同名 JSON。</p>
+<p>源码和指定二进制/配置文件哈希是可追溯材料；远端正在运行进程与这些文件的对应关系仍需原构建/启动记录证明。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

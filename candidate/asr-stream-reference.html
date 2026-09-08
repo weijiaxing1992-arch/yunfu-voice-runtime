@@ -1,0 +1,760 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>云蝠 Voice Runtime：ASR 上行内部接口说明 · 云蝠项目资料</title><link rel="stylesheet" href="../handbook.css"></head><body><aside><a class="brand" href="../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../index.html">资料首页</a><a class="" href="../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 云蝠 Voice Runtime：ASR 上行内部接口说明</div><article class="content"><div class="page-tools"><a href="asr-stream-reference.md" download>Markdown 原稿</a><a href="../reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 13 节</summary><a href="#1-使用范围与前置条件">1. 使用范围与前置条件</a><a href="#2-部署配置">2. 部署配置</a><a href="#3-go-调用入口与所有权">3. Go 调用入口与所有权</a><a href="#4-状态机与完成标准">4. 状态机与完成标准</a><a href="#5-业务结果-event">5. 业务结果 Event</a><a href="#6-单流-snapshot-字段">6. 单流 Snapshot 字段</a><a href="#7-错误处理">7. 错误处理</a><a href="#8-asr1-帧格式">8. ASR1 帧格式</a><a href="#9-时间与背压预算">9. 时间与背压预算</a><a href="#10-http-资源观测与-prometheus">10. HTTP 资源观测与 Prometheus</a><a href="#11-freeswitch-对照边界">11. FreeSWITCH 对照边界</a><a href="#12-已验证内容与未验证范围">12. 已验证内容与未验证范围</a><a href="#13-维护与文档接入">13. 维护与文档接入</a></details><h1 id="云蝠-voice-runtimeasr-上行内部接口说明">云蝠 Voice Runtime：ASR 上行内部接口说明</h1>
+<p>本文对应 <code>work/voice-runtime-m2-asr/project</code> 中的隔离候选实现。文档尚未嵌入管理后台，主服务没有因此更新。ASR 控制入口是控制项目内部 Go SDK；ASR1 是同机私有代理协议，现有 HTTP 仅新增资源观测字段，没有新增公开的识别启动、送音或结果接口。</p>
+<p>目标链路为：正确 ACK 的本地 G.711 通话 → Rust RX 观察 → Go ASR 适配器 → 独立 ASR1 代理 → 业务读取结果。当前独立验收代理执行 PCM 摘要校验，不运行识别模型。</p>
+<h2 id="1-使用范围与前置条件">1. 使用范围与前置条件</h2>
+<ul>
+<li>仅接收本地单腿 A 腿，通话必须已接通、已正确 ACK、已分配媒体且尚未结束或释放；UUID 必须属于当前实际通话。</li>
+<li>Rust 必须运行 <code>g711</code> 本地处理拓扑，当前健康分片、PID 和代次必须与通话一致，并声明 <code>processed_g711_v1</code>、<code>processed_g711_local_v1</code>、<code>rx_g711_local_v2</code>。</li>
+<li>输入只接受 PCMA/PCMU、8 kHz、单声道、20 ms；输出为 8 kHz 或按需转换的 16 kHz、单声道 S16LE、20 ms。其他 codec 的透传/离线编解码能力不能替代这一 ASR 输入条件。</li>
+<li>每个 UUID 同时只允许一个起建、活动或等待清理的 ASR 槽。下一次 RX 订阅须遵守原 RX SDK 的递增订阅身份与旧远端终态规则；不能用重试绕过未知清理。</li>
+<li>代理必须与 Runtime 使用相同用户、同机共享时钟域。Linux 跨 time namespace 的进程不在此协议支持范围内；远程云供应商须由本机代理转接。</li>
+</ul>
+<h2 id="2-部署配置">2. 部署配置</h2>
+<p>以下是完整启动配置中的一个片段，路径需由部署准备：</p>
+<pre><code class="language-json">{
+  &quot;asr_stream&quot;: {
+    &quot;socket_path&quot;: &quot;/run/rustswitch-asr/provider.sock&quot;,
+    &quot;sample_rate&quot;: 16000,
+    &quot;max_streams&quot;: 64
+  }
+}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>JSON 类型</th>
+<th>校验与默认语义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>asr_stream</code></td>
+<td>对象，可省略</td>
+<td>省略关闭；JSON null 也解码为关闭的 nil，响应会省略 nil。空对象不表示关闭。结构对应 <code>config.ASRStream</code>。</td>
+</tr>
+<tr>
+<td><code>socket_path</code></td>
+<td>string，必填</td>
+<td>规范绝对路径，非根目录，UTF-8 编码最多 100 字节，无 NUL/CR/LF；不能与 <code>pcm_stream.socket_path</code> 相同。</td>
+</tr>
+<tr>
+<td><code>sample_rate</code></td>
+<td>integer，可省略</td>
+<td>仅 8000/16000；省略或 0 使用 8000。不是 SIP codec 协商参数。</td>
+</tr>
+<tr>
+<td><code>max_streams</code></td>
+<td>integer，可省略</td>
+<td>省略或 0 使用 <code>min(64, limits.max_calls)</code>；有效值为 1 到 <code>limits.max_calls</code>，包括起建和未知清理。</td>
+</tr>
+</tbody></table></div>
+<p>默认值计算返回独立有效配置，不会改写原始配置。GET <code>/v1/config</code> 的 active/desired 保留原值和省略语义。通过 PUT <code>/v1/config</code> 保存其他设置时，必须保持 <code>asr_stream</code> 对象及其省略状态不变；修改路径、采样率、预算、启用或禁用都会被拒绝，当前返回 HTTP 422。更改需修改部署启动配置并按服务发布流程生效。</p>
+<p>静态配置校验不创建或探测代理文件。真正连接前后会核验 socket 的直接父目录为当前用户拥有的 0700 目录，socket 是当前用户拥有的实际 Unix socket，两次目录/socket 身份一致，连接对端 UID 匹配。Runtime 不拥有、不创建、不删除供应商目录和 socket。</p>
+<h2 id="3-go-调用入口与所有权">3. Go 调用入口与所有权</h2>
+<p>包路径为 <code>rustswitch/control/internal/server</code>、<code>rustswitch/control/internal/asr</code>。Go 的 internal 可见性限制意味着这是控制项目内部接口，不是可供任意外部程序直接导入的公共 SDK。</p>
+<pre><code class="language-go">func (s *Server) StartASR(ctx context.Context, uuid string, subscriptionID uint64) (*asr.Stream, error)
+func (s *Server) ASRSnapshot() ASRStatus
+
+func (s *Stream) Next(ctx context.Context) (Event, error)
+func (s *Stream) Finish(ctx context.Context) error
+func (s *Stream) Cancel()
+func (s *Stream) Snapshot() Snapshot
+func (s *Stream) Reap(ctx context.Context) bool
+func (s *Stream) Closed() &lt;-chan struct{}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>使用约定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Server.StartASR</code></td>
+<td>先预留 UUID/额度，再完成代理握手，最后申请实际授权 RX。UUID 非空且最多 128 UTF-8 字节，最终 HELLO 校验拒绝空白和控制字符；订阅 ID 必须非零。调用者不能覆盖固定 socket 和采样率。</td>
+</tr>
+<tr>
+<td><code>Stream.Next</code></td>
+<td>同时仅一个消费者；并发调用返回 <code>ErrBusy</code>。返回 partial、final 或适配器生成的 partial_invalidated；完整完成后返回 <code>io.EOF</code>。结果交付前再次核对原通话生命周期，取消后的排队结果不能继续交付。</td>
+</tr>
+<tr>
+<td><code>Stream.Finish</code></td>
+<td>提出停止输入意图并等待 FINISH 完整写入；已经在途的完整前缀保留，之后不预留新音频。返回 nil 不表示 DONE、业务 final 或资源清理全部完成，须继续调用 Next。</td>
+</tr>
+<tr>
+<td><code>Stream.Cancel</code></td>
+<td>撤销识别流、关闭网络并拒绝尚未交付的结果；不操作下行 PCM/TTS。已完整交付的历史 completed 状态保留。</td>
+</tr>
+<tr>
+<td><code>Stream.Snapshot</code></td>
+<td>当前流的受锁快照；包含数量、阶段、错误与清理状态，不携带文本/UUID/token。</td>
+</tr>
+<tr>
+<td><code>Stream.Reap</code></td>
+<td>每次最多一次有界 RX 退订或状态查询；同一流防并发重入。Server 管理器自动调用，普通业务无需自行建立清理循环。</td>
+</tr>
+<tr>
+<td><code>Stream.Closed</code></td>
+<td>只证明本流 I/O 协程已退出、网络关闭、RX 实际停止或退休，不证明业务已取完排队 final。</td>
+</tr>
+<tr>
+<td><code>Server.ASRSnapshot</code></td>
+<td>所有 ASR 槽的低基数资源快照；不是识别成功统计。</td>
+</tr>
+</tbody></table></div>
+<p><code>StartASR</code> 返回非 nil 句柄并同时返回错误，表示网络/RX 可能已获得资源、仍需保留清理身份。Server 自动保留额度并调度清理，调用者也应保留句柄便于取消、观察 Closed 和诊断；不要立即用新订阅覆盖它。返回 nil 才代表启动器没有保留的网络/RX 资源。</p>
+<p>Start 的调用上下文只约束起建；起建成功后的流由服务上下文和原通话生命周期约束。Next/Finish 的调用上下文约束该次等待，等待超时不等同于显式取消整个流；不再需要结果时调用 Cancel。正常业务顺序是 Start → 持续 Next → 业务明确结束输入时 Finish → 继续 Next 到 EOF → 读取完成状态。挂断、服务退出或错误路径使用 Cancel 并等待管理器确认清理。</p>
+<p>底层独立适配器还提供：</p>
+<pre><code class="language-go">func Start(ctx context.Context, service context.Context, opts Options, acquire Acquire) (*Stream, error)
+type Acquire func(context.Context) (Source, error)
+</code></pre>
+<p><code>Options</code> 为固定的 SocketPath、UUID、SubscriptionID、SampleRate。Source 需要实现 Read、Unsubscribe、Status、Snapshot、LifetimeDone、ConfirmedRetired；生产接线使用真实 Server RXHandle。ConfirmedRetired 不能由服务取消推断，只能使用实际底层退休、已确定任务没有创建绑定、明确未提交或真实全媒体池关闭证据。单元测试注入 Source 不等同于真实 SIP 验收。</p>
+<h2 id="4-状态机与完成标准">4. 状态机与完成标准</h2>
+<pre><code class="language-text">starting → streaming → finishing → completed
+    └────────┴────────────┴──────→ failed / cancelled
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>starting</td>
+<td>起建阶段；管理器在握手/RX 申请尚未完成时已计入额度。</td>
+</tr>
+<tr>
+<td>streaming</td>
+<td>已取得输入授权，送音、结果读取和生命周期监控运行中。</td>
+</tr>
+<tr>
+<td>finishing</td>
+<td>已请求停止输入，或代理已 DONE，仍可能等待 RX/网络关闭或业务取完结果。</td>
+</tr>
+<tr>
+<td>completed</td>
+<td>无失败；DONE 精确匹配完整提交前缀；没有未结束的开放话语；资源确证关闭；队列和正在交付的结果都已消费完。</td>
+</tr>
+<tr>
+<td>failed</td>
+<td>协议、来源、网络、超时、队列或其他错误；清理可继续进行。</td>
+</tr>
+<tr>
+<td>cancelled</td>
+<td>显式取消或通话/服务撤权；清理可继续进行。</td>
+</tr>
+</tbody></table></div>
+<p>completed 表示适配器协议与交付完成，不保证模型识别正确，也不保证所有输入样本都有对应识别文字。DONE 只能确认提交计数，不能代替文本质量或业务语义验收。EOF、输入停止、普通 socket 关闭及服务取消都不能单独产生 completed。</p>
+<p>资源关闭与业务交付分别记录：即使 Closed 已关闭、管理器已归还额度，尚未消费的 final 仍可让句柄保持 finishing；通话在此期间结束时，Next 仍拒绝迟到结果。无结果队列、无在途交付、资源关闭和有效 DONE 同时满足，才转 completed。</p>
+<p>固定资源预算：每流三个 I/O 协程；所有流共享四个清理执行者；结果队列 8 项；单条文本 4096 UTF-8 字节；来源证明最多 64 个合并区间。只能合并同一话语未读的 partial，不能丢弃 final 后伪装成功。超限明确结束识别流。关闭服务采用先关识别网络、再实际关闭媒体池、最后确认并回收未知 RX 的顺序。</p>
+<h2 id="5-业务结果-event">5. 业务结果 Event</h2>
+<p>以下为内部 Go Event 及其 JSON 标签；这里的 uint64 字段在 Go 默认 JSON 中是整数，<strong>不是 ASR1 的十进制字符串</strong>。当前没有通过 HTTP 暴露这个结构；外部跨语言接口若另行设计须重新处理 64 位精度。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>JSON 标签</th>
+<th>Go 类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td>string</td>
+<td>partial、final、partial_invalidated。</td>
+</tr>
+<tr>
+<td>text</td>
+<td>string，可省略</td>
+<td>识别文本或测试代理摘要，最大 4096 字节；不写入指标标签。</td>
+</tr>
+<tr>
+<td>coverage</td>
+<td>string，可省略</td>
+<td>complete 或 discontinuous；仅结果携带。</td>
+</tr>
+<tr>
+<td>result_sequence</td>
+<td>uint64</td>
+<td>代理结果序号；partial_invalidated 为适配器事件，不伪造代理序号。</td>
+</tr>
+<tr>
+<td>utterance_id / revision</td>
+<td>uint64</td>
+<td>话语身份与递增修订；已 final 话语不能修改。</td>
+</tr>
+<tr>
+<td>source_generation / source_segment</td>
+<td>uint64</td>
+<td>原 RX 来源与段身份。</td>
+</tr>
+<tr>
+<td>first_event_sequence / last_event_sequence</td>
+<td>uint64</td>
+<td>结果所覆盖的实际已完整提交 Decoded 范围，两端都必须能找到来源证明。</td>
+</tr>
+<tr>
+<td>start_media_ns / end_media_ns</td>
+<td>uint64</td>
+<td>精确媒体起点和右开终点，来自媒体时间线，不是 UTC。</td>
+</tr>
+</tbody></table></div>
+<p>旧来源或暂停后的结果按 stale 计数，不发布。无法证明的未来来源、错误序号、错误媒体区间、越过已 final 范围或错误修订被拒绝。已知缺口跨越时必须声明 discontinuous。来源暂停/切换会生成 partial_invalidated，使当前开放 partial 失效；业务应撤销对应临时文字。</p>
+<h2 id="6-单流-snapshot-字段">6. 单流 Snapshot 字段</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>JSON 字段</th>
+<th>类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>state / sample_rate</td>
+<td>string / uint32</td>
+<td>当前阶段、有效输出采样率。</td>
+</tr>
+<tr>
+<td>input_finished</td>
+<td>bool</td>
+<td>FINISH 已完整写出，不只是调用过 Finish。</td>
+</tr>
+<tr>
+<td>provider_done</td>
+<td>bool</td>
+<td>已接收并验证 DONE。</td>
+</tr>
+<tr>
+<td>rx_stopped / transport_closed</td>
+<td>bool</td>
+<td>RX 有真实停止证据 / 本流网络已关闭。</td>
+</tr>
+<tr>
+<td>cleanup_pending / resources_closed</td>
+<td>bool</td>
+<td>RX 清理仍未确认 / 全部本流资源真实关闭。</td>
+</tr>
+<tr>
+<td>adapter_written_audio_frames / adapter_written_samples</td>
+<td>uint64</td>
+<td>适配器完整写入并记账的 AUDIO 帧/样本。不能代替代理消费量。</td>
+</tr>
+<tr>
+<td>adapter_written_markers</td>
+<td>uint64</td>
+<td>完整写入并记账的元数据条数。</td>
+</tr>
+<tr>
+<td>provider_acknowledged_samples</td>
+<td>uint64</td>
+<td>有效 DONE 回显的样本数，不是模型成功样本数。</td>
+</tr>
+<tr>
+<td>expired_frames / unknown_writes</td>
+<td>uint64</td>
+<td>观察过期计数 / 部分提交结果未知次数。</td>
+</tr>
+<tr>
+<td>results_received / results_delivered</td>
+<td>uint64</td>
+<td>通过类型/token 解析后收到的 RESULT 数 / 实际向业务交付的 Event 数；交付数可包括 partial_invalidated，不能直接相减当丢失数。</td>
+</tr>
+<tr>
+<td>stale_results</td>
+<td>uint64</td>
+<td>被判旧来源、撤销或取消时舍弃的排队结果累计值。</td>
+</tr>
+<tr>
+<td>partial_coalesced / partial_invalidated</td>
+<td>uint64</td>
+<td>未读 partial 被更新合并 / 开放 partial 被撤销次数。</td>
+</tr>
+<tr>
+<td>queued_results / provenance_ranges</td>
+<td>int</td>
+<td>当前有界结果数 / 来源证明区间数。</td>
+</tr>
+<tr>
+<td>last_event_sequence</td>
+<td>uint64</td>
+<td>完整提交并记账的最近输入事件位置。</td>
+</tr>
+<tr>
+<td>error</td>
+<td>string，可省略</td>
+<td>首个错误文本；业务分类应优先使用方法返回的 errors.Is。</td>
+</tr>
+</tbody></table></div>
+<h2 id="7-错误处理">7. 错误处理</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>错误</th>
+<th>处理含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>server.ErrASRDisabled</td>
+<td>未启用部署配置；不能通过重复请求自动启用。</td>
+</tr>
+<tr>
+<td>server.ErrASRClosed</td>
+<td>服务停止，不再接纳起建。</td>
+</tr>
+<tr>
+<td>server.ErrASRInvalid</td>
+<td>无效上下文、UUID 或订阅身份。</td>
+</tr>
+<tr>
+<td>server.ErrASRCapacity / ErrASRBusy</td>
+<td>总额度耗尽 / 同 UUID 仍占槽；等待真实回收。</td>
+</tr>
+<tr>
+<td>server.ErrRXNotEligible</td>
+<td>不满足正确 ACK、本地单腿、格式、通话状态或健康同代分片要求。</td>
+</tr>
+<tr>
+<td>server.ErrRXSubscribeUnknown / media.ErrRXOutcomeUnknown</td>
+<td>RX 受理结果未知；保留句柄，由清理器退订/查询。</td>
+</tr>
+<tr>
+<td>asr.ErrInvalid</td>
+<td>底层参数或本次调用参数无效。</td>
+</tr>
+<tr>
+<td>asr.ErrUnavailable</td>
+<td>代理不可连接、私有路径/对端身份不符、供应商 ERROR 等。</td>
+</tr>
+<tr>
+<td>asr.ErrProtocol</td>
+<td>握手、消息、来源证明、结果修订或计数不符。</td>
+</tr>
+<tr>
+<td>asr.ErrCancelled</td>
+<td>显式取消或通话/服务授权结束。</td>
+</tr>
+<tr>
+<td>asr.ErrBusy</td>
+<td>同时 Next、资源证明预留或其他受限操作冲突。</td>
+</tr>
+<tr>
+<td>asr.ErrInputFailed</td>
+<td>RX 意外结束、输入失效或终态观察；不会把输入 EOF 当正常识别结束。</td>
+</tr>
+<tr>
+<td>asr.ErrSubmissionUnknown</td>
+<td>部分写入后失败，无法确知远端处理了多少字节；关闭连接，禁止重播相同 PCM 前缀。</td>
+</tr>
+<tr>
+<td>asr.ErrResultOverflow / ErrProvenanceOverflow</td>
+<td>固定结果/来源预算不足，明确失败。</td>
+</tr>
+<tr>
+<td>asr.ErrProviderTimeout</td>
+<td>供应商消息、DONE/PONG 或其他内部期限届满。</td>
+</tr>
+<tr>
+<td>context.Canceled / DeadlineExceeded、media.ErrRXExpired 等</td>
+<td>可能直接返回的调用/来源/网络错误；以上表格不是穷举封闭枚举。</td>
+</tr>
+</tbody></table></div>
+<p>起建握手不同阶段的网络超时可能归类为 Unavailable 或 Protocol，不能假定所有超时必然返回 ErrProviderTimeout。错误伴随的非空句柄和 Closed/ResourcesClosed 状态决定清理责任，不能只凭错误名称归还额度。</p>
+<h2 id="8-asr1-帧格式">8. ASR1 帧格式</h2>
+<p>Unix stream 每条完整消息最多 8196 字节，全部二进制整数采用小端序：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>整帧偏移</th>
+<th>长度</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>4</td>
+<td>uint32 length，包含其后 4 字节前缀和正文，不含 length 自身；范围 4..8192。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1</td>
+<td>kind，1..11。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1</td>
+<td>version，固定 1。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>2</td>
+<td>reserved，固定 0。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>length−4</td>
+<td>正文；AUDIO 为二进制，其余为 UTF-8 JSON。</td>
+</tr>
+</tbody></table></div>
+<p>JSON 必须精确包含对应模型的全部字段。未知、缺失、重复字段、尾随内容、非法 UTF-8、孤立 UTF-16 代理项、过深嵌套均拒绝。仅 MARKER 的 known_duration_ticks、gap、sid_b64 可以为 null，但字段仍必填。所有 wire.U64 值使用规范十进制字符串（例如 <code>&quot;0&quot;</code>、<code>&quot;18446744073709551615&quot;</code>），禁止数字类型、负号、前导零及指数格式。stream_token 是非零、32 位小写十六进制的每连接随机身份，不是 SIP UUID。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>kind</th>
+<th>名称</th>
+<th>方向与正文</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>HELLO</td>
+<td>Runtime → 代理，Hello JSON。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>READY</td>
+<td>代理 → Runtime，必须逐字段精确回显 HELLO。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>AUDIO</td>
+<td>Runtime → 代理，真实 Decoded 的 112 字节头和 PCM。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>MARKER</td>
+<td>Runtime → 代理，PLC/CN/缺口/来源/辅助元数据，无伪造音频。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>FINISH</td>
+<td>Runtime → 代理，停止输入后的完整提交前缀。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>RESULT</td>
+<td>代理 → Runtime，partial/final 与精确来源范围。</td>
+</tr>
+<tr>
+<td>7</td>
+<td>DONE</td>
+<td>代理 → Runtime，逐字段精确回显 FINISH。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>ERROR</td>
+<td>代理 → Runtime，stream_token 和 code。</td>
+</tr>
+<tr>
+<td>9</td>
+<td>CANCEL</td>
+<td>格式已定义：stream_token、reason；当前 Stream.Cancel 直接关闭连接，不保证发送此帧。</td>
+</tr>
+<tr>
+<td>10</td>
+<td>PING</td>
+<td>Runtime → 代理，stream_token 和十进制字符串 nonce。</td>
+</tr>
+<tr>
+<td>11</td>
+<td>PONG</td>
+<td>代理 → Runtime，匹配当前 PING 的 token/nonce。</td>
+</tr>
+</tbody></table></div>
+<h3 id="81-hello-ready">8.1 HELLO / READY</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>固定值或约束</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>protocol</td>
+<td><code>ASR1</code></td>
+</tr>
+<tr>
+<td>stream_token / uuid / subscription_id</td>
+<td>连接 token、通话 UUID、非零 U64 订阅 ID</td>
+</tr>
+<tr>
+<td>source_rate / target_rate</td>
+<td>8000 / 8000 或 16000</td>
+</tr>
+<tr>
+<td>channels / format / frame_ms</td>
+<td>1 / <code>s16le</code> / 20</td>
+</tr>
+<tr>
+<td>clock_domain</td>
+<td>1=Linux CLOCK_MONOTONIC；2=Darwin CLOCK_UPTIME_RAW</td>
+</tr>
+<tr>
+<td>plc_policy / gap_policy</td>
+<td><code>metadata</code> / <code>explicit</code></td>
+</tr>
+</tbody></table></div>
+<p>READY 不允许重新协商格式或更换任何身份。每次 Start 使用新的随机 token；代理重连不重放旧 PCM 或结果。</p>
+<h3 id="82-audio-二进制正文">8.2 AUDIO 二进制正文</h3>
+<p>以下偏移相对于正文起点，即整帧偏移 8。20 ms 对应 160 或 320 个 int16 样本。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>偏移</th>
+<th>类型/长度</th>
+<th>字段</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>16 bytes</td>
+<td>token 原始字节</td>
+</tr>
+<tr>
+<td>16 / 24 / 32</td>
+<td>u64</td>
+<td>event_seq / source_generation / source_segment</td>
+</tr>
+<tr>
+<td>40 / 48</td>
+<td>u64</td>
+<td>完整展开 rtp_sequence / rtp_timestamp</td>
+</tr>
+<tr>
+<td>56 / 64 / 72</td>
+<td>u64</td>
+<td>media_ns / lower_ns / expires_ns</td>
+</tr>
+<tr>
+<td>80 / 84 / 88 / 92</td>
+<td>u32</td>
+<td>ssrc / sample_rate / rtp_clock_rate / filter_delay_ns</td>
+</tr>
+<tr>
+<td>96 / 98 / 100 / 102 / 104</td>
+<td>u16</td>
+<td>flags / clock_domain / sample_count / origin / PCM 字节数</td>
+</tr>
+<tr>
+<td>106</td>
+<td>6 bytes</td>
+<td>reserved，全 0</td>
+</tr>
+<tr>
+<td>112</td>
+<td>320 或 640 bytes</td>
+<td>单声道 S16LE PCM</td>
+</tr>
+</tbody></table></div>
+<p>origin 固定 1，仅真实 Decoded 可以产生 AUDIO。rtp_clock_rate 固定 8000，不能随目标 16 kHz 改写。8 kHz 滤波延迟为 0；16 kHz 使用 127 抽头 FIR，filter_delay_ns=3937500。该延迟是滤波器群延迟，不是允许延长的观察期限。来源、新段和实际音频间断清空滤波历史；普通辅助按键元数据不自动切断话音历史。</p>
+<p>RTP 完整展开位置包含 Rust 内部初始种子周期：序号 1&lt;&lt;16、时间戳 1&lt;&lt;32，再按原始位置连续展开；接收者须保留完整 64 位值，不截成原始 RTP 低位，不用它当 UTC。</p>
+<h3 id="83-marker-字段与类型">8.3 MARKER 字段与类型</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段组</th>
+<th>JSON 字段</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>身份与类型</td>
+<td>stream_token、rx_kind、event_seq、source_generation、source_segment</td>
+</tr>
+<tr>
+<td>时钟与期限</td>
+<td>clock_domain、lower_ns、expires_ns</td>
+</tr>
+<tr>
+<td>原始位置</td>
+<td>flags、ssrc、rtp_sequence、rtp_timestamp、media_ns、sample_rate、rtp_clock_rate</td>
+</tr>
+<tr>
+<td>年龄</td>
+<td>observation_age_ms、arrival_age_ms、deadline_lateness_ms、queue_age_ms</td>
+</tr>
+<tr>
+<td>已知事实</td>
+<td>known_duration_ticks（U64/null）、cn_applied（bool）、reason、boundary、discarded_packets（U64）</td>
+</tr>
+<tr>
+<td>条件内容</td>
+<td>gap（对象/null）、sid_b64（string/null）</td>
+</tr>
+</tbody></table></div>
+<p>MARKER 的 sample_rate、rtp_clock_rate 都保留来源的 8000，不因 AUDIO 目标 16 kHz 改写。SID 仅 ComfortNoise 携带，规范 base64、解码 1..480 字节；PLC 只携带已知 160 tick 元数据，不把补偿 PCM 当用户输入。未知时长必须为 null，不能补成 20 ms 静默。</p>
+<p>rx_kind：2 HistoryPLC、3 Missing、4 ComfortNoise、5 LocalExpired、6 AuxiliaryExpired、7 SourceBoundary、8 InactiveSuspended、9 ObservationFailed、10 ExportGap、11 End、12 ExportFailed、13 Auxiliary。线格式定义包含终态，但当前适配器遇 9/11/12 会直接失败关闭识别流，不将其转为成功 Finish；不能从格式定义推断终态转发已实现。</p>
+<p>flags 的 bit0..9 依次为 SSRC 有效、RTP 时间戳有效、RTP 序号有效、媒体时间有效、有边界、CN 辅助已过期、suspended_after、RTP marker、arrival 已知、deadline 已知。bit7 不代表 known_duration_ticks 有效。未声明有效的位置字段须为 0。</p>
+<p>boundary：0 无、1 初始来源、2 SSRC 变化、3 包序重启、4 时间戳重启、5 新段、6 已知源 RTCP BYE；必须与边界有效位一致。迟订阅可从首个完整 Decoded 建立当前来源，不要求重放历史 kind 7；首 Decoded 仍可能携带新段边界 5。</p>
+<p>reason 的普通值为 0 无、1 MissingPacket、2 AudioDeadline、3 AuxiliaryDeadline、4 StaleComfortNoise、5 InvalidComfortNoise、6 ToneTimeout、7 DecoderFailure、8 ObservationOverflow、9 ObservationSequenceExhausted、10 JitterBufferLimit、11 LateArrival。</p>
+<p>ExportGap 的 gap 必须完整包含 first、last、decoded、plc（均 U64 字符串）和 reasons；reasons 是 1 队列满、2 年龄超时、4 停止/撤销的非零组合。last=event_seq，decoded+plc 不超过区间长度。Gap/End/ExportFailed 是摘要，不带音频期限和来源位置：lower_ns/expires_ns、来源、位置和 flags 等为 0，已知时长为 null。普通观察保留原始 100 ms 期限。</p>
+<p>丢弃计数与 CN 事实不能随便组合：来源边界 2/3/4/6 可以携带已丢弃包数；过期/拒收编码包的指定原因允许恰好丢弃一包；观察队列失败只允许在 reason 8/9 继承与原事实一致的边界、丢弃数或 CN 标记。其余混合由严格线格式校验拒绝，不能把辅助丢弃记成音频静默。</p>
+<h3 id="84-finish-doneresult-与控制消息">8.4 FINISH / DONE、RESULT 与控制消息</h3>
+<p>FINISH/DONE 的全部字段为 stream_token、last_event_seq、audio_frames、samples、markers；除 token 外均为 U64 字符串。DONE 必须与已完整写出的 FINISH 全等；必须在原绝对结束期限前接收，且没有未结束的开放话语。不能通过断开连接代替 DONE。</p>
+<p>RESULT 全部字段为 stream_token、result_seq、utterance_id、revision、source_generation、source_segment、type、text、first_event_seq、last_event_seq、start_media_ns、end_media_ns、coverage。身份/序号/媒体时间均为 U64 字符串；type 仅 partial/final，coverage 仅 complete/discontinuous。result_seq 从 1 严格连续，话语和修订递增，精确媒体范围必须可由实际已完整提交 Decoded 证明。partial_invalidated 是适配器业务事件，不是代理可发送的 RESULT type。</p>
+<p>ERROR.code 长 1..128 字节，以小写字母开始，其余只允许小写字母、数字和下划线。错误码不写入指标标签；当前收到合法 ERROR 后对业务归为 ErrUnavailable。CANCEL.reason 最多 128 UTF-8 字节。PONG 必须匹配当前尚未完成的 PING，并在期限内到达；未经请求的 PONG 不被当作有效活性证明。</p>
+<h2 id="9-时间与背压预算">9. 时间与背压预算</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>环节</th>
+<th>当前固定边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>代理连接与 HELLO/READY</td>
+<td>最多 2 秒，调用上下文可更短；路径/对端校验失败关闭。</td>
+</tr>
+<tr>
+<td>代理就绪后 RX 申请</td>
+<td>独立最多 1 秒；未知回执保留资源身份。</td>
+</tr>
+<tr>
+<td>原始观察有效期</td>
+<td><code>expires_ns = lower_ns + 100000000</code>，Rust 首次观察决定，读取、排队、重采样和重试均不续期。</td>
+</tr>
+<tr>
+<td>普通 AUDIO/MARKER 写入</td>
+<td>每次 syscall 等待不超过剩余原始预算和 20 ms 的较小值；部分进度仍受原始绝对期限约束。</td>
+</tr>
+<tr>
+<td>无观察期限的摘要 / 控制消息写入</td>
+<td>单条消息固定 20 ms 总期限，部分 Write 不续期。</td>
+</tr>
+<tr>
+<td>入站消息</td>
+<td>首字节前最多 12 秒；首字节出现后全消息最多 1 秒，逐字节进度不续期。</td>
+</tr>
+<tr>
+<td>心跳</td>
+<td>约 10 秒输入读取窗口到期时发 PING；PONG 最多 2 秒。</td>
+</tr>
+<tr>
+<td>正常结束</td>
+<td>首次 Finish 提出起最多 2 秒等待有效 DONE；重复 Finish 不续期。</td>
+</tr>
+<tr>
+<td>RX 清理</td>
+<td>四个共享 worker，每轮每流至多一次 1 秒退订或查询；失败后轮转其他槽。</td>
+</tr>
+</tbody></table></div>
+<p>代理必须在实际消费前复核同一 clock_domain 和 <code>[lower_ns, expires_ns)</code>。转换或收到一帧不等于它在随后消费时仍有效；检查点与 syscall 不能被描述成原子保证。过期、排队溢出和部分提交未知会明确失败，不通过丢帧后宣称完整识别成功。</p>
+<h2 id="10-http-资源观测与-prometheus">10. HTTP 资源观测与 Prometheus</h2>
+<p>新增的 HTTP 内容只有现有 GET <code>/v1/status</code> 返回中的 <code>asr_stream</code> 对象。禁用时仍返回对象：enabled=false，其余 bool=false、计数/上限=0。旧版本完全没有字段时应显示未知，不能当零。现有 GET <code>/v1/config</code> 的 Config 可含启动原始 asr_stream 配置。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>status 字段</th>
+<th>类型</th>
+<th>Prometheus 指标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>enabled / stopping</td>
+<td>bool</td>
+<td>rustswitch_asr_enabled / rustswitch_asr_stopping，0/1</td>
+</tr>
+<tr>
+<td>max_streams / slots</td>
+<td>int</td>
+<td>rustswitch_asr_max_streams / rustswitch_asr_slots</td>
+</tr>
+<tr>
+<td>starting / active</td>
+<td>int</td>
+<td>rustswitch_asr_starting / rustswitch_asr_active</td>
+</tr>
+<tr>
+<td>cleanup_pending</td>
+<td>int</td>
+<td>rustswitch_asr_cleanup_pending</td>
+</tr>
+<tr>
+<td>rejected_capacity / rejected_uuid</td>
+<td>uint64</td>
+<td>rustswitch_asr_rejected_capacity_total / rustswitch_asr_rejected_uuid_total</td>
+</tr>
+</tbody></table></div>
+<p>Slots=Starting+Active+CleanupPending。正常 Finish 的退订过程也可以暂计入清理；RX 已停但还等代理 final 的连接可以计入 Active。Closed 但清理 worker 尚未移除的槽仍保守计入清理。最后两项为本进程累计拒绝，其他为当前 gauge；现有 <code>/metrics</code> 文本没有 HELP/TYPE 声明，采集方按本字典区分。所有指标没有高基数标签。</p>
+<p>上述计数均不是识别成功数，不表示供应商健康或模型质量，不包含已经释放槽但业务仍持有的未读结果，也不与隔离压力测试实例混算。管理后台按已有轮询展示主服务 asr_stream；独立压测应使用子实例自己的观测与收据。</p>
+<h2 id="11-freeswitch-对照边界">11. FreeSWITCH 对照边界</h2>
+<p>对照依据为项目已有的固定 FreeSWITCH 1.11.3 源码目录及提交 <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>；它是可复核的固定参考，不声称实时最新版本。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>FreeSWITCH 对照点</th>
+<th>当前实现关系</th>
+<th>尚不能替代的内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>detect_speech</code></td>
+<td>识别输入/结果的业务目的相近；本批是自有 Go/ASR1 入口</td>
+<td>同名拨号计划应用、grammar/参数/暂停恢复/计时器命令及原事件语义，现有对照仍 not_implemented。</td>
+</tr>
+<tr>
+<td><code>play_and_detect_speech</code></td>
+<td>上行 ASR 可作为后续组件</td>
+<td>播放与识别组合、按键/打断协调、原应用返回变量和完成语义，现有对照仍 not_implemented。</td>
+</tr>
+<tr>
+<td><code>switch_ivr_detect_speech</code> 及相关 C API</td>
+<td>内部分层可作概念对照</td>
+<td>不兼容 FreeSWITCH C ABI、对象生命周期、回调和模块装载。</td>
+</tr>
+<tr>
+<td><code>mod_pocketsphinx</code> / MRCP 类供应商接入</td>
+<td>需要独立适配与验收</td>
+<td>摘要 mock 不能当识别模型或 MRCP 客户端，不能加载这些原版模块。</td>
+</tr>
+<tr>
+<td>ESL/fs_cli 识别命令与事件</td>
+<td>当前新增 API 不走这些通道</td>
+<td>ASR1 不兼容 ESL 报文；本批未新增同名命令、识别事件桥或 XML 配置兼容。</td>
+</tr>
+<tr>
+<td><code>status</code> 和模块统计</td>
+<td>自有 HTTP/Prometheus 类比观测</td>
+<td>字段、传输和输出不同；仅资源观测已实现，不计算 FreeSWITCH 接口兼容率。</td>
+</tr>
+</tbody></table></div>
+<p>现有目录证据位于 <code>project/control/internal/server/doc_assets/api/comparison.json</code>。本说明不修改任何兼容状态或绿色验证数。下一阶段可单独建立业务事件桥与供应商适配层，并逐项验证后更新对照。</p>
+<h2 id="12-已验证内容与未验证范围">12. 已验证内容与未验证范围</h2>
+<p>以下结论读取实际收据及测试输出；证据路径相对于本文所在目录。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>证据</th>
+<th>已证明的范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>server-no-binding-fix-01/receipt.json</code></td>
+<td>配置以外的 RX/管理器/生命周期定向 race 98 项通过（39 顶层、59 子项），0 失败/跳过，vet 通过；是假运输的纯测试，不能替代 SIP。</td>
+</tr>
+<tr>
+<td><code>client-review-tests-02/receipt.json</code></td>
+<td>独立纯内存生命周期回归 20 项通过（6 顶层、14 子项）；包括迟到 DONE、固定部分写总期限、错误清理回执、取消后拒绝结果及在途交付完成边界。</td>
+</tr>
+<tr>
+<td><code>client-real-02/receipt.json</code></td>
+<td>真实 Unix 独立 mock 与客户端运行通过；明确使用 synthetic RX，不是 Rust/SIP。</td>
+</tr>
+<tr>
+<td><code>server-real-01/receipt.json</code>、<code>actual.jsonl</code></td>
+<td>首轮五子例因测试预期漏加 RTP 初始周期种子失败，原证据保留，不能计通过。</td>
+</tr>
+<tr>
+<td><code>server-real-02/receipt.json</code>、<code>cases/suite-receipt.json</code>、<code>actual.jsonl</code></td>
+<td>修正独立 RTP 预期后，五个真实 SIP/Rust/ASR 代理子例全部通过；race 构建，实际运行约 165.25 秒，0 失败/跳过，源码及二进制身份稳定。</td>
+</tr>
+<tr>
+<td><code>observability-review-01/REVIEW.md</code>、<code>review.json</code></td>
+<td>独立只读核对资源状态、页面/指标及测试判定范围，未发现新生产逻辑问题；不是运行测试。</td>
+</tr>
+</tbody></table></div>
+<p>五例真实成功链分别为 PCMU8k/UDP、PCMA8k/connected、PCMU16k/UDP、PCMA16k/connected、PCMU8k/迟订阅。它们验证正确与错误 ACK、8 帧逐样本 PCM/FIR、完整 RTP 展开、原始期限消费、partial/final 摘要、FINISH/DONE、正常结束之后的 BYE、端口复绑、实际 32 秒 SIP GC 和资源清理。迟订阅只证明没有回放 kind 7 SourceBoundary，不证明首 Decoded 没有 Boundary=5。</p>
+<p>当前真实测试使用 mock-build-04，摘要代理 SHA-256 为 <code>109e9c32aed2d2d35852dc2ac0c7d0f1067bb95b2d557b02ecb48ff862f594f7</code>；真实 Rust 媒体二进制为 <code>1a3fdd0342f689ff88b3fe89056b23bc0858cd1177601dc5c68947d699227dde</code>。完整执行文件和源码指纹以各收据为准，测试数量不能跨证据相加宣称功能数量或兼容百分比。</p>
+<p>未由上述五例证明：真实 ASR 模型识别质量/云厂商接口、等待 final 时挂断与迟到结果的完整 SIP 故障链、ASR+TTS+LLM 完整实时对话、VAD/endpointing、MRCP、非 G.711 本地 ASR 输入、物理 Linux 5000/10000 路容量、FreeSWITCH 全模块等价、生产无损切换。需要分别设计并执行验收，不以清理成功或 PCM 摘要成功替代。</p>
+<h2 id="13-维护与文档接入">13. 维护与文档接入</h2>
+<p>源码依据：<code>control/internal/config/asr_stream.go</code>、<code>control/internal/server/asr_stream.go</code>、<code>asr_observe.go</code>、<code>rx_stream.go</code>，以及 <code>control/internal/asr/{types,stream,reader,writer,frames,provenance}.go</code> 与 <code>wire/</code>。</p>
+<p>当前嵌入 OpenAPI 尚缺 Config.asr_stream 和 Status.asr_stream，而两者模型使用 additionalProperties=false；正式发布前必须将字段、模型和现有三个 HTTP 操作的说明一并更新。具体项目外修改建议见同目录 <code>asr-openapi-update-proposal.md</code>；本次没有直接更改嵌入资源、版本号或兼容对照。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

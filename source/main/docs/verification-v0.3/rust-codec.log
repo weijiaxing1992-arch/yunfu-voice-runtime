@@ -1,0 +1,27 @@
+   Compiling rustswitch-media v0.2.0 (/workspace/yunfu-voice-runtime/outputs/rustswitch/media)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.95s
+     Running unittests src/lib.rs (/workspace/yunfu-voice-runtime/work/build/media/debug/deps/rustswitch_media-e53b4cf5765557c4)
+
+running 6 tests
+test admission::tests::rate_limit_and_refill_are_bounded ... ok
+test media::rtp::tests::rtcp_bounds_and_compounds ... ok
+test media::ports::tests::port_quarantine_and_incomplete_blocks ... ok
+test media::rtp::tests::malformed_rtp_is_rejected ... ok
+test media::io::tests::batched_datagrams_keep_boundaries_and_detect_oversize ... ok
+test media::rtp::tests::arbitrary_short_packets_do_not_panic ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running unittests src/main.rs (/workspace/yunfu-voice-runtime/work/build/media/debug/deps/rustswitch_media-464247b7ebc4c37c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests rustswitch_media
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+{"abi_version":1,"samples":160,"max_absolute_error":501,"passed":true}

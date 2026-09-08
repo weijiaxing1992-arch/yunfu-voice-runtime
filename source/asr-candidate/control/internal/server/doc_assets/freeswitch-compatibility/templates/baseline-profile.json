@@ -1,0 +1,286 @@
+{
+  "template_version": "1.0.0",
+  "document_type": "baseline_profile",
+  "document_status": "draft",
+  "certification_status": "not_certified",
+  "profile_id": null,
+  "purpose": "冻结真实基线部署与可观察接口范围；源码版本已知，现场运行信息尚未采集。",
+  "reference_source": {
+    "product": "FreeSWITCH",
+    "version": "1.11.3",
+    "git_tag": "v1.11.3",
+    "git_commit": "ef32e205295e29f034f1453ad245ba5efb07b94a",
+    "repository": "https://github.com/signalwire/freeswitch"
+  },
+  "baseline_runtime": {
+    "capture_status": "not_captured",
+    "captured_at": null,
+    "binary_path": null,
+    "binary_sha256": null,
+    "version_output": null,
+    "version_output_sha256": null,
+    "source_commit_observed": null,
+    "vendor_patches_manifest_sha256": null,
+    "build_configuration": null,
+    "build_configuration_sha256": null
+  },
+  "host": {
+    "capture_status": "not_captured",
+    "os": null,
+    "kernel": null,
+    "architecture": null,
+    "cpu_model": null,
+    "physical_cores": null,
+    "logical_cpus": null,
+    "memory_bytes": null,
+    "nic_inventory": [],
+    "nic_inventory_complete": false,
+    "network_topology": null,
+    "network_mtu": null,
+    "service_user": null,
+    "timezone": null,
+    "locale": null,
+    "clock_source": null
+  },
+  "inventories": {
+    "binaries_and_dynamic_libraries": {
+      "collection_status": "not_captured",
+      "total_entries": null,
+      "entries": [],
+      "entry_fields": [
+        "path",
+        "sha256",
+        "size_bytes",
+        "package",
+        "package_version",
+        "build_id",
+        "architecture",
+        "load_condition"
+      ],
+      "manifest_path": null,
+      "manifest_sha256": null,
+      "complete": false
+    },
+    "configuration_tree": {
+      "collection_status": "not_captured",
+      "total_entries": null,
+      "entries": [],
+      "entry_fields": [
+        "path",
+        "sha256",
+        "size_bytes",
+        "owner",
+        "group",
+        "mode",
+        "symlink_target",
+        "preprocessing_dependencies"
+      ],
+      "manifest_path": null,
+      "manifest_sha256": null,
+      "complete": false
+    },
+    "loaded_and_loadable_modules": {
+      "collection_status": "not_captured",
+      "total_entries": null,
+      "entries": [],
+      "entry_fields": [
+        "name",
+        "path",
+        "sha256",
+        "package_version",
+        "loaded",
+        "loadable",
+        "load_order",
+        "configuration_paths",
+        "registered_interfaces_manifest_sha256"
+      ],
+      "manifest_path": null,
+      "manifest_sha256": null,
+      "complete": false
+    },
+    "runtime_dependencies": {
+      "collection_status": "not_captured",
+      "total_entries": null,
+      "entries": [],
+      "entry_fields": [
+        "name",
+        "version",
+        "package_source",
+        "path",
+        "sha256",
+        "consumer_modules"
+      ],
+      "manifest_path": null,
+      "manifest_sha256": null,
+      "complete": false
+    },
+    "third_party_modules": {
+      "collection_status": "not_captured",
+      "total_entries": null,
+      "entries": [],
+      "entry_fields": [
+        "name",
+        "vendor",
+        "version",
+        "path",
+        "sha256",
+        "required_host_symbols",
+        "abi_test_manifest_sha256"
+      ],
+      "manifest_path": null,
+      "manifest_sha256": null,
+      "complete": false
+    },
+    "scripts_and_extensions": {
+      "collection_status": "not_captured",
+      "total_entries": null,
+      "entries": [],
+      "entry_fields": [
+        "language",
+        "entry_point",
+        "path",
+        "sha256",
+        "runtime_version",
+        "dependency_lock_path",
+        "dependency_lock_sha256",
+        "native_extensions"
+      ],
+      "manifest_path": null,
+      "manifest_sha256": null,
+      "complete": false
+    },
+    "external_integrations": {
+      "collection_status": "not_captured",
+      "total_entries": null,
+      "entries": [],
+      "entry_fields": [
+        "integration_id",
+        "protocol",
+        "endpoint_reference",
+        "configuration_paths",
+        "consumer_version",
+        "contract_evidence_ids",
+        "credential_reference"
+      ],
+      "manifest_path": null,
+      "manifest_sha256": null,
+      "complete": false
+    },
+    "user_clients_and_sdks": {
+      "collection_status": "not_captured",
+      "total_entries": null,
+      "entries": [],
+      "entry_fields": [
+        "name",
+        "version",
+        "package_or_binary_path",
+        "sha256",
+        "transport",
+        "used_interfaces_manifest_sha256"
+      ],
+      "manifest_path": null,
+      "manifest_sha256": null,
+      "complete": false
+    },
+    "operational_assets": {
+      "collection_status": "not_captured",
+      "total_entries": null,
+      "entries": [],
+      "entry_fields": [
+        "path",
+        "sha256",
+        "asset_type",
+        "service_entry_point",
+        "exit_code_contract",
+        "file_path_contract"
+      ],
+      "manifest_path": null,
+      "manifest_sha256": null,
+      "complete": false
+    },
+    "state_and_data_formats": {
+      "collection_status": "not_captured",
+      "total_entries": null,
+      "entries": [],
+      "entry_fields": [
+        "name",
+        "module",
+        "path_or_endpoint_reference",
+        "schema_version",
+        "schema_sha256",
+        "format_contract",
+        "ownership",
+        "snapshot_evidence_id"
+      ],
+      "manifest_path": null,
+      "manifest_sha256": null,
+      "complete": false
+    }
+  },
+  "discovery": {
+    "status": "not_captured",
+    "static_catalog_role": "discovery_seed_only",
+    "static_catalog_manifest_sha256": null,
+    "runtime_discovery_evidence_ids": [],
+    "configuration_reference_scan_complete": false,
+    "script_call_scan_complete": false,
+    "third_party_dependency_scan_complete": false,
+    "legal_business_path_scan_complete": false,
+    "unresolved_interfaces": [],
+    "unresolved_interfaces_enumeration_complete": false
+  },
+  "scope": {
+    "freeze_status": "not_frozen",
+    "frozen_at": null,
+    "frozen_by": null,
+    "scope_version": null,
+    "scope_manifest_path": null,
+    "scope_manifest_sha256": null,
+    "mandatory_interface_count": null,
+    "mandatory_test_case_count": null,
+    "covered_surfaces": [
+      "S01",
+      "S02",
+      "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S08",
+      "S09",
+      "S10",
+      "S11",
+      "S12",
+      "S13",
+      "S14"
+    ],
+    "interface_ids": [],
+    "test_case_ids": [],
+    "pre_freeze_exclusions": [],
+    "exclusion_requirements": [
+      "必须依据参考构建和冻结使用清单说明不适用原因",
+      "不得在失败后排除难项或缩小分母"
+    ],
+    "new_interface_policy": "发现新接口、参数形式或可达业务路径时加入分母，递增scope_version，重新运行受影响强制用例。"
+  },
+  "normalization_whitelist": {
+    "status": "not_defined",
+    "rules": [],
+    "default": "exact_comparison",
+    "blanket_field_removal_allowed": false
+  },
+  "evidence_manifest": {
+    "capture_status": "not_captured",
+    "path": null,
+    "sha256": null,
+    "entries": []
+  },
+  "review": {
+    "review_status": "not_reviewed",
+    "reviewer": null,
+    "reviewed_at": null,
+    "open_questions": [
+      "现场二进制、构建选项、加载模块、配置、脚本、第三方依赖与运行样本尚未取得。"
+    ]
+  }
+}

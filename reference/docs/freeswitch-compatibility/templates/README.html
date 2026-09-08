@@ -1,0 +1,140 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>兼容验收记录模板 · 云蝠项目资料</title><link rel="stylesheet" href="../../../../handbook.css"></head><body><aside><a class="brand" href="../../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../../index.html">资料首页</a><a class="" href="../../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 兼容验收记录模板</div><article class="content"><div class="page-tools"><a href="README.md" download>Markdown 原稿</a><a href="../../api/openapi.json" download>OpenAPI JSON</a><a href="../../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 4 节</summary><a href="#填写规则">填写规则</a><a href="#状态与统计">状态与统计</a><a href="#证据与归一化">证据与归一化</a><a href="#五类结论分别出具">五类结论分别出具</a></details><h1 id="兼容验收记录模板">兼容验收记录模板</h1>
+<p>这四个文件是可复制的记录起点，遵循 <a href="../01-scope-and-contract.html">01 · 范围、基线与统一契约</a>。JSON 文件可以直接解析，<strong>不代表已经采集现场数据、运行差分测试或取得认证</strong>。固定源码基准为 FreeSWITCH v1.11.3、提交 <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>；实际二进制及部署资产的哈希尚未知。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>使用单位</th>
+<th>填写目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="baseline-profile.json">baseline-profile.json</a></td>
+<td>每种基准构建、配置及依赖组合一份</td>
+<td>冻结二进制、模块、配置、脚本、客户端、第三方依赖、业务可达接口与强制用例分母</td>
+</tr>
+<tr>
+<td><a href="interface-contract.json">interface-contract.json</a></td>
+<td>每个接口及其可区分契约一份</td>
+<td>描述参数、状态前提、同步与异步结果、事件偏序、副作用、错误、竞争、超时重试和权限</td>
+</tr>
+<tr>
+<td><a href="certification-report.json">certification-report.json</a></td>
+<td>每个候选构建、基准 profile 与测试集组合一份</td>
+<td>保存逐用例结果、冻结分母、未解决项、证据及五类独立结论</td>
+</tr>
+</tbody></table></div>
+<h2 id="填写规则">填写规则</h2>
+<p><code>null</code> 表示未知或尚未采集，不得替换成一个形式正确但不存在的 SHA、时间或版本。<code>[]</code> 只是尚未填入条目；必须结合 <code>collection_status</code>、<code>enumeration_status</code>、<code>complete</code> 等字段判断，不能将空数组理解成“完整集合中没有问题”。<code>entry_fields</code>、<code>case_entry_fields</code> 等是人工填写提示，不是已经存在的资产或测试记录，也不是 JSON Schema。</p>
+<ol>
+<li>复制模板到独立的验收记录目录，分配稳定的 <code>profile_id</code>、<code>contract_id</code> 和 <code>test_case_id</code>。原模板保持未认证状态。</li>
+<li>采集真实运行资产。文件使用实际字节的 SHA-256；目录或集合使用包含相对路径、文件哈希与必要属性的清单，并计算该清单自身的 SHA-256。不能把 Git commit 或 Git blob SHA 当成二进制 SHA-256。</li>
+<li>补齐静态目录没有展开的子命令、动态注册、配置引用、脚本调用、第三方接口和合法业务路径。空帮助文本不等于无参数。冻结前排除的条目必须有参考构建和使用清单依据，失败后不得移出分母。</li>
+<li>对接口先采集原版基线，再记录候选结果。原始字节、解码字段、事件、媒体、文件/数据库副作用分开保存，通过证据 ID 和哈希关联。</li>
+<li>在 scope 清单中冻结全部强制接口与用例；记录冻结者、时间、版本和清单哈希。发现遗漏时递增 scope 版本并重新验收，不能继续引用旧分母。</li>
+<li>报告按冻结测试清单逐项填结果；完整核验并评审后才允许改变认证结论。这里不提供可自动授予认证的程序。</li>
+</ol>
+<p><code>reference_source</code> 表示本标准指定的源码参考。<code>baseline_runtime.source_commit_observed</code>、<code>version_output</code>、二进制和依赖哈希必须来自实际采集，不能从参考版本推填。第三方模块、脚本、本地扩展、原有 SDK 和服务管理脚本同样需要哈希及依赖记录。</p>
+<h2 id="状态与统计">状态与统计</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>含义</th>
+<th>可计通过</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>draft</code></td>
+<td>文档或契约尚未完成评审</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>not_captured</code></td>
+<td>尚无原版或候选的运行样本</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>unknown</code></td>
+<td>成员、行为或结果尚未确定</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>not_run</code></td>
+<td>已列入测试清单，但尚未执行</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>已运行且强制断言失败</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>skipped</code></td>
+<td>已在冻结范围内，但被跳过</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>blocked</code></td>
+<td>已在冻结范围内，因环境或依赖无法执行</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>unsupported</code></td>
+<td>候选未实现该强制功能</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>passed</code></td>
+<td>已运行并有可核验的通过证据</td>
+<td>是</td>
+</tr>
+<tr>
+<td><code>not_verified</code></td>
+<td>某项整体结论尚未具备证明</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>not_certified</code></td>
+<td>尚未获得本 profile 的认证</td>
+<td>否</td>
+</tr>
+</tbody></table></div>
+<p>契约实现状态还可使用 <code>in_progress</code>、<code>implemented_unverified</code>；只有相应强制差分用例及证据通过后才可记 <code>verified</code>。实现状态不替代 <code>differential_test</code> 结果。确实不适用的接口能力应在契约中使用 <code>applicable=false</code> 并附基线证据；不能把冻结强制用例改为不适用来绕过失败。</p>
+<p>报告的强制用例计数采用互斥分类：<code>passed + failed + not_run + skipped + blocked + unsupported + unknown = total</code>。每个强制用例必须恰有一条结果，不允许缺行或重复行；结果中的接口 ID 必须属于冻结清单。接口级结果独立汇总：一项接口的所有强制契约/用例都通过且无未知项才可记接口通过。</p>
+<p>当前模板中分母和各项计数均为 <code>null</code>，不是 0；<code>compatibility_percentage</code> 为 <code>null</code>，禁止从静态注册数或空结果集计算百分比。分母未冻结、清单未完整或强制项未知时不展示兼容通过率。任何强制失败、跳过、未运行、阻塞、不支持或未解释差异都会阻止认证。</p>
+<h2 id="证据与归一化">证据与归一化</h2>
+<p>证据记录至少包含路径、SHA-256、采集时间、用例、原版/候选身份及二进制哈希。接口样本中“入队成功”“开始执行”“最终完成”“资源释放”应分别记录，不能凭同步 <code>+OK</code> 认定业务已成功。</p>
+<p>默认逐字节比较。结构比较、UUID 双射映射、时间偏移等只在归一化白名单逐字段登记后启用，每条规则需业务依据、基线样本、正反例测试和评审记录。不能整体删除时间、ID、错误字段或事件来消除差异；事件只规定已验证的因果偏序，不假设跨呼叫的全局顺序。</p>
+<h2 id="五类结论分别出具">五类结论分别出具</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>报告结论</th>
+<th>必须独立证明的内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>usage_compatibility</code></td>
+<td>冻结 profile 中全部强制接口、行为和业务副作用符合参考</td>
+</tr>
+<tr>
+<td><code>native_module_binary_compatibility</code></td>
+<td>原模块文件无需重编译，实际宿主ABI、依赖、回调与生命周期全部通过</td>
+</tr>
+<tr>
+<td><code>performance_10000_calls</code></td>
+<td>冻结 Linux 硬件和媒体场景下，足额万路负载、持续时间及媒体/信令/资源阈值全部通过</td>
+</tr>
+<tr>
+<td><code>drain_switch</code></td>
+<td>同服务地址下新呼叫转向候选，旧呼叫排空；注册/订阅/ESL/作业处理和回退符合约定</td>
+</tr>
+<tr>
+<td><code>live_migration</code></td>
+<td>在途呼叫连同信令、媒体、脚本/队列/定时任务、外部副作用所有权接管及故障回退通过</td>
+</tr>
+</tbody></table></div>
+<p>这五项目前全部 <code>not_verified</code>、<code>certified=false</code>。接口使用兼容不自动推出原生二进制兼容或万路容量，排空切换也不证明在途接管。对外声明必须限定到已验证的那一项，附 profile、构建哈希、测试集及通过日期。</p>
+<p>本模板未执行 FreeSWITCH/RustSwitch 对照或容量测试；交付时只检查了 JSON 语法、固定版本字段、未认证初始状态和必要字段。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

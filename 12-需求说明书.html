@@ -1,0 +1,1225 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>12 云蝠 Voice Runtime 需求说明书 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="active" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 12 云蝠 Voice Runtime 需求说明书</div><article class="content"><div class="page-tools"><a href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 16 节</summary><a href="#1-产品目标依据与解释规则">1. 产品目标、依据与解释规则</a><a href="#2-当前事实与目标分别记录">2. 当前事实与目标分别记录</a><a href="#3-功能需求fr32项">3. 功能需求（FR，32项）</a><a href="#4-非功能与架构约束nf12项">4. 非功能与架构约束（NF，12项）</a><a href="#5-接口与数据合同if10项">5. 接口与数据合同（IF，10项）</a><a href="#6-安全与隔离要求sec8项">6. 安全与隔离要求（SEC，8项）</a><a href="#7-运维后台与保护要求ops10项">7. 运维、后台与保护要求（OPS，10项）</a><a href="#8-迁移与兼容要求mig8项">8. 迁移与兼容要求（MIG，8项）</a><a href="#9-性能与可靠性验收目标perf10项">9. 性能与可靠性验收目标（PERF，10项）</a><a href="#10-测试证据与交付验收acc10项">10. 测试、证据与交付验收（ACC，10项）</a><a href="#11-指标与决策待定项t01t22">11. 指标与决策待定项（T01～T22）</a><a href="#12-阶段依赖与退出条件">12. 阶段依赖与退出条件</a><a href="#13-与既有v1验收的映射">13. 与既有V1验收的映射</a><a href="#14-首期范围外与有条件范围">14. 首期范围外与有条件范围</a><a href="#15-需求变更与最终验收记录">15. 需求变更与最终验收记录</a><a href="#需求任务化导出">需求任务化导出</a></details><h1 id="12-云蝠-voice-runtime-需求说明书">12 云蝠 Voice Runtime 需求说明书</h1>
+<p>文档日期：2026-09-08。文档性质：产品研发与验收需求基线，供评审、任务拆分、实现和测试使用。本文包含 <strong>121 项编号需求</strong>；编号不是 FreeSWITCH 原对照条目，不改变任何兼容分母或绿色数量。本文不授予发布、上线或性能认证。</p>
+<p>配套阅读：<a href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html">交付与源码说明</a> · <a href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">项目未完成清单</a> · <a href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html">当前能力与验证状态</a>。</p>
+<h2 id="1-产品目标依据与解释规则">1. 产品目标、依据与解释规则</h2>
+<p>产品定位为面向电话呼入、呼出和语音智能体的高性能实时语音内核。采用 Rust 核心媒体、Go 控制面、成熟 C/C++ 协议与编解码适配生态，优先 Linux 生产环境。首先完成真实 Voice Agent 电话闭环，再在同服务器、同音质、同功能条件下提高稳定并发、降低通话成本；已有 FreeSWITCH 接口按现网业务价值逐项兼容。</p>
+<p>“稳定并发”必须同时满足实际媒体负载、业务功能、音质、尾延迟和资源清理，不按连接数或名义创建数计算。“无感迁移”指经过明确接口/线路矩阵验收的业务迁移，不代表任意原版模块二进制替换，不承诺活动通话跨进程、主机或版本无损接管。</p>
+<h3 id="11-需求来源">1.1 需求来源</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>来源</th>
+<th>本文采用方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="requirements/%E7%94%A8%E6%88%B7%E6%8F%90%E4%BE%9B%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%96%B9%E5%90%91%E5%8E%9F%E6%96%87.txt">用户提供的项目方向原文</a></td>
+<td>产品定位、固定 Worker、按需 AudioFrame、完整 AI 链路、性能比较与分期边界。原文件 SHA-256：<code>3df93e13afc252ed895bcd3125326a09c7c1cdbc2e18613dd78e493e0586dd32</code>。</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/voice-runtime-v1-acceptance.html">主工程长期验收合同</a></td>
+<td>保留 V1-01～17、A01～A17、10 个控制命令、11 个事件及 M1～M4 验收义务。读取版本 SHA-256：<code>a96ea6ec025bc7e98ad2d7fd3a8a22f0a6b318183cf01eb7ba0c5d4cbe22c8e2</code>。</td>
+</tr>
+<tr>
+<td>项目资料 <a href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html">01</a>、<a href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">05</a>、<a href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html">06</a>、<a href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html">07</a>、<a href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html">08</a> 与<a href="candidate/asr-stream-reference.html">候选 ASR 合同</a></td>
+<td>限定现状、实际接口、已知失败、候选与主工程的区别。08 章 SHA-256：<code>1aee75c7056d48af68a63428a7172d5f069df9b076300968f569eefe21be0ec4</code>。</td>
+</tr>
+<tr>
+<td>用户此前业务要求</td>
+<td>可视化配置与峰值保护、500/1000/2000/3000/5000/自定义压测、单路 SIP/媒体小电话、完整中文注释、接口说明及 FreeSWITCH 对照。</td>
+</tr>
+</tbody></table></div>
+<p>原始附件随包保留在 <code>requirements/</code>；主工程来源为 <code>outputs/rustswitch</code>，候选来源为 <code>work/voice-runtime-m2-asr/project</code>。打包源码、校验结果及边界见<a href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html">交付与源码说明</a>，始终保持“需求、实现状态、验收证据”三者分离。</p>
+<p>后续方向以用户确认的 Voice Agent 优先为准：不强制所有节点统一为 16 kHz，不要求首期复制全部 PBX；G.722/Opus 仍是核心音频路线，真实 ASR/TTS、VAD、打断、双轨录音不能随 PBX 延后而删除。1.5～3 倍不能写成实测收益，现阶段只保留下面明确的拟定门槛。</p>
+<h3 id="12-优先级现状与关闭条件">1.2 优先级、现状与关闭条件</h3>
+<ul>
+<li><strong>P0</strong>：首期业务闭环、音频正确性、可靠性或发布必需；相关验收不通过不得关闭。</li>
+<li><strong>P1</strong>：核心演进或目标线路必需。线路 profile 使用该能力时，自动升级为该 profile 的发布阻断项。</li>
+<li><strong>P2</strong>：后续按业务或瓶颈决定；仍保留差异，不作为兼容通过。</li>
+<li><strong>L</strong>：主工程有有限实现；<strong>K</strong>：隔离候选有有限实现或证据；<strong>D</strong>：只有离线 SDK/基础；<strong>N</strong>：尚未完成；<strong>V</strong>：目标或完整验收未通过。组合标记只描述范围，不是通过等级。</li>
+</ul>
+<p>每条需求须关联实现版本、测试用例、原始输入/输出、失败与清理结果。已完成部分不能替代该条全部验收。没有阈值、缺环境、实际负载不足、跳过或源码绑定过期均保持未关闭。T01～T22 是必须在对应阶段冻结的待定项；表中引用 T 项的验收在冻结前只能执行探索测试。</p>
+<h2 id="2-当前事实与目标分别记录">2. 当前事实与目标分别记录</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>范围</th>
+<th>当前事实</th>
+<th>目标，尚不能推定完成</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主工程</td>
+<td>文档基线 1.13.0；Go 应用标识 0.3.0、Rust crate 0.2.0；受限 SIP/ESL、G.711、本地 IVR、PCM/RX 与中文后台。</td>
+<td>完整电话 Voice Agent 与生产替代能力。</td>
+</tr>
+<tr>
+<td>运行部署</td>
+<td>此前资料生成时 9080 未连接成功；本说明书未探测或操作运行服务。</td>
+<td>由部署回执、实际二进制及 <code>/v1/docs</code>、健康响应共同确认安装版本。不能按源码版本猜测当前线上版本。</td>
+</tr>
+<tr>
+<td>ASR 候选</td>
+<td>同机私有 ASR1、StartASR、原生 8 kHz/按需 16 kHz、结果来源/期限与清理；五组真实 SIP/Rust/摘要代理正向链路有限定证据。</td>
+<td>真实识别模型、完整供应商、VAD/LLM/TTS 轮次、故障组合与生产容量。</td>
+</tr>
+<tr>
+<td>编码</td>
+<td>PCMA/PCMU 有限实时图；G.722/Opus 可选离线后端；其他格式部分协商/透传。</td>
+<td>各核心 codec 的真实连续电话处理、音质、资源与目标线路验收。</td>
+</tr>
+<tr>
+<td>兼容</td>
+<td>固定 FreeSWITCH 1.11.3 源码参考；资料基线保存 3999 条目录/契约记录和独立本地账本。</td>
+<td>现网依赖矩阵逐项等价；原版所有模块不因内部接口新增而变为兼容。</td>
+</tr>
+<tr>
+<td>容量</td>
+<td>历史转发与处理报告各有范围和失败；2000 路 Darwin relay 记录及5000端口预检失败保留。</td>
+<td>1000/5000/10000 路对应 profile 的完整有效负载、72小时与同条件成本收益。</td>
+</tr>
+</tbody></table></div>
+<p>本文不把“资料中有源码”“库可加载”“端口连通”“收到 PCM”“Closed 已完成”写成完整业务或真实识别成功。ASR 五组正向用例的 BYE 均在正常 Finish 后；不能据此声明等待 final 时挂断的所有组合都已通过。</p>
+<h2 id="3-功能需求fr32项">3. 功能需求（FR，32项）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>优先级</th>
+<th>目标能力</th>
+<th>可衡量验收要求</th>
+<th>当前状态 / 依赖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FR-01</td>
+<td>P0</td>
+<td>呼入和真实媒体接入</td>
+<td>对 T02 每条必需线路建立真实呼入，关联 SIP、Call/Leg、RTP、事件和释放；双向使用非静音可辨识音频。</td>
+<td>L/V；M1、T02。</td>
+</tr>
+<tr>
+<td>FR-02</td>
+<td>P0</td>
+<td>主动外呼</td>
+<td>业务请求生成一次实际外呼，返回可追踪身份；取消、失败、超时和重复请求不产生额外拨号或资源。</td>
+<td>N；受控 SIP 发起方桥接不等于通用 originate，依赖 CMD01。</td>
+</tr>
+<tr>
+<td>FR-03</td>
+<td>P0</td>
+<td>线路 REGISTER/Digest</td>
+<td>正确处理挑战、有效期、续订、注销、错误凭据/realm/源和短暂断线；注册结果与真实呼叫分别验收。</td>
+<td>L：单固定上游客户端；完整线路矩阵 V。</td>
+</tr>
+<tr>
+<td>FR-04</td>
+<td>P0</td>
+<td>接听、早期媒体与 ACK</td>
+<td>180/183/200、早期媒体、ACK 和媒体就绪各有状态；错误 ACK 不开放需授权的音频路径，重传不重复事件。</td>
+<td>L/K；完整线路 V。</td>
+</tr>
+<tr>
+<td>FR-05</td>
+<td>P0</td>
+<td>挂断和超时</td>
+<td>CANCEL/BYE、ACK超时、建呼超时、最长通话、控制断连覆盖正反例；T14窗口内释放并拒绝旧身份。</td>
+<td>L/K；完整故障组合 V。</td>
+</tr>
+<tr>
+<td>FR-06</td>
+<td>P0</td>
+<td>最小路由/桥接/转人工</td>
+<td>按冻结路由表完成双腿建立和实际双向音频；转人工失败不留下半桥、错误放音或孤儿资源。</td>
+<td>L：建立时固定桥；通用转接 N；T02/T03。</td>
+</tr>
+<tr>
+<td>FR-07</td>
+<td>P1</td>
+<td>多线路与注册扩展</td>
+<td>对需要的多网关、故障切换、终端注册分别定义合同；线路故障不串用身份，切换路径可审计。</td>
+<td>N；不得将 REGISTER 客户端当注册服务器。</td>
+</tr>
+<tr>
+<td>FR-08</td>
+<td>P0</td>
+<td>PCMA/PCMU 实时处理</td>
+<td>每路 Decode→PCM→Encode→RTP 连续通过；逐样本/已知矢量、双向内容、时间戳、错误尺寸和释放有证据。</td>
+<td>L/K；完整目标容量 V。</td>
+</tr>
+<tr>
+<td>FR-09</td>
+<td>P0</td>
+<td>G.722 实时处理</td>
+<td>实际 PCM 16 kHz、RTP clock 8 kHz 分开断言；同条件音质与连续电话、错误/释放通过。</td>
+<td>D；实时图 N；核心首期能力，须完成实际电话验收。</td>
+</tr>
+<tr>
+<td>FR-10</td>
+<td>P0</td>
+<td>Opus 实时处理</td>
+<td>RTP clock固定48 kHz；冻结声道、ptime、码率和FEC/DTX设置，验证协商、实时处理与 T07 质量。</td>
+<td>D；实时图 N；不等于 WebRTC。</td>
+</tr>
+<tr>
+<td>FR-11</td>
+<td>P1</td>
+<td>按线路增加 G.729/G.726 等</td>
+<td>T02确定必需格式、位打包、ptime与后端许可；逐项标明透传/解码/编码，真实互通不能用名称存在替代。</td>
+<td>L/D/V；AMR/EVS另设里程碑。</td>
+</tr>
+<tr>
+<td>FR-12</td>
+<td>P0</td>
+<td>PCM/格式正确性</td>
+<td>S16LE SDK与网络L16端序分别验证；有效样本、声道、10/20ms支持范围、溢出与错误长度均被检验。</td>
+<td>L/D/K；统一实时范围 V。</td>
+</tr>
+<tr>
+<td>FR-13</td>
+<td>P0</td>
+<td>RTP 接收/发送状态</td>
+<td>每方向独立身份；序号/时间戳回绕、SSRC替换、重复、乱序、扩展/padding/PT错误与长通话不串流。</td>
+<td>L/K；T02/T04。</td>
+</tr>
+<tr>
+<td>FR-14</td>
+<td>P0</td>
+<td>RTCP 终结和质量统计</td>
+<td>对SR/RR与packet/octet/loss/jitter时基逐项对账；透传和本地终结分别测试，未知指标不填0。</td>
+<td>L；完整线路 V。</td>
+</tr>
+<tr>
+<td>FR-15</td>
+<td>P0</td>
+<td>有界抖动缓冲</td>
+<td>冻结最小/目标/上限和序号窗口；注入T13网络条件，延迟、条数、字节不超上限，不能靠无限等待掩盖丢包。</td>
+<td>L：有限G.711图；可配置线路矩阵 V，T10。</td>
+</tr>
+<tr>
+<td>FR-16</td>
+<td>P0</td>
+<td>CN/DTX/PLC/丢失分辨</td>
+<td>每类输入保留独立来源/原因；补偿不冒充真实讲话，未知时长不填20ms；FEC收益与等待代价分别量化。</td>
+<td>L/K：部分元数据和PLC；完整codec策略 V。</td>
+</tr>
+<tr>
+<td>FR-17</td>
+<td>P0</td>
+<td>AudioFrame 元数据与所有权</td>
+<td>采样率、声道、格式、样本数、媒体位置、RTP位置、来源、期限与生命周期可核对；复用后旧句柄无效。</td>
+<td>L/D/K；完整图 V。</td>
+</tr>
+<tr>
+<td>FR-18</td>
+<td>P0</td>
+<td>按需重采样</td>
+<td>同率路径不转换；目标分支转换且显式报告滤波延迟，源媒体时钟不改写；长通话漂移≤T07。</td>
+<td>D；K有ASR8→16k；TTS24/48k实时分支 N。</td>
+</tr>
+<tr>
+<td>FR-19</td>
+<td>P0</td>
+<td>有限静态 Audio Graph</td>
+<td>会话开始前验证节点/预算/执行顺序；热路径不动态加载配置；帧边界版本切换不混用新旧参数。</td>
+<td>L：有限bridge/local；完整图版本变更 V。</td>
+</tr>
+<tr>
+<td>FR-20</td>
+<td>P1</td>
+<td>增益、必要混音/语音增强</td>
+<td>只启用冻结模板；无削波/跨通话串音，重DSP有并发与期限上限；与ASR原始RX轨隔离。</td>
+<td>基础局部L；通用能力 N/V，T07。</td>
+</tr>
+<tr>
+<td>FR-21</td>
+<td>P0</td>
+<td>流式 ASR 上行</td>
+<td>使用真实流式连接持续上传对端RX；验证partial/final、源范围、超时、慢读、断连、取消、过期与恢复；模型质量按T07。</td>
+<td>K：ASR1摘要代理；真实厂商 N，T06。</td>
+</tr>
+<tr>
+<td>FR-22</td>
+<td>P0</td>
+<td>流式 TTS 下行</td>
+<td>真实分块音频按电话目标格式节奏发送；突发、慢流、中途失败、迟到旧块和结束均有结果；不能一次灌入数百ms。</td>
+<td>L：PCM供音底座；真实厂商 N，T06/T10。</td>
+</tr>
+<tr>
+<td>FR-23</td>
+<td>P0</td>
+<td>全双工持续收音</td>
+<td>TTS播放、按键、打断及模型慢响应时继续处理对端RX；不得把TX或混合录音误作ASR输入。</td>
+<td>L/K：独立RX/TX；完整业务 V。</td>
+</tr>
+<tr>
+<td>FR-24</td>
+<td>P0</td>
+<td>VAD 与 endpointing</td>
+<td>T07数据集覆盖短答、长语音、噪声、回声、抢话、CN/丢包；SpeechStart/End误报漏报和延迟达到冻结阈值。</td>
+<td>N；M2阻断项。</td>
+</tr>
+<tr>
+<td>FR-25</td>
+<td>P0</td>
+<td>统一 Turn 与旧音频失效</td>
+<td>旧turn被替代后故意迟到500ms的TTS不得新发出；排队、转换和最后提交都核版本，打断不复位RTP时间线。</td>
+<td>L：PCM轮次；ASR/LLM/TTS协同 N。</td>
+</tr>
+<tr>
+<td>FR-26</td>
+<td>P0</td>
+<td>打断与可控淡出</td>
+<td>立即、20/40ms分别验证包络、持续时长和完成原因；记录讲话→确认→开始停播→最后旧包提交四段时间。</td>
+<td>L：PCM动作；自动语音触发/端到端 V，T08。</td>
+</tr>
+<tr>
+<td>FR-27</td>
+<td>P0</td>
+<td>Agent 业务编排</td>
+<td>Go关联任务、路由、Agent会话、模型请求、turn与工具结果；外部慢请求不阻塞媒体；错误与取消不复活旧回复。</td>
+<td>N；范围冻结T03/T06，不要求内置任意模型。</td>
+</tr>
+<tr>
+<td>FR-28</td>
+<td>P0</td>
+<td>DTMF 与有限 IVR</td>
+<td>telephone-event按协商PT/clock/events收发，16键、持续/结束去重；read/提示/超时/终止键与目标FS语义逐项对照。</td>
+<td>L：本地A腿/INFO接收子集；桥接发送与完整语义 V。</td>
+</tr>
+<tr>
+<td>FR-29</td>
+<td>P0</td>
+<td>RX/TX 双轨录音</td>
+<td>真正保存可播放的独立双轨，时间和样本可对齐；缺口、PLC/CN、打断均可解释，不能以journal当录音。</td>
+<td>N；T09，M2阻断项。</td>
+</tr>
+<tr>
+<td>FR-30</td>
+<td>P0</td>
+<td>录音持久化与故障</td>
+<td>媒体线程外有界写入；慢/满盘、写失败、进程退出、上传重试产生明确状态；停止后最终文件/对象校验完成。</td>
+<td>N；T09/T14。</td>
+</tr>
+<tr>
+<td>FR-31</td>
+<td>P0</td>
+<td>回复发送进度</td>
+<td>分开记录模型已生成、适配器已收到、媒体已提交和可推断播放进度；不能把生成全文当用户听完。</td>
+<td>L：PCM样本计数；完整业务进度 N。</td>
+</tr>
+<tr>
+<td>FR-32</td>
+<td>P0</td>
+<td>中文可视化配置与文档</td>
+<td>按T03配置覆盖清单提供输入、校验、有效/待生效状态、导入导出及完整接口/FS对照；仅导出项显式标注。</td>
+<td>L；新增候选文档/全面覆盖 V。</td>
+</tr>
+</tbody></table></div>
+<h2 id="4-非功能与架构约束nf12项">4. 非功能与架构约束（NF，12项）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>优先级</th>
+<th>目标与可衡量验收</th>
+<th>当前状态 / 依赖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NF-01</td>
+<td>P0</td>
+<td>Rust媒体、Go业务与C/C++适配职责明确；提供实际依赖/进程图，模型、任务与租户业务实体不进入媒体热路径。</td>
+<td>L/K，完整Agent N。</td>
+</tr>
+<tr>
+<td>NF-02</td>
+<td>P0</td>
+<td>固定媒体Worker、单会话单写者；全生命周期归属可追踪，建呼/挂机峰值不产生一通话一个OS线程。</td>
+<td>L；1k/5k/10k实测 V。</td>
+</tr>
+<tr>
+<td>NF-03</td>
+<td>P0</td>
+<td>媒体Worker禁止同步数据库、磁盘、HTTP、模型等待和业务锁等待；阻塞注入时其他会话仍满足PERF-05。</td>
+<td>L/K局部；完整故障矩阵 V。</td>
+</tr>
+<tr>
+<td>NF-04</td>
+<td>P0</td>
+<td>收包、发送、普通控制与挂断/打断各有公平预算；单路攻击和控制洪峰均不能饿死其他会话。</td>
+<td>L；预算T10/完整容量 V。</td>
+</tr>
+<tr>
+<td>NF-05</td>
+<td>P0</td>
+<td>所有RTP/ASR/TTS/录音/日志队列有条数、字节或音频ms上限及最老年龄；每个满载分支有明确处理和可测资源上限。</td>
+<td>L/K部分；完整清单T10。</td>
+</tr>
+<tr>
+<td>NF-06</td>
+<td>P0</td>
+<td>会话预分配、池耗尽不无界扩容；稳态RTP/PCM通用堆分配目标为0，实际统计含FFI，偏离须记录调用点和预算。</td>
+<td>L部分，全面零分配 V；T11。</td>
+</tr>
+<tr>
+<td>NF-07</td>
+<td>P0</td>
+<td>慢ASR/录音不能长期持有实时池；逐分支测队列/池耗尽、取消和回收，借用/复制/共享方案按实测选定。</td>
+<td>K局部；完整录音 N。</td>
+</tr>
+<tr>
+<td>NF-08</td>
+<td>P0</td>
+<td>基础UDP非阻塞；只批处理已到达/已到发送时刻的数据，不为凑批等待；部分send/EAGAIN/ENOBUFS有明确归因。</td>
+<td>L；多socket收益 V。</td>
+</tr>
+<tr>
+<td>NF-09</td>
+<td>P1</td>
+<td>Linux亲和性、NUMA、IRQ/RSS/RPS/RFS/XPS按T01可配置；逐项A/B记录资源和尾延迟，不默认全部开启。</td>
+<td>L部分；目标拓扑 V。</td>
+</tr>
+<tr>
+<td>NF-10</td>
+<td>P0</td>
+<td>少量独立媒体进程；故障影响边界以实际所属会话证明，其他分片质量满足阈值；不承诺一个Worker崩溃只伤一路。</td>
+<td>L；T14故障边界 V。</td>
+</tr>
+<tr>
+<td>NF-11</td>
+<td>P0</td>
+<td>固定依赖版本/许可/来源；自有源码发行许可证已按T21采用Apache-2.0，第三方例外单列；Rust/Go/C错误和解析异常不能跨FFI越界、无限分配或重复释放；构建可复现。</td>
+<td>L依赖；已附自有LICENSE与第三方清单，构建和依赖持续审查仍需ACC-03/08。</td>
+</tr>
+<tr>
+<td>NF-12</td>
+<td>P0</td>
+<td>新增及修改自有代码/公开合同有完整中文注释：目的、所有权、单位、状态、期限、错误、并发及清理均可审阅；保留第三方原许可，不以逐行翻译修改vendor。</td>
+<td>L/K部分；全仓审阅清单 V，ACC-10。</td>
+</tr>
+</tbody></table></div>
+<h2 id="5-接口与数据合同if10项">5. 接口与数据合同（IF，10项）</h2>
+<p>本节是目标逻辑合同。实现可经既有HTTP/ESL/IPC或后续冻结协议承载；没有因为列出方法就实现了gRPC/protobuf服务。CMD/EV编号沿用长期验收合同，另列21项验收。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>优先级</th>
+<th>目标与可衡量验收</th>
+<th>当前状态 / 依赖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IF-01</td>
+<td>P0</td>
+<td>全部已注册HTTP操作都有OpenAPI参数、嵌套模型、响应/错误及FS关系；validate_spec对实际路由集合一致，本地引用全部可解析。</td>
+<td>L；候选源增量不等于嵌入发布。</td>
+</tr>
+<tr>
+<td>IF-02</td>
+<td>P0</td>
+<td>非HTTP协议分别定义帧、长度、字节序、版本、身份、上限、超时和背压；协议存在不能当完整业务完成。</td>
+<td>L/K；RVA1/RXS2/ASR1范围分开。</td>
+</tr>
+<tr>
+<td>IF-03</td>
+<td>P0</td>
+<td>命令区分受理、执行、完成；幂等键/会话版本/截止时间冻结，同键重试不重复副作用，未知结果可查询。</td>
+<td>L部分；统一接口T03/T05。</td>
+</tr>
+<tr>
+<td>IF-04</td>
+<td>P0</td>
+<td>事件具备序号、Call/Leg/turn/版本、原因和时间；断线订阅恢复或丢失显式可见，不静默补造成功。</td>
+<td>L部分；T05。</td>
+</tr>
+<tr>
+<td>IF-05</td>
+<td>P0</td>
+<td>配置active/desired/revision和冻结部署字段准确；冲突409、非法422与超时后核对有真实测试，完整PUT不丢只读部署原值。</td>
+<td>L/K；新增配置仍验收。</td>
+</tr>
+<tr>
+<td>IF-06</td>
+<td>P0</td>
+<td>数值保真：样本率与RTP clock分开，媒体时间非UTC，u64跨语言不截断；每种协议明确数字/字符串表示及零/null/未知语义。</td>
+<td>L/K；所有新接口回归。</td>
+</tr>
+<tr>
+<td>IF-07</td>
+<td>P0</td>
+<td>PCM下行的BEGIN/DATA/END/INTERRUPT、token、turn及数据连接映射有正反例；END受理不等于实际播放完。</td>
+<td>L；真实TTS N。</td>
+</tr>
+<tr>
+<td>IF-08</td>
+<td>P0</td>
+<td>RX与ASR明确授权、来源和不可续期观察期限；取消不等于资源退休，unknown继续占额度，Closed与final消费分别表示。</td>
+<td>L/K；真实供应商/故障组合 V。</td>
+</tr>
+<tr>
+<td>IF-09</td>
+<td>P1</td>
+<td>C编解码ABI的版本、容量、错误和释放可测试；协议ABI提供器及原版模块宿主若未实现，必须明确拒绝，不声称可加载mod_*.so。</td>
+<td>L编解码、D预留协议；P2宿主。</td>
+</tr>
+<tr>
+<td>IF-10</td>
+<td>P0</td>
+<td>文档与后台、下载包、命令示例及源实现绑定；新增/修改机器模型同步字段字典，发布门禁验证路由/字段/审计/原证据，失败则保留非发布状态，不绕过门禁或手改绿色。</td>
+<td>L；本批整体发布 V。</td>
+</tr>
+</tbody></table></div>
+<h3 id="51-控制命令cmd10项">5.1 控制命令（CMD，10项）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>名称/优先级</th>
+<th>可衡量验收要求</th>
+<th>当前状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CMD01</td>
+<td>CreateCall / P0</td>
+<td>创建一次实际呼叫，目标和唯一身份明确；重复键、取消、超时和失败清理通过。</td>
+<td>L受控SIP，通用主动创建N。</td>
+</tr>
+<tr>
+<td>CMD02</td>
+<td>AnswerCall / P0</td>
+<td>真实SIP状态转移；重复应答不重复事件，早答/挂断竞争与MediaReady分开。</td>
+<td>L有限本地应答。</td>
+</tr>
+<tr>
+<td>CMD03</td>
+<td>HangupCall / P0</td>
+<td>重复结束无额外副作用；各腿信令/媒体释放结果可观察，旧命令不伤复用会话。</td>
+<td>L有限uuid_kill/hangup。</td>
+</tr>
+<tr>
+<td>CMD04</td>
+<td>PlayAudio / P0</td>
+<td>实际声音、时钟、开始/结束/失败、turn和队列上限匹配；支持所需流式来源。</td>
+<td>L tone/WAV/PCM；厂商N。</td>
+</tr>
+<tr>
+<td>CMD05</td>
+<td>StopAudio / P0</td>
+<td>加载中、已排队、播放中均可停止且只完成一次；迟到块和0/20/40ms动作独立验证。</td>
+<td>L；自动Agent协同N。</td>
+</tr>
+<tr>
+<td>CMD06</td>
+<td>Bridge / P0</td>
+<td>双端真实音频、失败原子性与释放；转接不遗留错误拓扑或半桥。</td>
+<td>L建呼桥接；中途通用N。</td>
+</tr>
+<tr>
+<td>CMD07</td>
+<td>StartRecord / P0</td>
+<td>真实双轨写入开始时刻、权限、预算明确；不可写盘不得报告已录音。</td>
+<td>N。</td>
+</tr>
+<tr>
+<td>CMD08</td>
+<td>StopRecord / P0</td>
+<td>排空、最终文件/对象、时长/校验和完成；重复停止与中断恢复通过。</td>
+<td>N。</td>
+</tr>
+<tr>
+<td>CMD09</td>
+<td>UpdateAgent / P0</td>
+<td>Agent配置和会话版本校验；在指定帧/turn边界生效，旧版本结果不能继续输出。</td>
+<td>N。</td>
+</tr>
+<tr>
+<td>CMD10</td>
+<td>GetCallState / P0</td>
+<td>返回可关联信令、媒体、turn、队列/清理与版本；结束/未知区别明确，重连后能同步。</td>
+<td>L各独立快照；统一Agent状态N。</td>
+</tr>
+</tbody></table></div>
+<h3 id="52-业务事件ev11项">5.2 业务事件（EV，11项）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>名称/优先级</th>
+<th>可衡量验收要求</th>
+<th>当前状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EV01</td>
+<td>CallCreated / P0</td>
+<td>只代表实际创建，含Call/Leg与版本；准入失败不伪造，重传不重复。</td>
+<td>L CHANNEL_CREATE子集。</td>
+</tr>
+<tr>
+<td>EV02</td>
+<td>Ringing / P0</td>
+<td>180/早期媒体对应正确，临时响应去重，取消竞争可重放。</td>
+<td>L信令；统一事件N。</td>
+</tr>
+<tr>
+<td>EV03</td>
+<td>Answered / P0</td>
+<td>与真实应答匹配，重复200/ACK不重复发布；不替代MediaReady。</td>
+<td>L CHANNEL_ANSWER子集。</td>
+</tr>
+<tr>
+<td>EV04</td>
+<td>MediaReady / P0</td>
+<td>所定义收发与授权前提全部满足才发；未ACK/分配失败不假就绪。</td>
+<td>L状态/K资格；统一事件N。</td>
+</tr>
+<tr>
+<td>EV05</td>
+<td>DTMF / P0</td>
+<td>16键、来源/时长/结束正确且去重；发送受理不能当对端接收事件。</td>
+<td>L有限接收和本地发送。</td>
+</tr>
+<tr>
+<td>EV06</td>
+<td>SpeechStart / P0</td>
+<td>来自真实RX检测且含媒体时间；噪声、CN、丢包、自身TTS误触发≤T07。</td>
+<td>N。</td>
+</tr>
+<tr>
+<td>EV07</td>
+<td>SpeechEnd / P0</td>
+<td>尾静音与endpoint策略符合T07/T08，短答、连续语音和缺口区分。</td>
+<td>N。</td>
+</tr>
+<tr>
+<td>EV08</td>
+<td>Interrupted / P0</td>
+<td>旧/新turn、原因和四段时间可关联；旧音频失效与最后提交有证据。</td>
+<td>L动作；统一语音事件N。</td>
+</tr>
+<tr>
+<td>EV09</td>
+<td>PlaybackFinished / P0</td>
+<td>区分自然完成、break/DTMF、失败、取消；不能用FILE PLAYED表示全量播完。</td>
+<td>L有限应用事件。</td>
+</tr>
+<tr>
+<td>EV10</td>
+<td>Hangup / P0</td>
+<td>原因、腿与顺序可重建；信令结束、媒体清理、录音持久化分别观察。</td>
+<td>L信令；完整释放事件V。</td>
+</tr>
+<tr>
+<td>EV11</td>
+<td>MediaError / P0</td>
+<td>来源、影响范围、版本、可重试性明确；限流不吞关键故障，重复错误有可核对聚合。</td>
+<td>L/K独立错误；统一Agent事件N。</td>
+</tr>
+</tbody></table></div>
+<h2 id="6-安全与隔离要求sec8项">6. 安全与隔离要求（SEC，8项）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>优先级</th>
+<th>目标与可衡量验收</th>
+<th>当前状态 / 依赖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SEC-01</td>
+<td>P0</td>
+<td>管理接口鉴权、访问边界、CSRF/来源与写权限分别校验；远程身份系统若启用必须按T12验收，回环CSRF不冒充账户认证。</td>
+<td>L回环/CSRF；远程身份N。</td>
+</tr>
+<tr>
+<td>SEC-02</td>
+<td>P0</td>
+<td>租户身份、线路、呼叫、媒体、记录和配额隔离；跨租户UUID/路径/token负例无数据或副作用泄漏。</td>
+<td>N完整租户；T12。</td>
+</tr>
+<tr>
+<td>SEC-03</td>
+<td>P0</td>
+<td>SIP/媒体源白名单及SDP目的地约束；伪造源、错端口、旧代次和复用端口不能串音或任意转发。</td>
+<td>L/K；目标线路V。</td>
+</tr>
+<tr>
+<td>SEC-04</td>
+<td>P0</td>
+<td>按T02接入安全要求提供TLS/SRTP；错证书/名称/版本/密钥必须拒绝，不允许静默明文降级。</td>
+<td>L有限SIP TLS；SRTP N，T12。</td>
+</tr>
+<tr>
+<td>SEC-05</td>
+<td>P0</td>
+<td>凭据通过受限文件/密钥管理提供；日志、URL、指标、源码包与文档不包含真实密码/token/录音。</td>
+<td>L部分；T12/T17。</td>
+</tr>
+<tr>
+<td>SEC-06</td>
+<td>P0</td>
+<td>私有Unix入口核对目录/socket/对端UID与不可变身份；不把同UID等同恶意进程隔离，错误ACK不能收发受保护音频。</td>
+<td>L/K；正反例回归。</td>
+</tr>
+<tr>
+<td>SEC-07</td>
+<td>P0</td>
+<td>SIP/RTP/RTCP/IPC/ASR1/FFI异常输入、限长、溢出和fuzz纳入验收；畸形输入不无限分配、死循环或跨通话崩溃。</td>
+<td>L/K部分；T18。</td>
+</tr>
+<tr>
+<td>SEC-08</td>
+<td>P0</td>
+<td>录音、识别文本和诊断的访问、加密、留存、删除与导出策略按T17配置并验收；无法删除或访问越权可观测。</td>
+<td>N完整音频数据链。</td>
+</tr>
+</tbody></table></div>
+<h2 id="7-运维后台与保护要求ops10项">7. 运维、后台与保护要求（OPS，10项）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>优先级</th>
+<th>目标与可衡量验收</th>
+<th>当前状态 / 依赖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OPS-01</td>
+<td>P0</td>
+<td>Linux部署清单含用户、目录、端口、FD、系统服务、库许可与源/二进制配置指纹；干净环境可按文档构建启动。</td>
+<td>L模板；生产T01/T16 V。</td>
+</tr>
+<tr>
+<td>OPS-02</td>
+<td>P0</td>
+<td>health、ready、draining、stopping、配置有效/待生效明确区分；healthy不能掩盖媒体不可准入。</td>
+<td>L；候选继续回归。</td>
+</tr>
+<tr>
+<td>OPS-03</td>
+<td>P0</td>
+<td>峰值保护分别限制资源活跃、建立中、已接通观察及CPS；页面中文准确解释。8000/1000是拟议活动/建立中策略，不是已接通1000上限承诺。</td>
+<td>L；业务口径需T04冻结。</td>
+</tr>
+<tr>
+<td>OPS-04</td>
+<td>P0</td>
+<td>软高水位降新准入速率、硬限拒新呼叫；不人为拖延已有200/ACK/BYE。最忙Worker、丢帧/迟到、池和队龄触发保护，存量满足T07。</td>
+<td>L部分；完整保护矩阵V。</td>
+</tr>
+<tr>
+<td>OPS-05</td>
+<td>P0</td>
+<td>停新接入、排空、注销和强制退出分别可操作；T14内完成或明确失败，不能为清零立即删除合法协议缓存。</td>
+<td>L；生产演练V。</td>
+</tr>
+<tr>
+<td>OPS-06</td>
+<td>P0</td>
+<td>后台支持500/1000/2000/3000/5000/自定义作业与单路小电话；预检、幂等创建、停止、进度、错误和报告可下载。</td>
+<td>L；小电话为SIP/媒体，非浏览器麦克风。</td>
+</tr>
+<tr>
+<td>OPS-07</td>
+<td>P0</td>
+<td>总览主实例与隔离测试分区，标注任务/实例/采样时间；切页、迟到回复、读取失败不串数据、不补零、不重复启动。</td>
+<td>L；诊断候选变更待整体验收。</td>
+</tr>
+<tr>
+<td>OPS-08</td>
+<td>P0</td>
+<td>指标按相同PID/代次/采样窗口对账，统计请求与返回时间可追踪；unsupported/null与0分开，计数清零需有重启身份。</td>
+<td>L部分/K诊断；完整字段合同和运行V。</td>
+</tr>
+<tr>
+<td>OPS-09</td>
+<td>P0</td>
+<td>低基数指标、限时限量逐通话追踪、非阻塞日志；观测开销≤T15，采样和丢弃诊断不得掩盖关键业务错误。</td>
+<td>L部分；T15。</td>
+</tr>
+<tr>
+<td>OPS-10</td>
+<td>P0</td>
+<td>通道卡住、无声、注册失败、ASR/TTS慢读、满盘、worker退出、报告读取失败都有中文诊断和恢复步骤，并实际演练T14。</td>
+<td>L部分手册；完整链V。</td>
+</tr>
+</tbody></table></div>
+<h2 id="8-迁移与兼容要求mig8项">8. 迁移与兼容要求（MIG，8项）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>优先级</th>
+<th>目标与可衡量验收</th>
+<th>当前状态 / 依赖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MIG-01</td>
+<td>P0</td>
+<td>冻结实际FS版本、模块、脚本、ESL命令/事件、XML参数、线路和业务用例清单；明确必需/可替换/暂缓。</td>
+<td>L固定1.11.3目录；现网T02/T03/T20待定。</td>
+</tr>
+<tr>
+<td>MIG-02</td>
+<td>P0</td>
+<td>逐项比较入口、参数、响应字节、事件顺序、副作用、超时取消与回收；只有白名单动态字段可规范化，真实差异保留。</td>
+<td>L有限成对证据；完整必需矩阵V。</td>
+</tr>
+<tr>
+<td>MIG-03</td>
+<td>P0</td>
+<td>原ID及未实现/未验证项保留；候选内部API、仅导出配置、局部正例不能授予原版模块绿色。</td>
+<td>L账本；新候选需独立证据。</td>
+</tr>
+<tr>
+<td>MIG-04</td>
+<td>P0</td>
+<td>将现网必需配置映射到运行参数或明确替代；未消费XML显式告知，不以可编辑/可导出伪装执行。</td>
+<td>L有限配置；T03覆盖V。</td>
+</tr>
+<tr>
+<td>MIG-05</td>
+<td>P0</td>
+<td>暂保留FS/SBC时拓扑、责任、故障边界与资源成本完整披露；性能报告计入全部必要进程。</td>
+<td>架构允许；实际拓扑T01/T02。</td>
+</tr>
+<tr>
+<td>MIG-06</td>
+<td>P0</td>
+<td>灰度按1%→5%→20%→50%→100%，每档满足T16观察期、成功率、音质及自动停止条件后推进。</td>
+<td>N生产灰度。</td>
+</tr>
+<tr>
+<td>MIG-07</td>
+<td>P0</td>
+<td>保留旧二进制/配置/依赖/证据，真实回退演练达到T16；默认新呼叫切回FS、旧呼叫排空。</td>
+<td>L手册；演练V，不承诺活动会话迁移。</td>
+</tr>
+<tr>
+<td>MIG-08</td>
+<td>P1</td>
+<td>各升级字段/协议版本有兼容和拒绝策略；迁移说明列出不可替代模块、数据格式及操作差异，无歧义的人工切换步骤。</td>
+<td>L部分；生产矩阵V。</td>
+</tr>
+</tbody></table></div>
+<h2 id="9-性能与可靠性验收目标perf10项">9. 性能与可靠性验收目标（PERF，10项）</h2>
+<p>下列数字为用户方案中的拟定研发目标，<strong>均不是当前实测容量或成本结论</strong>。T01/T04/T07等未冻结时不得发布“达标”。1k/5k/10k分别测量，媒体并发和CPS在同一测试中同时满足。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>优先级</th>
+<th>指标、测量和通过门槛</th>
+<th>当前结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PERF-01</td>
+<td>P0</td>
+<td>三类profile分别冻结：rtp_forwarding、codec_processing、full_voice_agent；同硬件、同codec/ptime、音质、录音、安全、模型协议与资源配额比较调优FS。</td>
+<td>V；基线T01/T20。</td>
+</tr>
+<tr>
+<td>PERF-02</td>
+<td>P0</td>
+<td>codec_processing按单路→1000→5000→10000测实际持续媒体；每档保持T04并发/CPS/时长，媒体、音质、尾延迟、错误与清理同时达标。</td>
+<td>V；历史relay不可替代。</td>
+</tr>
+<tr>
+<td>PERF-03</td>
+<td>P0</td>
+<td>full_voice_agent在相同音质/功能条件下稳定并发≥FS基线1.5倍；进阶目标2倍单独记录；1万绝对目标按对应实际profile验收。</td>
+<td>V；依赖完整M2及PERF-01。</td>
+</tr>
+<tr>
+<td>PERF-04</td>
+<td>P0</td>
+<td>同并发下单位有效通话时间CPU成本下降≥30%，同口径内存占用下降≥30%；含Go/Rust/保留FS/适配/录音/内核等全部必要成本。</td>
+<td>V；T01/T11/T20。</td>
+</tr>
+<tr>
+<td>PERF-05</td>
+<td>P0</td>
+<td>已具备发送条件的包相对计划时刻交给内核的迟到P99≤2ms、P99.9≤5ms；原始分布与样本量保留，不与RTCP jitter或用户端延迟混用。</td>
+<td>V；T04/T07。</td>
+</tr>
+<tr>
+<td>PERF-06</td>
+<td>P0</td>
+<td>72小时混合建呼、挂机、抢话、录音与故障注入；无串音/旧回复复播，无无法解释的内部音频缺口，资源增长≤T11预算。</td>
+<td>V；完整M2、T13/T14。</td>
+</tr>
+<tr>
+<td>PERF-07</td>
+<td>P0</td>
+<td>并发+CPS联合扫描、单Worker到多Worker扩展曲线包含最忙分片、线程/切换、池/队列年龄；不能把两个独立峰值拼成同时容量。</td>
+<td>V；T01/T04。</td>
+</tr>
+<tr>
+<td>PERF-08</td>
+<td>P0</td>
+<td>网络/磁盘预算含全部方向、RTCP、AI连接与录音；20ms每方向50pps，1万单腿双向约100万pps、双腿约200万pps，仅作规划。</td>
+<td>V；独立发生器T01，实际吞吐验证。</td>
+</tr>
+<tr>
+<td>PERF-09</td>
+<td>P0</td>
+<td>过载和分片故障期间优先保护存量；其音质/迟到/误结束≤T07/T14，新呼叫明确拒绝；不得降实际并发仍按原档位报告通过。</td>
+<td>V；OPS-03/04。</td>
+</tr>
+<tr>
+<td>PERF-10</td>
+<td>P1</td>
+<td>新网络/内存后端只有在profile证实瓶颈后引入，按相同负载比较总CPU、吞吐和尾延迟；收益未达T19则不进入默认部署。</td>
+<td>V；io_uring/AF_XDP/DPDK为后续选项。</td>
+</tr>
+</tbody></table></div>
+<p>容量核算示例：双轨16kHz、16bit未压缩PCM每通约64kB/s，1万路约640MB/s、约2.3TB/小时。它不包含文件/对象开销，也不是已完成录音或磁盘容量承诺；T09必须明确保存格式和目标吞吐。</p>
+<h2 id="10-测试证据与交付验收acc10项">10. 测试、证据与交付验收（ACC，10项）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>优先级</th>
+<th>目标与可衡量验收</th>
+<th>当前状态 / 依赖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ACC-01</td>
+<td>P0</td>
+<td>单路真实SIP/媒体小电话核验INVITE/ACK、双向音频、DTMF、挂断与资源；错ACK/无资格/超时均有负例。</td>
+<td>L/K有限通过；新增路径重验。</td>
+</tr>
+<tr>
+<td>ACC-02</td>
+<td>P0</td>
+<td>每个P0/P1实际使用能力有正向、异常、取消/重复和资源回收用例；121需求与既有V1/CMD/EV/FS ID可追踪。</td>
+<td>部分L/K；完整覆盖V。</td>
+</tr>
+<tr>
+<td>ACC-03</td>
+<td>P0</td>
+<td>Rust/Go/C单元、race、静态检查、平台构建分开记录；验证打包源码及vendor/固定原生源能离线编译。编译成功不等于功能、发布门禁或性能通过，Linux编译不等于Linux运行。</td>
+<td>L/K证据；交付离线构建单列，最终候选验收独立。</td>
+</tr>
+<tr>
+<td>ACC-04</td>
+<td>P0</td>
+<td>先真实协议/连接的可控ASR/TTS模拟服务，再真实厂商；只输出摘要的mock明确不验证识别准确率或生成质量。</td>
+<td>K ASR模拟；TTS/真实厂商N。</td>
+</tr>
+<tr>
+<td>ACC-05</td>
+<td>P0</td>
+<td>故障矩阵含集中建呼/挂机、控制洪峰、ASR停读、TTS突发/迟到、网络异常、满盘、进程/FFI退出、端口复用；按T13/T14判定影响与恢复。</td>
+<td>L/K部分；完整业务V。</td>
+</tr>
+<tr>
+<td>ACC-06</td>
+<td>P0</td>
+<td>压测实际生成全量目标，逐路每方向唯一包、内容、时序和对端接收可核验；不以少量成功包的零丢包率通过，发生器瓶颈单独报告。</td>
+<td>L工具/已知失败；目标容量V。</td>
+</tr>
+<tr>
+<td>ACC-07</td>
+<td>P0</td>
+<td>每次证据有唯一运行ID、时间、命令、配置、源/二进制/依赖指纹、原始报文或摘要、结果与清理；运行前后匹配，并满足T22有效期。改源、哈希不符或复查逾期保留历史，不能沿用绿色。</td>
+<td>L/K；整包门禁V。</td>
+</tr>
+<tr>
+<td>ACC-08</td>
+<td>P0</td>
+<td>对照必须有真实FS与候选同探针输出，明确规范化白名单；未加载/缺实现/缺探针/未运行/失败/过期分别保留。</td>
+<td>L有限对照；T03目标矩阵V。</td>
+</tr>
+<tr>
+<td>ACC-09</td>
+<td>P0</td>
+<td>失败报告、读取失败、资源预检不足、停止和未完整结果均明确；只在全部必需断言满足后绿，图表不改变结果。</td>
+<td>L；观测修复候选需重验。</td>
+</tr>
+<tr>
+<td>ACC-10</td>
+<td>P0</td>
+<td>同一交付包包含完整源码/构建依赖、已实现范围、未完成清单、本文、架构/拓扑、全部接口/使用/部署/回滚/压测/线路材料及许可；链接/哈希/中文注释可核对。</td>
+<td>本轮资料交付进行中；包验证后记录。</td>
+</tr>
+</tbody></table></div>
+<h2 id="11-指标与决策待定项t01t22">11. 指标与决策待定项（T01～T22）</h2>
+<p>下列项目没有由现有资料冻结完整数值或范围。负责人角色是建议职责分配，不表示人员已被任命。研发可继续完善代码；依赖这些参数的正式通过判定须等待冻结，不以默认值或过去成功记录代替。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>必须冻结的参数/决策</th>
+<th>建议责任 / 最迟阶段</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T01</td>
+<td>物理Linux CPU型号/核数/配额、内存、NIC/链路、NUMA、内核、磁盘、进程拓扑；发生器与模型/录音的部署位置。</td>
+<td>平台/性能；M0前。</td>
+</tr>
+<tr>
+<td>T02</td>
+<td>运营商/网关、呼入/出目标、信令传输、SDP扩展、codec/fmtp/ptime、DTMF、TLS/SRTP、IPv4/IPv6及转人工方式。</td>
+<td>电话接入/业务；M1前。</td>
+</tr>
+<tr>
+<td>T03</td>
+<td>现网FS版本/模块、ESL/事件/XML/脚本清单及必需优先级，公开外呼/Agent接口范围和配置可视化覆盖清单。</td>
+<td>产品/迁移；M0/M1前。</td>
+</tr>
+<tr>
+<td>T04</td>
+<td>Call/Leg/资源活跃/建立中/已接通定义；1000/5000/10000各档CPS、突发、保持时长、话长分布、重复次数与允许建立失败率。</td>
+<td>性能/业务；各正式压测前。</td>
+</tr>
+<tr>
+<td>T05</td>
+<td>统一控制传输、幂等键保存窗口、事件保留/重放范围、订阅重连时限及每类命令期限。</td>
+<td>控制面/架构；M2接口冻结前。</td>
+</tr>
+<tr>
+<td>T06</td>
+<td>ASR/TTS厂商、协议、模型版本、语种、采样率、并发/速率配额、计费、超时/重试/取消策略及LLM工具范围。</td>
+<td>Agent/产品；M2前。</td>
+</tr>
+<tr>
+<td>T07</td>
+<td>音质算法/听评集、噪声/回声/抢话语料、ASR WER/CER或业务准确率、VAD误报漏报、录音对齐误差及允许内部丢帧/异常预算。</td>
+<td>音频/算法/QA；M1质量与M2前。</td>
+</tr>
+<tr>
+<td>T08</td>
+<td>讲话到确认、确认到停播、最后旧包提交、ASR final、TTS首音、endpointing各段P50/P95/P99门槛和默认淡出。</td>
+<td>Agent/音频/业务；M2验收前。</td>
+</tr>
+<tr>
+<td>T09</td>
+<td>必需/可选录音策略、轨道格式/压缩、存储/上传吞吐、落盘完成定义；慢/满盘时继续/降级/结束通话策略。</td>
+<td>业务/存储；M2前。</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>每个队列/池的条数、字节、音频ms、最老年龄、高低水位与公平预算；jitter min/target/max按线路确定。</td>
+<td>媒体/控制；M1/M2容量前。</td>
+</tr>
+<tr>
+<td>T11</td>
+<td>同口径RSS/PSS与单位CPU定义、每通话内存预算、允许热路径分配例外、72h稳态内存/线程增长门槛。</td>
+<td>性能/平台；M0与72h前。</td>
+</tr>
+<tr>
+<td>T12</td>
+<td>租户模型、远程运维认证/角色权限、每租户配额、TLS/SRTP版本/套件/密钥生命周期和凭据托管。</td>
+<td>安全/平台；生产接入前。</td>
+</tr>
+<tr>
+<td>T13</td>
+<td>丢包/乱序/重复/抖动分布、持续时间、TTS突发规模、ASR停读时长、磁盘/网络/控制故障注入强度。</td>
+<td>QA/性能；故障验收前。</td>
+</tr>
+<tr>
+<td>T14</td>
+<td>最大故障影响范围、建呼恢复时间、孤儿/端口/定时器收敛期限、排空最长时长及强制退出策略。</td>
+<td>平台/业务；M3/M4前。</td>
+</tr>
+<tr>
+<td>T15</td>
+<td>监控/日志CPU和内存开销预算、采样间隔、指标有效期、诊断字节/持续时间/标签基数上限。</td>
+<td>可观测性/性能；M3前。</td>
+</tr>
+<tr>
+<td>T16</td>
+<td>每档灰度观察时间、成功率/音质/费用/故障停止条件、回退时限和审批/值班责任。</td>
+<td>发布/业务；M4前。</td>
+</tr>
+<tr>
+<td>T17</td>
+<td>录音/识别文本/日志留存时长、用户访问/导出/删除、加密和脱敏规则。</td>
+<td>产品/安全/数据；真实数据试用前。</td>
+</tr>
+<tr>
+<td>T18</td>
+<td>Fuzz语料、时长/覆盖门槛、漏洞等级关闭标准及第三方FFI的故障隔离要求。</td>
+<td>QA/安全；正式发布前。</td>
+</tr>
+<tr>
+<td>T19</td>
+<td>替换网络后端/复制/池/NUMA调优的最小收益、不可接受回退和长期维护成本门槛。</td>
+<td>架构/性能；各选型前。</td>
+</tr>
+<tr>
+<td>T20</td>
+<td>调优后的FS基线构建/配置、三类profile及允许规范化字段，成本测量窗口、重复性和统计置信要求。</td>
+<td>迁移/性能；PERF对比前。</td>
+</tr>
+<tr>
+<td>T21</td>
+<td>本次公开分发采用Apache-2.0，第三方保留原许可；已提供LICENSE、NOTICE与开源清单。后续新引入代码仍须核对来源与许可。</td>
+<td>项目方已授权本次公开分发；具体范围见OPEN_SOURCE.md。</td>
+</tr>
+<tr>
+<td>T22</td>
+<td>各类功能、原版差分、容量、长稳和安全证据的有效期/复查周期及失效条件；字段/源码变更的重验范围与签核规则。</td>
+<td>QA/发布；发布门禁前。</td>
+</tr>
+</tbody></table></div>
+<p>明确存在的拟定数字保留不变：稳定Agent并发1.5倍、进阶2倍；CPU/内存各降低30%；发送迟到P99≤2ms/P99.9≤5ms；72小时；阶段档位1000/5000/10000。未知的是实现这些目标所需的正式环境、profile、质量阈值和失败预算，不应擅自宣布目标达成或降低目标。</p>
+<h2 id="12-阶段依赖与退出条件">12. 阶段依赖与退出条件</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>进入条件</th>
+<th>工作与退出条件</th>
+<th>不得跳过的依赖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>M0 现网基线/需求冻结</td>
+<td>取得T01/T02/T03/T20必要信息</td>
+<td>输出调优FS和候选三类profile、完整资源成本与瓶颈；冻结本轮必需矩阵和测试阈值。</td>
+<td>没有基线不能关闭相对性能目标；缺环境可做代码但不授予容量通过。</td>
+</tr>
+<tr>
+<td>M1 媒体与电话功能</td>
+<td>基础构建、目标线路和质量profile可复现</td>
+<td>先单Worker/单路G.711→真实双向处理、RTP/DTMF/PCM/RX与回收；再逐档推进1000/5000/10000 codec_processing。</td>
+<td>非G.711使用线路独立验收；relay不能替代codec_processing。</td>
+</tr>
+<tr>
+<td>M2 完整Voice Agent</td>
+<td>M1所需单路功能和受控接口通过</td>
+<td>ASR/TTS真实连接、VAD、全双工、turn/打断、双轨录音与10命令/11事件闭环；模拟服务与真实厂商分开过门。</td>
+<td>可与M1容量优化并行研发；不能继承M1媒体容量为Agent容量。</td>
+</tr>
+<tr>
+<td>M3 性能、稳定和保护</td>
+<td>对应profile功能/质量冻结，M2已能完成真实电话</td>
+<td>1k/5k/10k与CPS联合曲线、1.5倍/30%目标、发送尾延迟、故障和72h全部按合同验证。</td>
+<td>录音、安全、模型适配等必要成本不能关闭或移出统计。</td>
+</tr>
+<tr>
+<td>M4 生产灰度与回退</td>
+<td>必需线路/接口矩阵、M3门槛和发布资料通过</td>
+<td>1%→5%→20%→50%→100%逐档观察与回退演练；当前安装和证据可关联。</td>
+<td>默认新呼叫切流、旧呼叫排空；活动通话无损接管不是本阶段隐含能力。</td>
+</tr>
+</tbody></table></div>
+<h2 id="13-与既有v1验收的映射">13. 与既有V1验收的映射</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>原V1编号</th>
+<th>本文主要需求</th>
+<th>保留的关闭义务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>V1-01 RTP UDP</td>
+<td>FR-13、NF-08、PERF-02</td>
+<td>真实每路/方向内容与资源，目标负载真实达到。</td>
+</tr>
+<tr>
+<td>V1-02 PCMA/PCMU</td>
+<td>FR-08</td>
+<td>真实解码/编码持续正确；G.722/Opus另由FR-09/10保留。</td>
+</tr>
+<tr>
+<td>V1-03 RTP seq/timestamp</td>
+<td>FR-13、IF-06</td>
+<td>完整展开、回绕、播放/DTMF/停止不回退。</td>
+</tr>
+<tr>
+<td>V1-04 Jitter Buffer</td>
+<td>FR-15/16</td>
+<td>缓冲预算、迟到/丢失/恢复与质量分别测量。</td>
+</tr>
+<tr>
+<td>V1-05 AudioFrame</td>
+<td>FR-17、IF-06</td>
+<td>元数据、来源、时效与所有权。</td>
+</tr>
+<tr>
+<td>V1-06 Resampler</td>
+<td>FR-18</td>
+<td>同率不转换、异率按需、质量/漂移/期限。</td>
+</tr>
+<tr>
+<td>V1-07 VAD</td>
+<td>FR-24、EV06/07</td>
+<td>真实语音与CN/丢包/自身TTS区别。</td>
+</tr>
+<tr>
+<td>V1-08 ASR</td>
+<td>FR-21、IF-08、ACC-04</td>
+<td>协议、真实供应商、结果/取消/背压。</td>
+</tr>
+<tr>
+<td>V1-09 TTS</td>
+<td>FR-22、IF-07、ACC-04</td>
+<td>真实分块流与电话发送；不能只用文件供音。</td>
+</tr>
+<tr>
+<td>V1-10 播放队列</td>
+<td>FR-19、NF-05、CMD04/05</td>
+<td>有界条数/字节/ms与正确生命周期。</td>
+</tr>
+<tr>
+<td>V1-11 打断</td>
+<td>FR-23/25/26、EV08</td>
+<td>旧turn失效、持续RX、最后旧包可证明。</td>
+</tr>
+<tr>
+<td>V1-12 Fade</td>
+<td>FR-26</td>
+<td>立即及20/40ms包络和听评。</td>
+</tr>
+<tr>
+<td>V1-13 双轨录音</td>
+<td>FR-29/30、CMD07/08</td>
+<td>真正对齐、异步持久化与失败策略。</td>
+</tr>
+<tr>
+<td>V1-14 telephone-event</td>
+<td>FR-28、EV05</td>
+<td>协商集合/时钟、重复/结束、实际对端。</td>
+</tr>
+<tr>
+<td>V1-15 Go接口</td>
+<td>IF-01～10、CMD01～10、EV01～11</td>
+<td>受理/完成、幂等、事件、版本、恢复。</td>
+</tr>
+<tr>
+<td>V1-16 Metrics</td>
+<td>OPS-07～09</td>
+<td>新鲜度/未知与零、最忙分片与观测成本。</td>
+</tr>
+<tr>
+<td>V1-17 压测工具</td>
+<td>OPS-06、PERF-01～10、ACC-06/07/09</td>
+<td>三类profile、全量负载、原证据与释放。</td>
+</tr>
+</tbody></table></div>
+<p>A01总体架构映射NF-01/FR-01/02；A03线程映射NF-02～04；A04网络映射NF-08/PERF-10；A06～A13分别映射FR-08～26、NF-05～07和FR-29/30；A14控制映射IF/CMD/EV；A15接入映射FR-01～07、SEC-03/04与MIG；A16依赖映射NF-11/PERF-10；A17部署映射NF-09/10、OPS-01与T01/T14。原合同20节和17能力的要求保留，没有通过重新编号删除必需范围。</p>
+<h2 id="14-首期范围外与有条件范围">14. 首期范围外与有条件范围</h2>
+<p>会议、视频、传真、复杂分机管理、完整Dialplan、任意Lua/JS/插件市场、原版FreeSWITCH模块二进制宿主、复杂WebRTC及活动会话自动迁移不作为首期前置。EVS、AMR/直接IMS/5G按后续接入需求立项；若目标生产线路确实依赖某项，须在T02标为本profile必需并补验收，不能带着未实现能力上线后宣称等价。</p>
+<p>io_uring、AF_XDP、DPDK、全套Kubernetes编排、protobuf/TOML配置和物理拆分7个Rust crate属于可选实现或后续演进，不是“用了才算完成”的硬要求。现有JSON配置、mio和有界Unix/管道接口可继续使用，只要满足业务与验收合同。保留成熟SIP/FS/SBC适配是允许路径，但全部成本和差异须披露。</p>
+<p>首期不排除：真实ASR/TTS、VAD、自动打断、双轨录音、目标核心codec、峰值保护、后台测试与文档。已有受限XML/ESL/IVR仍需回归维护；后延不删除原版对照项，不把“暂不做”统计为兼容。</p>
+<h2 id="15-需求变更与最终验收记录">15. 需求变更与最终验收记录</h2>
+<p>任何范围、数值或优先级变更须记录原需求ID、原因、影响的profile/线路/测试/文档、负责人和生效版本；历史失败及旧成功证据保留。采用新实现或修复问题后，重新运行受影响验收，不把源码变动后的旧绿色作为现版本证明。</p>
+<p>最终每条需求记录至少包含：需求ID、实现状态、实现源码/二进制版本、测试用例ID、原证据位置和摘要、是否达到实际负载、失败/跳过/待定项、资源回收、评审结论与日期。121项编号用于完整追踪，不以简单百分比取代发布门槛；某profile的所有P0和实际使用P1、M1～M4对应门槛及T项必须逐项满足。</p>
+<p>交付过程中的离线构建成功与文档发布门禁结果须分别呈现。当前交付任务报告的主工程 <code>key-api-pcm-stream</code> 绿色证据失效、候选字段字典落后机器合同，均属于发布门禁待处理问题；它们不能由Go/Rust/C ABI或asr-mock编译成功覆盖。准确执行记录和最终状态以交付总记录为准，本文不据此改写历史验证结果。</p>
+<p>编制本需求说明书不修改源码、兼容数量或运行服务，也不使任何目标自动完成。交付包的实际文件清单、构建及发布门禁结果以<a href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html">交付与源码说明</a>为准，剩余工作以<a href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">项目未完成清单</a>逐项追踪。</p>
+<h2 id="需求任务化导出">需求任务化导出</h2>
+<p><a href="requirements/%E9%9C%80%E6%B1%82%E8%BF%BD%E8%B8%AA%E8%A1%A8.csv">需求追踪表CSV</a> · <a href="requirements/%E9%9C%80%E6%B1%82%E8%BF%BD%E8%B8%AA%E8%A1%A8.json">需求追踪表JSON</a>。保留上述121个需求编号、原验收文字与当前范围，供后续分派；待定指标仍需按T01～T22冻结。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

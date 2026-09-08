@@ -1,0 +1,102 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>多采样率 AudioFrame、借用帧与离线分支 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 多采样率 AudioFrame、借用帧与离线分支</div><article class="content"><div class="page-tools"><a href="audio-frame-reference.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#入口与兼容行为">入口与兼容行为</a><a href="#格式时间与所有权">格式、时间与所有权</a><a href="#按需分支与缺包语义">按需分支与缺包语义</a><a href="#参考滤波器与验收边界">参考滤波器与验收边界</a><a href="#实时借用帧与轮次">实时借用帧与轮次</a></details><h1 id="多采样率-audioframe借用帧与离线分支">多采样率 AudioFrame、借用帧与离线分支</h1>
+<p>文档版本 1.12.0。统一的是样本类型、帧时长、时间位置、来源与生命周期，各节点可以保留需要的 PCM 采样率。多采样率拥有型帧与 FIR 转换属于离线 SDK；实时 G.711 worker 已使用原生 8k 借用帧进行双腿处理及本地 RX/TX。已 ACK 外部 PCM turn 是有限下行接口，ASR/TTS 供应商、VAD 和录音仍未接入。</p>
+<h2 id="入口与兼容行为">入口与兼容行为</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>入口</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>AudioFrame::new(samples)</code>／<code>from_s16le(bytes)</code></td>
+<td>保留旧的 16 kHz 单声道、10／20 ms 语义</td>
+</tr>
+<tr>
+<td><code>AudioFrame::with_sample_rate(samples, rate)</code>／<code>from_s16le_at(bytes, rate)</code></td>
+<td>显式支持 8000、16000、24000、48000 Hz，不从长度猜采样率</td>
+</tr>
+<tr>
+<td><code>AudioCodec::new(name)</code></td>
+<td>保留旧 16 kHz PCM 入口，包括旧 G.711 2 倍采样率转换</td>
+</tr>
+<tr>
+<td><code>AudioCodec::native_rate(&quot;PCMU&quot;/&quot;PCMA&quot;)</code></td>
+<td>8 kHz PCM 直接压扩，不自动升到 16 kHz</td>
+</tr>
+<tr>
+<td><code>AudioCodec::native_rate(&quot;G722&quot;)</code></td>
+<td>16 kHz PCM；需显式配置可信 G.722 动态库</td>
+</tr>
+<tr>
+<td><code>AudioCodec::native_rate(&quot;OPUS&quot;)</code></td>
+<td>48 kHz 单声道 PCM；需显式配置可信 Opus 动态库</td>
+</tr>
+<tr>
+<td><code>AudioBranch::new(source_rate, target_rate)</code></td>
+<td>只有两端采样率不同时才创建参考 FIR 转换器</td>
+</tr>
+</tbody></table></div>
+<p><code>AudioCodec::encode</code> 要求帧采样率与实例相符；不符会报错，由调用方明确创建目标分支。24 kHz TTS 样本可转换到 8／16／48 kHz；这只是样本接口，不会调用真实 TTS 服务。其他采样率、立体声和 10／20 ms 以外的 SDK 帧明确拒绝；线上 Opus 其他包时长的透传合同保持独立。</p>
+<p>本次不改 <code>rs_codec_v1</code> C 描述符、回调布局或 <code>rs_codec_get_v1</code> 符号。现有 C 插件检查器与这个 Rust SDK 是两个入口，不能把示例 C ABI 当作 FreeSWITCH 原生模块 ABI。</p>
+<h2 id="格式时间与所有权">格式、时间与所有权</h2>
+<p>每帧提供 <code>sample_rate()</code>、<code>channels()</code>、<code>valid_samples()</code>、<code>duration_ms()</code>、<code>position()</code> 和只读 <code>samples()</code>。PCM 为单声道 signed 16-bit；字节导出明确使用 little endian，不能直接当作 RTP L16 的网络大端数据。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>PCM 采样率</th>
+<th align="right">10 ms 有效样本数</th>
+<th align="right">20 ms 有效样本数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8000</td>
+<td align="right">80</td>
+<td align="right">160</td>
+</tr>
+<tr>
+<td>16000</td>
+<td align="right">160</td>
+<td align="right">320</td>
+</tr>
+<tr>
+<td>24000</td>
+<td align="right">240</td>
+<td align="right">480</td>
+</tr>
+<tr>
+<td>48000</td>
+<td align="right">480</td>
+<td align="right">960</td>
+</tr>
+</tbody></table></div>
+<p>帧长必须精确匹配，既不补零也不截断。字节入口在分配前检查长度，帧构造会移除输入 Vec 的多余容量。保留 <code>Vec&lt;i16&gt;</code> 本地所有权，不引入 Arc／Rc。只读访问借用样本；同率分支移动原始缓冲，不复制；显式 <code>clone</code> 会复制样本。异率参考转换会分配目标帧，编解码也仍有分配，因此不能称为整个媒体热路径无分配。</p>
+<p>旧帧未传位置时 <code>position()</code> 返回 <code>None</code>。新分支以 <code>AudioBlock::new(output, position)</code> 定位，包括没有 PCM 的缺失／CN 块；已定位帧不能被悄悄改写到另一时间位置。<code>AudioPosition</code> 使用同一流起点以来的 <code>media_time_ns</code>，由调用方媒体时序提供，不取 UDP 到达时间或 UTC 墙钟。相邻帧通过检查溢出的 <code>advance(10/20)</code> 推进。</p>
+<p>可选 <code>RtpPosition</code> 独立保存源 RTP 的 32 位时间戳与 <code>clock_rate</code>，按正常 RTP 规则回绕。G.722 在 20 ms 内产生 320 个 16 kHz PCM 样本，却只推进 160 个 8 kHz RTP 刻度；Opus 的线上时钟固定为 48 kHz。采样率转换保留来源时间，重新发包应由 packetizer 建立输出流自己的时间戳。<a href="https://www.rfc-editor.org/rfc/rfc3551" target="_blank" rel="noopener noreferrer">RFC 3551</a>、<a href="https://www.rfc-editor.org/rfc/rfc7587" target="_blank" rel="noopener noreferrer">RFC 7587</a>。</p>
+<h2 id="按需分支与缺包语义">按需分支与缺包语义</h2>
+<pre><code class="language-rust">use rustswitch_media::audio::{AudioCodec, AudioPosition, DecodeInput};
+use rustswitch_media::audio::branch::{AudioBlock, AudioBranch};
+
+// 保留电话侧原生8k，只有目标分支显式请求16k时才转换。
+let mut decoder = AudioCodec::native_rate(&quot;PCMU&quot;)?;
+let output = decoder.decode(DecodeInput::Packet(&amp;[0xff; 160]), 20)?;
+let block = AudioBlock::new(output, AudioPosition::new(0, None))?;
+let mut branch = AudioBranch::new(8_000, 16_000)?;
+let converted = branch.process(block)?;
+// converted仍保留原始来源分类；这里没有调用ASR、VAD或TTS服务。
+branch.close();
+Ok::&lt;(), anyhow::Error&gt;(())
+</code></pre>
+<p><code>AudioOutput::Frame</code> 保留 <code>Decoded</code>、<code>SuppliedPcm</code>、<code>CodecPlc</code> 或 <code>HistoryConcealment</code>。<code>SuppliedPcm</code> 表示调用方直接给定的样本；离线 SDK 和本地 PCM 发送路径都不得将其冒充网络解码或真实 TTS 服务调用。转换不会把 PLC 变成正常收包。G.711／G.722 历史补偿只有一帧，连续缺失按实际时长累计最多 120 ms；切换帧长不能延长历史重放。Opus 调用真实库的原生 PLC。没有历史可估计时使用 <code>MissingAudio</code>，不会生成静音 PCM。</p>
+<p><code>ComfortNoise</code> 保留 SID 电平和谱参数，当前没有噪声合成。CN 谱参数仍是源模型，不能把透传元数据理解为已经合成目标采样率噪声。缺包、CN 或前向时间跳跃会清掉重采样历史，防止旧话音进入后续真实音频。缺包不是用户沉默，消费者仍必须处理这一差异。</p>
+<p>分支拒绝倒退／重叠的时间块和错误源采样率。<code>close()</code> 清除历史，之后拒绝处理；不会补尾部静音或把旧分支复用到另一通话。没有内部帧队列、线程或后台任务，调用方仍须对分支数、上游排队、取消和整体内存设置预算。</p>
+<h2 id="参考滤波器与验收边界">参考滤波器与验收边界</h2>
+<p>异率转换使用连续 127 抽头 Hamming 窗低通参考 FIR，支持本页 4 种率的全部 12 种异率组合；先插值、低通，再抽取。中间率最高 48 kHz，比率因子最大为 6；只在实际输出点计算卷积。每实例持有固定历史和系数，每次最多输出 960 样本，不累计旧帧。</p>
+<p>滤波有启动瞬态和算法延迟。<code>filter_delay_ns()</code> 报告 63 个中间采样间隔，向上取整到纳秒；来源时间位置不自动减去延迟。流结束和不连续时不合成尾帧，旧滤波尾部会丢弃。生产 AudioGraph 需自行对齐不同分支的延迟。</p>
+<p>测试包括：全部率对 10／20 ms 帧切分一致性、脉冲峰值延迟、恒定信号增益、48→16 kHz 的 1 kHz 保留与 12 kHz 衰减、真实 G.711 字节逐样本还原、可信 G.722／Opus 库编解码、24→48 kHz 样本接入 Opus、错误 Opus 时长拒绝后解码状态保持、RTP 回绕、缺包／CN／关闭及旧入口。</p>
+<p>这些是有限的确定性音频测试，不是听感评分、ASR 识别率、所有频率抗混叠认证或 5000／10000 路实时转码性能验收。原生库测试必须实际配置并执行；未配置库时不能把离线单元测试汇总当作原生库验收。完整最新结果以本轮实测记录为准。</p>
+<h2 id="实时借用帧与轮次">实时借用帧与轮次</h2>
+<p><code>AudioFrameView&lt;&#39;a&gt;</code> 将借用的 <code>&amp;[i16]</code>、sample_rate、duration_ms、AudioPosition 与 FrameOrigin 一起交给节点；声道固定为 1，有效样本数由切片长度给出。构造时校验 8/16/24/48k 与精确 10/20ms 长度，PCM 采样率和可选 RTP clock 分别保存，不要求二者相等。Missing/CN 没有 PCM，不构造成伪静音借用帧。<code>AudioFrame::as_view(origin)</code> 要求帧已有位置。</p>
+<p><code>G711Codec::encode_frame</code> 校验 8k/mono 后写入调用方输出缓冲；底层 encode_into/decode_into 仍支持 10–60ms 完整包，实时图和 PCM turn 当前固定 20ms。借用视图不创建 Vec、Rc 或 Arc，同一 Worker 同步消费调用方存储，不能跨越该存储的生命周期。离线 AudioFrame Clone、转换输出和 Go 数据批次仍可能分配，不能由借用接口推断整个媒体服务零分配。</p>
+<p><a href="pcm-turn-reference.html">内部 PCM turn</a> 另以不可复用的轮次和偏移管理外部供音，将实际媒体位置传入本地编码节点；它不把 turn_id 塞进 RTP clock，也不将采样率统一提高到 16k。连续音频按 160 ticks 推进，旧队列中断与淡出只影响未发送帧。<a href="rva1-reference.html">RVA1</a> 的网络入口接受 8k，离线 SDK 的 24k 支持不扩大该线协议格式。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

@@ -1,0 +1,172 @@
+{
+  "started_at": "2026-09-06T16:43:17.951298+00:00",
+  "scope": "macOS Rust全target单元和进程集成测试，配置实际G722/Opus原生库；不是Linux容量或完整FreeSWITCH认证",
+  "platform": "darwin",
+  "source_before": {
+    "sha256": "49715a69018dd969851796b20bc402edc08e042f5370a15eb3e4706337e6e748",
+    "files": {
+      "media/Cargo.lock": "472ec1a43ffa09ef3e1b4127209a7858a75543e586e023d1d8a72725d1e98fa1",
+      "media/Cargo.toml": "62ae1eb2cb91c5f81fe362787c47867dfd3de28f823bd8d4fb1936fca49024c2",
+      "media/src/admission.rs": "cbaaa4bfe9d0024454c59c4aa3d014116030ff5edc92cc94241773849040abba",
+      "media/src/audio/branch.rs": "56d25ffd291cc24a9f466f4b5251fa6ac8e9ff6dcbe67de02415c0ca1dbaa526",
+      "media/src/audio/frame.rs": "74747c1801499b477ebed0d47ce669463056657eb017ee1cd990317c24925a64",
+      "media/src/audio/g711.rs": "725bfeabe4d6177767a983aa8b5426bed3f79317a21a47035463e2619bda1250",
+      "media/src/audio/mod.rs": "b7bf2a5084302457465190815c33475f1407d243c28e1e01f2ad84351f592332",
+      "media/src/audio/native.rs": "b1f7d959263f799cc7e5bb5bf8fafe76c786bbedd4e55d38676afcae616c7294",
+      "media/src/audio/realtime.rs": "78658a942e7b0d257bddddefff5c8ee0c607a23cda0621a21f85de1531530aac",
+      "media/src/audio/spec.rs": "cfb5a6c73e5225ad9fd06ea029d6a8ea07a05922442102f46f6907bc96ab5981",
+      "media/src/codec.rs": "ffe2f81a0e2890cb4ef8d7dc55a75a8eda88b04d99cec0fb68b80d0140404a8f",
+      "media/src/lib.rs": "c813ab50ad679ec118ebc05152e3789a4f28bc1b12aad24013eccc2c49d942a8",
+      "media/src/main.rs": "c2cc3f7b39a1ac93234a6f11caf4ec3eab4ffec8b8450f44c15fb52bfee91e1f",
+      "media/src/media/control.rs": "fe2ccd4051f0b0366a9bba3fd1df4d9003029d568da8fea24626321cf803f896",
+      "media/src/media/dtmf_sender.rs": "77fb2d6c1629f82cfd127328a6b1d42213fec2bfe8353c82bdf77c7eba2bf1f4",
+      "media/src/media/file_loader.rs": "26c797bd7fb75d832183293340cc9fccb57bc4875ee5e6eb0079c3103ac31a39",
+      "media/src/media/interaction.rs": "64497818f793c5fe789906e9302ea79a335cac51445ad5c9ec769fc33bc7e18a",
+      "media/src/media/io.rs": "f7d1a2d9328649f4a2d56caf0745fcb3aa0338dae84069f61d42c7d8cdd69eac",
+      "media/src/media/jitter.rs": "b9f88fc389cbf42173575c83703f830ffa3f1059f2c6129de823670e09e91f39",
+      "media/src/media/mod.rs": "39f082f4878ddf0f248949fb171734a2df0e6c3d41edec9d2af00e602204773f",
+      "media/src/media/ports.rs": "5cc4c7b0de960de9c107fb741288f063a7a9e7ea095982ab71c9f78a66ee53f3",
+      "media/src/media/processed.rs": "401f0ceccfdb512dafe0f3b2f2b6cef8e093411c4c2c3383e696cf4a98eddafa",
+      "media/src/media/processed_tests.rs": "3d1219b81b0bb4ba24543087d93fa092e27bc6c02f8b4b816f11a16b74d8b5d0",
+      "media/src/media/protocol.rs": "9eb459a92f5b0e2347f3beceaa0040547594689c9222b01a7e8aca6fc1d41a0d",
+      "media/src/media/rtcp.rs": "80168b66f73ab83b8375aae41cd5d64b072ae874f9f1e028438d477614198a6f",
+      "media/src/media/rtp.rs": "9daa1a2c6a5098a8790b9df227c813370d86f54d72747203fc00aa3b579fed03",
+      "media/src/media/rtp_state.rs": "e179c4edd53ad2f0a0229862de83d5c16f2855edd50cd2412831ecf4c4d9ac43",
+      "media/src/media/scheduler.rs": "d90dc5af7a01b268edec4b4ce5c6534c6662e6ac257ab8be58bd5c019c4712de",
+      "media/src/media/wav.rs": "2745614c59a47db17ae2419a1e77bd5cddaa5bf5d7af26a7b0bdc21a4d1d40a4",
+      "media/src/media/worker.rs": "c959379c5e2901ad0907187b6fc774df9479e472ac0daae5da58a7387e4be88e",
+      "media/tests/control_lifecycle.rs": "6039871cb5ab49eeb1f31ba6e4b79974d6002bd329e576da38c0aa1cfc10986c"
+    }
+  },
+  "native_libraries": {
+    "RUSTSWITCH_G722_LIBRARY": {
+      "path": "/workspace/yunfu-voice-runtime/work/audio-deps/librustswitch_g722.dylib",
+      "sha256": "ccd3e3b911d291feba5cf3f128bc94ce803a68ceb40cb2577182350463bfdb39"
+    },
+    "RUSTSWITCH_OPUS_LIBRARY": {
+      "path": "/workspace/yunfu-voice-runtime/work/audio-deps/opus/lib/libopus.dylib",
+      "sha256": "39d7bce655ec29da6e0fb16b1206504ec9774d7e2d509865289a58c36762f0a0"
+    }
+  },
+  "target_dir": "/workspace/yunfu-voice-runtime/work/build/media",
+  "stages": [
+    {
+      "name": "tests",
+      "command": [
+        "/workspace/yunfu-voice-runtime/work/toolchain/rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+        "test",
+        "--offline",
+        "--all-targets",
+        "--",
+        "--nocapture"
+      ],
+      "started_at": "2026-09-06T16:43:17.970455+00:00",
+      "source_before": "49715a69018dd969851796b20bc402edc08e042f5370a15eb3e4706337e6e748",
+      "finished_at": "2026-09-06T16:43:23.496565+00:00",
+      "exit_code": 0,
+      "log": "work/voice-runtime-m1/rust-final-tests.log",
+      "log_sha256": "67ec97ec4b48a6c58c65bb9876536b4f4ca4354c24924283ef4856c4d4ca9f8e",
+      "source_after": "49715a69018dd969851796b20bc402edc08e042f5370a15eb3e4706337e6e748",
+      "suites": [
+        {
+          "status": "ok",
+          "passed": 123,
+          "failed": 0,
+          "ignored": 0,
+          "measured": 0,
+          "filtered_out": 0
+        },
+        {
+          "status": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0,
+          "measured": 0,
+          "filtered_out": 0
+        },
+        {
+          "status": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0,
+          "measured": 0,
+          "filtered_out": 0
+        }
+      ],
+      "totals": {
+        "passed": 124,
+        "failed": 0,
+        "ignored": 0,
+        "measured": 0,
+        "filtered_out": 0
+      },
+      "complete_results": true
+    },
+    {
+      "name": "clippy",
+      "command": [
+        "/workspace/yunfu-voice-runtime/work/toolchain/rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+        "clippy",
+        "--offline",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started_at": "2026-09-06T16:43:23.508804+00:00",
+      "source_before": "49715a69018dd969851796b20bc402edc08e042f5370a15eb3e4706337e6e748",
+      "finished_at": "2026-09-06T16:43:24.225859+00:00",
+      "exit_code": 0,
+      "log": "work/voice-runtime-m1/rust-final-clippy.log",
+      "log_sha256": "77d9e1db0ba95b04891387cb65a0ebc872870ddf1f14b6b07df93f12008cfc12",
+      "source_after": "49715a69018dd969851796b20bc402edc08e042f5370a15eb3e4706337e6e748"
+    }
+  ],
+  "passed": true,
+  "toolchain": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "source_after": {
+    "sha256": "49715a69018dd969851796b20bc402edc08e042f5370a15eb3e4706337e6e748",
+    "files": {
+      "media/Cargo.lock": "472ec1a43ffa09ef3e1b4127209a7858a75543e586e023d1d8a72725d1e98fa1",
+      "media/Cargo.toml": "62ae1eb2cb91c5f81fe362787c47867dfd3de28f823bd8d4fb1936fca49024c2",
+      "media/src/admission.rs": "cbaaa4bfe9d0024454c59c4aa3d014116030ff5edc92cc94241773849040abba",
+      "media/src/audio/branch.rs": "56d25ffd291cc24a9f466f4b5251fa6ac8e9ff6dcbe67de02415c0ca1dbaa526",
+      "media/src/audio/frame.rs": "74747c1801499b477ebed0d47ce669463056657eb017ee1cd990317c24925a64",
+      "media/src/audio/g711.rs": "725bfeabe4d6177767a983aa8b5426bed3f79317a21a47035463e2619bda1250",
+      "media/src/audio/mod.rs": "b7bf2a5084302457465190815c33475f1407d243c28e1e01f2ad84351f592332",
+      "media/src/audio/native.rs": "b1f7d959263f799cc7e5bb5bf8fafe76c786bbedd4e55d38676afcae616c7294",
+      "media/src/audio/realtime.rs": "78658a942e7b0d257bddddefff5c8ee0c607a23cda0621a21f85de1531530aac",
+      "media/src/audio/spec.rs": "cfb5a6c73e5225ad9fd06ea029d6a8ea07a05922442102f46f6907bc96ab5981",
+      "media/src/codec.rs": "ffe2f81a0e2890cb4ef8d7dc55a75a8eda88b04d99cec0fb68b80d0140404a8f",
+      "media/src/lib.rs": "c813ab50ad679ec118ebc05152e3789a4f28bc1b12aad24013eccc2c49d942a8",
+      "media/src/main.rs": "c2cc3f7b39a1ac93234a6f11caf4ec3eab4ffec8b8450f44c15fb52bfee91e1f",
+      "media/src/media/control.rs": "fe2ccd4051f0b0366a9bba3fd1df4d9003029d568da8fea24626321cf803f896",
+      "media/src/media/dtmf_sender.rs": "77fb2d6c1629f82cfd127328a6b1d42213fec2bfe8353c82bdf77c7eba2bf1f4",
+      "media/src/media/file_loader.rs": "26c797bd7fb75d832183293340cc9fccb57bc4875ee5e6eb0079c3103ac31a39",
+      "media/src/media/interaction.rs": "64497818f793c5fe789906e9302ea79a335cac51445ad5c9ec769fc33bc7e18a",
+      "media/src/media/io.rs": "f7d1a2d9328649f4a2d56caf0745fcb3aa0338dae84069f61d42c7d8cdd69eac",
+      "media/src/media/jitter.rs": "b9f88fc389cbf42173575c83703f830ffa3f1059f2c6129de823670e09e91f39",
+      "media/src/media/mod.rs": "39f082f4878ddf0f248949fb171734a2df0e6c3d41edec9d2af00e602204773f",
+      "media/src/media/ports.rs": "5cc4c7b0de960de9c107fb741288f063a7a9e7ea095982ab71c9f78a66ee53f3",
+      "media/src/media/processed.rs": "401f0ceccfdb512dafe0f3b2f2b6cef8e093411c4c2c3383e696cf4a98eddafa",
+      "media/src/media/processed_tests.rs": "3d1219b81b0bb4ba24543087d93fa092e27bc6c02f8b4b816f11a16b74d8b5d0",
+      "media/src/media/protocol.rs": "9eb459a92f5b0e2347f3beceaa0040547594689c9222b01a7e8aca6fc1d41a0d",
+      "media/src/media/rtcp.rs": "80168b66f73ab83b8375aae41cd5d64b072ae874f9f1e028438d477614198a6f",
+      "media/src/media/rtp.rs": "9daa1a2c6a5098a8790b9df227c813370d86f54d72747203fc00aa3b579fed03",
+      "media/src/media/rtp_state.rs": "e179c4edd53ad2f0a0229862de83d5c16f2855edd50cd2412831ecf4c4d9ac43",
+      "media/src/media/scheduler.rs": "d90dc5af7a01b268edec4b4ce5c6534c6662e6ac257ab8be58bd5c019c4712de",
+      "media/src/media/wav.rs": "2745614c59a47db17ae2419a1e77bd5cddaa5bf5d7af26a7b0bdc21a4d1d40a4",
+      "media/src/media/worker.rs": "c959379c5e2901ad0907187b6fc774df9479e472ac0daae5da58a7387e4be88e",
+      "media/tests/control_lifecycle.rs": "6039871cb5ab49eeb1f31ba6e4b79974d6002bd329e576da38c0aa1cfc10986c"
+    }
+  },
+  "source_unchanged": true,
+  "finished_at": "2026-09-06T16:43:24.230158+00:00",
+  "test_totals": {
+    "passed": 124,
+    "failed": 0,
+    "ignored": 0,
+    "measured": 0,
+    "filtered_out": 0
+  }
+}

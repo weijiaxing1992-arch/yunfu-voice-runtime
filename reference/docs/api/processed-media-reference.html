@@ -1,0 +1,463 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>实时 G.711 双向媒体处理说明 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 实时 G.711 双向媒体处理说明</div><article class="content"><div class="page-tools"><a href="processed-media-reference.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 11 节</summary><a href="#1-启用方式与适用呼叫">1. 启用方式与适用呼叫</a><a href="#2-媒体与协商范围">2. 媒体与协商范围</a><a href="#3-内部-pcm-与执行模型">3. 内部 PCM 与执行模型</a><a href="#4-抖动静默和时间戳">4. 抖动、静默和时间戳</a><a href="#5-发送期限与-rtcp">5. 发送期限与 RTCP</a><a href="#6-go-rust-内部接口">6. Go / Rust 内部接口</a><a href="#7-故障行为">7. 故障行为</a><a href="#8-可观测指标">8. 可观测指标</a><a href="#9-freeswitch-对照表关联">9. FreeSWITCH 对照表关联</a><a href="#10-验证记录与发布待办">10. 验证记录与发布待办</a><a href="#11-管理集成与继续工作边界">11. 管理集成与继续工作边界</a></details><h1 id="实时-g711-双向媒体处理说明">实时 G.711 双向媒体处理说明</h1>
+<blockquote>
+<p>v1.10 当前 <code>build-03 / processed-03</code> 的 11 场景×两种 UDP 模式共 22/22 通过，独立发送方暂停恢复用例 4/4 通过。历史 build-02 管理实测三项单路与 100 路通过、500 路失败；当前testlab-02三单路及100路通过、500路仍失败。见<a href="release-validation-v1.10.html">本轮发布复核</a>与<a href="testlab-verification-v1.10.json">管理测试摘要</a>。结果来自隔离候选，运行后台版本以 <code>GET /v1/docs</code> 的 <code>version</code> 字段核对；5000/10000 路处理容量与完整 Voice Agent 未完成。</p>
+</blockquote>
+<p>本文双腿合同在 1.12.0 保持；新增本地 PCM 轮次与已 ACK 外部下行见 <a href="processed-local-reference.html">本地处理</a>、<a href="pcm-turn-reference.html">内部 PCM</a>、<a href="rva1-reference.html">RVA1</a> 和 <a href="release-validation-v1.12.html">1.12 验证</a>。新增结果不重标本页历史容量失败。</p>
+<p>M1 增加显式启用的双向 G.711 处理图：每个方向先对编码 RTP 包做有界重排，再解码成 PCM，编码成目标腿的 G.711 格式，最后使用本机 RTP 身份重新封装。A、B 两腿可以分别使用 PCMU 和 PCMA；即使两腿编码相同，启用该模式也会真正执行解码和编码。</p>
+<h2 id="1-启用方式与适用呼叫">1. 启用方式与适用呼叫</h2>
+<p>在独立实例的完整启动配置中，将 <code>media.processing</code> 设为 <code>g711</code>。以下是配置片段，需要合并到已有完整配置：</p>
+<pre><code class="language-json">{
+  &quot;media&quot;: {
+    &quot;processing&quot;: &quot;g711&quot;
+  }
+}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>配置值</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字段省略或空字符串</td>
+<td>保持既有 relay 透传模式</td>
+</tr>
+<tr>
+<td><code>relay</code></td>
+<td>显式使用既有透传模式</td>
+</tr>
+<tr>
+<td><code>g711</code></td>
+<td>对该实例符合条件的双腿呼叫启用 M1 处理图</td>
+</tr>
+<tr>
+<td>其他字符串</td>
+<td>配置校验失败，不能静默回退</td>
+</tr>
+</tbody></table></div>
+<p>这是启动配置，不是逐呼叫的 ESL 变量，也没有在途图迁移或热切换功能。建议先在独立 SIP、媒体和管理端口的实例验证；实际启用前，应完成配置检查和有序排空。配置校验命令为：</p>
+<pre><code class="language-sh">./bin/rustswitch -config config/processed.json -check-config
+</code></pre>
+<p>示例文件名表示使用者准备的完整配置文件。<code>media.binary</code> 必须指向与控制面匹配、声明处理能力的新 Rust 媒体二进制。校验成功只证明配置可接受，不能替代启动握手、实际通话和容量验证。</p>
+<p>本页原 22 项验收专用于经固定上游建立 B 腿的双腿 SIP 通话。v1.10 在 <code>g711</code> 模式拒绝本地自动应答/IVR；v1.11 增加 <code>topology=local</code> 的独立单腿实现与验收集合，v1.12 在该拓扑增加有界 PCM 下行，见<a href="processed-local-reference.html">本地合同</a>。旧双腿通过不能授予新本地功能通过，也不表示全部 IVR 已兼容。</p>
+<h2 id="2-媒体与协商范围">2. 媒体与协商范围</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>M1 当前合同</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主音频</td>
+<td>PCMU、PCMA，即 G.711 μ-law / A-law</td>
+</tr>
+<tr>
+<td>采样率与声道</td>
+<td>8000 Hz、单声道</td>
+</tr>
+<tr>
+<td>分包时长</td>
+<td>固定 20ms；每包必须恰好 160 字节 G.711 负载</td>
+</tr>
+<tr>
+<td>A 腿 PT</td>
+<td>保留 A 腿有效的静态或动态映射；编码由协商元数据确定</td>
+</tr>
+<tr>
+<td>B 腿报价</td>
+<td>实际提供静态 PT 0 的 PCMU 和 PT 8 的 PCMA</td>
+</tr>
+<tr>
+<td>B 腿应答</td>
+<td>只能选择已报价的 PT 0/PCMU 或 PT 8/PCMA；任意动态改映射不接受</td>
+</tr>
+<tr>
+<td>电话事件</td>
+<td>已协商的动态 telephone-event PT、8000 Hz 时钟、双方认可的事件集合</td>
+</tr>
+<tr>
+<td>舒适噪声</td>
+<td>已协商 CN、8000 Hz 时钟；保留 SID 语义，不合成噪声 PCM</td>
+</tr>
+<tr>
+<td>传输</td>
+<td>固定 IPv4 UDP 媒体对端，RTP 与 RTCP 使用独立端口</td>
+</tr>
+<tr>
+<td>图方向</td>
+<td>A 输入→B 输出，B 输入→A 输出，分别持有 RX、缓冲、codec 和 TX 状态</td>
+</tr>
+</tbody></table></div>
+<p>同一通话两腿可以采用 PCMU→PCMA 和 PCMA→PCMU 的相反转换。A 腿使用动态 PCMA PT 时，不会把该动态 PT 当作 B 腿已报价的格式，也不会错误地用 A 腿 PT 检查 B 腿输入。</p>
+<p><code>ptime=20</code> 同时由 SDP 选择与实际 RTP 负载长度检查约束。实时 codec 库中存在其他帧长的缓冲 API，不表示 M1 通话图已经支持 10/30/40/50/60ms。</p>
+<p>早期 <code>183</code> 应答可缩小辅助负载集合，最终 <code>200</code> 可在原始报价范围内恢复 telephone-event/CN。恢复只更新辅助协商，不重启已经运行的主音频图。连接后主 codec、主 PT 和 B 腿媒体地址不能任意改变；这不是通用 re-INVITE、UPDATE 或网络迁移实现。</p>
+<h2 id="3-内部-pcm-与执行模型">3. 内部 PCM 与执行模型</h2>
+<p>实际路径如下：</p>
+<pre><code class="language-text">协商来源的 RTP
+  → 借用报文视图与格式检查
+  → 单方向 RX 状态 / 编码包重排
+  → G.711 解码
+  → 8000 Hz、mono、i16 的借用 AudioFrameView
+  → 目标 G.711 编码
+  → 本机 SSRC / 包序 / RTP 时间戳封装
+  → 对端 UDP
+</code></pre>
+<p>M1 桥内 PCM 当前是原生 8k 单声道，尚未在通话中统一重采样成 16k。已有离线音频 SDK 的可变采样率能力和 C ABI 属于另一层接口，不能据此宣称实时 ASR/TTS 分支已接入。</p>
+<p>PCM 帧携带媒体位置、真实输入 RTP 时钟位置和来源标记，区分实际解码与历史补偿。处理图使用 worker 事件循环与调用方缓冲，建呼时准备固定资源；不为每个呼叫创建音频线程。编码包缓冲不在每个 RTP push/pop 时分配内存。</p>
+<p>协商 telephone-event 时，每个方向还会在协商阶段分配固定的 DTMF 时间戳映射历史：256 项，当前已检查构建的状态大小为 4136 字节/方向。逐包处理复用这些状态；没有协商按键的方向不承担这项分配。该结果不能推广成“全产品每帧零分配”或“建呼/重新协商完全不分配”。历史按源和展开的 RTP 起点区分，旧结束副本沿用原输出起点；已经被有界历史淘汰、无法确定旧映射的事件不能套用新段偏移猜测转发。</p>
+<h2 id="4-抖动静默和时间戳">4. 抖动、静默和时间戳</h2>
+<p>当前处理计划固定目标延迟 40ms、最大延迟/无输入补偿预算 120ms。每个方向使用 8 个固定编码包槽，音频和辅助包共同占用；每槽负载上限 480 字节，实际主音频仍限定 160 字节。底层通用缓冲可配置时钟和 packet ticks，最大 16 槽，但这些内部参数不是本次开放的管理页调优选项。</p>
+<p>音频缺失按主音频时间戳位置判断，不能按包含 DTMF/CN 的 RTP 包序空洞推算。重复、乱序、已迟到、容量溢出、格式拒绝和本机播放过期分别计量。RX 分别展开 16 位包序和 32 位时间戳；更换 SSRC、明显序号跳变或时间戳重启需要确认，随后清除旧源播放历史。</p>
+<p>有历史时，G.711 采用有限历史衰减补偿，最多 120ms。它不是 G.711 附录 PLC 的等价实现，也没有完成 MOS/PESQ 等音质等价验收。没有历史或补偿预算耗尽时返回缺失，不用零填充伪造“真实静音”。连续没有实际音频输入时，最多产生 6 个 20ms 缺失位置，之后暂停无输入音频定时工作。</p>
+<p>已经收到的 CN/DTMF 可提前抑制其覆盖位置的假缺失，避免辅助包与音频期限相差几百微秒时额外产生 PLC。真实音频优先。时间戳不晚于已播放语音、或已被同位置排队语音覆盖的 CN，在出队时直接丢弃，不能继续清除新语音的补偿历史或向下游发送旧 SID。</p>
+<p>明确静默后的新语音段可以使用不同于旧段的时间戳相位。新段边界随实际播放帧传递，首帧过期也不会丢失边界；媒体图在消费边界时保证输出 RTP 与 PCM 位置不回退。当前活跃语音段仍检查固定帧相位，不把每个异常时间戳都当作合法重启。</p>
+<p>本机调度过期与远端静默分开处理。worker 被暂停或抢占后，仍使用原期限判断内核积压包，过期包丢弃；不能将这些包重新排到“到达时间加 40ms”，否则旧声音会被延后重放。确定性修订对照已确认：381ms 恢复时，下一个有效帧继续使用原 400ms 期限，修复前曾被改排到 421ms。</p>
+<p>DTMF 活动状态只保留最新事件起点；迟到的旧结束副本不能覆盖较新事件。相同起点的多事件块分别保存 0–16 已支持事件的持续时间与结束位，时长只增、结束位不回退。旧重复包不会不断刷新活动超时；超时后保留有界状态，只有未结束事件的真实进度可重新开始等待。</p>
+<h2 id="5-发送期限与-rtcp">5. 发送期限与 RTCP</h2>
+<p>音频或辅助报文落后计划期限达到一个 20ms 帧时，不集中补发。worker 在每个调度项与真正发送前重新读取单调时钟；编码后再遇到调度暂停，也必须执行发送前期限检查。UDP <code>WouldBlock</code> 或其他发送错误采用即时失败/丢弃策略，不排无界重试队列。</p>
+<p>RTP 序号在准备报文时消耗，发送失败后不能把同一个序号复用于不同内容。收发成功计数表示本机系统调用接受的数据，不能证明终端实际收包、网卡零丢包或最终可听音质。</p>
+<p>处理模式终结 RTCP，使用本机 TX SSRC 生成报告；已经发过 RTP 时发送 SR，否则发送 RR，并带 SDES CNAME，释放时尝试发送一次复合 BYE。接收统计来自对应腿的 RX，不能将原端点的报告原样转发后称为本机生成。</p>
+<p>SR 媒体时钟与最后一个网络包的时间戳分开保存，恒定起点的DTMF结束副本、迟到CN与普通发送抖动均不能倒推已外推的SR时钟；原RTP包仍保留其采样起点。RR 丢失统计覆盖实际 RTP 包序，包含辅助包，与音频缺失位置计数不同；主音频 jitter 按到达顺序估算。LSR/DLSR 使用真实收到的已知源 SR 和单调经过时间。</p>
+<p>当前报告周期在 2.5–7.499 秒范围内分散，尚未实现完整 RTCP 带宽自适应调度。复合输入校验有 2048 字节、32 子包上限，先完整校验再更新状态；解释 SR/RR/SDES/BYE，其他有效类型按长度跳过。不提供 rtcp-mux、SRTCP、扩展反馈拥塞控制或 FreeSWITCH 同名 RTCP 事件的完整行为。</p>
+<h2 id="6-go-rust-内部接口">6. Go / Rust 内部接口</h2>
+<p>M1 沿用逐行 JSON 内部协议，协议主版本仍为 1。它不是 ESL 命令格式，也不是 FreeSWITCH 原生模块 ABI。启动 <code>ready</code> 回执必须包含精确能力名：</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 0,
+  &quot;ok&quot;: true,
+  &quot;type&quot;: &quot;ready&quot;,
+  &quot;protocol_version&quot;: 1,
+  &quot;worker_id&quot;: 0,
+  &quot;pid&quot;: 12345,
+  &quot;capabilities&quot;: [&quot;processed_g711_v1&quot;]
+}
+</code></pre>
+<p>示例 PID 仅展示字段。Go 使用 <code>g711</code> 模式时，旧 worker 缺少该能力会被拒绝，不能作为健康处理分片接纳呼叫。<code>allocate.processing</code> 必须是以下完整计划：</p>
+<pre><code class="language-json">{
+  &quot;version&quot;: 1,
+  &quot;mode&quot;: &quot;g711&quot;,
+  &quot;jitter_target_ms&quot;: 40,
+  &quot;max_delay_ms&quot;: 120
+}
+</code></pre>
+<p>完整分配请求示例，地址仅供隔离本地 fixture 使用：</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;op&quot;: &quot;allocate&quot;,
+  &quot;session&quot;: 42,
+  &quot;a&quot;: {&quot;rtp&quot;: &quot;127.0.0.1:41400&quot;, &quot;rtcp&quot;: &quot;127.0.0.1:41401&quot;},
+  &quot;payload&quot;: 0,
+  &quot;codec&quot;: {&quot;name&quot;: &quot;PCMU&quot;, &quot;sample_rate&quot;: 8000, &quot;rtp_clock_rate&quot;: 8000, &quot;channels&quot;: 1, &quot;ptime_ms&quot;: 20, &quot;fmtp&quot;: &quot;&quot;},
+  &quot;dtmf_payload&quot;: 101,
+  &quot;dtmf_clock_rate&quot;: 8000,
+  &quot;dtmf_events&quot;: &quot;0-15&quot;,
+  &quot;cn_payload&quot;: 13,
+  &quot;cn_clock_rate&quot;: 8000,
+  &quot;processing&quot;: {&quot;version&quot;: 1, &quot;mode&quot;: &quot;g711&quot;, &quot;jitter_target_ms&quot;: 40, &quot;max_delay_ms&quot;: 120}
+}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>请求/回执</th>
+<th>关键要求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>allocate</code></td>
+<td>相同 session 与全部参数的重复请求返回同一分配；计划不匹配必须失败</td>
+</tr>
+<tr>
+<td><code>allocated</code></td>
+<td>实际创建处理状态才返回 <code>processing_version: 1</code>，并包含 session 与 A/B RTP/RTCP 四端口</td>
+</tr>
+<tr>
+<td>旧 <code>allocated</code></td>
+<td>未请求处理时省略处理版本；请求处理却没有版本，不得当作成功</td>
+</tr>
+<tr>
+<td><code>connect</code></td>
+<td>提交 B 腿真实协商 peer、payload、codec、DTMF/CN；不再次携带或更改 processing 计划</td>
+</tr>
+<tr>
+<td><code>release</code></td>
+<td>不存在 session 也确认；释放图、定时状态及端口，端口仍经过复用隔离</td>
+</tr>
+<tr>
+<td><code>stats</code></td>
+<td>返回真实处理计数；Go 校验必须字段、整数、帧/样本一致性和延迟桶形状</td>
+</tr>
+</tbody></table></div>
+<p>所有命令回执携带对应的 <code>id</code> 与 <code>ok</code>。处理分配成功示例：</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;ok&quot;: true,
+  &quot;type&quot;: &quot;allocated&quot;,
+  &quot;processing_version&quot;: 1,
+  &quot;session&quot;: 42,
+  &quot;a_rtp&quot;: 30000,
+  &quot;a_rtcp&quot;: 30001,
+  &quot;b_rtp&quot;: 30002,
+  &quot;b_rtcp&quot;: 30003
+}
+</code></pre>
+<p>端口必须取实际回执，不能沿用示例值或推测每个请求都能获得同一块。</p>
+<p>建呼阶段的 <code>allocated</code> 只证明资源和处理状态已建立，不代表已经接通、已经执行 codec 或远端收到媒体。业务判断应继续结合 SIP 应答/ACK、处理帧计数与真实对端收包。</p>
+<h2 id="7-故障行为">7. 故障行为</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>情形</th>
+<th>当前处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>非 G.711、非 20ms 或不支持的 SDP</td>
+<td>拒绝，不隐式回退到 relay</td>
+</tr>
+<tr>
+<td>本地 IVR/XML 本地路由使用 g711 模式</td>
+<td>v1.10 返回 488；当前须具备本地能力及正确 local 分配回执，独立验证</td>
+</tr>
+<tr>
+<td>B 腿选择未报价的格式/映射</td>
+<td><code>488 Incompatible SDP Answer</code></td>
+</tr>
+<tr>
+<td>worker 能力缺失或分配版本不符</td>
+<td>启动/媒体 RPC 失败，不能报告处理成功</td>
+</tr>
+<tr>
+<td>媒体资源无法分配</td>
+<td>呼叫清理并返回媒体分配错误；不占住失效通道等待</td>
+</tr>
+<tr>
+<td>音频负载长度错误、未协商辅助 PT/事件</td>
+<td>计入拒绝/格式指标，不送入 codec</td>
+</tr>
+<tr>
+<td>缓冲满、旧包或本机期限过期</td>
+<td>分别计数并丢弃，后续媒体继续有界推进</td>
+</tr>
+<tr>
+<td>发送失败</td>
+<td>不无限等待，不复用已消耗序号，区分网络系统调用失败与发送前期限错失</td>
+</tr>
+<tr>
+<td>来源重启、合法 BYE 或通话释放</td>
+<td>重置相应状态或释放资源；旧来源不能通过旧端口/队列污染新会话</td>
+</tr>
+</tbody></table></div>
+<h2 id="8-可观测指标">8. 可观测指标</h2>
+<p>JSON 入口为 <code>GET /v1/status</code> 的 <code>workers[].stats</code>。标量同时以 <code>rustswitch_media_&lt;字段名&gt;{worker=&quot;…&quot;,generation=&quot;…&quot;}</code> 出现在 <code>/metrics</code>；当前数组桶通过 JSON 获取，不能把它当作已经发布的 Prometheus histogram。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>单位和语义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>processed_active_calls</code></td>
+<td>当前实际拥有处理图的媒体会话数；不是 SIP 已接通数</td>
+</tr>
+<tr>
+<td><code>processed_decoded_frames</code> / <code>processed_decoded_samples</code></td>
+<td>实际解码的主音频帧/样本；不含 CN、DTMF 和缺失</td>
+</tr>
+<tr>
+<td><code>processed_encoded_frames</code> / <code>processed_encoded_samples</code></td>
+<td>实际编码帧/样本，可包含历史补偿；不等于对端收到的帧</td>
+</tr>
+<tr>
+<td><code>processed_plc_frames</code></td>
+<td>有限历史补偿产生 PCM 的次数</td>
+</tr>
+<tr>
+<td><code>processed_missing_frames</code></td>
+<td>无历史或预算耗尽等情况下没有 PCM 的缺失次数</td>
+</tr>
+<tr>
+<td><code>processed_cn_packets</code></td>
+<td>交给处理图的合法CN次数；不表示UDP提交成功，过时SID不增加它</td>
+</tr>
+<tr>
+<td><code>processed_jitter_lost</code></td>
+<td>到期而没有真实音频的主音频位置，包含没有 CN 时停止输入后每腿最多 6 格尾部补偿；不能称为实际网络丢包数</td>
+</tr>
+<tr>
+<td><code>processed_jitter_late</code></td>
+<td>已迟到的输入，包含被新语音覆盖的旧 CN</td>
+</tr>
+<tr>
+<td><code>processed_jitter_reordered</code></td>
+<td>RX 接受到的重排包</td>
+</tr>
+<tr>
+<td><code>processed_jitter_duplicates</code></td>
+<td>重复包或重复音频时间位置</td>
+</tr>
+<tr>
+<td><code>processed_jitter_overflow</code></td>
+<td>槽容量或允许的未来排程范围超限</td>
+</tr>
+<tr>
+<td><code>processed_playout_expired</code></td>
+<td>本机调度已跳过的音频时间位置</td>
+</tr>
+<tr>
+<td><code>processed_aux_expired</code></td>
+<td>辅助期限过期、被语音覆盖的CN，或无法恢复时间映射的旧DTMF</td>
+</tr>
+<tr>
+<td><code>processed_aux_timeouts</code></td>
+<td>未结束事件的有限活动等待超时</td>
+</tr>
+<tr>
+<td><code>processed_queue_reset_drops</code></td>
+<td>辅助重新协商剔除、确认媒体源重启和远端 RTCP BYE 造成的排队包清理；普通时间线重锚不清队列。此指标不统计通话 Release 销毁的待消费尾包，历史累计也不因通话释放而清零</td>
+</tr>
+<tr>
+<td><code>processed_source_resets</code></td>
+<td>经确认的源/序号/时间戳重启</td>
+</tr>
+<tr>
+<td><code>processed_send_errors</code></td>
+<td>实时 RTP/RTCP 的本地发送或构造失败；不含独立记录的发送前期限错失</td>
+</tr>
+<tr>
+<td><code>processed_send_deadline_misses</code></td>
+<td>实时发送期限违例；原桥接发送前迟到至少 20ms 拒发。1.12 PCM 另包含编码前超期及 UDP 已成功返回但相对计划已迟到至少 20ms，实际已发送量仍保留</td>
+</tr>
+<tr>
+<td><code>processed_output_lateness_ns_max</code></td>
+<td>最终发送前（或编码前已确定超期）检查相对计划的最大迟到，单位纳秒；不包含 UDP 调用返回耗时</td>
+</tr>
+<tr>
+<td><code>processed_output_lateness_buckets</code></td>
+<td>同一发送前检查口径的 8 个非累计区间，包含期限拒发尝试；PCM send_return_late 可使 miss 非零但对应发送前桶仍低于 20ms</td>
+</tr>
+</tbody></table></div>
+<p>延迟桶按顺序为：≤250µs、(250µs,500µs]、(500µs,1ms]、(1ms,2ms]、(2ms,5ms]、(5ms,10ms]、(10ms,20ms]、&gt;20ms。它们不是累计 <code>le</code> 桶，也不是端到端口耳延迟或精确 P99；使用者应据真实计数给出分位数所在区间。</p>
+<p>本模式满足 <code>decoded_samples = decoded_frames × 160</code>、<code>encoded_samples = encoded_frames × 160</code>。所有累计值按 worker 进程代次解释，重启后归零；跨代次求和时需保留 generation，不能把重启后的零解释为“此前没有故障”。</p>
+<p>排查时应同时查看既有 <code>rx_packets</code>、<code>tx_packets</code>、<code>source_rejected</code>、<code>invalid_packets</code>、<code>rate_limited</code>、<code>send_errors</code>、内核接收丢包、CPU、内存和准入原因。不要只看 <code>active_calls</code> 就认定媒体已通。</p>
+<p>启动时尚未取得第一份完整 worker stats，数据应显示为未知；缺字段不能补成零。<code>testlab-01</code> 的五项作业各保留一次 <code>status_sampling_errors=1</code>，诊断是 worker 统计字段尚不可用，随后才获得实际样本。该字段同时记录 HTTP 读取失败和响应统计校验失败，因此不能把这五次诊断写成“五次 HTTP 断连”。当前testlab-02外层411次/总采集412次读取错误也为零，五项作业各有一次启动未知统计，详细口径见<a href="release-validation-v1.10.html">发布复核</a>。运行中持续缺统计、代次变化或 HTTP 超时仍须分别排查，不能沿用旧零值。 对失败作业还需区分HTTP读取时刻与worker实际采样时刻：testlab-02的500路最后响应携带发生器退出前的缓存，不能以该帧总数认定完整结束或释放后归零；进程/端口清理由独立证据确认。</p>
+<h2 id="9-freeswitch-对照表关联">9. FreeSWITCH 对照表关联</h2>
+<p>固定原版基线仍为项目既有 FreeSWITCH 1.11.3 / commit <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>。以下关联用于更新现存 ID 的实现范围，不新造或重命名 ID，也不因底层能力出现就自动标绿完整原版接口。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>现存 ID</th>
+<th>本次应体现的范围与剩余差异</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>key-media-transcoding</code></td>
+<td>增加候选 PCMU/PCMA 双向 8k mono 20ms 实时路径；G.722/Opus 等仍未接入该图</td>
+</tr>
+<tr>
+<td><code>key-media-rtp</code></td>
+<td>区分默认原报文 relay 与 opt-in 解码后重新封装；不等同全部 proxy/bypass/normal 模式</td>
+</tr>
+<tr>
+<td><code>key-media-rtcp</code></td>
+<td>增加候选真实 SR/RR/SDES/BYE 终结；rtcp-mux、质量事件和完整调度仍有差异</td>
+</tr>
+<tr>
+<td><code>key-sip-sdp</code></td>
+<td>增加 M1 独立两腿 G.711 报价/选择及辅助交集；不推广为完整 offer/answer/re-INVITE</td>
+</tr>
+<tr>
+<td><code>key-ipc-allocate</code>、<code>key-ipc-connect</code></td>
+<td>增加处理计划、能力握手和回执验证；性质仍是项目内部接口</td>
+</tr>
+<tr>
+<td><code>registration:api:mod_commands:uuid_jitterbuffer:7781</code></td>
+<td>内部存在缓冲不等于实现这个 ESL API；仍须单独实现与验证其完整参数语义</td>
+</tr>
+<tr>
+<td><code>registration:app:mod_dptools:jitterbuffer:6726</code></td>
+<td>不因 M1 自动获得 FreeSWITCH 拨号计划应用入口</td>
+</tr>
+<tr>
+<td><code>event:RECV_RTCP_MESSAGE</code>、<code>event:SEND_RTCP_MESSAGE</code></td>
+<td>实际处理 RTCP 不等于已生成原版同名事件及全部字段</td>
+</tr>
+<tr>
+<td><code>registration:api:mod_commands:uuid_send_dtmf:7774</code></td>
+<td>已有本地 A 腿注入范围保持独立；M1 当前只重封装协商收到的事件，不开放处理桥注入</td>
+</tr>
+<tr>
+<td><code>acceptance:MED-11</code></td>
+<td>只可关联已实测的独立端口与基础报告子场景，不能整行宣称所有 RTCP 变体完成</td>
+</tr>
+<tr>
+<td><code>acceptance:CAP-01</code>、<code>acceptance:CAP-02</code></td>
+<td>仍需对应模式、硬件、双向实际媒体和业务负载容量验收</td>
+</tr>
+</tbody></table></div>
+<p>现有 <code>switch_jb_*</code>、<code>switch_rtp_*</code> 原生函数 ID 和 C 模块 ABI 也没有因为 Rust 内部实现而取得兼容符号。正式对照状态须由主任务绑定最终源码、可执行文件、配置与原始证据后更新。</p>
+<h2 id="10-验证记录与发布待办">10. 验证记录与发布待办</h2>
+<p>已经存在的历史事实：早期错误候选因缺少处理统计字段失败；随后 candidate02、candidate03 在普通 UDP 与 connected UDP 两种模式各有 9 项实际端到端通过。它们属于当时源码的结果，不能覆盖后续发现的旧 CN、新段相位、worker 暂停恢复和迟到 DTMF 问题。</p>
+<p>历史 jitter 修订 07：22 项定向库测试通过，all-targets clippy 零告警；独立虚拟时钟 before/after 证明暂停恢复期限由错误的 421ms 修复为原 400ms。此前的失败原报文和失败日志保留。库测试数与网络端到端测试数是两个集合，不能重复计入绿色数。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>验证项</th>
+<th>v1.10 本轮记录</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前源码、Go/Rust 二进制与原帧</td>
+<td><code>work/voice-runtime-m1-next/build-03</code> 与 <code>processed-03</code>，摘要保存原文件 SHA；完整功能清单在构建与运行前后实际采集</td>
+</tr>
+<tr>
+<td>11 场景 × 两 UDP 模式端到端</td>
+<td>22/22，失败/跳过/超时/强制回收均为 0；20 个接通场景含 22 个真实周期，2 个拒绝场景各保存 3 份未分配状态</td>
+</tr>
+<tr>
+<td>目录与处理能力</td>
+<td>两种模式均捕获实际 <code>/v1/codecs</code>，核对当前 worker 握手与 PT 0/8；离线 SDK 能力不替代此项</td>
+</tr>
+<tr>
+<td>历史图内组合/迟到 DTMF 复测</td>
+<td>原始结果继续保留在 <code>work/voice-runtime-m1</code>，不冒充本轮新增执行次数</td>
+</tr>
+<tr>
+<td>原版固定 26 探针</td>
+<td>当前成对源码指纹下 21 项限定通过、3 项差异、2 项观测；范围是原固定探针，未对 M1 处理图作原版音质/容量对测</td>
+</tr>
+<tr>
+<td>新增发送方暂停恢复</td>
+<td>build-03 共 4/4；旧 build-02 的 2 个普通 UDP 用例均失败并保留原报文</td>
+</tr>
+<tr>
+<td>Go / 原有 E2E / Rust</td>
+<td>Go 272 顶层+441 子例=713；原有 E2E 24 组228；Rust 126 单元+1 集成=127，Clippy 通过</td>
+</tr>
+<tr>
+<td>管理入口 G.711 实测</td>
+<td>历史 build-02：3 单路与100路通过、500路失败；当前build-03/testlab-02同样3单路及100路通过、500路失败，时间戳错误0但剩余内容/序号/过密到达门槛未过</td>
+</tr>
+<tr>
+<td>Linux 5000 / 10000 路处理模式验收</td>
+<td>未完成；需按 M1 的真实 codec 与业务负载单独执行</td>
+</tr>
+<tr>
+<td>运行版本核对</td>
+<td>文档结果来自隔离候选；实际后台版本读取 <code>GET /v1/docs</code> 的 <code>version</code>，媒体有效模式读取 <code>/v1/codecs</code></td>
+</tr>
+</tbody></table></div>
+<p>旧证据保存在 <code>work/voice-runtime-m1/</code>；本轮位于 <code>work/voice-runtime-m1-next/</code>。<code>processed-01</code> 的 connected 模式曾因发生器在短收包尾期到达时提前结束、未发送完整输入而失败；修复只保证循环在原 50ms 发生器迟到上限内完成应发输入，没有延长媒体的 20ms 过期期限。新构建后 <code>processed-02</code> 才取得 22/22。随后新发送方停顿用例复现 build-02 的同源时间轴问题；build-03 修复后以 <code>processed-03</code> 重跑原22项，另以 <code>recovery-after-01</code> 完成4项新网络验证。旧失败没有被覆写，也不能用新通过结果改写其原状态。</p>
+<p>新增用例让同一 SSRC、同160 ticks采样相位的来源停顿183ms，然后恢复原发送计划。晚到输入仍丢弃，恢复后的真实帧沿用来源采样映射，不因墙钟走过而永久偏移；另一方向的内容和时钟必须连续。已发送媒体确实越过新来源位置或来源改变采样相位时，仍需单独防止输出倒退。这与历史媒体进程 <code>SIGSTOP</code> 140ms 用例是不同故障，两组证据分开保留。</p>
+<p>正式26项原版固定探针已按新成对指纹 <code>ec95383d…</code> 重跑并发布JSON：21限定通过、3差异、2观测。原版243文件SHA前后一致，VM已正常关机；此处JSON证据和主服务部署分开，实际运行版本以 <code>/v1/docs</code> 的 <code>version</code> 字段核对。</p>
+<h2 id="11-管理集成与继续工作边界">11. 管理集成与继续工作边界</h2>
+<p>v1.10 候选已将 <code>GET /v1/codecs</code> 接入有效配置及当前 worker 能力：<code>media_mode=g711_audio_graph</code>、<code>runtime_media.processing=g711</code>，所有预期 worker 当前代次均健康且具有 <code>processed_g711_v1</code> 时才报告 <code>live_transcoding=true</code>。<code>live_codec_profiles</code> 在本模式限定 PT 0/PCMU 与 PT 8/PCMA。<code>native_audio</code> 和 <code>native_probe_error</code> 继续单独报告离线 SDK 探测结果。这个目录证明配置与握手就绪，不证明实际通话或容量已经验收。</p>
+<p>管理压力/小电话请求的 <code>media_processing</code> 显式选择独立测试实例模式，省略或空值规范为 <code>relay</code>；不会继承或修改主服务模式。<code>g711</code> 只允许 G.711 预设，并使两腿选择相反编码。已实际验证在 relay 外层管理实例发起 G.711 测试，也验证在 G.711 外层显式发起 relay 测试。请求受理、实例就绪和全部媒体验收是不同阶段。</p>
+<p>处理发生器 <code>g711-pcm-v1</code> 使用独立 G.711 解码校验实际载荷，160 个样本全部检查。测试波形采用 16 个间隔 2048 的 PCM 电平，前部还携带流、方向和帧位置；每个目标样本与来源律解码参考值的绝对误差必须不超过 <strong>512 个有符号 16 位 PCM 幅度单位</strong>。512 是这组已知电平跨律有损量化的固定门槛，不是 512 字节、512ms、任意语音质量标准或允许 512 个错包。只改 PT、串流、固定静音、序号/时间戳错误与超期均不能靠量化容差通过。</p>
+<p>接收端还独立检查新 SSRC、方向、连续序号、时间位置、内容唯一数和有限 PLC 尾帧。正常输入结束后每方向最多 6 帧尾部补偿单列，不计入有效源音频，也不冲抵丢包。发生器的观测窗口与网络到达诊断不改变 Rust 发送前的实时期限。这些结果在旧 build-02 管理测试中表现为100路通过、500路失败；当前build-03复测也仅三单路及100路通过，500路有效唯一内容1,498,372/1,500,000，时间戳错误0，仍有988内容异常、499过密到达、2序号异常和3306发生器迟发，整体失败。</p>
+<p>发生器的 <code>processed_diagnostics</code> 是有界归因附录：内容有效但时间轴错误的包仍不合格，首错原包与写入前后时刻可辅助区分输入迟发和接收失败。每方向首错，接收首错与迟写列表各最多32条；不改变发送/接收期限和有效源音频计数。</p>
+<p>本次尚未完成 G.722/Opus/G.729 等实时图、实时重采样与 16k AI 分支、ASR/VAD/TTS 服务接入、双腿处理桥的播放混入及 DTMF 注入、WebRTC/ICE/DTLS-SRTP、SRTCP/rtcp-mux、完整 FreeSWITCH 模块 ABI 和所有媒体控制入口。</p>
+<p>单向 20ms 为 50 音频包/秒，双向每呼叫为 100 个输入主音频包/秒。5000 路意味着约 50 万输入主音频包/秒，并有相应输出、辅助包、RTCP、SIP 与业务工作量；这只是负载定义，不是已达到的性能数字。旧 relay 容量或离线 codec 吞吐不能推算为 M1 的 5000/10000 路承诺。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

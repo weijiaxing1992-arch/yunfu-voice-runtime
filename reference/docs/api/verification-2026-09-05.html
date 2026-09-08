@@ -1,0 +1,94 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>稳定性优化验证记录 · 2026-09-05 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 稳定性优化验证记录 · 2026-09-05</div><article class="content"><div class="page-tools"><a href="verification-2026-09-05.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 3 节</summary><a href="#通话与故障回归">通话与故障回归</a><a href="#页面测试作业实测">页面测试作业实测</a><a href="#接口页面与完整审计">接口、页面与完整审计</a></details><h1 id="稳定性优化验证记录-2026-09-05">稳定性优化验证记录 · 2026-09-05</h1>
+<p>对应文档 1.2.0、应用 0.3.0。本记录汇总本轮已执行验证；运行环境为 macOS arm64、本机回环，Go 工具链实报 go1.27.1。Linux amd64 控制程序交叉编译成功，仅证明编译和产物格式，尚未在 Linux 上运行。</p>
+<h2 id="通话与故障回归">通话与故障回归</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>验证</th>
+<th>实际结果</th>
+<th>边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Go 全包竞态检测</td>
+<td>通过</td>
+<td>覆盖控制、管理、媒体监管、信令、日志、配置与发生器；未变更包可使用测试缓存</td>
+</tr>
+<tr>
+<td>Go 静态检查</td>
+<td>通过</td>
+<td>不替代真实运行与原版差分</td>
+</tr>
+<tr>
+<td>Rust 单元测试</td>
+<td>14 项通过</td>
+<td>覆盖接收预算、冷却调度、控制输出及既有媒体部件</td>
+</tr>
+<tr>
+<td>Rust 独立子进程故障</td>
+<td>1 项通过</td>
+<td>不读取 stdout，验证限时退出和端口释放</td>
+</tr>
+<tr>
+<td>Rust clippy / 格式</td>
+<td>通过</td>
+<td>本机目标检查，未执行 Linux epoll/recvmmsg</td>
+</tr>
+<tr>
+<td>普通 UDP 真实通话</td>
+<td>17 项全部通过，17.434 秒</td>
+<td>本机双腿 SIP、RTP、RTCP、DTMF 与故障注入</td>
+</tr>
+<tr>
+<td>connected UDP 真实通话</td>
+<td>17 项全部通过，17.452 秒</td>
+<td>同组场景使用固定对端 socket</td>
+</tr>
+<tr>
+<td>G.711 C ABI 示例</td>
+<td>通过</td>
+<td>ABI 1、160 样本，最大绝对误差 501；不是完整转码功能验收</td>
+</tr>
+</tbody></table></div>
+<p>真实通话包括连续 183 后最终 200 使用最终媒体地址、取消后迟到应答清理、缺少 ACK 回收、端口复用拒绝旧来源、分片故障及另一分片持续转发、正常排空、保护策略调整保留现有通话。反复建拆以后台目录和 16 通暖机后取得基线，再执行 16 通并静置超过采样周期；检查活跃/接通/媒体资源归零及协程、线程没有按通话数遗留。暖机是为了排除 Go 首轮 GC 的固定后台工作者，判定上限未扩大。</p>
+<p>定向回归另外覆盖：1000 次同通话媒体更新只执行首个和最终目标；万次媒体提交受固定队列和一个在途任务限制；错配成功响应、释放契约失败及卡住 RPC；管理重请求预算；20 个成功与错误响应路径在解锁后写入；真实慢 XML 响应期间状态和排空仍可执行。</p>
+<h2 id="页面测试作业实测">页面测试作业实测</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>建立通话</th>
+<th>实际发送 / 唯一收到</th>
+<th>未收到</th>
+<th>清理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PCMU 单路、3 秒</td>
+<td>1 / 1</td>
+<td>300 / 300</td>
+<td>0</td>
+<td>专属进程、端口、目录全部释放</td>
+</tr>
+<tr>
+<td>PCMU 500 并发、100 CPS、10 秒</td>
+<td>500 / 500</td>
+<td>499,952 / 499,952</td>
+<td>0</td>
+<td>专属进程、端口、目录全部释放</td>
+</tr>
+<tr>
+<td>媒体阶段主动停止</td>
+<td>已观察到媒体阶段</td>
+<td>停止任务不作为容量通过项</td>
+<td>不作完整负载结论</td>
+<td>全部清理，报告可下载</td>
+</tr>
+</tbody></table></div>
+<p>500 并发名义负载为 500,000 包，实际发送比例为 99.9904%，发生器写错误为 0。并未把名义包数当作真实发送；主服务的配置版本、有效配置及保护策略在作业前后保持一致。创建幂等重试、参数冲突、JSON/类型/CSRF 校验均通过。</p>
+<p>这些短时结果只证明当前本机回环场景。更长作业的实际结果可在后台「压力与电话测试」中查看；任务历史保存在内存，重启会清空，应下载报告留存。没有从 500 并发外推一万路、外网通话或无限时长无泄漏。</p>
+<h2 id="接口页面与完整审计">接口、页面与完整审计</h2>
+<p>OpenAPI 3.1 校验通过，25 个 HTTP 操作、57 个数据模型与实际路由对应；新增 controller 状态及实际测试报告均经过模型验证。发布文件、清单 SHA-256 和 ZIP 内容逐一核对。页面脚本语法通过，浏览器完整模块表包含 145 行、业务表包含 35 行，能够查看遗漏的 <code>mod_com_g729</code> 构建目录。</p>
+<p>FreeSWITCH 审计固定为 1.11.3 及提交 <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>：核对 712 份选定参考源码、538 个注册点、完整树的 144 个模块目录和 1 个 SDK 目录。5 项静态反例/烟测通过。详细范围与每项差距见<a href="feature-audit.html">完整功能审计</a>。</p>
+<p><strong>原版 FreeSWITCH 动态成对用例执行数仍为 0；无感替换、全模块兼容、Linux 万路及“全面超越”均未认证。</strong> 录音、会议、ESL、XML 执行、完整 Sofia 注册鉴权、转码与在线状态接管等主要缺口必须分别实现并取得运行证据。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

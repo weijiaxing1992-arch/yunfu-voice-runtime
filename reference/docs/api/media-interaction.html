@@ -1,0 +1,234 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>媒体按键采集、提示音与 PCM 接口 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 媒体按键采集、提示音与 PCM 接口</div><article class="content"><div class="page-tools"><a href="media-interaction.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#通道与生命周期">通道与生命周期</a><a href="#拉取真实按键">拉取真实按键</a><a href="#真实-g711-提示音">真实 G.711 提示音</a><a href="#验证与证据边界">验证与证据边界</a><a href="#pcm-与既有应用的并存规则">PCM 与既有应用的并存规则</a></details><h1 id="媒体按键采集提示音与-pcm-接口">媒体按键采集、提示音与 PCM 接口</h1>
+<p>文档版本 1.12.0。本页描述 RustSwitch 自有 Go→Rust 逐行 JSON 交互媒体协议；独立流式音频合同见 <a href="pcm-turn-reference.html">PCM turn</a>，已 ACK 的外部入口见 <a href="rva1-reference.html">RVA1</a>。它为本地 IVR 和已有桥接通话提供真实 telephone-event 输入与 G.711 提示音，不是 FreeSWITCH ESL 协议，也不是完整播放器、实时 AI、ASR、TTS 或全编解码转码接口。</p>
+<p>参考基线仍为 FreeSWITCH 1.11.3，提交 <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>。原版通道按键队列、收号和文件播放分别见 <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/switch_channel.c#L504" target="_blank" rel="noopener noreferrer">switch_channel_queue_dtmf</a>、<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/switch_ivr.c#L1342" target="_blank" rel="noopener noreferrer">switch_ivr_collect_digits_count</a>、<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/switch_ivr_play_say.c#L1247" target="_blank" rel="noopener noreferrer">switch_ivr_play_file</a>。本实现没有替代这些函数的全部语义；本地回归不等于原版对测。</p>
+<h2 id="通道与生命周期">通道与生命周期</h2>
+<p>一行一个请求、一行一个对应响应，<code>id</code> 是本次 RPC 的关联编号。Go 的 JSON 控制管道每 worker 串行处理一个在途请求，写入和回复共用一秒期限；控制队列与行长度都有上限。PCM 数据另用每 worker 一条独立 FD3 datagram lane，不把每帧样本送进 JSON 或 SIP 主循环。内部版本暂保持 <code>protocol_version:1</code>，原有 allocate/connect/release/stats 字段继续兼容；旧媒体程序会明确拒绝新操作，不能用旧程序声称已支持交互能力。</p>
+<p><code>allocate</code> 保存已验证的 A 腿 RTP/RTCP 地址与 offer 中的编码、telephone-event 参数。只 A 腿的本地 IVR 可以采集 A 按键并向 A 播放，无需假 B 地址。relay 桥接在 <code>connect</code> 后双向采集与原样转发；g711 bridge 则经过真实解码/编码图，见 <a href="processed-media-reference.html">处理合同</a>。仍然分配四个 UDP 端口，本地 IVR 未优化为两端口模式。</p>
+<p>主编码、DTMF PT、独立时钟和事件集合沿用原协商契约。采集发生在源地址、RTP 结构、PT、事件集合及速率验证之后；不做 NAT 自动学习、带内 DTMF 检测或 SRTP 解密。源地址匹配不是密码学认证。</p>
+<p>释放会话会关闭 socket、取消未完成按键、播放及 PCM turn 计时项并清待发队列；释放本身不生成虚假的播放成功状态。已产生的全局事件暂留在有界日志中；消费者必须同时匹配 worker 代次和会话号，不能把释放后读到的历史事件分配给新呼叫。</p>
+<h2 id="拉取真实按键">拉取真实按键</h2>
+<p>请求：</p>
+<pre><code class="language-json">{&quot;id&quot;:10,&quot;op&quot;:&quot;dtmf_events&quot;,&quot;after_seq&quot;:0,&quot;limit&quot;:64}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型与范围</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>after_seq</code></td>
+<td>uint64，缺省 0</td>
+<td>当前 worker 代次内已消费的末尾事件序号。不能大于当前最新序号。</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>整数 1–64</td>
+<td>最多交付的事件数；不接受 0 或任意批量大小。</td>
+</tr>
+</tbody></table></div>
+<p>正常响应示例：</p>
+<pre><code class="language-json">{&quot;id&quot;:10,&quot;ok&quot;:true,&quot;type&quot;:&quot;dtmf_events&quot;,&quot;events&quot;:[{&quot;sequence&quot;:1,&quot;session&quot;:42,&quot;leg&quot;:&quot;a&quot;,&quot;kind&quot;:&quot;digit&quot;,&quot;digit&quot;:&quot;5&quot;,&quot;event&quot;:5,&quot;duration_ticks&quot;:4800,&quot;clock_rate&quot;:48000,&quot;ssrc&quot;:1234,&quot;timestamp&quot;:10000,&quot;reason&quot;:&quot;&quot;}],&quot;next_seq&quot;:1,&quot;oldest_seq&quot;:1,&quot;overflow&quot;:false}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>响应字段</th>
+<th>语义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>events</code></td>
+<td>本批事件数组，最多 64 项。空数组只表示当前没有新交付的完成或不完整事件。</td>
+</tr>
+<tr>
+<td><code>next_seq</code></td>
+<td>本批实际交付末尾序号；空批次保持请求游标。不能直接推进到尚未交付的全局最新序号。</td>
+</tr>
+<tr>
+<td><code>oldest_seq</code></td>
+<td>日志仍保留的最早序号；尚无事件时为 1。</td>
+</tr>
+<tr>
+<td><code>overflow</code></td>
+<td><code>after_seq &lt; oldest_seq - 1</code>。存在已被覆盖的事件，活跃收号必须明确失败，不能按普通超时处理。</td>
+</tr>
+</tbody></table></div>
+<p>每个事件的字段：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>语义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sequence</code></td>
+<td>uint64</td>
+<td>worker 代次内严格递增的全局序号。</td>
+</tr>
+<tr>
+<td><code>session</code></td>
+<td>uint64</td>
+<td>原始媒体会话编号，不是端口或 SIP Call-ID。</td>
+</tr>
+<tr>
+<td><code>leg</code></td>
+<td><code>a</code> / <code>b</code></td>
+<td>输入来源腿。</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>digit</code> / <code>incomplete</code></td>
+<td>完成事件或可确认的不完整输入。</td>
+</tr>
+<tr>
+<td><code>digit</code></td>
+<td>字符串</td>
+<td><code>0</code>–<code>9</code>、<code>*</code>、<code>#</code>、<code>A</code>–<code>D</code>；事件 16（flash）与不完整事件为空。</td>
+</tr>
+<tr>
+<td><code>event</code></td>
+<td>uint8，0–16</td>
+<td>原始事件编号，必须属于协商集合。</td>
+</tr>
+<tr>
+<td><code>duration_ticks</code></td>
+<td>uint16</td>
+<td>报文中的持续刻度；实际时长为该值除以 <code>clock_rate</code>。</td>
+</tr>
+<tr>
+<td><code>clock_rate</code></td>
+<td>uint32</td>
+<td>已协商的 8000、16000、32000、44100 或 48000 Hz；与主音频时钟可以不同。</td>
+</tr>
+<tr>
+<td><code>ssrc</code> / <code>timestamp</code></td>
+<td>uint32</td>
+<td>原始 RTP 同步源和事件起点；不是墙钟时间。</td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>字符串</td>
+<td>完成时为空；不完整时提供原因。</td>
+</tr>
+</tbody></table></div>
+<p>只有真实收到 E 位且持续时间非零的合法事件才会形成完成通知。relay 的合法重复结束包继续转发；g711 bridge 保持同事件输出起点并使用本机序号，本地单腿不回送入站事件。采集层按腿、SSRC、事件起点和编号去重。每方向保留最近 32 项，并用至多四个 SSRC 的时间戳水位拒绝缓存覆盖后的旧重传，支持时间戳自然回绕。这里实现的是常用按键集合；RFC 长事件分段没有完整重组能力，检测到分段会拒绝假报多个按键。<a href="https://www.rfc-editor.org/rfc/rfc4733" target="_blank" rel="noopener noreferrer">RFC 4733</a></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th><code>incomplete.reason</code></th>
+<th>触发条件与业务处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>end_packet_not_received</code></td>
+<td>已收到起始/持续事件，两秒没有后续包且未确认结束；不得补造完成数字。</td>
+</tr>
+<tr>
+<td><code>next_event_before_end</code></td>
+<td>同 SSRC 下一起点已到达，上次事件仍未结束；先交付缺口，再交付新事件。</td>
+</tr>
+<tr>
+<td><code>pending_event_evicted</code></td>
+<td>32 项有界记录被填满时仍有未完成项；明确暴露丢失的状态。</td>
+</tr>
+<tr>
+<td><code>segmented_event_unsupported</code></td>
+<td>检测到尚未支持的长事件分段。</td>
+</tr>
+<tr>
+<td><code>ssrc_limit</code></td>
+<td>同方向已观察到四个 SSRC，再出现新来源编号；该方向采集进入不可用状态，直到会话释放。</td>
+</tr>
+<tr>
+<td><code>event_rate_limit</code></td>
+<td>新事件超过每方向 50 次/秒及 50 次突发预算；该方向采集进入不可用状态，直到会话释放。</td>
+</tr>
+</tbody></table></div>
+<p>消费者收到 <code>incomplete</code> 应将该次收号明确失败；对采集防护导致的不可用状态，后续收号也应拒绝。此状态不停止原有合法桥接 RTP。worker 全局只保留 1024 个事件，覆盖通过游标显式暴露，空闲万路不会为每路创建事件队列或轮询协程。</p>
+<p>推荐由控制主循环以固定节拍按 worker 拉取，每 worker 最多一个在途 RPC，完成回调只投递到有界结果队列。Go 的 <code>Request.AfterSeq/Limit</code> 与 <code>Reply.Events/NextSeq/OldestSeq/Overflow</code> 已提供强校验；每个 worker 重启后必须重建游标，不跨代次续用。</p>
+<p>未收到包不能证明音频静默；如果所有事件包都在到达本机前丢失，本采集器无法凭空检测按键。它不会把报文缺失编码成“静音帧”或正常完成。应用若需要语音活动检测、网络质量定位或严格区分全部丢包与无人输入，需单独实现并验收。</p>
+<h2 id="真实-g711-提示音">真实 G.711 提示音</h2>
+<p>启动示例：</p>
+<pre><code class="language-json">{&quot;id&quot;:20,&quot;op&quot;:&quot;playback_start&quot;,&quot;session&quot;:42,&quot;playback_id&quot;:1,&quot;leg&quot;:&quot;a&quot;,&quot;frequency_hz&quot;:1000,&quot;duration_ms&quot;:200}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>session</code></td>
+<td>必须为当前 worker 已分配的会话。</td>
+</tr>
+<tr>
+<td><code>playback_id</code></td>
+<td>非零 uint64；新任务编号必须大于该会话上一任务。相同编号、相同参数重试返回原状态，不重播。</td>
+</tr>
+<tr>
+<td><code>leg</code></td>
+<td><code>a</code> 或 <code>b</code>；A 可在仅本地一腿模式播放，B 必须已设置真实对端。</td>
+</tr>
+<tr>
+<td><code>frequency_hz</code></td>
+<td>单频 200–2000 Hz。</td>
+</tr>
+<tr>
+<td><code>duration_ms</code></td>
+<td>20–10000 毫秒，必须为 20 的整数倍。</td>
+</tr>
+</tbody></table></div>
+<p>仅接受已协商的 PCMU/PCMA、8 kHz、单声道，包括正确声明的动态 PT。按协议协商的 PT 生成真实 μ-law/A-law 字节，20 毫秒一个 160 字节音频负载。RTP 音频时间戳每包增加 160。relay 的旧播放源独立于桥中原 RTP 流，不能由该路径推导完整 RTCP 发送端报告；g711 local 的原 PCM 则进入图编码，与 PCM turn/DTMF 共享 TX 身份并产生本机 RTCP。g711 bridge 不支持播放注入。<a href="https://www.rfc-editor.org/rfc/rfc3551" target="_blank" rel="noopener noreferrer">RFC 3551</a></p>
+<p>一个会话同时最多一项播放，一个 worker 同时最多 64 项。relay 桥播放期间只替代目标腿来自桥另一端的主音频和 CN 舒适噪声；反方向主音频、telephone-event 与 RTCP 继续转发。目的腿原主音频及 CN 有意被替代的数量记入 <code>stats.playback_replaced_packets</code>，不能把该数解释为拥塞丢包。结束或停止后恢复普通桥转发。</p>
+<p>查询与停止：</p>
+<pre><code class="language-json">{&quot;id&quot;:21,&quot;op&quot;:&quot;playback_status&quot;,&quot;session&quot;:42,&quot;playback_id&quot;:1}
+{&quot;id&quot;:22,&quot;op&quot;:&quot;playback_stop&quot;,&quot;session&quot;:42,&quot;playback_id&quot;:1}
+</code></pre>
+<p>三种操作均返回同类状态：</p>
+<pre><code class="language-json">{&quot;id&quot;:21,&quot;ok&quot;:true,&quot;type&quot;:&quot;playback_state&quot;,&quot;session&quot;:42,&quot;playback_id&quot;:1,&quot;state&quot;:&quot;completed&quot;,&quot;sent_packets&quot;:10,&quot;total_packets&quot;:10,&quot;message&quot;:&quot;&quot;}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th><code>state</code></th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>loading</code></td>
+<td>仅文件放音：已受理但尚未解码，此时sent/total均为0；失败/取消仍可发生，不能据此报告已发音。</td>
+</tr>
+<tr>
+<td><code>running</code></td>
+<td>正在发送或等待最后一帧的播放时间结束。</td>
+</tr>
+<tr>
+<td><code>completed</code></td>
+<td>所有标称包均被本机 UDP 接受，且最后一帧的 20 毫秒时间已结束。不能只凭此认定远端收到或播放。</td>
+</tr>
+<tr>
+<td><code>stopped</code></td>
+<td>收到匹配任务编号的停止命令；不假报完成。重复停止返回同状态。</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>调度迟到超过一帧，或 UDP 发送失败/阻塞；<code>message</code> 给出具体原因。</td>
+</tr>
+</tbody></table></div>
+<p><code>sent_packets</code> 是本机成功发送数；单音的 <code>total_packets</code> 为原始时长除以20；WAV加载成功后为ceil(samples/160)，加载中为0，不会为失败或少发缩小分母。任务迟到不会靠连续补发制造突发，也不会延长播放窗口后假报原时长完成。</p>
+<p>下列请求返回 <code>ok:false,type:error,message</code>：未知会话、缺失 B 对端、非 G.711 编码、超出频率/时长范围、相同任务号不同参数、已有播放仍运行、旧任务号、新播放超过 worker 上限，或查询/停止不匹配的任务。调用者必须发布失败的 ESL 应用完成事件，不能报告成功。</p>
+<p>输入没有文件名、下载地址、shell 命令或插件路径。应用层最多映射所声明的有限单音形式，例如 <code>tone_stream://%(200,0,1000)</code>；WAV文件通过独立 <code>playback_file_start</code> 入口提供，详见 <a href="file-playback-reference.html">文件合同</a>；多频节奏、音乐等待、TTS 和完整原版 <code>tone_stream</code> 语法仍不在本接口范围内。</p>
+<h2 id="验证与证据边界">验证与证据边界</h2>
+<p>纯 Rust 状态回归覆盖结束去重、跨时钟、缺结束和下一事件缺口、1024 项日志覆盖与 16 KiB 控制行边界、旧事件重放/时间戳回绕、SSRC 和事件率预算、长事件分段拒绝、G.711 波形与 RTP 递增、播放迟到失败。</p>
+<p><code>tests/media_interaction_e2e.py</code> 使用真实 Rust worker、独立 UDP 端点和独立 G.711 解码检查，验证完成去重但原样桥转发、48 kHz telephone-event、错误来源/PT/事件拒绝、缺结束包、释放取消计时、本地只 A 腿、PCMU/PCMA 实际正弦相关度、播放停止和恢复桥、播放期间反向音频及双腿按键。应分别运行普通 UDP 与 connected UDP 模式，并保留每轮日志；子环境若 UDP 绑定被拒绝，属于未执行网络验证，不能列为通过。</p>
+<p>以上证明功能路径和已测报文行为，不代表声卡听感、原版 FreeSWITCH 对测、SIP 全协议兼容、语音 AI 对话质量或 10000 路主动播放容量。媒体透传容量与主动播放/收号功能组合必须分别验收。</p>
+<h2 id="pcm-与既有应用的并存规则">PCM 与既有应用的并存规则</h2>
+<p>本地 g711 的 PCM turn 与 tone/WAV 只能有一个音频发送所有者；外部 SDK 同时检查已执行和排队的提示音应用。纯静默 read 和 park 不持有音频 TX，仍可收集真实输入按键；本地主动 DTMF 可以与 PCM 共用 RTP SSRC/包序，事件时间戳不随结束重传变化。</p>
+<p><code>playback_stop</code>、<code>uuid_break</code> 和 read 终止符不自动取消 PCM。轮次中断必须使用对应 turn_id 的 INTERRUPT，并核对实际 sent/discarded/queued 与终态；受理或本地句柄关闭不等于 Rust 停发。完整帧格式、背压、未知结果与尾帧语义分别见 <a href="pcm-turn-reference.html">内部 PCM</a> 和 <a href="rva1-reference.html">RVA1</a>。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

@@ -1,0 +1,15 @@
+{
+  "at": "2026-09-08T04:18:55.755661+00:00",
+  "passed": true,
+  "scope": "源码、依赖、已编译回执、差异、原始状态和文件完整性；发布门禁未通过。",
+  "errors": [],
+  "source_counts": {
+    "main": 1126,
+    "asr-candidate": 1171
+  },
+  "vendor_crates": 39,
+  "asr_historical_binding_files": 896,
+  "main_and_candidate_build_passed": true,
+  "release_gate_passed": false,
+  "main_service_restarted": false
+}

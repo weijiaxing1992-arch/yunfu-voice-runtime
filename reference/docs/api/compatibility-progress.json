@@ -1,0 +1,83 @@
+{
+  "baseline": {
+    "comparison_entries": 3994,
+    "green_entries": 77,
+    "implementation_counts": {
+      "export_only": 882,
+      "implemented": 19,
+      "internal_only": 18,
+      "not_implemented": 2844,
+      "not_verified": 178,
+      "partial": 53
+    },
+    "local_counts": {
+      "failed": 1,
+      "not_run": 3916,
+      "passed": 77
+    },
+    "version": "1.12.0"
+  },
+  "baseline_sha256": "145b25f752a6c1072b7e800d57aa9133d5acd93d61910988111519a8356446ea",
+  "changes": {
+    "added_ids": [
+      "key-api-rx-sdk",
+      "key-ipc-rx-status",
+      "key-ipc-rx-stream",
+      "key-ipc-rx-subscribe",
+      "key-ipc-rx-unsubscribe"
+    ],
+    "implementation_changed": [],
+    "lost_green": [],
+    "new_green": [
+      {
+        "id": "key-api-rx-sdk",
+        "name": "内部Go服务端上行音频SDK",
+        "scope": "内部Go收音句柄、SIP授权、交付期限及挂断清理；PCMU/PCMA×普通/connected UDP 的真实 Rust→RXS2→Go SDK、本地 A 腿、8kHz/20ms；正常样本/250ms接收暂停/实际SIP授权清理共12子例。仅内部SDK，非HTTP、原版FS成对、ASR供应商、Linux运行或容量认证。MSG_PEEK仅核实OS队首，不代表整个队列抓包。"
+      },
+      {
+        "id": "key-ipc-rx-status",
+        "name": "内部上行订阅状态与对账",
+        "scope": "实际身份、事件/样本计数和失败后仍可查询；PCMU/PCMA×普通/connected UDP 的真实 Rust→RXS2→Go SDK、本地 A 腿、8kHz/20ms；正常样本/250ms接收暂停/实际SIP授权清理共12子例。仅内部SDK，非HTTP、原版FS成对、ASR供应商、Linux运行或容量认证。MSG_PEEK仅核实OS队首，不代表整个队列抓包。"
+      },
+      {
+        "id": "key-ipc-rx-stream",
+        "name": "内部RXS2原生音频数据流",
+        "scope": "真实G.711输入逐样本核对、原始期限和过期拒绝；PCMU/PCMA×普通/connected UDP 的真实 Rust→RXS2→Go SDK、本地 A 腿、8kHz/20ms；正常样本/250ms接收暂停/实际SIP授权清理共12子例。仅内部SDK，非HTTP、原版FS成对、ASR供应商、Linux运行或容量认证。MSG_PEEK仅核实OS队首，不代表整个队列抓包。"
+      },
+      {
+        "id": "key-ipc-rx-subscribe",
+        "name": "内部原生音频上行订阅",
+        "scope": "真实订阅及ACK前/错误来源ACK拒绝；PCMU/PCMA×普通/connected UDP 的真实 Rust→RXS2→Go SDK、本地 A 腿、8kHz/20ms；正常样本/250ms接收暂停/实际SIP授权清理共12子例。仅内部SDK，非HTTP、原版FS成对、ASR供应商、Linux运行或容量认证。MSG_PEEK仅核实OS队首，不代表整个队列抓包。"
+      },
+      {
+        "id": "key-ipc-rx-unsubscribe",
+        "name": "内部上行停止与终态",
+        "scope": "明确退订、挂断撤销、资源归零及端口重新绑定；PCMU/PCMA×普通/connected UDP 的真实 Rust→RXS2→Go SDK、本地 A 腿、8kHz/20ms；正常样本/250ms接收暂停/实际SIP授权清理共12子例。仅内部SDK，非HTTP、原版FS成对、ASR供应商、Linux运行或容量认证。MSG_PEEK仅核实OS队首，不代表整个队列抓包。"
+      }
+    ],
+    "removed_ids": []
+  },
+  "comparison_sha256": "507e7cd6f0325a432630574f8321b7baaec351dd2dda4fee45732285214a376e",
+  "current": {
+    "comparison_entries": 3999,
+    "green_entries": 82,
+    "implementation_counts": {
+      "export_only": 882,
+      "implemented": 19,
+      "internal_only": 23,
+      "not_implemented": 2844,
+      "not_verified": 178,
+      "partial": 53
+    },
+    "local_counts": {
+      "failed": 1,
+      "not_run": 3916,
+      "passed": 82
+    },
+    "version": "1.13.0"
+  },
+  "runtime_sha256": "7416935c18a70665ab7be6fd9a878a06c737fb8fab1329f6f82631770aba45f5",
+  "schema_version": "1.0.0",
+  "scope": "通过数只代表当前源码下的限定本地断言。目录条目并非独立功能数量；增量不是FreeSWITCH完整兼容率。",
+  "source_sha256": "785beb8572bad9e47ecfd84a587bfd30d9fc8c59070f2bffc9d5fa82bb09e500"
+}

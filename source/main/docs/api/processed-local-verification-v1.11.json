@@ -1,0 +1,81 @@
+{
+  "kind": "processed_local_complete_review",
+  "reviewed_at": "2026-09-06T19:25:22.004133+00:00",
+  "passed": true,
+  "artifact_base": "local-01",
+  "original_receipt": {
+    "path": "local-01/local.receipt.json",
+    "sha256": "626140a3b8ff88377305899d878d15cc5e194c735187eb7503c624e5d9f15d2f",
+    "bytes": 235896
+  },
+  "detailed_replay": {
+    "path": "review/local-01-rfc3339-review.json",
+    "sha256": "662f10f1f4ac8ec502ce00fbf4ab57a8fdf139621b117ed70e68276c7ec22eaf",
+    "bytes": 117814
+  },
+  "independent_review_not_new_execution": true,
+  "binaries_at_review": {
+    "control": {
+      "path": "/workspace/yunfu-voice-runtime/work/voice-runtime-m2-local/build-01/rustswitch",
+      "sha256": "99a362cb26e174e8170527ac40d3b6ba3ada75cd7b5c8e7bfe1921aeba265c4e"
+    },
+    "media": {
+      "path": "/workspace/yunfu-voice-runtime/work/voice-runtime-m2-local/build-01/rustswitch-media",
+      "sha256": "efbfbfbb5f4ccb11bb9d2c4e187b4b97bcfb4518eacbbcaa68e87f8c985994ba"
+    }
+  },
+  "build_artifacts_at_review": {
+    "build.json": "1c17b4da77311464f0f2b48baa0058cefd1d882c945a85f00b4947dfc7842c2a",
+    "runtime-build.json": "3cfb84f14634b76adfffbbdb0467dcb476b339a6590d28b3eefaa3b85ac580f0"
+  },
+  "execution_started_at": "2026-09-06T19:21:50.864760+00:00",
+  "execution_finished_at": "2026-09-06T19:23:12.007638+00:00",
+  "source_before_after_equal": true,
+  "source_file_count": 403,
+  "tests_file_count": 23,
+  "modes": [
+    {
+      "mode": "udp",
+      "passed": 13,
+      "subtests_passed": 7,
+      "wall_seconds": 40.479757209000006,
+      "cases": 13,
+      "normal_exits": 13,
+      "raw_records": 684,
+      "raw_bytes": 146702,
+      "sip_calls": 18
+    },
+    {
+      "mode": "connected",
+      "passed": 13,
+      "subtests_passed": 7,
+      "wall_seconds": 40.575866375000004,
+      "cases": 13,
+      "normal_exits": 13,
+      "raw_records": 682,
+      "raw_bytes": 146358,
+      "sip_calls": 18
+    }
+  ],
+  "full_acked_bye_calls": 28,
+  "allocated_without_ack_reclaimed": 2,
+  "rejected_before_allocate": 6,
+  "tests_passed": 26,
+  "subtests_passed": 14,
+  "scope": "真实本地单腿G711 8kHz/20ms，PCMU与PCMA有限播放/收号/媒体图。",
+  "scope_limitations": [
+    "不并入旧双腿22项证据；不是FreeSWITCH成对、ASR/TTS或容量认证。",
+    "PCM逐样本界限512，末帧补零独立检查；PLC不是实际网络丢包或VAD沉默。"
+  ],
+  "original_collector_outcome": "failed",
+  "original_collector_reason": "仅1个合法5位小数RFC3339时间在Python3.9解析失败，所有26测试均实际成功；旧false收据不改。",
+  "outcome": "passed_scoped",
+  "review_source": {
+    "path": "work/voice-runtime-m2-local/review/local-01-complete-review.json",
+    "sha256": "105ce0cc7ed8888b25bc3825bedc785e0123a45394066105b5d34bcc2f88f54d"
+  },
+  "documentation_version": "1.11.0",
+  "original_raw_evidence_base": "work/voice-runtime-m2-local/local-01",
+  "does_not_grant_comparison_green": true,
+  "deployment_status_source": "GET /v1/docs 返回的 version 字段；此文件为隔离候选测试记录"
+}

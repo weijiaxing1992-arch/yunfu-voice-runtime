@@ -1,0 +1,130 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>07 · 当前实现差距与落实顺序 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 07 · 当前实现差距与落实顺序</div><article class="content"><div class="page-tools"><a href="07-current-gap-and-roadmap.md" download>Markdown 原稿</a><a href="../api/openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#71-对照-rustswitch-03文档发行版本-15">7.1 对照 RustSwitch 0.3（文档发行版本 1.5）</a><a href="#72-架构要求保持用户指定语言边界">7.2 架构要求保持用户指定语言边界</a><a href="#73-兼容宿主与独立替换是不同阶段">7.3 兼容宿主与独立替换是不同阶段</a><a href="#74-实现顺序与退出条件">7.4 实现顺序与退出条件</a><a href="#75-当前可对外表述">7.5 当前可对外表述</a></details><h1 id="07-当前实现差距与落实顺序">07 · 当前实现差距与落实顺序</h1>
+<h2 id="71-对照-rustswitch-03文档发行版本-15">7.1 对照 RustSwitch 0.3（文档发行版本 1.5）</h2>
+<p>这是对本仓库当前源码与绑定运行证据的检查，不是对未来实现能力的限制，也没有将自有接口或局部通过计为 FreeSWITCH 完整契约通过。本轮已运行原版：26项成对探针中21项限定场景通过、3项行为差异、2项身份/入口发现；Go 413项、端到端96项通过，3979个原条目的完整契约仍无通过认证。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>兼容面</th>
+<th>当前能力</th>
+<th>距离本标准的缺口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ESL/fs_cli/libesl</td>
+<td>可选入站监听、认证、api/bgapi、基础订阅/筛选和 plain/JSON/XML 事件子集；console_execute 单 API 路径及原版 fs_cli 三条命令已实测</td>
+<td>完整入站语义、出站协议、sendmsg 应用执行、别名/批处理/补全及交互、全部客户端与事件行为尚未完成</td>
+</tr>
+<tr>
+<td>FreeSWITCH API/应用</td>
+<td>自有 HTTP 管理接口之外新增9个有限 ESL API 入口，真实 UUID 查询/变量/挂机由呼叫主循环处理</td>
+<td>其余 API、完整参数/错误/副作用语义、拨号计划应用与模块命名空间；当前9个入口也未获完整契约认证</td>
+</tr>
+<tr>
+<td>XML配置/目录/拨号计划</td>
+<td>自有 JSON 运行配置、固定上游；管理页提供模板编辑和受限 XML 导入/导出</td>
+<td>原 XML 运行语义、预处理、directory、dialplan/chatplan、原版热重载及 XML Curl 待实现</td>
+</tr>
+<tr>
+<td>事件/CDR</td>
+<td>自有 JSONL 日志和指标之外提供 BACKGROUND_JOB、CHANNEL_CREATE、CHANNEL_ANSWER、CHANNEL_HANGUP 四类 ESL 事件子集</td>
+<td>完整事件头、CUSTOM 子类、应用事件及 CSV/XML/JSON CDR；不能直接替代全部原消费者</td>
+</tr>
+<tr>
+<td>SIP</td>
+<td>UDP/TCP/TLS、可信固定中继、有限 INVITE/ACK/CANCEL/BYE/OPTIONS；真实双腿 RTP 与断线回收回归</td>
+<td>完整 Sofia profile/gateway、注册鉴权、WS/WSS、路由、PRACK、转接、重协商等缺失；三种传输的 OPTIONS 能力比较均保留差异</td>
+</tr>
+<tr>
+<td>媒体</td>
+<td>G.711/G.722/Opus/G.729/G.726 等受限格式的动态 PT 协商和同编码透传、RTCP 与 telephone-event 转发；独立规范 PCM/编解码 SDK</td>
+<td>实时双腿转码、跨腿 PT 改写、SRTP/ICE、完整 RTCP、NAT 学习、录音、会议、IVR 等缺失</td>
+</tr>
+<tr>
+<td>脚本</td>
+<td>未集成Lua/V8/Python会话宿主</td>
+<td>原脚本API、模块依赖、回调、XML handler、对象生命周期待实现</td>
+</tr>
+<tr>
+<td>原生模块</td>
+<td>自定义C codec ABI，G.711示例实际加载；protocol头为预留</td>
+<td>不是FreeSWITCH C ABI，不支持既有mod_*.so直接加载</td>
+</tr>
+<tr>
+<td>故障与切换</td>
+<td>分片媒体进程监管、本实例排空</td>
+<td>Go控制进程退出会关闭媒体子进程；未实现FreeSWITCH在途状态/ESL连接接管</td>
+</tr>
+<tr>
+<td>容量</td>
+<td>历史版本记录保留；本轮 Linux 虚拟机四次新构建及一次旧版对照的5000路运行均负载不足；最新发收各2,407,092包、提供率48.14184%、发生器发送写错误8次</td>
+<td>当前构建5000路仍未通过；尚无 Linux 万路证明，更无 FreeSWITCH 完整业务组合下的容量认证</td>
+</tr>
+</tbody></table></div>
+<p>主要依据：<a href="../../README.html">项目README</a>、<a href="../../control/internal/server/server.go">Go服务入口</a>、<a href="../../control/internal/config/config.go">自定义配置</a>、<a href="../../media/src/media/worker.rs">Rust媒体</a>、<a href="../../native/include/rustswitch_codec.h">codec ABI</a>、<a href="../../native/include/rustswitch_protocol.h">protocol ABI</a>。</p>
+<h2 id="72-架构要求保持用户指定语言边界">7.2 架构要求保持用户指定语言边界</h2>
+<p>Rust继续承担媒体数据处理与资源所有权，Go承担全局呼叫业务与控制，C/C++承担需要复用的协议、编解码及原生生态。兼容层必须面向原FreeSWITCH语义：把旧协议入口翻译成新内部操作还不够，必须保持通道生命周期、变量、事件、文件和回调。</p>
+<pre><code class="language-mermaid">flowchart TB
+    U[现有客户端、配置、脚本、终端] --&gt; F[FreeSWITCH兼容入口与对象模型]
+    F --&gt; G[Go业务控制与跨腿状态]
+    F --&gt; N[C/C++协议与脚本兼容宿主]
+    G &lt;--&gt; N
+    G --&gt; R[Rust媒体工作进程]
+    N &lt;--&gt; R
+    R &lt;--&gt; E[终端媒体]
+    F --&gt; O[原格式事件、CDR、文件和运维输出]
+</code></pre>
+<p>每条SIP事务、每个通道对象和每个事件生命周期必须有明确唯一所有者。C/C++协议宿主拥有协议事务与传输；Go拥有跨腿业务决策；Rust拥有媒体socket和包处理。旧模块要求的宿主内存、锁与回调不能直接跨进程传指针，需要选择能够保持实际语义的边界。</p>
+<h2 id="73-兼容宿主与独立替换是不同阶段">7.3 兼容宿主与独立替换是不同阶段</h2>
+<p>为了尽快保护既有生态，可以在过渡版本保留固定FreeSWITCH核心及必要模块作为原生兼容宿主，在其适配边界逐步引入Rust媒体与Go编排。它有利于保留XML、脚本和原模块调用，但仍依赖原核心；<strong>不能称为已经完成独立Rust/Go替换</strong>。让原模块运行也不自动证明Rust媒体接入后的全部行为和容量相同。</p>
+<p>最终独立实现必须逐项实现本标准，并为需原样加载的原生第三方模块提供完整宿主ABI兼容。仍需原FreeSWITCH核心宿主的模块继续归入过渡发行，单列依赖与认证状态，不能计入独立替换完成项。若要求第三方模块重新编译、修改脚本或改SDK，只能声明对应的迁移方式，不能作为“原文件原样工作”验收通过。</p>
+<p>这两个阶段不会改变用户外部接口目标，也不能用过渡阶段仍由原FreeSWITCH完成的功能给独立新内核打已实现标签。内部版本报告需标出实际执行者和媒体路径。</p>
+<h2 id="74-实现顺序与退出条件">7.4 实现顺序与退出条件</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>交付</th>
+<th>退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P0 基线与测试框架</td>
+<td>固定构建、全接口/模块/脚本清单、原版轨迹、可控终端与外部后端</td>
+<td>接口范围闭合；差分器能识别主动注入的错腿、漏事件和错误格式</td>
+</tr>
+<tr>
+<td>P1 对象与兼容入口</td>
+<td>通道/UUID/变量模型、事件总线、完整ESL帧与客户端适配</td>
+<td>原fs_cli/libesl连通且ESL异常/并发用例通过；不将仅连通算业务兼容</td>
+</tr>
+<tr>
+<td>P2 配置与业务核心</td>
+<td>XML预处理/directory/dialplan、XML Curl、核心API/应用、Sofia集成</td>
+<td>原配置不改，基本及异常流程同时满足SIP、事件和话单契约</td>
+</tr>
+<tr>
+<td>P3 业务模块与生态</td>
+<td>脚本、CDR、录音、会议、队列、voicemail、原生模块及全部启用扩展</td>
+<td>各模块完整子命令与副作用通过；第三方原产物验证</td>
+</tr>
+<tr>
+<td>P4 性能与可靠性</td>
+<td>批量I/O、调度、准入、稳定性、故障和逐业务容量报告</td>
+<td>Linux独立发生器实测；万路与全订阅/业务组合分别通过</td>
+</tr>
+<tr>
+<td>P5 灰度与切换</td>
+<td>对话/注册/事件路由、排空、数据对账、回滚</td>
+<td>当前选择的切换等级演练通过；在线接管若未实现则单独保持未通过</td>
+</tr>
+<tr>
+<td>P6 认证发行</td>
+<td>全部强制合同与场景、发行包和证据</td>
+<td>无未知/跳过/失败；完整业务客户端零改动；报告精确绑定版本与范围</td>
+</tr>
+</tbody></table></div>
+<p>阶段顺序可内部并行，退出条件不能省略。P1的ESL接口通过不代表P3业务通过；P4性能提升不能抵消语义差异。当前已具备标准/源码目录、隔离原版参考构建、限定成对执行器、有限 ESL 与 SIP TCP/TLS 实现；这些进展尚未满足上述全部阶段的退出条件。</p>
+<h2 id="75-当前可对外表述">7.5 当前可对外表述</h2>
+<p>可以表述“已有 Rust 媒体/Go 控制原型，提供有限 ESL 与 SIP UDP/TCP/TLS，已实际运行 FreeSWITCH 1.11.3 开展限定成对验证，正在按冻结基线继续实现完整兼容”。不能表述“FreeSWITCH用户现在可以直接替换且100%无感”“原生模块已经全部兼容”或“单机万路全功能零丢包已达成”。</p>
+<p>下一步需继续扩充已建立的参考构建、运行清单与差分执行器，逐条落实缺失 API、应用、事件、协议及业务副作用，并在足量负载下复验。文档中的 MUST 项仍是完整目标要求，不因本轮有限实现或局部测试通过而自动列为已实现。详见 <a href="../api/release-validation-v1.5.html">1.5 交付验证说明</a>。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

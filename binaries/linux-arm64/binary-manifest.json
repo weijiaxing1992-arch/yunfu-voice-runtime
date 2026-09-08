@@ -1,0 +1,72 @@
+{
+  "at": "2026-09-08T04:31:25.317470+00:00",
+  "entries": [
+    {
+      "platform": "linux-arm64",
+      "variant": "main",
+      "path": "main/bin/rustswitch",
+      "original": "work/linux-vm/share/voice-runtime-m2-rx/rustswitch",
+      "bytes": 67701531,
+      "sha256": "fb4285ae0e35acc0e41f72fc0f87519023e2c4e38bc96d4357ef54c2868e4c99",
+      "file": "ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, Go BuildID=f6kD1eJkrFJsYtuap9rx/1mhVMjew1BRVU3htah1P/yad-J-D8tQ9WMfpH4l0R/JpN_hKC1HX-zW-otLxzE, BuildID[sha1]=6f35f48947976e44da37ade15568512b23274823, with debug_info, not stripped"
+    },
+    {
+      "platform": "linux-arm64",
+      "variant": "main",
+      "path": "main/bin/rustswitch-media",
+      "original": "work/linux-vm/share/voice-runtime-m2-rx/rustswitch-media",
+      "bytes": 4164680,
+      "sha256": "5868122d3119e4aeb0ce6074519dd265f8b78df906200a27a1f8466d6101861d",
+      "file": "ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, with debug_info, not stripped"
+    },
+    {
+      "platform": "linux-arm64",
+      "variant": "main",
+      "path": "main/bin/callbench",
+      "original": "work/linux-vm/share/voice-runtime-m2-rx/callbench",
+      "bytes": 5139322,
+      "sha256": "12209449f2e773d4f1e6412c2505a7916a8771f056711b523907b4c23c9da556",
+      "file": "ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, Go BuildID=6NC62FmL0QeiX_U0kh-A/4EqYRwqjdbdbaG3ss625/60BzIR7TD0TqhozLt4SW/-CTPi3-AdSNQQFZHHY2M, BuildID[sha1]=e6be7dbbee47b0c567533354589ef36cabcd714f, with debug_info, not stripped"
+    },
+    {
+      "platform": "linux-arm64",
+      "variant": "asr-candidate",
+      "path": "asr-candidate/bin/rustswitch",
+      "original": "work/voice-runtime-m2-asr/full-review-01/rustswitch-linux-arm64",
+      "bytes": 70319887,
+      "sha256": "9d89b063054aa9e7562b5fa65e06c274bdebe573ba39e0c45cec090bdbd9e0cc",
+      "file": "ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, Go BuildID=BbEH2YUSJGfGJVlyPvk6/789eKsvLX9y8_sdojQZV/1xLgJU3i5vPUw3p6n0g_/5tmz5ZEcct3Uuj65XaQv, BuildID[sha1]=9758ce6ca64b81197148985731e394b9ad41dd0e, with debug_info, not stripped"
+    },
+    {
+      "platform": "linux-arm64",
+      "variant": "asr-candidate",
+      "path": "asr-candidate/bin/rustswitch-media",
+      "original": "work/linux-vm/share/voice-runtime-m2-rx/rustswitch-media",
+      "bytes": 4164680,
+      "sha256": "5868122d3119e4aeb0ce6074519dd265f8b78df906200a27a1f8466d6101861d",
+      "file": "ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, with debug_info, not stripped"
+    },
+    {
+      "platform": "linux-arm64",
+      "variant": "asr-candidate",
+      "path": "asr-candidate/bin/callbench",
+      "original": "work/linux-vm/share/voice-runtime-m2-rx/callbench",
+      "bytes": 5139322,
+      "sha256": "12209449f2e773d4f1e6412c2505a7916a8771f056711b523907b4c23c9da556",
+      "file": "ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, Go BuildID=6NC62FmL0QeiX_U0kh-A/4EqYRwqjdbdbaG3ss625/60BzIR7TD0TqhozLt4SW/-CTPi3-AdSNQQFZHHY2M, BuildID[sha1]=e6be7dbbee47b0c567533354589ef36cabcd714f, with debug_info, not stripped"
+    },
+    {
+      "platform": "linux-arm64",
+      "variant": "asr-candidate",
+      "path": "asr-candidate/bin/asr-mock",
+      "original": "work/voice-runtime-m2-asr/mock-build-04/asr-mock-linux-arm64",
+      "bytes": 4778559,
+      "sha256": "fd2ca585d2bbb00c13010a00b8fa12d44f2d8d788192ea77da4cd23da030e54a",
+      "file": "ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, Go BuildID=TNZyAB0D-baNxwuPhEaE/j-uxd7jfyY8tesbn2EBJ/lUxpRFK1Nkz644sTjlgW/y-B6DIeeXWkQaLRm-4Ci, BuildID[sha1]=3a83b99697c8c537b3c1a8c3c21524bd62db38d7, with debug_info, not stripped"
+    }
+  ],
+  "source_main_manifest_sha256": "0decebac78abfbb27257c2796ad91f444dac84a9d403e2da71d0c2ad3ef99c02",
+  "source_asr_manifest_sha256": "f68f5d27ed5007d3766f11da15de6485df2520523eccb83e74c0b14e7b0fb3c3",
+  "release_gate_passed": false,
+  "main_service_started_or_stopped": false
+}

@@ -1,0 +1,57 @@
+test_deadline_is_immutable_on_retry (test_asr1_fixture.FreshnessCases) ... ok
+test_exact_expiry_future_origin_and_wrong_domain (test_asr1_fixture.FreshnessCases) ... ok
+test_ordinary_marker_also_expires_but_summary_has_no_age (test_asr1_fixture.FreshnessCases) ... ok
+test_partial_submission_expires_then_cannot_resume (test_asr1_fixture.FreshnessCases) ... ok
+test_provider_rechecks_after_full_read_preemption (test_asr1_fixture.FreshnessCases) ... ok
+test_shifting_both_deadlines_cannot_hide_expired_source (test_asr1_fixture.FreshnessCases) ... ok
+test_total_handshake_and_finish_deadline_not_renewed_by_progress (test_asr1_fixture.FreshnessCases) ... ok
+test_auxiliary_event_number_does_not_invent_audio_gap (test_asr1_fixture.LifecycleCases) ... ok
+test_done_before_finish_wrong_prefix_and_unfinalized_partial (test_asr1_fixture.LifecycleCases) ... ok
+test_fault_manifest_is_finite_and_does_not_execute_delays (test_asr1_fixture.LifecycleCases) ... ok
+test_final_or_eof_without_done_cannot_complete (test_asr1_fixture.LifecycleCases) ... ok
+test_final_overflow_is_explicit_failure (test_asr1_fixture.LifecycleCases) ... ok
+test_finish_prefix_must_be_exact (test_asr1_fixture.LifecycleCases) ... ok
+test_hangup_drops_pending_and_late_transcripts (test_asr1_fixture.LifecycleCases) ... ok
+test_input_end_alone_is_not_success (test_asr1_fixture.LifecycleCases) ... ok
+test_malformed_error_cannot_revive_consumer (test_asr1_fixture.LifecycleCases) ... ok
+test_normal_finish_final_done_and_rx_stop_are_distinct (test_asr1_fixture.LifecycleCases) ... ok
+test_partial_coalescing_stays_bounded (test_asr1_fixture.LifecycleCases) ... ok
+test_partial_revision_and_single_open_utterance (test_asr1_fixture.LifecycleCases) ... ok
+test_provider_error_stays_failure (test_asr1_fixture.LifecycleCases) ... ok
+test_result_cannot_claim_missing_events_or_complete_across_gap (test_asr1_fixture.LifecycleCases) ... ok
+test_result_media_range_must_match_actual_input (test_asr1_fixture.LifecycleCases) ... ok
+test_results_require_actual_decoded_not_only_markers (test_asr1_fixture.LifecycleCases) ... ok
+test_source_boundary_invalidates_partial_and_discards_old_result (test_asr1_fixture.LifecycleCases) ... ok
+test_starting_and_unknown_cleanup_retain_quota (test_asr1_fixture.LifecycleCases) ... ok
+test_submitted_provenance_is_bounded_and_final_releases_ranges (test_asr1_fixture.LifecycleCases) ... ok
+test_suspension_invalidates_partial_and_blocks_old_source_until_boundary (test_asr1_fixture.LifecycleCases) ... ok
+test_wrong_identity_range_order_and_duplicate_final_fail (test_asr1_fixture.LifecycleCases) ... ok
+test_complete_rtp_numbers_cannot_go_back_after_marker (test_asr1_fixture.MediaMappingCases) ... ok
+test_gap_range_is_observation_count_not_silence_duration (test_asr1_fixture.MediaMappingCases) ... ok
+test_inactive_suspends_utterance_until_new_boundary (test_asr1_fixture.MediaMappingCases) ... ok
+test_marker_does_not_reset_same_source_time_lower_bound (test_asr1_fixture.MediaMappingCases) ... ok
+test_observation_failure_is_terminal_not_final (test_asr1_fixture.MediaMappingCases) ... ok
+test_only_cn_has_sid_and_auxiliary_duration_is_unknown (test_asr1_fixture.MediaMappingCases) ... ok
+test_partial_during_input_and_final_digest_actual_pcm (test_asr1_fixture.MediaMappingCases) ... ok
+test_plc_cn_missing_and_dtmf_never_add_samples (test_asr1_fixture.MediaMappingCases) ... ok
+test_reversal_and_sequence_hole_are_rejected (test_asr1_fixture.MediaMappingCases) ... ok
+test_source_boundary_resets_hash_and_utterance (test_asr1_fixture.MediaMappingCases) ... ok
+test_summary_cannot_claim_audio_position_or_deadline (test_asr1_fixture.MediaMappingCases) ... ok
+test_zero_decoded_returns_no_invented_final (test_asr1_fixture.MediaMappingCases) ... ok
+test_16k_is_320_samples_with_8k_rtp_clock (test_asr1_fixture.ProtocolCases) ... ok
+test_all_single_split_positions_preserve_bytes (test_asr1_fixture.ProtocolCases) ... ok
+test_audio_plc_origin_length_and_reserved_flags_reject (test_asr1_fixture.ProtocolCases) ... ok
+test_audio_requires_matching_token_and_source_boundary (test_asr1_fixture.ProtocolCases) ... ok
+test_fixed_header_offsets_and_nonzero_pcm (test_asr1_fixture.ProtocolCases) ... ok
+test_fragmented_and_multiple_messages (test_asr1_fixture.ProtocolCases) ... ok
+test_half_frame_eof_is_error (test_asr1_fixture.ProtocolCases) ... ok
+test_hello_required_and_capabilities_exact (test_asr1_fixture.ProtocolCases) ... ok
+test_json_duplicate_unicode_nonfinite_and_trailing (test_asr1_fixture.ProtocolCases) ... ok
+test_oversize_and_short_length_reject_before_body (test_asr1_fixture.ProtocolCases) ... ok
+test_u64_canonical_and_overflow (test_asr1_fixture.ProtocolCases) ... ok
+test_unknown_prefix_values_rejected (test_asr1_fixture.ProtocolCases) ... ok
+
+----------------------------------------------------------------------
+Ran 52 tests in 0.031s
+
+OK

@@ -1,0 +1,123 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>08 当前能力与验证状态 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="active" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 08 当前能力与验证状态</div><article class="content"><div class="page-tools"><a href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 3 节</summary><a href="#工程基线的对照计数">工程基线的对照计数</a><a href="#本轮-asr-候选的已执行验证">本轮 ASR 候选的已执行验证</a><a href="#产品缺口与优先顺序">产品缺口与优先顺序</a></details><h1 id="08-当前能力与验证状态">08 当前能力与验证状态</h1>
+<blockquote>
+<p>交付补充：2026-09-08 实际源码发布门禁发现主工程 <code>key-api-pcm-stream</code> 绿色证据已失效，ASR候选字段字典待同步。下述82个本地passed为原始状态快照，不是本日全部仍有效的认证。见 <a href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html">交付说明</a>。</p>
+</blockquote>
+<h2 id="工程基线的对照计数">工程基线的对照计数</h2>
+<p>固定 1.13 文档基线保存 <strong>3999 条对照</strong>。实现分类如下；每条是目录/契约记录，不等于独立业务功能。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th align="right">条目数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>已实现自有入口</td>
+<td align="right">19</td>
+<td>不自动等于原版同协议/同语义</td>
+</tr>
+<tr>
+<td>内部接口</td>
+<td align="right">23</td>
+<td>自有内部调用或媒体合同</td>
+</tr>
+<tr>
+<td>部分实现</td>
+<td align="right">53</td>
+<td>仍有明确差异</td>
+</tr>
+<tr>
+<td>仅导出配置</td>
+<td align="right">882</td>
+<td>可编辑/导出，不代表运行消费</td>
+</tr>
+<tr>
+<td>未实现</td>
+<td align="right">2844</td>
+<td>对应入口/业务未完成</td>
+</tr>
+<tr>
+<td>未验证</td>
+<td align="right">178</td>
+<td>原完整验收合同等仍未完成</td>
+</tr>
+</tbody></table></div>
+<p>该冻结基线的本地运行账本为 <strong>82 条有限通过、3916 条未运行、1 条失败</strong>。这是 1.13 自身证据，不自动继承到后续 ASR/统计候选，也不是 82 个原版模块认证。原始分类、原版完整契约和本地运行结果分别展示。</p>
+<h2 id="本轮-asr-候选的已执行验证">本轮 ASR 候选的已执行验证</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>验证</th>
+<th>实际结果</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>全 Go 包竞态回归 full-review-01</td>
+<td>1471 个通过测试事件，其中 504 个顶层；无失败或测试跳过</td>
+<td>实际本机 Go 控制/协议/媒体/ASR 集合；两个无测试包不是跳过功能用例</td>
+</tr>
+<tr>
+<td>静态/构建</td>
+<td>vet 通过；Darwin、Linux ARM64 编译通过</td>
+<td>Linux编译不是Linux运行/性能验收</td>
+</tr>
+<tr>
+<td>独立 Unix 代理</td>
+<td>9 场景，通过并独立审计</td>
+<td>RX输入为测试Source；验证真实Unix字节和故障，代理不运行模型</td>
+</tr>
+<tr>
+<td>真 SIP/Rust/ASR</td>
+<td>五场景通过</td>
+<td>PCMU/PCMA×8/16k与晚订阅，真实ACK资格、40帧逐样本、FINISH/DONE、正常BYE与清理</td>
+</tr>
+<tr>
+<td>独立样本审计</td>
+<td>44个RTP输入含预订阅4包；40帧进入ASR；8960输出样本</td>
+<td>完整RTP展开、G.711解码、16k独立卷积、消费期限和资源均核对</td>
+</tr>
+<tr>
+<td>配额回收修复</td>
+<td>定向race 98项与vet通过</td>
+<td>只有实际确认无RX绑定/退休才释放未知槽</td>
+</tr>
+</tbody></table></div>
+<p>来源见 candidate/evidence 下的原收据，文件哈希可追溯。五个真实 SIP 场景的 BYE 均在正常 Finish 后；晚订阅不回放 kind7，但首 Decoded 仍有 Boundary5。不得将其扩写成“所有挂断打断待返回final的组合已通过”。</p>
+<p>第一轮 SIP 失败记录因测试 oracle 漏算 Rust 初始展开周期保留；修正后重新运行产生新收据，没有覆盖旧失败。独立 mock 是协议和PCM摘要工具，不代表识别准确率。</p>
+<h2 id="产品缺口与优先顺序">产品缺口与优先顺序</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>优先方向</th>
+<th>剩余工作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AI主链路</td>
+<td>真实ASR/TTS厂商适配、LLM/Turn编排、VAD/打断、双轨录音、完整双工故障和结果时效</td>
+</tr>
+<tr>
+<td>核心音频</td>
+<td>G.722/Opus实时图、必要语音增强/PLC/FEC及同音质证明；其他codec按真实线路需求</td>
+</tr>
+<tr>
+<td>电话适配</td>
+<td>完整originate/转接、SIP扩展、目标运营商身份映射、多网关/终端注册等</td>
+</tr>
+<tr>
+<td>稳定与容量</td>
+<td>原子一致观测、失败诊断、Linux 1000/5000/10000、长稳、最忙分片与发送尾延迟</td>
+</tr>
+<tr>
+<td>生产交付</td>
+<td>灰度、排空、回滚、故障恢复；现阶段没有活动通话跨机无损迁移</td>
+</tr>
+<tr>
+<td>按需/延后</td>
+<td>通用PBX、会议、传真、视频、任意脚本/模块宿主；延后项仍保留在原版分母</td>
+</tr>
+</tbody></table></div>
+<p>完整 V1 能力与 M1—M4 目标保持不变，见 <a href="reference/docs/api/voice-runtime-v1-acceptance.html">长期验收合同</a>。本资料包没有修改原对照绿数，没有发布新后台，也没有为任意故障承诺零丢包。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

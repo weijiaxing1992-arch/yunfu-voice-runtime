@@ -1,0 +1,273 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>音频接口、编解码与 FreeSWITCH 对照 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 音频接口、编解码与 FreeSWITCH 对照</div><article class="content"><div class="page-tools"><a href="audio-reference.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 7 节</summary><a href="#管理接口与页面">管理接口与页面</a><a href="#实时-sip-rtp-格式">实时 SIP / RTP 格式</a><a href="#辅助媒体与丢包语义">辅助媒体与丢包语义</a><a href="#rust-sdk-与原生库">Rust SDK 与原生库</a><a href="#ipc-扩展与版本边界">IPC 扩展与版本边界</a><a href="#与-freeswitch-分别验证">与 FreeSWITCH 分别验证</a><a href="#pcm-外部入口与格式转换边界">PCM 外部入口与格式转换边界</a></details><h1 id="音频接口编解码与-freeswitch-对照">音频接口、编解码与 FreeSWITCH 对照</h1>
+<p>文档版本 1.12.0。云蝠 Voice Runtime 默认使用 <code>relay</code> 同格式 RTP 透传，可显式启用 <code>g711</code> 双腿或 local 单腿实时处理图；1.12 增加已 ACK 本地通话的流式 PCM 下行。G.711 图采用原生 8 kHz PCM；离线 Rust 音频 SDK 保留 8/16/24/48 kHz 单声道 PCM、P0 编解码及显式分支重采样。G.722/Opus 等离线后端、ASR/TTS 与完整录音尚未接入实时图。当前运行能力由真实 worker 握手决定，完整合同见<a href="processed-media-reference.html">实时处理参考</a>及<a href="processed-testing-reference.html">管理压测</a>。</p>
+<h2 id="管理接口与页面">管理接口与页面</h2>
+<p><code>GET /v1/codecs</code> 返回 <code>CodecCatalog</code>，完整模型见 <a href="openapi.json">OpenAPI</a>。管理后台“音频编解码”页面展示该接口真实结果；“压力与电话测试”使用同一套测试预设。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>合同</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>version</code></td>
+<td>目录合同版本，当前 <code>1.2.0</code>，独立于文档版本</td>
+</tr>
+<tr>
+<td><code>media_mode</code></td>
+<td>relay为<code>same_codec_rtp_passthrough</code>，g711为<code>g711_audio_graph</code></td>
+</tr>
+<tr>
+<td><code>live_transcoding</code></td>
+<td>仅显式启用g711且全部预期worker健康并声明真实处理能力时为true</td>
+</tr>
+<tr>
+<td><code>runtime_media</code></td>
+<td>每次请求重新读取worker代次、PID、健康、能力、运行模式及观测时刻</td>
+</tr>
+<tr>
+<td><code>live_codec_profiles</code></td>
+<td>当前模式允许的格式；g711只有PCMU/PCMA，是否就绪须同时看runtime_media</td>
+</tr>
+<tr>
+<td><code>codec_profiles</code></td>
+<td>测试 PT、名称、音频采样率、RTP 时钟、声道、包时长、fmtp、验证边界</td>
+</tr>
+<tr>
+<td><code>native_audio</code></td>
+<td>媒体程序实际探测的编解码后端、PCM 格式与限制；探测失败时为 null</td>
+</tr>
+<tr>
+<td><code>native_audio.pcm</code></td>
+<td>保留原 SDK 的 16 kHz 格式说明，不能用它推断新入口只有这一种采样率</td>
+</tr>
+<tr>
+<td><code>native_audio.audio_frame</code></td>
+<td>新帧支持的四种采样率、10/20 ms 帧长、最大 960 个样本；<code>live_audio_graph=false</code></td>
+</tr>
+<tr>
+<td><code>native_audio.codecs[].native_pcm</code></td>
+<td>每种编码原生 PCM 入口实际探测的可用性、PCM 采样率、RTP 时钟与失败原因</td>
+</tr>
+<tr>
+<td><code>native_probe_error</code></td>
+<td>探测失败原因；成功为空字符串</td>
+</tr>
+<tr>
+<td><code>scope / roadmap</code></td>
+<td>当前边界及尚未提供的格式或后端</td>
+</tr>
+</tbody></table></div>
+<p>只读请求受原管理 Host 边界及重请求预算约束，正常返回 200；来源不符返回 403，重请求预算耗尽返回 503。后端缺失仍返回 200，并明确表示对应编码不可用。每个控制实例只执行一次受信媒体程序的 <code>--audio-capabilities</code>，超时两秒，stdout/stderr 分别限 64 KiB。更换库路径或程序后，重启控制实例才重新探测；页面刷新不会反复派生进程。</p>
+<h2 id="实时-sip-rtp-格式">实时 SIP / RTP 格式</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>格式</th>
+<th align="right">测试 PT</th>
+<th align="right">音频 Hz</th>
+<th align="right">RTP 时钟 Hz</th>
+<th align="right">测试声道</th>
+<th>当前能力</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PCMU / PCMA</td>
+<td align="right">0 / 8</td>
+<td align="right">8000</td>
+<td align="right">8000</td>
+<td align="right">1</td>
+<td>relay同格式透传；g711实时异律处理；Rust原生SDK</td>
+</tr>
+<tr>
+<td>G722</td>
+<td align="right">9</td>
+<td align="right">16000</td>
+<td align="right">8000</td>
+<td align="right">1</td>
+<td>同格式透传；可选原生 SDK 后端</td>
+</tr>
+<tr>
+<td>OPUS</td>
+<td align="right">111</td>
+<td align="right">48000</td>
+<td align="right">48000</td>
+<td align="right">2</td>
+<td>同格式透传；可选原生 SDK 后端</td>
+</tr>
+<tr>
+<td>G729 / G729A</td>
+<td align="right">18</td>
+<td align="right">8000</td>
+<td align="right">8000</td>
+<td align="right">1</td>
+<td>同格式透传，SDK 编解码未接入</td>
+</tr>
+<tr>
+<td>G726-32 / -16 / -24 / -40</td>
+<td align="right">110 / 112 / 113 / 114</td>
+<td align="right">8000</td>
+<td align="right">8000</td>
+<td align="right">1</td>
+<td>同位率及打包方式透传</td>
+</tr>
+<tr>
+<td>AAL2-G726-32 / -16 / -24 / -40</td>
+<td align="right">120 / 121 / 122 / 123</td>
+<td align="right">8000</td>
+<td align="right">8000</td>
+<td align="right">1</td>
+<td>与 G726 独立识别，不隐式变换位打包</td>
+</tr>
+<tr>
+<td>L16</td>
+<td align="right">119</td>
+<td align="right">16000</td>
+<td align="right">16000</td>
+<td align="right">1</td>
+<td>网络大端 PCM 透传，不能直接当作内部小端 PCM</td>
+</tr>
+</tbody></table></div>
+<p>上述 PT 是发生器配置，真实动态 PT 按 <code>a=rtpmap</code> 识别。relay两腿必须选择同编码、同PT及可兼容参数，转码或更换G726打包方式会拒绝。显式g711图可以在两腿独立协商PCMU/PCMA及载荷号；非G711或非20ms仍在分配前拒绝。实际可接受的 ptime/fmtp 组合由 SDP 和 Rust 元数据校验共同决定，测试预设统一 20 ms。G.722 每个 20 ms 包的 RTP 时间戳步长为 160；Opus 为 960。Opus SDP 的 <code>/48000/2</code> 不要求每个包都携带双声道音频。</p>
+<p>仍只支持 IPv4、一个 <code>RTP/AVP</code> 音频流和双向 <code>sendrecv</code>。本轮没有增加 SRTP、ICE、WebRTC、重协商、转接、会议或实时录音；实时双腿处理限G.711。AMR-NB、AMR-WB、EVS、iLBC、G.723.1、GSM 当前明确拒绝；后端计划不能作为已支持宣告。</p>
+<h2 id="辅助媒体与丢包语义">辅助媒体与丢包语义</h2>
+<p>telephone-event 单独保留载荷、时钟及合法事件集合，relay校验RFC4733事件结构后透传，g711按新TX序号和映射时间戳终结转发，保持协商结果。已实现的接收路径还会对完整 RTP 按键去重，发布 <code>DTMF</code> 业务事件并供受限 <code>read</code> 应用收号；显式配置 <code>dtmf_type=info</code> 时使用经过真实 SIP 对话与来源校验的 INFO 按键，避免两种输入重复收号。收号失效、缓存和超时见 <a href="ivr-reference.html">IVR 接口</a>。新增本地 A 腿 <code>uuid_send_dtmf</code> 发送队列与自有状态查询见 <a href="dtmf-send-reference.html">DTMF 发送接口</a>；它发送 telephone-event，不合成带内按键音，也不把发送动作冒充接收到的 <code>DTMF</code> 事件。音内 DTMF 检测、桥接通话发送及原版全部收发语义仍未实现。</p>
+<p>CN 单独协商载荷及与主媒体匹配的时钟，不能把任何未知 PT 当作舒适噪声。离线 SDK 的输入明确分成 <code>Packet</code>、<code>PacketLoss</code>、<code>ComfortNoise</code>。空字节包被拒绝，不默认为丢包。输出区分真实解码 <code>Decoded</code>、调用方提供的 PCM <code>SuppliedPcm</code>、编解码器 PLC <code>CodecPlc</code>、历史帧近似补偿 <code>HistoryConcealment</code>、缺失音频和 CN 参数。CN 只保留 SID 音量及谱参数，当前没有 RFC3389 噪声合成；它还会清除旧语音历史，避免后续丢包重放 CN 之前的语音。丢包和 CN 都不能被调用方当作“用户沉默”。</p>
+<p>G.711/G.722 离线 SDK 的历史近似补偿有衰减和 120ms 上限，无历史或超限返回缺失；Opus SDK 使用官方解码器 PLC。实时 G.711 图已提供有界抖动缓冲和有限历史补偿，CN 仍不合成噪声。1.12 的 PCM turn 支持旧轮失效和明确 0/20/40ms 中断；VAD 自动触发、ASR/TTS 供应商、完整 FEC 或端到端丢包恢复未完成。<code>uuid_break</code> 不自动取消 PCM，具体边界见 <a href="pcm-turn-reference.html">轮次接口</a>。不能承诺网络零丢包。</p>
+<p>构建来源、原生ABI限制与完整许可见 <a href="../../native/audio/README.html">原生音频说明</a>。</p>
+<h2 id="rust-sdk-与原生库">Rust SDK 与原生库</h2>
+<p>入口在 <code>media/src/audio</code>。<code>AudioFrame</code> 保存单声道有符号 16 位样本，导入/导出使用 S16LE，只接受精确 10 ms 或 20 ms，不隐式补零或裁剪。合法帧的最大样本数为 960，即 1920 字节 PCM。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>采样率</th>
+<th align="right">10 ms 样本数</th>
+<th align="right">20 ms 样本数</th>
+<th>入口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8000 Hz</td>
+<td align="right">80</td>
+<td align="right">160</td>
+<td><code>with_sample_rate</code> / <code>from_s16le_at</code></td>
+</tr>
+<tr>
+<td>16000 Hz</td>
+<td align="right">160</td>
+<td align="right">320</td>
+<td>原 <code>new</code> / <code>from_s16le</code>，或显式采样率入口</td>
+</tr>
+<tr>
+<td>24000 Hz</td>
+<td align="right">240</td>
+<td align="right">480</td>
+<td><code>with_sample_rate</code> / <code>from_s16le_at</code></td>
+</tr>
+<tr>
+<td>48000 Hz</td>
+<td align="right">480</td>
+<td align="right">960</td>
+<td><code>with_sample_rate</code> / <code>from_s16le_at</code></td>
+</tr>
+</tbody></table></div>
+<p><code>AudioFrame::with_sample_rate(samples, rate)</code> 接收样本所有权，<code>from_s16le_at(bytes, rate)</code> 验证小端字节及帧长；<code>samples()</code> 只读，<code>valid_samples()</code> 返回有效样本数。<code>Clone</code> 会复制样本，导入、导出和异采样率转换仍可能分配内存，不能宣称零复制或实时线程零分配。</p>
+<p><code>AudioCodec::new(name)</code> 保持原 16 kHz PCM 合同。新增 <code>AudioCodec::native_rate(name)</code> 使用下表原生 PCM 入口；这不改变 SDP 的 RTP 时钟规则。编码会拒绝与上下文采样率不同的帧，24 kHz PCM 需要调用方显式转换，不能直接传给任意编码器。编码输出是载荷字节，不包含 RTP 包头或自动发包调度。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编码名称</th>
+<th align="right"><code>native_rate</code> 的 PCM Hz</th>
+<th align="right">RTP 时钟 Hz</th>
+<th>后端</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>PCMU</code> / <code>PCMA</code></td>
+<td align="right">8000</td>
+<td align="right">8000</td>
+<td>Rust G.711</td>
+</tr>
+<tr>
+<td><code>G722</code></td>
+<td align="right">16000</td>
+<td align="right">8000</td>
+<td>可选固定 SpanDSP 子集</td>
+</tr>
+<tr>
+<td><code>OPUS</code></td>
+<td align="right">48000</td>
+<td align="right">48000</td>
+<td>可选固定官方 libopus；SDK PCM 仍为单声道</td>
+</tr>
+</tbody></table></div>
+<p>SDK 仅接入表中 P0 编码，其他格式的实时透传不代表 SDK 可以解码。一个编解码上下文由一个方向的调用者顺序使用；原生对象销毁之前动态库保持加载。</p>
+<h3 id="显式媒体时间和离线分支">显式媒体时间和离线分支</h3>
+<p><code>AudioPosition::new(media_time_ns, rtp)</code> 的时间是流起点后的媒体时间，不是 UTC 或 UDP 到包时刻。可选 <code>RtpPosition</code> 分开保存 RTP 时间戳与时钟；推进 10/20 ms 时，媒体时间检查溢出，RTP 时间戳按自己的时钟推进并允许 32 位回绕。G.722 的 16 kHz PCM 不会因此把 8 kHz RTP 时钟改成 16 kHz。调用方通过 <code>AudioFrame::at_position</code> 或 <code>AudioBlock::new(output, position)</code> 显式附加时间；SDK 不自行推断网络时序。</p>
+<p><code>AudioBranch::new(source_rate, target_rate)</code> 支持表中四种采样率之间的离线转换，<code>process(AudioBlock)</code> 检查源帧格式及时间连续性。同采样率直接转移帧所有权；异采样率使用有状态的 127 抽头 FIR 参考转换器。<code>filter_delay_ns()</code> 返回滤波算法延迟，当前不会自动补偿媒体时间戳；保留的 RTP 信息仍属于源流，不改写成输出编码的时钟。</p>
+<p>分支拒绝倒退或重叠的媒体时间；遇到前向时间缺口、<code>MissingAudio</code> 或 CN 会重置滤波历史，保持缺失/CN 元数据，不生成替代 PCM。<code>close()</code> 清理历史并拒绝继续输入，不补出虚构尾帧。每帧转换有界，但输出仍分配样本；主观质量、ASR 效果及生产容量需要独立验收。上述 FIR 分支转换仅供离线 SDK 调用，尚未接入实时 ASR/TTS 分流。实时 G.711 图已使用借用 AudioFrameView，但保持原生 8k；PCM turn 的期限与淡出由本地发送调度器提供，不调用此离线转换器。</p>
+<h3 id="构建与实际探测">构建与实际探测</h3>
+<pre><code class="language-sh">python3 native/audio/build_codecs.py --prefix /absolute/private/audio-libs
+export RUSTSWITCH_G722_LIBRARY=/absolute/private/audio-libs/librustswitch_g722.so
+export RUSTSWITCH_OPUS_LIBRARY=/absolute/private/audio-libs/opus/lib/libopus.so
+bin/rustswitch-media --audio-capabilities
+bin/rustswitch-media --check-audio
+</code></pre>
+<p>macOS 扩展名为 <code>.dylib</code>。库路径必须是绝对路径；从可信部署环境配置，不接受网页提供任意库路径。脚本可用 <code>--opus-archive</code> 指定离线官方归档，仍校验 SHA-256。不会安装系统库。SpanDSP 来源与 LGPL 许可保存在 <code>native/vendor/spandsp</code>；Opus 固定 1.5.2，归档 SHA-256 为 <code>65c1d2f78b9f2fb20082c38cbe47c951ad5839345876e46941612ee87f9a7ce1</code>。</p>
+<p><code>--audio-capabilities</code> 分别返回原 16 kHz <code>pcm</code>、新 <code>audio_frame</code> 能力和每个编码的 <code>native_pcm</code> 探测，<code>live_transcoding</code> 与 <code>audio_frame.live_audio_graph</code> 均为 <code>false</code>。<code>--check-audio</code> 检查 P0 实际编码/解码、原生 PCM 采样率、显式分支转换、PLC 来源及 CN 语义；任一所需后端缺失或检查失败会非零退出。该结果不是 MOS、原版成对差分或实时转码压测。原有 <code>rs_codec_get_v1</code> G.711 ABI 检查保持可用；新的原生后端不能直接装载 FreeSWITCH <code>mod_*.so</code>。</p>
+<h2 id="ipc-扩展与版本边界">IPC 扩展与版本边界</h2>
+<p><code>allocate/connect</code> 均支持 <code>codec{name,sample_rate,rtp_clock_rate,channels,ptime_ms,fmtp}</code>。<code>fmtp</code> 字段必需，无参数时传 <code>&quot;&quot;</code>。新编码的 <code>connect</code> 必须携带完整 <code>codec</code> 和 <code>payload</code>，并与分配时的编码、PT、采样率、RTP 时钟、声道和 ptime 一致；fmtp 的方向性窄化由 Go 协商层校验。省略或 null 的 <code>codec</code> 只用于旧 PT 0/8、20 ms 合同。旧版 <code>connect</code> 无 codec 时忽略其 <code>payload</code> 并沿用原会话 PT，例如 PCMA 会话收到旧 Go 默认 <code>payload=0</code> 仍保持 PT8，不切换为 PCMU。</p>
+<p><code>allocate/connect</code> 使用 <code>dtmf_clock_rate</code>、<code>dtmf_events</code>、<code>cn_payload</code>、<code>cn_clock_rate</code> 保留辅助协商；CN null 表示取消。完整形状见 <a href="media-ipc.schema.json">媒体 IPC Schema</a>。必须成套部署本轮 Go 与 Rust；旧 worker 可能忽略新增命令字段，版本 1 握手不能单独证明音频扩展能力。</p>
+<p>本地电话的 <code>dtmf_send</code> / <code>dtmf_send_status</code> 是新增真实发送及查询操作，受媒体队列和时间预算约束；启用本地发送时间线后拒绝转成透明桥，包括重复 <code>connect</code>。受限 WAV/提示音播放与按键发送可共享本地 RTP 序号和时钟，但不因此支持任意编码混音或实时转码。业务入口及失败处理见 <a href="dtmf-send-reference.html">DTMF 发送接口</a>。</p>
+<p>媒体配置新增 <code>excluded_port_blocks</code>，每项是相对分区起点四对齐的完整四端口块。Go 按固定分片边界过滤下发，Rust 独立校验范围、重复与剩余容量，排除块不分配给通话。此设置用于保留受保护或繁忙资源，不扩大 UDP 地址空间。</p>
+<h2 id="与-freeswitch-分别验证">与 FreeSWITCH 分别验证</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>FreeSWITCH 能力</th>
+<th>RustSwitch 当前对应</th>
+<th>仍需验证或实现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>show codecs</code> / 实际加载编解码模块</td>
+<td><code>/v1/codecs</code> JSON 目录</td>
+<td>ESL 入口、原版返回格式与动态注册语义</td>
+</tr>
+<tr>
+<td>Sofia SDP 与 RTP 引擎</td>
+<td>受限协商、relay 同格式透传与 G.711 图</td>
+<td>原版实例逐组合成对呼叫、重协商、安全媒体与复杂线路</td>
+</tr>
+<tr>
+<td>编解码与实时媒体图</td>
+<td>多采样率离线 SDK 保持；真实 G.711 双腿/单腿 8k PCM 图及有界轮次下行</td>
+<td>G.722/Opus 等实时图、实时分支重采样、ASR/TTS 供应商和全部原版行为</td>
+</tr>
+<tr>
+<td>DTMF 收号和事件</td>
+<td>完整 RTP 按键去重、受限 INFO 输入、真实 DTMF 事件及 read</td>
+<td>原版全部队列、事件字段、音内检测与复杂收号语义</td>
+</tr>
+<tr>
+<td><code>uuid_send_dtmf</code></td>
+<td>已 ACK 本地 A 腿的有界 telephone-event 发送；另有自有状态查询</td>
+<td>桥接通话、原版全参数、全部时序及对端业务接收验证</td>
+</tr>
+<tr>
+<td>CN / PLC / FEC / jitterbuffer</td>
+<td>显式丢包/CN SDK；G.711 实时有界抖动、来源标记与有限 PLC</td>
+<td>FEC、噪声合成、完整网络质量与容量验收</td>
+</tr>
+<tr>
+<td>AMR / EVS 等模块</td>
+<td>尚未实现</td>
+<td>按运营商接入配置验证，不能靠目录占位认定兼容</td>
+</tr>
+</tbody></table></div>
+<p>所有原始对照项、未实现项与测试证据分别保留在 <a href="freeswitch-comparison.html">完整对照</a> 和 <a href="verification-ledger.html">逐项验证账本</a>。未运行原版实例的条目不授予原版兼容通过结论。</p>
+<p>标准依据：<a href="https://www.rfc-editor.org/rfc/rfc3551" target="_blank" rel="noopener noreferrer">RFC3551</a>、<a href="https://www.rfc-editor.org/rfc/rfc7587" target="_blank" rel="noopener noreferrer">Opus RTP RFC7587</a>、<a href="https://www.rfc-editor.org/rfc/rfc4733" target="_blank" rel="noopener noreferrer">telephone-event RFC4733</a>、<a href="https://www.rfc-editor.org/rfc/rfc3389" target="_blank" rel="noopener noreferrer">CN RFC3389</a>、<a href="https://www.rfc-editor.org/rfc/rfc4867" target="_blank" rel="noopener noreferrer">AMR RFC4867</a>。FreeSWITCH 对照绑定 1.11.3 固定提交；标准描述不代替产品测试。</p>
+<h2 id="pcm-外部入口与格式转换边界">PCM 外部入口与格式转换边界</h2>
+<p><a href="rva1-reference.html">RVA1</a> 在真实 ACK 后授权本地 A 腿，以独立二进制连接提交 8kHz mono S16LE 的完整 20ms 帧；实际路径是调用方 PCM→图编码→统一 RTP/RTCP，不先做 G.711 编码再解码。内部 RSP1/RSR1、控制命令、队列上限与未知结果恢复见 <a href="pcm-turn-reference.html">PCM turn</a>。原 C ABI/16k SDK 不变。</p>
+<p>24k TTS 来源可在调用者的离线或专用适配分支显式转换到 8k 后提交；RVA1 无采样率字段，长度正确不代表音频格式正确，也不会自动识别或重采样。该样本入口不等于真实 TTS 服务、ASR/VAD 或录音已接入；最新限定验收与保留的 500/5000 失败见 <a href="release-validation-v1.12.html">1.12 记录</a>。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

@@ -1,0 +1,316 @@
+{
+  "kind": "linux_freeswitch_fixed26_revalidation",
+  "started_at": "2026-09-07T03:29:42.045823Z",
+  "finished_at": "2026-09-07T03:34:49.461381+00:00",
+  "execution_completed": true,
+  "all_defined_probes_passed": false,
+  "full_compatibility_passed": false,
+  "production_capacity_certified": false,
+  "fixed_probe_ids": [
+    "identity.esl",
+    "esl.auth.fragmented",
+    "esl.auth.wrong",
+    "esl.auth.required",
+    "esl.echo",
+    "esl.console.single",
+    "esl.api.unknown",
+    "esl.frames.pipeline",
+    "esl.frames.crlf",
+    "esl.frames.split_positions",
+    "esl.bgapi.echo",
+    "identity.api_inventory",
+    "esl.api.echo_empty",
+    "esl.api.create_uuid",
+    "esl.api.uuid_exists_missing",
+    "esl.api.uuid_getvar_missing",
+    "esl.api.uuid_setvar_missing",
+    "esl.api.uuid_kill_missing",
+    "esl.api.uuid_syntax",
+    "esl.command.case",
+    "esl.filter.lifecycle",
+    "esl.bgapi.echo.json",
+    "esl.bgapi.echo.xml",
+    "sip.options.udp",
+    "sip.options.tcp",
+    "sip.options.tls"
+  ],
+  "probe_counts": {
+    "original_entries": 3999,
+    "full_contract_passed": 0,
+    "probes_by_state": {
+      "failed_difference": 3,
+      "identity_observed": 1,
+      "inventory_observed": 1,
+      "passed_scoped": 21
+    },
+    "paired_scoped_passes": 21
+  },
+  "difference_ids": [
+    "sip.options.udp",
+    "sip.options.tcp",
+    "sip.options.tls"
+  ],
+  "runner_exit_code": 2,
+  "runner_exit_meaning": "全部固定探针已执行，三个真实OPTIONS能力差异使结果非全过；未放宽断言或修改原件。",
+  "prepared_source_sha256": "e0cd73f2c1eaa108e129d3e3c124a8d618dd5f97a9deff682d42d269d4000505",
+  "prepared_source_stable": true,
+  "input_files_rechecked": 1135,
+  "input_files_unchanged": true,
+  "candidate_binaries_sha256": {
+    "rustswitch": "fb4285ae0e35acc0e41f72fc0f87519023e2c4e38bc96d4357ef54c2868e4c99",
+    "rustswitch-media": "5868122d3119e4aeb0ce6074519dd265f8b78df906200a27a1f8466d6101861d"
+  },
+  "reference": {
+    "version": "FreeSWITCH version: 1.11.3-release~64bit (-release 64bit)",
+    "source_manifest_sha256": "8a82cc3c07ffa8eb416f67896ffccfe53e6ebed94715239a8019036f770b0e8e",
+    "matched_files_before": 243,
+    "matched_files_after": 243,
+    "files_unchanged": true,
+    "zero_calls_channels_before_shutdown": true,
+    "graceful_SIGTERM_and_shutdown_log_confirmed": true,
+    "exit_codes_not_observed_by_parent": true
+  },
+  "cleanup": {
+    "candidate_ports_released": true,
+    "owned_guest_processes_remaining": [],
+    "candidate_SIGTERM_wait_from_original_runner": true,
+    "candidate_exit_code_not_captured": true,
+    "reference_clean_shutdown_receipt": "reference-clean-shutdown.json"
+  },
+  "vm": {
+    "poweroff_requested": true,
+    "console": "vm-console.log",
+    "host_terminal_session_exit_code": 0,
+    "host_post_poweroff_pgrep_exit_code": 1,
+    "host_post_poweroff_pgrep_stdout": "",
+    "host_vm_process_absent": true,
+    "forced_vm_termination": false
+  },
+  "scope": "本机独立Alpine虚拟机；只对照固定26个ESL/OPTIONS子探针，不是完整3999合同、完整FS功能、RX Linux性能或5000/10000路验收；未操作主9080。",
+  "artifacts": {
+    "build-receipt.json": {
+      "sha256": "478d4163b34990c47e49f3be57b272d083b81b5564d8a0700ac81724bb394d0f",
+      "bytes": 139336
+    },
+    "callbench": {
+      "sha256": "12209449f2e773d4f1e6412c2505a7916a8771f056711b523907b4c23c9da556",
+      "bytes": 5139322
+    },
+    "callbench.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "candidate-events.jsonl": {
+      "sha256": "8ffb8c1a03d7ce95d11dfc9eb72c6151731a7815b0f607fbf59afd55e62858eb",
+      "bytes": 114
+    },
+    "candidate-legacy-config.skeleton.json": {
+      "sha256": "e1b3f298fce2a5b0604d24f26505abfccb63e11825d2b639eada96cdb0c083e2",
+      "bytes": 1432
+    },
+    "candidate-xml-config.skeleton.json": {
+      "sha256": "7f80acf814362d6dbfa68e4fecc4416fb5ca6a0afa69c8832a2ec96079a44414",
+      "bytes": 1540
+    },
+    "cleanup.sh": {
+      "sha256": "a7ff7361b63b3d616298b1b12edb6053bbbe2f214a7bc75764f96e479115c41d",
+      "bytes": 124
+    },
+    "config.json": {
+      "sha256": "e1b3f298fce2a5b0604d24f26505abfccb63e11825d2b639eada96cdb0c083e2",
+      "bytes": 1432
+    },
+    "guest-final-state.json": {
+      "sha256": "e6b5ec6fd5ec1694c623e94bf8fc1ce8cf0fab1089264c6dcb240393d991c03b",
+      "bytes": 449
+    },
+    "legacy-reference-shutdown.log": {
+      "sha256": "fa5dc68e8fb625b980f1bcc570ddf2dc6c2245b607aa634bfeae9413c3096b78",
+      "bytes": 77108
+    },
+    "media.log": {
+      "sha256": "dfbc11ce6724c0cf861d4af897a8c925ddc2f4fe76241142f6832f11089fd090",
+      "bytes": 1207
+    },
+    "paired-01.candidate.log": {
+      "sha256": "011960df5a8821953b5f0d2764b0b089e600e513376483615931f7abe9390734",
+      "bytes": 229
+    },
+    "paired-01.exit-code": {
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+      "bytes": 2
+    },
+    "paired-01.json": {
+      "sha256": "82c5851a10119966c66e1e5bfc699c89e323073ad5671523e23c26f51fba82df",
+      "bytes": 3898036
+    },
+    "paired-01.md": {
+      "sha256": "b18f0bfa206cb400b617a44a2dfe376790f12c82778cd67e70876d70828f4952",
+      "bytes": 4070
+    },
+    "paired-01.runner.log": {
+      "sha256": "79468afdb068a58a83c5d1ed5a8a3a1dbd9c931353f2632ef0cf7513ef38cb0b",
+      "bytes": 340
+    },
+    "paired-inputs-after.json": {
+      "sha256": "f5ea5f186069705c2c10ef48837a0a0f59df0498b8c74030ab86e55b4f78ec3a",
+      "bytes": 153178
+    },
+    "paired-inputs-before.json": {
+      "sha256": "ae7cc964978886fad1a22937276a5762bdb1bc6e61aca28c1d26e65a7de6b90a",
+      "bytes": 152917
+    },
+    "profile.json": {
+      "sha256": "4eb3b66699aef566483b76a39a72f8ca581ad6b075cd738ad153e6cf6dac3475",
+      "bytes": 2160
+    },
+    "reference-after.json": {
+      "sha256": "c7ecf6f906b7dd1e8ffd047a49c947d08ded01c554bd7b60976bf166fc8e06bf",
+      "bytes": 45864
+    },
+    "reference-after.sh": {
+      "sha256": "41273ef92f603fd7ff47def4a62bcbe14c2c6d40ea335dd5eba0b8d3712e3f4a",
+      "bytes": 1701
+    },
+    "reference-clean-shutdown.json": {
+      "sha256": "925718c072e4ef83229a97dd7a6de07c09af2e0d1f0b99ec737a7efc3147eb70",
+      "bytes": 4626
+    },
+    "reference-ready.json": {
+      "sha256": "1cabd09773789901a9f7aa3729612d24659fb6d7454e810ab7208b82b319c641",
+      "bytes": 45864
+    },
+    "reference-ready.sh": {
+      "sha256": "dfccfcd45af7ec5a90ddf5cc1bf144ffa186c9baa28b732572dff33cb030f6cf",
+      "bytes": 1701
+    },
+    "reference-runtime/launch-reference.sh": {
+      "sha256": "01274ada3e4d1dc1c8a5ae1a139b3f570c96d94b9e0c110ed70530589f59281a",
+      "bytes": 2941
+    },
+    "reference-runtime/reference-config.xml": {
+      "sha256": "9022c155929885a6b2cad69506db1aa710746d33e578baeeb41daa7f70a660c5",
+      "bytes": 5779
+    },
+    "reference-runtime/runtime/apk-installed.txt": {
+      "sha256": "da03f22fc12776fba4c633f37eb29aba0cdda5dc1f11a3671748eea20966074f",
+      "bytes": 3283
+    },
+    "reference-runtime/runtime/binary-sha256.txt": {
+      "sha256": "9b8fcb9ba5fd9df5acd6d4f19948015c6551cec7b58b625e5f49a855d99565e2",
+      "bytes": 4006
+    },
+    "reference-runtime/runtime/console.log": {
+      "sha256": "0df9eaeae61fb2f365f66453578f66c730e56acd39aa478f3b2212719c880f2c",
+      "bytes": 189404
+    },
+    "reference-runtime/runtime/freeswitch.pid": {
+      "sha256": "efa943ab4845310e8eee3c84caf4c74dee20fc3340a205d1d51bfb077840be1b",
+      "bytes": 5
+    },
+    "reference-runtime/runtime/help.txt": {
+      "sha256": "864a60bac94581e5dc904a7ee2c48e4abfc000cfd3df6513877fc60934d6fd76",
+      "bytes": 2519
+    },
+    "reference-runtime/runtime/uname.txt": {
+      "sha256": "8dde792a2b5c7f605705f3247b6a0bf1a850bd9e932399c04cbc51c6cf35cee0",
+      "bytes": 99
+    },
+    "reference-runtime/runtime/version.txt": {
+      "sha256": "0fb7f92a865829f28b23535a40628fe30d1b7551bdcde0ae482be11993b97b98",
+      "bytes": 58
+    },
+    "restore-reference.log": {
+      "sha256": "2f2a636879b61ce81472a0d9b29d513d3a153584c0165e5f418f1176adf0c3b9",
+      "bytes": 6291
+    },
+    "restore-reference.sh": {
+      "sha256": "fe3ffc2db7b3de847fb4021317aaf8715cff07c54dd9d98ce5e451ec4156a526",
+      "bytes": 698
+    },
+    "run-paired-01.sh": {
+      "sha256": "98c04595e7b61784f66b063844075ad23d85fec64ddd56d2d81cbd15922fa40f",
+      "bytes": 76
+    },
+    "run-paired.sh": {
+      "sha256": "d35cfa0b01a32208ae0a4ff2432a80c1780905cea17fdb5f0bb4ee60694af743",
+      "bytes": 1381
+    },
+    "runtime-build.json": {
+      "sha256": "b356c413aa30f313dfa8719b2cc863df0d3d6eb0bf4bb4e7b4251ca86d451886",
+      "bytes": 195422
+    },
+    "rustswitch": {
+      "sha256": "fb4285ae0e35acc0e41f72fc0f87519023e2c4e38bc96d4357ef54c2868e4c99",
+      "bytes": 67701531
+    },
+    "rustswitch-media": {
+      "sha256": "5868122d3119e4aeb0ce6074519dd265f8b78df906200a27a1f8466d6101861d",
+      "bytes": 4164680
+    },
+    "rustswitch.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "stop-owned-reference.py": {
+      "sha256": "1901c996b1ece7f49a8bec9bc9034af842e8837d168596836aa542ae6e46d694",
+      "bytes": 5657
+    },
+    "vm-console.log": {
+      "sha256": "bef1ee5c89e030700ebad1d2cd30abe2dffbd67d12d69478a2428d57df46a5d1",
+      "bytes": 7910
+    },
+    "vm-job-runner.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "vm-job-runner.py": {
+      "sha256": "0378186c5d4cd4a2a915a7d9adf1ccbc1838428ca3a6cc7e36a0dd3d33d7bd52",
+      "bytes": 1283
+    },
+    "vm-jobs/01-ready.request.done.json": {
+      "sha256": "dc3984df8a15f02d53838244698bc6d2b1a655a44ff07d6ba3018716b6099ac3",
+      "bytes": 163
+    },
+    "vm-jobs/01-ready.request.json": {
+      "sha256": "23185ccebe7b93c2c8148063d8eace9726712c266c62e914a3fecd805396bf1b",
+      "bytes": 86
+    },
+    "vm-jobs/01-ready.request.output.log": {
+      "sha256": "781c60a2a93f49535b4e4ee1a1512114a9e9373fe2ee0b156a3db04cba2c19fc",
+      "bytes": 110
+    },
+    "vm-jobs/02-paired.request.done.json": {
+      "sha256": "ba71add8af267bdc33f16b2e8b3885f58e0e4416fdc7566d27e7213bc24be44d",
+      "bytes": 164
+    },
+    "vm-jobs/02-paired.request.json": {
+      "sha256": "a69114fd43e2d9e8903359aa757459f7419188c276c0380ab9ebdd28736a2fc0",
+      "bytes": 85
+    },
+    "vm-jobs/02-paired.request.output.log": {
+      "sha256": "79468afdb068a58a83c5d1ed5a8a3a1dbd9c931353f2632ef0cf7513ef38cb0b",
+      "bytes": 340
+    },
+    "vm-jobs/03-cleanup.request.done.json": {
+      "sha256": "01329db69061538fa57c802f89575cffe7ff853729d81fb40118d569faf250ce",
+      "bytes": 165
+    },
+    "vm-jobs/03-cleanup.request.json": {
+      "sha256": "9d7c99c542045ddf1839a3e5a7cbb91e3fa87bd2398ce228dac51bbbbe667487",
+      "bytes": 78
+    },
+    "vm-jobs/03-cleanup.request.output.log": {
+      "sha256": "d73234c998a045b1e462cbc3e4565ba08a41f5361a4671f145074bf53ef6ac31",
+      "bytes": 455
+    },
+    "vm-jobs/STOP": {
+      "sha256": "a31e0418d60a65dbe9b7386fc5564e1c5304ca66cb0ae49b66e70c71ebd4ec5a",
+      "bytes": 75
+    },
+    "xml-config.json": {
+      "sha256": "7f80acf814362d6dbfa68e4fecc4416fb5ca6a0afa69c8832a2ec96079a44414",
+      "bytes": 1540
+    }
+  }
+}

@@ -1,0 +1,6395 @@
+{
+  "01-项目说明.html": [
+    {
+      "id": "01-项目说明",
+      "level": 1,
+      "text": "01 项目说明"
+    },
+    {
+      "id": "产品目标",
+      "level": 2,
+      "text": "产品目标"
+    },
+    {
+      "id": "当前版本口径",
+      "level": 2,
+      "text": "当前版本口径"
+    },
+    {
+      "id": "技术栈与运行形态",
+      "level": 2,
+      "text": "技术栈与运行形态"
+    },
+    {
+      "id": "已具备的业务基础",
+      "level": 2,
+      "text": "已具备的业务基础"
+    },
+    {
+      "id": "工程目录与职责",
+      "level": 2,
+      "text": "工程目录与职责"
+    },
+    {
+      "id": "尚未完成的产品范围",
+      "level": 2,
+      "text": "尚未完成的产品范围"
+    }
+  ],
+  "02-项目拓扑图.html": [
+    {
+      "id": "02-项目拓扑图",
+      "level": 1,
+      "text": "02 项目拓扑图"
+    },
+    {
+      "id": "基线部署拓扑",
+      "level": 2,
+      "text": "基线部署拓扑"
+    },
+    {
+      "id": "语音智能体接入拓扑",
+      "level": 2,
+      "text": "语音智能体接入拓扑"
+    },
+    {
+      "id": "压测拓扑与资源隔离",
+      "level": 2,
+      "text": "压测拓扑与资源隔离"
+    },
+    {
+      "id": "端口与容量规划",
+      "level": 2,
+      "text": "端口与容量规划"
+    }
+  ],
+  "03-软件架构图.html": [
+    {
+      "id": "03-软件架构图",
+      "level": 1,
+      "text": "03 软件架构图"
+    },
+    {
+      "id": "进程与模块",
+      "level": 2,
+      "text": "进程与模块"
+    },
+    {
+      "id": "三条媒体路径",
+      "level": 2,
+      "text": "三条媒体路径"
+    },
+    {
+      "id": "关键身份与时间线",
+      "level": 2,
+      "text": "关键身份与时间线"
+    },
+    {
+      "id": "呼叫生命周期",
+      "level": 2,
+      "text": "呼叫生命周期"
+    },
+    {
+      "id": "故障边界",
+      "level": 2,
+      "text": "故障边界"
+    }
+  ],
+  "04-HTTP接口文档.html": [
+    {
+      "id": "04-http-管理接口完整文档",
+      "level": 1,
+      "text": "04 HTTP 管理接口完整文档"
+    },
+    {
+      "id": "通用调用合同",
+      "level": 2,
+      "text": "通用调用合同"
+    },
+    {
+      "id": "操作目录",
+      "level": 2,
+      "text": "操作目录"
+    },
+    {
+      "id": "gethealth-get-healthz",
+      "level": 2,
+      "text": "getHealth · GET /healthz"
+    },
+    {
+      "id": "路径查询与头参数",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getreadiness-get-readyz",
+      "level": 2,
+      "text": "getReadiness · GET /readyz"
+    },
+    {
+      "id": "路径查询与头参数-1",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-1",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-1",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getstatus-get-v1status",
+      "level": 2,
+      "text": "getStatus · GET /v1/status"
+    },
+    {
+      "id": "路径查询与头参数-2",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-2",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-2",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getmetrics-get-metrics",
+      "level": 2,
+      "text": "getMetrics · GET /metrics"
+    },
+    {
+      "id": "路径查询与头参数-3",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-3",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-3",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getconfig-get-v1config",
+      "level": 2,
+      "text": "getConfig · GET /v1/config"
+    },
+    {
+      "id": "路径查询与头参数-4",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-4",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-4",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "putconfig-put-v1config",
+      "level": 2,
+      "text": "putConfig · PUT /v1/config"
+    },
+    {
+      "id": "路径查询与头参数-5",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "请求正文",
+      "level": 3,
+      "text": "请求正文"
+    },
+    {
+      "id": "全部已定义响应-5",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-5",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getguard-get-v1guard",
+      "level": 2,
+      "text": "getGuard · GET /v1/guard"
+    },
+    {
+      "id": "路径查询与头参数-6",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-6",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-6",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "putguard-put-v1guard",
+      "level": 2,
+      "text": "putGuard · PUT /v1/guard"
+    },
+    {
+      "id": "路径查询与头参数-7",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "请求正文-1",
+      "level": 3,
+      "text": "请求正文"
+    },
+    {
+      "id": "全部已定义响应-7",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-7",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "drain-post-v1drain",
+      "level": 2,
+      "text": "drain · POST /v1/drain"
+    },
+    {
+      "id": "路径查询与头参数-8",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "请求正文-2",
+      "level": 3,
+      "text": "请求正文"
+    },
+    {
+      "id": "全部已定义响应-8",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-8",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "resume-post-v1resume",
+      "level": 2,
+      "text": "resume · POST /v1/resume"
+    },
+    {
+      "id": "路径查询与头参数-9",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "请求正文-3",
+      "level": 3,
+      "text": "请求正文"
+    },
+    {
+      "id": "全部已定义响应-9",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-9",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getfsconfig-get-v1fs-config",
+      "level": 2,
+      "text": "getFSConfig · GET /v1/fs-config"
+    },
+    {
+      "id": "路径查询与头参数-10",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-10",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-10",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "putfsconfig-put-v1fs-config",
+      "level": 2,
+      "text": "putFSConfig · PUT /v1/fs-config"
+    },
+    {
+      "id": "路径查询与头参数-11",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "请求正文-4",
+      "level": 3,
+      "text": "请求正文"
+    },
+    {
+      "id": "全部已定义响应-11",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-11",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getfsfile-get-v1fs-configfile",
+      "level": 2,
+      "text": "getFSFile · GET /v1/fs-config/file"
+    },
+    {
+      "id": "路径查询与头参数-12",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-12",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-12",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "putfsfile-put-v1fs-configfile",
+      "level": 2,
+      "text": "putFSFile · PUT /v1/fs-config/file"
+    },
+    {
+      "id": "路径查询与头参数-13",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "请求正文-5",
+      "level": 3,
+      "text": "请求正文"
+    },
+    {
+      "id": "全部已定义响应-13",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-13",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getfsexport-get-v1fs-configexport",
+      "level": 2,
+      "text": "getFSExport · GET /v1/fs-config/export"
+    },
+    {
+      "id": "路径查询与头参数-14",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-14",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-14",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getdocs-get-v1docs",
+      "level": 2,
+      "text": "getDocs · GET /v1/docs"
+    },
+    {
+      "id": "路径查询与头参数-15",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-15",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-15",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getopenapi-get-v1docsopenapijson",
+      "level": 2,
+      "text": "getOpenAPI · GET /v1/docs/openapi.json"
+    },
+    {
+      "id": "路径查询与头参数-16",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-16",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-16",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getcomparison-get-v1docscomparisonjson",
+      "level": 2,
+      "text": "getComparison · GET /v1/docs/comparison.json"
+    },
+    {
+      "id": "路径查询与头参数-17",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-17",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-17",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getdocument-get-v1docsfile",
+      "level": 2,
+      "text": "getDocument · GET /v1/docs/file"
+    },
+    {
+      "id": "路径查询与头参数-18",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-18",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-18",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getdocsexport-get-v1docsexportzip",
+      "level": 2,
+      "text": "getDocsExport · GET /v1/docs/export.zip"
+    },
+    {
+      "id": "路径查询与头参数-19",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-19",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-19",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "gettests-get-v1tests",
+      "level": 2,
+      "text": "getTests · GET /v1/tests"
+    },
+    {
+      "id": "路径查询与头参数-20",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-20",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-20",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "starttest-post-v1tests",
+      "level": 2,
+      "text": "startTest · POST /v1/tests"
+    },
+    {
+      "id": "路径查询与头参数-21",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "请求正文-6",
+      "level": 3,
+      "text": "请求正文"
+    },
+    {
+      "id": "全部已定义响应-21",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-21",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "gettest-get-v1testsid",
+      "level": 2,
+      "text": "getTest · GET /v1/tests/{id}"
+    },
+    {
+      "id": "路径查询与头参数-22",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-22",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-22",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "stoptest-post-v1testsidstop",
+      "level": 2,
+      "text": "stopTest · POST /v1/tests/{id}/stop"
+    },
+    {
+      "id": "路径查询与头参数-23",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "请求正文-7",
+      "level": 3,
+      "text": "请求正文"
+    },
+    {
+      "id": "全部已定义响应-23",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-23",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "gettestreport-get-v1testsidreport",
+      "level": 2,
+      "text": "getTestReport · GET /v1/tests/{id}/report"
+    },
+    {
+      "id": "路径查询与头参数-24",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-24",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-24",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    },
+    {
+      "id": "getcodecs-get-v1codecs",
+      "level": 2,
+      "text": "getCodecs · GET /v1/codecs"
+    },
+    {
+      "id": "路径查询与头参数-25",
+      "level": 3,
+      "text": "路径、查询与头参数"
+    },
+    {
+      "id": "全部已定义响应-25",
+      "level": 3,
+      "text": "全部已定义响应"
+    },
+    {
+      "id": "freeswitch-对照-25",
+      "level": 3,
+      "text": "FreeSWITCH 对照"
+    }
+  ],
+  "05-协议与SDK文档.html": [
+    {
+      "id": "05-通信协议与-sdk-文档",
+      "level": 1,
+      "text": "05 通信协议与 SDK 文档"
+    },
+    {
+      "id": "sip-与-codec-使用边界",
+      "level": 2,
+      "text": "SIP 与 Codec 使用边界"
+    },
+    {
+      "id": "控制与媒体报文示例",
+      "level": 2,
+      "text": "控制与媒体报文示例"
+    },
+    {
+      "id": "原版对照如何使用",
+      "level": 2,
+      "text": "原版对照如何使用"
+    }
+  ],
+  "06-使用说明.html": [
+    {
+      "id": "06-使用说明",
+      "level": 1,
+      "text": "06 使用说明"
+    },
+    {
+      "id": "1-确认工程和版本",
+      "level": 2,
+      "text": "1. 确认工程和版本"
+    },
+    {
+      "id": "2-准备环境和构建",
+      "level": 2,
+      "text": "2. 准备环境和构建"
+    },
+    {
+      "id": "3-本地启动与最小试用",
+      "level": 2,
+      "text": "3. 本地启动与最小试用"
+    },
+    {
+      "id": "4-后台操作顺序",
+      "level": 2,
+      "text": "4. 后台操作顺序"
+    },
+    {
+      "id": "5-接入可信线路",
+      "level": 2,
+      "text": "5. 接入可信线路"
+    },
+    {
+      "id": "6-本地接听ivr-和按键",
+      "level": 2,
+      "text": "6. 本地接听、IVR 和按键"
+    },
+    {
+      "id": "7-http-客户端正确写入",
+      "level": 2,
+      "text": "7. HTTP 客户端正确写入"
+    },
+    {
+      "id": "8-pcm-与-asr-接入",
+      "level": 2,
+      "text": "8. PCM 与 ASR 接入"
+    },
+    {
+      "id": "9-linux-安装与停止",
+      "level": 2,
+      "text": "9. Linux 安装与停止"
+    }
+  ],
+  "07-运维与压测说明.html": [
+    {
+      "id": "07-运维与压力测试说明",
+      "level": 1,
+      "text": "07 运维与压力测试说明"
+    },
+    {
+      "id": "容量保护的实际语义",
+      "level": 2,
+      "text": "容量保护的实际语义"
+    },
+    {
+      "id": "正确执行压力测试",
+      "level": 2,
+      "text": "正确执行压力测试"
+    },
+    {
+      "id": "通过条件与计数",
+      "level": 2,
+      "text": "通过条件与计数"
+    },
+    {
+      "id": "本次已知性能与诊断状态",
+      "level": 2,
+      "text": "本次已知性能与诊断状态"
+    },
+    {
+      "id": "日常观测与故障排查",
+      "level": 2,
+      "text": "日常观测与故障排查"
+    },
+    {
+      "id": "持久化升级与验收层次",
+      "level": 2,
+      "text": "持久化、升级与验收层次"
+    }
+  ],
+  "08-当前能力与验证状态.html": [
+    {
+      "id": "08-当前能力与验证状态",
+      "level": 1,
+      "text": "08 当前能力与验证状态"
+    },
+    {
+      "id": "工程基线的对照计数",
+      "level": 2,
+      "text": "工程基线的对照计数"
+    },
+    {
+      "id": "本轮-asr-候选的已执行验证",
+      "level": 2,
+      "text": "本轮 ASR 候选的已执行验证"
+    },
+    {
+      "id": "产品缺口与优先顺序",
+      "level": 2,
+      "text": "产品缺口与优先顺序"
+    }
+  ],
+  "09-数据模型全文.html": [
+    {
+      "id": "09-数据模型全文",
+      "level": 1,
+      "text": "09 数据模型全文"
+    },
+    {
+      "id": "sipconfig",
+      "level": 2,
+      "text": "SIPConfig"
+    },
+    {
+      "id": "mediaconfig",
+      "level": 2,
+      "text": "MediaConfig"
+    },
+    {
+      "id": "limits",
+      "level": 2,
+      "text": "Limits"
+    },
+    {
+      "id": "adminlistenconfig",
+      "level": 2,
+      "text": "AdminListenConfig"
+    },
+    {
+      "id": "journalconfig",
+      "level": 2,
+      "text": "JournalConfig"
+    },
+    {
+      "id": "config",
+      "level": 2,
+      "text": "Config"
+    },
+    {
+      "id": "guardpolicy",
+      "level": 2,
+      "text": "GuardPolicy"
+    },
+    {
+      "id": "guardsnapshot",
+      "level": 2,
+      "text": "GuardSnapshot"
+    },
+    {
+      "id": "mediaadmission",
+      "level": 2,
+      "text": "MediaAdmission"
+    },
+    {
+      "id": "sipconfiginput",
+      "level": 2,
+      "text": "SIPConfigInput"
+    },
+    {
+      "id": "mediaconfiginput",
+      "level": 2,
+      "text": "MediaConfigInput"
+    },
+    {
+      "id": "limitsinput",
+      "level": 2,
+      "text": "LimitsInput"
+    },
+    {
+      "id": "adminlistenconfiginput",
+      "level": 2,
+      "text": "AdminListenConfigInput"
+    },
+    {
+      "id": "journalconfiginput",
+      "level": 2,
+      "text": "JournalConfigInput"
+    },
+    {
+      "id": "configinput",
+      "level": 2,
+      "text": "ConfigInput"
+    },
+    {
+      "id": "guardpolicyinput",
+      "level": 2,
+      "text": "GuardPolicyInput"
+    },
+    {
+      "id": "error",
+      "level": 2,
+      "text": "Error"
+    },
+    {
+      "id": "revisionconflict",
+      "level": 2,
+      "text": "RevisionConflict"
+    },
+    {
+      "id": "health",
+      "level": 2,
+      "text": "Health"
+    },
+    {
+      "id": "readiness",
+      "level": 2,
+      "text": "Readiness"
+    },
+    {
+      "id": "drainstate",
+      "level": 2,
+      "text": "DrainState"
+    },
+    {
+      "id": "adminconfigresponse",
+      "level": 2,
+      "text": "AdminConfigResponse"
+    },
+    {
+      "id": "guardresponse",
+      "level": 2,
+      "text": "GuardResponse"
+    },
+    {
+      "id": "configupdate",
+      "level": 2,
+      "text": "ConfigUpdate"
+    },
+    {
+      "id": "guardupdate",
+      "level": 2,
+      "text": "GuardUpdate"
+    },
+    {
+      "id": "mediastats",
+      "level": 2,
+      "text": "MediaStats"
+    },
+    {
+      "id": "workerstatus",
+      "level": 2,
+      "text": "WorkerStatus"
+    },
+    {
+      "id": "status",
+      "level": 2,
+      "text": "Status"
+    },
+    {
+      "id": "fsparameter",
+      "level": 2,
+      "text": "FSParameter"
+    },
+    {
+      "id": "fsconfigfile",
+      "level": 2,
+      "text": "FSConfigFile"
+    },
+    {
+      "id": "fscapability",
+      "level": 2,
+      "text": "FSCapability"
+    },
+    {
+      "id": "fsconfigresponse",
+      "level": 2,
+      "text": "FSConfigResponse"
+    },
+    {
+      "id": "fsparametersupdate",
+      "level": 2,
+      "text": "FSParametersUpdate"
+    },
+    {
+      "id": "fsfileresponse",
+      "level": 2,
+      "text": "FSFileResponse"
+    },
+    {
+      "id": "fsfileupdate",
+      "level": 2,
+      "text": "FSFileUpdate"
+    },
+    {
+      "id": "fsfileupdated",
+      "level": 2,
+      "text": "FSFileUpdated"
+    },
+    {
+      "id": "documentitem",
+      "level": 2,
+      "text": "DocumentItem"
+    },
+    {
+      "id": "docsmanifest",
+      "level": 2,
+      "text": "DocsManifest"
+    },
+    {
+      "id": "comparisonentry",
+      "level": 2,
+      "text": "ComparisonEntry"
+    },
+    {
+      "id": "comparison",
+      "level": 2,
+      "text": "Comparison"
+    },
+    {
+      "id": "openapifile",
+      "level": 2,
+      "text": "OpenAPIFile"
+    },
+    {
+      "id": "testrequest",
+      "level": 2,
+      "text": "TestRequest"
+    },
+    {
+      "id": "testprogress",
+      "level": 2,
+      "text": "TestProgress"
+    },
+    {
+      "id": "testsample",
+      "level": 2,
+      "text": "TestSample"
+    },
+    {
+      "id": "testcleanup",
+      "level": 2,
+      "text": "TestCleanup"
+    },
+    {
+      "id": "testrun",
+      "level": 2,
+      "text": "TestRun"
+    },
+    {
+      "id": "testcapabilities",
+      "level": 2,
+      "text": "TestCapabilities"
+    },
+    {
+      "id": "testoverview",
+      "level": 2,
+      "text": "TestOverview"
+    },
+    {
+      "id": "testreport",
+      "level": 2,
+      "text": "TestReport"
+    },
+    {
+      "id": "testgeneratorresult",
+      "level": 2,
+      "text": "TestGeneratorResult"
+    },
+    {
+      "id": "testports",
+      "level": 2,
+      "text": "TestPorts"
+    },
+    {
+      "id": "testresourcepreflight",
+      "level": 2,
+      "text": "TestResourcePreflight"
+    },
+    {
+      "id": "testbinaryhashes",
+      "level": 2,
+      "text": "TestBinaryHashes"
+    },
+    {
+      "id": "testfinalworker",
+      "level": 2,
+      "text": "TestFinalWorker"
+    },
+    {
+      "id": "testfinalstatus",
+      "level": 2,
+      "text": "TestFinalStatus"
+    },
+    {
+      "id": "testevidence",
+      "level": 2,
+      "text": "TestEvidence"
+    },
+    {
+      "id": "controllerstatus",
+      "level": 2,
+      "text": "ControllerStatus"
+    },
+    {
+      "id": "codecprofile",
+      "level": 2,
+      "text": "CodecProfile"
+    },
+    {
+      "id": "nativecodeccapability",
+      "level": 2,
+      "text": "NativeCodecCapability"
+    },
+    {
+      "id": "nativeaudiocapabilities",
+      "level": 2,
+      "text": "NativeAudioCapabilities"
+    },
+    {
+      "id": "codeccatalog",
+      "level": 2,
+      "text": "CodecCatalog"
+    },
+    {
+      "id": "testportcapacity",
+      "level": 2,
+      "text": "TestPortCapacity"
+    },
+    {
+      "id": "testfailure",
+      "level": 2,
+      "text": "TestFailure"
+    },
+    {
+      "id": "sipstreamconfig",
+      "level": 2,
+      "text": "SIPStreamConfig"
+    },
+    {
+      "id": "siptrunkauth",
+      "level": 2,
+      "text": "SIPTrunkAuth"
+    },
+    {
+      "id": "sipregistration",
+      "level": 2,
+      "text": "SIPRegistration"
+    },
+    {
+      "id": "sipregistrationstatus",
+      "level": 2,
+      "text": "SIPRegistrationStatus"
+    },
+    {
+      "id": "sipdialplan",
+      "level": 2,
+      "text": "SIPDialplan"
+    },
+    {
+      "id": "workercapabilitysnapshot",
+      "level": 2,
+      "text": "WorkerCapabilitySnapshot"
+    },
+    {
+      "id": "runtimecodecstatus",
+      "level": 2,
+      "text": "RuntimeCodecStatus"
+    },
+    {
+      "id": "testprocessingstats",
+      "level": 2,
+      "text": "TestProcessingStats"
+    },
+    {
+      "id": "processedgeneratorresult",
+      "level": 2,
+      "text": "ProcessedGeneratorResult"
+    },
+    {
+      "id": "processedreceiveerror",
+      "level": 2,
+      "text": "ProcessedReceiveError"
+    },
+    {
+      "id": "processedwriteerror",
+      "level": 2,
+      "text": "ProcessedWriteError"
+    },
+    {
+      "id": "processeddiagnostics",
+      "level": 2,
+      "text": "ProcessedDiagnostics"
+    },
+    {
+      "id": "pcmstreamconfig",
+      "level": 2,
+      "text": "PCMStreamConfig"
+    },
+    {
+      "id": "pcmstreamconfiginput",
+      "level": 2,
+      "text": "PCMStreamConfigInput"
+    }
+  ],
+  "10-全部专题文档目录.html": [
+    {
+      "id": "10-全部专题文档目录",
+      "level": 1,
+      "text": "10 全部专题文档目录"
+    },
+    {
+      "id": "candidate",
+      "level": 2,
+      "text": "candidate"
+    },
+    {
+      "id": "candidateevidenceclient-independent-audit-02",
+      "level": 2,
+      "text": "candidate/evidence/client-independent-audit-02"
+    },
+    {
+      "id": "candidateevidencefull-review-01",
+      "level": 2,
+      "text": "candidate/evidence/full-review-01"
+    },
+    {
+      "id": "candidateevidenceserver-independent-audit-01",
+      "level": 2,
+      "text": "candidate/evidence/server-independent-audit-01"
+    },
+    {
+      "id": "candidateevidenceserver-no-binding-fix-01",
+      "level": 2,
+      "text": "candidate/evidence/server-no-binding-fix-01"
+    },
+    {
+      "id": "candidateevidenceserver-real-02",
+      "level": 2,
+      "text": "candidate/evidence/server-real-02"
+    },
+    {
+      "id": "reference",
+      "level": 2,
+      "text": "reference"
+    },
+    {
+      "id": "referenceconfig",
+      "level": 2,
+      "text": "reference/config"
+    },
+    {
+      "id": "referencecontrolcmdcallbench",
+      "level": 2,
+      "text": "reference/control/cmd/callbench"
+    },
+    {
+      "id": "referencecontrolinternalconfig",
+      "level": 2,
+      "text": "reference/control/internal/config"
+    },
+    {
+      "id": "referencecontrolinternaljournal",
+      "level": 2,
+      "text": "reference/control/internal/journal"
+    },
+    {
+      "id": "referencecontrolinternalmedia",
+      "level": 2,
+      "text": "reference/control/internal/media"
+    },
+    {
+      "id": "referencecontrolinternalserver",
+      "level": 2,
+      "text": "reference/control/internal/server"
+    },
+    {
+      "id": "referencecontrolinternalserverfs_templates",
+      "level": 2,
+      "text": "reference/control/internal/server/fs_templates"
+    },
+    {
+      "id": "referencecontrolinternalserverweb",
+      "level": 2,
+      "text": "reference/control/internal/server/web"
+    },
+    {
+      "id": "referencedeploy",
+      "level": 2,
+      "text": "reference/deploy"
+    },
+    {
+      "id": "referencedocs",
+      "level": 2,
+      "text": "reference/docs"
+    },
+    {
+      "id": "referencedocsapi",
+      "level": 2,
+      "text": "reference/docs/api"
+    },
+    {
+      "id": "referencedocsbenchmarks-v02",
+      "level": 2,
+      "text": "reference/docs/benchmarks-v0.2"
+    },
+    {
+      "id": "referencedocsfreeswitch-compatibility",
+      "level": 2,
+      "text": "reference/docs/freeswitch-compatibility"
+    },
+    {
+      "id": "referencedocsfreeswitch-compatibilitycatalog",
+      "level": 2,
+      "text": "reference/docs/freeswitch-compatibility/catalog"
+    },
+    {
+      "id": "referencedocsfreeswitch-compatibilitytemplates",
+      "level": 2,
+      "text": "reference/docs/freeswitch-compatibility/templates"
+    },
+    {
+      "id": "referencedocsreviews2026-09-05",
+      "level": 2,
+      "text": "reference/docs/reviews/2026-09-05"
+    },
+    {
+      "id": "referencedocsverification-v03",
+      "level": 2,
+      "text": "reference/docs/verification-v0.3"
+    },
+    {
+      "id": "referencemediasrc",
+      "level": 2,
+      "text": "reference/media/src"
+    },
+    {
+      "id": "referencemediasrcmedia",
+      "level": 2,
+      "text": "reference/media/src/media"
+    },
+    {
+      "id": "referencenativeaudio",
+      "level": 2,
+      "text": "reference/native/audio"
+    },
+    {
+      "id": "referencenativeinclude",
+      "level": 2,
+      "text": "reference/native/include"
+    },
+    {
+      "id": "referencenativevendorspandsp",
+      "level": 2,
+      "text": "reference/native/vendor/spandsp"
+    },
+    {
+      "id": "referencetools",
+      "level": 2,
+      "text": "reference/tools"
+    }
+  ],
+  "11-交付与源码说明.html": [
+    {
+      "id": "11-交付与源码说明",
+      "level": 1,
+      "text": "11 交付与源码说明"
+    },
+    {
+      "id": "交付目录",
+      "level": 2,
+      "text": "交付目录"
+    },
+    {
+      "id": "哪套代码用于哪项工作",
+      "level": 2,
+      "text": "哪套代码用于哪项工作"
+    },
+    {
+      "id": "已完成代码的具体增量",
+      "level": 2,
+      "text": "已完成代码的具体增量"
+    },
+    {
+      "id": "离线编译步骤",
+      "level": 2,
+      "text": "离线编译步骤"
+    },
+    {
+      "id": "发布前仍需完成的检查",
+      "level": 2,
+      "text": "发布前仍需完成的检查"
+    },
+    {
+      "id": "交接时应核对什么",
+      "level": 2,
+      "text": "交接时应核对什么"
+    }
+  ],
+  "12-需求说明书.html": [
+    {
+      "id": "12-云蝠-voice-runtime-需求说明书",
+      "level": 1,
+      "text": "12 云蝠 Voice Runtime 需求说明书"
+    },
+    {
+      "id": "1-产品目标依据与解释规则",
+      "level": 2,
+      "text": "1. 产品目标、依据与解释规则"
+    },
+    {
+      "id": "11-需求来源",
+      "level": 3,
+      "text": "1.1 需求来源"
+    },
+    {
+      "id": "12-优先级现状与关闭条件",
+      "level": 3,
+      "text": "1.2 优先级、现状与关闭条件"
+    },
+    {
+      "id": "2-当前事实与目标分别记录",
+      "level": 2,
+      "text": "2. 当前事实与目标分别记录"
+    },
+    {
+      "id": "3-功能需求fr32项",
+      "level": 2,
+      "text": "3. 功能需求（FR，32项）"
+    },
+    {
+      "id": "4-非功能与架构约束nf12项",
+      "level": 2,
+      "text": "4. 非功能与架构约束（NF，12项）"
+    },
+    {
+      "id": "5-接口与数据合同if10项",
+      "level": 2,
+      "text": "5. 接口与数据合同（IF，10项）"
+    },
+    {
+      "id": "51-控制命令cmd10项",
+      "level": 3,
+      "text": "5.1 控制命令（CMD，10项）"
+    },
+    {
+      "id": "52-业务事件ev11项",
+      "level": 3,
+      "text": "5.2 业务事件（EV，11项）"
+    },
+    {
+      "id": "6-安全与隔离要求sec8项",
+      "level": 2,
+      "text": "6. 安全与隔离要求（SEC，8项）"
+    },
+    {
+      "id": "7-运维后台与保护要求ops10项",
+      "level": 2,
+      "text": "7. 运维、后台与保护要求（OPS，10项）"
+    },
+    {
+      "id": "8-迁移与兼容要求mig8项",
+      "level": 2,
+      "text": "8. 迁移与兼容要求（MIG，8项）"
+    },
+    {
+      "id": "9-性能与可靠性验收目标perf10项",
+      "level": 2,
+      "text": "9. 性能与可靠性验收目标（PERF，10项）"
+    },
+    {
+      "id": "10-测试证据与交付验收acc10项",
+      "level": 2,
+      "text": "10. 测试、证据与交付验收（ACC，10项）"
+    },
+    {
+      "id": "11-指标与决策待定项t01t22",
+      "level": 2,
+      "text": "11. 指标与决策待定项（T01～T22）"
+    },
+    {
+      "id": "12-阶段依赖与退出条件",
+      "level": 2,
+      "text": "12. 阶段依赖与退出条件"
+    },
+    {
+      "id": "13-与既有v1验收的映射",
+      "level": 2,
+      "text": "13. 与既有V1验收的映射"
+    },
+    {
+      "id": "14-首期范围外与有条件范围",
+      "level": 2,
+      "text": "14. 首期范围外与有条件范围"
+    },
+    {
+      "id": "15-需求变更与最终验收记录",
+      "level": 2,
+      "text": "15. 需求变更与最终验收记录"
+    },
+    {
+      "id": "需求任务化导出",
+      "level": 2,
+      "text": "需求任务化导出"
+    }
+  ],
+  "13-项目未完成清单.html": [
+    {
+      "id": "13-项目未完成清单",
+      "level": 1,
+      "text": "13 项目未完成清单"
+    },
+    {
+      "id": "一当前必须区分的交付状态",
+      "level": 2,
+      "text": "一、当前必须区分的交付状态"
+    },
+    {
+      "id": "二3999条原始状态统计",
+      "level": 2,
+      "text": "二、3999条原始状态统计"
+    },
+    {
+      "id": "按原始类别展开",
+      "level": 3,
+      "text": "按原始类别展开"
+    },
+    {
+      "id": "三当前已确认的失败与证据限制",
+      "level": 2,
+      "text": "三、当前已确认的失败与证据限制"
+    },
+    {
+      "id": "四逐项工作包",
+      "level": 2,
+      "text": "四、逐项工作包"
+    },
+    {
+      "id": "dlv-01-p0-asr隔离候选合并文档和发布",
+      "level": 3,
+      "text": "DLV-01 · P0 · ASR隔离候选合并、文档和发布"
+    },
+    {
+      "id": "dlv-02-p0-rx时效和通话生命周期增量发布",
+      "level": 3,
+      "text": "DLV-02 · P0 · RX时效和通话生命周期增量发布"
+    },
+    {
+      "id": "dlv-03-p0-修复两套源码的文档发布门禁",
+      "level": 3,
+      "text": "DLV-03 · P0 · 修复两套源码的文档发布门禁"
+    },
+    {
+      "id": "dlv-04-p0-确定项目自有源码许可和分发范围",
+      "level": 3,
+      "text": "DLV-04 · P0 · 确定项目自有源码许可和分发范围"
+    },
+    {
+      "id": "dia-01-p0-stats原子快照与真正退出后采集边界",
+      "level": 3,
+      "text": "DIA-01 · P0 · Stats原子快照与真正退出后采集边界"
+    },
+    {
+      "id": "dia-02-p0-失败末尾有界采样与取消终态",
+      "level": 3,
+      "text": "DIA-02 · P0 · 失败末尾有界采样与取消终态"
+    },
+    {
+      "id": "dia-03-p0-不支持的socket丢弃计数显示未知",
+      "level": 3,
+      "text": "DIA-03 · P0 · 不支持的socket丢弃计数显示未知"
+    },
+    {
+      "id": "ai-01-p0-真实asr供应商与识别质量",
+      "level": 3,
+      "text": "AI-01 · P0 · 真实ASR供应商与识别质量"
+    },
+    {
+      "id": "ai-02-p0-实时vad与语音端点检测",
+      "level": 3,
+      "text": "AI-02 · P0 · 实时VAD与语音端点检测"
+    },
+    {
+      "id": "ai-03-p0-真实流式tts适配",
+      "level": 3,
+      "text": "AI-03 · P0 · 真实流式TTS适配"
+    },
+    {
+      "id": "ai-04-p0-agentllm轮次编排与上下文更新",
+      "level": 3,
+      "text": "AI-04 · P0 · Agent/LLM轮次编排与上下文更新"
+    },
+    {
+      "id": "ai-05-p0-语音自动打断与旧轮次撤销",
+      "level": 3,
+      "text": "AI-05 · P0 · 语音自动打断与旧轮次撤销"
+    },
+    {
+      "id": "ai-06-p0-对齐双轨录音与异步持久化",
+      "level": 3,
+      "text": "AI-06 · P0 · 对齐双轨录音与异步持久化"
+    },
+    {
+      "id": "ai-07-p0-统一10命令和11事件控制合同",
+      "level": 3,
+      "text": "AI-07 · P0 · 统一10命令和11事件控制合同"
+    },
+    {
+      "id": "ai-08-p0-一通完整真实ai电话闭环",
+      "level": 3,
+      "text": "AI-08 · P0 · 一通完整真实AI电话闭环"
+    },
+    {
+      "id": "med-01-p0-g722与opus实时媒体图",
+      "level": 3,
+      "text": "MED-01 · P0 · G.722与Opus实时媒体图"
+    },
+    {
+      "id": "med-02-p1-g729g726及移动音频兼容",
+      "level": 3,
+      "text": "MED-02 · P1 · G.729/G.726及移动音频兼容"
+    },
+    {
+      "id": "med-03-p0-抖动丢包cndtxplcfec策略",
+      "level": 3,
+      "text": "MED-03 · P0 · 抖动、丢包、CN/DTX/PLC/FEC策略"
+    },
+    {
+      "id": "med-04-p1-rtcp-mux安全反馈与质量事件",
+      "level": 3,
+      "text": "MED-04 · P1 · RTCP mux、安全反馈与质量事件"
+    },
+    {
+      "id": "med-05-p1-通用静态audiograph与有界内存",
+      "level": 3,
+      "text": "MED-05 · P1 · 通用静态AudioGraph与有界内存"
+    },
+    {
+      "id": "cap-01-p0-定位2000路历史转发失败",
+      "level": 3,
+      "text": "CAP-01 · P0 · 定位2000路历史转发失败"
+    },
+    {
+      "id": "cap-02-p0-linux-1000500010000路转发容量",
+      "level": 3,
+      "text": "CAP-02 · P0 · Linux 1000/5000/10000路转发容量"
+    },
+    {
+      "id": "cap-03-p0-linux实时g711及核心codec容量",
+      "level": 3,
+      "text": "CAP-03 · P0 · Linux实时G.711及核心codec容量"
+    },
+    {
+      "id": "cap-04-p0-完整agent等价成本与容量优势",
+      "level": 3,
+      "text": "CAP-04 · P0 · 完整Agent等价成本与容量优势"
+    },
+    {
+      "id": "cap-05-p0-72小时混合负载与故障恢复",
+      "level": 3,
+      "text": "CAP-05 · P0 · 72小时混合负载与故障恢复"
+    },
+    {
+      "id": "sip-01-p1-真实运营商注册与多网关",
+      "level": 3,
+      "text": "SIP-01 · P1 · 真实运营商注册与多网关"
+    },
+    {
+      "id": "sip-02-p1-主动外呼路由桥接与转接",
+      "level": 3,
+      "text": "SIP-02 · P1 · 主动外呼、路由、桥接与转接"
+    },
+    {
+      "id": "sip-03-p1-对话重协商与sip扩展",
+      "level": 3,
+      "text": "SIP-03 · P1 · 对话重协商与SIP扩展"
+    },
+    {
+      "id": "sip-04-p1-ipv6dnssrv及wswss信令",
+      "level": 3,
+      "text": "SIP-04 · P1 · IPv6、DNS/SRV及WS/WSS信令"
+    },
+    {
+      "id": "sip-05-p1-nat学习端口迁移和移动终端",
+      "level": 3,
+      "text": "SIP-05 · P1 · NAT学习、端口迁移和移动终端"
+    },
+    {
+      "id": "sec-01-p1-srtpdtlsice和webrtc安全媒体",
+      "level": 3,
+      "text": "SEC-01 · P1 · SRTP、DTLS、ICE和WebRTC安全媒体"
+    },
+    {
+      "id": "tel-01-p1-完整dtmf发送和采集语义",
+      "level": 3,
+      "text": "TEL-01 · P1 · 完整DTMF发送和采集语义"
+    },
+    {
+      "id": "tel-02-p1-完整ivr与xml拨号计划运行",
+      "level": 3,
+      "text": "TEL-02 · P1 · 完整IVR与XML拨号计划运行"
+    },
+    {
+      "id": "fs-01-p1-esl完整命令事件与outbound会话",
+      "level": 3,
+      "text": "FS-01 · P1 · ESL完整命令、事件与Outbound会话"
+    },
+    {
+      "id": "fs-02-p1-882条配置导出的真实执行映射",
+      "level": 3,
+      "text": "FS-02 · P1 · 882条配置导出的真实执行映射"
+    },
+    {
+      "id": "fs-03-p2-cc模块宿主与协议插件abi",
+      "level": 3,
+      "text": "FS-03 · P2 · C/C++模块宿主与协议插件ABI"
+    },
+    {
+      "id": "fs-04-p2-会议及复杂pbx脚本传真和视频模块",
+      "level": 3,
+      "text": "FS-04 · P2 · 会议及复杂PBX、脚本、传真和视频模块"
+    },
+    {
+      "id": "fs-05-p1-3999条对照与177验收定义逐项证据",
+      "level": 3,
+      "text": "FS-05 · P1 · 3999条对照与177验收定义逐项证据"
+    },
+    {
+      "id": "ops-01-p1-numa系统调用队列和最忙worker观测",
+      "level": 3,
+      "text": "OPS-01 · P1 · NUMA、系统调用、队列和最忙worker观测"
+    },
+    {
+      "id": "ops-02-p0-灰度回退与活动通话故障边界",
+      "level": 3,
+      "text": "OPS-02 · P0 · 灰度、回退与活动通话故障边界"
+    },
+    {
+      "id": "五统一关单规则",
+      "level": 2,
+      "text": "五、统一关单规则"
+    },
+    {
+      "id": "六来源与本轮核对",
+      "level": 2,
+      "text": "六、来源与本轮核对"
+    }
+  ],
+  "CONTRIBUTING.html": [
+    {
+      "id": "贡献说明",
+      "level": 1,
+      "text": "贡献说明"
+    }
+  ],
+  "DELIVERY.html": [
+    {
+      "id": "云蝠-voice-runtime-项目资料包",
+      "level": 1,
+      "text": "云蝠 Voice Runtime 项目资料包"
+    },
+    {
+      "id": "本次新增完整源码与交付资料",
+      "level": 2,
+      "text": "本次新增完整源码与交付资料"
+    },
+    {
+      "id": "预编译运行程序",
+      "level": 2,
+      "text": "预编译运行程序"
+    }
+  ],
+  "G722-SUPPORT-LICENSE.html": [
+    {
+      "id": "g722-支持文件的单独许可",
+      "level": 1,
+      "text": "G.722 支持文件的单独许可"
+    }
+  ],
+  "LICENSE_SCOPE.html": [
+    {
+      "id": "许可证适用范围",
+      "level": 1,
+      "text": "许可证适用范围"
+    }
+  ],
+  "OPEN_SOURCE.html": [
+    {
+      "id": "云蝠-voice-runtime-开源说明",
+      "level": 1,
+      "text": "云蝠 Voice Runtime 开源说明"
+    },
+    {
+      "id": "本次开源清单",
+      "level": 2,
+      "text": "本次开源清单"
+    },
+    {
+      "id": "授权方式",
+      "level": 2,
+      "text": "授权方式"
+    },
+    {
+      "id": "当前验证边界",
+      "level": 2,
+      "text": "当前验证边界"
+    },
+    {
+      "id": "参与方式",
+      "level": 2,
+      "text": "参与方式"
+    }
+  ],
+  "QUICKSTART.html": [
+    {
+      "id": "快速开始",
+      "level": 1,
+      "text": "快速开始"
+    },
+    {
+      "id": "1-选择源码或运行包",
+      "level": 2,
+      "text": "1. 选择源码或运行包"
+    },
+    {
+      "id": "2-使用预编译运行包",
+      "level": 2,
+      "text": "2. 使用预编译运行包"
+    },
+    {
+      "id": "3-从源码离线编译",
+      "level": 2,
+      "text": "3. 从源码离线编译"
+    },
+    {
+      "id": "4-理解验收状态",
+      "level": 2,
+      "text": "4. 理解验收状态"
+    }
+  ],
+  "README.html": [
+    {
+      "id": "云蝠-voice-runtime",
+      "level": 1,
+      "text": "云蝠 Voice Runtime"
+    },
+    {
+      "id": "项目与代码",
+      "level": 2,
+      "text": "项目与代码"
+    },
+    {
+      "id": "项目资料",
+      "level": 2,
+      "text": "项目资料"
+    },
+    {
+      "id": "下载与验证",
+      "level": 2,
+      "text": "下载与验证"
+    },
+    {
+      "id": "验收状态",
+      "level": 2,
+      "text": "验收状态"
+    },
+    {
+      "id": "开源与贡献",
+      "level": 2,
+      "text": "开源与贡献"
+    }
+  ],
+  "SECURITY.html": [
+    {
+      "id": "安全报告",
+      "level": 1,
+      "text": "安全报告"
+    }
+  ],
+  "THIRD_PARTY_NOTICES.html": [
+    {
+      "id": "第三方组件版权与源码说明",
+      "level": 1,
+      "text": "第三方组件、版权与源码说明"
+    },
+    {
+      "id": "主要组件",
+      "level": 2,
+      "text": "主要组件"
+    },
+    {
+      "id": "rust-锁定依赖",
+      "level": 2,
+      "text": "Rust 锁定依赖"
+    },
+    {
+      "id": "分发配套",
+      "level": 2,
+      "text": "分发配套"
+    }
+  ],
+  "candidate/asr-openapi-update-proposal.html": [
+    {
+      "id": "asr-资源与配置的-openapi-更新建议",
+      "level": 1,
+      "text": "ASR 资源与配置的 OpenAPI 更新建议"
+    },
+    {
+      "id": "1-新增两个模型",
+      "level": 2,
+      "text": "1. 新增两个模型"
+    },
+    {
+      "id": "2-扩展现有模型",
+      "level": 2,
+      "text": "2. 扩展现有模型"
+    },
+    {
+      "id": "3-更新现有操作说明",
+      "level": 2,
+      "text": "3. 更新现有操作说明"
+    },
+    {
+      "id": "4-prometheus-字典追加",
+      "level": 2,
+      "text": "4. Prometheus 字典追加"
+    },
+    {
+      "id": "5-发布文档前的验收步骤",
+      "level": 2,
+      "text": "5. 发布文档前的验收步骤"
+    }
+  ],
+  "candidate/asr-stream-reference.html": [
+    {
+      "id": "云蝠-voice-runtimeasr-上行内部接口说明",
+      "level": 1,
+      "text": "云蝠 Voice Runtime：ASR 上行内部接口说明"
+    },
+    {
+      "id": "1-使用范围与前置条件",
+      "level": 2,
+      "text": "1. 使用范围与前置条件"
+    },
+    {
+      "id": "2-部署配置",
+      "level": 2,
+      "text": "2. 部署配置"
+    },
+    {
+      "id": "3-go-调用入口与所有权",
+      "level": 2,
+      "text": "3. Go 调用入口与所有权"
+    },
+    {
+      "id": "4-状态机与完成标准",
+      "level": 2,
+      "text": "4. 状态机与完成标准"
+    },
+    {
+      "id": "5-业务结果-event",
+      "level": 2,
+      "text": "5. 业务结果 Event"
+    },
+    {
+      "id": "6-单流-snapshot-字段",
+      "level": 2,
+      "text": "6. 单流 Snapshot 字段"
+    },
+    {
+      "id": "7-错误处理",
+      "level": 2,
+      "text": "7. 错误处理"
+    },
+    {
+      "id": "8-asr1-帧格式",
+      "level": 2,
+      "text": "8. ASR1 帧格式"
+    },
+    {
+      "id": "81-hello-ready",
+      "level": 3,
+      "text": "8.1 HELLO / READY"
+    },
+    {
+      "id": "82-audio-二进制正文",
+      "level": 3,
+      "text": "8.2 AUDIO 二进制正文"
+    },
+    {
+      "id": "83-marker-字段与类型",
+      "level": 3,
+      "text": "8.3 MARKER 字段与类型"
+    },
+    {
+      "id": "84-finish-doneresult-与控制消息",
+      "level": 3,
+      "text": "8.4 FINISH / DONE、RESULT 与控制消息"
+    },
+    {
+      "id": "9-时间与背压预算",
+      "level": 2,
+      "text": "9. 时间与背压预算"
+    },
+    {
+      "id": "10-http-资源观测与-prometheus",
+      "level": 2,
+      "text": "10. HTTP 资源观测与 Prometheus"
+    },
+    {
+      "id": "11-freeswitch-对照边界",
+      "level": 2,
+      "text": "11. FreeSWITCH 对照边界"
+    },
+    {
+      "id": "12-已验证内容与未验证范围",
+      "level": 2,
+      "text": "12. 已验证内容与未验证范围"
+    },
+    {
+      "id": "13-维护与文档接入",
+      "level": 2,
+      "text": "13. 维护与文档接入"
+    }
+  ],
+  "open-source/PUBLICATION.html": [
+    {
+      "id": "公开分发与信息处理说明",
+      "level": 1,
+      "text": "公开分发与信息处理说明"
+    },
+    {
+      "id": "文本与证据",
+      "level": 2,
+      "text": "文本与证据"
+    },
+    {
+      "id": "预编译文件",
+      "level": 2,
+      "text": "预编译文件"
+    },
+    {
+      "id": "分发位置",
+      "level": 2,
+      "text": "分发位置"
+    }
+  ],
+  "open-source/content-audit.html": [
+    {
+      "id": "公开内容独立审查报告",
+      "level": 1,
+      "text": "公开内容独立审查报告"
+    },
+    {
+      "id": "结论",
+      "level": 2,
+      "text": "结论"
+    },
+    {
+      "id": "扫描范围与复核",
+      "level": 2,
+      "text": "扫描范围与复核"
+    },
+    {
+      "id": "应处理项",
+      "level": 2,
+      "text": "应处理项"
+    },
+    {
+      "id": "已判断无需脱敏的命中",
+      "level": 2,
+      "text": "已判断无需脱敏的命中"
+    },
+    {
+      "id": "公开副本与证据完整性",
+      "level": 2,
+      "text": "公开副本与证据完整性"
+    },
+    {
+      "id": "输出",
+      "level": 2,
+      "text": "输出"
+    }
+  ],
+  "reference/README.html": [
+    {
+      "id": "云蝠-voice-runtime-rustswitch-实时语音内核",
+      "level": 1,
+      "text": "云蝠 Voice Runtime · RustSwitch 实时语音内核"
+    },
+    {
+      "id": "03-管理功能",
+      "level": 2,
+      "text": "0.3 管理功能"
+    },
+    {
+      "id": "当前实现",
+      "level": 2,
+      "text": "当前实现"
+    },
+    {
+      "id": "工程结构",
+      "level": 2,
+      "text": "工程结构"
+    },
+    {
+      "id": "构建与运行",
+      "level": 2,
+      "text": "构建与运行"
+    },
+    {
+      "id": "验证",
+      "level": 2,
+      "text": "验证"
+    },
+    {
+      "id": "运维入口",
+      "level": 2,
+      "text": "运维入口"
+    },
+    {
+      "id": "数据与故障边界",
+      "level": 2,
+      "text": "数据与故障边界"
+    }
+  ],
+  "reference/docs/api/README.html": [
+    {
+      "id": "rustswitch-接口文档中心",
+      "level": 1,
+      "text": "RustSwitch 接口文档中心"
+    },
+    {
+      "id": "研发定位",
+      "level": 2,
+      "text": "研发定位"
+    },
+    {
+      "id": "阅读顺序",
+      "level": 2,
+      "text": "阅读顺序"
+    },
+    {
+      "id": "完整的边界",
+      "level": 2,
+      "text": "“完整”的边界"
+    },
+    {
+      "id": "文档发布-api",
+      "level": 2,
+      "text": "文档发布 API"
+    },
+    {
+      "id": "维护和防止漂移",
+      "level": 2,
+      "text": "维护和防止漂移"
+    },
+    {
+      "id": "音频与逐项验证13",
+      "level": 2,
+      "text": "音频与逐项验证（1.3）"
+    },
+    {
+      "id": "本地验证状态14",
+      "level": 2,
+      "text": "本地验证状态（1.4）"
+    },
+    {
+      "id": "原版成对验证15",
+      "level": 2,
+      "text": "原版成对验证（1.5）"
+    },
+    {
+      "id": "16-ai-呼叫接入",
+      "level": 2,
+      "text": "1.6 AI 呼叫接入"
+    },
+    {
+      "id": "17-增量记录",
+      "level": 2,
+      "text": "1.7 增量记录"
+    },
+    {
+      "id": "历史增量18",
+      "level": 2,
+      "text": "历史增量（1.8）"
+    },
+    {
+      "id": "历史增量19",
+      "level": 2,
+      "text": "历史增量（1.9）"
+    },
+    {
+      "id": "历史增量110",
+      "level": 2,
+      "text": "历史增量（1.10）"
+    },
+    {
+      "id": "历史增量111",
+      "level": 2,
+      "text": "历史增量（1.11）"
+    },
+    {
+      "id": "历史增量112",
+      "level": 2,
+      "text": "历史增量（1.12）"
+    }
+  ],
+  "reference/docs/api/ai-calling-reference.html": [
+    {
+      "id": "ai-呼叫接入与本轮兼容范围",
+      "level": 1,
+      "text": "AI 呼叫接入与本轮兼容范围"
+    },
+    {
+      "id": "业务链路",
+      "level": 2,
+      "text": "业务链路"
+    },
+    {
+      "id": "配置本地接听号码",
+      "level": 2,
+      "text": "配置本地接听号码"
+    },
+    {
+      "id": "控制一个已接通的本地通道",
+      "level": 2,
+      "text": "控制一个已接通的本地通道"
+    },
+    {
+      "id": "info-模式",
+      "level": 2,
+      "text": "INFO 模式"
+    },
+    {
+      "id": "压力页面读取恢复",
+      "level": 2,
+      "text": "压力页面读取恢复"
+    },
+    {
+      "id": "验证入口和未完成范围",
+      "level": 2,
+      "text": "验证入口和未完成范围"
+    },
+    {
+      "id": "外部实时供音的已完成部分",
+      "level": 2,
+      "text": "外部实时供音的已完成部分"
+    }
+  ],
+  "reference/docs/api/ai-calling-verification-v1.7.html": [
+    {
+      "id": "基础应用wav播放与xml拨号计划的实际对照",
+      "level": 1,
+      "text": "基础应用、WAV播放与XML拨号计划的实际对照"
+    },
+    {
+      "id": "已明确的差异",
+      "level": 2,
+      "text": "已明确的差异"
+    },
+    {
+      "id": "范围与可追溯性",
+      "level": 2,
+      "text": "范围与可追溯性"
+    }
+  ],
+  "reference/docs/api/ai-calling-verification-v1.8.html": [
+    {
+      "id": "基础应用wav播放与xml拨号计划的实际对照",
+      "level": 1,
+      "text": "基础应用、WAV播放与XML拨号计划的实际对照"
+    },
+    {
+      "id": "已明确的差异",
+      "level": 2,
+      "text": "已明确的差异"
+    },
+    {
+      "id": "范围与可追溯性",
+      "level": 2,
+      "text": "范围与可追溯性"
+    }
+  ],
+  "reference/docs/api/ai-calling-verification-v1.9.html": [
+    {
+      "id": "基础应用wavxml与真实dtmf发送的实际对照",
+      "level": 1,
+      "text": "基础应用、WAV/XML与真实DTMF发送的实际对照"
+    },
+    {
+      "id": "已明确的差异",
+      "level": 2,
+      "text": "已明确的差异"
+    },
+    {
+      "id": "范围与可追溯性",
+      "level": 2,
+      "text": "范围与可追溯性"
+    }
+  ],
+  "reference/docs/api/ai-calling-verification.html": [
+    {
+      "id": "ai电话能力复核记录",
+      "level": 1,
+      "text": "AI电话能力复核记录"
+    },
+    {
+      "id": "三应用的真实成对结果",
+      "level": 2,
+      "text": "三应用的真实成对结果"
+    },
+    {
+      "id": "与26个协议探针分别展示",
+      "level": 2,
+      "text": "与26个协议探针分别展示"
+    },
+    {
+      "id": "输入与构建绑定",
+      "level": 2,
+      "text": "输入与构建绑定"
+    },
+    {
+      "id": "尚未完成的范围",
+      "level": 2,
+      "text": "尚未完成的范围"
+    }
+  ],
+  "reference/docs/api/audio-frame-reference.html": [
+    {
+      "id": "多采样率-audioframe借用帧与离线分支",
+      "level": 1,
+      "text": "多采样率 AudioFrame、借用帧与离线分支"
+    },
+    {
+      "id": "入口与兼容行为",
+      "level": 2,
+      "text": "入口与兼容行为"
+    },
+    {
+      "id": "格式时间与所有权",
+      "level": 2,
+      "text": "格式、时间与所有权"
+    },
+    {
+      "id": "按需分支与缺包语义",
+      "level": 2,
+      "text": "按需分支与缺包语义"
+    },
+    {
+      "id": "参考滤波器与验收边界",
+      "level": 2,
+      "text": "参考滤波器与验收边界"
+    },
+    {
+      "id": "实时借用帧与轮次",
+      "level": 2,
+      "text": "实时借用帧与轮次"
+    }
+  ],
+  "reference/docs/api/audio-reference.html": [
+    {
+      "id": "音频接口编解码与-freeswitch-对照",
+      "level": 1,
+      "text": "音频接口、编解码与 FreeSWITCH 对照"
+    },
+    {
+      "id": "管理接口与页面",
+      "level": 2,
+      "text": "管理接口与页面"
+    },
+    {
+      "id": "实时-sip-rtp-格式",
+      "level": 2,
+      "text": "实时 SIP / RTP 格式"
+    },
+    {
+      "id": "辅助媒体与丢包语义",
+      "level": 2,
+      "text": "辅助媒体与丢包语义"
+    },
+    {
+      "id": "rust-sdk-与原生库",
+      "level": 2,
+      "text": "Rust SDK 与原生库"
+    },
+    {
+      "id": "显式媒体时间和离线分支",
+      "level": 3,
+      "text": "显式媒体时间和离线分支"
+    },
+    {
+      "id": "构建与实际探测",
+      "level": 3,
+      "text": "构建与实际探测"
+    },
+    {
+      "id": "ipc-扩展与版本边界",
+      "level": 2,
+      "text": "IPC 扩展与版本边界"
+    },
+    {
+      "id": "与-freeswitch-分别验证",
+      "level": 2,
+      "text": "与 FreeSWITCH 分别验证"
+    },
+    {
+      "id": "pcm-外部入口与格式转换边界",
+      "level": 2,
+      "text": "PCM 外部入口与格式转换边界"
+    }
+  ],
+  "reference/docs/api/channel-snapshot-reference.html": [
+    {
+      "id": "通道快照-uuid_dump",
+      "level": 1,
+      "text": "通道快照 uuid_dump"
+    }
+  ],
+  "reference/docs/api/compatibility-worklist.html": [
+    {
+      "id": "兼容缺口逐项推进清单",
+      "level": 1,
+      "text": "兼容缺口逐项推进清单"
+    },
+    {
+      "id": "当前计数",
+      "level": 2,
+      "text": "当前计数"
+    },
+    {
+      "id": "按层剩余条目",
+      "level": 2,
+      "text": "按层剩余条目"
+    },
+    {
+      "id": "本轮新增限定通过",
+      "level": 2,
+      "text": "本轮新增限定通过"
+    },
+    {
+      "id": "全量任务及推进顺序",
+      "level": 2,
+      "text": "全量任务及推进顺序"
+    }
+  ],
+  "reference/docs/api/conformance-report.html": [
+    {
+      "id": "freeswitch-成对协议验证报告",
+      "level": 1,
+      "text": "FreeSWITCH 成对协议验证报告"
+    }
+  ],
+  "reference/docs/api/conformance-testing.html": [
+    {
+      "id": "完整兼容测试计划与成对协议执行器",
+      "level": 1,
+      "text": "完整兼容测试计划与成对协议执行器"
+    },
+    {
+      "id": "文件与运行入口",
+      "level": 2,
+      "text": "文件与运行入口"
+    },
+    {
+      "id": "真实可执行探针",
+      "level": 2,
+      "text": "真实可执行探针"
+    },
+    {
+      "id": "原始-api-全目录的动态差距",
+      "level": 2,
+      "text": "原始 API 全目录的动态差距"
+    },
+    {
+      "id": "全协议与外部边界",
+      "level": 2,
+      "text": "全协议与外部边界"
+    },
+    {
+      "id": "隔离限额与证据",
+      "level": 2,
+      "text": "隔离、限额与证据"
+    }
+  ],
+  "reference/docs/api/dialplan-reference.html": [
+    {
+      "id": "受限-freeswitch-xml-拨号计划与基础应用",
+      "level": 1,
+      "text": "受限 FreeSWITCH XML 拨号计划与基础应用"
+    },
+    {
+      "id": "启用与载入时机",
+      "level": 2,
+      "text": "启用与载入时机"
+    },
+    {
+      "id": "可直接使用的-xml-示例",
+      "level": 2,
+      "text": "可直接使用的 XML 示例"
+    },
+    {
+      "id": "真实运行顺序",
+      "level": 2,
+      "text": "真实运行顺序"
+    },
+    {
+      "id": "基础应用",
+      "level": 2,
+      "text": "基础应用"
+    },
+    {
+      "id": "文件播放与收号提示",
+      "level": 2,
+      "text": "文件播放与收号提示"
+    },
+    {
+      "id": "验证与未兼容边界",
+      "level": 2,
+      "text": "验证与未兼容边界"
+    },
+    {
+      "id": "播放终止与原版响应17",
+      "level": 2,
+      "text": "播放终止与原版响应（1.7）"
+    }
+  ],
+  "reference/docs/api/dtmf-send-reference.html": [
+    {
+      "id": "本地电话-dtmf-发送与状态查询",
+      "level": 1,
+      "text": "本地电话 DTMF 发送与状态查询"
+    },
+    {
+      "id": "使用前提",
+      "level": 2,
+      "text": "使用前提"
+    },
+    {
+      "id": "发送请求",
+      "level": 2,
+      "text": "发送请求"
+    },
+    {
+      "id": "自有状态查询",
+      "level": 2,
+      "text": "自有状态查询"
+    },
+    {
+      "id": "rtp-时序与资源预算",
+      "level": 2,
+      "text": "RTP 时序与资源预算"
+    },
+    {
+      "id": "超时错误与取消",
+      "level": 2,
+      "text": "超时、错误与取消"
+    },
+    {
+      "id": "与-freeswitch-的已知边界",
+      "level": 2,
+      "text": "与 FreeSWITCH 的已知边界"
+    }
+  ],
+  "reference/docs/api/esl-reference.html": [
+    {
+      "id": "入站-esl-接口与-freeswitch-对照",
+      "level": 1,
+      "text": "入站 ESL 接口与 FreeSWITCH 对照"
+    },
+    {
+      "id": "启用与认证",
+      "level": 2,
+      "text": "启用与认证"
+    },
+    {
+      "id": "字节协议与资源边界",
+      "level": 2,
+      "text": "字节协议与资源边界"
+    },
+    {
+      "id": "已实现-api",
+      "level": 2,
+      "text": "已实现 API"
+    },
+    {
+      "id": "本地按键发送与受理语义",
+      "level": 3,
+      "text": "本地按键发送与受理语义"
+    },
+    {
+      "id": "sendmsg-应用执行",
+      "level": 2,
+      "text": "sendmsg 应用执行"
+    },
+    {
+      "id": "后台命令与事件",
+      "level": 2,
+      "text": "后台命令与事件"
+    },
+    {
+      "id": "验证与剩余工作",
+      "level": 2,
+      "text": "验证与剩余工作"
+    }
+  ],
+  "reference/docs/api/event-lifecycle-reference.html": [
+    {
+      "id": "应用与媒体生命周期事件112-受限合同",
+      "level": 1,
+      "text": "应用与媒体生命周期事件（1.12 受限合同）"
+    },
+    {
+      "id": "订阅与关联",
+      "level": 2,
+      "text": "订阅与关联"
+    },
+    {
+      "id": "播放开始与停止",
+      "level": 2,
+      "text": "播放开始与停止"
+    },
+    {
+      "id": "park-进入与离开",
+      "level": 2,
+      "text": "park 进入与离开"
+    },
+    {
+      "id": "故障背压与证据边界",
+      "level": 2,
+      "text": "故障、背压与证据边界"
+    },
+    {
+      "id": "pcm-轮次的独立生命周期",
+      "level": 2,
+      "text": "PCM 轮次的独立生命周期"
+    }
+  ],
+  "reference/docs/api/feature-audit.html": [
+    {
+      "id": "freeswitch-功能覆盖与超越能力审计",
+      "level": 1,
+      "text": "FreeSWITCH 功能覆盖与超越能力审计"
+    },
+    {
+      "id": "版本与范围",
+      "level": 2,
+      "text": "版本与范围"
+    },
+    {
+      "id": "找到的清单缺口与准确分母",
+      "level": 2,
+      "text": "找到的清单缺口与准确分母"
+    },
+    {
+      "id": "当前确实提供的有限范围",
+      "level": 2,
+      "text": "当前确实提供的有限范围"
+    },
+    {
+      "id": "关键业务域逐项结论",
+      "level": 2,
+      "text": "关键业务域逐项结论"
+    },
+    {
+      "id": "完整目录审计表",
+      "level": 2,
+      "text": "完整目录审计表"
+    },
+    {
+      "id": "内建注册点",
+      "level": 3,
+      "text": "内建注册点"
+    },
+    {
+      "id": "自有扩展不能作为全面超越的证据",
+      "level": 2,
+      "text": "自有扩展不能作为全面超越的证据"
+    },
+    {
+      "id": "必需的成对验收规则",
+      "level": 2,
+      "text": "必需的成对验收规则"
+    },
+    {
+      "id": "证据定位",
+      "level": 2,
+      "text": "证据定位"
+    },
+    {
+      "id": "可重复静态校验",
+      "level": 2,
+      "text": "可重复静态校验"
+    }
+  ],
+  "reference/docs/api/file-playback-reference.html": [
+    {
+      "id": "受限-wav-文件播放",
+      "level": 1,
+      "text": "受限 WAV 文件播放"
+    },
+    {
+      "id": "启动配置与路径边界",
+      "level": 2,
+      "text": "启动配置与路径边界"
+    },
+    {
+      "id": "格式范围",
+      "level": 2,
+      "text": "格式范围"
+    },
+    {
+      "id": "媒体-ipc",
+      "level": 2,
+      "text": "媒体 IPC"
+    },
+    {
+      "id": "有界加载缓存与取消",
+      "level": 2,
+      "text": "有界加载、缓存与取消"
+    },
+    {
+      "id": "失败与原版应用映射",
+      "level": 2,
+      "text": "失败与原版应用映射"
+    },
+    {
+      "id": "可复核验证",
+      "level": 2,
+      "text": "可复核验证"
+    },
+    {
+      "id": "与流式-pcm-的发送所有权",
+      "level": 2,
+      "text": "与流式 PCM 的发送所有权"
+    }
+  ],
+  "reference/docs/api/freeswitch-comparison.html": [
+    {
+      "id": "freeswitch-1113-与-rustswitch-逐项接口对照",
+      "level": 1,
+      "text": "FreeSWITCH 1.11.3 与 RustSwitch 逐项接口对照"
+    },
+    {
+      "id": "对照口径与数据结构",
+      "level": 2,
+      "text": "对照口径与数据结构"
+    },
+    {
+      "id": "基线逐项覆盖",
+      "level": 2,
+      "text": "基线逐项覆盖"
+    },
+    {
+      "id": "当前验证结论",
+      "level": 2,
+      "text": "当前验证结论"
+    },
+    {
+      "id": "成对业务示例",
+      "level": 2,
+      "text": "成对业务示例"
+    },
+    {
+      "id": "查询运行状态协议和返回字段不同",
+      "level": 3,
+      "text": "查询运行状态：协议和返回字段不同"
+    },
+    {
+      "id": "调整接入保护session桥接通话与令牌口径不同",
+      "level": 3,
+      "text": "调整接入保护：session、桥接通话与令牌口径不同"
+    },
+    {
+      "id": "保存用户或网关xml草稿与固定上游注册配置",
+      "level": 3,
+      "text": "保存用户或网关：XML草稿与固定上游注册配置"
+    },
+    {
+      "id": "执行录音不能用日志或成功状态代替音频文件",
+      "level": 3,
+      "text": "执行录音：不能用日志或成功状态代替音频文件"
+    },
+    {
+      "id": "释放内部媒体ack-并非-esl-命令结果",
+      "level": 3,
+      "text": "释放内部媒体：ACK 并非 ESL 命令结果"
+    },
+    {
+      "id": "关键语义逐项对照",
+      "level": 2,
+      "text": "关键语义逐项对照"
+    },
+    {
+      "id": "音频能力目录-key-http-codecs",
+      "level": 3,
+      "text": "音频能力目录 · `key-http-codecs`"
+    },
+    {
+      "id": "进程存活与版本-key-http-health",
+      "level": 3,
+      "text": "进程存活与版本 · `key-http-health`"
+    },
+    {
+      "id": "可准入状态-key-http-readiness",
+      "level": 3,
+      "text": "可准入状态 · `key-http-readiness`"
+    },
+    {
+      "id": "运行状态查询-key-http-status",
+      "level": 3,
+      "text": "运行状态查询 · `key-http-status`"
+    },
+    {
+      "id": "指标采集-key-http-metrics",
+      "level": 3,
+      "text": "指标采集 · `key-http-metrics`"
+    },
+    {
+      "id": "管理鉴权与请求来源-key-http-authentication",
+      "level": 3,
+      "text": "管理鉴权与请求来源 · `key-http-authentication`"
+    },
+    {
+      "id": "读取有效与待重启配置-key-http-config-read",
+      "level": 3,
+      "text": "读取有效与待重启配置 · `key-http-config-read`"
+    },
+    {
+      "id": "保存完整启动草稿-key-http-config-write",
+      "level": 3,
+      "text": "保存完整启动草稿 · `key-http-config-write`"
+    },
+    {
+      "id": "并发提交与错误-key-http-concurrency",
+      "level": 3,
+      "text": "并发提交与错误 · `key-http-concurrency`"
+    },
+    {
+      "id": "esl-字节分帧-key-esl-framing",
+      "level": 3,
+      "text": "ESL 字节分帧 · `key-esl-framing`"
+    },
+    {
+      "id": "同步-api-调用-key-esl-api",
+      "level": 3,
+      "text": "同步 API 调用 · `key-esl-api`"
+    },
+    {
+      "id": "后台-api-与作业完成-key-esl-bgapi",
+      "level": 3,
+      "text": "后台 API 与作业完成 · `key-esl-bgapi`"
+    },
+    {
+      "id": "通道应用执行-key-esl-sendmsg",
+      "level": 3,
+      "text": "通道应用执行 · `key-esl-sendmsg`"
+    },
+    {
+      "id": "事件订阅与过滤-key-esl-subscriptions",
+      "level": 3,
+      "text": "事件订阅与过滤 · `key-esl-subscriptions`"
+    },
+    {
+      "id": "outbound-esl-会话与-linger-key-esl-outbound",
+      "level": 3,
+      "text": "Outbound ESL 会话与 linger · `key-esl-outbound`"
+    },
+    {
+      "id": "xml-运行与预处理-key-config-runtime-xml",
+      "level": 3,
+      "text": "XML 运行与预处理 · `key-config-runtime-xml`"
+    },
+    {
+      "id": "逐字段编辑与原文保留-key-config-parameter-edit",
+      "level": 3,
+      "text": "逐字段编辑与原文保留 · `key-config-parameter-edit`"
+    },
+    {
+      "id": "高级-xml-保存-key-config-raw-xml",
+      "level": 3,
+      "text": "高级 XML 保存 · `key-config-raw-xml`"
+    },
+    {
+      "id": "配置-zip-导出-key-config-export",
+      "level": 3,
+      "text": "配置 ZIP 导出 · `key-config-export`"
+    },
+    {
+      "id": "用户网关与拨号计划-key-config-directory",
+      "level": 3,
+      "text": "用户、网关与拨号计划 · `key-config-directory`"
+    },
+    {
+      "id": "持久化与启动文件优先级-key-config-persistence",
+      "level": 3,
+      "text": "持久化与启动文件优先级 · `key-config-persistence`"
+    },
+    {
+      "id": "总并发硬边界与业务阈值-key-guard-capacity",
+      "level": 3,
+      "text": "总并发硬边界与业务阈值 · `key-guard-capacity`"
+    },
+    {
+      "id": "建立中保护-key-guard-establishing",
+      "level": 3,
+      "text": "建立中保护 · `key-guard-establishing`"
+    },
+    {
+      "id": "cps-与突发令牌-key-guard-rate-burst",
+      "level": 3,
+      "text": "CPS 与突发令牌 · `key-guard-rate-burst`"
+    },
+    {
+      "id": "负载接近阈值时缩速-key-guard-soft-throttle",
+      "level": 3,
+      "text": "负载接近阈值时缩速 · `key-guard-soft-throttle`"
+    },
+    {
+      "id": "过载拒绝与重试-key-guard-retry-after",
+      "level": 3,
+      "text": "过载拒绝与重试 · `key-guard-retry-after`"
+    },
+    {
+      "id": "排空与恢复新接入-key-guard-drain-resume",
+      "level": 3,
+      "text": "排空与恢复新接入 · `key-guard-drain-resume`"
+    },
+    {
+      "id": "可信中继两腿呼叫-key-sip-invite",
+      "level": 3,
+      "text": "可信中继两腿呼叫 · `key-sip-invite`"
+    },
+    {
+      "id": "用户注册与-digest-key-sip-register",
+      "level": 3,
+      "text": "用户注册与 Digest · `key-sip-register`"
+    },
+    {
+      "id": "传输与-websocket-key-sip-transports",
+      "level": 3,
+      "text": "传输与 WebSocket · `key-sip-transports`"
+    },
+    {
+      "id": "reinviteupdate-与媒体重协商-key-sip-renegotiation",
+      "level": 3,
+      "text": "reINVITE/UPDATE 与媒体重协商 · `key-sip-renegotiation`"
+    },
+    {
+      "id": "prackrefer订阅与扩展-key-sip-extensions",
+      "level": 3,
+      "text": "PRACK、REFER、订阅与扩展 · `key-sip-extensions`"
+    },
+    {
+      "id": "cancel-与迟到成功应答-key-sip-cancel",
+      "level": 3,
+      "text": "CANCEL 与迟到成功应答 · `key-sip-cancel`"
+    },
+    {
+      "id": "正常拆线与原因码-key-sip-bye",
+      "level": 3,
+      "text": "正常拆线与原因码 · `key-sip-bye`"
+    },
+    {
+      "id": "sdp-与编解码协商-key-sip-sdp",
+      "level": 3,
+      "text": "SDP 与编解码协商 · `key-sip-sdp`"
+    },
+    {
+      "id": "主流音频同格式-rtp-转发-key-media-rtp",
+      "level": 3,
+      "text": "主流音频同格式 RTP 转发 · `key-media-rtp`"
+    },
+    {
+      "id": "rtcp-转发与统计-key-media-rtcp",
+      "level": 3,
+      "text": "RTCP 转发与统计 · `key-media-rtcp`"
+    },
+    {
+      "id": "dtmf-的媒体与业务层-key-media-dtmf",
+      "level": 3,
+      "text": "DTMF 的媒体与业务层 · `key-media-dtmf`"
+    },
+    {
+      "id": "转码通话-key-media-transcoding",
+      "level": 3,
+      "text": "转码通话 · `key-media-transcoding`"
+    },
+    {
+      "id": "srtpdtls-与-ice-key-media-security",
+      "level": 3,
+      "text": "SRTP、DTLS 与 ICE · `key-media-security`"
+    },
+    {
+      "id": "nat-对端学习与迁移-key-media-nat",
+      "level": 3,
+      "text": "NAT 对端学习与迁移 · `key-media-nat`"
+    },
+    {
+      "id": "会议与成员控制-key-media-conference",
+      "level": 3,
+      "text": "会议与成员控制 · `key-media-conference`"
+    },
+    {
+      "id": "录音-api事件和文件-key-media-recording",
+      "level": 3,
+      "text": "录音 API、事件和文件 · `key-media-recording`"
+    },
+    {
+      "id": "一万路功能组合验收-key-media-capacity",
+      "level": 3,
+      "text": "一万路功能组合验收 · `key-media-capacity`"
+    },
+    {
+      "id": "故障隔离与活动状态迁移-key-media-failover",
+      "level": 3,
+      "text": "故障隔离与活动状态迁移 · `key-media-failover`"
+    },
+    {
+      "id": "xml-本地拨号计划执行-key-config-dialplan-runtime",
+      "level": 3,
+      "text": "XML 本地拨号计划执行 · `key-config-dialplan-runtime`"
+    },
+    {
+      "id": "内部-wav-文件放音-key-ipc-playback-file-start",
+      "level": 3,
+      "text": "内部 WAV 文件放音 · `key-ipc-playback-file-start`"
+    },
+    {
+      "id": "内部按键事件游标-key-ipc-dtmf-events",
+      "level": 3,
+      "text": "内部按键事件游标 · `key-ipc-dtmf-events`"
+    },
+    {
+      "id": "内部提示音启动-key-ipc-playback-start",
+      "level": 3,
+      "text": "内部提示音启动 · `key-ipc-playback-start`"
+    },
+    {
+      "id": "内部提示音状态-key-ipc-playback-status",
+      "level": 3,
+      "text": "内部提示音状态 · `key-ipc-playback-status`"
+    },
+    {
+      "id": "内部提示音停止-key-ipc-playback-stop",
+      "level": 3,
+      "text": "内部提示音停止 · `key-ipc-playback-stop`"
+    },
+    {
+      "id": "内部启动握手-key-ipc-ready",
+      "level": 3,
+      "text": "内部启动握手 · `key-ipc-ready`"
+    },
+    {
+      "id": "内部分配媒体会话-key-ipc-allocate",
+      "level": 3,
+      "text": "内部分配媒体会话 · `key-ipc-allocate`"
+    },
+    {
+      "id": "内部设置-b-腿-key-ipc-connect",
+      "level": 3,
+      "text": "内部设置 B 腿 · `key-ipc-connect`"
+    },
+    {
+      "id": "内部资源释放-key-ipc-release",
+      "level": 3,
+      "text": "内部资源释放 · `key-ipc-release`"
+    },
+    {
+      "id": "内部-worker-统计-key-ipc-stats",
+      "level": 3,
+      "text": "内部 worker 统计 · `key-ipc-stats`"
+    },
+    {
+      "id": "内部-worker-停止-key-ipc-shutdown",
+      "level": 3,
+      "text": "内部 worker 停止 · `key-ipc-shutdown`"
+    },
+    {
+      "id": "自定义编解码-abi-key-c_abi-codec",
+      "level": 3,
+      "text": "自定义编解码 ABI · `key-c_abi-codec`"
+    },
+    {
+      "id": "c-协议提供器预留边界-key-c_abi-protocol-provider",
+      "level": 3,
+      "text": "C 协议提供器预留边界 · `key-c_abi-protocol-provider`"
+    },
+    {
+      "id": "原版-fs_cli-不改动连接-key-cli-fs-cli",
+      "level": 3,
+      "text": "原版 fs_cli 不改动连接 · `key-cli-fs-cli`"
+    },
+    {
+      "id": "启动与无监听校验-key-cli-config-check",
+      "level": 3,
+      "text": "启动与无监听校验 · `key-cli-config-check`"
+    },
+    {
+      "id": "压测生成器与通过条件-key-cli-callbench",
+      "level": 3,
+      "text": "压测生成器与通过条件 · `key-cli-callbench`"
+    },
+    {
+      "id": "本地按键发送进度查询-key-esl-dtmf-send-status",
+      "level": 3,
+      "text": "本地按键发送进度查询 · `key-esl-dtmf-send-status`"
+    },
+    {
+      "id": "内部按键发送-key-ipc-dtmf-send",
+      "level": 3,
+      "text": "内部按键发送 · `key-ipc-dtmf-send`"
+    },
+    {
+      "id": "内部按键发送进度-key-ipc-dtmf-send-status",
+      "level": 3,
+      "text": "内部按键发送进度 · `key-ipc-dtmf-send-status`"
+    },
+    {
+      "id": "内部pcm轮次启动-key-ipc-pcm-turn-begin",
+      "level": 3,
+      "text": "内部PCM轮次启动 · `key-ipc-pcm-turn-begin`"
+    },
+    {
+      "id": "内部pcm生产结束-key-ipc-pcm-turn-end",
+      "level": 3,
+      "text": "内部PCM生产结束 · `key-ipc-pcm-turn-end`"
+    },
+    {
+      "id": "内部pcm打断与有限淡出-key-ipc-pcm-turn-interrupt",
+      "level": 3,
+      "text": "内部PCM打断与有限淡出 · `key-ipc-pcm-turn-interrupt`"
+    },
+    {
+      "id": "内部pcm真实轮次状态-key-ipc-pcm-turn-status",
+      "level": 3,
+      "text": "内部PCM真实轮次状态 · `key-ipc-pcm-turn-status`"
+    },
+    {
+      "id": "内部pcm二进制供音-key-ipc-pcm-push",
+      "level": 3,
+      "text": "内部PCM二进制供音 · `key-ipc-pcm-push`"
+    },
+    {
+      "id": "私有rva1流式pcm-api-key-api-pcm-stream",
+      "level": 3,
+      "text": "私有RVA1流式PCM API · `key-api-pcm-stream`"
+    },
+    {
+      "id": "内部原生音频上行订阅-key-ipc-rx-subscribe",
+      "level": 3,
+      "text": "内部原生音频上行订阅 · `key-ipc-rx-subscribe`"
+    },
+    {
+      "id": "内部上行订阅状态与对账-key-ipc-rx-status",
+      "level": 3,
+      "text": "内部上行订阅状态与对账 · `key-ipc-rx-status`"
+    },
+    {
+      "id": "内部上行停止与终态-key-ipc-rx-unsubscribe",
+      "level": 3,
+      "text": "内部上行停止与终态 · `key-ipc-rx-unsubscribe`"
+    },
+    {
+      "id": "内部rxs2原生音频数据流-key-ipc-rx-stream",
+      "level": 3,
+      "text": "内部RXS2原生音频数据流 · `key-ipc-rx-stream`"
+    },
+    {
+      "id": "内部go服务端上行音频sdk-key-api-rx-sdk",
+      "level": 3,
+      "text": "内部Go服务端上行音频SDK · `key-api-rx-sdk`"
+    },
+    {
+      "id": "差分闭合与无感切换要求",
+      "level": 2,
+      "text": "差分闭合与无感切换要求"
+    },
+    {
+      "id": "可复现生成",
+      "level": 2,
+      "text": "可复现生成"
+    }
+  ],
+  "reference/docs/api/http-reference.html": [
+    {
+      "id": "rustswitch-http-管理接口参考",
+      "level": 1,
+      "text": "RustSwitch HTTP 管理接口参考"
+    },
+    {
+      "id": "1-地址版本和传输规则",
+      "level": 2,
+      "text": "1. 地址、版本和传输规则"
+    },
+    {
+      "id": "2-json错误与省略字段",
+      "level": 2,
+      "text": "2. JSON、错误与省略字段"
+    },
+    {
+      "id": "3-配置版本提交和重启",
+      "level": 2,
+      "text": "3. 配置版本、提交和重启"
+    },
+    {
+      "id": "4-完整配置范围与默认值",
+      "level": 2,
+      "text": "4. 完整配置范围与默认值"
+    },
+    {
+      "id": "16-线路与本地呼入配置",
+      "level": 3,
+      "text": "1.6 线路与本地呼入配置"
+    },
+    {
+      "id": "guard-首次策略与计数",
+      "level": 3,
+      "text": "Guard 首次策略与计数"
+    },
+    {
+      "id": "5-xml-编辑与文档发布边界",
+      "level": 2,
+      "text": "5. XML 编辑与文档发布边界"
+    },
+    {
+      "id": "6-逐操作参考",
+      "level": 2,
+      "text": "6. 逐操作参考"
+    },
+    {
+      "id": "61-get-healthz-读取进程存活和版本",
+      "level": 3,
+      "text": "6.1 `GET /healthz` — 读取进程存活和版本"
+    },
+    {
+      "id": "62-get-readyz-读取新呼叫准入就绪",
+      "level": 3,
+      "text": "6.2 `GET /readyz` — 读取新呼叫准入就绪"
+    },
+    {
+      "id": "63-get-v1status-读取控制与媒体观测",
+      "level": 3,
+      "text": "6.3 `GET /v1/status` — 读取控制与媒体观测"
+    },
+    {
+      "id": "64-get-metrics-读取prometheus指标",
+      "level": 3,
+      "text": "6.4 `GET /metrics` — 读取Prometheus指标"
+    },
+    {
+      "id": "65-get-v1config-读取运行配置和待启动草稿",
+      "level": 3,
+      "text": "6.5 `GET /v1/config` — 读取运行配置和待启动草稿"
+    },
+    {
+      "id": "66-put-v1config-保存完整待启动配置",
+      "level": 3,
+      "text": "6.6 `PUT /v1/config` — 保存完整待启动配置"
+    },
+    {
+      "id": "67-get-v1guard-读取即时峰值保护",
+      "level": 3,
+      "text": "6.7 `GET /v1/guard` — 读取即时峰值保护"
+    },
+    {
+      "id": "68-put-v1guard-原子更新即时峰值保护",
+      "level": 3,
+      "text": "6.8 `PUT /v1/guard` — 原子更新即时峰值保护"
+    },
+    {
+      "id": "69-post-v1drain-暂停新初始呼叫",
+      "level": 3,
+      "text": "6.9 `POST /v1/drain` — 暂停新初始呼叫"
+    },
+    {
+      "id": "610-post-v1resume-恢复按既有策略接入",
+      "level": 3,
+      "text": "6.10 `POST /v1/resume` — 恢复按既有策略接入"
+    },
+    {
+      "id": "611-get-v1fs-config-读取freeswitch配置草稿目录",
+      "level": 3,
+      "text": "6.11 `GET /v1/fs-config` — 读取FreeSWITCH配置草稿目录"
+    },
+    {
+      "id": "612-put-v1fs-config-按参数id保存差量修改",
+      "level": 3,
+      "text": "6.12 `PUT /v1/fs-config` — 按参数ID保存差量修改"
+    },
+    {
+      "id": "613-get-v1fs-configfile-读取单个xml草稿",
+      "level": 3,
+      "text": "6.13 `GET /v1/fs-config/file` — 读取单个XML草稿"
+    },
+    {
+      "id": "614-put-v1fs-configfile-保存或新增xml文件",
+      "level": 3,
+      "text": "6.14 `PUT /v1/fs-config/file` — 保存或新增XML文件"
+    },
+    {
+      "id": "615-get-v1fs-configexport-导出完整xml配置zip",
+      "level": 3,
+      "text": "6.15 `GET /v1/fs-config/export` — 导出完整XML配置ZIP"
+    },
+    {
+      "id": "616-get-v1docs-读取文档清单",
+      "level": 3,
+      "text": "6.16 `GET /v1/docs` — 读取文档清单"
+    },
+    {
+      "id": "617-get-v1docsopenapijson-下载openapi-31描述",
+      "level": 3,
+      "text": "6.17 `GET /v1/docs/openapi.json` — 下载OpenAPI 3.1描述"
+    },
+    {
+      "id": "618-get-v1docscomparisonjson-下载完整接口对照",
+      "level": 3,
+      "text": "6.18 `GET /v1/docs/comparison.json` — 下载完整接口对照"
+    },
+    {
+      "id": "619-get-v1docsfile-读取允许清单内原始文档",
+      "level": 3,
+      "text": "6.19 `GET /v1/docs/file` — 读取允许清单内原始文档"
+    },
+    {
+      "id": "620-get-v1docsexportzip-下载完整文档zip",
+      "level": 3,
+      "text": "6.20 `GET /v1/docs/export.zip` — 下载完整文档ZIP"
+    },
+    {
+      "id": "7-静态调用示例",
+      "level": 2,
+      "text": "7. 静态调用示例"
+    },
+    {
+      "id": "curl读取修改重试建议排空和下载",
+      "level": 3,
+      "text": "cURL：读取、修改重试建议、排空和下载"
+    },
+    {
+      "id": "python完整快照更新与失败处理",
+      "level": 3,
+      "text": "Python：完整快照更新与失败处理"
+    },
+    {
+      "id": "8-指标字典与观测限制",
+      "level": 2,
+      "text": "8. 指标字典与观测限制"
+    },
+    {
+      "id": "9-完整schema字段字典",
+      "level": 2,
+      "text": "9. 完整schema字段字典"
+    },
+    {
+      "id": "10-静态资源freeswitch关系与来源",
+      "level": 2,
+      "text": "10. 静态资源、FreeSWITCH关系与来源"
+    },
+    {
+      "id": "压力与电话测试扩展",
+      "level": 2,
+      "text": "压力与电话测试扩展"
+    },
+    {
+      "id": "11-控制进程资源与管理预算12-新增",
+      "level": 2,
+      "text": "11. 控制进程资源与管理预算（1.2 新增）"
+    },
+    {
+      "id": "12-音频能力与资源预检13-新增",
+      "level": 2,
+      "text": "12. 音频能力与资源预检（1.3 新增）"
+    },
+    {
+      "id": "13-实时处理与测试模式110",
+      "level": 2,
+      "text": "13. 实时处理与测试模式（1.10）"
+    }
+  ],
+  "reference/docs/api/ivr-reference.html": [
+    {
+      "id": "esl-应用按键收集与本地-ivr",
+      "level": 1,
+      "text": "ESL 应用、按键收集与本地 IVR"
+    },
+    {
+      "id": "连接与通道",
+      "level": 2,
+      "text": "连接与通道"
+    },
+    {
+      "id": "发送应用",
+      "level": 2,
+      "text": "发送应用"
+    },
+    {
+      "id": "基础变量",
+      "level": 2,
+      "text": "基础变量"
+    },
+    {
+      "id": "收号-read",
+      "level": 2,
+      "text": "收号 read"
+    },
+    {
+      "id": "rtp-与-sip-info-按键",
+      "level": 2,
+      "text": "RTP 与 SIP INFO 按键"
+    },
+    {
+      "id": "真实提示音播放",
+      "level": 2,
+      "text": "真实提示音播放"
+    },
+    {
+      "id": "本地-1000-ivr-呼入",
+      "level": 2,
+      "text": "本地 1000 IVR 呼入"
+    },
+    {
+      "id": "资源与结束语义",
+      "level": 2,
+      "text": "资源与结束语义"
+    },
+    {
+      "id": "可执行验证",
+      "level": 2,
+      "text": "可执行验证"
+    },
+    {
+      "id": "wav-与基础动作17",
+      "level": 2,
+      "text": "WAV 与基础动作（1.7）"
+    },
+    {
+      "id": "播放终止与原版响应17",
+      "level": 2,
+      "text": "播放终止与原版响应（1.7）"
+    },
+    {
+      "id": "已-ack-的-pcm-供音与-ivr",
+      "level": 2,
+      "text": "已 ACK 的 PCM 供音与 IVR"
+    }
+  ],
+  "reference/docs/api/media-interaction.html": [
+    {
+      "id": "媒体按键采集提示音与-pcm-接口",
+      "level": 1,
+      "text": "媒体按键采集、提示音与 PCM 接口"
+    },
+    {
+      "id": "通道与生命周期",
+      "level": 2,
+      "text": "通道与生命周期"
+    },
+    {
+      "id": "拉取真实按键",
+      "level": 2,
+      "text": "拉取真实按键"
+    },
+    {
+      "id": "真实-g711-提示音",
+      "level": 2,
+      "text": "真实 G.711 提示音"
+    },
+    {
+      "id": "验证与证据边界",
+      "level": 2,
+      "text": "验证与证据边界"
+    },
+    {
+      "id": "pcm-与既有应用的并存规则",
+      "level": 2,
+      "text": "PCM 与既有应用的并存规则"
+    }
+  ],
+  "reference/docs/api/overview-testing-reference.html": [
+    {
+      "id": "运行总览与隔离测试观测",
+      "level": 1,
+      "text": "运行总览与隔离测试观测"
+    },
+    {
+      "id": "数据来源与任务选择",
+      "level": 2,
+      "text": "数据来源与任务选择"
+    },
+    {
+      "id": "指标口径",
+      "level": 2,
+      "text": "指标口径"
+    },
+    {
+      "id": "采样刷新与历史窗口",
+      "level": 2,
+      "text": "采样、刷新与历史窗口"
+    },
+    {
+      "id": "新鲜度失败与未知值",
+      "level": 2,
+      "text": "新鲜度、失败与未知值"
+    },
+    {
+      "id": "跳转与结果判读",
+      "level": 2,
+      "text": "跳转与结果判读"
+    }
+  ],
+  "reference/docs/api/pcm-turn-reference.html": [
+    {
+      "id": "pcm-轮次队列与内部数据通道1120",
+      "level": 1,
+      "text": "PCM 轮次队列与内部数据通道（1.12.0）"
+    },
+    {
+      "id": "适用范围与调用边界",
+      "level": 2,
+      "text": "适用范围与调用边界"
+    },
+    {
+      "id": "前置条件与身份",
+      "level": 2,
+      "text": "前置条件与身份"
+    },
+    {
+      "id": "音频与队列限制",
+      "level": 2,
+      "text": "音频与队列限制"
+    },
+    {
+      "id": "jsonl-控制接口",
+      "level": 2,
+      "text": "JSONL 控制接口"
+    },
+    {
+      "id": "pcm_turn_begin",
+      "level": 3,
+      "text": "pcm_turn_begin"
+    },
+    {
+      "id": "pcm_turn_end",
+      "level": 3,
+      "text": "pcm_turn_end"
+    },
+    {
+      "id": "pcm_turn_interrupt",
+      "level": 3,
+      "text": "pcm_turn_interrupt"
+    },
+    {
+      "id": "pcm_turn_status",
+      "level": 3,
+      "text": "pcm_turn_status"
+    },
+    {
+      "id": "rsp1pcm-数据批次",
+      "level": 2,
+      "text": "RSP1：PCM 数据批次"
+    },
+    {
+      "id": "rsr1批次受理回执",
+      "level": 2,
+      "text": "RSR1：批次受理回执"
+    },
+    {
+      "id": "背压取消与故障",
+      "level": 2,
+      "text": "背压、取消与故障"
+    },
+    {
+      "id": "时间与完成语义",
+      "level": 2,
+      "text": "时间与完成语义"
+    },
+    {
+      "id": "已验证范围与来源",
+      "level": 2,
+      "text": "已验证范围与来源"
+    }
+  ],
+  "reference/docs/api/processed-local-reference.html": [
+    {
+      "id": "本地单腿-g711电话-ivr-与智能体媒体入口",
+      "level": 1,
+      "text": "本地单腿 G.711：电话 IVR 与智能体媒体入口"
+    },
+    {
+      "id": "通话与音频路径",
+      "level": 2,
+      "text": "通话与音频路径"
+    },
+    {
+      "id": "启动分配与就绪",
+      "level": 2,
+      "text": "启动、分配与就绪"
+    },
+    {
+      "id": "播放收号与-rtp-时间线",
+      "level": 2,
+      "text": "播放、收号与 RTP 时间线"
+    },
+    {
+      "id": "运行总览与统计",
+      "level": 2,
+      "text": "运行总览与统计"
+    },
+    {
+      "id": "freeswitch-对照与验收边界",
+      "level": 2,
+      "text": "FreeSWITCH 对照与验收边界"
+    },
+    {
+      "id": "112-pcm-下行与-tx-所有权",
+      "level": 2,
+      "text": "1.12 PCM 下行与 TX 所有权"
+    }
+  ],
+  "reference/docs/api/processed-media-reference.html": [
+    {
+      "id": "实时-g711-双向媒体处理说明",
+      "level": 1,
+      "text": "实时 G.711 双向媒体处理说明"
+    },
+    {
+      "id": "1-启用方式与适用呼叫",
+      "level": 2,
+      "text": "1. 启用方式与适用呼叫"
+    },
+    {
+      "id": "2-媒体与协商范围",
+      "level": 2,
+      "text": "2. 媒体与协商范围"
+    },
+    {
+      "id": "3-内部-pcm-与执行模型",
+      "level": 2,
+      "text": "3. 内部 PCM 与执行模型"
+    },
+    {
+      "id": "4-抖动静默和时间戳",
+      "level": 2,
+      "text": "4. 抖动、静默和时间戳"
+    },
+    {
+      "id": "5-发送期限与-rtcp",
+      "level": 2,
+      "text": "5. 发送期限与 RTCP"
+    },
+    {
+      "id": "6-go-rust-内部接口",
+      "level": 2,
+      "text": "6. Go / Rust 内部接口"
+    },
+    {
+      "id": "7-故障行为",
+      "level": 2,
+      "text": "7. 故障行为"
+    },
+    {
+      "id": "8-可观测指标",
+      "level": 2,
+      "text": "8. 可观测指标"
+    },
+    {
+      "id": "9-freeswitch-对照表关联",
+      "level": 2,
+      "text": "9. FreeSWITCH 对照表关联"
+    },
+    {
+      "id": "10-验证记录与发布待办",
+      "level": 2,
+      "text": "10. 验证记录与发布待办"
+    },
+    {
+      "id": "11-管理集成与继续工作边界",
+      "level": 2,
+      "text": "11. 管理集成与继续工作边界"
+    }
+  ],
+  "reference/docs/api/processed-testing-reference.html": [
+    {
+      "id": "真实音频处理压测与能力目录110",
+      "level": 1,
+      "text": "真实音频处理压测与能力目录（1.10）"
+    },
+    {
+      "id": "页面操作",
+      "level": 2,
+      "text": "页面操作"
+    },
+    {
+      "id": "请求示例",
+      "level": 2,
+      "text": "请求示例"
+    },
+    {
+      "id": "媒体与判定",
+      "level": 2,
+      "text": "媒体与判定"
+    },
+    {
+      "id": "有界错误诊断",
+      "level": 2,
+      "text": "有界错误诊断"
+    },
+    {
+      "id": "生效模式与能力",
+      "level": 2,
+      "text": "生效模式与能力"
+    },
+    {
+      "id": "freeswitch-对照",
+      "level": 2,
+      "text": "FreeSWITCH 对照"
+    }
+  ],
+  "reference/docs/api/protocol-reference.html": [
+    {
+      "id": "sip媒体内部通信与原生接口完整说明",
+      "level": 1,
+      "text": "SIP、媒体、内部通信与原生接口完整说明"
+    },
+    {
+      "id": "接口分层与调用方向",
+      "level": 2,
+      "text": "接口分层与调用方向"
+    },
+    {
+      "id": "sip-请求响应与状态",
+      "level": 2,
+      "text": "SIP 请求、响应与状态"
+    },
+    {
+      "id": "可复用的完整报文构造示例",
+      "level": 3,
+      "text": "可复用的完整报文构造示例"
+    },
+    {
+      "id": "tcp-tls-可靠传输",
+      "level": 3,
+      "text": "TCP / TLS 可靠传输"
+    },
+    {
+      "id": "sdp-与媒体报文契约",
+      "level": 2,
+      "text": "SDP 与媒体报文契约"
+    },
+    {
+      "id": "媒体内部-json-管道",
+      "level": 2,
+      "text": "媒体内部 JSON 管道"
+    },
+    {
+      "id": "启动配置",
+      "level": 3,
+      "text": "启动配置"
+    },
+    {
+      "id": "操作及成对消息",
+      "level": 3,
+      "text": "操作及成对消息"
+    },
+    {
+      "id": "c-编解码接口",
+      "level": 2,
+      "text": "C 编解码接口"
+    },
+    {
+      "id": "预留-c-协议提供器",
+      "level": 2,
+      "text": "预留 C 协议提供器"
+    },
+    {
+      "id": "jsonl-生命周期事件",
+      "level": 2,
+      "text": "JSONL 生命周期事件"
+    },
+    {
+      "id": "进程-cli-与退出",
+      "level": 2,
+      "text": "进程 CLI 与退出"
+    },
+    {
+      "id": "命令行完整参数快照",
+      "level": 2,
+      "text": "命令行完整参数快照"
+    },
+    {
+      "id": "控制进程",
+      "level": 3,
+      "text": "控制进程"
+    },
+    {
+      "id": "媒体进程",
+      "level": 3,
+      "text": "媒体进程"
+    },
+    {
+      "id": "流量发生器",
+      "level": 3,
+      "text": "流量发生器"
+    },
+    {
+      "id": "本地验收编排",
+      "level": 3,
+      "text": "本地验收编排"
+    },
+    {
+      "id": "linux只读采集",
+      "level": 3,
+      "text": "Linux只读采集"
+    },
+    {
+      "id": "媒体统计字段与分组",
+      "level": 2,
+      "text": "媒体统计字段与分组"
+    }
+  ],
+  "reference/docs/api/release-validation-m1.html": [
+    {
+      "id": "m1-首轮-g711-候选历史验证记录",
+      "level": 1,
+      "text": "M1 首轮 G.711 候选：历史验证记录"
+    },
+    {
+      "id": "修复及验证",
+      "level": 2,
+      "text": "修复及验证"
+    },
+    {
+      "id": "freeswitch对照变化",
+      "level": 2,
+      "text": "FreeSWITCH对照变化"
+    },
+    {
+      "id": "当时后续工作与本轮进展",
+      "level": 2,
+      "text": "当时后续工作与本轮进展"
+    }
+  ],
+  "reference/docs/api/release-validation-v1.10.html": [
+    {
+      "id": "v110g711-实时处理与管理测试复核",
+      "level": 1,
+      "text": "v1.10：G.711 实时处理与管理测试复核"
+    },
+    {
+      "id": "已确认的范围",
+      "level": 2,
+      "text": "已确认的范围"
+    },
+    {
+      "id": "已部署后台的真实-100-路页面回归",
+      "level": 2,
+      "text": "已部署后台的真实 100 路页面回归"
+    },
+    {
+      "id": "暂停恢复修复与容量复测",
+      "level": 2,
+      "text": "暂停恢复修复与容量复测"
+    },
+    {
+      "id": "当前-500-路复测仍失败",
+      "level": 2,
+      "text": "当前 500 路复测仍失败"
+    },
+    {
+      "id": "历史-500-路失败必须保留",
+      "level": 2,
+      "text": "历史 500 路失败必须保留"
+    },
+    {
+      "id": "管理可用性和未知统计",
+      "level": 2,
+      "text": "管理可用性和未知统计"
+    },
+    {
+      "id": "量化校验没有降低业务要求",
+      "level": 2,
+      "text": "量化校验没有降低业务要求"
+    },
+    {
+      "id": "历史证据与本轮新增",
+      "level": 2,
+      "text": "历史证据与本轮新增"
+    },
+    {
+      "id": "m1-与-m2-的剩余工作",
+      "level": 2,
+      "text": "M1 与 M2 的剩余工作"
+    }
+  ],
+  "reference/docs/api/release-validation-v1.11.html": [
+    {
+      "id": "v111本地单腿-pcm-与-ivr-验证记录",
+      "level": 1,
+      "text": "v1.11：本地单腿 PCM 与 IVR 验证记录"
+    },
+    {
+      "id": "本轮实际修复",
+      "level": 2,
+      "text": "本轮实际修复"
+    },
+    {
+      "id": "单腿实际执行与独立复核",
+      "level": 2,
+      "text": "单腿实际执行与独立复核"
+    },
+    {
+      "id": "既有功能的当前源码回归",
+      "level": 2,
+      "text": "既有功能的当前源码回归"
+    },
+    {
+      "id": "后台页面的实际单腿观察",
+      "level": 2,
+      "text": "后台页面的实际单腿观察"
+    }
+  ],
+  "reference/docs/api/release-validation-v1.12.html": [
+    {
+      "id": "v112pcm-轮次与已-ack-外部流式入口验证",
+      "level": 1,
+      "text": "v1.12：PCM 轮次与已 ACK 外部流式入口验证"
+    },
+    {
+      "id": "实际结果与统计口径",
+      "level": 2,
+      "text": "实际结果与统计口径"
+    },
+    {
+      "id": "对照页的实际增量",
+      "level": 2,
+      "text": "对照页的实际增量"
+    },
+    {
+      "id": "本轮接口与执行路径",
+      "level": 2,
+      "text": "本轮接口与执行路径"
+    },
+    {
+      "id": "内部-pcm-与故障证据",
+      "level": 2,
+      "text": "内部 PCM 与故障证据"
+    },
+    {
+      "id": "外部真实-sip-与候选身份",
+      "level": 2,
+      "text": "外部真实 SIP 与候选身份"
+    },
+    {
+      "id": "保留的失败与修复",
+      "level": 2,
+      "text": "保留的失败与修复"
+    },
+    {
+      "id": "容量原版兼容与下一步",
+      "level": 2,
+      "text": "容量、原版兼容与下一步"
+    }
+  ],
+  "reference/docs/api/release-validation-v1.13.html": [
+    {
+      "id": "113本地-a-腿持续收音与过期语音拒绝",
+      "level": 1,
+      "text": "1.13：本地 A 腿持续收音与过期语音拒绝"
+    },
+    {
+      "id": "本轮修复的实际问题",
+      "level": 2,
+      "text": "本轮修复的实际问题"
+    },
+    {
+      "id": "已完成的限定验证",
+      "level": 2,
+      "text": "已完成的限定验证"
+    },
+    {
+      "id": "候选与证据身份",
+      "level": 2,
+      "text": "候选与证据身份"
+    },
+    {
+      "id": "回归兼容状态与下一步",
+      "level": 2,
+      "text": "回归、兼容状态与下一步"
+    }
+  ],
+  "reference/docs/api/release-validation-v1.5.html": [
+    {
+      "id": "rustswitch-15-开发交付与验证说明",
+      "level": 1,
+      "text": "RustSwitch 1.5 开发交付与验证说明"
+    },
+    {
+      "id": "本轮已开发内容",
+      "level": 2,
+      "text": "本轮已开发内容"
+    },
+    {
+      "id": "有限-esl-控制与事件",
+      "level": 3,
+      "text": "有限 ESL 控制与事件"
+    },
+    {
+      "id": "sip-tcptls-与媒体生命周期",
+      "level": 3,
+      "text": "SIP TCP/TLS 与媒体生命周期"
+    },
+    {
+      "id": "本轮实际验证",
+      "level": 2,
+      "text": "本轮实际验证"
+    },
+    {
+      "id": "原版成对结果及剩余差异",
+      "level": 3,
+      "text": "原版成对结果及剩余差异"
+    },
+    {
+      "id": "5000-路容量回归",
+      "level": 3,
+      "text": "5000 路容量回归"
+    },
+    {
+      "id": "交付及离线复核",
+      "level": 2,
+      "text": "交付及离线复核"
+    },
+    {
+      "id": "尚需继续实现与验收",
+      "level": 2,
+      "text": "尚需继续实现与验收"
+    }
+  ],
+  "reference/docs/api/release-validation-v1.6.html": [
+    {
+      "id": "16-线路注册按键与-ivr-实测记录",
+      "level": 1,
+      "text": "1.6 线路注册、按键与 IVR 实测记录"
+    },
+    {
+      "id": "本轮新增与修复",
+      "level": 2,
+      "text": "本轮新增与修复"
+    },
+    {
+      "id": "实际回归结果",
+      "level": 2,
+      "text": "实际回归结果"
+    },
+    {
+      "id": "与原版的真实成对检查",
+      "level": 2,
+      "text": "与原版的真实成对检查"
+    },
+    {
+      "id": "压测页面读取失败与实测",
+      "level": 2,
+      "text": "压测页面读取失败与实测"
+    },
+    {
+      "id": "完整对照与剩余缺口",
+      "level": 2,
+      "text": "完整对照与剩余缺口"
+    }
+  ],
+  "reference/docs/api/release-validation-v1.7.html": [
+    {
+      "id": "rustswitch-17-缺口实现与逐项验证",
+      "level": 1,
+      "text": "RustSwitch 1.7 缺口实现与逐项验证"
+    },
+    {
+      "id": "本轮实现",
+      "level": 2,
+      "text": "本轮实现"
+    },
+    {
+      "id": "当前源码的本地验证",
+      "level": 2,
+      "text": "当前源码的本地验证"
+    },
+    {
+      "id": "原版逐项对照",
+      "level": 2,
+      "text": "原版逐项对照"
+    },
+    {
+      "id": "绿色状态与剩余工作",
+      "level": 2,
+      "text": "绿色状态与剩余工作"
+    },
+    {
+      "id": "发布后页面与500路回归",
+      "level": 2,
+      "text": "发布后页面与500路回归"
+    }
+  ],
+  "reference/docs/api/release-validation-v1.8.html": [
+    {
+      "id": "rustswitch-18-缺口推进与逐项验证",
+      "level": 1,
+      "text": "RustSwitch 1.8 缺口推进与逐项验证"
+    },
+    {
+      "id": "数量变化",
+      "level": 2,
+      "text": "数量变化"
+    },
+    {
+      "id": "本轮逐项结果",
+      "level": 2,
+      "text": "本轮逐项结果"
+    },
+    {
+      "id": "具体修复",
+      "level": 2,
+      "text": "具体修复"
+    },
+    {
+      "id": "实际执行结果",
+      "level": 2,
+      "text": "实际执行结果"
+    },
+    {
+      "id": "发布后500路短时回归",
+      "level": 2,
+      "text": "发布后500路短时回归"
+    },
+    {
+      "id": "仍未闭合的范围",
+      "level": 2,
+      "text": "仍未闭合的范围"
+    }
+  ],
+  "reference/docs/api/release-validation-v1.9.html": [
+    {
+      "id": "云蝠-voice-runtime-19总览压测观测与语音智能体方向",
+      "level": 1,
+      "text": "云蝠 Voice Runtime 1.9：总览压测观测与语音智能体方向"
+    },
+    {
+      "id": "运行总览修复",
+      "level": 2,
+      "text": "运行总览修复"
+    },
+    {
+      "id": "本轮实现",
+      "level": 2,
+      "text": "本轮实现"
+    },
+    {
+      "id": "验收记录",
+      "level": 2,
+      "text": "验收记录"
+    },
+    {
+      "id": "对照数量变化",
+      "level": 2,
+      "text": "对照数量变化"
+    },
+    {
+      "id": "原版按键差异与下一步",
+      "level": 2,
+      "text": "原版按键差异与下一步"
+    },
+    {
+      "id": "发布后总览检查",
+      "level": 2,
+      "text": "发布后总览检查"
+    }
+  ],
+  "reference/docs/api/runtime-diagnostics-reference.html": [
+    {
+      "id": "压测-go-运行时诊断日志观察与边界",
+      "level": 1,
+      "text": "压测 Go 运行时诊断：日志观察与边界"
+    },
+    {
+      "id": "使用方式",
+      "level": 2,
+      "text": "使用方式"
+    },
+    {
+      "id": "解析结果的含义",
+      "level": 2,
+      "text": "解析结果的含义"
+    },
+    {
+      "id": "本轮验证",
+      "level": 2,
+      "text": "本轮验证"
+    }
+  ],
+  "reference/docs/api/runtime-verification.html": [
+    {
+      "id": "本地运行验证与绿色状态",
+      "level": 1,
+      "text": "本地运行验证与绿色状态"
+    },
+    {
+      "id": "运行与复查",
+      "level": 2,
+      "text": "运行与复查"
+    },
+    {
+      "id": "当前本地范围",
+      "level": 2,
+      "text": "当前本地范围"
+    },
+    {
+      "id": "历史运行",
+      "level": 2,
+      "text": "历史运行"
+    },
+    {
+      "id": "新的sip与媒体端到端采集",
+      "level": 2,
+      "text": "新的SIP与媒体端到端采集"
+    },
+    {
+      "id": "linux-5000路证据合同",
+      "level": 2,
+      "text": "Linux 5000路证据合同"
+    }
+  ],
+  "reference/docs/api/rva1-reference.html": [
+    {
+      "id": "rva1-外部-pcm-流接口1120",
+      "level": 1,
+      "text": "RVA1 外部 PCM 流接口（1.12.0）"
+    },
+    {
+      "id": "入口与信任边界",
+      "level": 2,
+      "text": "入口与信任边界"
+    },
+    {
+      "id": "通话资格与媒体格式",
+      "level": 2,
+      "text": "通话资格与媒体格式"
+    },
+    {
+      "id": "请求头-rva1",
+      "level": 2,
+      "text": "请求头 RVA1"
+    },
+    {
+      "id": "回复头-rvr1",
+      "level": 2,
+      "text": "回复头 RVR1"
+    },
+    {
+      "id": "未知结果跨连接与轮次恢复",
+      "level": 2,
+      "text": "未知结果、跨连接与轮次恢复"
+    },
+    {
+      "id": "实际完成语义与典型顺序",
+      "level": 2,
+      "text": "实际完成语义与典型顺序"
+    },
+    {
+      "id": "sipesl-与未实现范围",
+      "level": 2,
+      "text": "SIP、ESL 与未实现范围"
+    },
+    {
+      "id": "build-02-实际功能候选验收",
+      "level": 2,
+      "text": "build-02 实际功能候选验收"
+    },
+    {
+      "id": "首轮无-ack-失败与修复",
+      "level": 3,
+      "text": "首轮无 ACK 失败与修复"
+    }
+  ],
+  "reference/docs/api/rx-stream-reference.html": [
+    {
+      "id": "本地通话上行音频rxs2-与-go-rx-sdk",
+      "level": 1,
+      "text": "本地通话上行音频：RXS2 与 Go RX SDK"
+    },
+    {
+      "id": "1-支持范围与通道",
+      "level": 2,
+      "text": "1. 支持范围与通道"
+    },
+    {
+      "id": "2-json-控制与状态",
+      "level": 2,
+      "text": "2. JSON 控制与状态"
+    },
+    {
+      "id": "3-worker-指标与应用侧计数",
+      "level": 2,
+      "text": "3. Worker 指标与应用侧计数"
+    },
+    {
+      "id": "4-rxs2-二进制格式",
+      "level": 2,
+      "text": "4. RXS2 二进制格式"
+    },
+    {
+      "id": "5-100-ms-固定期限",
+      "level": 2,
+      "text": "5. 100 ms 固定期限"
+    },
+    {
+      "id": "6-有界队列失败与回收",
+      "level": 2,
+      "text": "6. 有界队列、失败与回收"
+    },
+    {
+      "id": "7-server-sdk-授权与生命周期",
+      "level": 2,
+      "text": "7. Server SDK 授权与生命周期"
+    },
+    {
+      "id": "8-本批实际验证与未完成部分",
+      "level": 2,
+      "text": "8. 本批实际验证与未完成部分"
+    }
+  ],
+  "reference/docs/api/schema-reference.html": [
+    {
+      "id": "完整接口字段字典",
+      "level": 1,
+      "text": "完整接口字段字典"
+    },
+    {
+      "id": "sipconfig",
+      "level": 2,
+      "text": "`SIPConfig`"
+    },
+    {
+      "id": "mediaconfig",
+      "level": 2,
+      "text": "`MediaConfig`"
+    },
+    {
+      "id": "limits",
+      "level": 2,
+      "text": "`Limits`"
+    },
+    {
+      "id": "adminlistenconfig",
+      "level": 2,
+      "text": "`AdminListenConfig`"
+    },
+    {
+      "id": "journalconfig",
+      "level": 2,
+      "text": "`JournalConfig`"
+    },
+    {
+      "id": "config",
+      "level": 2,
+      "text": "`Config`"
+    },
+    {
+      "id": "guardpolicy",
+      "level": 2,
+      "text": "`GuardPolicy`"
+    },
+    {
+      "id": "guardsnapshot",
+      "level": 2,
+      "text": "`GuardSnapshot`"
+    },
+    {
+      "id": "mediaadmission",
+      "level": 2,
+      "text": "`MediaAdmission`"
+    },
+    {
+      "id": "sipconfiginput",
+      "level": 2,
+      "text": "`SIPConfigInput`"
+    },
+    {
+      "id": "mediaconfiginput",
+      "level": 2,
+      "text": "`MediaConfigInput`"
+    },
+    {
+      "id": "limitsinput",
+      "level": 2,
+      "text": "`LimitsInput`"
+    },
+    {
+      "id": "adminlistenconfiginput",
+      "level": 2,
+      "text": "`AdminListenConfigInput`"
+    },
+    {
+      "id": "journalconfiginput",
+      "level": 2,
+      "text": "`JournalConfigInput`"
+    },
+    {
+      "id": "configinput",
+      "level": 2,
+      "text": "`ConfigInput`"
+    },
+    {
+      "id": "guardpolicyinput",
+      "level": 2,
+      "text": "`GuardPolicyInput`"
+    },
+    {
+      "id": "error",
+      "level": 2,
+      "text": "`Error`"
+    },
+    {
+      "id": "revisionconflict",
+      "level": 2,
+      "text": "`RevisionConflict`"
+    },
+    {
+      "id": "health",
+      "level": 2,
+      "text": "`Health`"
+    },
+    {
+      "id": "readiness",
+      "level": 2,
+      "text": "`Readiness`"
+    },
+    {
+      "id": "drainstate",
+      "level": 2,
+      "text": "`DrainState`"
+    },
+    {
+      "id": "adminconfigresponse",
+      "level": 2,
+      "text": "`AdminConfigResponse`"
+    },
+    {
+      "id": "guardresponse",
+      "level": 2,
+      "text": "`GuardResponse`"
+    },
+    {
+      "id": "configupdate",
+      "level": 2,
+      "text": "`ConfigUpdate`"
+    },
+    {
+      "id": "guardupdate",
+      "level": 2,
+      "text": "`GuardUpdate`"
+    },
+    {
+      "id": "mediastats",
+      "level": 2,
+      "text": "`MediaStats`"
+    },
+    {
+      "id": "workerstatus",
+      "level": 2,
+      "text": "`WorkerStatus`"
+    },
+    {
+      "id": "status",
+      "level": 2,
+      "text": "`Status`"
+    },
+    {
+      "id": "fsparameter",
+      "level": 2,
+      "text": "`FSParameter`"
+    },
+    {
+      "id": "fsconfigfile",
+      "level": 2,
+      "text": "`FSConfigFile`"
+    },
+    {
+      "id": "fscapability",
+      "level": 2,
+      "text": "`FSCapability`"
+    },
+    {
+      "id": "fsconfigresponse",
+      "level": 2,
+      "text": "`FSConfigResponse`"
+    },
+    {
+      "id": "fsparametersupdate",
+      "level": 2,
+      "text": "`FSParametersUpdate`"
+    },
+    {
+      "id": "fsfileresponse",
+      "level": 2,
+      "text": "`FSFileResponse`"
+    },
+    {
+      "id": "fsfileupdate",
+      "level": 2,
+      "text": "`FSFileUpdate`"
+    },
+    {
+      "id": "fsfileupdated",
+      "level": 2,
+      "text": "`FSFileUpdated`"
+    },
+    {
+      "id": "documentitem",
+      "level": 2,
+      "text": "`DocumentItem`"
+    },
+    {
+      "id": "docsmanifest",
+      "level": 2,
+      "text": "`DocsManifest`"
+    },
+    {
+      "id": "comparisonentry",
+      "level": 2,
+      "text": "`ComparisonEntry`"
+    },
+    {
+      "id": "comparison",
+      "level": 2,
+      "text": "`Comparison`"
+    },
+    {
+      "id": "openapifile",
+      "level": 2,
+      "text": "`OpenAPIFile`"
+    },
+    {
+      "id": "testrequest",
+      "level": 2,
+      "text": "`TestRequest`"
+    },
+    {
+      "id": "testprogress",
+      "level": 2,
+      "text": "`TestProgress`"
+    },
+    {
+      "id": "testsample",
+      "level": 2,
+      "text": "`TestSample`"
+    },
+    {
+      "id": "testcleanup",
+      "level": 2,
+      "text": "`TestCleanup`"
+    },
+    {
+      "id": "testrun",
+      "level": 2,
+      "text": "`TestRun`"
+    },
+    {
+      "id": "testcapabilities",
+      "level": 2,
+      "text": "`TestCapabilities`"
+    },
+    {
+      "id": "testoverview",
+      "level": 2,
+      "text": "`TestOverview`"
+    },
+    {
+      "id": "testreport",
+      "level": 2,
+      "text": "`TestReport`"
+    },
+    {
+      "id": "testgeneratorresult",
+      "level": 2,
+      "text": "`TestGeneratorResult`"
+    },
+    {
+      "id": "testports",
+      "level": 2,
+      "text": "`TestPorts`"
+    },
+    {
+      "id": "testresourcepreflight",
+      "level": 2,
+      "text": "`TestResourcePreflight`"
+    },
+    {
+      "id": "testbinaryhashes",
+      "level": 2,
+      "text": "`TestBinaryHashes`"
+    },
+    {
+      "id": "testfinalworker",
+      "level": 2,
+      "text": "`TestFinalWorker`"
+    },
+    {
+      "id": "testfinalstatus",
+      "level": 2,
+      "text": "`TestFinalStatus`"
+    },
+    {
+      "id": "testevidence",
+      "level": 2,
+      "text": "`TestEvidence`"
+    },
+    {
+      "id": "controllerstatus",
+      "level": 2,
+      "text": "`ControllerStatus`"
+    },
+    {
+      "id": "codecprofile",
+      "level": 2,
+      "text": "`CodecProfile`"
+    },
+    {
+      "id": "nativecodeccapability",
+      "level": 2,
+      "text": "`NativeCodecCapability`"
+    },
+    {
+      "id": "nativeaudiocapabilities",
+      "level": 2,
+      "text": "`NativeAudioCapabilities`"
+    },
+    {
+      "id": "codeccatalog",
+      "level": 2,
+      "text": "`CodecCatalog`"
+    },
+    {
+      "id": "testportcapacity",
+      "level": 2,
+      "text": "`TestPortCapacity`"
+    },
+    {
+      "id": "testfailure",
+      "level": 2,
+      "text": "`TestFailure`"
+    },
+    {
+      "id": "sipstreamconfig",
+      "level": 2,
+      "text": "`SIPStreamConfig`"
+    },
+    {
+      "id": "siptrunkauth",
+      "level": 2,
+      "text": "`SIPTrunkAuth`"
+    },
+    {
+      "id": "sipregistration",
+      "level": 2,
+      "text": "`SIPRegistration`"
+    },
+    {
+      "id": "sipregistrationstatus",
+      "level": 2,
+      "text": "`SIPRegistrationStatus`"
+    },
+    {
+      "id": "sipdialplan",
+      "level": 2,
+      "text": "`SIPDialplan`"
+    },
+    {
+      "id": "workercapabilitysnapshot",
+      "level": 2,
+      "text": "`WorkerCapabilitySnapshot`"
+    },
+    {
+      "id": "runtimecodecstatus",
+      "level": 2,
+      "text": "`RuntimeCodecStatus`"
+    },
+    {
+      "id": "testprocessingstats",
+      "level": 2,
+      "text": "`TestProcessingStats`"
+    },
+    {
+      "id": "processedgeneratorresult",
+      "level": 2,
+      "text": "`ProcessedGeneratorResult`"
+    },
+    {
+      "id": "processedreceiveerror",
+      "level": 2,
+      "text": "`ProcessedReceiveError`"
+    },
+    {
+      "id": "processedwriteerror",
+      "level": 2,
+      "text": "`ProcessedWriteError`"
+    },
+    {
+      "id": "processeddiagnostics",
+      "level": 2,
+      "text": "`ProcessedDiagnostics`"
+    },
+    {
+      "id": "pcmstreamconfig",
+      "level": 2,
+      "text": "`PCMStreamConfig`"
+    },
+    {
+      "id": "pcmstreamconfiginput",
+      "level": 2,
+      "text": "`PCMStreamConfigInput`"
+    }
+  ],
+  "reference/docs/api/stability-reference.html": [
+    {
+      "id": "通话稳定性资源保护与验证边界",
+      "level": 1,
+      "text": "通话稳定性、资源保护与验证边界"
+    },
+    {
+      "id": "通话卡住与媒体更新",
+      "level": 2,
+      "text": "通话卡住与媒体更新"
+    },
+    {
+      "id": "媒体进程与异常流量",
+      "level": 2,
+      "text": "媒体进程与异常流量"
+    },
+    {
+      "id": "管理面预算与错误合同",
+      "level": 2,
+      "text": "管理面预算与错误合同"
+    },
+    {
+      "id": "新增控制进程观测",
+      "level": 2,
+      "text": "新增控制进程观测"
+    },
+    {
+      "id": "验证方式与尚待验收项目",
+      "level": 2,
+      "text": "验证方式与尚待验收项目"
+    },
+    {
+      "id": "13-重复分支响应与资源上界",
+      "level": 2,
+      "text": "1.3 重复分支响应与资源上界"
+    },
+    {
+      "id": "失败证据与采样中断",
+      "level": 2,
+      "text": "失败证据与采样中断"
+    }
+  ],
+  "reference/docs/api/testing-reference.html": [
+    {
+      "id": "压力模拟与测试小电话接口",
+      "level": 1,
+      "text": "压力模拟与测试小电话接口"
+    },
+    {
+      "id": "测试边界",
+      "level": 2,
+      "text": "测试边界"
+    },
+    {
+      "id": "api-与调用顺序",
+      "level": 2,
+      "text": "API 与调用顺序"
+    },
+    {
+      "id": "结果判读",
+      "level": 2,
+      "text": "结果判读"
+    },
+    {
+      "id": "freeswitch-对应说明",
+      "level": 2,
+      "text": "FreeSWITCH 对应说明"
+    },
+    {
+      "id": "自动化验收工具",
+      "level": 2,
+      "text": "自动化验收工具"
+    },
+    {
+      "id": "13-端口预检与失败分类",
+      "level": 2,
+      "text": "1.3 端口预检与失败分类"
+    },
+    {
+      "id": "14-发生器调度与实际验证记录",
+      "level": 2,
+      "text": "1.4 发生器调度与实际验证记录"
+    },
+    {
+      "id": "16-任务读取与重启恢复",
+      "level": 2,
+      "text": "1.6 任务读取与重启恢复"
+    },
+    {
+      "id": "g711-处理与严格报告110",
+      "level": 2,
+      "text": "G.711 处理与严格报告（1.10）"
+    }
+  ],
+  "reference/docs/api/trunk-registration.html": [
+    {
+      "id": "上游-sip-中继注册与认证",
+      "level": 1,
+      "text": "上游 SIP 中继注册与认证"
+    },
+    {
+      "id": "配置字段",
+      "level": 2,
+      "text": "配置字段"
+    },
+    {
+      "id": "完整配置示例",
+      "level": 2,
+      "text": "完整配置示例"
+    },
+    {
+      "id": "注册刷新与注销",
+      "level": 2,
+      "text": "注册、刷新与注销"
+    },
+    {
+      "id": "出站-invite-认证",
+      "level": 2,
+      "text": "出站 INVITE 认证"
+    },
+    {
+      "id": "管理状态",
+      "level": 2,
+      "text": "管理状态"
+    },
+    {
+      "id": "验收与边界",
+      "level": 2,
+      "text": "验收与边界"
+    }
+  ],
+  "reference/docs/api/variables-reference.html": [
+    {
+      "id": "批量通道变量与-freeswitch-对照",
+      "level": 1,
+      "text": "批量通道变量与 FreeSWITCH 对照"
+    }
+  ],
+  "reference/docs/api/verification-2026-09-05.html": [
+    {
+      "id": "稳定性优化验证记录-2026-09-05",
+      "level": 1,
+      "text": "稳定性优化验证记录 · 2026-09-05"
+    },
+    {
+      "id": "通话与故障回归",
+      "level": 2,
+      "text": "通话与故障回归"
+    },
+    {
+      "id": "页面测试作业实测",
+      "level": 2,
+      "text": "页面测试作业实测"
+    },
+    {
+      "id": "接口页面与完整审计",
+      "level": 2,
+      "text": "接口、页面与完整审计"
+    }
+  ],
+  "reference/docs/api/verification-2026-09-06.html": [
+    {
+      "id": "2026-09-06-逐项核查编码与压力实测记录",
+      "level": 1,
+      "text": "2026-09-06 逐项核查、编码与压力实测记录"
+    },
+    {
+      "id": "逐条审查覆盖与未验证内容",
+      "level": 2,
+      "text": "逐条审查覆盖与未验证内容"
+    },
+    {
+      "id": "修复与优化",
+      "level": 2,
+      "text": "修复与优化"
+    },
+    {
+      "id": "实际运行结果",
+      "level": 2,
+      "text": "实际运行结果"
+    },
+    {
+      "id": "压力结果包括失败",
+      "level": 2,
+      "text": "压力结果，包括失败"
+    },
+    {
+      "id": "尚不能闭环的兼容项",
+      "level": 2,
+      "text": "尚不能闭环的兼容项"
+    }
+  ],
+  "reference/docs/api/verification-5000-2026-09-06.html": [
+    {
+      "id": "5000路验证与本轮逐项复核",
+      "level": 1,
+      "text": "5000路验证与本轮逐项复核"
+    },
+    {
+      "id": "最终两轮结果",
+      "level": 2,
+      "text": "最终两轮结果"
+    },
+    {
+      "id": "实际环境和证据边界",
+      "level": 3,
+      "text": "实际环境和证据边界"
+    },
+    {
+      "id": "代码修复与回归",
+      "level": 2,
+      "text": "代码修复与回归"
+    },
+    {
+      "id": "对照表逐项处理",
+      "level": 2,
+      "text": "对照表逐项处理"
+    },
+    {
+      "id": "历次尝试完整保留",
+      "level": 2,
+      "text": "历次尝试完整保留"
+    },
+    {
+      "id": "文档与证据复核",
+      "level": 2,
+      "text": "文档与证据复核"
+    }
+  ],
+  "reference/docs/api/verification-ledger.html": [
+    {
+      "id": "freeswitch-逐项验证账本",
+      "level": 1,
+      "text": "FreeSWITCH 逐项验证账本"
+    },
+    {
+      "id": "各层证据分别表示什么",
+      "level": 2,
+      "text": "各层证据分别表示什么"
+    },
+    {
+      "id": "当前实现状态分布",
+      "level": 2,
+      "text": "当前实现状态分布"
+    },
+    {
+      "id": "多编码更新边界",
+      "level": 2,
+      "text": "多编码更新边界"
+    },
+    {
+      "id": "原始分母和新增范围",
+      "level": 2,
+      "text": "原始分母和新增范围"
+    },
+    {
+      "id": "复验方式",
+      "level": 2,
+      "text": "复验方式"
+    }
+  ],
+  "reference/docs/api/voice-runtime-direction.html": [
+    {
+      "id": "云蝠-voice-runtime研发方向与验收标准",
+      "level": 1,
+      "text": "云蝠 Voice Runtime：研发方向与验收标准"
+    },
+    {
+      "id": "成功标准与测量前提",
+      "level": 2,
+      "text": "成功标准与测量前提"
+    },
+    {
+      "id": "技术与所有权约束",
+      "level": 2,
+      "text": "技术与所有权约束"
+    },
+    {
+      "id": "音频对象与媒体图",
+      "level": 2,
+      "text": "音频对象与媒体图"
+    },
+    {
+      "id": "首期范围与兼容层",
+      "level": 2,
+      "text": "首期范围与兼容层"
+    },
+    {
+      "id": "对话时间线与有界背压",
+      "level": 2,
+      "text": "对话时间线与有界背压"
+    },
+    {
+      "id": "三类压测与可靠性验收",
+      "level": 2,
+      "text": "三类压测与可靠性验收"
+    },
+    {
+      "id": "推进顺序与交付",
+      "level": 2,
+      "text": "推进顺序与交付"
+    }
+  ],
+  "reference/docs/api/voice-runtime-v1-acceptance.html": [
+    {
+      "id": "云蝠-voice-runtime-v1-长期目标与逐项验收",
+      "level": 1,
+      "text": "云蝠 Voice Runtime V1 长期目标与逐项验收"
+    },
+    {
+      "id": "一总体架构",
+      "level": 2,
+      "text": "一、总体架构"
+    },
+    {
+      "id": "二rust-runtime-内部结构",
+      "level": 2,
+      "text": "二、Rust Runtime 内部结构"
+    },
+    {
+      "id": "三线程模型",
+      "level": 2,
+      "text": "三、线程模型"
+    },
+    {
+      "id": "四网络层",
+      "level": 2,
+      "text": "四、网络层"
+    },
+    {
+      "id": "五rtp-engine",
+      "level": 2,
+      "text": "五、RTP Engine"
+    },
+    {
+      "id": "六codec-设计",
+      "level": 2,
+      "text": "六、Codec 设计"
+    },
+    {
+      "id": "七统一-audioframe",
+      "level": 2,
+      "text": "七、统一 AudioFrame"
+    },
+    {
+      "id": "八audio-graph",
+      "level": 2,
+      "text": "八、Audio Graph"
+    },
+    {
+      "id": "九asr-tts-接入",
+      "level": 2,
+      "text": "九、ASR / TTS 接入"
+    },
+    {
+      "id": "十打断机制",
+      "level": 2,
+      "text": "十、打断机制"
+    },
+    {
+      "id": "十一jitter-buffer",
+      "level": 2,
+      "text": "十一、Jitter Buffer"
+    },
+    {
+      "id": "十二内存模型",
+      "level": 2,
+      "text": "十二、内存模型"
+    },
+    {
+      "id": "十三录音设计",
+      "level": 2,
+      "text": "十三、录音设计"
+    },
+    {
+      "id": "十四控制面",
+      "level": 2,
+      "text": "十四、控制面"
+    },
+    {
+      "id": "十五sip-层怎么处理",
+      "level": 2,
+      "text": "十五、SIP 层怎么处理"
+    },
+    {
+      "id": "十六推荐技术栈",
+      "level": 2,
+      "text": "十六、推荐技术栈"
+    },
+    {
+      "id": "十七部署架构",
+      "level": 2,
+      "text": "十七、部署架构"
+    },
+    {
+      "id": "十八v1-最小开发范围",
+      "level": 2,
+      "text": "十八、V1 最小开发范围"
+    },
+    {
+      "id": "十九开发里程碑与性能证据",
+      "level": 2,
+      "text": "十九、开发里程碑与性能证据"
+    },
+    {
+      "id": "冻结同硬件和等价-profile",
+      "level": 3,
+      "text": "冻结同硬件和等价 profile"
+    },
+    {
+      "id": "资源核算与质量闭环",
+      "level": 3,
+      "text": "资源核算与质量闭环"
+    },
+    {
+      "id": "正反例与可发布证据",
+      "level": 3,
+      "text": "正反例与可发布证据"
+    },
+    {
+      "id": "二十最终系统与长期完成定义",
+      "level": 2,
+      "text": "二十、最终系统与长期完成定义"
+    }
+  ],
+  "reference/docs/architecture.html": [
+    {
+      "id": "云蝠-voice-runtime-架构决策与实现状态",
+      "level": 1,
+      "text": "云蝠 Voice Runtime 架构决策与实现状态"
+    },
+    {
+      "id": "adr-001语言与进程边界",
+      "level": 2,
+      "text": "ADR-001：语言与进程边界"
+    },
+    {
+      "id": "所有权与生命周期",
+      "level": 2,
+      "text": "所有权与生命周期"
+    },
+    {
+      "id": "数据处理",
+      "level": 2,
+      "text": "数据处理"
+    },
+    {
+      "id": "控制协议-v1",
+      "level": 2,
+      "text": "控制协议 v1"
+    },
+    {
+      "id": "负载准入与控制面内存",
+      "level": 2,
+      "text": "负载准入与控制面内存"
+    },
+    {
+      "id": "cc-接口",
+      "level": 2,
+      "text": "C/C++ 接口"
+    },
+    {
+      "id": "后续里程碑",
+      "level": 2,
+      "text": "后续里程碑"
+    }
+  ],
+  "reference/docs/freeswitch-compatibility/01-scope-and-contract.html": [
+    {
+      "id": "01-范围基线与统一契约",
+      "level": 1,
+      "text": "01 · 范围、基线与统一契约"
+    },
+    {
+      "id": "1-规范词与证据优先级",
+      "level": 2,
+      "text": "1. 规范词与证据优先级"
+    },
+    {
+      "id": "2-100-的分母",
+      "level": 2,
+      "text": "2. 100% 的分母"
+    },
+    {
+      "id": "3-必须保持不变的用户资产",
+      "level": 2,
+      "text": "3. 必须保持不变的用户资产"
+    },
+    {
+      "id": "4-全部兼容面",
+      "level": 2,
+      "text": "4. 全部兼容面"
+    },
+    {
+      "id": "5-每个接口必须具备的契约",
+      "level": 2,
+      "text": "5. 每个接口必须具备的契约"
+    },
+    {
+      "id": "6-观察等价规则",
+      "level": 2,
+      "text": "6. 观察等价规则"
+    },
+    {
+      "id": "7-可发现性和版本身份",
+      "level": 2,
+      "text": "7. 可发现性和版本身份"
+    },
+    {
+      "id": "8-文档完成与认证完成分开",
+      "level": 2,
+      "text": "8. 文档完成与认证完成分开"
+    }
+  ],
+  "reference/docs/freeswitch-compatibility/02-esl-events.html": [
+    {
+      "id": "esl事件与-fs_cli-无改动接入标准",
+      "level": 1,
+      "text": "ESL、事件与 fs_cli 无改动接入标准"
+    },
+    {
+      "id": "1-无感替换的判定边界",
+      "level": 2,
+      "text": "1. 无感替换的判定边界"
+    },
+    {
+      "id": "2-tcp-连接与帧格式",
+      "level": 2,
+      "text": "2. TCP 连接与帧格式"
+    },
+    {
+      "id": "21-字节流解析",
+      "level": 3,
+      "text": "2.1 字节流解析"
+    },
+    {
+      "id": "22-帧类别",
+      "level": 3,
+      "text": "2.2 帧类别"
+    },
+    {
+      "id": "3-inbound-连接与认证",
+      "level": 2,
+      "text": "3. Inbound 连接与认证"
+    },
+    {
+      "id": "4-outbound-socket-应用",
+      "level": 2,
+      "text": "4. Outbound socket 应用"
+    },
+    {
+      "id": "5-api后台任务与通道执行",
+      "level": 2,
+      "text": "5. API、后台任务与通道执行"
+    },
+    {
+      "id": "51-三种不同的完成语义",
+      "level": 3,
+      "text": "5.1 三种不同的完成语义"
+    },
+    {
+      "id": "52-sendmsg-执行合同",
+      "level": 3,
+      "text": "5.2 sendmsg 执行合同"
+    },
+    {
+      "id": "6-订阅过滤事件格式与日志",
+      "level": 2,
+      "text": "6. 订阅、过滤、事件格式与日志"
+    },
+    {
+      "id": "7-事件偏序错误与连接故障",
+      "level": 2,
+      "text": "7. 事件偏序、错误与连接故障"
+    },
+    {
+      "id": "8-原版客户端验收步骤",
+      "level": 2,
+      "text": "8. 原版客户端验收步骤"
+    },
+    {
+      "id": "81-必须运行的客户端组合",
+      "level": 3,
+      "text": "8.1 必须运行的客户端组合"
+    },
+    {
+      "id": "82-正向负向与并发用例",
+      "level": 3,
+      "text": "8.2 正向、负向与并发用例"
+    },
+    {
+      "id": "9-比较规则与发布门槛",
+      "level": 2,
+      "text": "9. 比较规则与发布门槛"
+    }
+  ],
+  "reference/docs/freeswitch-compatibility/03-config-dialplan-integrations.html": [
+    {
+      "id": "03-配置拨号计划与业务集成兼容契约",
+      "level": 1,
+      "text": "03 · 配置、拨号计划与业务集成兼容契约"
+    },
+    {
+      "id": "31-兼容结果与配置输入",
+      "level": 2,
+      "text": "3.1 兼容结果与配置输入"
+    },
+    {
+      "id": "32-directory-与租户边界",
+      "level": 2,
+      "text": "3.2 Directory 与租户边界"
+    },
+    {
+      "id": "33-xml-dialplan-是执行语义不只是-xml-格式",
+      "level": 2,
+      "text": "3.3 XML Dialplan 是执行语义，不只是 XML 格式"
+    },
+    {
+      "id": "34-常用变量与应用的最低契约",
+      "level": 2,
+      "text": "3.4 常用变量与应用的最低契约"
+    },
+    {
+      "id": "35-mod_xml_curl-的-http-契约",
+      "level": 2,
+      "text": "3.5 `mod_xml_curl` 的 HTTP 契约"
+    },
+    {
+      "id": "请求",
+      "level": 3,
+      "text": "请求"
+    },
+    {
+      "id": "返回错误与-fallback",
+      "level": 3,
+      "text": "返回、错误与 fallback"
+    },
+    {
+      "id": "36-脚本兼容层",
+      "level": 2,
+      "text": "3.6 脚本兼容层"
+    },
+    {
+      "id": "37-cdr-与外部计费系统",
+      "level": 2,
+      "text": "3.7 CDR 与外部计费系统"
+    },
+    {
+      "id": "38-httapi事件输出与文件服务接口",
+      "level": 2,
+      "text": "3.8 HTTAPI、事件输出与文件/服务接口"
+    },
+    {
+      "id": "39-可执行验收用例定义",
+      "level": 2,
+      "text": "3.9 可执行验收用例定义"
+    }
+  ],
+  "reference/docs/freeswitch-compatibility/04-sip-media-native.html": [
+    {
+      "id": "04-sip媒体原生模块与切换连续性标准",
+      "level": 1,
+      "text": "04 SIP、媒体、原生模块与切换连续性标准"
+    },
+    {
+      "id": "41-兼容目标与当前差距",
+      "level": 2,
+      "text": "4.1 兼容目标与当前差距"
+    },
+    {
+      "id": "42-sofia-profilegateway-与终端配置的契约",
+      "level": 2,
+      "text": "4.2 Sofia profile、gateway 与终端配置的契约"
+    },
+    {
+      "id": "43-sip-事务对话与-sdp-行为矩阵",
+      "level": 2,
+      "text": "4.3 SIP 事务、对话与 SDP 行为矩阵"
+    },
+    {
+      "id": "44-媒体dtmf编解码录音会议与传真",
+      "level": 2,
+      "text": "4.4 媒体、DTMF、编解码、录音、会议与传真"
+    },
+    {
+      "id": "45-sip-q850-freeswitch-原因码的映射",
+      "level": 2,
+      "text": "4.5 SIP / Q.850 / FreeSWITCH 原因码的映射"
+    },
+    {
+      "id": "46-cc-生态兼容与-freeswitch-模块-abi",
+      "level": 2,
+      "text": "4.6 C/C++ 生态兼容与 FreeSWITCH 模块 ABI"
+    },
+    {
+      "id": "47-无感替换与活动状态在线迁移分别验收",
+      "level": 2,
+      "text": "4.7 “无感替换”与“活动状态在线迁移”分别验收"
+    },
+    {
+      "id": "48-万路容量必须按功能组合认证",
+      "level": 2,
+      "text": "4.8 万路容量必须按功能组合认证"
+    }
+  ],
+  "reference/docs/freeswitch-compatibility/05-api-contracts.html": [
+    {
+      "id": "05-api-命令与业务行为契约",
+      "level": 1,
+      "text": "05 · API 命令与业务行为契约"
+    },
+    {
+      "id": "51-接口层次",
+      "level": 2,
+      "text": "5.1 接口层次"
+    },
+    {
+      "id": "52-语法不可以只靠-help-推断",
+      "level": 2,
+      "text": "5.2 语法不可以只靠 help 推断"
+    },
+    {
+      "id": "53-通用-api-要求",
+      "level": 2,
+      "text": "5.3 通用 API 要求"
+    },
+    {
+      "id": "54-核心命令族与必验行为",
+      "level": 2,
+      "text": "5.4 核心命令族与必验行为"
+    },
+    {
+      "id": "55-几个可明确到字节的源码契约",
+      "level": 2,
+      "text": "5.5 几个可明确到字节的源码契约"
+    },
+    {
+      "id": "56-originate-的独立合同",
+      "level": 2,
+      "text": "5.6 originate 的独立合同"
+    },
+    {
+      "id": "57-子命令与动态接口闭合",
+      "level": 2,
+      "text": "5.7 子命令与动态接口闭合"
+    },
+    {
+      "id": "58-api-验收用例",
+      "level": 2,
+      "text": "5.8 API 验收用例"
+    }
+  ],
+  "reference/docs/freeswitch-compatibility/06-conformance-and-cutover.html": [
+    {
+      "id": "06-差分验收与无感切换",
+      "level": 1,
+      "text": "06 · 差分验收与无感切换"
+    },
+    {
+      "id": "61-认证产物",
+      "level": 2,
+      "text": "6.1 认证产物"
+    },
+    {
+      "id": "62-先关闭接口清单的遗漏",
+      "level": 2,
+      "text": "6.2 先关闭接口清单的遗漏"
+    },
+    {
+      "id": "63-差分执行方法",
+      "level": 2,
+      "text": "6.3 差分执行方法"
+    },
+    {
+      "id": "64-门槛与统计",
+      "level": 2,
+      "text": "6.4 门槛与统计"
+    },
+    {
+      "id": "65-万路性能合同",
+      "level": 2,
+      "text": "6.5 万路性能合同"
+    },
+    {
+      "id": "66-无感切换的两种方式",
+      "level": 2,
+      "text": "6.6 无感切换的两种方式"
+    },
+    {
+      "id": "a-保持存量会话的排空滚动切换",
+      "level": 3,
+      "text": "A. 保持存量会话的排空滚动切换"
+    },
+    {
+      "id": "b-活动状态在线接管",
+      "level": 3,
+      "text": "B. 活动状态在线接管"
+    },
+    {
+      "id": "67-回滚合同",
+      "level": 2,
+      "text": "6.7 回滚合同"
+    },
+    {
+      "id": "68-切换与认证用例",
+      "level": 2,
+      "text": "6.8 切换与认证用例"
+    }
+  ],
+  "reference/docs/freeswitch-compatibility/07-current-gap-and-roadmap.html": [
+    {
+      "id": "07-当前实现差距与落实顺序",
+      "level": 1,
+      "text": "07 · 当前实现差距与落实顺序"
+    },
+    {
+      "id": "71-对照-rustswitch-03文档发行版本-15",
+      "level": 2,
+      "text": "7.1 对照 RustSwitch 0.3（文档发行版本 1.5）"
+    },
+    {
+      "id": "72-架构要求保持用户指定语言边界",
+      "level": 2,
+      "text": "7.2 架构要求保持用户指定语言边界"
+    },
+    {
+      "id": "73-兼容宿主与独立替换是不同阶段",
+      "level": 2,
+      "text": "7.3 兼容宿主与独立替换是不同阶段"
+    },
+    {
+      "id": "74-实现顺序与退出条件",
+      "level": 2,
+      "text": "7.4 实现顺序与退出条件"
+    },
+    {
+      "id": "75-当前可对外表述",
+      "level": 2,
+      "text": "7.5 当前可对外表述"
+    }
+  ],
+  "reference/docs/freeswitch-compatibility/FULL-STANDARD.html": [
+    {
+      "id": "freeswitch-1113-无感替换接口标准-合订版",
+      "level": 1,
+      "text": "FreeSWITCH 1.11.3 无感替换接口标准 · 合订版"
+    },
+    {
+      "id": "01-范围基线与统一契约",
+      "level": 1,
+      "text": "01 · 范围、基线与统一契约"
+    },
+    {
+      "id": "1-规范词与证据优先级",
+      "level": 2,
+      "text": "1. 规范词与证据优先级"
+    },
+    {
+      "id": "2-100-的分母",
+      "level": 2,
+      "text": "2. 100% 的分母"
+    },
+    {
+      "id": "3-必须保持不变的用户资产",
+      "level": 2,
+      "text": "3. 必须保持不变的用户资产"
+    },
+    {
+      "id": "4-全部兼容面",
+      "level": 2,
+      "text": "4. 全部兼容面"
+    },
+    {
+      "id": "5-每个接口必须具备的契约",
+      "level": 2,
+      "text": "5. 每个接口必须具备的契约"
+    },
+    {
+      "id": "6-观察等价规则",
+      "level": 2,
+      "text": "6. 观察等价规则"
+    },
+    {
+      "id": "7-可发现性和版本身份",
+      "level": 2,
+      "text": "7. 可发现性和版本身份"
+    },
+    {
+      "id": "8-文档完成与认证完成分开",
+      "level": 2,
+      "text": "8. 文档完成与认证完成分开"
+    },
+    {
+      "id": "esl事件与-fs_cli-无改动接入标准",
+      "level": 1,
+      "text": "ESL、事件与 fs_cli 无改动接入标准"
+    },
+    {
+      "id": "1-无感替换的判定边界",
+      "level": 2,
+      "text": "1. 无感替换的判定边界"
+    },
+    {
+      "id": "2-tcp-连接与帧格式",
+      "level": 2,
+      "text": "2. TCP 连接与帧格式"
+    },
+    {
+      "id": "21-字节流解析",
+      "level": 3,
+      "text": "2.1 字节流解析"
+    },
+    {
+      "id": "22-帧类别",
+      "level": 3,
+      "text": "2.2 帧类别"
+    },
+    {
+      "id": "3-inbound-连接与认证",
+      "level": 2,
+      "text": "3. Inbound 连接与认证"
+    },
+    {
+      "id": "4-outbound-socket-应用",
+      "level": 2,
+      "text": "4. Outbound socket 应用"
+    },
+    {
+      "id": "5-api后台任务与通道执行",
+      "level": 2,
+      "text": "5. API、后台任务与通道执行"
+    },
+    {
+      "id": "51-三种不同的完成语义",
+      "level": 3,
+      "text": "5.1 三种不同的完成语义"
+    },
+    {
+      "id": "52-sendmsg-执行合同",
+      "level": 3,
+      "text": "5.2 sendmsg 执行合同"
+    },
+    {
+      "id": "6-订阅过滤事件格式与日志",
+      "level": 2,
+      "text": "6. 订阅、过滤、事件格式与日志"
+    },
+    {
+      "id": "7-事件偏序错误与连接故障",
+      "level": 2,
+      "text": "7. 事件偏序、错误与连接故障"
+    },
+    {
+      "id": "8-原版客户端验收步骤",
+      "level": 2,
+      "text": "8. 原版客户端验收步骤"
+    },
+    {
+      "id": "81-必须运行的客户端组合",
+      "level": 3,
+      "text": "8.1 必须运行的客户端组合"
+    },
+    {
+      "id": "82-正向负向与并发用例",
+      "level": 3,
+      "text": "8.2 正向、负向与并发用例"
+    },
+    {
+      "id": "9-比较规则与发布门槛",
+      "level": 2,
+      "text": "9. 比较规则与发布门槛"
+    },
+    {
+      "id": "03-配置拨号计划与业务集成兼容契约",
+      "level": 1,
+      "text": "03 · 配置、拨号计划与业务集成兼容契约"
+    },
+    {
+      "id": "31-兼容结果与配置输入",
+      "level": 2,
+      "text": "3.1 兼容结果与配置输入"
+    },
+    {
+      "id": "32-directory-与租户边界",
+      "level": 2,
+      "text": "3.2 Directory 与租户边界"
+    },
+    {
+      "id": "33-xml-dialplan-是执行语义不只是-xml-格式",
+      "level": 2,
+      "text": "3.3 XML Dialplan 是执行语义，不只是 XML 格式"
+    },
+    {
+      "id": "34-常用变量与应用的最低契约",
+      "level": 2,
+      "text": "3.4 常用变量与应用的最低契约"
+    },
+    {
+      "id": "35-mod_xml_curl-的-http-契约",
+      "level": 2,
+      "text": "3.5 `mod_xml_curl` 的 HTTP 契约"
+    },
+    {
+      "id": "请求",
+      "level": 3,
+      "text": "请求"
+    },
+    {
+      "id": "返回错误与-fallback",
+      "level": 3,
+      "text": "返回、错误与 fallback"
+    },
+    {
+      "id": "36-脚本兼容层",
+      "level": 2,
+      "text": "3.6 脚本兼容层"
+    },
+    {
+      "id": "37-cdr-与外部计费系统",
+      "level": 2,
+      "text": "3.7 CDR 与外部计费系统"
+    },
+    {
+      "id": "38-httapi事件输出与文件服务接口",
+      "level": 2,
+      "text": "3.8 HTTAPI、事件输出与文件/服务接口"
+    },
+    {
+      "id": "39-可执行验收用例定义",
+      "level": 2,
+      "text": "3.9 可执行验收用例定义"
+    },
+    {
+      "id": "04-sip媒体原生模块与切换连续性标准",
+      "level": 1,
+      "text": "04 SIP、媒体、原生模块与切换连续性标准"
+    },
+    {
+      "id": "41-兼容目标与当前差距",
+      "level": 2,
+      "text": "4.1 兼容目标与当前差距"
+    },
+    {
+      "id": "42-sofia-profilegateway-与终端配置的契约",
+      "level": 2,
+      "text": "4.2 Sofia profile、gateway 与终端配置的契约"
+    },
+    {
+      "id": "43-sip-事务对话与-sdp-行为矩阵",
+      "level": 2,
+      "text": "4.3 SIP 事务、对话与 SDP 行为矩阵"
+    },
+    {
+      "id": "44-媒体dtmf编解码录音会议与传真",
+      "level": 2,
+      "text": "4.4 媒体、DTMF、编解码、录音、会议与传真"
+    },
+    {
+      "id": "45-sip-q850-freeswitch-原因码的映射",
+      "level": 2,
+      "text": "4.5 SIP / Q.850 / FreeSWITCH 原因码的映射"
+    },
+    {
+      "id": "46-cc-生态兼容与-freeswitch-模块-abi",
+      "level": 2,
+      "text": "4.6 C/C++ 生态兼容与 FreeSWITCH 模块 ABI"
+    },
+    {
+      "id": "47-无感替换与活动状态在线迁移分别验收",
+      "level": 2,
+      "text": "4.7 “无感替换”与“活动状态在线迁移”分别验收"
+    },
+    {
+      "id": "48-万路容量必须按功能组合认证",
+      "level": 2,
+      "text": "4.8 万路容量必须按功能组合认证"
+    },
+    {
+      "id": "05-api-命令与业务行为契约",
+      "level": 1,
+      "text": "05 · API 命令与业务行为契约"
+    },
+    {
+      "id": "51-接口层次",
+      "level": 2,
+      "text": "5.1 接口层次"
+    },
+    {
+      "id": "52-语法不可以只靠-help-推断",
+      "level": 2,
+      "text": "5.2 语法不可以只靠 help 推断"
+    },
+    {
+      "id": "53-通用-api-要求",
+      "level": 2,
+      "text": "5.3 通用 API 要求"
+    },
+    {
+      "id": "54-核心命令族与必验行为",
+      "level": 2,
+      "text": "5.4 核心命令族与必验行为"
+    },
+    {
+      "id": "55-几个可明确到字节的源码契约",
+      "level": 2,
+      "text": "5.5 几个可明确到字节的源码契约"
+    },
+    {
+      "id": "56-originate-的独立合同",
+      "level": 2,
+      "text": "5.6 originate 的独立合同"
+    },
+    {
+      "id": "57-子命令与动态接口闭合",
+      "level": 2,
+      "text": "5.7 子命令与动态接口闭合"
+    },
+    {
+      "id": "58-api-验收用例",
+      "level": 2,
+      "text": "5.8 API 验收用例"
+    },
+    {
+      "id": "06-差分验收与无感切换",
+      "level": 1,
+      "text": "06 · 差分验收与无感切换"
+    },
+    {
+      "id": "61-认证产物",
+      "level": 2,
+      "text": "6.1 认证产物"
+    },
+    {
+      "id": "62-先关闭接口清单的遗漏",
+      "level": 2,
+      "text": "6.2 先关闭接口清单的遗漏"
+    },
+    {
+      "id": "63-差分执行方法",
+      "level": 2,
+      "text": "6.3 差分执行方法"
+    },
+    {
+      "id": "64-门槛与统计",
+      "level": 2,
+      "text": "6.4 门槛与统计"
+    },
+    {
+      "id": "65-万路性能合同",
+      "level": 2,
+      "text": "6.5 万路性能合同"
+    },
+    {
+      "id": "66-无感切换的两种方式",
+      "level": 2,
+      "text": "6.6 无感切换的两种方式"
+    },
+    {
+      "id": "a-保持存量会话的排空滚动切换",
+      "level": 3,
+      "text": "A. 保持存量会话的排空滚动切换"
+    },
+    {
+      "id": "b-活动状态在线接管",
+      "level": 3,
+      "text": "B. 活动状态在线接管"
+    },
+    {
+      "id": "67-回滚合同",
+      "level": 2,
+      "text": "6.7 回滚合同"
+    },
+    {
+      "id": "68-切换与认证用例",
+      "level": 2,
+      "text": "6.8 切换与认证用例"
+    },
+    {
+      "id": "07-当前实现差距与落实顺序",
+      "level": 1,
+      "text": "07 · 当前实现差距与落实顺序"
+    },
+    {
+      "id": "71-对照-rustswitch-03文档发行版本-15",
+      "level": 2,
+      "text": "7.1 对照 RustSwitch 0.3（文档发行版本 1.5）"
+    },
+    {
+      "id": "72-架构要求保持用户指定语言边界",
+      "level": 2,
+      "text": "7.2 架构要求保持用户指定语言边界"
+    },
+    {
+      "id": "73-兼容宿主与独立替换是不同阶段",
+      "level": 2,
+      "text": "7.3 兼容宿主与独立替换是不同阶段"
+    },
+    {
+      "id": "74-实现顺序与退出条件",
+      "level": 2,
+      "text": "7.4 实现顺序与退出条件"
+    },
+    {
+      "id": "75-当前可对外表述",
+      "level": 2,
+      "text": "7.5 当前可对外表述"
+    }
+  ],
+  "reference/docs/freeswitch-compatibility/README.html": [
+    {
+      "id": "freeswitch-无感替换接口标准",
+      "level": 1,
+      "text": "FreeSWITCH 无感替换接口标准"
+    },
+    {
+      "id": "阅读入口",
+      "level": 2,
+      "text": "阅读入口"
+    },
+    {
+      "id": "已核实的参考目录",
+      "level": 2,
+      "text": "已核实的参考目录"
+    },
+    {
+      "id": "无感的验收结果必须具体",
+      "level": 2,
+      "text": "“无感”的验收结果必须具体"
+    }
+  ],
+  "reference/docs/freeswitch-compatibility/catalog/README.html": [
+    {
+      "id": "源码目录子命令与测试索引的使用范围",
+      "level": 1,
+      "text": "源码目录、子命令与测试索引的使用范围"
+    },
+    {
+      "id": "源码目录",
+      "level": 2,
+      "text": "源码目录"
+    },
+    {
+      "id": "重建",
+      "level": 2,
+      "text": "重建"
+    },
+    {
+      "id": "用例索引",
+      "level": 2,
+      "text": "用例索引"
+    }
+  ],
+  "reference/docs/freeswitch-compatibility/catalog/api-and-applications.html": [
+    {
+      "id": "freeswitch-1113-api-与应用注册目录",
+      "level": 1,
+      "text": "FreeSWITCH 1.11.3 API 与应用注册目录"
+    }
+  ],
+  "reference/docs/freeswitch-compatibility/catalog/conference-and-sofia-subcommands.html": [
+    {
+      "id": "conference与sofia子命令源码目录",
+      "level": 1,
+      "text": "Conference与Sofia子命令源码目录"
+    },
+    {
+      "id": "使用边界",
+      "level": 2,
+      "text": "使用边界"
+    },
+    {
+      "id": "conference完整静态命令表",
+      "level": 2,
+      "text": "Conference：完整静态命令表"
+    },
+    {
+      "id": "sofia已确认分支候选",
+      "level": 2,
+      "text": "Sofia：已确认分支候选"
+    },
+    {
+      "id": "必须保留的边界",
+      "level": 3,
+      "text": "必须保留的边界"
+    },
+    {
+      "id": "仅在帮助中发现的候选",
+      "level": 3,
+      "text": "仅在帮助中发现的候选"
+    },
+    {
+      "id": "待补验收记录",
+      "level": 2,
+      "text": "待补验收记录"
+    }
+  ],
+  "reference/docs/freeswitch-compatibility/templates/README.html": [
+    {
+      "id": "兼容验收记录模板",
+      "level": 1,
+      "text": "兼容验收记录模板"
+    },
+    {
+      "id": "填写规则",
+      "level": 2,
+      "text": "填写规则"
+    },
+    {
+      "id": "状态与统计",
+      "level": 2,
+      "text": "状态与统计"
+    },
+    {
+      "id": "证据与归一化",
+      "level": 2,
+      "text": "证据与归一化"
+    },
+    {
+      "id": "五类结论分别出具",
+      "level": 2,
+      "text": "五类结论分别出具"
+    }
+  ],
+  "reference/docs/interface-documentation-v1.html": [
+    {
+      "id": "管理后台接口文档交付记录",
+      "level": 1,
+      "text": "管理后台接口文档交付记录"
+    },
+    {
+      "id": "后台入口",
+      "level": 2,
+      "text": "后台入口"
+    },
+    {
+      "id": "交付范围",
+      "level": 2,
+      "text": "交付范围"
+    },
+    {
+      "id": "本次验证",
+      "level": 2,
+      "text": "本次验证"
+    },
+    {
+      "id": "维护文件",
+      "level": 2,
+      "text": "维护文件"
+    }
+  ],
+  "reference/docs/linux-validation.html": [
+    {
+      "id": "linux-容量与稳定性验收",
+      "level": 1,
+      "text": "Linux 容量与稳定性验收"
+    },
+    {
+      "id": "设备和工作负载",
+      "level": 2,
+      "text": "设备和工作负载"
+    },
+    {
+      "id": "启动前",
+      "level": 2,
+      "text": "启动前"
+    },
+    {
+      "id": "可直接运行的步骤",
+      "level": 2,
+      "text": "可直接运行的步骤"
+    },
+    {
+      "id": "分阶段测试",
+      "level": 2,
+      "text": "分阶段测试"
+    },
+    {
+      "id": "必须同时记录",
+      "level": 2,
+      "text": "必须同时记录"
+    },
+    {
+      "id": "准入条件",
+      "level": 2,
+      "text": "准入条件"
+    }
+  ],
+  "reference/docs/management-v0.3.html": [
+    {
+      "id": "rustswitch-030-中文管理功能交付说明",
+      "level": 1,
+      "text": "RustSwitch 0.3.0 中文管理功能交付说明"
+    },
+    {
+      "id": "1-启动与页面",
+      "level": 2,
+      "text": "1. 启动与页面"
+    },
+    {
+      "id": "2-峰值保护的三个口径",
+      "level": 2,
+      "text": "2. 峰值保护的三个口径"
+    },
+    {
+      "id": "线性降速",
+      "level": 3,
+      "text": "线性降速"
+    },
+    {
+      "id": "启动硬上限与本地自动收缩",
+      "level": 3,
+      "text": "启动硬上限与本地自动收缩"
+    },
+    {
+      "id": "容量测量与保护验收分开",
+      "level": 3,
+      "text": "容量测量与保护验收分开"
+    },
+    {
+      "id": "3-配置保存重启与部署优先级",
+      "level": 2,
+      "text": "3. 配置保存、重启与部署优先级"
+    },
+    {
+      "id": "4-freeswitch-配置覆盖与限制",
+      "level": 2,
+      "text": "4. FreeSWITCH 配置覆盖与限制"
+    },
+    {
+      "id": "5-管理-api",
+      "level": 2,
+      "text": "5. 管理 API"
+    },
+    {
+      "id": "正确发送带-csrf-的排空请求",
+      "level": 3,
+      "text": "正确发送带 CSRF 的排空请求"
+    },
+    {
+      "id": "即时保存一组受硬上限约束的保护值",
+      "level": 3,
+      "text": "即时保存一组受硬上限约束的保护值"
+    },
+    {
+      "id": "6-中文注释与来源边界",
+      "level": 2,
+      "text": "6. 中文注释与来源边界"
+    },
+    {
+      "id": "7-验证记录与仍未完成的工作",
+      "level": 2,
+      "text": "7. 验证记录与仍未完成的工作"
+    }
+  ],
+  "reference/docs/optimization-review-2026-09-05.html": [
+    {
+      "id": "rustswitch-代码与容量优化审查",
+      "level": 1,
+      "text": "RustSwitch 代码与容量优化审查"
+    },
+    {
+      "id": "优先级与证据",
+      "level": 2,
+      "text": "优先级与证据"
+    },
+    {
+      "id": "1-同会话媒体命令乱序优先修复",
+      "level": 2,
+      "text": "1. 同会话媒体命令乱序：优先修复"
+    },
+    {
+      "id": "2-控制请求超时与媒体失效应分开处理",
+      "level": 2,
+      "text": "2. 控制请求超时与媒体失效应分开处理"
+    },
+    {
+      "id": "3-提高端口容量利用并补异常呼叫清理",
+      "level": 2,
+      "text": "3. 提高端口容量利用，并补异常呼叫清理"
+    },
+    {
+      "id": "4-把容量工具改成真实业务负载与质量验收",
+      "level": 2,
+      "text": "4. 把容量工具改成真实业务负载与质量验收"
+    },
+    {
+      "id": "5-日志压力恢复与长期运行",
+      "level": 2,
+      "text": "5. 日志压力恢复与长期运行"
+    },
+    {
+      "id": "6-媒体与控制调度优化",
+      "level": 2,
+      "text": "6. 媒体与控制调度优化"
+    },
+    {
+      "id": "7-根据实际热点减少每包开销",
+      "level": 2,
+      "text": "7. 根据实际热点减少每包开销"
+    },
+    {
+      "id": "8-freeswitch-无感替换的落实顺序",
+      "level": 2,
+      "text": "8. FreeSWITCH 无感替换的落实顺序"
+    },
+    {
+      "id": "本轮证据与下一轮交付",
+      "level": 2,
+      "text": "本轮证据与下一轮交付"
+    }
+  ],
+  "reference/docs/optimization-v0.2.html": [
+    {
+      "id": "rustswitch-02性能优化与验收记录",
+      "level": 1,
+      "text": "RustSwitch 0.2：性能优化与验收记录"
+    },
+    {
+      "id": "代码变化",
+      "level": 2,
+      "text": "代码变化"
+    },
+    {
+      "id": "验证范围",
+      "level": 2,
+      "text": "验证范围"
+    },
+    {
+      "id": "本机测量",
+      "level": 2,
+      "text": "本机测量"
+    },
+    {
+      "id": "最终千路结果的含义",
+      "level": 3,
+      "text": "最终千路结果的含义"
+    },
+    {
+      "id": "万路结果的含义",
+      "level": 3,
+      "text": "万路结果的含义"
+    },
+    {
+      "id": "历史诊断纠错",
+      "level": 2,
+      "text": "历史诊断纠错"
+    },
+    {
+      "id": "下一阶段与交付边界",
+      "level": 2,
+      "text": "下一阶段与交付边界"
+    }
+  ],
+  "reference/docs/testlab-validation.html": [
+    {
+      "id": "压力与电话测试交付记录",
+      "level": 1,
+      "text": "压力与电话测试交付记录"
+    },
+    {
+      "id": "已交付功能",
+      "level": 2,
+      "text": "已交付功能"
+    },
+    {
+      "id": "实测证据",
+      "level": 2,
+      "text": "实测证据"
+    },
+    {
+      "id": "自动化及页面检查",
+      "level": 2,
+      "text": "自动化及页面检查"
+    }
+  ],
+  "reference/docs/verification-v0.3/README.html": [
+    {
+      "id": "030-实际验证记录",
+      "level": 1,
+      "text": "0.3.0 实际验证记录"
+    }
+  ],
+  "reference/docs/verification.html": [
+    {
+      "id": "01-历史验证记录-2026-09-05",
+      "level": 1,
+      "text": "0.1 历史验证记录 · 2026-09-05"
+    },
+    {
+      "id": "结论",
+      "level": 2,
+      "text": "结论"
+    },
+    {
+      "id": "功能与代码检查",
+      "level": 2,
+      "text": "功能与代码检查"
+    },
+    {
+      "id": "运行测量",
+      "level": 2,
+      "text": "运行测量"
+    },
+    {
+      "id": "已修正的实现问题",
+      "level": 2,
+      "text": "已修正的实现问题"
+    },
+    {
+      "id": "下一阶段必须解决",
+      "level": 2,
+      "text": "下一阶段必须解决"
+    }
+  ],
+  "reference/native/audio/README.html": [
+    {
+      "id": "原生音频依赖与离线-pcm-sdk",
+      "level": 1,
+      "text": "原生音频依赖与离线 PCM SDK"
+    },
+    {
+      "id": "构建与来源",
+      "level": 2,
+      "text": "构建与来源"
+    },
+    {
+      "id": "cli-和输出语义",
+      "level": 2,
+      "text": "CLI 和输出语义"
+    },
+    {
+      "id": "pcm-与媒体时钟边界",
+      "level": 2,
+      "text": "PCM 与媒体时钟边界"
+    },
+    {
+      "id": "缺包dtxcn-与电话事件",
+      "level": 2,
+      "text": "缺包、DTX、CN 与电话事件"
+    },
+    {
+      "id": "运行边界与复杂度",
+      "level": 2,
+      "text": "运行边界与复杂度"
+    }
+  ],
+  "index.html": [
+    {
+      "id": "云蝠-voice-runtime",
+      "level": 1,
+      "text": "云蝠 Voice Runtime"
+    },
+    {
+      "id": "项目与代码",
+      "level": 2,
+      "text": "项目与代码"
+    },
+    {
+      "id": "项目资料",
+      "level": 2,
+      "text": "项目资料"
+    },
+    {
+      "id": "下载与验证",
+      "level": 2,
+      "text": "下载与验证"
+    },
+    {
+      "id": "验收状态",
+      "level": 2,
+      "text": "验收状态"
+    },
+    {
+      "id": "开源与贡献",
+      "level": 2,
+      "text": "开源与贡献"
+    }
+  ]
+}

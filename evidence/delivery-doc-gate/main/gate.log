@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/main/tools/build_api_docs.py", line 206, in <module>
+    main()
+  File "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/main/tools/build_api_docs.py", line 179, in main
+    assets, manifest = assemble()
+  File "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/main/tools/build_api_docs.py", line 159, in assemble
+    documents, operations, comparison = collect()
+  File "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/main/tools/build_api_docs.py", line 119, in collect
+    build_runtime_verification.validate_runtime(ROOT)
+  File "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/main/tools/build_runtime_verification.py", line 1221, in validate_runtime
+    require(proof and proof['green_eligible'] and proof['status'] == 'passed', '绿色已失效：' + entry['comparison_id'])
+  File "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/main/tools/build_runtime_verification.py", line 231, in require
+    raise ValueError(message)
+ValueError: 绿色已失效：key-api-pcm-stream

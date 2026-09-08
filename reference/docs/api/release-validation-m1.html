@@ -1,0 +1,69 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>M1 首轮 G.711 候选：历史验证记录 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / M1 首轮 G.711 候选：历史验证记录</div><article class="content"><div class="page-tools"><a href="release-validation-m1.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 3 节</summary><a href="#修复及验证">修复及验证</a><a href="#freeswitch对照变化">FreeSWITCH对照变化</a><a href="#当时后续工作与本轮进展">当时后续工作与本轮进展</a></details><h1 id="m1-首轮-g711-候选历史验证记录">M1 首轮 G.711 候选：历史验证记录</h1>
+<p>本页保留 <code>work/voice-runtime-m1</code> 首轮候选的历史验证，<strong>不代表 v1.10 当前源码已经执行这些旧回归</strong>。最新构建与管理实测见 <a href="release-validation-v1.10.html">v1.10 发布复核</a>。当前 <code>build-03 / processed-03</code> 已重新取得 22/22，新增发送方暂停恢复 4/4；旧 build-02 的新增两例均失败，管理入口三项单路及 100 路通过、500 路失败。当前build-03/testlab-02三单路及100路再次通过、500路仍失败，不能用本页历史通过覆盖后续失败。</p>
+<p>本轮已贯通 <strong>RTP → 重排 → 8k PCM → G.711 编码 → RTP</strong>，两腿可分别使用 PCMU 与 PCMA。代码、配置和协议有中文注释，详见<a href="processed-media-reference.html">接口及行为合同</a>与<a href="processed-media-verification.json">实际验证摘要</a>。</p>
+<p>本页记录的 <code>M1-G711-final-02</code> 当时未替换 9080 主服务。v1.10文档结果来自隔离候选；运行后台实际版本以 <code>GET /v1/docs</code> 的 <code>version</code> 字段及发布回执核对。新功能采用显式 <code>media.processing=g711</code>，目前限双腿、8k单声道、20ms；默认 relay 保留原用法。</p>
+<h2 id="修复及验证">修复及验证</h2>
+<ul>
+<li>CN结束后合法时间戳换相位，恢复语音不再持续被拒包。</li>
+<li>媒体worker暂停140ms后，保持原播放期限并丢弃过期帧；修复前会永久多出约50ms延迟。相同严格测试修复后恢复首帧为原400ms位置，过期的380ms位置不重放。</li>
+<li>迟到按键结束包保留原事件时间戳，不覆盖较新的活动按键；缓存固定且无法恢复的旧事件明确丢弃。</li>
+<li>迟到CN、按键恒定起点和发送抖动不再倒推RTCP SR媒体时钟。</li>
+<li>固定容量期限堆、有界编码缓存、借用PCM和发送前再次核对时钟，避免逐帧创建任务与追赶发送积压声音。</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>实际检查</th>
+<th>结果</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新媒体SIP端到端</td>
+<td>11场景×2种UDP，共22通过</td>
+<td>20个接通场景有新周期回收统计；2个分配前拒绝场景不伪造BYE</td>
+</tr>
+<tr>
+<td>原有SIP/媒体/IVR</td>
+<td>24组、228通过</td>
+<td>失败、跳过、超时、强制进程回收均为0</td>
+</tr>
+<tr>
+<td>Go竞态回归</td>
+<td>649条测试记录、8包通过</td>
+<td>含真实Rust媒体，0失败/跳过</td>
+</tr>
+<tr>
+<td>Rust全目标</td>
+<td>124通过，Clippy 0告警</td>
+<td>含真实G722/Opus库；4项Graph回归包含在总数</td>
+</tr>
+<tr>
+<td>文档与证据工具</td>
+<td>104项通过</td>
+<td>首轮9个端口权限错误保留；允许隔离回环夹具后完整重跑通过</td>
+</tr>
+<tr>
+<td>迟到DTMF原帧复测</td>
+<td>两UDP模式通过</td>
+<td>相同输入，事件时间戳一致、无伪PLC，正常释放</td>
+</tr>
+<tr>
+<td>Graph分配实验</td>
+<td>18,000实际解码帧，四项Rust堆操作均0</td>
+<td>另含200 PLC、1000 DTMF、200 CN、84 RTCP；不覆盖worker/UDP/初始化和libc分配</td>
+</tr>
+</tbody></table></div>
+<p>测试前后源码、二进制、实际配置、日志和原始报文均保留哈希。失败候选与后续修复分开保存，没有放宽故障测试断言。</p>
+<h2 id="freeswitch对照变化">FreeSWITCH对照变化</h2>
+<p>源码文档中的原始3988个ID全部保留。<code>key-media-transcoding</code>从“未实现”改为“部分实现”：未实现由2845减为2844，部分实现由52增为53。RTP、RTCP、SDP、分配和连接的既有行补充处理模式范围；内部jitter不等于已经实现 <code>uuid_jitterbuffer</code> 或拨号计划 <code>jitterbuffer</code>。</p>
+<p>首轮没有对新M1场景运行原版FreeSWITCH成对验证，也没有将本地通过数直接写成原版兼容率。当时后台绿色仍来自1.9证据；目前v1.10候选已按新源码重跑固定26项并更新正式JSON，但它仍不是新处理图的原版音质/容量认证，运行后台版本另以 <code>/v1/docs</code> 的 <code>version</code> 字段核对。绿色必须由对应完整证据门禁生成，不能手工改计数。</p>
+<h2 id="当时后续工作与本轮进展">当时后续工作与本轮进展</h2>
+<ol>
+<li>v1.10 候选已将新处理能力合入 <code>/v1/codecs</code>、管理测试模式和独立逐 ID 门禁；目录握手与原媒体验证各自保留证据。</li>
+<li>新发生器已核对真实 G.711 内容；历史 build-02 管理入口 100 路/30 秒通过、500 路失败，build-03修复同源暂停恢复后已再次管理复测，100路通过、500路仍有内容/序号/过密到达异常而失败；1000/5000/10000 路处理容量仍待验收，不能沿用旧 relay 结果。</li>
+<li>接入G722/Opus实时编解码、按需重采样与处理图上的播放/IVR；随后推进流式ASR/TTS、Turn取消、VAD及双轨异步录音。</li>
+<li>以相同硬件、音质和全部辅助进程资源，验证相对FreeSWITCH的性能及稳定性目标。</li>
+</ol>
+<p>主服务1.9的总览已能显示隔离压测实例的实际呼叫和媒体数据，本轮没有将其500路透传短测结果外推为处理图性能。5000/10000路处理容量、完整Voice Agent、1.5倍性能和72小时稳定性均尚无本轮通过证据。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

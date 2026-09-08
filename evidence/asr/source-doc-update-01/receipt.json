@@ -1,0 +1,43 @@
+{
+  "schema": "asr-source-doc-update-v1",
+  "started_at": "2026-09-07T06:14:58.361485+00:00",
+  "before": {
+    "docs/api/openapi.json": "bcbeb96c9080b99a96597a99790d38babc41b29f956476fb8dcbacaf0e02c307",
+    "docs/api/README.md": "a9fe4695495b5a7ca34c3d94a79cd26b4d32048a35c0879a503a6ab136ba6246"
+  },
+  "after": {
+    "docs/api/openapi.json": "617704d2d783b90e1515df3ad6051688c441263699e447db0899cb9bc7d229ed",
+    "docs/api/README.md": "ffb65daf51c1dc9c485ed117a5de14fdc0eead98f9e8843a83570261fd4f2691",
+    "docs/api/asr-stream-reference.md": "c4c12487d66a4c35159279f62e12944470ce73f0e3cf4340383f81dd47f5e2f5"
+  },
+  "version": "1.13.0",
+  "path_count_before": 21,
+  "path_count_after": 21,
+  "http_operation_count": 20,
+  "x_freeswitch_unchanged": true,
+  "embedded_resources_modified": false,
+  "comparison_modified": false,
+  "runtime_evidence_modified": false,
+  "published": false,
+  "scope": "three source documentation files only; no full build gate executed by this edit",
+  "validation": {
+    "validate_spec": "passed",
+    "registered_http_operations": 26,
+    "openapi_path_count": 21,
+    "existing_x_http_operation_count": 20,
+    "local_ref_nodes": 238,
+    "unique_refs": 90,
+    "local_markdown_links": 65,
+    "schema_examples": "jsonschema unavailable; source validator and all local references passed; no JSONSchema conformance claim",
+    "full_build_api_docs": "not_run; schema dictionary/audit/current-source evidence gate reserved for root; no embedded assets generated",
+    "source_openapi_sha256": "617704d2d783b90e1515df3ad6051688c441263699e447db0899cb9bc7d229ed"
+  },
+  "finished_at": "2026-09-07T06:16:04.109907+00:00",
+  "frozen": true,
+  "root_followups": [
+    "TestSample two support counters; await owning agents exact contract",
+    "TestEvidence final diagnosis fields and generator_report_failure; await exact contract",
+    "WorkerStatus stats_requested_at/stats_sampled_at/stats_generation/stats_pid; await exact contract",
+    "existing x-http-operation-count metadata differs from actual route count; not changed by ASR edit"
+  ]
+}

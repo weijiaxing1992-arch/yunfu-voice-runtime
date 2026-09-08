@@ -1,0 +1,28 @@
+[Unit]
+Description=RustSwitch Go controller and Rust media workers
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+# 使用专用服务账号；先按目标机器修改 production.json，再安装此模板。
+Type=simple
+User=rustswitch
+Group=rustswitch
+WorkingDirectory=/opt/rustswitch
+ExecStart=/opt/rustswitch/bin/rustswitch -config /opt/rustswitch/config/production.json
+Restart=on-failure
+RestartSec=3
+# 每通话包含多只媒体 socket，文件描述符预算必须覆盖目标并发与控制连接。
+LimitNOFILE=262144
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+# 事件日志和网页管理状态均保存在此可写目录，管理文件由服务自动设为 0600。
+ReadWritePaths=/var/lib/rustswitch
+# 首次 SIGTERM 进入排空；等待窗口需覆盖配置中的最长通话及 SIP 事务清理。
+KillMode=mixed
+TimeoutStopSec=3640
+
+[Install]
+WantedBy=multi-user.target

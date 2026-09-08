@@ -1,0 +1,1361 @@
+{
+  "schema": "voice-runtime-delivery-backlog-v1",
+  "document_date": "2026-09-08",
+  "generated_at_utc": "2026-09-08T04:17:52.925747+00:00",
+  "scope": "只读源码和既有原始证据整理；本文件生成未修改生产源码、未启动网络压测、未部署。工作包是交付行动分组，不是兼容百分比的分母。",
+  "sources": [
+    {
+      "path": "outputs/rustswitch/docs/api/comparison.json",
+      "sha256": "507e7cd6f0325a432630574f8321b7baaec351dd2dda4fee45732285214a376e"
+    },
+    {
+      "path": "outputs/rustswitch/docs/api/runtime-verification.json",
+      "sha256": "7416935c18a70665ab7be6fd9a878a06c737fb8fab1329f6f82631770aba45f5"
+    },
+    {
+      "path": "outputs/rustswitch/docs/api/compatibility-worklist.md",
+      "sha256": "5d46a2f19a497825a65a11a30418c773d2df125662285f227a9ed01a4bf3459a"
+    },
+    {
+      "path": "outputs/rustswitch/docs/api/voice-runtime-v1-acceptance.md",
+      "sha256": "a96ea6ec025bc7e98ad2d7fd3a8a22f0a6b318183cf01eb7ba0c5d4cbe22c8e2"
+    },
+    {
+      "path": "work/voice-runtime-m2-asr/CHECKPOINT.md",
+      "sha256": "4ad8337bdfc730740a82e93594603d09494237c7d2601c9171ac481a42dad2ed"
+    },
+    {
+      "path": "work/voice-runtime-m2-asr/full-review-01/receipt.json",
+      "sha256": "961f33471bc34b00473ab1ff2394b6a81dca005f1c7ec8ab327cd0845f44e781"
+    },
+    {
+      "path": "work/voice-runtime-m2-asr/benchmark-fix-01/baseline.json",
+      "sha256": "fa784c08a342a2bfdfc38bcc107f5374b3adbbcb79a768b6f09a98866ee05a53"
+    },
+    {
+      "path": "work/voice-runtime-m2-asr/benchmark-fix-01/test-02/receipt.json",
+      "sha256": "96fecc4cd3b1fa442edad934a05d301b9039928f4e8d4dd7f4fad42eb3aa9799"
+    },
+    {
+      "path": "work/voice-runtime-m2-asr/benchmark-fix-01/unified.patch",
+      "sha256": "0f369c2b5f34e9c0316aa4ad8c1c53fa7e909ef51bcd09012bbbed059118d8fd"
+    },
+    {
+      "path": "work/project-delivery-2026-09-08/patch-state.json",
+      "sha256": "d472fa77d73e7212072d036b860856f62eb8bcd91dd9639217e42eafe8205838"
+    },
+    {
+      "path": "work/project-delivery-2026-09-08/build-main-01/receipt.json",
+      "sha256": "02d4846ce28e02d835b3bf785b1499f74c08c59383d1e2a6d826d8df2ba988df"
+    },
+    {
+      "path": "work/project-delivery-2026-09-08/build-asr-candidate-01/receipt.json",
+      "sha256": "a10677f9d4577a831706f27a16cdd25aef3c20c3f392c0965d9a3e3f843fc4f1"
+    }
+  ],
+  "comparison": {
+    "reference_version": "1.11.3",
+    "reference_commit": "ef32e205295e29f034f1453ad245ba5efb07b94a",
+    "total": 3999,
+    "implementation_status_counts": {
+      "export_only": 882,
+      "implemented": 19,
+      "internal_only": 23,
+      "not_implemented": 2844,
+      "not_verified": 178,
+      "partial": 53
+    },
+    "recorded_local_verification_counts": {
+      "failed": 1,
+      "not_run": 3916,
+      "passed": 82
+    },
+    "recorded_green_eligible": 82,
+    "current_effective_green_count": null,
+    "current_green_reason": "本次交付文档门禁失败；历史82条passed/green_eligible不可当当前全部有效绿色。未完成重新评估，不能虚填为82或0。",
+    "local_nonpassed_recorded": 3917,
+    "categories": [
+      {
+        "category": "acceptance_definition",
+        "total": 177,
+        "implementation": {
+          "not_verified": 177
+        },
+        "local_verification": {
+          "not_run": 177
+        }
+      },
+      {
+        "category": "fs_api",
+        "total": 292,
+        "implementation": {
+          "not_implemented": 279,
+          "partial": 13
+        },
+        "local_verification": {
+          "not_run": 284,
+          "passed": 8
+        }
+      },
+      {
+        "category": "fs_application",
+        "total": 222,
+        "implementation": {
+          "not_implemented": 214,
+          "partial": 8
+        },
+        "local_verification": {
+          "not_run": 214,
+          "passed": 8
+        }
+      },
+      {
+        "category": "fs_channel_variable",
+        "total": 100,
+        "implementation": {
+          "not_implemented": 100
+        },
+        "local_verification": {
+          "not_run": 100
+        }
+      },
+      {
+        "category": "fs_chat_application",
+        "total": 14,
+        "implementation": {
+          "not_implemented": 14
+        },
+        "local_verification": {
+          "not_run": 14
+        }
+      },
+      {
+        "category": "fs_conference_subcommand",
+        "total": 90,
+        "implementation": {
+          "not_implemented": 90
+        },
+        "local_verification": {
+          "not_run": 90
+        }
+      },
+      {
+        "category": "fs_event",
+        "total": 94,
+        "implementation": {
+          "not_implemented": 83,
+          "partial": 11
+        },
+        "local_verification": {
+          "not_run": 84,
+          "passed": 10
+        }
+      },
+      {
+        "category": "fs_json_api",
+        "total": 10,
+        "implementation": {
+          "not_implemented": 10
+        },
+        "local_verification": {
+          "not_run": 10
+        }
+      },
+      {
+        "category": "fs_module",
+        "total": 144,
+        "implementation": {
+          "not_implemented": 144
+        },
+        "local_verification": {
+          "not_run": 144
+        }
+      },
+      {
+        "category": "fs_native_function",
+        "total": 1865,
+        "implementation": {
+          "not_implemented": 1865
+        },
+        "local_verification": {
+          "not_run": 1865
+        }
+      },
+      {
+        "category": "fs_sofia_subcommand",
+        "total": 40,
+        "implementation": {
+          "not_implemented": 40
+        },
+        "local_verification": {
+          "not_run": 40
+        }
+      },
+      {
+        "category": "fs_vanilla_parameter",
+        "total": 875,
+        "implementation": {
+          "export_only": 875
+        },
+        "local_verification": {
+          "not_run": 875
+        }
+      },
+      {
+        "category": "key_api",
+        "total": 2,
+        "implementation": {
+          "implemented": 1,
+          "internal_only": 1
+        },
+        "local_verification": {
+          "passed": 2
+        }
+      },
+      {
+        "category": "key_c_abi",
+        "total": 2,
+        "implementation": {
+          "partial": 1,
+          "not_implemented": 1
+        },
+        "local_verification": {
+          "not_run": 2
+        }
+      },
+      {
+        "category": "key_cli",
+        "total": 3,
+        "implementation": {
+          "implemented": 2,
+          "partial": 1
+        },
+        "local_verification": {
+          "passed": 1,
+          "not_run": 2
+        }
+      },
+      {
+        "category": "key_config",
+        "total": 7,
+        "implementation": {
+          "partial": 1,
+          "export_only": 5,
+          "implemented": 1
+        },
+        "local_verification": {
+          "passed": 5,
+          "not_run": 2
+        }
+      },
+      {
+        "category": "key_esl",
+        "total": 7,
+        "implementation": {
+          "partial": 5,
+          "implemented": 1,
+          "not_implemented": 1
+        },
+        "local_verification": {
+          "passed": 6,
+          "not_run": 1
+        }
+      },
+      {
+        "category": "key_guard",
+        "total": 6,
+        "implementation": {
+          "implemented": 5,
+          "partial": 1
+        },
+        "local_verification": {
+          "passed": 5,
+          "not_run": 1
+        }
+      },
+      {
+        "category": "key_http",
+        "total": 9,
+        "implementation": {
+          "implemented": 9
+        },
+        "local_verification": {
+          "passed": 8,
+          "not_run": 1
+        }
+      },
+      {
+        "category": "key_ipc",
+        "total": 22,
+        "implementation": {
+          "internal_only": 22
+        },
+        "local_verification": {
+          "passed": 19,
+          "not_run": 3
+        }
+      },
+      {
+        "category": "key_media",
+        "total": 10,
+        "implementation": {
+          "not_verified": 1,
+          "export_only": 2,
+          "partial": 6,
+          "not_implemented": 1
+        },
+        "local_verification": {
+          "failed": 1,
+          "not_run": 4,
+          "passed": 5
+        }
+      },
+      {
+        "category": "key_sip",
+        "total": 8,
+        "implementation": {
+          "partial": 6,
+          "not_implemented": 2
+        },
+        "local_verification": {
+          "passed": 5,
+          "not_run": 3
+        }
+      }
+    ],
+    "compatibility_percentage": null,
+    "percentage_reason": "对照包含源码声明、接口、模板与验收定义；实现、本地限定验证与原版成对兼容是不同维度。",
+    "runtime_paired_status": "not_run",
+    "runtime_upstream_runtime_executed": false,
+    "production_capacity_certified": false,
+    "all_rows_exports": [
+      "backlog/FreeSWITCH-全部逐项状态.json",
+      "backlog/FreeSWITCH-全部逐项状态.csv",
+      "backlog/未实现与部分实现.csv",
+      "backlog/未通过本地验证.csv"
+    ],
+    "snapshot_scope": "原始对照和历史本地状态快照；本次交付发布门禁已失败，历史passed不代表当前有效绿色。",
+    "current_release_gate": "blocked"
+  },
+  "release_gate": {
+    "main": "failed: 绿色已失效：key-api-pcm-stream",
+    "asr_candidate": "failed: 字段字典落后于机器合同",
+    "command": "python3 -B tools/build_api_docs.py --check",
+    "evidence_directory_in_bundle": "evidence/delivery-doc-gate",
+    "offline_build_main": "passed; Go/Rust/C ABI",
+    "offline_build_candidate": "passed; Go/Rust/C ABI/asr-mock",
+    "project_license_present": false,
+    "deployment_performed": false
+  },
+  "asr_candidate": {
+    "source_root": "work/voice-runtime-m2-asr/project",
+    "receipt": "work/voice-runtime-m2-asr/full-review-01/receipt.json",
+    "receipt_passed": true,
+    "source_stable_in_receipt": true,
+    "test_pass_events": 1471,
+    "top_level_pass_tests": 504,
+    "current_source_changes_since_receipt": [],
+    "merged_into_main": false,
+    "deployed": false,
+    "recognition_model_tested": false,
+    "linux_runtime_capacity_tested": false,
+    "scope": "限定内部ASR1、mock校验音频、真实本机Unix/SIP/Rust及Go整包回归，不是供应商识别或Linux容量。"
+  },
+  "benchmark_diagnostics": {
+    "private_root": "work/voice-runtime-m2-asr/benchmark-fix-01",
+    "last_completed_receipt": "work/voice-runtime-m2-asr/benchmark-fix-01/test-02/receipt.json",
+    "last_completed_unit_and_race_each": {
+      "top_level": 16,
+      "subtests": 42,
+      "total": 58
+    },
+    "last_completed_ui": {
+      "testlab": 27,
+      "overview": 14,
+      "processed_media": "passed; no count field"
+    },
+    "current_private_changes_since_test02": [
+      {
+        "path": "control/internal/server/benchmark_failure_diagnostics_test.go",
+        "expected": "5642970aa17dfa00509f2fe48e90cc802793271c3ab0dc61466be3d2710e2b24",
+        "actual": "a49ed8fde5c1edd35cf46cda3986c59bbda156cb09000825adef0a1b78fca515",
+        "matches": false
+      },
+      {
+        "path": "control/internal/server/benchmark_runner.go",
+        "expected": "9f9af3cbc8d2479221f8ace8ce2d4ff4611c9cce682aff4c3db56544023c5354",
+        "actual": "788c0b1797c14bfea8856fe32203fd29ca38e8cc554769a824a8b8869562bdcd",
+        "matches": false
+      }
+    ],
+    "current_private_tree_fully_verified": false,
+    "test03_exists": false,
+    "restored_test02_six_files_match": true,
+    "atomic_stats_candidate_directory_exists": false,
+    "strict_atomic_stats_fix_merged": false,
+    "note": "已验证test-02补丁可恢复，但原子Stats方案尚无实现；后增终态归一helper及测试两文件未复验，不能把整个当前工作稿当已验证。"
+  },
+  "historical_2000_relay": {
+    "run_id": "a4eb04b740b16479113f91b1c78e6d41",
+    "status": "failed",
+    "sent": 2000000,
+    "received_unique": 456233,
+    "missing": 1543767,
+    "location_of_loss": "not_determined",
+    "source_path": "work/voice-runtime-m2-asr/main-readonly-observation-01/_v1_tests_a4eb04b740b16479113f91b1c78e6d41_report.json"
+  },
+  "priority_definitions": {
+    "P0": "阻断可信交付、核心Voice Agent业务或容量承诺，优先完成。",
+    "P1": "主流电话接入、运维和渐进接口兼容，按现网需求推进。",
+    "P2": "复杂PBX/原版插件与可选协议，首期可延期但差异必须公开。"
+  },
+  "work_packages_count": 40,
+  "work_packages": [
+    {
+      "id": "DLV-01",
+      "priority": "P0",
+      "title": "ASR隔离候选合并、文档和发布",
+      "delivery_state": "已完成限定实现待合并/发布",
+      "verification_state": "限定回归通过，正式文档尚未接入",
+      "comparison_ids": [
+        "key-api-rx-sdk",
+        "key-http-status",
+        "key-http-metrics"
+      ],
+      "acceptance_ids": [
+        "A09-ASR",
+        "V1-08",
+        "V1-16"
+      ],
+      "code_locations": [
+        "control/internal/asr",
+        "control/internal/server/asr_stream.go",
+        "control/internal/server/asr_observe.go"
+      ],
+      "current_boundary": "真实 Unix 9 例、真实 SIP/Rust 5 例及整包回归已通过；供应商为校验 PCM 的 mock，不是识别模型。",
+      "dependencies": "DLV-03；冻结源码和发布窗口",
+      "acceptance_method": "核对整包收据与源码，合并后重跑受影响检查、文档门禁，并核验实际运行二进制和页面。",
+      "completion_conditions": "源码、文档、原始证据、构建和发布收据一致；仍明确内部 SDK 与 mock 范围。"
+    },
+    {
+      "id": "DLV-02",
+      "priority": "P0",
+      "title": "RX时效和通话生命周期增量发布",
+      "delivery_state": "已完成限定实现待合并/发布",
+      "verification_state": "候选回归通过，未部署",
+      "comparison_ids": [
+        "key-api-rx-sdk",
+        "key-ipc-rx-stream"
+      ],
+      "acceptance_ids": [
+        "A05",
+        "A09-ASR"
+      ],
+      "code_locations": [
+        "control/internal/media/rx_clock.go",
+        "control/internal/media/rx_stream.go",
+        "control/internal/server/rx_stream.go"
+      ],
+      "current_boundary": "候选已有 LifetimeDone 和 RemainingBudget；主动退订不等于通话结束，100ms 预算不能重置。",
+      "dependencies": "DLV-01",
+      "acceptance_method": "验证正常 Finish/Unsubscribe 可等 final/DONE，真实挂断、代次变化、替换与服务停止及时撤权；旧音频绝对期限不续期。",
+      "completion_conditions": "发布后保留两种生命周期边界和期限失败原件，不能将 summary 当新音频预算。"
+    },
+    {
+      "id": "DLV-03",
+      "priority": "P0",
+      "title": "修复两套源码的文档发布门禁",
+      "delivery_state": "未完成",
+      "verification_state": "本轮打包检查实际失败",
+      "comparison_ids": [
+        "key-api-pcm-stream"
+      ],
+      "acceptance_ids": [
+        "发布门禁"
+      ],
+      "code_locations": [
+        "tools/build_api_docs.py",
+        "docs/api"
+      ],
+      "current_boundary": "主源码检查报“绿色已失效：key-api-pcm-stream”；ASR 候选报“字段字典落后于机器合同”。历史 82 条 passed 不能当当前有效绿色总数。",
+      "dependencies": "证据有效期/源码绑定核查；候选字段字典更新",
+      "acceptance_method": "分别对打包主源码和候选运行 python3 -B tools/build_api_docs.py --check；按失效原因补真实证据或降级状态，禁止只延长过期时间。",
+      "completion_conditions": "两套门禁通过且页面、机器合同、字段字典、证据与实际源码一致；当前可绿数量重新计算。"
+    },
+    {
+      "id": "DLV-04",
+      "priority": "P0",
+      "title": "确定项目自有源码许可和分发范围",
+      "delivery_state": "未完成交付决定",
+      "verification_state": "两套根目录无项目自有 LICENSE",
+      "comparison_ids": [],
+      "acceptance_ids": [
+        "交付要求"
+      ],
+      "code_locations": [
+        "governance"
+      ],
+      "current_boundary": "第三方依赖带有各自许可，不能替代项目自有 LICENSE；当前不能据此宣称项目已开源。",
+      "dependencies": "项目权利人决定许可、商业分发边界；第三方许可复核",
+      "acceptance_method": "确认代码归属、项目许可文本、codec/依赖再分发要求和归属说明，检查源码包与二进制包。",
+      "completion_conditions": "由有权人员确定项目许可并随交付提供，保留第三方许可与必要声明。"
+    },
+    {
+      "id": "DIA-01",
+      "priority": "P0",
+      "title": "Stats原子快照与真正退出后采集边界",
+      "delivery_state": "未实现",
+      "verification_state": "已确证现有口径缺陷，修复未验证",
+      "comparison_ids": [
+        "key-ipc-stats",
+        "key-http-status",
+        "key-media-capacity"
+      ],
+      "acceptance_ids": [
+        "V1-16",
+        "V1-17"
+      ],
+      "code_locations": [
+        "control/internal/media/pool.go",
+        "control/internal/server/server.go",
+        "control/internal/server/benchmark_runner.go"
+      ],
+      "current_boundary": "当前 Stats 和 Admission 分别发布/读取。旧 RPC 结果可在发生器退出后发布，SampledAt 新不能证明 Rust 在退出后生成统计。原子方案只有合同，无实现目录和测试收据。",
+      "dependencies": "确定原子 Stats、请求开始/返回时间、PID、generation 字段合同",
+      "acceptance_method": "注入退出前请求退出后返回、跨代更新、分片缺失、旧字段缺失和时间异常；成功验收与失败诊断使用同一新鲜判据。",
+      "completion_conditions": "每个预期 worker 的原子行身份一致，请求开始晚于发生器退出且返回不早于开始；缺失或旧格式为未知。"
+    },
+    {
+      "id": "DIA-02",
+      "priority": "P0",
+      "title": "失败末尾有界采样与取消终态",
+      "delivery_state": "部分实现于私有副本",
+      "verification_state": "test-02限定通过，后改两文件未复验",
+      "comparison_ids": [
+        "key-cli-callbench",
+        "key-media-capacity"
+      ],
+      "acceptance_ids": [
+        "V1-17"
+      ],
+      "code_locations": [
+        "private/control/internal/server/benchmark_runner.go",
+        "private/control/internal/server/benchmark_failure_diagnostics_test.go"
+      ],
+      "current_boundary": "私有补丁最多补采样5秒，继承取消、保留最后有效样本和原失败；旧判据仍依赖 Admission。后加 benchmarkContextOutcome 和8项用例未有 test-03。",
+      "dependencies": "DIA-01；冻结后增量回归",
+      "acceptance_method": "回归原失败叠加取消/期限、成功后取消、服务停止、HTTP失败及样本/时间配对；验证真实 defer 使用终态归一逻辑。",
+      "completion_conditions": "不改变原失败，不阻塞主状态接口，任务取消及时结束；全部预期分片新鲜、超时、取消分开报告；当前完整补丁有新收据。"
+    },
+    {
+      "id": "DIA-03",
+      "priority": "P0",
+      "title": "不支持的socket丢弃计数显示未知",
+      "delivery_state": "已完成私有补丁待合并",
+      "verification_state": "test-02限定回归通过",
+      "comparison_ids": [
+        "key-http-status",
+        "key-cli-callbench"
+      ],
+      "acceptance_ids": [
+        "V1-16",
+        "V1-17"
+      ],
+      "code_locations": [
+        "private/control/internal/server/benchmark.go",
+        "private/control/internal/server/benchmark_processing.go",
+        "private/control/internal/server/web/tests.js"
+      ],
+      "current_boundary": "已传递 socket_drop_counter_supported 和支持分片数；旧报告缺字段、部分支持或全不支持不能把0显示为无丢包。",
+      "dependencies": "从已验证 test-02 六文件恢复范围选择补丁；集成回归",
+      "acceptance_method": "验证新旧报告、全支持/部分/不支持、0与非0计数、字段缺失；原始计数和可观测范围同时展示。",
+      "completion_conditions": "合并后报告及页面对未知显示“未提供”，部分计数不伪称完整计数；本项不能替代DIA-01。"
+    },
+    {
+      "id": "AI-01",
+      "priority": "P0",
+      "title": "真实ASR供应商与识别质量",
+      "delivery_state": "未实现真实模型接入",
+      "verification_state": "内部ASR1链路有限通过，识别未验证",
+      "comparison_ids": [
+        "key-api-rx-sdk"
+      ],
+      "acceptance_ids": [
+        "A09-ASR",
+        "V1-08"
+      ],
+      "code_locations": [
+        "control/internal/asr/stream.go",
+        "control/internal/asr/wire",
+        "control/cmd/asr-mock"
+      ],
+      "current_boundary": "当前内部 Server.StartASR 和私有 Unix ASR1 已实现；mock 只校验音频/协议，不识别语音，不是公共 HTTP API。",
+      "dependencies": "供应商协议、模型版本、凭证、语料与质量门槛",
+      "acceptance_method": "对真实供应商跑流式 partial/final、错误、超时、取消、慢读与连接恢复；真实语料核对文字来源和时延。",
+      "completion_conditions": "真实识别模型输出可追溯到音频范围；准确率、首字/最终时延、丢弃和资源成本达到约定值。"
+    },
+    {
+      "id": "AI-02",
+      "priority": "P0",
+      "title": "实时VAD与语音端点检测",
+      "delivery_state": "未实现",
+      "verification_state": "未验证",
+      "comparison_ids": [],
+      "acceptance_ids": [
+        "V1-07",
+        "EV06",
+        "EV07",
+        "A09-ASR"
+      ],
+      "code_locations": [
+        "media/src/audio",
+        "control/internal/asr/frames.go"
+      ],
+      "current_boundary": "已有丢包、PLC、CN和来源元数据，不等于具备VAD和ASR端点算法。",
+      "dependencies": "算法/模型与阈值；噪声回声测试集",
+      "acceptance_method": "测试噪声、短句、连续说话、CN、丢包、播放回声及用户同时说话；对照媒体时间和人工标签。",
+      "completion_conditions": "可输出有来源时间的语音起止，丢包不被当沉默；误检/漏检和端点时延有测量及有界配置。"
+    },
+    {
+      "id": "AI-03",
+      "priority": "P0",
+      "title": "真实流式TTS适配",
+      "delivery_state": "未实现供应商接入",
+      "verification_state": "下行PCM基础有限验证",
+      "comparison_ids": [
+        "key-api-pcm-stream",
+        "key-ipc-pcm-push"
+      ],
+      "acceptance_ids": [
+        "A09-TTS",
+        "V1-09",
+        "CMD04"
+      ],
+      "code_locations": [
+        "control/internal/server/pcm_endpoint.go",
+        "control/internal/server/pcm_stream.go",
+        "media/src/media/worker_pcm.rs"
+      ],
+      "current_boundary": "RVA1和PCM轮次下发已提供基础，不等于真实流式TTS供应商适配。",
+      "dependencies": "TTS供应商、格式、流协议、取消语义",
+      "acceptance_method": "测试首块、分块、突发、慢发送、部分写、超时及取消后旧块；验证字节和毫秒双重队列上限。",
+      "completion_conditions": "真实TTS可边生成边播放；迟到旧块不复活，媒体worker不等待模型或网络。"
+    },
+    {
+      "id": "AI-04",
+      "priority": "P0",
+      "title": "Agent/LLM轮次编排与上下文更新",
+      "delivery_state": "未实现",
+      "verification_state": "未验证",
+      "comparison_ids": [],
+      "acceptance_ids": [
+        "CMD09",
+        "V1-15",
+        "A14"
+      ],
+      "code_locations": [
+        "control/internal/server",
+        "control/internal/asr/types.go"
+      ],
+      "current_boundary": "PCM轮次及ASR状态不是完整Agent编排，尚无真实ASR→LLM→TTS上下文循环。",
+      "dependencies": "AI-01、AI-03；模型与上下文版本合同",
+      "acceptance_method": "重复多轮对话，注入迟到模型响应、上下文更新、取消和并发会话，检查每个事件的session/turn/version。",
+      "completion_conditions": "会话隔离、旧轮次不可覆盖新上下文，错误/取消和完成事件可对账。"
+    },
+    {
+      "id": "AI-05",
+      "priority": "P0",
+      "title": "语音自动打断与旧轮次撤销",
+      "delivery_state": "部分实现",
+      "verification_state": "PCM中断/渐变有限验证，完整语音打断未验证",
+      "comparison_ids": [
+        "key-ipc-pcm-turn-interrupt"
+      ],
+      "acceptance_ids": [
+        "V1-11",
+        "V1-12",
+        "EV08",
+        "A10"
+      ],
+      "code_locations": [
+        "media/src/media/pcm_turn.rs",
+        "control/internal/server/pcm_stream.go",
+        "control/internal/asr/stream.go"
+      ],
+      "current_boundary": "已有PCM轮次中断和0/20/40ms渐变；没有完整VAD触发、LLM/TTS取消与旧结果撤销闭环。",
+      "dependencies": "AI-02、AI-03、AI-04",
+      "acceptance_method": "播放时说话、连续打断、旧TTS迟到，测最后旧媒体发送时间和用户实际听到的声音；覆盖取消竞态。",
+      "completion_conditions": "所有旧轮次结果失权，打断时延和声学效果达到约定，不能仅以控制API返回成功判通过。"
+    },
+    {
+      "id": "AI-06",
+      "priority": "P0",
+      "title": "对齐双轨录音与异步持久化",
+      "delivery_state": "仅配置导出，运行链路未实现",
+      "verification_state": "未验证",
+      "comparison_ids": [
+        "key-media-recording"
+      ],
+      "acceptance_ids": [
+        "V1-13",
+        "CMD07",
+        "CMD08",
+        "A13"
+      ],
+      "code_locations": [
+        "media/src/media/processed.rs",
+        "media/src/media/worker_pcm.rs",
+        "control/internal/server/esl_api.go"
+      ],
+      "current_boundary": "录音配置/映射不等于RX/TX双轨录音、时间对齐、文件完成与上传功能。",
+      "dependencies": "录音格式、存储和保留策略",
+      "acceptance_method": "真实通话同时采集RX/TX并核对样本/时间/文件摘要；注入磁盘慢/满、上传失败及挂断。",
+      "completion_conditions": "双轨可重放并对齐，完成和失败可见；媒体线程不等磁盘或上传，资源及时释放。"
+    },
+    {
+      "id": "AI-07",
+      "priority": "P0",
+      "title": "统一10命令和11事件控制合同",
+      "delivery_state": "部分实现",
+      "verification_state": "完整业务合同未验证",
+      "comparison_ids": [
+        "key-esl-api",
+        "key-esl-bgapi",
+        "key-http-concurrency"
+      ],
+      "acceptance_ids": [
+        "A14",
+        "CMD01–CMD10",
+        "EV01–EV11",
+        "V1-15"
+      ],
+      "code_locations": [
+        "control/internal/server/esl_api.go",
+        "control/internal/server/server.go",
+        "control/internal/asr/types.go"
+      ],
+      "current_boundary": "已有HTTP、ESL和IPC子集，不代表新的10命令/11事件全部完成；JobUUID不自动提供业务幂等。",
+      "dependencies": "各AI模块、版本及事件序列规范",
+      "acceptance_method": "逐个实例化接受/执行/完成/失败/超时/取消、重复请求、事件背压和重连恢复用例。",
+      "completion_conditions": "每项有真实业务效果和可对账结果，未知操作明确拒绝，无仅返回OK的空实现。"
+    },
+    {
+      "id": "AI-08",
+      "priority": "P0",
+      "title": "一通完整真实AI电话闭环",
+      "delivery_state": "未完成集成",
+      "verification_state": "当前模拟供应商SIP路径通过，真实业务未验证",
+      "comparison_ids": [],
+      "acceptance_ids": [
+        "M2",
+        "V1-07",
+        "V1-08",
+        "V1-09",
+        "V1-11",
+        "V1-13"
+      ],
+      "code_locations": [
+        "control/internal/server/asr_stream_real_test.go",
+        "control/internal/server/pcm_stream.go"
+      ],
+      "current_boundary": "已有5项真实SIP/Rust/ASR1用例；mock不识别。现有BYE发生在Finish/DONE和资源关闭后，不能证明等待final时的真实挂断窗口。",
+      "dependencies": "AI-01至AI-06；真实线路",
+      "acceptance_method": "外呼/呼入、识别、回答、DTMF/IVR、语音打断、录音和挂断；专测final等待期间实际BYE及错误恢复。",
+      "completion_conditions": "原始音频、SIP、模型事件、轮次和资源清理贯通，所有关键故障分支有真实证据。"
+    },
+    {
+      "id": "MED-01",
+      "priority": "P0",
+      "title": "G.722与Opus实时媒体图",
+      "delivery_state": "部分实现",
+      "verification_state": "离线/透传与实时处理必须分开",
+      "comparison_ids": [
+        "key-media-transcoding",
+        "key-http-codecs"
+      ],
+      "acceptance_ids": [
+        "A06",
+        "V1-02",
+        "M1"
+      ],
+      "code_locations": [
+        "media/src/audio/native.rs",
+        "media/src/audio/branch.rs",
+        "media/src/media/processed.rs"
+      ],
+      "current_boundary": "现有离线/原生编解码基础或RTP透传不能证明通话中完成G.722/Opus解码、处理、编码。",
+      "dependencies": "固定编解码库版本和许可；实时packetizer/depacketizer",
+      "acceptance_method": "逐codec真实双向通话和独立PCM oracle；G.722按16k音频/8k RTP时钟，Opus按48k RTP时钟，覆盖包长/绕回/损坏。",
+      "completion_conditions": "真实处理链质量、时钟、时延和CPU预算通过，状态表明确透传与转码差别。"
+    },
+    {
+      "id": "MED-02",
+      "priority": "P1",
+      "title": "G.729/G.726及移动音频兼容",
+      "delivery_state": "部分实现/预留",
+      "verification_state": "运营商互通和完整转码未验证",
+      "comparison_ids": [
+        "key-media-rtp",
+        "key-c_abi-codec"
+      ],
+      "acceptance_ids": [
+        "A06"
+      ],
+      "code_locations": [
+        "control/internal/codecprofile",
+        "media/src/codec.rs",
+        "media/src/audio/native.rs"
+      ],
+      "current_boundary": "Payload配置/透传不能当G.729/G.726实时转码；AMR-NB/WB、EVS按IMS接入需求继续演进。",
+      "dependencies": "线路真实codec需求；库和专利/分发许可",
+      "acceptance_method": "按codec逐项测试SDP、时钟、帧长、动态Payload、真实解编码与运营商样本；分别记录支持层级。",
+      "completion_conditions": "当前业务必需codec可实际互通；可选codec未做时保留不支持状态，不宣传已具备。"
+    },
+    {
+      "id": "MED-03",
+      "priority": "P0",
+      "title": "抖动、丢包、CN/DTX/PLC/FEC策略",
+      "delivery_state": "部分实现",
+      "verification_state": "限定G.711路径通过，完整策略未验证",
+      "comparison_ids": [
+        "key-media-rtp",
+        "key-media-transcoding"
+      ],
+      "acceptance_ids": [
+        "A11",
+        "V1-04",
+        "V1-05"
+      ],
+      "code_locations": [
+        "media/src/media/jitter.rs",
+        "media/src/media/processed.rs",
+        "control/internal/asr/provenance.go"
+      ],
+      "current_boundary": "已有有界处理和PLC/CN元数据；完整自适应策略及各codec的FEC/DTX尚需实现与验收。",
+      "dependencies": "故障发生器、codec能力矩阵、语音质量语料",
+      "acceptance_method": "注入迟到、突发丢失、乱序、序号绕回、CN转语音，测试不同延迟档位；对账全部丢弃与媒体时间。",
+      "completion_conditions": "不凭空造新鲜音频或将丢包当沉默；延迟与质量策略明确、有上限且有真实测量。"
+    },
+    {
+      "id": "MED-04",
+      "priority": "P1",
+      "title": "RTCP mux、安全反馈与质量事件",
+      "delivery_state": "部分实现",
+      "verification_state": "有限报告路径已测，扩展未验证",
+      "comparison_ids": [
+        "key-media-rtcp"
+      ],
+      "acceptance_ids": [
+        "V1-01",
+        "V1-16"
+      ],
+      "code_locations": [
+        "media/src/media/rtcp.rs",
+        "media/src/media/worker.rs"
+      ],
+      "current_boundary": "已有RTCP转发或G.711 SR/RR/SDES/BYE；不等于mux、SRTCP、完整反馈和自适应报告周期。",
+      "dependencies": "SEC-01；质量事件定义",
+      "acceptance_method": "真实复合报告、mux、加密/重放、反馈和周期变化，区分网络抖动、排队和调度迟到。",
+      "completion_conditions": "相关协议与质量事件均有独立对端和原始报文验收。"
+    },
+    {
+      "id": "MED-05",
+      "priority": "P1",
+      "title": "通用静态AudioGraph与有界内存",
+      "delivery_state": "部分实现",
+      "verification_state": "限定分支通过，完整图未验证",
+      "comparison_ids": [],
+      "acceptance_ids": [
+        "A07",
+        "A08",
+        "A16",
+        "V1-05",
+        "V1-06"
+      ],
+      "code_locations": [
+        "media/src/audio",
+        "media/src/media/processed.rs",
+        "control/internal/asr/resample"
+      ],
+      "current_boundary": "有固定媒体分支、AudioFrame和127抽头8→16k重采样；不能外推所有节点、整条链零分配或任意图性能。",
+      "dependencies": "AI分支合同、静态模板和内存预算",
+      "acceptance_method": "对慢分支、取消、版本切换测队列年龄、复制、分配和锁等待；重采样与独立oracle及频响比较。",
+      "completion_conditions": "所支持静态图的历史/输出/队列有硬上限，任一慢分支不能拖垮主媒体。"
+    },
+    {
+      "id": "CAP-01",
+      "priority": "P0",
+      "title": "定位2000路历史转发失败",
+      "delivery_state": "未完成优化",
+      "verification_state": "真实失败",
+      "comparison_ids": [
+        "key-cli-callbench",
+        "key-media-capacity"
+      ],
+      "acceptance_ids": [
+        "V1-17",
+        "M1"
+      ],
+      "code_locations": [
+        "control/cmd/callbench",
+        "media/src/media/io.rs"
+      ],
+      "current_boundary": "2,000,000发送仅456,233唯一接收；末端服务统计是早约729–735ms的缓存。没有证据定位每一跳丢失。",
+      "dependencies": "DIA-01至DIA-03；隔离网络与资源预算",
+      "acceptance_method": "采集真实socket缓冲、计数可用性、各阶段一致时间窗口，重跑同档位并对比独立Linux发生器与portable路径。",
+      "completion_conditions": "可解释丢失来源并通过原阈值；不能靠减少实际媒体量、修改阈值或把尾部超时当读错误来修报告。"
+    },
+    {
+      "id": "CAP-02",
+      "priority": "P0",
+      "title": "Linux 1000/5000/10000路转发容量",
+      "delivery_state": "未验证",
+      "verification_state": "尚无目标Linux容量验收通过",
+      "comparison_ids": [
+        "key-media-capacity"
+      ],
+      "acceptance_ids": [
+        "V1-01",
+        "V1-17",
+        "M1"
+      ],
+      "code_locations": [
+        "config/linux-10000.example.json",
+        "control/cmd/callbench",
+        "media/src/media/worker.rs"
+      ],
+      "current_boundary": "Linux交叉编译通过不等于运行容量；本机5000路隔离端口不足的拒绝不是已完成压测。",
+      "dependencies": "用户提供Linux CPU/NUMA/内存/网卡；独立发生器、地址/端口和FD预算",
+      "acceptance_method": "按1000→5000→10000真实双向媒体逐档测试，保存完整负载、唯一包、时间、资源、错误和清理证据。",
+      "completion_conditions": "每档足量、完整运行、符合指标，任何阶段失败保留失败；不得把建呼数代替媒体服务数。"
+    },
+    {
+      "id": "CAP-03",
+      "priority": "P0",
+      "title": "Linux实时G.711及核心codec容量",
+      "delivery_state": "未验证",
+      "verification_state": "转发结果不能代替解码/编码结果",
+      "comparison_ids": [
+        "key-media-capacity",
+        "key-media-transcoding"
+      ],
+      "acceptance_ids": [
+        "M1",
+        "V1-02",
+        "V1-17"
+      ],
+      "code_locations": [
+        "media/src/media/processed.rs",
+        "control/cmd/callbench/media_processed.go"
+      ],
+      "current_boundary": "真实decode→PCM→encode的1000/5000/10000路容量仍需验收，且要计入重采样和必要分支成本。",
+      "dependencies": "CAP-02、MED-01；独立样本oracle",
+      "acceptance_method": "逐档、逐codec实际解码编码，核对PCM内容、RTP时间、PLC/丢弃、发送迟到和资源。",
+      "completion_conditions": "每条流都有真实处理及正确样本，稳定服务能力和资源在同口径下达到门槛。"
+    },
+    {
+      "id": "CAP-04",
+      "priority": "P0",
+      "title": "完整Agent等价成本与容量优势",
+      "delivery_state": "未验证",
+      "verification_state": "性能目标未获真实证明",
+      "comparison_ids": [
+        "key-media-capacity"
+      ],
+      "acceptance_ids": [
+        "M2",
+        "M3",
+        "V1-17"
+      ],
+      "code_locations": [
+        "control/internal/asr",
+        "control/internal/server/pcm_stream.go"
+      ],
+      "current_boundary": "DSP微基准和relay容量都不能证明完整Agent优势；真实ASR/LLM/TTS/录音尚未组成等价负载。",
+      "dependencies": "AI-08、CAP-03；固定FreeSWITCH基线与等价业务",
+      "acceptance_method": "同机、同音频、同质量、同并发和SLA对比，计入Go/Rust/SIP或SBC、DSP、适配器、录音上传与内核成本。",
+      "completion_conditions": "证明至少1.5倍稳定容量目标（进阶2倍），同并发CPU/内存各降30%目标及TX迟到P99≤2ms/P99.9≤5ms；不调整口径制造优势。"
+    },
+    {
+      "id": "CAP-05",
+      "priority": "P0",
+      "title": "72小时混合负载与故障恢复",
+      "delivery_state": "未验证",
+      "verification_state": "尚无生产级长稳认证",
+      "comparison_ids": [
+        "key-guard-capacity",
+        "key-media-failover"
+      ],
+      "acceptance_ids": [
+        "M3",
+        "M4",
+        "A17"
+      ],
+      "code_locations": [
+        "control/internal/server",
+        "control/internal/media/pool.go",
+        "media/src/media/worker.rs"
+      ],
+      "current_boundary": "局部限流和清理测试不能替代72小时负载、资源回收和故障恢复。",
+      "dependencies": "AI-08、CAP-04；故障注入环境",
+      "acceptance_method": "突发建呼、ASR停读、TTS突发、慢盘、网络异常、worker退出、端口复用，持续观测线程、内存和最忙分片。",
+      "completion_conditions": "72小时满足混合负载与稳定门槛，故障影响和恢复时间可量化，不通过少接业务掩盖服务损失。"
+    },
+    {
+      "id": "SIP-01",
+      "priority": "P1",
+      "title": "真实运营商注册与多网关",
+      "delivery_state": "部分实现",
+      "verification_state": "固定上游客户端子集通过，现网互通未验证",
+      "comparison_ids": [
+        "key-sip-register"
+      ],
+      "acceptance_ids": [
+        "A15"
+      ],
+      "code_locations": [
+        "control/internal/server/trunk_registration.go",
+        "control/internal/server/trunk_auth.go"
+      ],
+      "current_boundary": "已有Digest、刷新、423、退避和退订等客户端能力；没有完整registrar/location、多账号网关、DNS和Sofia运行时。",
+      "dependencies": "真实线路账号、运营商认证规格和网关需求",
+      "acceptance_method": "对真实运营商验证鉴权、刷新、挑战重试、失效回退与呼叫；多账号、注册服务端分别验收。",
+      "completion_conditions": "所需线路稳定注册并可实际呼叫；不将客户端注册能力宣称成完整注册服务器。"
+    },
+    {
+      "id": "SIP-02",
+      "priority": "P1",
+      "title": "主动外呼、路由、桥接与转接",
+      "delivery_state": "部分实现",
+      "verification_state": "业务/API完整语义未验证",
+      "comparison_ids": [
+        "key-sip-invite",
+        "key-esl-api",
+        "key-config-dialplan-runtime"
+      ],
+      "acceptance_ids": [
+        "CMD01",
+        "CMD06",
+        "A14",
+        "A15"
+      ],
+      "code_locations": [
+        "control/internal/server/esl_api.go",
+        "control/internal/server/server.go",
+        "control/internal/server/dialplan.go"
+      ],
+      "current_boundary": "固定上游和有限本地动作不等于完整originate、多路路由、bridge或transfer。",
+      "dependencies": "SIP-01；路由、失败回退和呼叫状态合同",
+      "acceptance_method": "真实呼入/主动外呼及转接，对比信令、双向媒体、失败回退和资源原子释放，注入重复控制。",
+      "completion_conditions": "业务命令真正改变对话和媒体，无重复外呼、僵尸通道或仅返回成功的占位实现。"
+    },
+    {
+      "id": "SIP-03",
+      "priority": "P1",
+      "title": "对话重协商与SIP扩展",
+      "delivery_state": "未实现/部分基础",
+      "verification_state": "扩展未验证",
+      "comparison_ids": [
+        "key-sip-renegotiation",
+        "key-sip-extensions",
+        "key-sip-cancel",
+        "key-sip-bye"
+      ],
+      "acceptance_ids": [
+        "A15"
+      ],
+      "code_locations": [
+        "control/internal/server/server.go",
+        "control/internal/sip"
+      ],
+      "current_boundary": "基础INVITE/ACK/CANCEL/BYE已覆盖子集；完整re-INVITE、UPDATE、PRACK、REFER、订阅及会话刷新不能据此标通过。",
+      "dependencies": "固定RFC/FreeSWITCH行为与对端能力",
+      "acceptance_method": "逐场景测试保持恢复、转接、早期媒体、重传、迟到200及取消交叉；对比原始消息和实际媒体。",
+      "completion_conditions": "所声明扩展均有对端互通和失败分支证据，未声明的明确拒绝。"
+    },
+    {
+      "id": "SIP-04",
+      "priority": "P1",
+      "title": "IPv6、DNS/SRV及WS/WSS信令",
+      "delivery_state": "部分实现",
+      "verification_state": "IPv4 UDP/TCP/TLS之外未完整验证",
+      "comparison_ids": [
+        "key-sip-transports",
+        "key-sip-sdp"
+      ],
+      "acceptance_ids": [
+        "A15"
+      ],
+      "code_locations": [
+        "control/internal/server/transport.go",
+        "control/internal/sip"
+      ],
+      "current_boundary": "已有IPv4 UDP及可选TCP/TLS；没有完整IPv6、DNS-SRV、WS/WSS、客户端证书及SIPS全语义。",
+      "dependencies": "传输方案、证书、DNS及浏览器对端",
+      "acceptance_method": "测试解析故障切换、连接身份、证书校验、分帧/背压和多地址会话，记录真实端点。",
+      "completion_conditions": "协议矩阵逐项通过并保持连接资源上限；TLS信令不能当安全媒体通过。"
+    },
+    {
+      "id": "SIP-05",
+      "priority": "P1",
+      "title": "NAT学习、端口迁移和移动终端",
+      "delivery_state": "部分实现",
+      "verification_state": "固定来源校验通过，迁移未验证",
+      "comparison_ids": [
+        "key-media-nat"
+      ],
+      "acceptance_ids": [
+        "A15"
+      ],
+      "code_locations": [
+        "media/src/media/worker.rs",
+        "control/internal/sip/sdp.go"
+      ],
+      "current_boundary": "当前固定协商来源/CIDR及connected模式不等于NAT新源学习；端口变更会拒绝，内核拒绝也未必计入应用计数。",
+      "dependencies": "来源认证、安全学习或SBC方案",
+      "acceptance_method": "模拟对称NAT、重绑定、移动切换、伪造包和旧队列，核对来源切换与媒体连续性。",
+      "completion_conditions": "授权端点可按合同迁移，攻击来源不能接管；拒绝计数注明内核/应用覆盖范围。"
+    },
+    {
+      "id": "SEC-01",
+      "priority": "P1",
+      "title": "SRTP、DTLS、ICE和WebRTC安全媒体",
+      "delivery_state": "未实现",
+      "verification_state": "未验证",
+      "comparison_ids": [
+        "key-media-security"
+      ],
+      "acceptance_ids": [
+        "A15"
+      ],
+      "code_locations": [
+        "media/src/media/worker.rs",
+        "control/internal/server/transport.go"
+      ],
+      "current_boundary": "信令TLS不提供SRTP；当前没有完整DTLS-SRTP、ICE和安全媒体生命周期。",
+      "dependencies": "选择自实现或固定SBC组件；密钥与互通策略",
+      "acceptance_method": "真实密钥协商、重放/损坏包拒绝、ICE切换、重协商、超时清理及SRTCP，计入所有组件成本。",
+      "completion_conditions": "端到端安全媒体和故障分支通过；复用外部SBC时明确依赖与成本，不能称内核原生已实现。"
+    },
+    {
+      "id": "TEL-01",
+      "priority": "P1",
+      "title": "完整DTMF发送和采集语义",
+      "delivery_state": "部分实现",
+      "verification_state": "本地A腿子集通过，其余未验证",
+      "comparison_ids": [
+        "key-media-dtmf",
+        "key-ipc-dtmf-send",
+        "key-esl-dtmf-send-status"
+      ],
+      "acceptance_ids": [
+        "V1-14",
+        "EV05"
+      ],
+      "code_locations": [
+        "media/src/media/dtmf_sender.rs",
+        "media/src/media/interaction.rs",
+        "control/internal/server/esl_send_dtmf.go"
+      ],
+      "current_boundary": "已有telephone-event及有限INFO接收、本地A腿发送；桥接/B腿发送、INFO发送、带内检测和完整长事件/格式仍有缺口。",
+      "dependencies": "电话侧DTMF方式、桥接与发送合同",
+      "acceptance_method": "真实对端识别16个键，检查时钟、持续时间、结束重传、连续/重叠事件和取消；分别验证各腿和协议。",
+      "completion_conditions": "业务真正收到正确按键且无重复、丢键或无限持续事件；各发送完成状态有实际依据。"
+    },
+    {
+      "id": "TEL-02",
+      "priority": "P1",
+      "title": "完整IVR与XML拨号计划运行",
+      "delivery_state": "部分实现",
+      "verification_state": "有限动作通过，完整FS行为未验证",
+      "comparison_ids": [
+        "key-config-dialplan-runtime",
+        "key-esl-sendmsg"
+      ],
+      "acceptance_ids": [
+        "A14"
+      ],
+      "code_locations": [
+        "control/internal/server/dialplan.go",
+        "control/internal/dialplan",
+        "control/internal/server/esl_applications.go"
+      ],
+      "current_boundary": "当前单RE2条件和answer/set/unset/read/playback/sleep/park/hangup等有限动作，不支持完整预处理、include、变量扩展、反动作、continue、reloadxml与全部应用。",
+      "dependencies": "明确首批IVR动作/变量规则；TEL-01、SIP-02",
+      "acceptance_method": "真实菜单播放、超时重试、非法输入、打断、分支转接、挂断及热更新，逐项对比原版轨迹。",
+      "completion_conditions": "支持动作真实执行，未支持动作明确报错；保存或导出XML不得算运行兼容。"
+    },
+    {
+      "id": "FS-01",
+      "priority": "P1",
+      "title": "ESL完整命令、事件与Outbound会话",
+      "delivery_state": "部分实现",
+      "verification_state": "部分线协议通过，全集未验证",
+      "comparison_ids": [
+        "key-esl-api",
+        "key-esl-bgapi",
+        "key-esl-framing",
+        "key-esl-outbound",
+        "key-esl-sendmsg",
+        "key-esl-subscriptions",
+        "key-cli-fs-cli"
+      ],
+      "acceptance_ids": [
+        "API-T01"
+      ],
+      "code_locations": [
+        "control/internal/esl",
+        "control/internal/server/esl_api.go"
+      ],
+      "current_boundary": "已有有限framing/API/事件行为；Outbound ESL、全部输出格式、过滤、linger与连接语义仍存在缺口。",
+      "dependencies": "固定FreeSWITCH及真实业务ESL客户端",
+      "acceptance_method": "逐命令检查字节、头、编码、输出格式、事件顺序、重连和背压；Outbound需真实会话控制，不能用固定SIP上游替代。",
+      "completion_conditions": "声明支持的命令/事件在实际客户端无改动通过，尚未覆盖的保留缺口。"
+    },
+    {
+      "id": "FS-02",
+      "priority": "P1",
+      "title": "882条配置导出的真实执行映射",
+      "delivery_state": "仅配置导出",
+      "verification_state": "不构成运行验证",
+      "comparison_ids": [
+        "key-config-directory",
+        "key-config-export",
+        "key-config-parameter-edit",
+        "key-config-raw-xml",
+        "key-config-runtime-xml"
+      ],
+      "acceptance_ids": [],
+      "code_locations": [
+        "control/internal/server/fs_templates",
+        "control/internal/server/fs_config.go"
+      ],
+      "current_boundary": "882=875条vanilla参数+7条关键映射；配置可读写/导出不代表运行时加载、默认值和模块行为已兼容。",
+      "dependencies": "模块优先级、配置生效/重启/回滚合同",
+      "acceptance_method": "逐项用真实配置加载并触发行为，检查默认值、错误、include、热加载/重启和回滚。",
+      "completion_conditions": "只对实际支持的运行参数提升状态，模板与目录类条目保留导出范围，不批量改绿。"
+    },
+    {
+      "id": "FS-03",
+      "priority": "P2",
+      "title": "C/C++模块宿主与协议插件ABI",
+      "delivery_state": "部分实现/预留",
+      "verification_state": "自定义示例有限通过，FS ABI未验证",
+      "comparison_ids": [
+        "key-c_abi-codec",
+        "key-c_abi-protocol-provider"
+      ],
+      "acceptance_ids": [],
+      "code_locations": [
+        "native/include",
+        "media/src/codec.rs"
+      ],
+      "current_boundary": "已有自定义codec ABI和G.711示例；无完整switch_*宿主符号，不能直接加载原版mod_*.so；协议provider未实现。",
+      "dependencies": "是否需要原版二进制插件；ABI版本、许可、故障隔离策略",
+      "acceptance_method": "用实际插件测试装载、卸载、生命周期、并发、异常和版本匹配，明确二进制/源码适配边界。",
+      "completion_conditions": "所承诺插件实际运行；自定义C ABI不能被宣传为FreeSWITCH原生模块ABI。"
+    },
+    {
+      "id": "FS-04",
+      "priority": "P2",
+      "title": "会议及复杂PBX、脚本、传真和视频模块",
+      "delivery_state": "未实现/仅配置导出",
+      "verification_state": "未验证",
+      "comparison_ids": [
+        "key-media-conference"
+      ],
+      "acceptance_ids": [],
+      "code_locations": [
+        "control/internal/server/fs_templates",
+        "media/src/media/processed.rs"
+      ],
+      "current_boundary": "目录内144个fs_module条目均为未实现，另有90条会议子命令；会议、队列/语音信箱、Lua/JS、传真、视频等不能从模板推断已具备。",
+      "dependencies": "按Voice Agent业务选择外部复用或后续实现；保留全部差异",
+      "acceptance_method": "按原模块场景逐项验证音视频/混音/控制/故障和容量；不以主路径单元测试替代模块行为。",
+      "completion_conditions": "首期可延期，但公开能力表仍列未实现；只对实际完成并有证据的子模块更新状态。"
+    },
+    {
+      "id": "FS-05",
+      "priority": "P1",
+      "title": "3999条对照与177验收定义逐项证据",
+      "delivery_state": "未完成整体验证",
+      "verification_state": "成对验证未运行，绝大多数条目未运行",
+      "comparison_ids": [],
+      "acceptance_ids": [
+        "API-T01"
+      ],
+      "code_locations": [
+        "tools/build_runtime_verification.py",
+        "docs/freeswitch-compatibility",
+        "docs/api/comparison.json"
+      ],
+      "current_boundary": "3999含原生声明、接口、模板和验收定义，不是3999个独立模块；177=169场景+8容量profile且均not_run。现有局部原版实验不代表全部原版行为执行。",
+      "dependencies": "固定原版版本/提交、动态模块注册和原始用例；DLV-03",
+      "acceptance_method": "实例化每项场景，绑定双方源码、构建配置、二进制、输入/输出、失败及资源；以全部原始行导出追踪。",
+      "completion_conditions": "不缩分母、不从实现状态算兼容百分比；缺原始轨迹或源码失配不判通过，失败/未运行可查。"
+    },
+    {
+      "id": "OPS-01",
+      "priority": "P1",
+      "title": "NUMA、系统调用、队列和最忙worker观测",
+      "delivery_state": "部分实现",
+      "verification_state": "完整运行成本与采样边界未验证",
+      "comparison_ids": [
+        "key-http-metrics",
+        "key-http-status"
+      ],
+      "acceptance_ids": [
+        "M3",
+        "A16",
+        "A17",
+        "V1-16"
+      ],
+      "code_locations": [
+        "control/internal/server/asr_observe.go",
+        "control/internal/server/server.go",
+        "media/src/media/worker.rs"
+      ],
+      "current_boundary": "已有部分资源指标和ASR计数；完整队列年龄、真实socket缓冲、同窗口CPU/内存、最忙分片和NUMA策略仍需完善。",
+      "dependencies": "DIA-01；Linux实际部署拓扑",
+      "acceptance_method": "同profile采集前后CPU增量、火焰图、IRQ/RSS、内存和队列年龄，优化前后对比并保持真实负载。",
+      "completion_conditions": "指标口径与生成时间可解释；累计CPU不冒称媒体窗口CPU率，各进程独立峰值之和不冒称同一时刻峰值。"
+    },
+    {
+      "id": "OPS-02",
+      "priority": "P0",
+      "title": "灰度、回退与活动通话故障边界",
+      "delivery_state": "部分实现",
+      "verification_state": "生产灰度/完整故障恢复未验证",
+      "comparison_ids": [
+        "key-media-failover",
+        "key-guard-drain-resume"
+      ],
+      "acceptance_ids": [
+        "M4",
+        "A17"
+      ],
+      "code_locations": [
+        "control/internal/media/pool.go",
+        "control/internal/server/server.go"
+      ],
+      "current_boundary": "worker监督可结束受影响通话、继续其他分片和恢复新服务；不是活动通话或ESL TCP无缝迁移。主源码、候选和运行服务是三个状态。",
+      "dependencies": "DLV-01、DLV-03、AI-08、CAP-05；明确发布授权及窗口",
+      "acceptance_method": "按1%→5%→20%→50%→100%灰度核对质量、容量与错误，验证新呼叫回旧服务、旧通话排空、配置回滚和进程故障。",
+      "completion_conditions": "每档达到退出条件再推进，回退有实测收据；未实现的活动通话迁移不得宣称无损切换。"
+    }
+  ],
+  "validation": {
+    "missing_code_locations": [],
+    "unknown_comparison_ids": []
+  },
+  "public_distribution_update": {
+    "date": "2026-09-08",
+    "license": "Apache-2.0 for original work; third-party exceptions retained",
+    "resolved_items": [
+      "T21",
+      "DLV-04 license/distribution materials"
+    ],
+    "scope": "新增开源分发材料；功能、容量与历史证据门禁未改为通过。",
+    "reference": "OPEN_SOURCE.md"
+  }
+}

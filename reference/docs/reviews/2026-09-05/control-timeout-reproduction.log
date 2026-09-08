@@ -1,0 +1,4 @@
+=== RUN   TestReviewSlowReadOnlyStatsTerminatesWorker
+    review_test.go:22: read-only stats response delayed 1200ms; process terminated: pid=3925 worker=0 generation=1 elapsed=2.001960458s error=EOF
+2026/09/05 18:21:38 ERROR media worker stopped worker=0 generation=1 error=EOF
+--- PASS: TestReviewSlowReadOnlyStatsTerminatesWorker (2.43s)

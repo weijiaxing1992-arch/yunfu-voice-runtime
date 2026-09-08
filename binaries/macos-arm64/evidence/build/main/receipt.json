@@ -1,0 +1,101 @@
+{
+  "variant": "main",
+  "scope": "离线编译源码与C ABI示例；不启动SIP/HTTP，不运行容量验收，不授予发布状态。",
+  "started_at": 1788840062.325519,
+  "steps": [
+    {
+      "name": "go-version",
+      "argv": [
+        "go",
+        "version"
+      ],
+      "exit_code": 0,
+      "seconds": 0.073
+    },
+    {
+      "name": "rust-version",
+      "argv": [
+        "cargo",
+        "--version"
+      ],
+      "exit_code": 0,
+      "seconds": 0.039
+    },
+    {
+      "name": "control",
+      "argv": [
+        "go",
+        "build",
+        "-mod=vendor",
+        "-trimpath",
+        "-o",
+        "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/rustswitch",
+        "./cmd/rustswitch"
+      ],
+      "exit_code": 0,
+      "seconds": 1.638
+    },
+    {
+      "name": "callbench",
+      "argv": [
+        "go",
+        "build",
+        "-mod=vendor",
+        "-trimpath",
+        "-o",
+        "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/callbench",
+        "./cmd/callbench"
+      ],
+      "exit_code": 0,
+      "seconds": 0.392
+    },
+    {
+      "name": "media",
+      "argv": [
+        "cargo",
+        "--config",
+        "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/cargo-config.toml",
+        "build",
+        "--locked",
+        "--offline",
+        "--release",
+        "--manifest-path",
+        "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/main/media/Cargo.toml",
+        "--target-dir",
+        "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/cargo-target"
+      ],
+      "exit_code": 0,
+      "seconds": 25.2
+    },
+    {
+      "name": "codec-plugin",
+      "argv": [
+        "cc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-dynamiclib",
+        "-I",
+        "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/main/native/include",
+        "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/main/native/examples/g711_plugin.c",
+        "-o",
+        "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-main-01/librustswitch_g711.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 0.801
+    }
+  ],
+  "source_unchanged": true,
+  "finished_at": 1788840091.524575,
+  "passed": true,
+  "logs": {
+    "callbench.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "media.log": "fd847af03d71020b584710f65b3d8939866799517a011c4113825000e8521898",
+    "rust-version.log": "9950bbb2d5c3417b1a068f0e81f6d3cac991a363193bdf2a22d447f5acf8b503",
+    "codec-plugin.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "control.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "go-version.log": "c528ba02b39880f1357f51dee70e41c1ef03e3a70c7a03055c080532b9635f58"
+  }
+}

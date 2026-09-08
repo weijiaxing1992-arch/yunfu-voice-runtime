@@ -1,0 +1,16 @@
+# 本地构建与运行产物不可进入公开仓库。
+.DS_Store
+__pycache__/
+*.pyc
+source/*/bin/
+source/*/run/
+source/*/media/target/
+source/*/target/
+.env
+.env.*
+!*.example
+# GitHub Releases 分发实际运行二进制，Git 仅保留说明与来源。
+binaries/*/main/bin/
+binaries/*/asr-candidate/bin/
+binaries/*/main/lib/
+binaries/*/asr-candidate/lib/

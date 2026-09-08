@@ -1,0 +1,12 @@
+{
+  "validate_spec": "passed",
+  "registered_http_operations": 26,
+  "openapi_path_count": 21,
+  "existing_x_http_operation_count": 20,
+  "local_ref_nodes": 238,
+  "unique_refs": 90,
+  "local_markdown_links": 65,
+  "schema_examples": "jsonschema unavailable; source validator and all local references passed; no JSONSchema conformance claim",
+  "full_build_api_docs": "not_run; schema dictionary/audit/current-source evidence gate reserved for root; no embedded assets generated",
+  "source_openapi_sha256": "617704d2d783b90e1515df3ad6051688c441263699e447db0899cb9bc7d229ed"
+}

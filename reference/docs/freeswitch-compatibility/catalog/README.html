@@ -1,0 +1,28 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>源码目录、子命令与测试索引的使用范围 · 云蝠项目资料</title><link rel="stylesheet" href="../../../../handbook.css"></head><body><aside><a class="brand" href="../../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../../index.html">资料首页</a><a class="" href="../../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 源码目录、子命令与测试索引的使用范围</div><article class="content"><div class="page-tools"><a href="README.md" download>Markdown 原稿</a><a href="../../api/openapi.json" download>OpenAPI JSON</a><a href="../../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 3 节</summary><a href="#源码目录">源码目录</a><a href="#重建">重建</a><a href="#用例索引">用例索引</a></details><h1 id="源码目录子命令与测试索引的使用范围">源码目录、子命令与测试索引的使用范围</h1>
+<p>所有FreeSWITCH来源固定到v1.11.3提交 <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>。所选712文件与Git tree blob及SHA256对照，原始源仅保存在工作目录，不随标准包重分发实现代码；包中保留名称、参数表达式、声明位置和来源链接。</p>
+<h2 id="源码目录">源码目录</h2>
+<p><code>source-catalog.json</code> 与对应CSV包含538个四类注册宏位置、144个具有所选源码的模块目录、94个事件枚举标识、100个公共变量宏、1865个C函数声明位置及875次未注释vanilla参数出现。</p>
+<p>这些计数都不是完整运行期接口数或已兼容数量。明确保留以下缺口：</p>
+<ul>
+<li>不运行C预处理，条件编译、平台/构建选择与运行加载状态尚未判定；同名和重复声明保留。</li>
+<li>17个注册表达式需人工核实，其中12处是帮助语法为NULL，1处名称是变量；NULL不代表无参数。</li>
+<li>不递归解析全部处理函数的参数文法。另附会议84条静态子命令和Sofia解析路径；其他模块继续按处理器与运行基线扩展。</li>
+<li>事件枚举含ALL订阅哨兵和CLONE等内部标识；CUSTOM子类、头字段、事件触发条件及因果顺序另由行为合同覆盖。</li>
+<li>变量宏不穷尽字符串常量、模块变量、用户自定义变量和运行期变量。</li>
+<li>C声明目录保留1860个不同名字的1865个声明位置，排除了C++类方法和宏定义本身。宏生成hook、普通extern、C++/SWIG绑定、结构体布局、函数表、最终动态导出、弱符号与平台调用约定仍需完整ABI审计。例如 <code>switch_core_event_hook.h</code> 的宏生成hook不在此直接声明目录内。</li>
+<li>XML只提取未注释的param名称和原始value表达式，不求值include、变量或模块条件，不是配置schema；必须保留原文件/profile/binding上下文。</li>
+<li>第三方/商业/外部依赖模块需由实际加载产物加入清单。没有把“源码未找到”处理为无需兼容。</li>
+</ul>
+<p>函数和参数标识用于互通与定位。实现及许可来源见 <a href="https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a" target="_blank" rel="noopener noreferrer">FreeSWITCH固定仓库</a>；如后续复制或分发实现代码，必须保留对应文件的原始许可与署名要求。</p>
+<h2 id="重建">重建</h2>
+<p>准备与固定提交一致的完整官方源码，运行：</p>
+<pre><code class="language-sh">python3 tools/build_catalog.py \
+  --source /path/to/freeswitch \
+  --manifest catalog/reference-source-manifest.json \
+  --output catalog
+</code></pre>
+<p>从本标准目录执行。工具先检查清单中的每个文件SHA256，任何缺失/变化会失败；它仅重建JSON和六份CSV，不下载源码、不运行原版、不执行C预处理，也不生成认证结果。Markdown注册表和手工子命令说明需在源码版本更新时同步复核。</p>
+<h2 id="用例索引">用例索引</h2>
+<p><code>conformance-cases.csv</code> 和JSON按文档中的唯一ID收集功能/切换案例及独立容量档案，全部标为<code>not_run</code>。每一行是场景定义，需要结合模块、参数和状态展开为可执行测试；CSV不是即开即用的压测脚本，行数不等于最终冻结测试分母。</p>
+<p><code>verification.json</code> 仅记录本标准包的静态检查，不能作为FreeSWITCH运行结果或兼容认证。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

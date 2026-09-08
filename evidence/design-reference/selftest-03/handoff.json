@@ -1,0 +1,36 @@
+{
+  "scope": "draft_protocol_model_only",
+  "source_stable": true,
+  "methods": 52,
+  "matrix_method_coverage": 52,
+  "protocol_rows": 32,
+  "real_rows_not_run": 19,
+  "fault_plans": 18,
+  "receipt_sha256": "24916e36b81236ce729f1d3385f7f52fb4e1aa661eebdb1e5214bceaf80f1e28",
+  "source_sha256": {
+    "README.md": "884a1bc42d39fd2811a5e5abce71a7be432137f2143228d01138a8e512d2326f",
+    "acceptance-matrix.md": "22a62f6c1918dae6bcc69d697536acdd97f9b66311268c1e6ac3633030652e75",
+    "asr1_fixture.py": "f29c97b99fc270705054bfc0f528434c819825873959b59dfa4d204dd5094b25",
+    "fault_scenarios.py": "9460d128f7a5f15a36c92716e60d0d7d0d275d5164ae82ca9c03bc8eb74fbfbf",
+    "run_selftest.py": "958a2e07bd2d7a662c3f15a34779ff478a3d53b39beae8bb715d3af142ded9b5",
+    "test_asr1_fixture.py": "ecfdc8c95a5c1256caa85ecd7c346bd692700abae915f3165f1089ffc2364dfd"
+  },
+  "network_or_subprocess_executed": false,
+  "independent_review_fixed": [
+    "marker_only_fabricated_result",
+    "time_reversal_after_cn_plc_gap",
+    "null_error_revives_consumer",
+    "inactive_suspend_old_utterance",
+    "both_deadlines_reanchored",
+    "auxiliary_event_false_gap"
+  ],
+  "not_implemented": [
+    "real_unix_provider_process",
+    "production_asr_adapter",
+    "16k_fir",
+    "actual_vendor_asr",
+    "real_sip_rust_asr_e2e",
+    "multi_stream_resource_measurement",
+    "5000_10000_capacity"
+  ]
+}

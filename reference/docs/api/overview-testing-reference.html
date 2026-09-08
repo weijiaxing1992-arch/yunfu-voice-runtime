@@ -1,0 +1,121 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>运行总览与隔离测试观测 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 运行总览与隔离测试观测</div><article class="content"><div class="page-tools"><a href="overview-testing-reference.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#数据来源与任务选择">数据来源与任务选择</a><a href="#指标口径">指标口径</a><a href="#采样刷新与历史窗口">采样、刷新与历史窗口</a><a href="#新鲜度失败与未知值">新鲜度、失败与未知值</a><a href="#跳转与结果判读">跳转与结果判读</a></details><h1 id="运行总览与隔离测试观测">运行总览与隔离测试观测</h1>
+<p>文档版本 1.10.0。管理后台 <code>/#overview</code> 分别展示主服务和隔离测试实例。压测由专用控制进程、Rust 媒体进程与发生器执行，所以压测达到 500 路时，未承接业务呼叫的主服务仍可显示 0 路；这两个数值来自不同实例，不能相加成为一个健康指标。</p>
+<p>测试创建、停止、完整报告和错误码见<a href="testing-reference.html">压力与电话测试接口</a>；产品目标与当前缺口见<a href="voice-runtime-direction.html">云蝠 Voice Runtime 方向</a>。总览读取不会发起测试、修改保护策略或更改配置。</p>
+<h2 id="数据来源与任务选择">数据来源与任务选择</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>总览区域</th>
+<th>数据来源</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主服务实例</td>
+<td><code>GET /v1/status</code></td>
+<td>当前管理地址对应业务实例的活跃/接通通话、媒体分片、保护策略、控制资源与日志状态</td>
+</tr>
+<tr>
+<td>正在测试</td>
+<td><code>GET /v1/tests.current</code> 中的 <code>samples</code></td>
+<td>后端从隔离测试实例实际采集的状态，带测试任务 ID 和采样时刻</td>
+</tr>
+<tr>
+<td>最近测试</td>
+<td>没有当前任务时，取 <code>GET /v1/tests.history[0]</code>，再读取 <code>GET /v1/tests/{id}</code></td>
+<td>最近终态任务的最后有效样本及保留趋势；不是当前在线负载</td>
+</tr>
+<tr>
+<td>最近结束的测试摘要</td>
+<td>正在测试时同时显示 <code>history[0]</code></td>
+<td>上一次终态的任务 ID、并发目标、状态和完成时间；不混入当前任务曲线</td>
+</tr>
+</tbody></table></div>
+<p><code>/v1/tests.current</code> 是响应对象字段，不是单独的 HTTP 路由。测试历史摘要没有完整采样，不能把摘要中的目标并发或发生器累计建立数当成当前并发。已结束任务的详情成功读取后缓存；任务目录仍持续读取，以识别重启或淘汰。</p>
+<p>任务切换时只展示新任务自己的样本，重新计算该任务窗口内峰值，不连接前后两个任务的曲线。主服务曲线只保存本次浏览器打开以来的主服务采样，独立于压测历史。</p>
+<h2 id="指标口径">指标口径</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>实际口径及限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>媒体处理模式</td>
+<td>本次任务冻结的 <code>media_processing</code>，与主服务生效配置独立</td>
+</tr>
+<tr>
+<td>实际解码 / 编码帧</td>
+<td>g711 时取最新 <code>sample.processing</code> 的真实累计帧数；未采集显示 <code>—</code>，relay不伪造处理帧</td>
+</tr>
+<tr>
+<td>目标并发</td>
+<td>创建请求的 <code>concurrency</code>；是目标，不是已达到的数量</td>
+</tr>
+<tr>
+<td>实际活跃通话</td>
+<td>最新有效样本 <code>active_calls</code>；包含仍占有资源的呼叫，媒体释放确认前可能尚未归零</td>
+</tr>
+<tr>
+<td>实际已接通通话</td>
+<td>最新有效样本 <code>established_calls</code>；拆线后会下降，与累计建立成功数不同</td>
+</tr>
+<tr>
+<td>媒体活跃通话</td>
+<td>同一子实例各 Rust 媒体进程报告的活跃通话合计；统计可能比控制面状态稍晚</td>
+</tr>
+<tr>
+<td>健康媒体工作进程</td>
+<td>样本内 <code>healthy_workers / worker_count</code>；只统计此隔离实例，不包含主服务或发生器</td>
+</tr>
+<tr>
+<td>媒体接收 / 发送包</td>
+<td>隔离媒体进程累计计数之和，不是包速率，也不是端到端唯一接收核对</td>
+</tr>
+<tr>
+<td>发生器累计建立成功 / 失败</td>
+<td><code>progress</code> 中的累计结果；不能说明这些成功呼叫在某一时刻仍同时接通</td>
+</tr>
+<tr>
+<td>保留样本内峰值</td>
+<td>任务详情当前保留样本中活跃/接通数的最大值；不是完整测试期间的连续峰值</td>
+</tr>
+<tr>
+<td>媒体用户态 / 内核态 CPU 秒</td>
+<td>Rust 媒体进程各自累计 CPU 时间的合计，不是 CPU 百分比或全机 CPU</td>
+</tr>
+<tr>
+<td>各媒体进程自身峰值 RSS 之和</td>
+<td>各进程已经观察到的最大驻留内存相加；峰值发生时刻可能不同，不是同一时刻整机内存峰值</td>
+</tr>
+<tr>
+<td>测试控制 CPU 使用</td>
+<td>子实例 Go 控制进程相邻成功资源采样之间的 CPU 时间差 / 时间间隔，以“核”表示；可大于 1，首个样本可能尚无值</td>
+</tr>
+<tr>
+<td>测试控制协程 / 运行时线程</td>
+<td>Go 运行时提供的两类计数，不是同一种资源；缺少受支持线程指标时显示 <code>—</code></td>
+</tr>
+<tr>
+<td>套接字丢弃 / 无效包 / 发送错误等</td>
+<td>相应子实例媒体累计计数；平台可能不提供内核丢弃统计，零不能单独证明无丢包</td>
+</tr>
+</tbody></table></div>
+<p>总览测试区域目前提供媒体 worker 汇总，不提供各隔离 worker 的完整逐进程明细。主服务下方的媒体分片表仍是主服务数据，不能拿它代替隔离测试明细。发生器资源不包含在上述媒体或 Go 控制计数中，应从最终报告 <code>result.generator_resources</code> 另行核对。</p>
+<p>主服务控制资源中的 Go 运行时内存也不等于 RSS。各进程和队列字段并非同时采集的原子快照，不能根据一个瞬时差值断言泄漏或丢包。</p>
+<h2 id="采样刷新与历史窗口">采样、刷新与历史窗口</h2>
+<p>测试开始运行后，后端目标每 500 毫秒读取一次发生器进度及子实例 <code>/v1/status</code>，只追加成功状态样本；HTTP 延迟、负载和错误会扩大实际间隔。媒体及控制资源本身还有各自的统计刷新周期，界面刷新更快也不能产生新的底层测量。</p>
+<p>总览可见时，每 3 秒独立刷新主服务状态与测试目录，进入总览时立即尝试读取测试。浏览器页面隐藏后暂停周期刷新；离开总览后不再发起总览专属的测试轮询。离开页面或关闭浏览器不会停止后端正在运行的任务。</p>
+<p>后端最多保留每任务最近 300 个成功样本，按理想 500 毫秒间隔约覆盖 150 秒，实际时长以样本 <code>at</code> 为准。总览测试曲线只绘制其中最近 60 个有效样本，理想间隔下约 30 秒；详情中的窗口峰值使用最多 300 个样本。主服务浏览器曲线独立保留最近 60 次成功读取，理想 3 秒刷新下约 3 分钟。</p>
+<p>完整报告中的 <code>evidence.peak_sampled_active_calls</code>、<code>peak_sampled_established_calls</code> 是全程成功 HTTP 采样的峰值；生命周期日志重建峰值另有 <code>journal_peak_established_calls</code>。它们与总览的保留样本峰值分别命名，不能互相替代，也不能消除采样间隙造成的遗漏。</p>
+<p>最近 20 份任务报告保存在当前主服务进程内存中；重启后清空。需要留档时，在压力与电话测试页下载完整 JSON。总览自身不会把历史记录持久化到浏览器来冒充后端仍持有的任务。</p>
+<h2 id="新鲜度失败与未知值">新鲜度、失败与未知值</h2>
+<p>运行中的任务如果最新子实例采样超过 10 秒未更新，总览保留数值并提示“已过期”。这里使用样本的服务端采集时间 <code>at</code>，并非刚刚读取列表的时间；列表请求成功不能证明媒体样本已经更新。时间缺失或明显位于未来会提示采样时刻异常。客户端与服务器时钟偏差也可能触发提示，应核对实际时钟。</p>
+<p>终态任务标记“结束前最后采样”和“历史值，不是实时负载”，不会把几十分钟前的样本标成当前运行状态。准备或预检阶段没有样本时，实际通话、媒体和资源显示 <code>—</code>，并说明尚未采集，不使用目标值、累计建立值或零填补未知数据。</p>
+<p>测试列表读取失败时保留旧任务并明确提示无法作为实时状态，不把主服务同步改成离线。详情临时失败单独提示并重试；详情 404/410、服务重启或历史淘汰则清除失效选择和旧采样。迟到回复不能覆盖另一页面或新一轮任务选择。每次最多一轮总览测试读取在途，不重叠堆积请求。</p>
+<h2 id="跳转与结果判读">跳转与结果判读</h2>
+<p>“压力与电话测试”和“查看历史记录”均跳转 <code>/#tests</code>，使用测试页面自己的选择逻辑；当前链接不携带指定任务 ID，不承诺直接打开总览所显示的某份历史详情。用户可在测试页选择对应任务、查看完整结果、下载报告，或明确停止当前任务。跳转本身不会创建、停止或重新运行任务。</p>
+<p>总览的“已完成”只显示任务终态，不自行授予完整验收通过。是否通过需结合发生器完整负载、每路每方向核对、异常拆线、持久化和实际资源清理证据。媒体收发总量之差不能替代最终端点唯一包统计。</p>
+<p>低 CPU、较少线程或某个平均值不证明所有并发档位都安全，更不能证明完整 Voice Agent 链路达到生产容量。仍需在冻结硬件、功能、编码、音质及安全配置下测量最忙 worker、尾延迟、网络、录音和真实 ASR/TTS 连接成本；当前转发压测与完整业务验收分别报告。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

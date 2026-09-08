@@ -1,0 +1,1167 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>10 全部专题文档目录 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="active" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 10 全部专题文档目录</div><article class="content"><div class="page-tools"><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 30 节</summary><a href="#candidate">candidate</a><a href="#candidateevidenceclient-independent-audit-02">candidate/evidence/client-independent-audit-02</a><a href="#candidateevidencefull-review-01">candidate/evidence/full-review-01</a><a href="#candidateevidenceserver-independent-audit-01">candidate/evidence/server-independent-audit-01</a><a href="#candidateevidenceserver-no-binding-fix-01">candidate/evidence/server-no-binding-fix-01</a><a href="#candidateevidenceserver-real-02">candidate/evidence/server-real-02</a><a href="#reference">reference</a><a href="#referenceconfig">reference/config</a><a href="#referencecontrolcmdcallbench">reference/control/cmd/callbench</a><a href="#referencecontrolinternalconfig">reference/control/internal/config</a><a href="#referencecontrolinternaljournal">reference/control/internal/journal</a><a href="#referencecontrolinternalmedia">reference/control/internal/media</a><a href="#referencecontrolinternalserver">reference/control/internal/server</a><a href="#referencecontrolinternalserverfs_templates">reference/control/internal/server/fs_templates</a><a href="#referencecontrolinternalserverweb">reference/control/internal/server/web</a><a href="#referencedeploy">reference/deploy</a><a href="#referencedocs">reference/docs</a><a href="#referencedocsapi">reference/docs/api</a><a href="#referencedocsbenchmarks-v02">reference/docs/benchmarks-v0.2</a><a href="#referencedocsfreeswitch-compatibility">reference/docs/freeswitch-compatibility</a><a href="#referencedocsfreeswitch-compatibilitycatalog">reference/docs/freeswitch-compatibility/catalog</a><a href="#referencedocsfreeswitch-compatibilitytemplates">reference/docs/freeswitch-compatibility/templates</a><a href="#referencedocsreviews2026-09-05">reference/docs/reviews/2026-09-05</a><a href="#referencedocsverification-v03">reference/docs/verification-v0.3</a><a href="#referencemediasrc">reference/media/src</a><a href="#referencemediasrcmedia">reference/media/src/media</a><a href="#referencenativeaudio">reference/native/audio</a><a href="#referencenativeinclude">reference/native/include</a><a href="#referencenativevendorspandsp">reference/native/vendor/spandsp</a><a href="#referencetools">reference/tools</a></details><h1 id="10-全部专题文档目录">10 全部专题文档目录</h1>
+<p>本目录复制主工程公开文档及适配头文件；专题和历史报告保留原始字节与版本，不追认它们属于新候选。原始Markdown链接可在离线HTML副本中继续浏览，JSON/CSV/头文件保留下载。</p>
+<p>主入口：<a href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html">HTTP</a> · <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html">模型</a> · <a href="reference/docs/api/comparison.json">完整对照JSON</a> · <a href="reference/docs/api/compatibility-worklist.html">逐项工作清单</a> · <a href="candidate/asr-stream-reference.html">中文ASR候选</a></p>
+<h2 id="candidate">candidate</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="candidate/asr-openapi-update-proposal.html">asr-openapi-update-proposal.md</a></td>
+<td>ASR 资源与配置的 OpenAPI 更新建议</td>
+</tr>
+<tr>
+<td><a href="candidate/asr-stream-reference.html">asr-stream-reference.md</a></td>
+<td>云蝠 Voice Runtime：ASR 上行内部接口说明</td>
+</tr>
+</tbody></table></div>
+<h2 id="candidateevidenceclient-independent-audit-02">candidate/evidence/client-independent-audit-02</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="candidate/evidence/client-independent-audit-02/receipt.json">receipt.json</a></td>
+<td>receipt.json</td>
+</tr>
+</tbody></table></div>
+<h2 id="candidateevidencefull-review-01">candidate/evidence/full-review-01</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="candidate/evidence/full-review-01/receipt.json">receipt.json</a></td>
+<td>receipt.json</td>
+</tr>
+</tbody></table></div>
+<h2 id="candidateevidenceserver-independent-audit-01">candidate/evidence/server-independent-audit-01</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="candidate/evidence/server-independent-audit-01/receipt.json">receipt.json</a></td>
+<td>receipt.json</td>
+</tr>
+</tbody></table></div>
+<h2 id="candidateevidenceserver-no-binding-fix-01">candidate/evidence/server-no-binding-fix-01</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="candidate/evidence/server-no-binding-fix-01/receipt.json">receipt.json</a></td>
+<td>receipt.json</td>
+</tr>
+</tbody></table></div>
+<h2 id="candidateevidenceserver-real-02">candidate/evidence/server-real-02</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="candidate/evidence/server-real-02/receipt.json">receipt.json</a></td>
+<td>receipt.json</td>
+</tr>
+</tbody></table></div>
+<h2 id="reference">reference</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/README.html">README.md</a></td>
+<td>云蝠 Voice Runtime · RustSwitch 实时语音内核</td>
+</tr>
+</tbody></table></div>
+<h2 id="referenceconfig">reference/config</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/config/linux-10000.example.json">linux-10000.example.json</a></td>
+<td>linux-10000.example.json</td>
+</tr>
+<tr>
+<td><a href="reference/config/local.json">local.json</a></td>
+<td>local.json</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencecontrolcmdcallbench">reference/control/cmd/callbench</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/control/cmd/callbench/main.go">main.go</a></td>
+<td>main.go</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencecontrolinternalconfig">reference/control/internal/config</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/control/internal/config/config.go">config.go</a></td>
+<td>config.go</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencecontrolinternaljournal">reference/control/internal/journal</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/control/internal/journal/journal.go">journal.go</a></td>
+<td>journal.go</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencecontrolinternalmedia">reference/control/internal/media</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/control/internal/media/pool.go">pool.go</a></td>
+<td>pool.go</td>
+</tr>
+<tr>
+<td><a href="reference/control/internal/media/pressure.go">pressure.go</a></td>
+<td>pressure.go</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencecontrolinternalserver">reference/control/internal/server</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/control/internal/server/calls.go">calls.go</a></td>
+<td>calls.go</td>
+</tr>
+<tr>
+<td><a href="reference/control/internal/server/documentation.go">documentation.go</a></td>
+<td>documentation.go</td>
+</tr>
+<tr>
+<td><a href="reference/control/internal/server/documentation_test.go">documentation_test.go</a></td>
+<td>documentation_test.go</td>
+</tr>
+<tr>
+<td><a href="reference/control/internal/server/server.go">server.go</a></td>
+<td>server.go</td>
+</tr>
+<tr>
+<td><a href="reference/control/internal/server/timers.go">timers.go</a></td>
+<td>timers.go</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencecontrolinternalserverfs_templates">reference/control/internal/server/fs_templates</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/control/internal/server/fs_templates/LICENSE.freeswitch">LICENSE.freeswitch</a></td>
+<td>LICENSE.freeswitch</td>
+</tr>
+<tr>
+<td><a href="reference/control/internal/server/fs_templates/SOURCE.json">SOURCE.json</a></td>
+<td>SOURCE.json</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencecontrolinternalserverweb">reference/control/internal/server/web</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/control/internal/server/web/docs.css">docs.css</a></td>
+<td>docs.css</td>
+</tr>
+<tr>
+<td><a href="reference/control/internal/server/web/docs.js">docs.js</a></td>
+<td>docs.js</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencedeploy">reference/deploy</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/deploy/rustswitch.service">rustswitch.service</a></td>
+<td>rustswitch.service</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencedocs">reference/docs</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/docs/architecture.html">architecture.md</a></td>
+<td>云蝠 Voice Runtime 架构决策与实现状态</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmark-local-100.json">benchmark-local-100.json</a></td>
+<td>benchmark-local-100.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmark-local-1000-burst-failed.json">benchmark-local-1000-burst-failed.json</a></td>
+<td>benchmark-local-1000-burst-failed.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmark-local-1000-spread.json">benchmark-local-1000-spread.json</a></td>
+<td>benchmark-local-1000-spread.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmark-local-pcma.json">benchmark-local-pcma.json</a></td>
+<td>benchmark-local-pcma.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/build-info.json">build-info.json</a></td>
+<td>build-info.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/diagnostic-local-1000-direct.json">diagnostic-local-1000-direct.json</a></td>
+<td>diagnostic-local-1000-direct.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/diagnostic-local-1000-go-relay.json">diagnostic-local-1000-go-relay.json</a></td>
+<td>diagnostic-local-1000-go-relay.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/interface-documentation-v1.html">interface-documentation-v1.md</a></td>
+<td>管理后台接口文档交付记录</td>
+</tr>
+<tr>
+<td><a href="reference/docs/linux-validation.html">linux-validation.md</a></td>
+<td>Linux 容量与稳定性验收</td>
+</tr>
+<tr>
+<td><a href="reference/docs/management-v0.3.html">management-v0.3.md</a></td>
+<td>RustSwitch 0.3.0 中文管理功能交付说明</td>
+</tr>
+<tr>
+<td><a href="reference/docs/media-counters-1000-spread.json">media-counters-1000-spread.json</a></td>
+<td>media-counters-1000-spread.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/optimization-review-2026-09-05.html">optimization-review-2026-09-05.md</a></td>
+<td>RustSwitch 代码与容量优化审查</td>
+</tr>
+<tr>
+<td><a href="reference/docs/optimization-v0.2.html">optimization-v0.2.md</a></td>
+<td>RustSwitch 0.2：性能优化与验收记录</td>
+</tr>
+<tr>
+<td><a href="reference/docs/testlab-validation.html">testlab-validation.md</a></td>
+<td>压力与电话测试交付记录</td>
+</tr>
+<tr>
+<td><a href="reference/docs/verification.html">verification.md</a></td>
+<td>0.1 历史验证记录 · 2026-09-05</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencedocsapi">reference/docs/api</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/docs/api/README.html">README.md</a></td>
+<td>RustSwitch 接口文档中心</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/ai-calling-reference.html">ai-calling-reference.md</a></td>
+<td>AI 呼叫接入与本轮兼容范围</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/ai-calling-verification-v1.7.json">ai-calling-verification-v1.7.json</a></td>
+<td>ai-calling-verification-v1.7.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/ai-calling-verification-v1.7.html">ai-calling-verification-v1.7.md</a></td>
+<td>基础应用、WAV播放与XML拨号计划的实际对照</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/ai-calling-verification-v1.8.json">ai-calling-verification-v1.8.json</a></td>
+<td>ai-calling-verification-v1.8.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/ai-calling-verification-v1.8.html">ai-calling-verification-v1.8.md</a></td>
+<td>基础应用、WAV播放与XML拨号计划的实际对照</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/ai-calling-verification-v1.9.json">ai-calling-verification-v1.9.json</a></td>
+<td>ai-calling-verification-v1.9.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/ai-calling-verification-v1.9.html">ai-calling-verification-v1.9.md</a></td>
+<td>基础应用、WAV/XML与真实DTMF发送的实际对照</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/ai-calling-verification.json">ai-calling-verification.json</a></td>
+<td>ai-calling-verification.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/ai-calling-verification.html">ai-calling-verification.md</a></td>
+<td>AI电话能力复核记录</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/audio-frame-reference.html">audio-frame-reference.md</a></td>
+<td>多采样率 AudioFrame、借用帧与离线分支</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/audio-reference.html">audio-reference.md</a></td>
+<td>音频接口、编解码与 FreeSWITCH 对照</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/audio-sdk-verification-v1.9.json">audio-sdk-verification-v1.9.json</a></td>
+<td>audio-sdk-verification-v1.9.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/build-validation-v1.9.json">build-validation-v1.9.json</a></td>
+<td>build-validation-v1.9.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/channel-snapshot-reference.html">channel-snapshot-reference.md</a></td>
+<td>通道快照 uuid_dump</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/comparison.json">comparison.json</a></td>
+<td>comparison.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/compatibility-baseline-v1.10.json">compatibility-baseline-v1.10.json</a></td>
+<td>compatibility-baseline-v1.10.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/compatibility-baseline-v1.11.json">compatibility-baseline-v1.11.json</a></td>
+<td>compatibility-baseline-v1.11.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/compatibility-baseline-v1.12.json">compatibility-baseline-v1.12.json</a></td>
+<td>compatibility-baseline-v1.12.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/compatibility-baseline-v1.7.json">compatibility-baseline-v1.7.json</a></td>
+<td>compatibility-baseline-v1.7.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/compatibility-baseline-v1.8.json">compatibility-baseline-v1.8.json</a></td>
+<td>compatibility-baseline-v1.8.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/compatibility-baseline-v1.9.json">compatibility-baseline-v1.9.json</a></td>
+<td>compatibility-baseline-v1.9.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/compatibility-progress.json">compatibility-progress.json</a></td>
+<td>compatibility-progress.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/compatibility-worklist.csv">compatibility-worklist.csv</a></td>
+<td>compatibility-worklist.csv</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/compatibility-worklist.json">compatibility-worklist.json</a></td>
+<td>compatibility-worklist.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/compatibility-worklist.html">compatibility-worklist.md</a></td>
+<td>兼容缺口逐项推进清单</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/conformance-build.json">conformance-build.json</a></td>
+<td>conformance-build.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/conformance-plan.json">conformance-plan.json</a></td>
+<td>conformance-plan.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/conformance-reference.json">conformance-reference.json</a></td>
+<td>conformance-reference.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/conformance-report.json">conformance-report.json</a></td>
+<td>conformance-report.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/conformance-report.html">conformance-report.md</a></td>
+<td>FreeSWITCH 成对协议验证报告</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/conformance-summary.json">conformance-summary.json</a></td>
+<td>conformance-summary.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/conformance-testing.html">conformance-testing.md</a></td>
+<td>完整兼容测试计划与成对协议执行器</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/dialplan-reference.html">dialplan-reference.md</a></td>
+<td>受限 FreeSWITCH XML 拨号计划与基础应用</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/dtmf-send-reference.html">dtmf-send-reference.md</a></td>
+<td>本地电话 DTMF 发送与状态查询</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/esl-reference.html">esl-reference.md</a></td>
+<td>入站 ESL 接口与 FreeSWITCH 对照</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/event-lifecycle-reference.html">event-lifecycle-reference.md</a></td>
+<td>应用与媒体生命周期事件（1.12 受限合同）</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/feature-audit.json">feature-audit.json</a></td>
+<td>feature-audit.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/feature-audit.html">feature-audit.md</a></td>
+<td>FreeSWITCH 功能覆盖与超越能力审计</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/file-playback-reference.html">file-playback-reference.md</a></td>
+<td>受限 WAV 文件播放</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/freeswitch-comparison.html">freeswitch-comparison.md</a></td>
+<td>FreeSWITCH 1.11.3 与 RustSwitch 逐项接口对照</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/http-reference.html">http-reference.md</a></td>
+<td>RustSwitch HTTP 管理接口参考</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/ivr-reference.html">ivr-reference.md</a></td>
+<td>ESL 应用、按键收集与本地 IVR</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/media-interaction.html">media-interaction.md</a></td>
+<td>媒体按键采集、提示音与 PCM 接口</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/media-ipc.schema.json">media-ipc.schema.json</a></td>
+<td>media-ipc.schema.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/openapi.json">openapi.json</a></td>
+<td>openapi.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/overview-testing-reference.html">overview-testing-reference.md</a></td>
+<td>运行总览与隔离测试观测</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/pcm-turn-reference.html">pcm-turn-reference.md</a></td>
+<td>PCM 轮次队列与内部数据通道（1.12.0）</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/processed-local-reference.html">processed-local-reference.md</a></td>
+<td>本地单腿 G.711：电话 IVR 与智能体媒体入口</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/processed-local-verification-v1.11.json">processed-local-verification-v1.11.json</a></td>
+<td>processed-local-verification-v1.11.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/processed-media-reference.html">processed-media-reference.md</a></td>
+<td>实时 G.711 双向媒体处理说明</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/processed-media-verification.json">processed-media-verification.json</a></td>
+<td>processed-media-verification.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/processed-testing-reference.html">processed-testing-reference.md</a></td>
+<td>真实音频处理压测与能力目录（1.10）</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/protocol-reference.html">protocol-reference.md</a></td>
+<td>SIP、媒体、内部通信与原生接口完整说明</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/release-validation-m1.html">release-validation-m1.md</a></td>
+<td>M1 首轮 G.711 候选：历史验证记录</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/release-validation-v1.10.html">release-validation-v1.10.md</a></td>
+<td>v1.10：G.711 实时处理与管理测试复核</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/release-validation-v1.11.html">release-validation-v1.11.md</a></td>
+<td>v1.11：本地单腿 PCM 与 IVR 验证记录</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/release-validation-v1.12.html">release-validation-v1.12.md</a></td>
+<td>v1.12：PCM 轮次与已 ACK 外部流式入口验证</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/release-validation-v1.13.html">release-validation-v1.13.md</a></td>
+<td>1.13：本地 A 腿持续收音与过期语音拒绝</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/release-validation-v1.5.html">release-validation-v1.5.md</a></td>
+<td>RustSwitch 1.5 开发交付与验证说明</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/release-validation-v1.6.html">release-validation-v1.6.md</a></td>
+<td>1.6 线路注册、按键与 IVR 实测记录</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/release-validation-v1.7.html">release-validation-v1.7.md</a></td>
+<td>RustSwitch 1.7 缺口实现与逐项验证</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/release-validation-v1.8.html">release-validation-v1.8.md</a></td>
+<td>RustSwitch 1.8 缺口推进与逐项验证</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/release-validation-v1.9.html">release-validation-v1.9.md</a></td>
+<td>云蝠 Voice Runtime 1.9：总览压测观测与语音智能体方向</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/runtime-diagnostics-reference.html">runtime-diagnostics-reference.md</a></td>
+<td>压测 Go 运行时诊断：日志观察与边界</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/runtime-verification.json">runtime-verification.json</a></td>
+<td>runtime-verification.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/runtime-verification.html">runtime-verification.md</a></td>
+<td>本地运行验证与绿色状态</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/rva1-reference.html">rva1-reference.md</a></td>
+<td>RVA1 外部 PCM 流接口（1.12.0）</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/rx-stream-reference.html">rx-stream-reference.md</a></td>
+<td>本地通话上行音频：RXS2 与 Go RX SDK</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/schema-reference.html">schema-reference.md</a></td>
+<td>完整接口字段字典</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/stability-reference.html">stability-reference.md</a></td>
+<td>通话稳定性、资源保护与验证边界</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/testing-reference.html">testing-reference.md</a></td>
+<td>压力模拟与测试小电话接口</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/testlab-verification-v1.10.json">testlab-verification-v1.10.json</a></td>
+<td>testlab-verification-v1.10.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/testlab-verification-v1.6.json">testlab-verification-v1.6.json</a></td>
+<td>testlab-verification-v1.6.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/testlab-verification-v1.7.json">testlab-verification-v1.7.json</a></td>
+<td>testlab-verification-v1.7.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/testlab-verification-v1.8.json">testlab-verification-v1.8.json</a></td>
+<td>testlab-verification-v1.8.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/testlab-verification-v1.9.json">testlab-verification-v1.9.json</a></td>
+<td>testlab-verification-v1.9.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/trunk-registration.html">trunk-registration.md</a></td>
+<td>上游 SIP 中继注册与认证</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/variables-reference.html">variables-reference.md</a></td>
+<td>批量通道变量与 FreeSWITCH 对照</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/verification-2026-09-05.html">verification-2026-09-05.md</a></td>
+<td>稳定性优化验证记录 · 2026-09-05</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/verification-2026-09-06.json">verification-2026-09-06.json</a></td>
+<td>verification-2026-09-06.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/verification-2026-09-06.html">verification-2026-09-06.md</a></td>
+<td>2026-09-06 逐项核查、编码与压力实测记录</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/verification-5000-2026-09-06.json">verification-5000-2026-09-06.json</a></td>
+<td>verification-5000-2026-09-06.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/verification-5000-2026-09-06.html">verification-5000-2026-09-06.md</a></td>
+<td>5000路验证与本轮逐项复核</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/verification-5000-entries.csv">verification-5000-entries.csv</a></td>
+<td>verification-5000-entries.csv</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/verification-ledger.csv">verification-ledger.csv</a></td>
+<td>verification-ledger.csv</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/verification-ledger.json">verification-ledger.json</a></td>
+<td>verification-ledger.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/verification-ledger.html">verification-ledger.md</a></td>
+<td>FreeSWITCH 逐项验证账本</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/voice-runtime-direction.html">voice-runtime-direction.md</a></td>
+<td>云蝠 Voice Runtime：研发方向与验收标准</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/voice-runtime-roadmap.json">voice-runtime-roadmap.json</a></td>
+<td>voice-runtime-roadmap.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/api/voice-runtime-v1-acceptance.html">voice-runtime-v1-acceptance.md</a></td>
+<td>云蝠 Voice Runtime V1 长期目标与逐项验收</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencedocsbenchmarks-v02">reference/docs/benchmarks-v0.2</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/docs/benchmarks-v0.2/10000.evidence.json">10000.evidence.json</a></td>
+<td>10000.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/10000.json">10000.json</a></td>
+<td>10000.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/all-connected-1000-30s.evidence.json">all-connected-1000-30s.evidence.json</a></td>
+<td>all-connected-1000-30s.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/all-connected-1000-30s.json">all-connected-1000-30s.json</a></td>
+<td>all-connected-1000-30s.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/all-connected-1000.evidence.json">all-connected-1000.evidence.json</a></td>
+<td>all-connected-1000.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/all-connected-1000.json">all-connected-1000.json</a></td>
+<td>all-connected-1000.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/all-connected-5000-v2.evidence.json">all-connected-5000-v2.evidence.json</a></td>
+<td>all-connected-5000-v2.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/all-connected-5000-v2.json">all-connected-5000-v2.json</a></td>
+<td>all-connected-5000-v2.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/baseline-1000.json">baseline-1000.json</a></td>
+<td>baseline-1000.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/connected-1000.evidence.json">connected-1000.evidence.json</a></td>
+<td>connected-1000.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/connected-1000.json">connected-1000.json</a></td>
+<td>connected-1000.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/direct-5000.evidence.json">direct-5000.evidence.json</a></td>
+<td>direct-5000.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/direct-5000.json">direct-5000.json</a></td>
+<td>direct-5000.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/direction-1000.evidence.json">direction-1000.evidence.json</a></td>
+<td>direction-1000.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/direction-1000.json">direction-1000.json</a></td>
+<td>direction-1000.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/final-1000-60s.evidence.json">final-1000-60s.evidence.json</a></td>
+<td>final-1000-60s.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/final-1000-60s.json">final-1000-60s.json</a></td>
+<td>final-1000-60s.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/final-burst-1000.evidence.json">final-burst-1000.evidence.json</a></td>
+<td>final-burst-1000.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/final-burst-1000.json">final-burst-1000.json</a></td>
+<td>final-burst-1000.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/final-dialudp-1000-60s.evidence.json">final-dialudp-1000-60s.evidence.json</a></td>
+<td>final-dialudp-1000-60s.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/final-dialudp-1000-60s.json">final-dialudp-1000-60s.json</a></td>
+<td>final-dialudp-1000-60s.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/fine-phase-5000-v2.evidence.json">fine-phase-5000-v2.evidence.json</a></td>
+<td>fine-phase-5000-v2.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/fine-phase-5000-v2.json">fine-phase-5000-v2.json</a></td>
+<td>fine-phase-5000-v2.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/grouped-10000.evidence.json">grouped-10000.evidence.json</a></td>
+<td>grouped-10000.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/grouped-10000.json">grouped-10000.json</a></td>
+<td>grouped-10000.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/host-baseline-1000.json">host-baseline-1000.json</a></td>
+<td>host-baseline-1000.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/index.json">index.json</a></td>
+<td>index.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/race-connected.evidence.json">race-connected.evidence.json</a></td>
+<td>race-connected.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/race-connected.json">race-connected.json</a></td>
+<td>race-connected.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/race-grouped.evidence.json">race-grouped.evidence.json</a></td>
+<td>race-grouped.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/race-grouped.json">race-grouped.json</a></td>
+<td>race-grouped.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/shuffle-5000.evidence.json">shuffle-5000.evidence.json</a></td>
+<td>shuffle-5000.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/shuffle-5000.json">shuffle-5000.json</a></td>
+<td>shuffle-5000.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/slots-1000.evidence.json">slots-1000.evidence.json</a></td>
+<td>slots-1000.evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/benchmarks-v0.2/slots-1000.json">slots-1000.json</a></td>
+<td>slots-1000.json</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencedocsfreeswitch-compatibility">reference/docs/freeswitch-compatibility</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/docs/freeswitch-compatibility/01-scope-and-contract.html">01-scope-and-contract.md</a></td>
+<td>01 · 范围、基线与统一契约</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/02-esl-events.html">02-esl-events.md</a></td>
+<td>ESL、事件与 fs_cli 无改动接入标准</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/03-config-dialplan-integrations.html">03-config-dialplan-integrations.md</a></td>
+<td>03 · 配置、拨号计划与业务集成兼容契约</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/04-sip-media-native.html">04-sip-media-native.md</a></td>
+<td>04 SIP、媒体、原生模块与切换连续性标准</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/05-api-contracts.html">05-api-contracts.md</a></td>
+<td>05 · API 命令与业务行为契约</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/06-conformance-and-cutover.html">06-conformance-and-cutover.md</a></td>
+<td>06 · 差分验收与无感切换</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/07-current-gap-and-roadmap.html">07-current-gap-and-roadmap.md</a></td>
+<td>07 · 当前实现差距与落实顺序</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/FULL-STANDARD.html">FULL-STANDARD.md</a></td>
+<td>FreeSWITCH 1.11.3 无感替换接口标准 · 合订版</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/README.html">README.md</a></td>
+<td>FreeSWITCH 无感替换接口标准</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencedocsfreeswitch-compatibilitycatalog">reference/docs/freeswitch-compatibility/catalog</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/README.html">README.md</a></td>
+<td>源码目录、子命令与测试索引的使用范围</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/api-and-applications.csv">api-and-applications.csv</a></td>
+<td>api-and-applications.csv</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/api-and-applications.html">api-and-applications.md</a></td>
+<td>FreeSWITCH 1.11.3 API 与应用注册目录</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/channel-variable-macros.csv">channel-variable-macros.csv</a></td>
+<td>channel-variable-macros.csv</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/conference-and-sofia-subcommands.json">conference-and-sofia-subcommands.json</a></td>
+<td>conference-and-sofia-subcommands.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/conference-and-sofia-subcommands.html">conference-and-sofia-subcommands.md</a></td>
+<td>Conference与Sofia子命令源码目录</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/conformance-cases.csv">conformance-cases.csv</a></td>
+<td>conformance-cases.csv</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/conformance-cases.json">conformance-cases.json</a></td>
+<td>conformance-cases.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/events.csv">events.csv</a></td>
+<td>events.csv</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/modules.csv">modules.csv</a></td>
+<td>modules.csv</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/native-functions.csv">native-functions.csv</a></td>
+<td>native-functions.csv</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/reference-source-manifest.json">reference-source-manifest.json</a></td>
+<td>reference-source-manifest.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/source-catalog.json">source-catalog.json</a></td>
+<td>source-catalog.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/vanilla-parameters.csv">vanilla-parameters.csv</a></td>
+<td>vanilla-parameters.csv</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/catalog/verification.json">verification.json</a></td>
+<td>verification.json</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencedocsfreeswitch-compatibilitytemplates">reference/docs/freeswitch-compatibility/templates</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/docs/freeswitch-compatibility/templates/README.html">README.md</a></td>
+<td>兼容验收记录模板</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/templates/baseline-profile.json">baseline-profile.json</a></td>
+<td>baseline-profile.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/templates/certification-report.json">certification-report.json</a></td>
+<td>certification-report.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/freeswitch-compatibility/templates/interface-contract.json">interface-contract.json</a></td>
+<td>interface-contract.json</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencedocsreviews2026-09-05">reference/docs/reviews/2026-09-05</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/docs/reviews/2026-09-05/connect-order-reproduction.log">connect-order-reproduction.log</a></td>
+<td>connect-order-reproduction.log</td>
+</tr>
+<tr>
+<td><a href="reference/docs/reviews/2026-09-05/control-timeout-reproduction.log">control-timeout-reproduction.log</a></td>
+<td>control-timeout-reproduction.log</td>
+</tr>
+<tr>
+<td><a href="reference/docs/reviews/2026-09-05/journal-reproduction.log">journal-reproduction.log</a></td>
+<td>journal-reproduction.log</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencedocsverification-v03">reference/docs/verification-v0.3</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/docs/verification-v0.3/README.html">README.md</a></td>
+<td>0.3.0 实际验证记录</td>
+</tr>
+<tr>
+<td><a href="reference/docs/verification-v0.3/build-manifest.json">build-manifest.json</a></td>
+<td>build-manifest.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/verification-v0.3/capacity-100-evidence.json">capacity-100-evidence.json</a></td>
+<td>capacity-100-evidence.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/verification-v0.3/capacity-100-report.json">capacity-100-report.json</a></td>
+<td>capacity-100-report.json</td>
+</tr>
+<tr>
+<td><a href="reference/docs/verification-v0.3/e2e-connected.log">e2e-connected.log</a></td>
+<td>e2e-connected.log</td>
+</tr>
+<tr>
+<td><a href="reference/docs/verification-v0.3/e2e-udp.log">e2e-udp.log</a></td>
+<td>e2e-udp.log</td>
+</tr>
+<tr>
+<td><a href="reference/docs/verification-v0.3/format-clippy-build.log">format-clippy-build.log</a></td>
+<td>format-clippy-build.log</td>
+</tr>
+<tr>
+<td><a href="reference/docs/verification-v0.3/go-test-race-vet.log">go-test-race-vet.log</a></td>
+<td>go-test-race-vet.log</td>
+</tr>
+<tr>
+<td><a href="reference/docs/verification-v0.3/protection-desktop.png">protection-desktop.png</a></td>
+<td>protection-desktop.png</td>
+</tr>
+<tr>
+<td><a href="reference/docs/verification-v0.3/rust-codec.log">rust-codec.log</a></td>
+<td>rust-codec.log</td>
+</tr>
+<tr>
+<td><a href="reference/docs/verification-v0.3/ui-verification.json">ui-verification.json</a></td>
+<td>ui-verification.json</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencemediasrc">reference/media/src</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/media/src/admission.rs">admission.rs</a></td>
+<td>admission.rs</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencemediasrcmedia">reference/media/src/media</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/media/src/media/io.rs">io.rs</a></td>
+<td>io.rs</td>
+</tr>
+<tr>
+<td><a href="reference/media/src/media/protocol.rs">protocol.rs</a></td>
+<td>protocol.rs</td>
+</tr>
+<tr>
+<td><a href="reference/media/src/media/worker.rs">worker.rs</a></td>
+<td>worker.rs</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencenativeaudio">reference/native/audio</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/native/audio/OPUS-COPYING">OPUS-COPYING</a></td>
+<td>OPUS-COPYING</td>
+</tr>
+<tr>
+<td><a href="reference/native/audio/README.html">README.md</a></td>
+<td>原生音频依赖与离线 PCM SDK</td>
+</tr>
+<tr>
+<td><a href="reference/native/audio/sources.json">sources.json</a></td>
+<td>sources.json</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencenativeinclude">reference/native/include</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/native/include/rustswitch_codec.h">rustswitch_codec.h</a></td>
+<td>rustswitch_codec.h</td>
+</tr>
+<tr>
+<td><a href="reference/native/include/rustswitch_protocol.h">rustswitch_protocol.h</a></td>
+<td>rustswitch_protocol.h</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencenativevendorspandsp">reference/native/vendor/spandsp</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/native/vendor/spandsp/COPYING">COPYING</a></td>
+<td>COPYING</td>
+</tr>
+</tbody></table></div>
+<h2 id="referencetools">reference/tools</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="reference/tools/build_api_docs.py">build_api_docs.py</a></td>
+<td>build_api_docs.py</td>
+</tr>
+<tr>
+<td><a href="reference/tools/build_interface_comparison.py">build_interface_comparison.py</a></td>
+<td>build_interface_comparison.py</td>
+</tr>
+<tr>
+<td><a href="reference/tools/collect_linux.py">collect_linux.py</a></td>
+<td>collect_linux.py</td>
+</tr>
+<tr>
+<td><a href="reference/tools/local_bench.py">local_bench.py</a></td>
+<td>local_bench.py</td>
+</tr>
+</tbody></table></div>
+<p>完整递归文件和SHA-256见 <a href="manifest.json">manifest.json</a>。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

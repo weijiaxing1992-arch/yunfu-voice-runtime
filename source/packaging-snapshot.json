@@ -1,0 +1,73 @@
+{
+  "at": "2026-09-08T03:59:25.029525+00:00",
+  "source_counts": {
+    "main": 1126,
+    "asr-candidate": 1171
+  },
+  "exclusions": {
+    "main": [
+      ".DS_Store",
+      "bin/callbench",
+      "bin/librustswitch_g711.dylib",
+      "bin/rustswitch",
+      "bin/rustswitch-media",
+      "docs/freeswitch-compatibility/tools/__pycache__/build_catalog.cpython-312.pyc",
+      "tests/__pycache__/codec_e2e.cpython-312.pyc",
+      "tests/__pycache__/dialplan_e2e.cpython-312.pyc",
+      "tests/__pycache__/dtmf_send_e2e.cpython-312.pyc",
+      "tests/__pycache__/e2e.cpython-312.pyc",
+      "tests/__pycache__/esl_applications_e2e.cpython-312.pyc",
+      "tests/__pycache__/esl_channel_snapshot_e2e.cpython-312.pyc",
+      "tests/__pycache__/esl_e2e.cpython-312.pyc",
+      "tests/__pycache__/esl_variables_e2e.cpython-312.pyc",
+      "tests/__pycache__/event_lifecycle_e2e.cpython-312.pyc",
+      "tests/__pycache__/file_playback_e2e.cpython-312.pyc",
+      "tests/__pycache__/media_interaction_e2e.cpython-312.pyc",
+      "tests/__pycache__/media_pcm_turn_e2e.cpython-312.pyc",
+      "tests/__pycache__/media_processed_fixture.cpython-312.pyc",
+      "tests/__pycache__/media_processed_local_e2e.cpython-312.pyc",
+      "tests/__pycache__/media_rx_stream_e2e.cpython-312.pyc",
+      "tests/__pycache__/playback_controls_e2e.cpython-312.pyc",
+      "tests/__pycache__/sip_pcm_stream_e2e.cpython-312.pyc",
+      "tests/__pycache__/test_testlab_e2e.cpython-312.pyc",
+      "tests/__pycache__/testlab_e2e.cpython-312.pyc",
+      "tests/conformance/__pycache__/suite.cpython-312.pyc",
+      "tools/__pycache__/analyze_testlab_runtime.cpython-312.pyc",
+      "tools/__pycache__/build_api_docs.cpython-312.pyc",
+      "tools/__pycache__/build_compatibility_progress.cpython-312.pyc",
+      "tools/__pycache__/build_conformance_report.cpython-312.pyc",
+      "tools/__pycache__/build_feature_audit.cpython-312.pyc",
+      "tools/__pycache__/build_interface_comparison.cpython-312.pyc",
+      "tools/__pycache__/build_runtime_verification.cpython-312.pyc",
+      "tools/__pycache__/build_schema_reference.cpython-312.pyc",
+      "tools/__pycache__/build_verification_ledger.cpython-312.pyc",
+      "tools/__pycache__/pcm_verification.cpython-312.pyc",
+      "tools/__pycache__/rx_verification.cpython-312.pyc",
+      "tools/__pycache__/test_compatibility_progress.cpython-312.pyc",
+      "tools/__pycache__/test_conformance.cpython-312.pyc",
+      "tools/__pycache__/test_conformance_publish.cpython-312.pyc",
+      "tools/__pycache__/test_pcm_verification.cpython-312.pyc",
+      "tools/__pycache__/test_processed_runtime_verification.cpython-312.pyc",
+      "tools/__pycache__/test_runtime_verification.cpython-312.pyc",
+      "tools/__pycache__/test_rx_verification.cpython-312.pyc",
+      "tools/__pycache__/test_testlab_runtime_diagnostics.cpython-312.pyc",
+      "tools/__pycache__/test_verification_ledger.cpython-312.pyc"
+    ],
+    "asr-candidate": [
+      "asr-observe-unit-01.jsonl",
+      "asr-observe-unit-02.jsonl",
+      "root-unit-01.jsonl",
+      "root-unit-02.jsonl",
+      "root-unit-03.jsonl",
+      "root-unit-04.jsonl",
+      "rx-metadata-unit-01.jsonl"
+    ]
+  },
+  "candidate_delta_count": 59,
+  "benchmark_working_delta": [
+    "control/internal/server/benchmark_runner.go",
+    "control/internal/server/benchmark_failure_diagnostics_test.go"
+  ],
+  "no_original_sources_modified": true,
+  "main_service_restarted": false
+}

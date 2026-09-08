@@ -1,0 +1,116 @@
+{
+  "variant": "asr-candidate",
+  "scope": "离线编译源码与C ABI示例；不启动SIP/HTTP，不运行容量验收，不授予发布状态。",
+  "started_at": 1788840062.325521,
+  "steps": [
+    {
+      "name": "go-version",
+      "argv": [
+        "go",
+        "version"
+      ],
+      "exit_code": 0,
+      "seconds": 0.075
+    },
+    {
+      "name": "rust-version",
+      "argv": [
+        "cargo",
+        "--version"
+      ],
+      "exit_code": 0,
+      "seconds": 0.041
+    },
+    {
+      "name": "control",
+      "argv": [
+        "go",
+        "build",
+        "-mod=vendor",
+        "-trimpath",
+        "-o",
+        "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/rustswitch",
+        "./cmd/rustswitch"
+      ],
+      "exit_code": 0,
+      "seconds": 1.488
+    },
+    {
+      "name": "callbench",
+      "argv": [
+        "go",
+        "build",
+        "-mod=vendor",
+        "-trimpath",
+        "-o",
+        "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/callbench",
+        "./cmd/callbench"
+      ],
+      "exit_code": 0,
+      "seconds": 0.38
+    },
+    {
+      "name": "asr-mock",
+      "argv": [
+        "go",
+        "build",
+        "-mod=vendor",
+        "-trimpath",
+        "-o",
+        "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/asr-mock",
+        "./cmd/asr-mock"
+      ],
+      "exit_code": 0,
+      "seconds": 0.282
+    },
+    {
+      "name": "media",
+      "argv": [
+        "cargo",
+        "--config",
+        "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/cargo-config.toml",
+        "build",
+        "--locked",
+        "--offline",
+        "--release",
+        "--manifest-path",
+        "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/asr-candidate/media/Cargo.toml",
+        "--target-dir",
+        "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/cargo-target"
+      ],
+      "exit_code": 0,
+      "seconds": 26.972
+    },
+    {
+      "name": "codec-plugin",
+      "argv": [
+        "cc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-dynamiclib",
+        "-I",
+        "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/asr-candidate/native/include",
+        "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/asr-candidate/native/examples/g711_plugin.c",
+        "-o",
+        "/workspace/yunfu-voice-runtime/work/project-delivery-2026-09-08/build-asr-candidate-01/librustswitch_g711.dylib"
+      ],
+      "exit_code": 0,
+      "seconds": 0.124
+    }
+  ],
+  "source_unchanged": true,
+  "finished_at": 1788840092.202261,
+  "passed": true,
+  "logs": {
+    "callbench.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "media.log": "e9d74e16123e4ed664b411a8c5a99aae77165b65c71972fc86ccb4336b164e58",
+    "rust-version.log": "9950bbb2d5c3417b1a068f0e81f6d3cac991a363193bdf2a22d447f5acf8b503",
+    "codec-plugin.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "control.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "asr-mock.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "go-version.log": "c528ba02b39880f1357f51dee70e41c1ef03e3a70c7a03055c080532b9635f58"
+  }
+}

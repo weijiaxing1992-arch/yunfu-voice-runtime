@@ -1,0 +1,41 @@
+{
+  "project_version": "0.3.0",
+  "media_component_version": "0.2.0",
+  "platform": "macOS arm64",
+  "date": "2026-09-05",
+  "linux_go_amd64_build": "passed (build only)",
+  "binaries": {
+    "rustswitch": "0f95f449361dc67fcc49380b9fd56ed1ae4143bf957a2526024142f365d15a88",
+    "rustswitch-media": "d5515ce63a7b696f19db9948ed5f77bb7defc1ab677308ec88cee6e9faa925dc",
+    "callbench": "27ecc05f643ac07cefaa0827015546d94dc6065ed764f6d0041db318ecce67cc",
+    "librustswitch_g711.dylib": "5f06067a2b60128545bf3533a45eabde2407074c169dca66a74c64614a8ce795"
+  },
+  "go_sources": {
+    "control/cmd/rustswitch/main.go": "42f5ee23b217d76bb95d6d23d1a513ade27965ad289f118782d6b667f29ea367",
+    "control/cmd/callbench/resources_unix.go": "0ba08ecf59868e6aaaac87bc7a50120c6677f3d3c8801728cca482f7ee1f35f1",
+    "control/cmd/callbench/main.go": "c1e3dec53b36e122450a9b355363a24055ca84f76dc2602f3397917fccae6859",
+    "control/cmd/callbench/main_test.go": "09bab384a08cde5de78728740218602eabe6753a44f13cd65dae9a7403bf4840",
+    "control/internal/journal/journal.go": "e9803bc59090dedab9f8528ef05704fa623eedb55e2dde8dab600000c36fe497",
+    "control/internal/journal/journal_test.go": "5d090a5c69af3bc06a0fe936513ec5cc00cbc01c362718463e96a70be9e469f7",
+    "control/internal/config/config.go": "ed1c8c0ec5ff29c6da96ed2e0b827ed57e67fbd981d14bbae4d2be03c79bc798",
+    "control/internal/config/config_test.go": "93171fdaadf4b848db04afce8dd25939293d42f2bb7b112838eeede3a0bfb212",
+    "control/internal/server/server.go": "c7340617ebdf71c8f94d76dba51e3f3dded3350a4da86b0ff192218ef112852e",
+    "control/internal/server/admin_store.go": "03b3c66b01ddf8f24e29b8c49bd6caa355dcda45b8d1af851907f4d4c3c9c57a",
+    "control/internal/server/fs_config.go": "98fba9fc7e5db8611569a268fed369e24012e36e4ea0eb020ae51e47f690dd35",
+    "control/internal/server/admin_test.go": "dbc4519301746e9f9912467d70d3e0de919fbc2798678b4929c3449a310acda5",
+    "control/internal/server/guard.go": "2d67bd5c0b2bd9895bfd660bb3e3c933ee96794ac3edb0a296a8cb91fa7f8c45",
+    "control/internal/server/guard_test.go": "7f29bd73fbeef018e5833def4ce147d26d1205fb8699280f4cb7a0a99190c470",
+    "control/internal/server/admin.go": "15354337f48f280a1f95f6c920291ae95a11851d9b99938c6e4ebf6747be23ac",
+    "control/internal/server/fs_config_validation_test.go": "2d85a15393dd79fb77877878aa9f2f6288f8c47f8f183a7af840443a20bf1bb5",
+    "control/internal/server/calls.go": "530f5a022b037c01fb37d7ec5df6ee02056401b05e1a757d4de01bf3354387b4",
+    "control/internal/server/timers.go": "660432747480eece048d9bdea8aaf1e686d0c3b005a1591f3c2c0dbf7db5d97e",
+    "control/internal/server/timers_test.go": "a7ade99aca8e3c307a8e18643ab88fe8216205f3253963c6a32ff1e2aae752a1",
+    "control/internal/sip/sdp_test.go": "a6d45893c456881231d1ea761963b605606e94cbbf80e794ef71f76f9b2d590f",
+    "control/internal/sip/message.go": "4e9d30eaedae51a2d5b47a3a10fe72d7a1177f78eb7361cc33e0df2b541deaf9",
+    "control/internal/sip/message_test.go": "4b08f32faf3f13a04cab40ae97a581b5f13d7b8fd41e8247259c6857253bef7f",
+    "control/internal/sip/sdp.go": "617189be6715d1d918d9925eb47ea490fa18e8eec808c3d25492e0e99fae4e60",
+    "control/internal/media/pressure.go": "077271c4905695df7e4e9245db5738fb578711aed10b676a0d84b753ff7b69df",
+    "control/internal/media/pressure_test.go": "7abdf21d67f079c55cde0d4cf129256454008496f201cc47a028de4acb8e4425",
+    "control/internal/media/pool.go": "11303e17fbf4d87af153f90cacd7b57955e25c989c8b0f362cb3f54aa739bc05"
+  }
+}

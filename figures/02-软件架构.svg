@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1040" viewBox="0 0 1400 1040" role="img" aria-label="02  软件架构">
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto-start-reverse"><path d="M0 0L8 4L0 8" fill="none" stroke="#65818e" stroke-width="1.4"/></marker></defs>
+<style>text{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#1b3440} .small{font-size:17px;fill:#58717e} .label{font-size:17px;fill:#456777} .node{font-size:19px} .title{font-size:23px;font-weight:650}</style>
+<rect width="1400" height="1040" fill="#ffffff"/>
+<rect x="35" y="33" width="6" height="66" rx="3" fill="#0b827b"/>
+<text x="58" y="61" font-size="30" font-weight="700">02  软件架构</text>
+<text x="58" y="92" class="small">工程主目录 1.13 文档基线；模块框表示责任边界，不是独立网络服务。</text>
+<rect x="45" y="145" width="1310" height="293" rx="20" fill="#f9fbfc" stroke="#cbdce2"/>
+<text x="67" y="177" class="title">Go 控制进程：呼叫与事务状态的所有者</text>
+<rect x="45" y="536" width="950" height="310" rx="20" fill="#f9fbfc" stroke="#cbdce2"/>
+<text x="67" y="568" class="title">Rust 媒体进程：分片内媒体状态的所有者</text>
+<polyline points="390,307 455,307" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<polyline points="890,307 950,307" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<polyline points="710,402 710,594" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="190" y="490" class="label">私有 IPC：JSONL 控制 / FD3 下行 PCM / FD4 上行 RX</text>
+<polyline points="890,376 920,376 920,466 1100,466 1100,603" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="1120" y="503" class="label">内部 SDK</text>
+<polyline points="670,733 670,884" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="693" y="865" class="label">可选离线适配</text>
+<rect x="70" y="208" width="320" height="194" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="88" y="240" class="title">协议与业务</text>
+<text x="88" y="271" class="node">SIP / SDP / REGISTER</text>
+<text x="88" y="298" class="node">有限 ESL / Dialplan / IVR</text>
+<text x="88" y="325" class="node">呼叫状态与身份校验</text>
+<text x="88" y="352" class="node">ACK / CANCEL / BYE</text>
+<rect x="455" y="208" width="435" height="194" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="473" y="240" class="title">控制与媒体监管</text>
+<text x="473" y="271" class="node">Guard / 令牌桶 / 排空</text>
+<text x="473" y="298" class="node">worker 代次 / 有界控制队列</text>
+<text x="473" y="325" class="node">PCM、RX SDK 与生命周期清理</text>
+<text x="473" y="352" class="node">日志健康 / 事件通知</text>
+<rect x="950" y="208" width="375" height="194" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="968" y="240" class="title">管理与验收</text>
+<text x="968" y="271" class="node">26 个 HTTP 操作 / 内嵌后台</text>
+<text x="968" y="298" class="node">配置 active / desired / revision</text>
+<text x="968" y="325" class="node">独立压测实例与报告</text>
+<text x="968" y="352" class="node">文档 / 原版对照 / 证据</text>
+<rect x="70" y="594" width="390" height="213" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="88" y="626" class="title">RTP / RTCP 与资源</text>
+<text x="88" y="657" class="node">固定数量事件循环</text>
+<text x="88" y="684" class="node">非阻塞 UDP / 端口块与隔离期</text>
+<text x="88" y="711" class="node">Linux recvmmsg；逐包发送</text>
+<text x="88" y="738" class="node">包来源、PT、时钟与生命周期</text>
+<text x="88" y="765" class="node">同格式 relay</text>
+<rect x="495" y="594" width="465" height="213" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="513" y="626" class="title">有限实时 Audio Graph</text>
+<text x="513" y="657" class="node">G.711 原生 8 kHz、20 ms</text>
+<text x="513" y="684" class="node">重排 / 解码 / tone、WAV、PCM</text>
+<text x="513" y="711" class="node">RX、TX 分离；DTMF 独立处理</text>
+<text x="513" y="738" class="node">帧时效与轮次隔离 / 有界队列</text>
+<text x="513" y="765" class="node">实时图不含 G.722 / Opus</text>
+<rect x="1030" y="604" width="295" height="196" rx="12" fill="#fff4e6" stroke="#b87019" stroke-width="1.5"/>
+<text x="1048" y="636" class="title">ASR 适配候选</text>
+<text x="1048" y="667" class="node">StartASR / ASR1</text>
+<text x="1048" y="694" class="node">按需 8→16 kHz</text>
+<text x="1048" y="721" class="node">来源证明与取消清理</text>
+<text x="1048" y="748" class="node">模拟代理已验证</text>
+<rect x="425" y="884" width="605" height="62" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="443" y="916" class="title">C ABI + G.711 / 可选离线 G.722、Opus</text>
+<rect x="50" y="985" width="22" height="18" rx="4" fill="#eef7fb" stroke="#167799"/>
+<text x="82" y="1000" class="small">主目录基线已有实现</text>
+<rect x="415" y="985" width="22" height="18" rx="4" fill="#fff4e6" stroke="#b87019"/>
+<text x="447" y="1000" class="small">独立候选，尚未发布</text>
+<rect x="805" y="985" width="22" height="18" rx="4" fill="#f5f6f7" stroke="#7b8993"/>
+<text x="837" y="1000" class="small">外部系统 / 待集成范围</text>
+</svg>

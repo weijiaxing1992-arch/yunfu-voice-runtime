@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 隔离原版与候选共用的有界 XML 拨号计划；未匹配号码必须返回 404。 -->
+<document type="freeswitch/xml"><section name="dialplan"><context name="default">
+  <extension name="native-sequence"><condition field="destination_number" expression="^7101$">
+    <action application="answer"/><action application="set" data="rs_native_stage=before"/>
+    <action application="sleep" data="200"/><action application="set" data="rs_native_stage=after"/><action application="park"/>
+  </condition></extension>
+  <extension name="native-hangup"><condition field="destination_number" expression="^7102$">
+    <action application="answer"/><action application="sleep" data="200"/><action application="hangup" data="NORMAL_CLEARING"/>
+  </condition></extension>
+  <extension name="native-park"><condition field="destination_number" expression="^7103$">
+    <action application="answer"/><action application="park"/>
+  </condition></extension>
+</context></section></document>

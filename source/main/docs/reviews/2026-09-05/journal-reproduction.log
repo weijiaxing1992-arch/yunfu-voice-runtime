@@ -1,0 +1,5 @@
+=== RUN   TestReviewQueueSaturationRemainsFailedAfterDrain
+    review_test.go:31: writer caught up/queue drained: accepted=64 synced=64 queued=0 healthy=false new_record_accepted=false lost=2
+--- PASS: TestReviewQueueSaturationRemainsFailedAfterDrain (0.03s)
+PASS
+ok  	rustswitch/control/internal/journal	0.551s

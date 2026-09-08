@@ -1,0 +1,47 @@
+{
+  "schema": "source-delivery-independent-audit-v1",
+  "finished_at": "2026-09-08T04:11:17.772938+00:00",
+  "scope": "read-only source, frozen evidence and packaged source/dependency audit; no production source edits, compilation, network or service actions by auditor",
+  "main_source_files": 1126,
+  "candidate_source_files": 1171,
+  "source_difference_paths": 59,
+  "full_review_current_matches": 896,
+  "full_review_recorded_files": 896,
+  "source_documentation_matches": 3,
+  "benchmark_tested_patch_files": 6,
+  "benchmark_working_unretested_files": 2,
+  "atomic_stats_implementation_found": false,
+  "delivery_design_source_matches": 6,
+  "rust_vendor_crates": 39,
+  "release_documentation_gate_passed": false,
+  "files": {
+    "source-audit.md": {
+      "sha256": "2d36fcc5dcef4c90745c60bf33f8a4508b98272d5c350307803c0cd347db548a",
+      "bytes": 11220
+    },
+    "audit_sources.py": {
+      "sha256": "b9c1eee01d6685cedd8554b231665d0075e878e7dce629965fbe814258b281de",
+      "bytes": 10329
+    },
+    "source-inventory.json": {
+      "sha256": "1bc001245441e312fcbf96951118a1eaf579ad6083bba36a81074c4d406a74cc",
+      "bytes": 433917
+    },
+    "evidence-binding.json": {
+      "sha256": "1ebced977f05ce77cf7fb0e78201087bb1becffd84232d1c6c8c4bb805b64fb9",
+      "bytes": 264231
+    },
+    "patch-state.json": {
+      "sha256": "d472fa77d73e7212072d036b860856f62eb8bcd91dd9639217e42eafe8205838",
+      "bytes": 259889
+    },
+    "delivery-source-binding.json": {
+      "sha256": "d3221b60686b9065129c244167e74717cab2832b143820b04c1a796d2769b556",
+      "bytes": 737227
+    },
+    "earlier-source-binding.json": {
+      "sha256": "3bf2b4cddb933bcbcf4d98cd3e331068ed7c5c6d9b8388969ac4171a9340f0e8",
+      "bytes": 230025
+    }
+  }
+}

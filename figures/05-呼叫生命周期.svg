@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="960" viewBox="0 0 1400 960" role="img" aria-label="05  呼叫生命周期与资源回收">
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto-start-reverse"><path d="M0 0L8 4L0 8" fill="none" stroke="#65818e" stroke-width="1.4"/></marker></defs>
+<style>text{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#1b3440} .small{font-size:17px;fill:#58717e} .label{font-size:17px;fill:#456777} .node{font-size:19px} .title{font-size:23px;font-weight:650}</style>
+<rect width="1400" height="960" fill="#ffffff"/>
+<rect x="35" y="33" width="6" height="66" rx="3" fill="#0b827b"/>
+<text x="58" y="61" font-size="30" font-weight="700">05  呼叫生命周期与资源回收</text>
+<text x="58" y="92" class="small">应答、媒体授权、应用完成、释放确认是不同的状态节点。</text>
+<polyline points="300,250 355,250" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="660,250 715,250" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1020,250 1075,250" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1215,337 1215,404 1180,404 1180,467" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1000" y="392" class="label">正确 ACK 才进入已建立</text>
+<polyline points="1025,547 975,547" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="620,547 565,547" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="280,632 280,686 735,686 735,739" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="350" y="676" class="label">释放成功 / 确认退休后释放占用</text>
+<polyline points="505,337 505,435 405,435 405,467" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="95" y="423" class="label">失败 / CANCEL / 建立超时</text>
+<rect x="50" y="172" width="250" height="165" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="68" y="204" class="title">1. 初始 INVITE</text>
+<text x="68" y="235" class="node">来源、SDP、事务校验</text>
+<text x="68" y="262" class="node">未受理不预留资源</text>
+<text x="68" y="289" class="node">保留重传语义</text>
+<rect x="355" y="172" width="305" height="165" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="373" y="204" class="title">2. 准入与预留</text>
+<text x="373" y="235" class="node">硬并发 / CPS / Guard</text>
+<text x="373" y="262" class="node">媒体分片和日志健康</text>
+<text x="373" y="289" class="node">已接通通话优先</text>
+<rect x="715" y="172" width="305" height="165" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="733" y="204" class="title">3. 分配与建立</text>
+<text x="733" y="235" class="node">四端口块 / session</text>
+<text x="733" y="262" class="node">本地接听或 B 腿呼叫</text>
+<text x="733" y="289" class="node">失败有界清理</text>
+<rect x="1075" y="172" width="275" height="165" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="1093" y="204" class="title">4. 应答 200 OK</text>
+<text x="1093" y="235" class="node">200 不等于 ACK 授权</text>
+<text x="1093" y="262" class="node">身份 / tag / CSeq 匹配</text>
+<text x="1093" y="289" class="node">等待 ACK 或超时</text>
+<rect x="1025" y="467" width="325" height="165" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="1043" y="499" class="title">5. 通话与媒体</text>
+<text x="1043" y="530" class="node">已 ACK 的真实通道</text>
+<text x="1043" y="557" class="node">IVR / read / PCM / RX</text>
+<text x="1043" y="584" class="node">完成事件需匹配应用</text>
+<rect x="620" y="467" width="355" height="165" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="638" y="499" class="title">6. 终止与撤销资格</text>
+<text x="638" y="530" class="node">BYE / 挂断 / 超时 / 故障</text>
+<text x="638" y="557" class="node">取消播放与 RX / ASR 候选</text>
+<text x="638" y="584" class="node">迟到数据不得恢复授权</text>
+<rect x="75" y="467" width="490" height="165" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="93" y="499" class="title">7. 清理与确认</text>
+<text x="93" y="530" class="node">停止订阅、图与媒体 session</text>
+<text x="93" y="557" class="node">未知受理结果仍保留清理责任</text>
+<text x="93" y="584" class="node">不能因调用超时就当作远端已释放</text>
+<rect x="420" y="739" width="795" height="113" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="438" y="771" class="title">8. 端口隔离期 + 事务缓存 → 最终归零</text>
+<text x="438" y="802" class="node">缓存用于重传与迟到报文，媒体空闲、端口可复用和通道结束要分别核验。</text>
+<rect x="50" y="905" width="22" height="18" rx="4" fill="#eef7fb" stroke="#167799"/>
+<text x="82" y="920" class="small">主目录基线已有实现</text>
+<rect x="415" y="905" width="22" height="18" rx="4" fill="#fff4e6" stroke="#b87019"/>
+<text x="447" y="920" class="small">独立候选，尚未发布</text>
+<rect x="805" y="905" width="22" height="18" rx="4" fill="#f5f6f7" stroke="#7b8993"/>
+<text x="837" y="920" class="small">外部系统 / 待集成范围</text>
+</svg>

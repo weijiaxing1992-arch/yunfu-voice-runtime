@@ -1,0 +1,1778 @@
+{
+  "schema_version": "1.0.0",
+  "release": "1.7",
+  "title": "基础应用、WAV播放与XML拨号计划的原版成对验证",
+  "generated_at": "2026-09-06T12:53:33.990370+00:00",
+  "scope": "固定FreeSWITCH 1.11.3隔离夹具与本轮构建逐场景实测；应用/媒体指定路径通过不代表完整模块或全部通信协议兼容",
+  "summary": {
+    "full_compatibility_passed": false,
+    "all_protocols_passed": false,
+    "full_superiority_proven": false,
+    "capacity_certified": false,
+    "native_scenario_groups": 11,
+    "states": {
+      "passed_scoped": 11
+    },
+    "uuid_setvar_multi_vectors": 12,
+    "event_differences": 5
+  },
+  "bindings": {
+    "reference": {
+      "legacy": {
+        "window": {
+          "before": "2026-09-06T12:44:17.416586+00:00",
+          "after": "2026-09-06T12:44:22.641023+00:00"
+        },
+        "inputs_unchanged": true,
+        "binaries": {
+          "freeswitch": {
+            "bytes": 115704,
+            "sha256": "7351b3d7ee0df136d575978cac528323acc8a7de27ef7492b7bc624b3981e21a"
+          },
+          "core_library": {
+            "bytes": 7969080,
+            "sha256": "a6bb9d11de9262f0d3a6e9cb509c1c75d79ffb607993a719f0f51e88ab6571e4"
+          }
+        },
+        "configuration": {
+          "bytes": 5779,
+          "sha256": "9022c155929885a6b2cad69506db1aa710746d33e578baeeb41daa7f70a660c5"
+        },
+        "probes": {
+          "dialplan_native.py": {
+            "bytes": 7792,
+            "sha256": "b40b43fe96263fb31802eeab68930cff0e3ceeaa63c2c6766f8236b14d856f07"
+          },
+          "playback_native.py": {
+            "bytes": 8586,
+            "sha256": "73067c3fb77ad3c3e9716f1f69f25996fbca8715bafb286fc97975f6bab46500"
+          },
+          "esl_applications_native.py": {
+            "bytes": 12581,
+            "sha256": "d5b1188cd02332aaa11213324d53b18f9bd841c6521ddad34baae0488670d435"
+          },
+          "native_call_fixture.py": {
+            "bytes": 13420,
+            "sha256": "f505865afcb9a23d1d6019a8e03daaae63e0bb78baccf5d7773755adec07e50c"
+          },
+          "e2e.py": {
+            "bytes": 27740,
+            "sha256": "7bcab5b4ffa3537926b12a8f5d990e7808bcc86a9ae126ab492ef93cebd750f1"
+          }
+        },
+        "fixtures": {
+          "dialplan.xml": {
+            "bytes": 1025,
+            "sha256": "e259d93ddf9006fef70d9f20d58451275ca5c5cadcc5c4e041da4e98b4a5cc67"
+          },
+          "audio/native-1s.wav": {
+            "bytes": 16044,
+            "sha256": "af4b80247f61d0823e9219e3aa2270e81ebd2b553a5411e1471af82857ffe6f4"
+          },
+          "audio/native-4s.wav": {
+            "bytes": 64044,
+            "sha256": "55f415ee599eb86a290f9d624a8b7718af7844244e19fd3091f50eeaf33438ba"
+          }
+        },
+        "snapshot_receipts": [
+          {
+            "file": "reference-legacy-03-before.json",
+            "bytes": 54856,
+            "sha256": "3250722fab8f8587036c8dad950c853fcc6e961f9702900c86dfb9ee7c92512a"
+          },
+          {
+            "file": "reference-legacy-03-after.json",
+            "bytes": 54856,
+            "sha256": "4fb71f507e927f35adddc0d9b7551e3a810a3a606e1028f0ce57b01a5d13d5af"
+          }
+        ],
+        "configuration_tree": {
+          "files": 11,
+          "manifest_sha256": "42d109f3da87a7c9713c7687d89e472504f5c88a1731d58b8f273e32f6ce1c03"
+        },
+        "source": {
+          "version": "1.11.3",
+          "commit": "ef32e205295e29f034f1453ad245ba5efb07b94a",
+          "installation_manifest_sha256": "8a82cc3c07ffa8eb416f67896ffccfe53e6ebed94715239a8019036f770b0e8e"
+        }
+      },
+      "xml": {
+        "window": {
+          "before": "2026-09-06T12:44:22.712246+00:00",
+          "after": "2026-09-06T12:44:24.398536+00:00"
+        },
+        "inputs_unchanged": true,
+        "binaries": {
+          "freeswitch": {
+            "bytes": 115704,
+            "sha256": "7351b3d7ee0df136d575978cac528323acc8a7de27ef7492b7bc624b3981e21a"
+          },
+          "core_library": {
+            "bytes": 7969080,
+            "sha256": "a6bb9d11de9262f0d3a6e9cb509c1c75d79ffb607993a719f0f51e88ab6571e4"
+          }
+        },
+        "configuration": {
+          "bytes": 5933,
+          "sha256": "59c0ee85e4094a2f06d5d7c5b0c0278d4d558f742c859b6d456fb0d7f800cabb"
+        },
+        "probes": {
+          "dialplan_native.py": {
+            "bytes": 7792,
+            "sha256": "b40b43fe96263fb31802eeab68930cff0e3ceeaa63c2c6766f8236b14d856f07"
+          },
+          "playback_native.py": {
+            "bytes": 8586,
+            "sha256": "73067c3fb77ad3c3e9716f1f69f25996fbca8715bafb286fc97975f6bab46500"
+          },
+          "esl_applications_native.py": {
+            "bytes": 12581,
+            "sha256": "d5b1188cd02332aaa11213324d53b18f9bd841c6521ddad34baae0488670d435"
+          },
+          "native_call_fixture.py": {
+            "bytes": 13420,
+            "sha256": "f505865afcb9a23d1d6019a8e03daaae63e0bb78baccf5d7773755adec07e50c"
+          },
+          "e2e.py": {
+            "bytes": 27740,
+            "sha256": "7bcab5b4ffa3537926b12a8f5d990e7808bcc86a9ae126ab492ef93cebd750f1"
+          }
+        },
+        "fixtures": {
+          "dialplan.xml": {
+            "bytes": 1025,
+            "sha256": "e259d93ddf9006fef70d9f20d58451275ca5c5cadcc5c4e041da4e98b4a5cc67"
+          },
+          "audio/native-1s.wav": {
+            "bytes": 16044,
+            "sha256": "af4b80247f61d0823e9219e3aa2270e81ebd2b553a5411e1471af82857ffe6f4"
+          },
+          "audio/native-4s.wav": {
+            "bytes": 64044,
+            "sha256": "55f415ee599eb86a290f9d624a8b7718af7844244e19fd3091f50eeaf33438ba"
+          }
+        },
+        "snapshot_receipts": [
+          {
+            "file": "reference-xml-03-before.json",
+            "bytes": 57659,
+            "sha256": "0360639e944515cea4e4c11e86cd637933485dfc95418f0d9975caef0f56a273"
+          },
+          {
+            "file": "reference-xml-03-after.json",
+            "bytes": 57659,
+            "sha256": "b866921620981b3d2619ef3c9708f57fa58cb45f52402384f654714123905f1d"
+          }
+        ],
+        "configuration_tree": {
+          "files": 11,
+          "manifest_sha256": "abd169572d65204f438b5280537b0c4d4d73a5ec1c1257f353e67b6dff2198e1"
+        },
+        "source": {
+          "version": "1.11.3",
+          "commit": "ef32e205295e29f034f1453ad245ba5efb07b94a",
+          "installation_manifest_sha256": "8a82cc3c07ffa8eb416f67896ffccfe53e6ebed94715239a8019036f770b0e8e"
+        }
+      }
+    },
+    "candidate": {
+      "legacy": {
+        "window": {
+          "before": "2026-09-06T12:52:12.786667+00:00",
+          "after": "2026-09-06T12:52:18.228466+00:00"
+        },
+        "inputs_unchanged": true,
+        "binaries": {
+          "control": {
+            "bytes": 50609031,
+            "sha256": "575c6d4ae0739dd00ac7b33bd152da3e059df8585570b31e34fa35d5e073bb09"
+          },
+          "media": {
+            "bytes": 3944144,
+            "sha256": "a249837521cbc64c24da507c9aeb75f498acc5be57e730f69528821055e69415"
+          }
+        },
+        "configuration": {
+          "bytes": 1429,
+          "sha256": "dd7152071c55a64356eff1ff510a5659bccea4c12a2146882a05c85b7e1e8af4"
+        },
+        "probes": {
+          "dialplan_native.py": {
+            "bytes": 7792,
+            "sha256": "b40b43fe96263fb31802eeab68930cff0e3ceeaa63c2c6766f8236b14d856f07"
+          },
+          "playback_native.py": {
+            "bytes": 8586,
+            "sha256": "73067c3fb77ad3c3e9716f1f69f25996fbca8715bafb286fc97975f6bab46500"
+          },
+          "esl_applications_native.py": {
+            "bytes": 12581,
+            "sha256": "d5b1188cd02332aaa11213324d53b18f9bd841c6521ddad34baae0488670d435"
+          },
+          "native_call_fixture.py": {
+            "bytes": 13420,
+            "sha256": "f505865afcb9a23d1d6019a8e03daaae63e0bb78baccf5d7773755adec07e50c"
+          },
+          "e2e.py": {
+            "bytes": 27740,
+            "sha256": "7bcab5b4ffa3537926b12a8f5d990e7808bcc86a9ae126ab492ef93cebd750f1"
+          }
+        },
+        "fixtures": {
+          "dialplan.xml": {
+            "bytes": 1025,
+            "sha256": "e259d93ddf9006fef70d9f20d58451275ca5c5cadcc5c4e041da4e98b4a5cc67"
+          },
+          "audio/native-1s.wav": {
+            "bytes": 16044,
+            "sha256": "af4b80247f61d0823e9219e3aa2270e81ebd2b553a5411e1471af82857ffe6f4"
+          },
+          "audio/native-4s.wav": {
+            "bytes": 64044,
+            "sha256": "55f415ee599eb86a290f9d624a8b7718af7844244e19fd3091f50eeaf33438ba"
+          }
+        },
+        "snapshot_receipts": [
+          {
+            "file": "candidate-legacy-02-before.json",
+            "bytes": 140451,
+            "sha256": "6ba145a93f5f5681976902ef0cedc1a1b5ea51cc61d2a4d52a375bae0f0e009a"
+          },
+          {
+            "file": "candidate-legacy-02-after.json",
+            "bytes": 140451,
+            "sha256": "d1119abf96f7f17887fc532ac33f27166767483909b87cde0d31f976f92b740b"
+          }
+        ],
+        "source": {
+          "actual_runtime_map_sha256": "25a2e1010b76561bf826e2ef6f3a3e9a082b16dc26874ac38223eadfa3c13b60",
+          "conformance_source_sha256": "6c3060ccea97106b68c752cb44fa1f6d15303a094a69e9c56f4b8fc9fda70df7"
+        },
+        "build_receipt_sha256": "10a19db74312c521cc849467e3474bbe6b6c1e11937b87c9c549e1dacb7b9ad8"
+      },
+      "xml": {
+        "window": {
+          "before": "2026-09-06T12:52:18.664353+00:00",
+          "after": "2026-09-06T12:52:20.927766+00:00"
+        },
+        "inputs_unchanged": true,
+        "binaries": {
+          "control": {
+            "bytes": 50609031,
+            "sha256": "575c6d4ae0739dd00ac7b33bd152da3e059df8585570b31e34fa35d5e073bb09"
+          },
+          "media": {
+            "bytes": 3944144,
+            "sha256": "a249837521cbc64c24da507c9aeb75f498acc5be57e730f69528821055e69415"
+          }
+        },
+        "configuration": {
+          "bytes": 1536,
+          "sha256": "f457024828b73b66247726536f0d032b233258708d6c9984d3590dabac620e26"
+        },
+        "probes": {
+          "dialplan_native.py": {
+            "bytes": 7792,
+            "sha256": "b40b43fe96263fb31802eeab68930cff0e3ceeaa63c2c6766f8236b14d856f07"
+          },
+          "playback_native.py": {
+            "bytes": 8586,
+            "sha256": "73067c3fb77ad3c3e9716f1f69f25996fbca8715bafb286fc97975f6bab46500"
+          },
+          "esl_applications_native.py": {
+            "bytes": 12581,
+            "sha256": "d5b1188cd02332aaa11213324d53b18f9bd841c6521ddad34baae0488670d435"
+          },
+          "native_call_fixture.py": {
+            "bytes": 13420,
+            "sha256": "f505865afcb9a23d1d6019a8e03daaae63e0bb78baccf5d7773755adec07e50c"
+          },
+          "e2e.py": {
+            "bytes": 27740,
+            "sha256": "7bcab5b4ffa3537926b12a8f5d990e7808bcc86a9ae126ab492ef93cebd750f1"
+          }
+        },
+        "fixtures": {
+          "dialplan.xml": {
+            "bytes": 1025,
+            "sha256": "e259d93ddf9006fef70d9f20d58451275ca5c5cadcc5c4e041da4e98b4a5cc67"
+          },
+          "audio/native-1s.wav": {
+            "bytes": 16044,
+            "sha256": "af4b80247f61d0823e9219e3aa2270e81ebd2b553a5411e1471af82857ffe6f4"
+          },
+          "audio/native-4s.wav": {
+            "bytes": 64044,
+            "sha256": "55f415ee599eb86a290f9d624a8b7718af7844244e19fd3091f50eeaf33438ba"
+          }
+        },
+        "snapshot_receipts": [
+          {
+            "file": "candidate-xml-02-before.json",
+            "bytes": 140459,
+            "sha256": "19e88ae9ee1eb513bdfe6898f5be602bced3b41704830999481f0498c132cc09"
+          },
+          {
+            "file": "candidate-xml-02-after.json",
+            "bytes": 140459,
+            "sha256": "c0ffe424fce444f57bafff0746d156ba2f3d8a6de9972859db9e1123eb201bb8"
+          }
+        ],
+        "source": {
+          "actual_runtime_map_sha256": "25a2e1010b76561bf826e2ef6f3a3e9a082b16dc26874ac38223eadfa3c13b60",
+          "conformance_source_sha256": "6c3060ccea97106b68c752cb44fa1f6d15303a094a69e9c56f4b8fc9fda70df7"
+        },
+        "build_receipt_sha256": "10a19db74312c521cc849467e3474bbe6b6c1e11937b87c9c549e1dacb7b9ad8"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "id": "foundation",
+      "title": "接通后应答、sleep与串行set、正常挂断",
+      "state": "passed_scoped",
+      "full_contract_passed": false,
+      "reference": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:44:17.558246+00:00",
+        "finished_at": "2026-09-06T12:44:18.006668+00:00",
+        "observed": {
+          "answer_idempotent": true,
+          "sleep_order": {
+            "requested_ms": 200,
+            "actual_event_interval_us": 201561,
+            "minimum_verified_ms": 190,
+            "next_application_started_after_completion": true
+          },
+          "final_variable": "after",
+          "sleep_zero_completed": true,
+          "hangup_cause": "NORMAL_CLEARING",
+          "hangup_completion_response": "_none_",
+          "actual_server_bye_answered": true,
+          "observed_lifecycle_event_names": [
+            "CHANNEL_PARK",
+            "CHANNEL_UNPARK"
+          ]
+        },
+        "raw_evidence_receipt": {
+          "file": "reference-foundation-03.json",
+          "bytes": 341041,
+          "sha256": "606e6265df73b83f46ff35d39d8aceb39b8a4307ef5d643fbfa6000e46eade6d"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 131888,
+          "esl_frames_reassembled": 32,
+          "reported_events_matched": 21,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {
+            "send_pt0": 23
+          }
+        }
+      },
+      "candidate": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:52:13.505354+00:00",
+        "finished_at": "2026-09-06T12:52:13.818566+00:00",
+        "observed": {
+          "answer_idempotent": true,
+          "sleep_order": {
+            "requested_ms": 200,
+            "actual_event_interval_us": 202683,
+            "minimum_verified_ms": 190,
+            "next_application_started_after_completion": true
+          },
+          "final_variable": "after",
+          "sleep_zero_completed": true,
+          "hangup_cause": "NORMAL_CLEARING",
+          "hangup_completion_response": "_none_",
+          "actual_server_bye_answered": true,
+          "observed_lifecycle_event_names": []
+        },
+        "raw_evidence_receipt": {
+          "file": "candidate-foundation-02.json",
+          "bytes": 40488,
+          "sha256": "41111413fdf2f4fd7e63b0735f323f2d02d07970b82586f6fc41b95b35cd6100"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 13763,
+          "esl_frames_reassembled": 26,
+          "reported_events_matched": 15,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {
+            "send_pt0": 16
+          }
+        }
+      },
+      "assertions": [
+        "双方使用同一冻结探针及相同语义断言",
+        "应用完成按真实通道和Application-UUID关联",
+        "SIP对话实际结束、媒体线程退出"
+      ]
+    },
+    {
+      "id": "playback-eos",
+      "title": "WAV自然结束及真实PCMU波形",
+      "state": "passed_scoped",
+      "full_contract_passed": false,
+      "reference": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:44:18.751779+00:00",
+        "finished_at": "2026-09-06T12:44:20.259526+00:00",
+        "observed": {
+          "application_argument": "/mnt/share/compatibility-v1.7/fixtures/audio/native-1s.wav",
+          "expected_application_response": "FILE PLAYED",
+          "application_response": "FILE PLAYED",
+          "elapsed_event_us": 1000043,
+          "waveform": {
+            "non_silent_pcmu_packets": 50,
+            "decoded_samples": 8000,
+            "peak_pcm": 5884,
+            "estimated_frequency_hz": 439.0,
+            "source_frequency_hz": 440,
+            "waveform_scope": "真实PCMU包解码后的峰值与零交叉频率；非逐字节相同保证"
+          },
+          "playback_events": [
+            {
+              "Event-Name": "PLAYBACK_START",
+              "Playback-File-Path": "/mnt/share/compatibility-v1.7/fixtures/audio/native-1s.wav",
+              "Playback-Status": null
+            },
+            {
+              "Event-Name": "PLAYBACK_STOP",
+              "Playback-File-Path": "/mnt/share/compatibility-v1.7/fixtures/audio/native-1s.wav",
+              "Playback-Status": "done"
+            }
+          ],
+          "observed_lifecycle_event_names": [
+            "CHANNEL_PARK",
+            "PLAYBACK_START",
+            "PLAYBACK_STOP"
+          ]
+        },
+        "raw_evidence_receipt": {
+          "file": "reference-playback-eos-03.json",
+          "bytes": 254545,
+          "sha256": "99f2f7fe9f3c7e24d75e6e0e424173dfc3b660f337ab5211b01b8d16540d8a01"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 95384,
+          "esl_frames_reassembled": 18,
+          "reported_events_matched": 12,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 50,
+          "decoded_peak_pcm": 5884,
+          "rtp_packets": {
+            "send_pt0": 76,
+            "receive_pt0": 50
+          }
+        }
+      },
+      "candidate": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:52:14.496086+00:00",
+        "finished_at": "2026-09-06T12:52:16.002626+00:00",
+        "observed": {
+          "application_argument": "native-1s.wav",
+          "expected_application_response": "FILE PLAYED",
+          "application_response": "FILE PLAYED",
+          "elapsed_event_us": 1077637,
+          "waveform": {
+            "non_silent_pcmu_packets": 50,
+            "decoded_samples": 8000,
+            "peak_pcm": 5884,
+            "estimated_frequency_hz": 439.0,
+            "source_frequency_hz": 440,
+            "waveform_scope": "真实PCMU包解码后的峰值与零交叉频率；非逐字节相同保证"
+          },
+          "playback_events": [],
+          "observed_lifecycle_event_names": []
+        },
+        "raw_evidence_receipt": {
+          "file": "candidate-playback-eos-02.json",
+          "bytes": 81521,
+          "sha256": "9c3d068cb02dbf8c6032e37784621155931eb64d2e5f18f7e5bed3610a3c8a2d"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 27570,
+          "esl_frames_reassembled": 12,
+          "reported_events_matched": 6,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 50,
+          "decoded_peak_pcm": 5884,
+          "rtp_packets": {
+            "send_pt0": 75,
+            "receive_pt0": 50
+          }
+        }
+      },
+      "assertions": [
+        "双方使用同一冻结探针及相同语义断言",
+        "应用完成按真实通道和Application-UUID关联",
+        "SIP对话实际结束、媒体线程退出",
+        "应用完成响应准确匹配FILE PLAYED或FILE NOT FOUND",
+        "实际PCMU接收包独立解码并检查波形/时长，缺文件零声音"
+      ]
+    },
+    {
+      "id": "playback-stop",
+      "title": "uuid_break停止实际WAV播放",
+      "state": "passed_scoped",
+      "full_contract_passed": false,
+      "reference": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:44:20.365101+00:00",
+        "finished_at": "2026-09-06T12:44:21.092254+00:00",
+        "observed": {
+          "application_argument": "/mnt/share/compatibility-v1.7/fixtures/audio/native-4s.wav",
+          "expected_application_response": "FILE PLAYED",
+          "uuid_break_response": "+OK\n",
+          "application_response": "FILE PLAYED",
+          "elapsed_event_us": 219531,
+          "waveform": {
+            "non_silent_pcmu_packets": 11,
+            "decoded_samples": 1760,
+            "peak_pcm": 5884,
+            "estimated_frequency_hz": 436.364,
+            "source_frequency_hz": 440,
+            "waveform_scope": "真实PCMU包解码后的峰值与零交叉频率；非逐字节相同保证"
+          },
+          "playback_events": [
+            {
+              "Event-Name": "PLAYBACK_START",
+              "Playback-File-Path": "/mnt/share/compatibility-v1.7/fixtures/audio/native-4s.wav",
+              "Playback-Status": null
+            },
+            {
+              "Event-Name": "PLAYBACK_STOP",
+              "Playback-File-Path": "/mnt/share/compatibility-v1.7/fixtures/audio/native-4s.wav",
+              "Playback-Status": "break"
+            }
+          ],
+          "observed_lifecycle_event_names": [
+            "CHANNEL_PARK",
+            "PLAYBACK_START",
+            "PLAYBACK_STOP"
+          ]
+        },
+        "raw_evidence_receipt": {
+          "file": "reference-playback-stop-03.json",
+          "bytes": 216371,
+          "sha256": "3db57f1e32851e57a037a199e7720f07d4a8ed444edda413b1bcb421a524debf"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 82234,
+          "esl_frames_reassembled": 19,
+          "reported_events_matched": 12,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 11,
+          "decoded_peak_pcm": 5884,
+          "rtp_packets": {
+            "send_pt0": 37,
+            "receive_pt0": 11
+          }
+        }
+      },
+      "candidate": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:52:16.091719+00:00",
+        "finished_at": "2026-09-06T12:52:16.684570+00:00",
+        "observed": {
+          "application_argument": "native-4s.wav",
+          "expected_application_response": "FILE PLAYED",
+          "uuid_break_response": "+OK\n",
+          "application_response": "FILE PLAYED",
+          "elapsed_event_us": 184417,
+          "waveform": {
+            "non_silent_pcmu_packets": 10,
+            "decoded_samples": 1600,
+            "peak_pcm": 5884,
+            "estimated_frequency_hz": 435.0,
+            "source_frequency_hz": 440,
+            "waveform_scope": "真实PCMU包解码后的峰值与零交叉频率；非逐字节相同保证"
+          },
+          "playback_events": [],
+          "observed_lifecycle_event_names": []
+        },
+        "raw_evidence_receipt": {
+          "file": "candidate-playback-stop-02.json",
+          "bytes": 39392,
+          "sha256": "f59375948e9586553075827b2d51fd9372a468fd26db82f03d25caf934aa432d"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 13053,
+          "esl_frames_reassembled": 13,
+          "reported_events_matched": 6,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 10,
+          "decoded_peak_pcm": 5884,
+          "rtp_packets": {
+            "send_pt0": 30,
+            "receive_pt0": 10
+          }
+        }
+      },
+      "assertions": [
+        "双方使用同一冻结探针及相同语义断言",
+        "应用完成按真实通道和Application-UUID关联",
+        "SIP对话实际结束、媒体线程退出",
+        "应用完成响应准确匹配FILE PLAYED或FILE NOT FOUND",
+        "实际PCMU接收包独立解码并检查波形/时长，缺文件零声音"
+      ]
+    },
+    {
+      "id": "playback-dtmf",
+      "title": "RTP #按键打断WAV播放",
+      "state": "passed_scoped",
+      "full_contract_passed": false,
+      "reference": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:44:21.215780+00:00",
+        "finished_at": "2026-09-06T12:44:22.044480+00:00",
+        "observed": {
+          "application_argument": "/mnt/share/compatibility-v1.7/fixtures/audio/native-4s.wav",
+          "expected_application_response": "FILE PLAYED",
+          "dtmf": {
+            "DTMF-Digit": "#",
+            "DTMF-Duration": "480",
+            "DTMF-Source": "RTP"
+          },
+          "application_response": "FILE PLAYED",
+          "elapsed_event_us": 260637,
+          "waveform": {
+            "non_silent_pcmu_packets": 15,
+            "decoded_samples": 2400,
+            "peak_pcm": 5884,
+            "estimated_frequency_hz": 436.667,
+            "source_frequency_hz": 440,
+            "waveform_scope": "真实PCMU包解码后的峰值与零交叉频率；非逐字节相同保证"
+          },
+          "playback_terminator_used": "#",
+          "playback_events": [
+            {
+              "Event-Name": "PLAYBACK_START",
+              "Playback-File-Path": "/mnt/share/compatibility-v1.7/fixtures/audio/native-4s.wav",
+              "Playback-Status": null
+            },
+            {
+              "Event-Name": "PLAYBACK_STOP",
+              "Playback-File-Path": "/mnt/share/compatibility-v1.7/fixtures/audio/native-4s.wav",
+              "Playback-Status": "break"
+            }
+          ],
+          "observed_lifecycle_event_names": [
+            "CHANNEL_PARK",
+            "PLAYBACK_START",
+            "PLAYBACK_STOP"
+          ]
+        },
+        "raw_evidence_receipt": {
+          "file": "reference-playback-dtmf-03.json",
+          "bytes": 227052,
+          "sha256": "4adcc4f5e0a56fc97f3d383fecd9bd9f06e152c2a570f2064cdedcbbf3c4d152"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 86090,
+          "esl_frames_reassembled": 20,
+          "reported_events_matched": 13,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 15,
+          "decoded_peak_pcm": 5884,
+          "rtp_packets": {
+            "send_pt0": 42,
+            "receive_pt0": 15,
+            "send_pt101": 5
+          }
+        }
+      },
+      "candidate": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:52:16.800307+00:00",
+        "finished_at": "2026-09-06T12:52:17.507938+00:00",
+        "observed": {
+          "application_argument": "native-4s.wav",
+          "expected_application_response": "FILE PLAYED",
+          "dtmf": {
+            "DTMF-Digit": "#",
+            "DTMF-Duration": "480",
+            "DTMF-Source": "RTP"
+          },
+          "application_response": "FILE PLAYED",
+          "elapsed_event_us": 269189,
+          "waveform": {
+            "non_silent_pcmu_packets": 14,
+            "decoded_samples": 2240,
+            "peak_pcm": 5884,
+            "estimated_frequency_hz": 439.286,
+            "source_frequency_hz": 440,
+            "waveform_scope": "真实PCMU包解码后的峰值与零交叉频率；非逐字节相同保证"
+          },
+          "playback_terminator_used": "#",
+          "playback_events": [],
+          "observed_lifecycle_event_names": []
+        },
+        "raw_evidence_receipt": {
+          "file": "candidate-playback-dtmf-02.json",
+          "bytes": 46556,
+          "sha256": "5f6be7037155db605df83599fa1e59b0484a09e3e5039f4718f32900368ed9ca"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 15181,
+          "esl_frames_reassembled": 14,
+          "reported_events_matched": 7,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 14,
+          "decoded_peak_pcm": 5884,
+          "rtp_packets": {
+            "send_pt0": 36,
+            "receive_pt0": 14,
+            "send_pt101": 5
+          }
+        }
+      },
+      "assertions": [
+        "双方使用同一冻结探针及相同语义断言",
+        "应用完成按真实通道和Application-UUID关联",
+        "SIP对话实际结束、媒体线程退出",
+        "应用完成响应准确匹配FILE PLAYED或FILE NOT FOUND",
+        "实际PCMU接收包独立解码并检查波形/时长，缺文件零声音"
+      ]
+    },
+    {
+      "id": "playback-missing",
+      "title": "WAV文件不存在的完成响应",
+      "state": "passed_scoped",
+      "full_contract_passed": false,
+      "reference": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:44:22.148767+00:00",
+        "finished_at": "2026-09-06T12:44:22.434931+00:00",
+        "observed": {
+          "application_argument": "/mnt/share/compatibility-v1.7/fixtures/audio/missing-native.wav",
+          "expected_application_response": "FILE NOT FOUND",
+          "application_response": "FILE NOT FOUND",
+          "elapsed_event_us": 0,
+          "non_silent_pcmu_packets": 0,
+          "playback_events": [],
+          "observed_lifecycle_event_names": [
+            "CHANNEL_PARK"
+          ]
+        },
+        "raw_evidence_receipt": {
+          "file": "reference-playback-missing-03.json",
+          "bytes": 166402,
+          "sha256": "2fed383259b18cec2b297b2660b6fa1e4602c02cc24ed56fc9719eaa0acc4f5d"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 64211,
+          "esl_frames_reassembled": 16,
+          "reported_events_matched": 10,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {
+            "send_pt0": 15
+          }
+        }
+      },
+      "candidate": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:52:17.637393+00:00",
+        "finished_at": "2026-09-06T12:52:17.947671+00:00",
+        "observed": {
+          "application_argument": "missing-native.wav",
+          "expected_application_response": "FILE NOT FOUND",
+          "application_response": "FILE NOT FOUND",
+          "elapsed_event_us": 101654,
+          "non_silent_pcmu_packets": 0,
+          "playback_events": [],
+          "observed_lifecycle_event_names": []
+        },
+        "raw_evidence_receipt": {
+          "file": "candidate-playback-missing-02.json",
+          "bytes": 26017,
+          "sha256": "2779ec1ae6b333be6764add3c375ca4030b01ed2b20594f76d5b862c2ab535f6"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 8840,
+          "esl_frames_reassembled": 12,
+          "reported_events_matched": 6,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {
+            "send_pt0": 16
+          }
+        }
+      },
+      "assertions": [
+        "双方使用同一冻结探针及相同语义断言",
+        "应用完成按真实通道和Application-UUID关联",
+        "SIP对话实际结束、媒体线程退出",
+        "应用完成响应准确匹配FILE PLAYED或FILE NOT FOUND",
+        "实际PCMU接收包独立解码并检查波形/时长，缺文件零声音"
+      ]
+    },
+    {
+      "id": "xml-sequence",
+      "title": "XML命中后顺序执行answer/set/sleep/set/park",
+      "state": "passed_scoped",
+      "full_contract_passed": false,
+      "reference": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:44:22.807176+00:00",
+        "finished_at": "2026-09-06T12:44:23.324271+00:00",
+        "observed": {
+          "ordered_xml_actions": [
+            "answer",
+            "set",
+            "sleep",
+            "set",
+            "park"
+          ],
+          "final_variable": "after",
+          "sleep_order": {
+            "requested_ms": 200,
+            "actual_event_interval_us": 217490,
+            "minimum_verified_ms": 190,
+            "next_application_started_after_completion": true
+          },
+          "park_cleanup": {
+            "still_parked_after_ms": 200,
+            "uuid_kill_response": "+OK\n",
+            "hangup_cause": "NORMAL_CLEARING",
+            "park_completion_response": "_none_",
+            "actual_server_bye_answered": true
+          },
+          "observed_lifecycle_event_names": [
+            "CHANNEL_PARK",
+            "CHANNEL_UNPARK"
+          ]
+        },
+        "raw_evidence_receipt": {
+          "file": "reference-xml-sequence-03.json",
+          "bytes": 246272,
+          "sha256": "96bb3b6c8b9523b24df7a5012addd0b934ab24a1cef0d8ef2ae352e72e7abd0e"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 95124,
+          "esl_frames_reassembled": 21,
+          "reported_events_matched": 15,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {
+            "send_pt0": 26
+          }
+        }
+      },
+      "candidate": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:52:19.130170+00:00",
+        "finished_at": "2026-09-06T12:52:19.641224+00:00",
+        "observed": {
+          "ordered_xml_actions": [
+            "answer",
+            "set",
+            "sleep",
+            "set",
+            "park"
+          ],
+          "final_variable": "after",
+          "sleep_order": {
+            "requested_ms": 200,
+            "actual_event_interval_us": 203685,
+            "minimum_verified_ms": 190,
+            "next_application_started_after_completion": true
+          },
+          "park_cleanup": {
+            "still_parked_after_ms": 200,
+            "uuid_kill_response": "+OK\n",
+            "hangup_cause": "NORMAL_CLEARING",
+            "park_completion_response": "_none_",
+            "actual_server_bye_answered": true
+          },
+          "observed_lifecycle_event_names": []
+        },
+        "raw_evidence_receipt": {
+          "file": "candidate-xml-sequence-02.json",
+          "bytes": 37870,
+          "sha256": "8ae2640cbad8a435215d82e0a0995b6dc7f765eeff7354a1e6d176d5af995bcd"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 13340,
+          "esl_frames_reassembled": 19,
+          "reported_events_matched": 13,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {
+            "send_pt0": 26
+          }
+        }
+      },
+      "assertions": [
+        "双方使用同一冻结探针及相同语义断言",
+        "应用完成按真实通道和Application-UUID关联",
+        "SIP对话实际结束、媒体线程退出"
+      ]
+    },
+    {
+      "id": "xml-hangup",
+      "title": "XML正常挂断和实际BYE",
+      "state": "passed_scoped",
+      "full_contract_passed": false,
+      "reference": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:44:23.428003+00:00",
+        "finished_at": "2026-09-06T12:44:23.749710+00:00",
+        "observed": {
+          "hangup_cause": "NORMAL_CLEARING",
+          "hangup_completion_response": "_none_",
+          "actual_server_bye_answered": true,
+          "xml_actions": [
+            "answer",
+            "sleep",
+            "hangup"
+          ],
+          "observed_lifecycle_event_names": []
+        },
+        "raw_evidence_receipt": {
+          "file": "reference-xml-hangup-03.json",
+          "bytes": 148862,
+          "sha256": "85f06ef959ce3c84e8d6b4c8c0d9e42b480b1585d02b8830c37e431831d78b94"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 57688,
+          "esl_frames_reassembled": 13,
+          "reported_events_matched": 9,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {
+            "send_pt0": 16
+          }
+        }
+      },
+      "candidate": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:52:19.781291+00:00",
+        "finished_at": "2026-09-06T12:52:20.088554+00:00",
+        "observed": {
+          "hangup_cause": "NORMAL_CLEARING",
+          "hangup_completion_response": "_none_",
+          "actual_server_bye_answered": true,
+          "xml_actions": [
+            "answer",
+            "sleep",
+            "hangup"
+          ],
+          "observed_lifecycle_event_names": []
+        },
+        "raw_evidence_receipt": {
+          "file": "candidate-xml-hangup-02.json",
+          "bytes": 26487,
+          "sha256": "1e86f3c01e3035fc843ac4ef5550a10007a992702bfa51fda09e7116cc05adca"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 9524,
+          "esl_frames_reassembled": 13,
+          "reported_events_matched": 9,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {
+            "send_pt0": 16
+          }
+        }
+      },
+      "assertions": [
+        "双方使用同一冻结探针及相同语义断言",
+        "应用完成按真实通道和Application-UUID关联",
+        "SIP对话实际结束、媒体线程退出"
+      ]
+    },
+    {
+      "id": "xml-park",
+      "title": "XML park保持到uuid_kill真实挂断",
+      "state": "passed_scoped",
+      "full_contract_passed": false,
+      "reference": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:44:23.813491+00:00",
+        "finished_at": "2026-09-06T12:44:24.143187+00:00",
+        "observed": {
+          "still_parked_after_ms": 200,
+          "uuid_kill_response": "+OK\n",
+          "hangup_cause": "NORMAL_CLEARING",
+          "park_completion_response": "_none_",
+          "actual_server_bye_answered": true,
+          "observed_lifecycle_event_names": [
+            "CHANNEL_PARK",
+            "CHANNEL_UNPARK"
+          ]
+        },
+        "raw_evidence_receipt": {
+          "file": "reference-xml-park-03.json",
+          "bytes": 148026,
+          "sha256": "5ff1e5a6ac8adc2f2c3c4b7e754b80d086014c88362b1a9dbebbd7615365fc14"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 57387,
+          "esl_frames_reassembled": 14,
+          "reported_events_matched": 9,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {
+            "send_pt0": 17
+          }
+        }
+      },
+      "candidate": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:52:20.240102+00:00",
+        "finished_at": "2026-09-06T12:52:20.546377+00:00",
+        "observed": {
+          "still_parked_after_ms": 200,
+          "uuid_kill_response": "+OK\n",
+          "hangup_cause": "NORMAL_CLEARING",
+          "park_completion_response": "_none_",
+          "actual_server_bye_answered": true,
+          "observed_lifecycle_event_names": []
+        },
+        "raw_evidence_receipt": {
+          "file": "candidate-xml-park-02.json",
+          "bytes": 24950,
+          "sha256": "39d106b664e36ff36609bd381c6269835fd8d69ee5957d07eedeae58159b8a5e"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 8833,
+          "esl_frames_reassembled": 12,
+          "reported_events_matched": 7,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {
+            "send_pt0": 16
+          }
+        }
+      },
+      "assertions": [
+        "双方使用同一冻结探针及相同语义断言",
+        "应用完成按真实通道和Application-UUID关联",
+        "SIP对话实际结束、媒体线程退出"
+      ]
+    },
+    {
+      "id": "xml-miss",
+      "title": "权威XML未命中返回404",
+      "state": "passed_scoped",
+      "full_contract_passed": false,
+      "reference": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:44:24.242911+00:00",
+        "finished_at": "2026-09-06T12:44:24.349300+00:00",
+        "observed": {
+          "sip_status": 404,
+          "answered": false,
+          "scope": "已配置权威XML时，没有匹配destination返回404",
+          "observed_lifecycle_event_names": []
+        },
+        "raw_evidence_receipt": {
+          "file": "reference-xml-miss-03.json",
+          "bytes": 33332,
+          "sha256": "017a394766ff5a0647ac7d3fb3ebca9f6d00bb8087de3a0abc6bc3a4c44b7c63"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 12504,
+          "esl_frames_reassembled": 6,
+          "reported_events_matched": 2,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {}
+        }
+      },
+      "candidate": {
+        "state": "passed_scoped",
+        "started_at": "2026-09-06T12:52:20.694817+00:00",
+        "finished_at": "2026-09-06T12:52:20.804452+00:00",
+        "observed": {
+          "sip_status": 404,
+          "answered": false,
+          "scope": "已配置权威XML时，没有匹配destination返回404",
+          "observed_lifecycle_event_names": []
+        },
+        "raw_evidence_receipt": {
+          "file": "candidate-xml-miss-02.json",
+          "bytes": 5890,
+          "sha256": "c7aaa7150ba7ba4a507a96cfa73b1b5d6b7f9b8cfe5c3437a570dabd10ad6e3e"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 1669,
+          "esl_frames_reassembled": 4,
+          "reported_events_matched": 0,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {}
+        }
+      },
+      "assertions": [
+        "双方使用同一冻结探针及相同语义断言",
+        "应用完成按真实通道和Application-UUID关联",
+        "SIP对话实际结束、媒体线程退出"
+      ]
+    },
+    {
+      "id": "variables",
+      "title": "uuid_setvar_multi的12个参数边界",
+      "state": "passed_scoped",
+      "full_contract_passed": false,
+      "reference": {
+        "state": "observed",
+        "started_at": "2026-09-06T12:44:22.542814+00:00",
+        "finished_at": "2026-09-06T12:44:22.586967+00:00",
+        "observed": {
+          "cases": [
+            {
+              "id": "ordinary",
+              "command": "uuid_setvar_multi <uuid> rt_a=one;rt_b=two",
+              "response": "+OK\n",
+              "values": {
+                "rt_a": "one",
+                "rt_b": "two"
+              }
+            },
+            {
+              "id": "empty-value",
+              "command": "uuid_setvar_multi <uuid> rt_a=;rt_b=two",
+              "response": "+OK\n",
+              "values": {
+                "rt_a": "_undef_",
+                "rt_b": "two"
+              }
+            },
+            {
+              "id": "unicode",
+              "command": "uuid_setvar_multi <uuid> rt_cn=中文客户;rt_mark=结束",
+              "response": "+OK\n",
+              "values": {
+                "rt_cn": "中文客户",
+                "rt_mark": "结束"
+              }
+            },
+            {
+              "id": "quotes",
+              "command": "uuid_setvar_multi <uuid> rt_q='a;b';rt_d=\"c;d\"",
+              "response": "+OK\n",
+              "values": {
+                "rt_q": "a;b",
+                "rt_d": "\"c"
+              }
+            },
+            {
+              "id": "escaped-semicolon",
+              "command": "uuid_setvar_multi <uuid> rt_e=a\\;b;rt_tail=done",
+              "response": "+OK\n",
+              "values": {
+                "rt_e": "a;b",
+                "rt_tail": "done"
+              }
+            },
+            {
+              "id": "missing-equals",
+              "command": "uuid_setvar_multi <uuid> rt_prev=keep;rt_inherit;rt_final=end",
+              "response": "+OK\n",
+              "values": {
+                "rt_prev": "keep",
+                "rt_inherit": "_undef_",
+                "rt_final": "end"
+              }
+            },
+            {
+              "id": "empty-name-partial",
+              "command": "uuid_setvar_multi <uuid> rt_ok=1;=x;rt_after=2",
+              "response": "-ERR No variable specified\n+OK\n",
+              "values": {
+                "rt_ok": "1",
+                "rt_after": "2"
+              }
+            },
+            {
+              "id": "custom-delimiter",
+              "command": "uuid_setvar_multi <uuid> ^^|rt_ca=1|rt_cb=2",
+              "response": "+OK\n",
+              "values": {
+                "rt_ca": "1",
+                "rt_cb": "2"
+              }
+            },
+            {
+              "id": "empty-list",
+              "command": "uuid_setvar_multi <uuid> ",
+              "response": "-ERR no reply\n",
+              "values": {}
+            },
+            {
+              "id": "no-argument",
+              "command": "uuid_setvar_multi",
+              "response": "-USAGE: <uuid> <var>=<value>;<var>=<value>...\n",
+              "values": {}
+            },
+            {
+              "id": "uuid-only",
+              "command": "uuid_setvar_multi <uuid>",
+              "response": "-ERR no reply\n",
+              "values": {}
+            },
+            {
+              "id": "missing-channel",
+              "command": "uuid_setvar_multi 00000000-0000-0000-0000-000000000000 rt_x=1",
+              "response": "-ERR No such channel!\n-USAGE: <uuid> <var>=<value>;<var>=<value>...\n",
+              "values": {}
+            }
+          ],
+          "observed_lifecycle_event_names": [
+            "CHANNEL_PARK"
+          ]
+        },
+        "raw_evidence_receipt": {
+          "file": "reference-variables-03.json",
+          "bytes": 118885,
+          "sha256": "2db5b6c4dc9c67797bac791a7b2210f5447fbb529a954d929de42c4ce393c425"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 40716,
+          "esl_frames_reassembled": 39,
+          "reported_events_matched": 6,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {
+            "send_pt0": 3
+          }
+        }
+      },
+      "candidate": {
+        "state": "observed",
+        "started_at": "2026-09-06T12:52:18.098239+00:00",
+        "finished_at": "2026-09-06T12:52:18.103744+00:00",
+        "observed": {
+          "cases": [
+            {
+              "id": "ordinary",
+              "command": "uuid_setvar_multi <uuid> rt_a=one;rt_b=two",
+              "response": "+OK\n",
+              "values": {
+                "rt_a": "one",
+                "rt_b": "two"
+              }
+            },
+            {
+              "id": "empty-value",
+              "command": "uuid_setvar_multi <uuid> rt_a=;rt_b=two",
+              "response": "+OK\n",
+              "values": {
+                "rt_a": "_undef_",
+                "rt_b": "two"
+              }
+            },
+            {
+              "id": "unicode",
+              "command": "uuid_setvar_multi <uuid> rt_cn=中文客户;rt_mark=结束",
+              "response": "+OK\n",
+              "values": {
+                "rt_cn": "中文客户",
+                "rt_mark": "结束"
+              }
+            },
+            {
+              "id": "quotes",
+              "command": "uuid_setvar_multi <uuid> rt_q='a;b';rt_d=\"c;d\"",
+              "response": "+OK\n",
+              "values": {
+                "rt_q": "a;b",
+                "rt_d": "\"c"
+              }
+            },
+            {
+              "id": "escaped-semicolon",
+              "command": "uuid_setvar_multi <uuid> rt_e=a\\;b;rt_tail=done",
+              "response": "+OK\n",
+              "values": {
+                "rt_e": "a;b",
+                "rt_tail": "done"
+              }
+            },
+            {
+              "id": "missing-equals",
+              "command": "uuid_setvar_multi <uuid> rt_prev=keep;rt_inherit;rt_final=end",
+              "response": "+OK\n",
+              "values": {
+                "rt_prev": "keep",
+                "rt_inherit": "_undef_",
+                "rt_final": "end"
+              }
+            },
+            {
+              "id": "empty-name-partial",
+              "command": "uuid_setvar_multi <uuid> rt_ok=1;=x;rt_after=2",
+              "response": "-ERR No variable specified\n+OK\n",
+              "values": {
+                "rt_ok": "1",
+                "rt_after": "2"
+              }
+            },
+            {
+              "id": "custom-delimiter",
+              "command": "uuid_setvar_multi <uuid> ^^|rt_ca=1|rt_cb=2",
+              "response": "+OK\n",
+              "values": {
+                "rt_ca": "1",
+                "rt_cb": "2"
+              }
+            },
+            {
+              "id": "empty-list",
+              "command": "uuid_setvar_multi <uuid> ",
+              "response": "-ERR no reply\n",
+              "values": {}
+            },
+            {
+              "id": "no-argument",
+              "command": "uuid_setvar_multi",
+              "response": "-USAGE: <uuid> <var>=<value>;<var>=<value>...\n",
+              "values": {}
+            },
+            {
+              "id": "uuid-only",
+              "command": "uuid_setvar_multi <uuid>",
+              "response": "-ERR no reply\n",
+              "values": {}
+            },
+            {
+              "id": "missing-channel",
+              "command": "uuid_setvar_multi 00000000-0000-0000-0000-000000000000 rt_x=1",
+              "response": "-ERR No such channel!\n-USAGE: <uuid> <var>=<value>;<var>=<value>...\n",
+              "values": {}
+            }
+          ],
+          "observed_lifecycle_event_names": []
+        },
+        "raw_evidence_receipt": {
+          "file": "candidate-variables-02.json",
+          "bytes": 34513,
+          "sha256": "a393e813d1355634b1b6e30c9e39f558c4f34a65ccc1e8de1f3dffe1889b350e"
+        },
+        "raw_frame_validation": {
+          "raw_bytes_validated": 7539,
+          "esl_frames_reassembled": 35,
+          "reported_events_matched": 2,
+          "authentication_request_redacted": true,
+          "sip_invite_ack_and_teardown_verified": true,
+          "received_non_silent_pcmu_packets": 0,
+          "decoded_peak_pcm": 0,
+          "rtp_packets": {
+            "send_pt0": 1
+          }
+        }
+      },
+      "assertions": [
+        "12个相同参数向量的原始返回正文逐字相同",
+        "普通/删除/Unicode/引号/转义/缺等号/空名称/自定义分隔等变量作用结果逐字相同",
+        "无参数、仅UUID、不存在通道均比较真实错误正文"
+      ]
+    },
+    {
+      "id": "ivr-regression",
+      "title": "set/unset/read真实RTP 12#回归",
+      "state": "passed_scoped",
+      "full_contract_passed": false,
+      "assertions": [
+        "原始sendmsg命令和唯一Application-UUID对应三项完成事件",
+        "中文值、_undef_、12/success/#与_none_响应逐字相同",
+        "真实RTP 12#结束重复包去重、480时长、实际BYE和挂断事件"
+      ],
+      "reference": {
+        "state": "passed_scoped",
+        "observed": {
+          "set": {
+            "value": "中文客户",
+            "application_response": "_none_"
+          },
+          "unset": {
+            "value": "_undef_",
+            "application_response": "_none_"
+          },
+          "read": {
+            "variables": {
+              "digits": "12",
+              "read_result": "success",
+              "read_terminator_used": "#"
+            },
+            "application_response": "_none_"
+          }
+        },
+        "raw_evidence_receipt": {
+          "file": "reference-ivr-regression-03.json",
+          "bytes": 129658,
+          "sha256": "edd0d8286c4bef2613d5144a71c7f00e1e34167a41b25a4a58b3fed3409b8a58"
+        },
+        "raw_frame_validation": {
+          "actual_api_response_values": [
+            "中文客户",
+            "_undef_",
+            "12",
+            "success",
+            "#"
+          ],
+          "dtmf_events": [
+            [
+              "1",
+              "480"
+            ],
+            [
+              "2",
+              "480"
+            ],
+            [
+              "#",
+              "480"
+            ]
+          ],
+          "pcm_silence_rtp_packets": 24,
+          "telephone_event_digits": [
+            "1",
+            "2",
+            "#"
+          ],
+          "telephone_event_end_repetitions_each": 3,
+          "all_decodable_wire_hashes_verified": true
+        }
+      },
+      "candidate": {
+        "state": "passed_scoped",
+        "observed": {
+          "set": {
+            "value": "中文客户",
+            "application_response": "_none_"
+          },
+          "unset": {
+            "value": "_undef_",
+            "application_response": "_none_"
+          },
+          "read": {
+            "variables": {
+              "digits": "12",
+              "read_result": "success",
+              "read_terminator_used": "#"
+            },
+            "application_response": "_none_"
+          }
+        },
+        "raw_evidence_receipt": {
+          "file": "candidate-ivr-regression-02.json",
+          "bytes": 29644,
+          "sha256": "c80d5ece99c17125ae51198404e90953bd78eb4df47efcb4f707720e810b16d8"
+        },
+        "raw_frame_validation": {
+          "actual_api_response_values": [
+            "中文客户",
+            "_undef_",
+            "12",
+            "success",
+            "#"
+          ],
+          "dtmf_events": [
+            [
+              "1",
+              "480"
+            ],
+            [
+              "2",
+              "480"
+            ],
+            [
+              "#",
+              "480"
+            ]
+          ],
+          "pcm_silence_rtp_packets": 17,
+          "telephone_event_digits": [
+            "1",
+            "2",
+            "#"
+          ],
+          "telephone_event_end_repetitions_each": 3,
+          "all_decodable_wire_hashes_verified": true
+        }
+      }
+    }
+  ],
+  "explicit_differences": [
+    {
+      "scenario": "playback-eos",
+      "field": "PLAYBACK_START/PLAYBACK_STOP",
+      "reference": [
+        {
+          "Event-Name": "PLAYBACK_START",
+          "Playback-File-Path": "/mnt/share/compatibility-v1.7/fixtures/audio/native-1s.wav",
+          "Playback-Status": null
+        },
+        {
+          "Event-Name": "PLAYBACK_STOP",
+          "Playback-File-Path": "/mnt/share/compatibility-v1.7/fixtures/audio/native-1s.wav",
+          "Playback-Status": "done"
+        }
+      ],
+      "candidate": [],
+      "state": "not_equivalent",
+      "effect": "此场景只可标应用/媒体子集通过，不能标完整事件合同通过"
+    },
+    {
+      "scenario": "playback-stop",
+      "field": "PLAYBACK_START/PLAYBACK_STOP",
+      "reference": [
+        {
+          "Event-Name": "PLAYBACK_START",
+          "Playback-File-Path": "/mnt/share/compatibility-v1.7/fixtures/audio/native-4s.wav",
+          "Playback-Status": null
+        },
+        {
+          "Event-Name": "PLAYBACK_STOP",
+          "Playback-File-Path": "/mnt/share/compatibility-v1.7/fixtures/audio/native-4s.wav",
+          "Playback-Status": "break"
+        }
+      ],
+      "candidate": [],
+      "state": "not_equivalent",
+      "effect": "此场景只可标应用/媒体子集通过，不能标完整事件合同通过"
+    },
+    {
+      "scenario": "playback-dtmf",
+      "field": "PLAYBACK_START/PLAYBACK_STOP",
+      "reference": [
+        {
+          "Event-Name": "PLAYBACK_START",
+          "Playback-File-Path": "/mnt/share/compatibility-v1.7/fixtures/audio/native-4s.wav",
+          "Playback-Status": null
+        },
+        {
+          "Event-Name": "PLAYBACK_STOP",
+          "Playback-File-Path": "/mnt/share/compatibility-v1.7/fixtures/audio/native-4s.wav",
+          "Playback-Status": "break"
+        }
+      ],
+      "candidate": [],
+      "state": "not_equivalent",
+      "effect": "此场景只可标应用/媒体子集通过，不能标完整事件合同通过"
+    },
+    {
+      "scenario": "xml-sequence",
+      "field": "CHANNEL_PARK/CHANNEL_UNPARK",
+      "reference": [
+        "CHANNEL_PARK",
+        "CHANNEL_UNPARK"
+      ],
+      "candidate": [],
+      "state": "not_equivalent",
+      "effect": "此场景只可标指定应用结果通过，不能标完整停驻事件合同通过"
+    },
+    {
+      "scenario": "xml-park",
+      "field": "CHANNEL_PARK/CHANNEL_UNPARK",
+      "reference": [
+        "CHANNEL_PARK",
+        "CHANNEL_UNPARK"
+      ],
+      "candidate": [],
+      "state": "not_equivalent",
+      "effect": "此场景只可标指定应用结果通过，不能标完整停驻事件合同通过"
+    }
+  ],
+  "limitations": [
+    "受限WAV只验证8kHz单声道PCM16输入到PCMU，不代表所有音频格式、采样率、URL或文件协议。",
+    "XML只验证共享文件中的单destination_number条件和固定顺序动作；完整正则/嵌套/anti-action/动态重载等不在本次范围。",
+    "原版WAV使用同一共享文件的绝对路径；候选使用受限根下相对路径，两者路径合同有意不同。",
+    "本次单路原版对照与26项ESL/SIP探针是独立集合；均不能证明5000或10000并发通过。",
+    "默认*/none及read提示中uuid_break已采原版边界，候选本地回归由独立E2E覆盖；本文件只将显式#与普通playback停止列为成对验证。",
+    "uuid_setvar_multi只覆盖表中12向量；64项上限、更广的分隔符与所有错误组合未获完整合同认证。"
+  ],
+  "candidate_cleanup": {
+    "both_owned_processes_exited_normally": true,
+    "both_fixtures_calls_returned_to_zero": true,
+    "execution_index": {
+      "file": "candidate-native-02.index.json",
+      "bytes": 18565,
+      "sha256": "046194abf5781c3bce7702e875dd030be91ce69a35048976492a10b0345df7e0"
+    }
+  },
+  "separate_protocol_evidence": {
+    "file": "conformance-summary.json",
+    "sha256": "c34825a6d177ed8fbab08da7189004908c4691aeda2ab766f2bb1ee74b3f7e40",
+    "probes": [
+      {
+        "id": "identity.esl",
+        "state": "identity_observed",
+        "scope": "读取两端真实版本并核实 reference 发行版本；不比较版本字符串"
+      },
+      {
+        "id": "esl.auth.fragmented",
+        "state": "passed_scoped",
+        "scope": "认证请求逐字节发送、成功身份和固定 echo 正文"
+      },
+      {
+        "id": "esl.auth.wrong",
+        "state": "passed_scoped",
+        "scope": "一个错误密码的回复及随后关闭；不包含 ACL、锁定、空密码、认证超时"
+      },
+      {
+        "id": "esl.auth.required",
+        "state": "passed_scoped",
+        "scope": "认证前 api echo 被拒绝且不获取身份，同连接随后有效认证和 echo 成功"
+      },
+      {
+        "id": "esl.echo",
+        "state": "passed_scoped",
+        "scope": "api echo 固定 UTF-8 正文、Content-Length 字节数"
+      },
+      {
+        "id": "esl.console.single",
+        "state": "passed_scoped",
+        "scope": "fs_cli -x 的 console_execute 单命令包装：UTF-8、空 echo、首尾空格、单分号和 false 字面参数；不代表别名、批处理或交互客户端"
+      },
+      {
+        "id": "esl.api.unknown",
+        "state": "passed_scoped",
+        "scope": "单个固定未知 API 命令的错误响应"
+      },
+      {
+        "id": "esl.frames.pipeline",
+        "state": "passed_scoped",
+        "scope": "一次写入两条 echo；逐帧读取并核对两个正文；不代表事件洪峰"
+      },
+      {
+        "id": "esl.frames.crlf",
+        "state": "passed_scoped",
+        "scope": "CRLF 命令分隔的认证和 echo；不代表所有头部/长度边界"
+      },
+      {
+        "id": "esl.frames.split_positions",
+        "state": "passed_scoped",
+        "scope": "固定 echo 请求在每个字节边界拆成两次发送，每次独立连接"
+      },
+      {
+        "id": "esl.bgapi.echo",
+        "state": "passed_scoped",
+        "scope": "固定 Job-UUID、bgapi echo 回复及 BACKGROUND_JOB 结果；不包含并发作业/重连重放"
+      },
+      {
+        "id": "identity.api_inventory",
+        "state": "inventory_observed",
+        "scope": "真实 show api as json 注册目录；逐个对照全部 fs_api 原始 ID，接口存在不表示语义通过"
+      },
+      {
+        "id": "esl.api.echo_empty",
+        "state": "passed_scoped",
+        "scope": "echo 无参数、尾空格、首尾空格的完整原始响应；不预设空白归一化"
+      },
+      {
+        "id": "esl.api.create_uuid",
+        "state": "passed_scoped",
+        "scope": "连续两次生成合法且不同 UUID，保留原字节；仅随机 UUID 值可规范化"
+      },
+      {
+        "id": "esl.api.uuid_exists_missing",
+        "state": "passed_scoped",
+        "scope": "固定 nil UUID 实际不存在时返回 false；不代表存在通道完整契约"
+      },
+      {
+        "id": "esl.api.uuid_getvar_missing",
+        "state": "passed_scoped",
+        "scope": "先核实固定 nil UUID 不存在，再读取变量并比较完整错误"
+      },
+      {
+        "id": "esl.api.uuid_setvar_missing",
+        "state": "passed_scoped",
+        "scope": "仅隔离 fixture，确认 nil UUID 不存在后尝试设置并比较错误；不修改真实通道"
+      },
+      {
+        "id": "esl.api.uuid_kill_missing",
+        "state": "passed_scoped",
+        "scope": "仅隔离 fixture，确认 nil UUID 不存在后调用并比较错误；不挂断真实通道"
+      },
+      {
+        "id": "esl.api.uuid_syntax",
+        "state": "passed_scoped",
+        "scope": "uuid_exists/getvar/setvar/kill 缺参数的真实错误/usage；不执行有效通道动作"
+      },
+      {
+        "id": "esl.command.case",
+        "state": "passed_scoped",
+        "scope": "混合大小写 AUTH/API/EVENT、格式沿用及 nixevent/noevents 开关"
+      },
+      {
+        "id": "esl.filter.lifecycle",
+        "state": "passed_scoped",
+        "scope": "filter delete all、空值清除、noevents/nixevent；以真实后台事件交付证明过滤已清除"
+      },
+      {
+        "id": "esl.bgapi.echo.json",
+        "state": "passed_scoped",
+        "scope": "JSON BACKGROUND_JOB、固定 UUID、原始正文与内层字节长度"
+      },
+      {
+        "id": "esl.bgapi.echo.xml",
+        "state": "passed_scoped",
+        "scope": "XML BACKGROUND_JOB、固定 UUID、headers/root-body 结构、原始正文与内层字节长度"
+      },
+      {
+        "id": "sip.options.udp",
+        "state": "failed_difference",
+        "scope": "一个 OPTIONS 事务、状态码/能力头和回显事务标识；不代表完成呼叫"
+      },
+      {
+        "id": "sip.options.tcp",
+        "state": "failed_difference",
+        "scope": "TCP 连接上一个 OPTIONS 请求及完整响应；不代表 TCP 呼叫/复用/背压"
+      },
+      {
+        "id": "sip.options.tls",
+        "state": "failed_difference",
+        "scope": "验证证书的 TLS 连接上一个 OPTIONS；不允许跳过证书验证"
+      }
+    ],
+    "counts": {
+      "identity_observed": 1,
+      "passed_scoped": 21,
+      "inventory_observed": 1,
+      "failed_difference": 3
+    },
+    "same_source_verified": true,
+    "note": "独立26探针集合，原始报告和发布门禁见对应文档；本文件不重复认证其结果"
+  }
+}

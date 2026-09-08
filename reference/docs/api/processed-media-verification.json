@@ -1,0 +1,226 @@
+{
+  "schema_version": "1.0.0",
+  "candidate": "M1-G711-final-02",
+  "deployment_state": "candidate_not_deployed",
+  "scope": "显式G711 8k mono20ms双腿实时媒体功能验证；非完整Voice Agent、原版成对或容量认证",
+  "built_source_sha256": "ec51acac361044eb3365ceeb01b61bccfbb2a14b8c88d3677ce0cb1afe08d95d",
+  "binaries": {
+    "rustswitch": "1e6d6815658ef57e22cd9cb809b19d41b7c0cae4606f4d22ef5853001b2646bf",
+    "rustswitch-media": "6f0b3d1886bca1e84f53e917fd95da0f0ad58b1cba1de5f99ab63bfd92beddeb"
+  },
+  "source_unchanged": true,
+  "processed_e2e": {
+    "passed": 22,
+    "failed": 0,
+    "skipped": 0,
+    "connected_cases_with_fresh_cleanup_stats": 20,
+    "preallocation_rejection_cases": 2,
+    "modes": [
+      {
+        "mode": "udp",
+        "elapsed_seconds": 23.311,
+        "tests": [
+          {
+            "id": "ProcessedMediaIntegration.test_183_without_aux_then_200_restores_dtmf_without_restarting_media",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_bidirectional_pcmu_pcma_decodes_changes_and_reencodes",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_bounded_reorder_and_duplicate_do_not_duplicate_audio",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_bye_reclaims_graph_and_stale_source_cannot_feed_reused_ports",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_cn_then_marker_with_new_timestamp_phase_resumes_real_audio",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_dynamic_a_pcma_and_static_b_pcmu_keep_independent_sdp",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_interleaved_dtmf_and_cn_use_new_timeline_without_false_audio_loss",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_missing_frame_then_late_arrival_is_not_replayed",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_non_g711_and_non_20ms_offers_are_rejected_before_upstream",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_rtcp_reports_are_terminated_count_media_and_finish_with_bye",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_worker_pause_expires_old_audio_without_catchup_burst",
+            "status": "ok"
+          }
+        ]
+      },
+      {
+        "mode": "connected",
+        "elapsed_seconds": 22.694,
+        "tests": [
+          {
+            "id": "ProcessedMediaIntegration.test_183_without_aux_then_200_restores_dtmf_without_restarting_media",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_bidirectional_pcmu_pcma_decodes_changes_and_reencodes",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_bounded_reorder_and_duplicate_do_not_duplicate_audio",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_bye_reclaims_graph_and_stale_source_cannot_feed_reused_ports",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_cn_then_marker_with_new_timestamp_phase_resumes_real_audio",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_dynamic_a_pcma_and_static_b_pcmu_keep_independent_sdp",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_interleaved_dtmf_and_cn_use_new_timeline_without_false_audio_loss",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_missing_frame_then_late_arrival_is_not_replayed",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_non_g711_and_non_20ms_offers_are_rejected_before_upstream",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_rtcp_reports_are_terminated_count_media_and_finish_with_bye",
+            "status": "ok"
+          },
+          {
+            "id": "ProcessedMediaIntegration.test_worker_pause_expires_old_audio_without_catchup_burst",
+            "status": "ok"
+          }
+        ]
+      }
+    ]
+  },
+  "legacy_e2e": {
+    "stages": 24,
+    "passed": 228,
+    "failed": 0,
+    "skipped": 0,
+    "receipt_id": "e2e-d2e07585575843f0812309510ef826d3"
+  },
+  "go": {
+    "passed_test_records": 649,
+    "passed_packages": 8,
+    "failed": 0,
+    "skipped": 0,
+    "receipt_id": "go-d5f594d4c6a1422cbcc4182d0bfc2055"
+  },
+  "rust": {
+    "passed": 124,
+    "failed": 0,
+    "skipped": 0,
+    "clippy_exit_code": 0,
+    "scope": "含真实G722/Opus库的全目标；4项Graph组合回归已包含在总数，不重复计数"
+  },
+  "late_dtmf_udp": {
+    "passed": 2,
+    "same_frozen_inputs_before_and_after": true,
+    "scope": "同事件恒定时间戳、正常结束包保留、活动新事件不被旧事件覆盖；独立于22项SIP场景"
+  },
+  "graph_allocation_measurement": {
+    "passed": true,
+    "scope": "已建立单Graph的双向真实G71120ms处理循环，单调时间加速推进；不包含worker/UDP/日志/初始化/销毁，不是容量或耗时基准",
+    "allocator_probe": {
+      "alloc": 1,
+      "alloc_zeroed": 1,
+      "free": 2,
+      "realloc": 1
+    },
+    "measured": {
+      "alloc": 0,
+      "alloc_zeroed": 0,
+      "free": 0,
+      "realloc": 0
+    },
+    "input_packets": {
+      "audio": 18000,
+      "cn": 200,
+      "dtmf": 1000
+    },
+    "output_packets": {
+      "audio": 18200,
+      "cn": 200,
+      "dtmf": 1000
+    },
+    "rtcp_compounds": 84,
+    "simulated_seconds": 200
+  },
+  "references": [
+    {
+      "path": "work/voice-runtime-m1/processed-final-02.receipt.json",
+      "sha256": "64ed581c408fccaa880f37475699122b8d67c42355ec72597c9b747315888d04"
+    },
+    {
+      "path": "work/voice-runtime-m1/build-final-02/build.json",
+      "sha256": "ca8addc68a36c0377572ac7a95bac163c01b41ae440a994c7d16349571d4f740"
+    },
+    {
+      "path": "work/voice-runtime-m1/build-final-02/runtime-build.json",
+      "sha256": "37d4391149c734d0e54533b71495614254bdab5d433fc8198513fad53e1ffa14"
+    },
+    {
+      "path": "work/voice-runtime-m1/rust-final-verification.json",
+      "sha256": "ce1a43d218fbf24e0fc62ed0fa56f0d223100bc8554938a3c11b2d278da68307"
+    },
+    {
+      "path": "work/voice-runtime-m1/review/processed-regression-01.json",
+      "sha256": "13ba86c65520f335100b2c8966a1a90290668bab04518f820937920207b2f9d3"
+    },
+    {
+      "path": "work/voice-runtime-m1/review/late-dtmf-udp-comparison.json",
+      "sha256": "ec3e99512aa9d00d83d47774d6533e828678c53fe55f80f8de276115f4dc9862"
+    },
+    {
+      "path": "work/voice-runtime-m1/rtp-owned-verification-revision-07.json",
+      "sha256": "bb0acaaf43ea4a82a78181ffb74aa0fdc2b31e3328a1537f027ff4e6a528cd91"
+    },
+    {
+      "path": "work/voice-runtime-m1/regression-evidence/go-d5f594d4c6a1422cbcc4182d0bfc2055.receipt.json",
+      "sha256": "8693b96421fe7111ecd807e2d4e8eb55c39424e12e05d9c402b89adb6c9efe6a"
+    },
+    {
+      "path": "work/voice-runtime-m1/regression-evidence/e2e-d2e07585575843f0812309510ef826d3.receipt.json",
+      "sha256": "b59e7f03ac4da98e97ff79c9685f4c418923977aee82b936914ddb82ba21387b"
+    },
+    {
+      "path": "work/voice-runtime-m1/review/graph-allocation-02.json",
+      "sha256": "8f49289db1f43e4321298c8e3dd61f59b8967002683a4b901081886d3c32caf4"
+    }
+  ],
+  "source_receipts_packaged": false,
+  "freeswitch_paired_m1_verified": false,
+  "processed_capacity_verified": false,
+  "full_voice_agent_verified": false,
+  "remaining_integration": [
+    "GET /v1/codecs目录与管理页尚未合入新处理图；当前按ready/allocated/stats确认",
+    "现有发生器针对relay，M1处理模式1000/5000/10000路待实现并验收",
+    "候选文档和对照尚未内嵌部署到9080主服务"
+  ]
+}

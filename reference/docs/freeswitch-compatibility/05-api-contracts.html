@@ -1,0 +1,327 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>05 · API 命令与业务行为契约 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 05 · API 命令与业务行为契约</div><article class="content"><div class="page-tools"><a href="05-api-contracts.md" download>Markdown 原稿</a><a href="../api/openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 8 节</summary><a href="#51-接口层次">5.1 接口层次</a><a href="#52-语法不可以只靠-help-推断">5.2 语法不可以只靠 help 推断</a><a href="#53-通用-api-要求">5.3 通用 API 要求</a><a href="#54-核心命令族与必验行为">5.4 核心命令族与必验行为</a><a href="#55-几个可明确到字节的源码契约">5.5 几个可明确到字节的源码契约</a><a href="#56-originate-的独立合同">5.6 originate 的独立合同</a><a href="#57-子命令与动态接口闭合">5.7 子命令与动态接口闭合</a><a href="#58-api-验收用例">5.8 API 验收用例</a></details><h1 id="05-api-命令与业务行为契约">05 · API 命令与业务行为契约</h1>
+<h2 id="51-接口层次">5.1 接口层次</h2>
+<p>必须区分 ESL 传输命令、FreeSWITCH 注册 API、拨号计划应用、JSON API 和 Chat 应用。同名不代表同参数或同执行上下文。例如 API <code>sched_hangup</code> 显式传 UUID，拨号计划应用使用当前会话；两者必须建立不同记录。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7645" target="_blank" rel="noopener noreferrer">固定注册来源</a> · <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_dptools/mod_dptools.c#L6628" target="_blank" rel="noopener noreferrer">应用注册</a></p>
+<p>本章加上 <a href="catalog/api-and-applications.html">538 个宏注册位置目录</a> 定义 API 覆盖工作的入口。静态目录尚不是 538 份经过原版运行验证的完整语义合同。每个候选接口必须展开子命令和配置条件，填写 <a href="templates/interface-contract.json">契约模板</a> 并关联实测。</p>
+<h2 id="52-语法不可以只靠-help-推断">5.2 语法不可以只靠 help 推断</h2>
+<p>注册表中的语法是原版帮助元数据，参数最终由处理函数解析。固定版本中 <code>create_uuid</code> 注册帮助引用了 <code>UUID_SYNTAX</code>，其文本是两个 UUID 参数，而实际 <code>uuid_function</code> 直接生成 UUID；<code>uuid_bridge</code> 注册帮助为空，处理函数却要求 UUID，并有备用目标分支。替换实现既要保持原帮助输出，又要保持实际执行语法，不能将帮助文本直接当作唯一校验器。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L7653" target="_blank" rel="noopener noreferrer">帮助注册</a> · <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L3192" target="_blank" rel="noopener noreferrer">UUID 生成</a> · <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L4720" target="_blank" rel="noopener noreferrer">桥接解析</a></p>
+<p>必须分别记录：公布语法、实际接受语法、无效输入处理。<code>NULL</code>/空帮助不表示无参数；宏或运行期拼接不表示可任意透传；HTTP 的 <code>json</code> 输出选项不表示该模块提供 OpenAPI/REST 服务。</p>
+<h2 id="53-通用-api-要求">5.3 通用 API 要求</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>强制要求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>API-R01</td>
+<td>入口大小写、前后空格、引号、反斜杠、Unicode、分隔符、可选尾参和变量展开保持原行为；不全局套用 shell 或 JSON 解析规则</td>
+</tr>
+<tr>
+<td>API-R02</td>
+<td>同步 API 的返回正文与调用层状态分开；正文可以包含错误，模块处理函数的成功状态不能被误解为业务成功</td>
+</tr>
+<tr>
+<td>API-R03</td>
+<td>api、ESL bgapi、API 名为 bgapi 的包装、脚本 API.execute、JSON API 和 HTTP 包装各自测试；不能默认不同入口的鉴权/展开/返回都相同</td>
+</tr>
+<tr>
+<td>API-R04</td>
+<td>无通道、正在结束通道、跨进程通道、A/B腿、已桥接/未桥接、未应答/已应答分别验证；不能只在单路正常接通状态下测试</td>
+</tr>
+<tr>
+<td>API-R05</td>
+<td>先明确线性化点与并发竞态的原版允许结果集合，再比较命令完成、相关事件及最终状态；不擅自增加全局串行顺序</td>
+</tr>
+<tr>
+<td>API-R06</td>
+<td>调用超时、断连和重试不代表未执行；按原版说明任务是否继续及如何关联，不增加未经协议约定的幂等键</td>
+</tr>
+<tr>
+<td>API-R07</td>
+<td>参数长度、数字范围、缺值、空值、无效目标、权限、资源不足等错误分别保留；不得统一 +OK、HTTP 200 或一个泛化 -ERR</td>
+</tr>
+<tr>
+<td>API-R08</td>
+<td>查询命令必须读取实时对应状态，控制命令必须产生真实副作用；模块列表、统计与事件不能使用静态假数据</td>
+</tr>
+<tr>
+<td>API-R09</td>
+<td>破坏性命令的语义仍要兼容，但只在隔离实验基线运行，不能把清单采集器变成 load/unload、重启或挂机脚本</td>
+</tr>
+</tbody></table></div>
+<h2 id="54-核心命令族与必验行为">5.4 核心命令族与必验行为</h2>
+<p>语法逐项见注册目录；下表补充不能由语法推断的合同。表中入口为代表，所在模块的其余注册和子命令仍然强制收录。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>命令族</th>
+<th>入口</th>
+<th>必须验收的行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>发现与状态</td>
+<td>version/status/uptime/banner/help/show/console_complete</td>
+<td>原 fs_cli/SDK 可解析；short、CSV/XML/JSON、排序、表头、空列表、未知类型、实例身份与启动时间</td>
+</tr>
+<tr>
+<td>原版控制</td>
+<td>fsctl/load/unload/reload/reloadxml/reloadacl</td>
+<td>所有子命令；新旧呼叫配置可见点、重载失败处理、模块在用时卸载结果、事件与资源生命周期</td>
+</tr>
+<tr>
+<td>UUID</td>
+<td>create_uuid/uuid_exists/uuid_dump</td>
+<td>配置的 UUID 版本、唯一性、查询值、通道不存在/结束中行为；dump字段与可选格式</td>
+</tr>
+<tr>
+<td>发起呼叫</td>
+<td>originate</td>
+<td>originate字符串语法、A/B腿变量、串行/并行目标、origination_uuid、caller ID、早期媒体、超时、取消、失败原因、返回对象</td>
+</tr>
+<tr>
+<td>桥接与转接</td>
+<td>uuid_bridge/uuid_transfer/uuid_dual_transfer/uuid_simplify</td>
+<td>目标腿选择、已桥接腿处理、备用目标、上下文、拨号计划入口、转接后续行与旧腿销毁</td>
+</tr>
+<tr>
+<td>接通与结束</td>
+<td>uuid_answer/uuid_pre_answer/uuid_ring_ready/uuid_outgoing_answer/uuid_kill/hupall</td>
+<td>180/183/200与媒体状态；重复调用、指定cause、过滤范围；受理后真实挂断与话单完成</td>
+</tr>
+<tr>
+<td>会话变量</td>
+<td>uuid_getvar/uuid_setvar/uuid_setvar_multi</td>
+<td>未定义/空字符串/删除、数组索引、多值变量、重复键、顺序更新、部分非法数据与副作用</td>
+</tr>
+<tr>
+<td>全局及目录变量</td>
+<td>global_getvar/global_setvar/domain_data/user_data/user_exists</td>
+<td>查询来源、缓存、作用域、权限、域隔离、空值与未找到结果</td>
+</tr>
+<tr>
+<td>表达式与包装</td>
+<td>eval/expand/escape/url_decode/url_encode/regex/cond/coalesce/json/xml_wrap</td>
+<td>原表达式与编码规则、嵌套命令授权、参数边界、输出类型；不能让包装绕过权限</td>
+</tr>
+<tr>
+<td>放音与中断</td>
+<td>uuid_broadcast/uuid_displace/uuid_fileman/uuid_break</td>
+<td>路径或应用语法、A/B/both、排队、停止当前或全部、文件句柄、完成/打断事件、真实音频</td>
+</tr>
+<tr>
+<td>DTMF</td>
+<td>uuid_send_dtmf/uuid_recv_dtmf/uuid_flush_dtmf/uuid_drop_dtmf</td>
+<td>发送与注入不同；持续时间、队列、mask、转发/检测模式、一次用户按键的业务效果</td>
+</tr>
+<tr>
+<td>保持与媒体变更</td>
+<td>uuid_hold/uuid_pause/uuid_media/uuid_media_3p/uuid_media_reneg</td>
+<td>SIP保持、媒体暂停、bypass/proxy、重新协商、失败回退；不将不同功能映射到单一暂停标志</td>
+</tr>
+<tr>
+<td>录音</td>
+<td>uuid_record、相应 record_session 应用</td>
+<td>start/stop/mask/unmask、路径与变量、方向、限制；文件与事件、通话结束自动关闭、I/O故障</td>
+</tr>
+<tr>
+<td>调度</td>
+<td>sched_api/sched_hangup/sched_transfer/sched_broadcast/sched_del/unsched_api</td>
+<td>相对/绝对/周期时间、组与任务ID、取消竞争、结束后的任务处理、时钟变化和重启边界</td>
+</tr>
+<tr>
+<td>资源与数据</td>
+<td>limit*/hash*/db*/group*/fifo*</td>
+<td>所用后端和SQL语义、原子操作、TTL/配额、多实例作用域、错误恢复，不能用内存占位替代持久行为</td>
+</tr>
+<tr>
+<td>SIP管理</td>
+<td>sofia/sofia_contact/sofia_count_reg/sofia_presence_data 等</td>
+<td>profile/gateway/注册/contact/状态/trace/恢复子命令；命令层结果与SIP网络变化对应</td>
+</tr>
+<tr>
+<td>会议</td>
+<td>conference 与相关应用</td>
+<td>创建、加入、成员ID、mute/deaf/kick、播放、录音、转移、布局/视频、事件与XML/JSON状态</td>
+</tr>
+<tr>
+<td>呼叫中心</td>
+<td>callcenter_config 与 callcenter 应用</td>
+<td>queue/agent/tier全部子命令、代理status/state、队列分配、超时、恢复、SQL与CUSTOM事件</td>
+</tr>
+<tr>
+<td>语音信箱与业务</td>
+<td>voicemail*/ivr/say/phrase、所用传真/TTS/ASR模块</td>
+<td>用户目录与邮箱、原存储格式、提示音、收号分支、外部引擎结果与失败行为</td>
+</tr>
+<tr>
+<td>对外消息</td>
+<td>chat/uuid_send_message/uuid_send_info、AMQP/事件类API</td>
+<td>目的路由、内容类型、返回与交付区别、权限、事件/消息头、重试与故障域</td>
+</tr>
+</tbody></table></div>
+<p>以上是验收族划分，不把名称相似但未注册的字面字符串视为真实入口；带 <code>*</code> 和“等”表示按固定版本目录和现场运行清单展开。模块缺失时原版的错误也是该 profile 的行为；全模块产品目标还需在启用该模块的 profile 验证正向功能。</p>
+<h2 id="55-几个可明确到字节的源码契约">5.5 几个可明确到字节的源码契约</h2>
+<p>下列结果来源于固定源码。本轮已运行原版并对缺失 UUID、语法及有限 API 分支取得成对证据，具体已执行输入见 <a href="../api/conformance-report.html">成对报告</a>；不能把这些分支的通过扩大为表中全部状态、存在通道的副作用或完整 API 合同已验证。<code>\n</code> 表示一个 LF 字节，客户端应比较真实字节而非反斜杠文本。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>输入与前提</th>
+<th>参考 API 正文</th>
+<th>必须保留的区别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>uuid_exists U</code>，U 不存在</td>
+<td><code>false</code></td>
+<td>没有 +OK，源码不追加 LF</td>
+</tr>
+<tr>
+<td><code>uuid_exists U</code>，U 存在</td>
+<td><code>true</code></td>
+<td>不是 JSON 布尔信封，不等于该通道已接通</td>
+</tr>
+<tr>
+<td><code>uuid_getvar U missing_key</code>，U 存在且无该变量</td>
+<td><code>_undef_</code></td>
+<td>不替换成 null、空字符串或 404</td>
+</tr>
+<tr>
+<td><code>uuid_getvar U x</code>，U 不存在</td>
+<td><code>-ERR No such channel!\n</code></td>
+<td>与变量不存在不同</td>
+</tr>
+<tr>
+<td><code>uuid_setvar U key</code>，U 存在</td>
+<td>调用成功时 <code>+OK\n</code>，缺值进入删除/空值的原 setter 语义</td>
+<td>必须继续读取变量，不能只验 +OK</td>
+</tr>
+<tr>
+<td><code>uuid_kill U</code>，U 不存在</td>
+<td><code>-ERR No such channel!\n</code></td>
+<td>不能因幂等设计自行改为成功</td>
+</tr>
+</tbody></table></div>
+<p>来源：<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L6144" target="_blank" rel="noopener noreferrer">exists/getvar/setvar</a> · <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L2880" target="_blank" rel="noopener noreferrer">kill</a></p>
+<p><code>uuid_setvar_multi</code> 逐段处理变量，不应凭命令名自行实现为全有或全无的数据库事务；坏片段可能与成功片段并存。必须构造混合有效/无效输入观察多行返回和部分写入，不偷偷“修正”为整体回滚。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L6197" target="_blank" rel="noopener noreferrer">源码</a></p>
+<p>示例：在确定 U 不存在的隔离场景，客户端请求是 <code>api uuid_exists U\n\n</code>；服务器外层为 <code>api/response</code>，正文长度 5，正文 <code>false</code>。外层帧要求见 ESL 章节，不能把正文的 false 当作 TCP、鉴权或解析失败。</p>
+<h2 id="56-originate-的独立合同">5.6 originate 的独立合同</h2>
+<p>必须建立字符串文法回归集，覆盖括号、花括号、方括号、分隔符、转义和变量展开。保持超时值单位，endpoint拨号串、网关、循环回环、user路由和应用尾部参数各自解析；不能只按空格拆开。基线模块支持的并行/顺序fork需展开胜出、早期媒体、迟到200和全部失败场景。</p>
+<p><code>origination_uuid</code> 是通道关联，ESL Job UUID 是后台任务关联；两者不能互相代替。调用返回、通道应答、应用完成、B腿结束和CDR交付是独立时点。拒接/忙线/超时后的API正文、hangup_cause、originate_disposition、SIP码和事件必须一致。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c#L5107" target="_blank" rel="noopener noreferrer">调用入口</a> · <a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/switch_ivr_originate.c" target="_blank" rel="noopener noreferrer">originate核心</a></p>
+<h2 id="57-子命令与动态接口闭合">5.7 子命令与动态接口闭合</h2>
+<p>conference、sofia、callcenter_config、fsctl、limit、hash、db、voicemail及模块管理命令均可能只注册一个顶层名称，再由处理函数分派多种命令。目录必须递归到实际可执行分支：作用域、命令路径、参数、选项与输出格式形成不同用例，不以顶层注册数代替子命令数。</p>
+<p>源码候选与参考机 <code>show api/application/interfaces</code>、<code>help</code> 和实际模块调用清单合并；条件编译、生效模块、接口允许列表、别名、JSON与语言扩展再补齐。对未出现但配置可达的功能主动构造输入，不用一次业务抓包证明不存在。</p>
+<p>已补充 <a href="catalog/conference-and-sofia-subcommands.html">Conference与Sofia子命令目录</a>：会议静态表84条声明与6个全局入口、Sofia 38个解析路径候选及2个仅帮助文本候选。它们保留分发名与帮助名差异，仍需逐处理器展开参数及运行验收。</p>
+<h2 id="58-api-验收用例">5.8 API 验收用例</h2>
+<p>每个用例族按适用的全部命令展开，表中 20 项不是只运行 20 次即能认证。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>场景</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>API-T01</td>
+<td>全部发现接口及所有输出格式，含空集合/未知命令</td>
+<td>实际注册与帮助/列表结构一致，未声明接口零漏项</td>
+</tr>
+<tr>
+<td>API-T02</td>
+<td>每个命令的合法输入、缺参、多参、空值、Unicode和边界</td>
+<td>原生响应及副作用匹配，不由统一解析器改变文法</td>
+</tr>
+<tr>
+<td>API-T03</td>
+<td>uuid查询存在/不存在/结束中，变量未定义/空值/数组</td>
+<td>正文逐字节、值类型与通道状态一致</td>
+</tr>
+<tr>
+<td>API-T04</td>
+<td>同一变量多次写、删除、多值、批量混合非法片段</td>
+<td>部分成功与最终值符合参考，无隐式事务增强</td>
+</tr>
+<tr>
+<td>API-T05</td>
+<td>100个不同originate Job UUID/通道UUID混合并发</td>
+<td>一一关联，无串腿、假完成或自动重复去重</td>
+</tr>
+<tr>
+<td>API-T06</td>
+<td>originate忙线/拒接/超时/早期媒体/取消及迟到接通</td>
+<td>API/事件/原因码/实际媒体与最终资源一致</td>
+</tr>
+<tr>
+<td>API-T07</td>
+<td>顺序与并行originate目标、特殊字符和变量作用域</td>
+<td>胜出腿、剩余腿清理及变量传播一致</td>
+</tr>
+<tr>
+<td>API-T08</td>
+<td>两腿和多腿桥接，目标消失、备用目标、重复桥接</td>
+<td>返回目标及真实桥接对象一致，无旧腿残留</td>
+</tr>
+<tr>
+<td>API-T09</td>
+<td>A/B/both转接、不同context/dialplan、咨询转接失败</td>
+<td>业务执行位置和后续通道关联保持一致</td>
+</tr>
+<tr>
+<td>API-T10</td>
+<td>同一腿执行放音、break、转接、挂机竞争</td>
+<td>只接受基线允许结果；无死锁与完成事件伪造</td>
+</tr>
+<tr>
+<td>API-T11</td>
+<td>DTMF生成/注入/清队列/mask与应用收号</td>
+<td>数字、时长、终止键、业务分支和媒体匹配</td>
+</tr>
+<tr>
+<td>API-T12</td>
+<td>录音全部动作，路径与磁盘故障、转接跟随</td>
+<td>声道、文件、事件、API错误与生命周期匹配</td>
+</tr>
+<tr>
+<td>API-T13</td>
+<td>sched全部时间模式，取消边界、时钟变更</td>
+<td>任务ID、执行次数、取消后的事件与业务结果一致</td>
+</tr>
+<tr>
+<td>API-T14</td>
+<td>reloadxml/profile/模块忙碌重载及无效配置</td>
+<td>既有/新呼叫可见点一致，不静默丢配置</td>
+</tr>
+<tr>
+<td>API-T15</td>
+<td>受限目录API与eval/expand/json等嵌套包装</td>
+<td>与基线同权限；不能通过包装越权</td>
+</tr>
+<tr>
+<td>API-T16</td>
+<td>API返回前/后断连，客户端按旧策略重试</td>
+<td>实际执行与重复副作用可对账，无虚假幂等</td>
+</tr>
+<tr>
+<td>API-T17</td>
+<td>conference全部成员与媒体子命令</td>
+<td>状态、事件、输出和实际多方音频均匹配</td>
+</tr>
+<tr>
+<td>API-T18</td>
+<td>callcenter/voicemail/FIFO/limit全部启用子命令</td>
+<td>原数据库/后端、状态机、结果与故障恢复一致</td>
+</tr>
+<tr>
+<td>API-T19</td>
+<td>API、脚本、JSON/HTTP相同底层操作的入口组合</td>
+<td>各入口独立满足参数、权限、等待、格式与完成语义</td>
+</tr>
+<tr>
+<td>API-T20</td>
+<td>万路双腿媒体期间运行现网API与全量/窄事件订阅</td>
+<td>控制延迟、拒接、事件缺口、媒体SLO和资源均有证据</td>
+</tr>
+</tbody></table></div>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

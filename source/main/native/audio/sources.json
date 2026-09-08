@@ -1,0 +1,56 @@
+{
+  "spandsp": {
+    "repository": "https://github.com/freeswitch/spandsp",
+    "commit": "8f1e1646bdec99eac5fd2cd92c35563f736b9b89",
+    "license": "LGPL-2.1",
+    "source_modified": false,
+    "files": [
+      {
+        "path": "COPYING",
+        "sha256": "366576cb0b869cd9e95a4882878607314650488ac635e5df0692180382e9666a"
+      },
+      {
+        "path": "src/floating_fudge.h",
+        "sha256": "82e276666bb1f68296a05b402b634f58bb2d607d40fed28bf536d2d4534c461a"
+      },
+      {
+        "path": "src/g722.c",
+        "sha256": "06b89a436c8afe3fa6552ab66ad19bcfbcfd8634e731e4e7238d6bc52bb75065"
+      },
+      {
+        "path": "src/spandsp/alloc.h",
+        "sha256": "6d1915f2fd4691a1003b00a73cf9baec2e88716a1cc3ce1fcc650d1f6d5e70cb"
+      },
+      {
+        "path": "src/spandsp/fast_convert.h",
+        "sha256": "45cb9717c09d7ff20cfbff03dcb6ca0b9cc4449c46f7dbf4ea3c85c06332ecab"
+      },
+      {
+        "path": "src/spandsp/g722.h",
+        "sha256": "b202aeb6d5a4d0c7bf6da92a9ef27fa3fe0a88f491b5bf4d2cae81c345c80409"
+      },
+      {
+        "path": "src/spandsp/private/g722.h",
+        "sha256": "db31680908f14e9dce046bda29127519529219a2a879c979bc6fe56d2ceb0aa0"
+      },
+      {
+        "path": "src/spandsp/saturated.h",
+        "sha256": "73beed1ab3dd3729400fbb12c68b15b1004b70984d6c44b3ab04c6bdc3df6335"
+      },
+      {
+        "path": "src/spandsp/telephony.h",
+        "sha256": "8b9b436a4ffb89f3e8a6bd96114fb45115bffe1585863d9d35a6d1e1292025d0"
+      },
+      {
+        "path": "src/spandsp/vector_int.h",
+        "sha256": "21a255de9ee58ae75ea98ec253ab77f5a8127046532915a479eeec1f2087364f"
+      }
+    ]
+  },
+  "opus": {
+    "version": "1.5.2",
+    "url": "https://downloads.xiph.org/releases/opus/opus-1.5.2.tar.gz",
+    "sha256": "65c1d2f78b9f2fb20082c38cbe47c951ad5839345876e46941612ee87f9a7ce1",
+    "license": "BSD-3-Clause; patent grants in upstream COPYING"
+  }
+}

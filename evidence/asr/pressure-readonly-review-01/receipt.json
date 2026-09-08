@@ -1,0 +1,42 @@
+{
+  "schema": "pressure-readonly-review-v1",
+  "created_at_unix": 1788760716.496831,
+  "network_started": false,
+  "source_modified": false,
+  "report_sha256": "8d62833c7401ea8e6229f51e60dbe5d845e2dd5ccaeb43fac7e5addca79fb245",
+  "review_sha256": "0f973ce3b72eccbf5450c9a777b1744a0248b9af4b583089949375572343bf7a",
+  "current_source_sha256": {
+    "control/internal/server/benchmark_runner.go": "f8c158cb24b9d82da7ef36459a0ab93473fd1db343623f6b462210887350c7a4",
+    "control/internal/server/benchmark_processing.go": "52d542009c2990d19712a6a046a9a21e81463db577a63e7e45303645beae3464",
+    "control/internal/server/web/tests.js": "bb616bcf0d081e2071e83433c0736e0be6445ed6466cba3c36e1722517771bc9",
+    "control/cmd/callbench/media_schedule.go": "27638d6e70421c9c3f8d3b16b0be3d8e88046890314b4e02c7573f26bd32ae20",
+    "control/cmd/callbench/media_io.go": "407f7b9737787cb7ac4ab5423704a67f9891c782297f0b17abbeecd397e45741",
+    "control/cmd/callbench/media_io_portable.go": "b258d0164852fb1e70c842604e83773e8f3d8b6b5c214bb5aba4483544f9b1e8",
+    "control/cmd/callbench/main.go": "e5305df84de1c48cf9943f92c37a66d38ceb7effd053b8e063561df709b8787c",
+    "media/src/media/io.rs": "f7d1a2d9328649f4a2d56caf0745fcb3aa0338dae84069f61d42c7d8cdd69eac",
+    "media/src/media/worker.rs": "ddf39708e8b04a0a9a21c7051775fa214f846bb699daa132dafd6280ba378b1a"
+  },
+  "historical_source_bound": false,
+  "sent": 2000000,
+  "received": 456233,
+  "received_ratio": 0.2281165,
+  "runtime_rx": 921898,
+  "runtime_tx": 921898,
+  "receive_batches": 921898,
+  "receive_syscalls": 1843796,
+  "worker_stats_seconds_before_generator_exit": [
+    0.735292,
+    0.734138,
+    0.732069,
+    0.732045,
+    0.729712,
+    0.729683,
+    0.730915,
+    0.734103,
+    0.729097,
+    0.734022
+  ],
+  "socket_drop_supported_workers": 0,
+  "loss_location_identified": false,
+  "pressure_passed": false
+}

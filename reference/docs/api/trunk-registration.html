@@ -1,0 +1,209 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>上游 SIP 中继注册与认证 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 上游 SIP 中继注册与认证</div><article class="content"><div class="page-tools"><a href="trunk-registration.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 6 节</summary><a href="#配置字段">配置字段</a><a href="#完整配置示例">完整配置示例</a><a href="#注册刷新与注销">注册、刷新与注销</a><a href="#出站-invite-认证">出站 INVITE 认证</a><a href="#管理状态">管理状态</a><a href="#验收与边界">验收与边界</a></details><h1 id="上游-sip-中继注册与认证">上游 SIP 中继注册与认证</h1>
+<p>本接口用于向一个固定运营商／SIP 中继注册，并在出站 INVITE 收到认证挑战时完成 Digest 重试。它是注册客户端；不提供终端账户注册服务器，也不等于完整 Sofia gateway 或 FreeSWITCH 注册模块兼容。</p>
+<p>新增项均位于启动配置的 <code>sip</code> 对象。省略 <code>trunk_auth</code> 和 <code>registration</code> 时，原有未注册、未认证模式保持不变。修改这些项需要按管理配置流程保存并重启，运行中不会重新读取密码文件。</p>
+<h2 id="配置字段">配置字段</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>默认／要求</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sip.trunk_auth</code></td>
+<td>可省略</td>
+<td>固定上游的 Digest 客户端凭据配置；可单独启用 INVITE 认证</td>
+</tr>
+<tr>
+<td><code>sip.trunk_auth.username</code></td>
+<td>必填，1～128 字节</td>
+<td>认证账户；可以与注册 AOR 的用户部分不同，不接受冒号或控制字符</td>
+</tr>
+<tr>
+<td><code>sip.trunk_auth.password_file</code></td>
+<td>必填，绝对路径</td>
+<td>本进程可读取的私有普通文件，权限不得向组／其他用户开放；拒绝最终文件软链接</td>
+</tr>
+<tr>
+<td><code>sip.trunk_auth.realm</code></td>
+<td>可省略，最长256字节</td>
+<td>非空时只接受精确匹配的挑战域；省略时接受固定上游提供的受支持挑战</td>
+</tr>
+<tr>
+<td><code>sip.registration</code></td>
+<td>可省略</td>
+<td>唯一上游注册对象；可在可信、无认证的注册器场景单独使用</td>
+</tr>
+<tr>
+<td><code>sip.registration.aor</code></td>
+<td>必填</td>
+<td>简单注册身份，例如 <code>sip:line@carrier.example</code></td>
+</tr>
+<tr>
+<td><code>sip.registration.registrar_uri</code></td>
+<td>必填</td>
+<td>请求 URI，例如 <code>sip:carrier.example</code> 或 <code>sip:carrier.example:5060</code>，不带用户部分</td>
+</tr>
+<tr>
+<td><code>sip.registration.expires_seconds</code></td>
+<td>300；允许30～86400</td>
+<td>请求的注册有效期；最终有效期以原注册器响应为准</td>
+</tr>
+<tr>
+<td><code>sip.registration.retry_seconds</code></td>
+<td>30；允许1～3600</td>
+<td>失败重试的基础间隔；连续失败指数退避，最长3600秒</td>
+</tr>
+<tr>
+<td><code>sip.registration.timeout_ms</code></td>
+<td>8000；允许500～32000</td>
+<td>每轮注册的总期限，包含该轮全部认证与423重试，不能被挑战延长</td>
+</tr>
+</tbody></table></div>
+<p>逻辑域名只用于 SIP URI 和 Digest 输入；实际网络目的地始终是已有 <code>sip.upstream</code> 的 IPv4 地址与端口。不会根据挑战、Contact、重定向或逻辑域名改变发送目的地。</p>
+<p>AOR 用户部分限制为已有简单 SIP 用户字符，最长64字节；AOR／registrar URI 不接受 URI 密码、查询、百分号转义、复杂参数或 <code>sips:</code>。<code>sip.stream.upstream_transport</code> 继续决定真实传输。启用 TCP/TLS 注册时必须同时配置对应本地监听，以提供可回呼的 Contact 端口。</p>
+<h2 id="完整配置示例">完整配置示例</h2>
+<p>以下为 UDP 隔离环境示例，地址、文件和账户均需要替换为自己的部署值。它不会创建账户、证书或密码文件。</p>
+<pre><code class="language-json">{
+  &quot;sip&quot;: {
+    &quot;listen&quot;: &quot;0.0.0.0:5060&quot;,
+    &quot;advertise&quot;: &quot;10.20.0.20:5060&quot;,
+    &quot;upstream&quot;: &quot;10.20.0.10:5060&quot;,
+    &quot;trusted_networks&quot;: [&quot;10.20.0.0/24&quot;],
+    &quot;setup_timeout_ms&quot;: 32000,
+    &quot;ack_timeout_ms&quot;: 32000,
+    &quot;max_call_seconds&quot;: 3600,
+    &quot;trunk_auth&quot;: {
+      &quot;username&quot;: &quot;line&quot;,
+      &quot;password_file&quot;: &quot;/etc/rustswitch/trunk.password&quot;,
+      &quot;realm&quot;: &quot;carrier.example&quot;
+    },
+    &quot;registration&quot;: {
+      &quot;aor&quot;: &quot;sip:line@carrier.example&quot;,
+      &quot;registrar_uri&quot;: &quot;sip:carrier.example&quot;,
+      &quot;expires_seconds&quot;: 300,
+      &quot;retry_seconds&quot;: 30,
+      &quot;timeout_ms&quot;: 8000
+    }
+  },
+  &quot;media&quot;: {
+    &quot;binary&quot;: &quot;./bin/rustswitch-media&quot;,
+    &quot;bind_ip&quot;: &quot;0.0.0.0&quot;,
+    &quot;advertise_ip&quot;: &quot;10.20.0.20&quot;,
+    &quot;port_start&quot;: 20000,
+    &quot;port_end&quot;: 21999,
+    &quot;workers&quot;: 2,
+    &quot;receive_buffer_bytes&quot;: 65536,
+    &quot;port_reuse_delay_ms&quot;: 2000,
+    &quot;max_packets_per_second_per_leg&quot;: 200,
+    &quot;allowed_remote_networks&quot;: [&quot;10.20.0.0/24&quot;],
+    &quot;cpu_cores&quot;: [],
+    &quot;adaptive_admission&quot;: true,
+    &quot;admission_cpu_high&quot;: 0.85,
+    &quot;admission_cpu_low&quot;: 0.65
+  },
+  &quot;limits&quot;: {
+    &quot;max_calls&quot;: 100,
+    &quot;calls_per_second&quot;: 20,
+    &quot;burst_calls&quot;: 40,
+    &quot;max_transactions&quot;: 10000
+  },
+  &quot;admin&quot;: {&quot;listen&quot;: &quot;127.0.0.1:9080&quot;},
+  &quot;journal&quot;: {&quot;path&quot;: &quot;run/events.jsonl&quot;, &quot;queue_capacity&quot;: 4096}
+}
+</code></pre>
+<p>密码文件只放一份真实线路密码，可带末尾 LF 或 CRLF。密码有效内容为1～4096字节，不含控制字符；内部空格和末尾空格不被修剪。文件可使用 <code>0600</code> 或 <code>0400</code> 权限。配置 JSON、管理状态和事件日志只保留路径／固定状态类别，不写密码、nonce、Authorization 或派生摘要。停机关闭后会尽力清零持有的密码缓冲。</p>
+<p>改为 TCP 时，在 <code>sip</code> 增加：</p>
+<pre><code class="language-json">&quot;stream&quot;: {
+  &quot;upstream_transport&quot;: &quot;tcp&quot;,
+  &quot;tcp_listen&quot;: &quot;0.0.0.0:5060&quot;,
+  &quot;max_connections&quot;: 256,
+  &quot;frame_timeout_ms&quot;: 5000,
+  &quot;idle_timeout_ms&quot;: 300000,
+  &quot;write_timeout_ms&quot;: 1000
+}
+</code></pre>
+<p>改为 TLS 时，替换上述 <code>stream</code>，并将 <code>sip.upstream</code> 改为对端实际 TLS 地址／端口：</p>
+<pre><code class="language-json">&quot;stream&quot;: {
+  &quot;upstream_transport&quot;: &quot;tls&quot;,
+  &quot;tls_listen&quot;: &quot;0.0.0.0:5061&quot;,
+  &quot;tls_cert_file&quot;: &quot;/etc/rustswitch/server-chain.pem&quot;,
+  &quot;tls_key_file&quot;: &quot;/etc/rustswitch/server-key.pem&quot;,
+  &quot;tls_ca_file&quot;: &quot;/etc/rustswitch/carrier-ca.pem&quot;,
+  &quot;tls_server_name&quot;: &quot;sip.carrier.example&quot;,
+  &quot;max_connections&quot;: 256,
+  &quot;frame_timeout_ms&quot;: 5000,
+  &quot;idle_timeout_ms&quot;: 300000,
+  &quot;write_timeout_ms&quot;: 1000
+}
+</code></pre>
+<p>TLS 必须验证证书链和名称，不提供跳过验证开关。以上仅加密 SIP 信令，不代表已提供 SRTP 或 WebRTC。Digest 的 MD5 系列用于已有中继互通；支持 SHA-256／SHA-512-256 的上游可按其挑战协商这些算法。</p>
+<h2 id="注册刷新与注销">注册、刷新与注销</h2>
+<p>启动接收器后发送 REGISTER，整个注册生命周期保持同一 Call-ID 和 From tag。认证、有效期调整、刷新、注销使用递增 CSeq 和新 Via branch；同事务重传复用完整原报文。Contact 使用 AOR 的用户部分、本机宣告 IP 与实际传输监听端口。</p>
+<p>只有真实上游来源、同一可靠连接代次、Call-ID、branch、CSeq、From tag 与注册 AOR 均匹配的响应，才可推进状态。200 类响应还必须确认本 Contact 的有效期，不能把账户其他绑定的有效期误认为本机注册成功。响应中重复或无效的 expires 会失败。请求有效期可以被注册器缩短；刷新按扣除网络往返时间后剩余有效期的80%安排。</p>
+<p>有效的423 <code>Min-Expires</code> 可在单轮内调高请求值一次，最多86400秒。401/407 最多接受四次挑战，受整轮固定期限限制。错误密码、无效挑战、其他错误响应和超时进入有界退避；合法 <code>Retry-After</code> 可延长等待，但最长3600秒。可靠连接关闭后清除本机可达状态并退避重注册；不会把旧事务迁移到新的连接代次。</p>
+<p>正常停止时，在排空已有通话的同时发送本 Contact 的 <code>expires=0</code> 注销，最多等待三秒，认证重试不延长该期限。即使当前没有通话，也会等待注销结果或期限结束。强制取消进程上下文不保证可以完成网络注销；注销失败必须保留失败状态，不能写成成功。</p>
+<p>UDP 使用500毫秒开始、最大4秒间隔的有界非 INVITE 重传；TCP/TLS 不重传请求。注册状态只有一个操作对象和最多三个可替换定时器，不随呼叫量创建注册协程。</p>
+<h2 id="出站-invite-认证">出站 INVITE 认证</h2>
+<p>支持401 <code>WWW-Authenticate</code> 与407 <code>Proxy-Authenticate</code>，分别生成 Authorization 与 Proxy-Authorization。支持 MD5、MD5-sess、SHA-256、SHA-256-sess、SHA-512-256、SHA-512-256-sess；支持 <code>qop=auth</code> 和已有设备使用的无 qop 形式。不支持 auth-int、AKA、userhash 或其他字符集模式，不会悄悄回退为错误算法。</p>
+<p>收到有效挑战后，先用旧 INVITE 的 branch／CSeq 发送 ACK，再保持 Call-ID、From 和原 SDP，递增 CSeq、生成新 branch 重试。两类挑战最多各持有一个状态，单通电话最多四次认证重试。已认证后只有带新 nonce 的 <code>stale=true</code> 才允许替换同类别挑战。旧挑战重传只重发已保存的 ACK；不会再次拨号。原呼叫建立超时不会因认证被延长，取消或已经结束的电话不会因挑战恢复拨号。</p>
+<p>成功 ACK 原样携带该 INVITE 的凭据。后续 CANCEL 使用当前 INVITE 序号；正常 BYE 使用递增序号，并为已有认证上下文计算 BYE 的新摘要。对话内 BYE 等请求收到新认证挑战后的重试尚未实现。当前 B 腿 From 仍是原有 RustSwitch 本机 Contact，尚未实现全部 gateway <code>from-user</code>／<code>from-domain</code>／主叫身份策略；要求这些身份映射的运营商需另行适配和验收。</p>
+<h2 id="管理状态">管理状态</h2>
+<p><code>GET /v1/status</code> 的 <code>sip_registration</code> 返回只读原子快照；它不是原版 <code>sofia status</code> 的完整输出：</p>
+<pre><code class="language-json">{
+  &quot;enabled&quot;: true,
+  &quot;state&quot;: &quot;registered&quot;,
+  &quot;last_status&quot;: 200,
+  &quot;expires_at&quot;: &quot;2026-09-06T12:00:00Z&quot;
+}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>state</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>disabled</code></td>
+<td>未配置注册对象</td>
+</tr>
+<tr>
+<td><code>registering</code></td>
+<td>注册、认证、刷新或注销请求正在等待结果</td>
+</tr>
+<tr>
+<td><code>registered</code></td>
+<td>本 Contact 已得到有限有效期的确认；不代表呼叫或媒体已验证</td>
+</tr>
+<tr>
+<td><code>retrying</code></td>
+<td>本轮失败，等待退避重试；<code>error</code> 为固定错误类别</td>
+</tr>
+<tr>
+<td><code>unregistered</code></td>
+<td>已得到注销成功的响应</td>
+</tr>
+<tr>
+<td><code>unregister_failed</code></td>
+<td>注销拒绝、认证失败、断线或超时；不能视为对端绑定已删除</td>
+</tr>
+</tbody></table></div>
+<p><code>expires_at</code> 是仍有效的最近绑定期限；没有确认绑定或上次发布快照时已到期则省略；读取不重新结算期限，客户端须与当前时间比较。失败时可能仍保留此前绑定的剩余期限，状态仍为失败。<code>last_status</code> 不存在时省略，<code>error</code> 不包含对端提供的任意正文或密码。</p>
+<h2 id="验收与边界">验收与边界</h2>
+<p>本地自动化已经通过 UDP、TCP、TLS 三条真实线缆场景：REGISTER 401→407、有效期刷新、INVITE 407 认证、成功 ACK、64 个双向 Rust RTP 包、认证 BYE 和正常停机注销。摘要测试使用 RFC 公布向量及独立预计算向量，检查旧式无 qop 和 sess 算法。</p>
+<p>主要回归入口：</p>
+<ul>
+<li><code>TestTrunkRegistrationAndInviteRealRustMedia/{udp,tcp,tls}</code>：真实传输与 Rust 媒体闭环；缺少真实媒体程序时明确跳过，不能计为通过。</li>
+<li><code>TestRegistrationRejectsForeignResponsesAndLoops</code>：错来源／连接／事务／AOR、重复挑战、错误密码与状态保密。</li>
+<li><code>TestRegistration423ExpiryTimeoutAndShutdown</code>、<code>TestRegistrationShutdownTimeoutAndOldTimers</code>、<code>TestRegistrationContactExpiryValidation</code>：有效期、超时、注销失败和旧计时器隔离。</li>
+<li><code>TestRegistrationStaleChallengeBound</code>：恶意 stale 循环的上限。</li>
+<li><code>TestInviteDigestRetriesPreserveACKAndCancellation</code>、<code>TestInviteAuthenticationInvalidChallengesFailClosed</code>：认证事务与取消、恶意挑战。</li>
+<li><code>TestTrunkSecretFilesAndConfigCopies</code>、<code>TestTrunkConfigurationBounds</code>：私有文件、管理深拷贝与静态配置边界。</li>
+<li><code>TestDigestPublishedVectors</code>、<code>TestDigestLegacyAndSessionVectors</code>、<code>TestDigestRejectsAmbiguousChallenges</code>：摘要及解析器边界。</li>
+</ul>
+<p>本页面的本地回归不替代原版成对证据，也不代表5000／10000路、全部运营商、全部 SIP 请求或全模块兼容通过。仍缺少多个 gateway／registrar、终端注册服务、完整 DNS/NAPTR/SRV 和 Route/Record-Route、Service-Route、SIP Outbound/Path、Authentication-Info nextnonce、复杂 Contact 语义、REGISTER 重定向、双向 TLS 客户端认证、WS/WSS、注册状态跨进程接管等能力。</p>
+<p>注册成功不会自行创建本地 AI 应用。接收注册 Contact 的呼入时，应结合显式本地分机／应用路由配置；未配置本地路由的呼叫仍沿既有固定上游 B2BUA 路径处理。隔离压测实例始终清除注册与线路认证配置，不能使用主服务凭据注册真实线路。</p>
+<p>参考依据：<a href="https://www.rfc-editor.org/rfc/rfc3261.html" target="_blank" rel="noopener noreferrer">RFC 3261 注册与认证</a>、<a href="https://www.rfc-editor.org/rfc/rfc8760.html" target="_blank" rel="noopener noreferrer">RFC 8760 SIP Digest 算法扩展</a>、<a href="https://www.rfc-editor.org/rfc/rfc7616.html" target="_blank" rel="noopener noreferrer">RFC 7616 摘要计算与公开向量</a>。本地对照源固定为 FreeSWITCH 1.11.3 提交 <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code> 的 <code>sofia_reg.c</code> 注册生命周期与 <code>sofia.c</code> 认证分派；参考源码不能代替运行验收。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "version": "1.9.0",
+  "scope": "实际构建与本地回归摘要；不证明完整FreeSWITCH、完整Voice Agent或5000/10000路性能",
+  "rust": {
+    "source_sha256": "b749bb236c751b666d40506d0055e78f85f4034fd8b98395090bd0fca0710ba4",
+    "platform": "darwin",
+    "tests": {
+      "passed": 75,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered_out": 0
+    },
+    "clippy_exit_code": 0,
+    "native_library_sha256": {
+      "RUSTSWITCH_G722_LIBRARY": "ccd3e3b911d291feba5cf3f128bc94ce803a68ceb40cb2577182350463bfdb39",
+      "RUSTSWITCH_OPUS_LIBRARY": "39d7bce655ec29da6e0fb16b1206504ec9774d7e2d509865289a58c36762f0a0"
+    },
+    "log_receipts": [
+      {
+        "name": "tests",
+        "log": "work/voice-runtime-v1.9/rust-final-tests.log",
+        "log_sha256": "60a14cf4cd3fcdf5c8129be631e739220430ef346f853f79e0a1b4ca588648f1",
+        "exit_code": 0,
+        "finished_at": "2026-09-06T14:48:57.923935+00:00"
+      },
+      {
+        "name": "clippy",
+        "log": "work/voice-runtime-v1.9/rust-final-clippy.log",
+        "log_sha256": "e816fb7079d0bf5998164d9319101782bbfcb3ad7fa905fdc8920e53c3b78763",
+        "exit_code": 0,
+        "finished_at": "2026-09-06T14:49:01.615913+00:00"
+      }
+    ]
+  },
+  "tools": {
+    "tests": 104,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "complete_pass": true,
+    "log": "work/voice-runtime-v1.9/tools-tests-02.log",
+    "log_sha256": "c4a6b767fb398a6e68b68c2617ef0d6be7c348ee98ec63f41060300d45839ea5",
+    "finished_at": "2026-09-06T14:53:46.124355+00:00"
+  },
+  "audio_document": "api/audio-sdk-verification-v1.9.json",
+  "go_receipt_id": "go-cc6eb6e720e74d26a5f74100ad75f1aa",
+  "e2e_receipt_id": "e2e-ddb4fb12d8a642ea9a4057dd7d461be5",
+  "runtime_document": "api/runtime-verification.json",
+  "full_compatibility_passed": false,
+  "full_voice_agent_verified": false,
+  "capacity_verified": false
+}

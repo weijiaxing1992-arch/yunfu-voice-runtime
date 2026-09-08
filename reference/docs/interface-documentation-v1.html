@@ -1,0 +1,105 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>管理后台接口文档交付记录 · 云蝠项目资料</title><link rel="stylesheet" href="../../handbook.css"></head><body><aside><a class="brand" href="../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../index.html">资料首页</a><a class="" href="../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 管理后台接口文档交付记录</div><article class="content"><div class="page-tools"><a href="interface-documentation-v1.md" download>Markdown 原稿</a><a href="api/openapi.json" download>OpenAPI JSON</a><a href="../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 4 节</summary><a href="#后台入口">后台入口</a><a href="#交付范围">交付范围</a><a href="#本次验证">本次验证</a><a href="#维护文件">维护文件</a></details><h1 id="管理后台接口文档交付记录">管理后台接口文档交付记录</h1>
+<p>交付日期：2026-09-05。文档集版本：1.0.0；项目仍为 RustSwitch 0.3.0 开发原型。</p>
+<h2 id="后台入口">后台入口</h2>
+<ul>
+<li><code>/#api-docs</code>：HTTP 操作、章节文档和数据结构三个阅读视图。</li>
+<li><code>/#fs-comparison</code>：完整 FreeSWITCH 固定目录及关键语义对照。</li>
+</ul>
+<p>页面直接从控制进程内嵌文档读取，不依赖外部 CDN、数据库或在线文档站点。全部新代码的主要类型、字段、函数和边界均有中文注释。</p>
+<h2 id="交付范围">交付范围</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>内容</th>
+<th>已交付范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HTTP 接口</td>
+<td>16 个路径、20 个 method/path 操作；请求、响应、错误、写入边界和逐操作对照</td>
+</tr>
+<tr>
+<td>数据结构</td>
+<td>OpenAPI 3.1、41 个复用模型、24 个媒体统计字段</td>
+</tr>
+<tr>
+<td>非 HTTP 接口</td>
+<td>SIP/SDP/RTP/RTCP、媒体 JSON 管道、C 编解码 ABI、预留协议 ABI、CLI、JSONL 事件</td>
+</tr>
+<tr>
+<td>发布文档</td>
+<td>38 份原文；含原始目录、标准、验收模板、头文件和来源许可</td>
+</tr>
+<tr>
+<td>FreeSWITCH 对照</td>
+<td>3,978 条记录：3,923 条目录/验收基线与 55 条人工关键语义对照</td>
+</tr>
+<tr>
+<td>阅读功能</td>
+<td>全量检索、分类和状态筛选、分页、精确条目/章节定位、嵌套结构展开、示例复制、原文和 ZIP 下载</td>
+</tr>
+</tbody></table></div>
+<p>FreeSWITCH 对照固定为 1.11.3 / <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>。记录分别说明原版入口/语法/语义、本项目入口/语义、实现状态、关系、全部已记录差异、验证依据及来源。</p>
+<p>HTTP 操作中 15 个管理与观测操作直接定位相应关键对照；5 个新增文档操作定位自身中文说明，明确没有同名 FreeSWITCH HTTP 入口。</p>
+<h2 id="本次验证">本次验证</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>检查</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Go 全包竞态测试</td>
+<td><code>go test -race ./...</code> 通过；最终发布文档另行通过 <code>TestDocumentation*</code> 竞态测试</td>
+</tr>
+<tr>
+<td>Go 静态检查与构建</td>
+<td><code>go vet ./...</code>、<code>make control</code> 通过</td>
+</tr>
+<tr>
+<td>正式文档规范</td>
+<td>OpenAPI 3.1 规范验证与媒体 IPC JSON Schema 结构验证通过</td>
+</tr>
+<tr>
+<td>实际只读 HTTP</td>
+<td>14 个 GET 操作全部成功；其中 10 个 JSON 响应按模型校验，文本和归档按其实际格式验证</td>
+</tr>
+<tr>
+<td>错误返回</td>
+<td>缺少 path、路径穿越、未发布文件三类实际响应符合 400/404 模型；单元测试另覆盖重复查询、绝对路径、反斜线和非法编码</td>
+</tr>
+<tr>
+<td>下载完整性</td>
+<td>38 个实际文件逐一核对字节长度及 SHA-256；ZIP 中 38 份原文和 1 份清单完全一致</td>
+</tr>
+<tr>
+<td>实际媒体管道</td>
+<td>独立本机工作进程的 5 类命令及 ready/allocated/ack/stats/error 响应全部符合 Schema；未发送通话流量</td>
+</tr>
+<tr>
+<td>FreeSWITCH 来源</td>
+<td>712 份固定源码哈希、3,978 个唯一 ID、原目录全量覆盖、原语法/参数和来源链接检查通过</td>
+</tr>
+<tr>
+<td>构建防止漂移</td>
+<td>原文与内嵌副本一致；Python 优化模式下缺少 <code>/healthz</code> 文档仍被显式拒绝</td>
+</tr>
+<tr>
+<td>浏览器</td>
+<td>桌面与 390 像素手机布局验证；搜索、分页、筛选恢复、中文状态、精确对照定位、章节锚点、原生头文件阅读与复制反馈通过；未发现控制台错误</td>
+</tr>
+</tbody></table></div>
+<p>浏览器验收修正了自动示例的无效 Host 覆盖、深层示例被过早截断为 null、对照链接使用整段说明导致无法匹配，以及长源码路径在手机端溢出的问题。自动模板只用于说明结构；部署地址、令牌、配置版本和业务参数仍须使用实际值。</p>
+<p>只读 HTTP 与浏览器文档操作没有执行业务写入，配置 revision 保持 10；本机预览的保护上限仍为 8,000 路活跃资源和 1,000 路建立中资源。服务仅在确认活跃通话为 0 后重新加载新二进制。</p>
+<p>本次工作没有重新执行万路容量测试，也没有运行原版 FreeSWITCH 差分认证。目录完整描述锁定源码选择集，不代表所有动态/第三方模块运行接口已采集。“自有接口已实现”不表示 FreeSWITCH 线格式兼容，XML 编辑导出也不表示 RustSwitch 已执行 XML 配置。</p>
+<h2 id="维护文件">维护文件</h2>
+<ul>
+<li><a href="api/README.html">文档中心说明</a>、<a href="api/http-reference.html">HTTP 参考</a>、<a href="api/protocol-reference.html">非 HTTP 参考</a>、<a href="api/freeswitch-comparison.html">逐项语义对照</a>。</li>
+<li><a href="../tools/build_api_docs.py">发布生成器</a>：校验路由、引用、对照 ID、发布路径并构建内嵌副本；门禁在 Python 优化模式下仍执行。</li>
+<li><a href="../tools/build_interface_comparison.py">对照生成器</a>：从固定源码和目录生成对照数据，支持离线 <code>--check</code>。</li>
+<li><a href="../control/internal/server/documentation.go">文档读取与下载服务</a>、<a href="../control/internal/server/documentation_test.go">文档边界测试</a>。</li>
+<li><a href="../control/internal/server/web/docs.js">后台阅读器</a>、<a href="../control/internal/server/web/docs.css">文档样式</a>。</li>
+</ul>
+<p>日常构建运行 <code>make control</code> 即可同步文档；检查现有副本运行 <code>python3 tools/build_api_docs.py --check</code>。修改接口后同步 OpenAPI 和相关章节，再重新构建控制进程。重建 FreeSWITCH 对照另须提供文档指定提交的本地参考源码目录。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

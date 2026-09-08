@@ -1,0 +1,68 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>云蝠 Voice Runtime 项目资料包 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 云蝠 Voice Runtime 项目资料包</div><article class="content"><div class="page-tools"><a href="DELIVERY.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 2 节</summary><a href="#本次新增完整源码与交付资料">本次新增完整源码与交付资料</a><a href="#预编译运行程序">预编译运行程序</a></details><h1 id="云蝠-voice-runtime-项目资料包">云蝠 Voice Runtime 项目资料包</h1>
+<p>资料日期：2026-09-08。<strong>双击 <code>index.html</code> 阅读完整图文总册</strong>；无需联网、登录或启动服务。Markdown 原稿、可编辑 Mermaid 图源、SVG 矢量图及机器接口定义同时提供。</p>
+<p>本资料以工程主目录 <code>outputs/rustswitch</code> 的 <strong>1.13.0 文档基线</strong>为正式接口依据；本轮 ASR 开发在独立候选目录，单独标识。2026-09-08 对本机 9080 的只读探测未连接成功，当前运行版本未确认。本资料包的生成不代表后台已更新。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>资料</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html">01 项目说明</a></td>
+<td>产品定位、技术栈、当前能力、目录、边界</td>
+</tr>
+<tr>
+<td><a href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html">02 项目拓扑图</a></td>
+<td>部署节点、端口、线路、管理、压测与 AI 连接</td>
+</tr>
+<tr>
+<td><a href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html">03 软件架构图</a></td>
+<td>Go/Rust/C 职责、进程、IPC、媒体流、呼叫生命周期</td>
+</tr>
+<tr>
+<td><a href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html">04 HTTP 接口文档</a></td>
+<td>全部 26 个操作，参数、正文、响应、错误和对照</td>
+</tr>
+<tr>
+<td><a href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">05 协议与 SDK 文档</a></td>
+<td>SIP/SDP/RTP/RTCP、ESL/IVR、IPC、RVA1、RXS2、C ABI、ASR 候选</td>
+</tr>
+<tr>
+<td><a href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html">06 使用说明</a></td>
+<td>构建、配置、启动、后台、线路注册、收号、播放、客户端示例</td>
+</tr>
+<tr>
+<td><a href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html">07 运维与压测说明</a></td>
+<td>限流、资源预算、压测、排空、故障、回滚、验收</td>
+</tr>
+<tr>
+<td><a href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html">08 当前能力与验证状态</a></td>
+<td>已实现、已验证、未完成；版本与证据的对应关系</td>
+</tr>
+<tr>
+<td><a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html">09 数据模型全文</a></td>
+<td>OpenAPI 77 个模型的原始完整定义</td>
+</tr>
+<tr>
+<td><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">10 全部专题文档目录</a></td>
+<td>原专题、原版对照、历史证据与扩展资料</td>
+</tr>
+</tbody></table></div>
+<p>图中的蓝色表示工程基线已有实现，橙色表示独立候选，虚线灰框表示外部系统或待建设范围；连线不表示所有场景已经验证。目录数量和局部测试数量均不等于 FreeSWITCH 完整兼容率。</p>
+<p>推荐阅读顺序：负责人先读 01、02、08；开发读 03、04、05、09；运维和测试读 06、07，再查 10 中对应专题。历史专题保留原版本和证据，当前接口字段以本包 1.13 OpenAPI 为准；ASR 新字段只在候选补充中描述。</p>
+<h2 id="本次新增完整源码与交付资料">本次新增完整源码与交付资料</h2>
+<ul>
+<li><a href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html">11 交付与源码说明</a>：主工程、ASR候选、已测补丁和工作稿、离线构建及证据。</li>
+<li><a href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html">12 需求说明书</a>：功能、性能、接口、阶段与验收要求。</li>
+<li><a href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">13 项目未完成清单</a>：剩余工作、优先级与完成条件，附全部3999条机器清单。</li>
+</ul>
+<p>两套源码已实际离线编译通过；发布门禁失败项原样保留，未自动部署。</p>
+<h2 id="预编译运行程序">预编译运行程序</h2>
+<p>完整源码仍在 <code>source/</code>，预编译程序新增到同一资料目录的 <code>binaries/</code>。</p>
+<ul>
+<li><a href="binaries/macos-arm64/README.md">macOS ARM64 运行说明</a>：含原生编解码动态库，整包按macOS26及以上使用。</li>
+<li><a href="binaries/linux-arm64/README.md">Linux ARM64 运行说明</a>：静态核心程序；ASR候选整组尚未在Linux联调。</li>
+</ul>
+<p>两个平台均包含main与asr-candidate目录、默认配置、run.sh、校验工具和来源证据。已有发布门禁阻塞仍保留，预编译程序不授予新的容量或完整兼容结论。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

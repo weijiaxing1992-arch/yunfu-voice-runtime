@@ -1,0 +1,20 @@
+test_bidirectional_rtp_rtcp_dtmf_and_cleanup (__main__.Integration) ... ok
+test_busy_port_block_is_skipped (__main__.Integration) ... ok
+test_cancel_then_late_200_is_acked_and_torn_down (__main__.Integration) ... ok
+test_concurrency_limit_rejects_third_call (__main__.Integration) ... ok
+test_drain_rejects_new_calls_and_preserves_existing_media (__main__.Integration) ... ok
+test_duplicate_invite_does_not_allocate_again (__main__.Integration) ... ok
+test_early_media_before_final_answer (__main__.Integration) ... ok
+test_hot_peak_guard_preserves_established_call (__main__.Integration) ... ok
+test_media_worker_failure_and_restart (__main__.Integration) ... ok
+test_missing_ack_reclaims_media (__main__.Integration) ... ok
+test_other_shard_survives_media_process_failure (__main__.Integration) ... ok
+test_receive_burst_across_multiple_batches (__main__.Integration) ... ok
+test_reused_port_rejects_previous_peer (__main__.Integration) ... ok
+test_shutdown_waits_for_bye_transaction (__main__.Integration) ... ok
+test_wrong_source_and_invalid_rtp_are_dropped (__main__.Integration) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 10.435s
+
+OK

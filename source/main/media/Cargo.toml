@@ -1,0 +1,31 @@
+[package]
+# 媒体组件继续使用 0.2 协议实现；0.3 项目版本主要新增 Go 管理面与准入保护。
+name = "rustswitch-media"
+version = "0.2.0"
+edition = "2021"
+rust-version = "1.85"
+description = "Process-isolated Rust RTP relay and C codec ABI host"
+publish = false
+
+[dependencies]
+# 具体依赖版本由 Cargo.lock 固定；依赖承担事件循环、系统调用、序列化和 C ABI 加载。
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+crossbeam-channel = "0.5"
+ipnet = { version = "2", features = ["serde"] }
+libc = "0.2"
+libloading = "0.8"
+mio = { version = "1", features = ["os-poll", "net", "os-ext"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+socket2 = "0.6"
+
+[profile.release]
+# 优化媒体热路径；panic 会结束当前媒体分片，由控制面按代次重启。
+lto = "thin"
+codegen-units = 1
+panic = "abort"
+
+[lints.clippy]
+# 系统调用和动态库接口中的每段 unsafe 均须给出成立条件。
+undocumented_unsafe_blocks = "deny"

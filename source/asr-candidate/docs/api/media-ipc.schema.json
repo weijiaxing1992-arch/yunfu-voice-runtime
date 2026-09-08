@@ -1,0 +1,3690 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:rustswitch:media-ipc:v1",
+  "title": "RustSwitch 媒体 IPC 版本 1",
+  "description": "内部逐行JSON的请求或响应模型；不是FreeSWITCH ESL。额外字段当前不被Request/Reply的serde统一拒绝。跨字段约束、代次、行长度、资源可用性须另由运行时校验。WorkerConfig另见$defs。 新增PCM只在此Schema描述4条JSON控制和pcm_turn_state。RSP1/RSR1继承FD数据报见media/src/media/pcm_transport.rs；RVA1/RVR1外部私有Unix流见control/internal/server/pcm_endpoint_protocol.go；两者均为独立二进制格式，不是JSON分支。控制行包含换行总长仍最多16384字节。 本批候选新增rx_subscribe/rx_unsubscribe/rx_status和rx_state；RXS2为独立FD4单向Unix数据报，168字节头/最多648字节，不是JSON分支。详见rx-stream-reference.md。",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Request"
+    },
+    {
+      "$ref": "#/$defs/Reply"
+    }
+  ],
+  "$defs": {
+    "Peer": {
+      "type": "object",
+      "properties": {
+        "rtp": {
+          "type": "string",
+          "description": "IPv4:端口，非零且满足运行时网段约束"
+        },
+        "rtcp": {
+          "type": "string",
+          "description": "独立于 RTP 的 IPv4:端口"
+        }
+      },
+      "required": [
+        "rtp",
+        "rtcp"
+      ],
+      "description": "额外字段当前由 serde 忽略；运行时检查精确来源和白名单。"
+    },
+    "WorkerConfig": {
+      "type": "object",
+      "properties": {
+        "connect_sockets": {
+          "type": "boolean",
+          "default": false
+        },
+        "worker_id": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "bind_ip": {
+          "type": "string",
+          "format": "ipv4"
+        },
+        "port_start": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 65535,
+          "multipleOf": 2
+        },
+        "port_end": {
+          "type": "integer",
+          "minimum": 1025,
+          "maximum": 65535
+        },
+        "max_calls": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "receive_buffer_bytes": {
+          "type": "integer",
+          "minimum": 16384,
+          "maximum": 1048576
+        },
+        "port_reuse_delay_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 60000
+        },
+        "max_packets_per_second_per_leg": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 10000
+        },
+        "allowed_remote_networks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "description": "可被ipnet解析的CIDR"
+          }
+        },
+        "cpu_core": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "仅Linux可指定，编号还须符合CPU_SETSIZE及可用CPU约束"
+        },
+        "excluded_port_blocks": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "以配置 port_start 为基准的完整四端口块起点。",
+            "maximum": 65532
+          },
+          "description": "排除完整四端口块；起点相对 port_start 必须四对齐、在完整范围内且无重复。未给出时不排除。",
+          "uniqueItems": true
+        },
+        "playback_root": {
+          "type": "string",
+          "default": "",
+          "description": "可选本地WAV根目录，空值关闭；路径边界及格式见api/file-playback-reference.md。"
+        }
+      },
+      "required": [
+        "worker_id",
+        "bind_ip",
+        "port_start",
+        "port_end",
+        "max_calls",
+        "receive_buffer_bytes",
+        "port_reuse_delay_ms",
+        "max_packets_per_second_per_leg",
+        "allowed_remote_networks"
+      ],
+      "additionalProperties": false,
+      "description": "端口末端须大于起点，max_calls须不超过完整四端口组，其他运行约束见协议文档。"
+    },
+    "Request": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "allocate"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "a": {
+              "$ref": "#/$defs/Peer"
+            },
+            "payload": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127,
+              "description": "与CodecSpec及SDP一致的RTP载荷；省略codec时仅支持旧0/8。"
+            },
+            "dtmf_payload": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 96,
+              "maximum": 127,
+              "description": "可省略或为null表示无电话事件；connect非空值必须匹配allocate协商值"
+            },
+            "dtmf_clock_rate": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "telephone-event RTP时钟，未提供按旧G711合同处理。"
+            },
+            "dtmf_events": {
+              "type": "string",
+              "description": "合法事件集合，例如0-15。"
+            },
+            "cn_payload": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 127,
+              "description": "CN载荷，null或省略取消。"
+            },
+            "cn_clock_rate": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "CN时钟，须与主媒体RTP时钟一致。"
+            },
+            "codec": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/CodecSpec"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "processing": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/ProcessingPlan"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "缺省/null为透传；g711计划必须获得显式版本回执，旧worker忽略未知字段不构成处理成功。"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "a",
+            "payload"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "connect"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "b": {
+              "$ref": "#/$defs/Peer"
+            },
+            "payload": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 255,
+              "description": "B腿实际SDP协商值；relay需匹配原分配，g711 bridge允许支持的PCMU/PCMA独立值，local不允许此操作。"
+            },
+            "codec": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/CodecSpec"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "B腿实际SDP协商值；relay需匹配原分配，g711 bridge允许支持的PCMU/PCMA独立值，local不允许此操作。"
+            },
+            "dtmf_payload": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 96,
+              "maximum": 127,
+              "description": "可省略或为null表示无电话事件；connect非空值必须匹配allocate协商值"
+            },
+            "dtmf_clock_rate": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "telephone-event RTP时钟，未提供按旧G711合同处理。"
+            },
+            "dtmf_events": {
+              "type": "string",
+              "description": "合法事件集合，例如0-15。"
+            },
+            "cn_payload": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 127,
+              "description": "CN载荷，null或省略取消。"
+            },
+            "cn_clock_rate": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "CN时钟，须与主媒体RTP时钟一致。"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "b"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "codec"
+                ],
+                "properties": {
+                  "codec": {
+                    "type": "object"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "payload"
+                ],
+                "properties": {
+                  "payload": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 127
+                  }
+                }
+              }
+            }
+          ],
+          "description": "仅双腿连接更新。relay需要同编码/PT合同；g711 bridge两腿可按PCMU/PCMA独立协商；local拓扑拒绝connect。"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "release"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "stats"
+            }
+          },
+          "required": [
+            "id",
+            "op"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "shutdown"
+            }
+          },
+          "required": [
+            "id",
+            "op"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "dtmf_events"
+            },
+            "after_seq": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "default": 0
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 64
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "limit"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "playback_start"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "playback_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            },
+            "leg": {
+              "enum": [
+                "a",
+                "b"
+              ]
+            },
+            "frequency_hz": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 2000
+            },
+            "duration_ms": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 10000,
+              "multipleOf": 20
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "playback_id",
+            "leg",
+            "frequency_hz",
+            "duration_ms"
+          ],
+          "description": "受限G711提示音播放；g711仅local A允许，g711 bridge拒绝；relay按原G711及leg合同。"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "playback_status"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "playback_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "playback_id"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "playback_stop"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "playback_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "playback_id"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "playback_file_start"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "playback_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            },
+            "leg": {
+              "enum": [
+                "a",
+                "b"
+              ]
+            },
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240,
+              "description": "根内相对.wav路径，最多240 UTF-8字节、8组件、各≤128字节；大小写扩展名均可。禁止空组件、点/双点、反斜线、冒号、控制字符及符号/硬链接。"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "playback_id",
+            "leg",
+            "path"
+          ],
+          "description": "受理返回loading不证明已发音；用playback_status查询实际loading/running/completed/stopped/failed与错误。 g711仅local A允许播放，g711 bridge拒绝播放注入；relay按原G711及leg合同。file支持受限PCM16/PCMA/PCMU WAV，全部转换为PCM。"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "dtmf_send"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "leg": {
+              "const": "a",
+              "description": "仅本地终结媒体A腿；不能向透明桥插包"
+            },
+            "digits": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32,
+              "pattern": "^[0-9*#A-D]+$"
+            },
+            "duration_ms": {
+              "type": "integer",
+              "minimum": 50,
+              "maximum": 1000,
+              "description": "每个数字的持续毫秒；事件最终duration按协商clock精确计算"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "leg",
+            "digits",
+            "duration_ms"
+          ],
+          "description": "云蝠本地媒体发送扩展。无B腿、无未协商/不同时钟事件；受每会话32数字和每Worker64活动发送器额度限制。成功仅表示整个数字串入有界队列，完成/失败须查询状态。"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "dtmf_send_status"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session"
+          ],
+          "description": "云蝠本地媒体发送扩展。无B腿、无未协商/不同时钟事件；受每会话32数字和每Worker64活动发送器额度限制。读取实际累计计数，不代表接收端一定已听到/识别。"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "description": "控制管道请求关联编号；Go负责同worker代次的实际关联。"
+            },
+            "op": {
+              "const": "pcm_turn_begin"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615,
+              "description": "实际已分配的本地G.711单腿媒体会话编号。"
+            },
+            "turn_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615,
+              "description": "调用者明确提供的正u64轮次；不得回绕或由worker隐式生成。"
+            },
+            "buffer_ms": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 1000,
+              "multipleOf": 20,
+              "description": "必填20..1000毫秒且为20的整数倍，不提供隐式默认值。"
+            },
+            "prebuffer_ms": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 1000,
+              "multipleOf": 20,
+              "description": "必填20..buffer_ms毫秒且为20的整数倍；等待足够真实PCM再开始播放。"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "turn_id",
+            "buffer_ms",
+            "prebuffer_ms"
+          ],
+          "description": "要求同代次真实ready同时具备processed_g711_v1、processed_g711_local_v1及pcm_turn_v1，且会话为local G.711 8kHz单声道20ms。仅控制轮次，PCM经独立继承FD的二进制数据报进入。更大turn原子丢弃旧轮待发音频；同turn同配置只查询原状态，包括终态，不复活旧音频。正在loading/running的tone/WAV互斥。Server外部入口另要求本地A腿已ACK；worker自身不解析SIP ACK。begin成功只表示轮次建立，不代表有声音。 Go调用方必须提供非零且匹配的Generation，但该字段仅本地校验，不编码进JSON。额外字段保留当前serde忽略行为。",
+          "allOf": [
+            {
+              "$ref": "#/$defs/PCMBufferLimits"
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "description": "控制管道请求关联编号；Go负责同worker代次的实际关联。"
+            },
+            "op": {
+              "const": "pcm_turn_end"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615,
+              "description": "实际已分配的本地G.711单腿媒体会话编号。"
+            },
+            "turn_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615,
+              "description": "调用者明确提供的正u64轮次；不得回绕或由worker隐式生成。"
+            },
+            "final_samples": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "multipleOf": 160,
+              "description": "必填，包括合法的0；必须精确等于当前轮次accepted_samples。单位是8kHz单声道样本，不是字节。"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "turn_id",
+            "final_samples"
+          ],
+          "description": "只在所有批次真实入队后结束输入；Go调用入口用同一inflight门禁阻止End超越Push。空轮次final_samples=0可完成；非空只在排空和尾帧20ms结束后completed，draining不等于已播放完。偏移错误是明确业务拒绝，不能假造成功状态。 Go调用方必须提供非零且匹配的Generation，但该字段仅本地校验，不编码进JSON。额外字段保留当前serde忽略行为。"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "description": "控制管道请求关联编号；Go负责同worker代次的实际关联。"
+            },
+            "op": {
+              "const": "pcm_turn_interrupt"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615,
+              "description": "实际已分配的本地G.711单腿媒体会话编号。"
+            },
+            "turn_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615,
+              "description": "调用者明确提供的正u64轮次；不得回绕或由worker隐式生成。"
+            },
+            "fade_ms": {
+              "type": "integer",
+              "enum": [
+                0,
+                20,
+                40
+              ],
+              "default": 0,
+              "description": "省略或0立即清空未发送PCM；20/40只对已收到的有限队首音频淡出，不创建额外静音，也不复活已过期帧。"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "turn_id"
+          ],
+          "description": "关闭旧轮输入；只有实际剩余淡出结束才能stopped。重复interrupt不延长原期限。已完整提交本机UDP的音频无法撤回。stopping仍拥有TX；错误/超时不是停止证明，需Status或真实媒体Release对账。 Go调用方必须提供非零且匹配的Generation，但该字段仅本地校验，不编码进JSON。额外字段保留当前serde忽略行为。"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "description": "控制管道请求关联编号；Go负责同worker代次的实际关联。"
+            },
+            "op": {
+              "const": "pcm_turn_status"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615,
+              "description": "实际已分配的本地G.711单腿媒体会话编号。"
+            },
+            "turn_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615,
+              "description": "调用者明确提供的正u64轮次；不得回绕或由worker隐式生成。"
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "turn_id"
+          ],
+          "description": "查询指定当前轮的真实状态；不存在/旧轮返回ok:false,type:error，不能以当前其他轮的成功回复冒充。可推进已到期的终态/供音超时，但不借查询发送PCM。数据通道故障后仍保留JSON status/interrupt/release；不得自动重推结果未知批次。 Go调用方必须提供非零且匹配的Generation，但该字段仅本地校验，不编码进JSON。额外字段保留当前serde忽略行为。"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "rx_subscribe"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            },
+            "subscription_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "subscription_id"
+          ],
+          "additionalProperties": true,
+          "description": "仅已分配的local A腿G.711/8k/mono/20ms。相同ID由Rust返回当前原状态，不复活；更大ID需旧订阅真实停止/失败。不是Server SIP ACK授权入口。 未知字段由当前Serde忽略；不能用增加leg、generation或format字段改变语义。Go Generation是父进程校验，不写入此JSON。"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "rx_unsubscribe"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            },
+            "subscription_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "subscription_id"
+          ],
+          "additionalProperties": true,
+          "description": "停止新观察、清有界队列，返回stopped或已有failed；无需等Go读到End，已进OS的数据另以身份/期限屏障拒绝。 未知字段由当前Serde忽略；不能用增加leg、generation或format字段改变语义。Go Generation是父进程校验，不写入此JSON。"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "op": {
+              "const": "rx_status"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            },
+            "subscription_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            }
+          },
+          "required": [
+            "id",
+            "op",
+            "session",
+            "subscription_id"
+          ],
+          "additionalProperties": true,
+          "description": "只查询匹配session/subscription的真实Rust状态；不同ID或不存在会话为type:error。查询可触发队列年龄回收。 未知字段由当前Serde忽略；不能用增加leg、generation或format字段改变语义。Go Generation是父进程校验，不写入此JSON。"
+        }
+      ]
+    },
+    "Reply": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "const": 0,
+              "description": "启动握手的固定标识，非零不能接受为ready。"
+            },
+            "ok": {
+              "const": true
+            },
+            "type": {
+              "const": "ready"
+            },
+            "protocol_version": {
+              "const": 1
+            },
+            "worker_id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "pid": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "capabilities": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "双腿需要processed_g711_v1；本地单腿还需要processed_g711_local_v1。缺少能力不得接受对应分配。 本地PCM还须pcm_turn_v1；该能力仅在worker成功取得专用继承Unix datagram FD时声明。协议版本仍为1；旧worker可忽略环境变量，但缺能力必须显式拒绝PCM入口，不能降级。能力声明本身不证明具体通话已ACK/可播放或数据通道当前健康。 RXS2要求rx_g711_local_v2及两项本地G711能力；仅正确继承FD4且支持本机共享时钟域时声明。RXS1/v1不作为v2替代；声明不证明Server ACK授权、订阅存在或供应商已接入。"
+            }
+          },
+          "required": [
+            "id",
+            "ok",
+            "type",
+            "protocol_version",
+            "worker_id",
+            "pid"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "pcm_turn_v1"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "capabilities": {
+                    "allOf": [
+                      {
+                        "contains": {
+                          "const": "processed_g711_v1"
+                        }
+                      },
+                      {
+                        "contains": {
+                          "const": "processed_g711_local_v1"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "rx_g711_local_v2"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "capabilities": {
+                    "allOf": [
+                      {
+                        "contains": {
+                          "const": "processed_g711_v1"
+                        }
+                      },
+                      {
+                        "contains": {
+                          "const": "processed_g711_local_v1"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "ok": {
+              "const": true
+            },
+            "type": {
+              "const": "allocated"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "a_rtp": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "a_rtcp": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "b_rtp": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "b_rtcp": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "processing_version": {
+              "const": 1,
+              "description": "仅实际处理图分配成功返回；relay不得携带此字段。"
+            },
+            "processing_topology": {
+              "const": "local",
+              "description": "仅local图成功分配时连同processing_version=1返回；双腿和relay省略，不接受拓扑不匹配回执。"
+            }
+          },
+          "required": [
+            "id",
+            "ok",
+            "type",
+            "session",
+            "a_rtp",
+            "a_rtcp",
+            "b_rtp",
+            "b_rtcp"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "ok": {
+              "const": true
+            },
+            "type": {
+              "const": "ack"
+            }
+          },
+          "required": [
+            "id",
+            "ok",
+            "type"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "ok": {
+              "const": true
+            },
+            "type": {
+              "const": "stats"
+            },
+            "stats": {
+              "$ref": "#/$defs/Stats"
+            }
+          },
+          "required": [
+            "id",
+            "ok",
+            "type",
+            "stats"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "ok": {
+              "const": false
+            },
+            "type": {
+              "const": "error"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "ok",
+            "type",
+            "message"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "ok": {
+              "const": true
+            },
+            "type": {
+              "const": "dtmf_events"
+            },
+            "events": {
+              "type": "array",
+              "maxItems": 64,
+              "items": {
+                "$ref": "#/$defs/DTMFEvent"
+              }
+            },
+            "next_seq": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "oldest_seq": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "overflow": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "ok",
+            "type",
+            "events",
+            "next_seq",
+            "oldest_seq",
+            "overflow"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "ok": {
+              "const": true
+            },
+            "type": {
+              "const": "playback_state"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "playback_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            },
+            "state": {
+              "enum": [
+                "loading",
+                "running",
+                "completed",
+                "stopped",
+                "failed"
+              ]
+            },
+            "sent_packets": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1500
+            },
+            "total_packets": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1500
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "ok",
+            "type",
+            "session",
+            "playback_id",
+            "state",
+            "sent_packets",
+            "total_packets",
+            "message"
+          ],
+          "description": "实际成功状态：sent不能大于total；completed两者必须相等。JSON Schema不表达跨字段数值相等，Go Pool另校验；failed必须提供非空错误。",
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "state": {
+                    "const": "loading"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "sent_packets": {
+                    "const": 0
+                  },
+                  "total_packets": {
+                    "const": 0
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "state": {
+                    "enum": [
+                      "running",
+                      "completed"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "total_packets": {
+                    "minimum": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "state": {
+                    "const": "failed"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "message"
+                ],
+                "properties": {
+                  "message": {
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "ok": {
+              "const": true
+            },
+            "type": {
+              "const": "dtmf_send_state"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "state": {
+              "enum": [
+                "idle",
+                "sending",
+                "failed"
+              ]
+            },
+            "accepted_digits": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "completed_digits": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "failed_digits": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "queued_digits": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32
+            },
+            "sent_packets": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "last_error": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "ok",
+            "type",
+            "session",
+            "state",
+            "accepted_digits",
+            "completed_digits",
+            "failed_digits",
+            "queued_digits",
+            "sent_packets",
+            "last_error"
+          ],
+          "description": "所有计数包含零值。queued=accepted-completed-failed；sending当且仅当queued>0；failed必须有last_error。completed指三次结束包均提交本机UDP，不是远端确认。dtmf_send响应应为sending。Go Pool校验跨字段不变量。"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "ok": {
+              "const": true
+            },
+            "type": {
+              "const": "pcm_turn_state"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            },
+            "turn_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "buffering",
+                "playing",
+                "draining",
+                "stopping",
+                "completed",
+                "stopped",
+                "failed"
+              ],
+              "description": "idle只存在于尚未begin的内部对象/二进制错误回执，不是本JSON成功变体。buffering等待预缓冲；playing可短暂断供；draining/stopping均非终态。"
+            },
+            "accepted_samples": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "multipleOf": 160,
+              "description": "当前轮次计数，单位8kHz单声道样本；160的整数倍。新轮次重新从0开始。仅整批原子受理；不代表已发送。"
+            },
+            "sent_samples": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "multipleOf": 160,
+              "description": "当前轮次计数，单位8kHz单声道样本；160的整数倍。新轮次重新从0开始。仅UDP完整返回成功后增加。发送返回过晚时仍如实计sent；不代表远端收到或听到。"
+            },
+            "discarded_samples": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "multipleOf": 160,
+              "description": "当前轮次计数，单位8kHz单声道样本；160的整数倍。新轮次重新从0开始。受理后被中断/故障撤销的未发送样本；整批拒绝未受理的数据不计。"
+            },
+            "queued_samples": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 8000,
+              "multipleOf": 160,
+              "description": "当前轮次计数，单位8kHz单声道样本；160的整数倍。新轮次重新从0开始。当前待发，且不超过buffer_ms*8。"
+            },
+            "queued_bytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 16000,
+              "multipleOf": 320,
+              "description": "当前S16LE PCM字节数，精确等于queued_samples*2。"
+            },
+            "queued_ms": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000,
+              "multipleOf": 20,
+              "description": "当前队列音频时长，精确等于queued_samples/8；不是队列实际等待年龄。"
+            },
+            "oldest_age_ms": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "description": "最早待发帧自实际入队以来的单调时钟年龄；空队列固定为0，不用buffer_ms限制年龄。"
+            },
+            "buffer_ms": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 1000,
+              "multipleOf": 20,
+              "description": "必填20..1000毫秒且为20的整数倍，不提供隐式默认值。"
+            },
+            "prebuffer_ms": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 1000,
+              "multipleOf": 20,
+              "description": "必填20..buffer_ms毫秒且为20的整数倍；等待足够真实PCM再开始播放。"
+            },
+            "error": {
+              "type": "string",
+              "enum": [
+                "",
+                "pcm_first_audio_timeout",
+                "pcm_audio_gap_timeout",
+                "pcm_schedule_late",
+                "pcm_commit_failed",
+                "pcm_send_return_late",
+                "pcm_udp_send_failed",
+                "pcm_encode_failed"
+              ],
+              "description": "当前生产worker的静态流失败码。普通参数/轮次/容量拒绝使用既有Error回复，不污染流状态；非failed状态为空字符串。"
+            }
+          },
+          "required": [
+            "id",
+            "ok",
+            "type",
+            "session",
+            "turn_id",
+            "state",
+            "accepted_samples",
+            "sent_samples",
+            "discarded_samples",
+            "queued_samples",
+            "queued_bytes",
+            "queued_ms",
+            "oldest_age_ms",
+            "buffer_ms",
+            "prebuffer_ms",
+            "error"
+          ],
+          "description": "所有字段包括0和空error都必须明确出现且不可null。回显请求session/turn_id；begin回显原buffer/prebuffer，end的accepted_samples必须等于请求final_samples。每轮严格accepted=sent+queued+discarded、queued_bytes=queued_samples*2、queued_ms=queued_samples/8；这些跨字段算术和请求响应关联另由Go/Rust运行时检查，不能从Schema通过推断媒体正确。首个可播音频2秒超时；播放中已无队列时从最近UDP成功提交起20ms尾帧+100ms断供窗口失败。实际播放仅本地8kHz G.711；不包含实时ASR/TTS提供商或FreeSWITCH同名接口。额外字段遵循当前serde忽略行为。",
+          "allOf": [
+            {
+              "$ref": "#/$defs/PCMBufferLimits"
+            },
+            {
+              "if": {
+                "properties": {
+                  "queued_samples": {
+                    "const": 0
+                  }
+                },
+                "required": [
+                  "queued_samples"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "queued_bytes": {
+                    "const": 0
+                  },
+                  "queued_ms": {
+                    "const": 0
+                  },
+                  "oldest_age_ms": {
+                    "const": 0
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "state": {
+                    "enum": [
+                      "completed",
+                      "stopped",
+                      "failed"
+                    ]
+                  }
+                },
+                "required": [
+                  "state"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "queued_samples": {
+                    "const": 0
+                  },
+                  "queued_bytes": {
+                    "const": 0
+                  },
+                  "queued_ms": {
+                    "const": 0
+                  },
+                  "oldest_age_ms": {
+                    "const": 0
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "state": {
+                    "const": "failed"
+                  }
+                },
+                "required": [
+                  "state"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "error": {
+                    "minLength": 1
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "error": {
+                    "const": ""
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "ok": {
+              "const": true
+            },
+            "type": {
+              "const": "rx_state"
+            },
+            "session": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            },
+            "subscription_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 18446744073709551615
+            },
+            "state": {
+              "enum": [
+                "active",
+                "stopped",
+                "failed"
+              ]
+            },
+            "produced_events": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "submitted_events": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "description": "真实观察成功提交Unix socket的数量；ExportGap/End/ExportFailed摘要不计入，不代表Go/ASR已读取。"
+            },
+            "dropped_events": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "queued_events": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 8,
+              "description": "当前待提交观察0..8，不含独立缺口/终态摘要。"
+            },
+            "produced_samples": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "multipleOf": 160
+            },
+            "submitted_samples": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "multipleOf": 160
+            },
+            "dropped_samples": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "multipleOf": 160
+            },
+            "oldest_age_ms": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615,
+              "description": "当前队头原始观察的本机年龄；无队列为0。此查询字段不要求始终小于100，不能当跨进程使用期限。"
+            },
+            "error": {
+              "type": "string",
+              "enum": [
+                "",
+                "invalid_observation",
+                "sequence_exhausted",
+                "sample_count_exhausted",
+                "gap_metadata_discontinuity",
+                "rx_lane_unavailable",
+                "rx_observation_failed",
+                "rx_clock_out_of_range"
+              ],
+              "description": "active/stopped为空；failed保留首次正式失败。请求拒绝另用通用type:error/message，不伪造订阅终态。"
+            }
+          },
+          "required": [
+            "id",
+            "ok",
+            "type",
+            "session",
+            "subscription_id",
+            "state",
+            "produced_events",
+            "submitted_events",
+            "dropped_events",
+            "queued_events",
+            "produced_samples",
+            "submitted_samples",
+            "dropped_samples",
+            "oldest_age_ms",
+            "error"
+          ],
+          "additionalProperties": true,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "state": {
+                    "const": "failed"
+                  }
+                },
+                "required": [
+                  "state"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "error": {
+                    "enum": [
+                      "invalid_observation",
+                      "sequence_exhausted",
+                      "sample_count_exhausted",
+                      "gap_metadata_discontinuity",
+                      "rx_lane_unavailable",
+                      "rx_observation_failed",
+                      "rx_clock_out_of_range"
+                    ]
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "error": {
+                    "const": ""
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "state": {
+                    "enum": [
+                      "stopped",
+                      "failed"
+                    ]
+                  }
+                },
+                "required": [
+                  "state"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "queued_events": {
+                    "const": 0
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "queued_events": {
+                    "const": 0
+                  }
+                },
+                "required": [
+                  "queued_events"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "oldest_age_ms": {
+                    "const": 0
+                  }
+                }
+              }
+            }
+          ],
+          "description": "全部15个字段显式存在，null不代替0或空串。Serde忽略未知字段。事件守恒produced=submitted+dropped+queued、样本残量/上界、当前请求ID/session/subscription匹配及rx_unsubscribe不得返回active，由Rust/Go运行时独立检查；JSON Schema不执行跨字段加减乘法或请求-回复关联。"
+        }
+      ]
+    },
+    "Stats": {
+      "type": "object",
+      "properties": {
+        "user_cpu_seconds": {
+          "type": "number",
+          "description": "进程所有线程累计用户态 CPU 秒数。",
+          "minimum": 0
+        },
+        "system_cpu_seconds": {
+          "type": "number",
+          "description": "进程所有线程累计内核态 CPU 秒数。",
+          "minimum": 0
+        },
+        "peak_resident_bytes": {
+          "type": "integer",
+          "description": "进程启动以来的常驻内存峰值，统一换算为字节。",
+          "minimum": 0
+        },
+        "connected_sockets": {
+          "type": "integer",
+          "description": "统计时已经连接对端的 socket 数量。",
+          "minimum": 0
+        },
+        "peer_changed_drops": {
+          "type": "integer",
+          "description": "对端变更时清理发送队列而丢弃的包数。",
+          "minimum": 0
+        },
+        "active_calls": {
+          "type": "integer",
+          "description": "当前已分配的媒体会话数，不限定 SIP 是否已经接通。",
+          "minimum": 0
+        },
+        "available_blocks": {
+          "type": "integer",
+          "description": "当前可尝试绑定的四端口块数，不含仍在隔离期的块。",
+          "minimum": 0
+        },
+        "receive_syscalls": {
+          "type": "integer",
+          "description": "包括 WouldBlock 在内的接收调用总数。",
+          "minimum": 0
+        },
+        "receive_batches": {
+          "type": "integer",
+          "description": "成功返回的接收批次数，可结合 rx_packets 估算实际批次大小。",
+          "minimum": 0
+        },
+        "max_receive_batch": {
+          "type": "integer",
+          "description": "启动以来单次接收到的最大包数，不能替代平均批次指标。",
+          "minimum": 0
+        },
+        "rx_packets": {
+          "type": "integer",
+          "description": "从 socket 读取的报文总数，包含之后被校验拒绝的报文。",
+          "minimum": 0
+        },
+        "rx_bytes": {
+          "type": "integer",
+          "description": "内核报告的数据报字节总数，Linux 上可包括超出缓冲的原始长度。",
+          "minimum": 0
+        },
+        "tx_packets": {
+          "type": "integer",
+          "description": "被发送调用完整接受的包数，不能证明已越过网卡或到达对端。",
+          "minimum": 0
+        },
+        "tx_bytes": {
+          "type": "integer",
+          "description": "与 tx_packets 对应的累计发送字节。",
+          "minimum": 0
+        },
+        "invalid_packets": {
+          "type": "integer",
+          "description": "长度、RTP/RTCP 结构或协商负载类型校验失败的包数。",
+          "minimum": 0
+        },
+        "source_rejected": {
+          "type": "integer",
+          "description": "源地址不匹配的拒绝数；connected UDP 被内核先过滤的包不会计入。",
+          "minimum": 0
+        },
+        "peer_not_ready": {
+          "type": "integer",
+          "description": "B 腿尚未设置时到达、无法转发的包数。",
+          "minimum": 0
+        },
+        "rate_limited": {
+          "type": "integer",
+          "description": "超出对应 RTP/RTCP 令牌桶额度的包数。",
+          "minimum": 0
+        },
+        "send_errors": {
+          "type": "integer",
+          "description": "非 WouldBlock 发送失败或异常发送长度次数。",
+          "minimum": 0
+        },
+        "receive_errors": {
+          "type": "integer",
+          "description": "排除 WouldBlock/Interrupted 的接收错误次数。",
+          "minimum": 0
+        },
+        "send_queue_drops": {
+          "type": "integer",
+          "description": "发送队列达到固定长度后拒绝的新包数。",
+          "minimum": 0
+        },
+        "send_expired": {
+          "type": "integer",
+          "description": "重试前已经超过短发送期限的包数。",
+          "minimum": 0
+        },
+        "socket_rx_drops": {
+          "type": "integer",
+          "description": "从 Linux SO_RXQ_OVFL 辅助字段累计得到的 socket 接收溢出增量。",
+          "minimum": 0
+        },
+        "socket_drop_counter_supported": {
+          "type": "boolean",
+          "description": "平台是否支持上述计数；不支持时零值不能解释为不存在内核丢包。"
+        },
+        "playback_replaced_packets": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615,
+          "description": "播放期间有意替代的桥主音频及CN包数；不计为网络拥塞丢包。"
+        },
+        "dtmf_send_packets": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615,
+          "description": "电话事件成功提交本机UDP的累计报文，含结束重复包"
+        },
+        "dtmf_send_errors": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615,
+          "description": "按键发送或调度累计失败次数"
+        },
+        "dtmf_send_cancelled_digits": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615,
+          "description": "会话释放时未完整发送的累计数字"
+        },
+        "dtmf_send_active": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64,
+          "description": "当前活动发送器数"
+        },
+        "processed_active_calls": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "当前已分配的G.711处理图通话数；不等于已接通数。"
+        },
+        "processed_decoded_frames": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "真实主音频包成功解码的20ms帧数，排除PLC和CN。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_decoded_samples": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "真实解码样本数，必须等于decoded_frames×160。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_encoded_frames": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "编码成功的20ms帧数，含PLC；不表示UDP提交或远端接收成功。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_encoded_samples": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "编码输入样本数，必须等于encoded_frames×160。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_plc_frames": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "从本方向历史生成的有限补偿帧数；不伪装真实收音。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_missing_frames": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "播放位缺失且无可用补偿样本的次数。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_cn_packets": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "交给处理图的有效CN包数；CN不伪造PCM静音。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_send_errors": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "音频编码、RTP发送以及RTCP构造/发送错误；PCM包括pcm_encode_failed或pcm_udp_send_failed。调度超期及UDP成功但返回过晚分别计processed_send_deadline_misses，不能混成网络丢包。累计值随worker代次重新开始。"
+        },
+        "processed_jitter_lost": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "按播放时钟缺失的音频格点，可能含未声明DTX的尾部；不能直接解释为实际网络丢包。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_jitter_late": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "迟于有效播放窗口的包数；包含过时CN。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_jitter_reordered": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "接收窗口内乱序包数，可能包含后来未播放的包。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_jitter_duplicates": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "接收窗口或音频时间位的重复包数。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_jitter_overflow": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "缓冲条数/时间上限拒绝次数，不是网络丢包。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_playout_expired": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "本机调度超期跳过的音频格点数。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_send_deadline_misses": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "实时处理发送期限失约累计：原图/tone/DTMF发送前最后检查已迟到至少20ms；PCM还包含取队首/淡出时已过期，以及UDP已经完整成功返回但返回时刻跨过20ms期限。发送前超期不发送且记send_expired；返回过晚的包仍如实计sent_samples/tx，剩余PCM失败撤销。不能把此字段全部称为丢弃、UDP错误或网络丢包；随worker代次重置。"
+        },
+        "processed_output_lateness_ns_max": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "相对原计划期限、实际准备发送RTP前的最大迟到纳秒数，含音频/DTMF/CN与PCM编码前已过期拒发/编码失败检查，不含RTCP。PCM UDP调用返回延迟不计入这里；因此它不能完整解释所有processed_send_deadline_misses，也不是端到端时延。随worker代次重置，通话释放不清除。"
+        },
+        "processed_aux_expired": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "过期辅助包以及无法恢复原事件时间映射的旧DTMF包丢弃次数。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_aux_timeouts": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "未完整结束的辅助事件播放抑制超时次数。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_queue_reset_drops": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "图或源状态清理时丢弃的在队包数。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_source_resets": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "确认源/序号/时间戳重启造成图接收状态重置的次数。 累计值随worker代次重新开始，通话释放不清除累计。"
+        },
+        "processed_output_lateness_buckets": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "description": "互斥8区间桶：≤250μs、(250,500]μs、(500μs,1ms]、(1,2]ms、(2,5]ms、(5,10]ms、(10,20]ms、>20ms。记录发送前RTP检查和PCM编码前超期/编码失败检查，排除RTCP与UDP返回耗时；同帧只记对应检查一次。桶和至少为encoded_frames，但不是发送成功包数。按worker代次取差量，不能把期限失败桶当网络丢包。"
+        },
+        "processed_local_active_calls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "description": "当前已分配的本地单腿G.711图通话数，是processed_active_calls子集；释放后归零。 声明processed_g711_local_v1时五字段必须齐全，累计值按worker代次重置。"
+        },
+        "processed_local_consumed_frames": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "description": "本地RX实际解码/有限PLC产生并被固定PCM消费者处理的20ms帧累计；没有回送为TX，不等于ASR/VAD消费。 声明processed_g711_local_v1时五字段必须齐全，累计值按worker代次重置。"
+        },
+        "processed_local_consumed_samples": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "description": "本地实际消费的8kHz单声道PCM样本累计，必须为consumed_frames×160。 声明processed_g711_local_v1时五字段必须齐全，累计值按worker代次重置。"
+        },
+        "processed_local_nonzero_frames": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "description": "本地消费帧中至少一个非零PCM样本的帧数，可能含标注来源的PLC，不能用作语音/VAD判断。 声明processed_g711_local_v1时五字段必须齐全，累计值按worker代次重置。"
+        },
+        "processed_local_energy_max": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 171798691840,
+          "description": "本地消费的单个160样本帧sum(sample²)的历史最大值；不是累计能量、平均响度或VAD。上限160×32768²=171798691840。 声明processed_g711_local_v1时五字段必须齐全，累计值按worker代次重置。"
+        },
+        "rx_active_subscriptions": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615,
+          "description": "当前仍接受A腿观察的订阅数，与PCM下行独立。 当前RX worker实际输出；历史worker缺失时为未知，不能补0。"
+        },
+        "rx_queued_events": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615,
+          "description": "全部RX订阅当前待提交观察数，不含独立缺口/终态摘要；不是队列字节数。 当前RX worker实际输出；历史worker缺失时为未知，不能补0。"
+        },
+        "rx_observation_storage_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615,
+          "description": "Graph上行观察队列实际分配字节之和，不包含导出queue、Go队列或OS缓冲，不能当总RX内存。 当前RX worker实际输出；历史worker缺失时为未知，不能补0。"
+        },
+        "rx_observation_failed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615,
+          "description": "当前Graph观察队列仍处于failed的数量；不是RX lane失败历史累计或网络丢包。 当前RX worker实际输出；历史worker缺失时为未知，不能补0。"
+        }
+      },
+      "required": [
+        "user_cpu_seconds",
+        "system_cpu_seconds",
+        "peak_resident_bytes",
+        "connected_sockets",
+        "peer_changed_drops",
+        "active_calls",
+        "available_blocks",
+        "receive_syscalls",
+        "receive_batches",
+        "max_receive_batch",
+        "rx_packets",
+        "rx_bytes",
+        "tx_packets",
+        "tx_bytes",
+        "invalid_packets",
+        "source_rejected",
+        "peer_not_ready",
+        "rate_limited",
+        "send_errors",
+        "receive_errors",
+        "send_queue_drops",
+        "send_expired",
+        "socket_rx_drops",
+        "socket_drop_counter_supported",
+        "playback_replaced_packets",
+        "dtmf_send_packets",
+        "dtmf_send_errors",
+        "dtmf_send_cancelled_digits",
+        "dtmf_send_active"
+      ],
+      "description": "当前媒体worker完整统计；processed_*由新worker真实输出。旧relay允许缺少处理字段；配置g711时Go要求全部处理字段、精确整数、160样本/帧和8桶一致性。 候选RX worker总是输出4个rx_*上行字段；为保留旧worker统计合同，它们不加入旧Stats统一required。缺失不证明0或RX就绪；能力依实际ready和通话资格。"
+    },
+    "CodecSpec": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "规范化编码名。"
+        },
+        "sample_rate": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "音频采样率Hz。"
+        },
+        "rtp_clock_rate": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "RTP时钟Hz，不能假定等于采样率。"
+        },
+        "channels": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "SDP声道数。"
+        },
+        "ptime_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "单包音频时长，格式规则另校验。"
+        },
+        "fmtp": {
+          "type": "string",
+          "description": "经过Go校验的格式参数；字段必需，无格式参数时传空字符串，不能省略。"
+        }
+      },
+      "required": [
+        "name",
+        "sample_rate",
+        "rtp_clock_rate",
+        "channels",
+        "ptime_ms",
+        "fmtp"
+      ],
+      "additionalProperties": false,
+      "description": "媒体会话协商元数据；工作进程仍须独立校验，不能只信任名称。"
+    },
+    "DTMFEvent": {
+      "type": "object",
+      "properties": {
+        "sequence": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "session": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "leg": {
+          "enum": [
+            "a",
+            "b"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "digit",
+            "incomplete"
+          ]
+        },
+        "digit": {
+          "type": "string",
+          "pattern": "^[0-9*#A-D]?$"
+        },
+        "event": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 16
+        },
+        "duration_ticks": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65535
+        },
+        "clock_rate": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 192000
+        },
+        "ssrc": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "timestamp": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequence",
+        "session",
+        "leg",
+        "kind",
+        "digit",
+        "event",
+        "duration_ticks",
+        "clock_rate",
+        "ssrc",
+        "timestamp",
+        "reason"
+      ]
+    },
+    "ProcessingPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "mode": {
+          "const": "g711"
+        },
+        "jitter_target_ms": {
+          "const": 40
+        },
+        "max_delay_ms": {
+          "const": 120
+        },
+        "topology": {
+          "type": "string",
+          "enum": [
+            "bridge",
+            "local"
+          ],
+          "default": "bridge",
+          "description": "省略等同双腿bridge以兼容旧调用；local为显式单腿接收PCM及本地播放图，禁止后续connect B腿。未知值拒绝。"
+        }
+      },
+      "required": [
+        "version",
+        "mode",
+        "jitter_target_ms",
+        "max_delay_ms"
+      ],
+      "description": "显式G711 8kHz单声道20ms图，只在allocate建立。省略topology保持旧双腿合同；local须额外验证processed_g711_local_v1及allocated.processing_topology=local，不能原地从relay升级或切换拓扑。"
+    },
+    "PCMBufferLimits": {
+      "description": "有限容量关系；和明确的字段必填/类型约束组合使用。没有数据引用扩展，兼容标准2020-12。",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 20
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 20
+              },
+              "queued_samples": {
+                "maximum": 160
+              },
+              "queued_bytes": {
+                "maximum": 320
+              },
+              "queued_ms": {
+                "maximum": 20
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 40
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 40
+              },
+              "queued_samples": {
+                "maximum": 320
+              },
+              "queued_bytes": {
+                "maximum": 640
+              },
+              "queued_ms": {
+                "maximum": 40
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 60
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 60
+              },
+              "queued_samples": {
+                "maximum": 480
+              },
+              "queued_bytes": {
+                "maximum": 960
+              },
+              "queued_ms": {
+                "maximum": 60
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 80
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 80
+              },
+              "queued_samples": {
+                "maximum": 640
+              },
+              "queued_bytes": {
+                "maximum": 1280
+              },
+              "queued_ms": {
+                "maximum": 80
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 100
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 100
+              },
+              "queued_samples": {
+                "maximum": 800
+              },
+              "queued_bytes": {
+                "maximum": 1600
+              },
+              "queued_ms": {
+                "maximum": 100
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 120
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 120
+              },
+              "queued_samples": {
+                "maximum": 960
+              },
+              "queued_bytes": {
+                "maximum": 1920
+              },
+              "queued_ms": {
+                "maximum": 120
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 140
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 140
+              },
+              "queued_samples": {
+                "maximum": 1120
+              },
+              "queued_bytes": {
+                "maximum": 2240
+              },
+              "queued_ms": {
+                "maximum": 140
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 160
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 160
+              },
+              "queued_samples": {
+                "maximum": 1280
+              },
+              "queued_bytes": {
+                "maximum": 2560
+              },
+              "queued_ms": {
+                "maximum": 160
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 180
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 180
+              },
+              "queued_samples": {
+                "maximum": 1440
+              },
+              "queued_bytes": {
+                "maximum": 2880
+              },
+              "queued_ms": {
+                "maximum": 180
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 200
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 200
+              },
+              "queued_samples": {
+                "maximum": 1600
+              },
+              "queued_bytes": {
+                "maximum": 3200
+              },
+              "queued_ms": {
+                "maximum": 200
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 220
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 220
+              },
+              "queued_samples": {
+                "maximum": 1760
+              },
+              "queued_bytes": {
+                "maximum": 3520
+              },
+              "queued_ms": {
+                "maximum": 220
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 240
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 240
+              },
+              "queued_samples": {
+                "maximum": 1920
+              },
+              "queued_bytes": {
+                "maximum": 3840
+              },
+              "queued_ms": {
+                "maximum": 240
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 260
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 260
+              },
+              "queued_samples": {
+                "maximum": 2080
+              },
+              "queued_bytes": {
+                "maximum": 4160
+              },
+              "queued_ms": {
+                "maximum": 260
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 280
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 280
+              },
+              "queued_samples": {
+                "maximum": 2240
+              },
+              "queued_bytes": {
+                "maximum": 4480
+              },
+              "queued_ms": {
+                "maximum": 280
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 300
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 300
+              },
+              "queued_samples": {
+                "maximum": 2400
+              },
+              "queued_bytes": {
+                "maximum": 4800
+              },
+              "queued_ms": {
+                "maximum": 300
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 320
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 320
+              },
+              "queued_samples": {
+                "maximum": 2560
+              },
+              "queued_bytes": {
+                "maximum": 5120
+              },
+              "queued_ms": {
+                "maximum": 320
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 340
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 340
+              },
+              "queued_samples": {
+                "maximum": 2720
+              },
+              "queued_bytes": {
+                "maximum": 5440
+              },
+              "queued_ms": {
+                "maximum": 340
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 360
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 360
+              },
+              "queued_samples": {
+                "maximum": 2880
+              },
+              "queued_bytes": {
+                "maximum": 5760
+              },
+              "queued_ms": {
+                "maximum": 360
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 380
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 380
+              },
+              "queued_samples": {
+                "maximum": 3040
+              },
+              "queued_bytes": {
+                "maximum": 6080
+              },
+              "queued_ms": {
+                "maximum": 380
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 400
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 400
+              },
+              "queued_samples": {
+                "maximum": 3200
+              },
+              "queued_bytes": {
+                "maximum": 6400
+              },
+              "queued_ms": {
+                "maximum": 400
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 420
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 420
+              },
+              "queued_samples": {
+                "maximum": 3360
+              },
+              "queued_bytes": {
+                "maximum": 6720
+              },
+              "queued_ms": {
+                "maximum": 420
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 440
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 440
+              },
+              "queued_samples": {
+                "maximum": 3520
+              },
+              "queued_bytes": {
+                "maximum": 7040
+              },
+              "queued_ms": {
+                "maximum": 440
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 460
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 460
+              },
+              "queued_samples": {
+                "maximum": 3680
+              },
+              "queued_bytes": {
+                "maximum": 7360
+              },
+              "queued_ms": {
+                "maximum": 460
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 480
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 480
+              },
+              "queued_samples": {
+                "maximum": 3840
+              },
+              "queued_bytes": {
+                "maximum": 7680
+              },
+              "queued_ms": {
+                "maximum": 480
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 500
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 500
+              },
+              "queued_samples": {
+                "maximum": 4000
+              },
+              "queued_bytes": {
+                "maximum": 8000
+              },
+              "queued_ms": {
+                "maximum": 500
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 520
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 520
+              },
+              "queued_samples": {
+                "maximum": 4160
+              },
+              "queued_bytes": {
+                "maximum": 8320
+              },
+              "queued_ms": {
+                "maximum": 520
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 540
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 540
+              },
+              "queued_samples": {
+                "maximum": 4320
+              },
+              "queued_bytes": {
+                "maximum": 8640
+              },
+              "queued_ms": {
+                "maximum": 540
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 560
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 560
+              },
+              "queued_samples": {
+                "maximum": 4480
+              },
+              "queued_bytes": {
+                "maximum": 8960
+              },
+              "queued_ms": {
+                "maximum": 560
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 580
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 580
+              },
+              "queued_samples": {
+                "maximum": 4640
+              },
+              "queued_bytes": {
+                "maximum": 9280
+              },
+              "queued_ms": {
+                "maximum": 580
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 600
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 600
+              },
+              "queued_samples": {
+                "maximum": 4800
+              },
+              "queued_bytes": {
+                "maximum": 9600
+              },
+              "queued_ms": {
+                "maximum": 600
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 620
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 620
+              },
+              "queued_samples": {
+                "maximum": 4960
+              },
+              "queued_bytes": {
+                "maximum": 9920
+              },
+              "queued_ms": {
+                "maximum": 620
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 640
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 640
+              },
+              "queued_samples": {
+                "maximum": 5120
+              },
+              "queued_bytes": {
+                "maximum": 10240
+              },
+              "queued_ms": {
+                "maximum": 640
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 660
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 660
+              },
+              "queued_samples": {
+                "maximum": 5280
+              },
+              "queued_bytes": {
+                "maximum": 10560
+              },
+              "queued_ms": {
+                "maximum": 660
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 680
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 680
+              },
+              "queued_samples": {
+                "maximum": 5440
+              },
+              "queued_bytes": {
+                "maximum": 10880
+              },
+              "queued_ms": {
+                "maximum": 680
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 700
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 700
+              },
+              "queued_samples": {
+                "maximum": 5600
+              },
+              "queued_bytes": {
+                "maximum": 11200
+              },
+              "queued_ms": {
+                "maximum": 700
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 720
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 720
+              },
+              "queued_samples": {
+                "maximum": 5760
+              },
+              "queued_bytes": {
+                "maximum": 11520
+              },
+              "queued_ms": {
+                "maximum": 720
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 740
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 740
+              },
+              "queued_samples": {
+                "maximum": 5920
+              },
+              "queued_bytes": {
+                "maximum": 11840
+              },
+              "queued_ms": {
+                "maximum": 740
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 760
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 760
+              },
+              "queued_samples": {
+                "maximum": 6080
+              },
+              "queued_bytes": {
+                "maximum": 12160
+              },
+              "queued_ms": {
+                "maximum": 760
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 780
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 780
+              },
+              "queued_samples": {
+                "maximum": 6240
+              },
+              "queued_bytes": {
+                "maximum": 12480
+              },
+              "queued_ms": {
+                "maximum": 780
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 800
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 800
+              },
+              "queued_samples": {
+                "maximum": 6400
+              },
+              "queued_bytes": {
+                "maximum": 12800
+              },
+              "queued_ms": {
+                "maximum": 800
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 820
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 820
+              },
+              "queued_samples": {
+                "maximum": 6560
+              },
+              "queued_bytes": {
+                "maximum": 13120
+              },
+              "queued_ms": {
+                "maximum": 820
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 840
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 840
+              },
+              "queued_samples": {
+                "maximum": 6720
+              },
+              "queued_bytes": {
+                "maximum": 13440
+              },
+              "queued_ms": {
+                "maximum": 840
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 860
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 860
+              },
+              "queued_samples": {
+                "maximum": 6880
+              },
+              "queued_bytes": {
+                "maximum": 13760
+              },
+              "queued_ms": {
+                "maximum": 860
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 880
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 880
+              },
+              "queued_samples": {
+                "maximum": 7040
+              },
+              "queued_bytes": {
+                "maximum": 14080
+              },
+              "queued_ms": {
+                "maximum": 880
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 900
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 900
+              },
+              "queued_samples": {
+                "maximum": 7200
+              },
+              "queued_bytes": {
+                "maximum": 14400
+              },
+              "queued_ms": {
+                "maximum": 900
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 920
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 920
+              },
+              "queued_samples": {
+                "maximum": 7360
+              },
+              "queued_bytes": {
+                "maximum": 14720
+              },
+              "queued_ms": {
+                "maximum": 920
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 940
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 940
+              },
+              "queued_samples": {
+                "maximum": 7520
+              },
+              "queued_bytes": {
+                "maximum": 15040
+              },
+              "queued_ms": {
+                "maximum": 940
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 960
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 960
+              },
+              "queued_samples": {
+                "maximum": 7680
+              },
+              "queued_bytes": {
+                "maximum": 15360
+              },
+              "queued_ms": {
+                "maximum": 960
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 980
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 980
+              },
+              "queued_samples": {
+                "maximum": 7840
+              },
+              "queued_bytes": {
+                "maximum": 15680
+              },
+              "queued_ms": {
+                "maximum": 980
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "buffer_ms": {
+                "const": 1000
+              }
+            },
+            "required": [
+              "buffer_ms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prebuffer_ms": {
+                "maximum": 1000
+              },
+              "queued_samples": {
+                "maximum": 8000
+              },
+              "queued_bytes": {
+                "maximum": 16000
+              },
+              "queued_ms": {
+                "maximum": 1000
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "reference": {
+    "version": "1.11.3",
+    "commit": "ef32e205295e29f034f1453ad245ba5efb07b94a"
+  },
+  "fixture": {
+    "isolated": true,
+    "allow_remote": false,
+    "description": "专用空闲测试实例；不连接生产中继、用户目录或业务通道"
+  },
+  "limits": {
+    "connect_seconds": 2,
+    "probe_seconds": 8,
+    "max_header_bytes": 65536,
+    "max_body_bytes": 1048576,
+    "max_evidence_bytes": 2097152
+  },
+  "endpoints": {
+    "reference": {
+      "esl": {"host": "127.0.0.1", "port": 8021, "password_env": "FS_CONFORMANCE_PASSWORD"},
+      "sip_udp": {"host": "127.0.0.1", "port": 5060},
+      "sip_tcp": {"host": "127.0.0.1", "port": 5060},
+      "artifact": {"source_commit": "ef32e205295e29f034f1453ad245ba5efb07b94a"}
+    },
+    "candidate": {
+      "esl": {"host": "127.0.0.1", "port": 8022, "password_env": "RUSTSWITCH_CONFORMANCE_PASSWORD"},
+      "sip_udp": {"host": "127.0.0.1", "port": 5068},
+      "artifact": {"source_commit": "待填写本次源码指纹"}
+    }
+  }
+}

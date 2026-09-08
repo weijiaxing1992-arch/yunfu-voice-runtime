@@ -1,0 +1,929 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>Conference与Sofia子命令源码目录 · 云蝠项目资料</title><link rel="stylesheet" href="../../../../handbook.css"></head><body><aside><a class="brand" href="../../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../../index.html">资料首页</a><a class="" href="../../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / Conference与Sofia子命令源码目录</div><article class="content"><div class="page-tools"><a href="conference-and-sofia-subcommands.md" download>Markdown 原稿</a><a href="../../api/openapi.json" download>OpenAPI JSON</a><a href="../../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 4 节</summary><a href="#使用边界">使用边界</a><a href="#conference完整静态命令表">Conference：完整静态命令表</a><a href="#sofia已确认分支候选">Sofia：已确认分支候选</a><a href="#待补验收记录">待补验收记录</a></details><h1 id="conference与sofia子命令源码目录">Conference与Sofia子命令源码目录</h1>
+<p>固定参考：FreeSWITCH v1.11.3，commit <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>。全部项目均为<strong>未运行验证</strong>。本目录只补充两条常用命令树，不声称穷尽全部模块。</p>
+<p>已解析conference_api_sub_commands[]全部 <strong>84 条声明</strong>，另列 <strong>6 条全局入口分支</strong>。Sofia列出 <strong>38 条已核对解析分支候选</strong>及 <strong>2 条仅帮助文本候选</strong>。JSON保留处理器、分发方式、源文件行和SHA-256。</p>
+<h2 id="使用边界">使用边界</h2>
+<ul>
+<li>参数表达式记录静态元数据或源码入口结构；默认值、响应字节、事件、时序、权限和实际模块集合均须运行验证。</li>
+<li>作用域是影响范围提示，不是逐房间或逐profile授权的实现证明。CLI、ESL、HTTP、Verto入口需分别认证，不能据此自动开放REST端点。</li>
+<li>conference分发名与帮助显示名分别保存。例如pause_play的帮助名称为pause，而pause自身指向录音暂停处理器。</li>
+</ul>
+<h2 id="conference完整静态命令表">Conference：完整静态命令表</h2>
+<p>前缀为<code>conference &lt;conference_name&gt;</code>。原始语法拼写和括号保留，不在目录里修复。该表完整仅指这张静态表的声明，不代表处理器内部子参数全部展开。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分发子命令</th>
+<th>参数表达式</th>
+<th>中文用途</th>
+<th>分发提示</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>canvas-auto-clear</code></td>
+<td><code>&lt;canvas_id&gt; &lt;true|false&gt;</code></td>
+<td>控制画布自动清理</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L46" target="_blank" rel="noopener noreferrer">L46</a></td>
+</tr>
+<tr>
+<td><code>count</code></td>
+<td>空字符串</td>
+<td>读取会议、成员或媒体状态</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L47" target="_blank" rel="noopener noreferrer">L47</a></td>
+</tr>
+<tr>
+<td><code>list</code></td>
+<td><code>[delim &lt;string&gt;]|[count]</code></td>
+<td>读取会议、成员或媒体状态</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L48" target="_blank" rel="noopener noreferrer">L48</a></td>
+</tr>
+<tr>
+<td><code>xml_list</code></td>
+<td>空字符串</td>
+<td>读取会议、成员或媒体状态</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L49" target="_blank" rel="noopener noreferrer">L49</a></td>
+</tr>
+<tr>
+<td><code>json_list</code></td>
+<td><code>[compact]</code></td>
+<td>读取会议、成员或媒体状态</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L50" target="_blank" rel="noopener noreferrer">L50</a></td>
+</tr>
+<tr>
+<td><code>energy</code></td>
+<td><code>&lt;member_id|all|last|non_moderator&gt; [&lt;newval&gt;]</code></td>
+<td>调节成员音频阈值、增益或音量</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L51" target="_blank" rel="noopener noreferrer">L51</a></td>
+</tr>
+<tr>
+<td><code>auto-energy</code></td>
+<td><code>&lt;member_id|all|last|non_moderator&gt; [&lt;newval&gt;]</code></td>
+<td>调节成员音频阈值、增益或音量</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L52" target="_blank" rel="noopener noreferrer">L52</a></td>
+</tr>
+<tr>
+<td><code>max-energy</code></td>
+<td><code>&lt;member_id|all|last|non_moderator&gt; [&lt;newval&gt;]</code></td>
+<td>调节成员音频阈值、增益或音量</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L53" target="_blank" rel="noopener noreferrer">L53</a></td>
+</tr>
+<tr>
+<td><code>agc</code></td>
+<td><code>&lt;member_id|all|last|non_moderator&gt; [&lt;newval&gt;]</code></td>
+<td>调节成员音频阈值、增益或音量</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L54" target="_blank" rel="noopener noreferrer">L54</a></td>
+</tr>
+<tr>
+<td><code>vid-canvas</code></td>
+<td><code>&lt;member_id|all|last|non_moderator&gt; [&lt;newval&gt;]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L55" target="_blank" rel="noopener noreferrer">L55</a></td>
+</tr>
+<tr>
+<td><code>vid-watching-canvas</code></td>
+<td><code>&lt;member_id|all|last|non_moderator&gt; [&lt;newval&gt;]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L56" target="_blank" rel="noopener noreferrer">L56</a></td>
+</tr>
+<tr>
+<td><code>vid-layer</code></td>
+<td><code>&lt;member_id|all|last|non_moderator&gt; [&lt;newval&gt;]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L57" target="_blank" rel="noopener noreferrer">L57</a></td>
+</tr>
+<tr>
+<td><code>volume_in</code></td>
+<td><code>&lt;member_id|all|last|non_moderator&gt; [&lt;newval&gt;]</code></td>
+<td>调节成员音频阈值、增益或音量</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L58" target="_blank" rel="noopener noreferrer">L58</a></td>
+</tr>
+<tr>
+<td><code>volume_out</code></td>
+<td><code>&lt;member_id|all|last|non_moderator&gt; [&lt;newval&gt;]</code></td>
+<td>调节成员音频阈值、增益或音量</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L59" target="_blank" rel="noopener noreferrer">L59</a></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td><code>&lt;member_id&gt; &lt;x&gt;:&lt;y&gt;:&lt;z&gt;</code></td>
+<td>控制成员空间、听说关系或发言选择</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L60" target="_blank" rel="noopener noreferrer">L60</a></td>
+</tr>
+<tr>
+<td><code>auto-3d-position</code></td>
+<td><code>[on|off]</code></td>
+<td>控制成员空间、听说关系或发言选择</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L61" target="_blank" rel="noopener noreferrer">L61</a></td>
+</tr>
+<tr>
+<td><code>play</code></td>
+<td><code>&lt;file_path&gt; [async|&lt;member_id&gt; [nomux]]</code></td>
+<td>控制文件播放、等待音乐或语音输出</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L62" target="_blank" rel="noopener noreferrer">L62</a></td>
+</tr>
+<tr>
+<td><code>moh</code></td>
+<td><code>&lt;file_path&gt;|toggle|[on|off]</code></td>
+<td>控制文件播放、等待音乐或语音输出</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L63" target="_blank" rel="noopener noreferrer">L63</a></td>
+</tr>
+<tr>
+<td><code>pause_play</code></td>
+<td><code>[&lt;member_id&gt;]</code></td>
+<td>暂停或恢复文件播放</td>
+<td>分词参数；帮助名=pause</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L64" target="_blank" rel="noopener noreferrer">L64</a></td>
+</tr>
+<tr>
+<td><code>play_status</code></td>
+<td><code>[&lt;member_id&gt;]</code></td>
+<td>读取会议、成员或媒体状态</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L65" target="_blank" rel="noopener noreferrer">L65</a></td>
+</tr>
+<tr>
+<td><code>file_seek</code></td>
+<td><code>[+-]&lt;val&gt; [&lt;member_id&gt;]</code></td>
+<td>控制文件播放、等待音乐或语音输出</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L66" target="_blank" rel="noopener noreferrer">L66</a></td>
+</tr>
+<tr>
+<td><code>say</code></td>
+<td><code>&lt;text&gt;</code></td>
+<td>控制文件播放、等待音乐或语音输出</td>
+<td>剩余文本整体传递</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L67" target="_blank" rel="noopener noreferrer">L67</a></td>
+</tr>
+<tr>
+<td><code>saymember</code></td>
+<td><code>&lt;member_id&gt; &lt;text&gt;</code></td>
+<td>控制文件播放、等待音乐或语音输出</td>
+<td>剩余文本整体传递</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L68" target="_blank" rel="noopener noreferrer">L68</a></td>
+</tr>
+<tr>
+<td><code>cam</code></td>
+<td>空字符串</td>
+<td>进入摄像画面控制处理器</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L69" target="_blank" rel="noopener noreferrer">L69</a></td>
+</tr>
+<tr>
+<td><code>stop</code></td>
+<td><code>&lt;[current|all|async|last]&gt; [&lt;member_id&gt;]</code></td>
+<td>控制文件播放、等待音乐或语音输出</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L70" target="_blank" rel="noopener noreferrer">L70</a></td>
+</tr>
+<tr>
+<td><code>dtmf</code></td>
+<td><code>&lt;[member_id|all|last|non_moderator]&gt; &lt;digits&gt;</code></td>
+<td>控制外呼、成员呼叫或按键</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L71" target="_blank" rel="noopener noreferrer">L71</a></td>
+</tr>
+<tr>
+<td><code>kick</code></td>
+<td><code>&lt;[member_id|all|last|non_moderator]&gt; [&lt;optional sound file&gt;]</code></td>
+<td>控制外呼、成员呼叫或按键</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L72" target="_blank" rel="noopener noreferrer">L72</a></td>
+</tr>
+<tr>
+<td><code>vid-flip</code></td>
+<td><code>&lt;[member_id|all|last|non_moderator]&gt;</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L73" target="_blank" rel="noopener noreferrer">L73</a></td>
+</tr>
+<tr>
+<td><code>vid-border</code></td>
+<td><code>&lt;[member_id|all|last|non_moderator]&gt;</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L74" target="_blank" rel="noopener noreferrer">L74</a></td>
+</tr>
+<tr>
+<td><code>hup</code></td>
+<td><code>&lt;[member_id|all|last|non_moderator]&gt;</code></td>
+<td>控制外呼、成员呼叫或按键</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L75" target="_blank" rel="noopener noreferrer">L75</a></td>
+</tr>
+<tr>
+<td><code>hold</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt; [file]</code></td>
+<td>控制外呼、成员呼叫或按键</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L76" target="_blank" rel="noopener noreferrer">L76</a></td>
+</tr>
+<tr>
+<td><code>unhold</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt;</code></td>
+<td>控制外呼、成员呼叫或按键</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L77" target="_blank" rel="noopener noreferrer">L77</a></td>
+</tr>
+<tr>
+<td><code>mute</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt; [&lt;quiet&gt;]</code></td>
+<td>控制成员音频发送或接收</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L78" target="_blank" rel="noopener noreferrer">L78</a></td>
+</tr>
+<tr>
+<td><code>tmute</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt; [&lt;quiet&gt;]</code></td>
+<td>控制成员音频发送或接收</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L79" target="_blank" rel="noopener noreferrer">L79</a></td>
+</tr>
+<tr>
+<td><code>unmute</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt; [&lt;quiet&gt;]</code></td>
+<td>控制成员音频发送或接收</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L80" target="_blank" rel="noopener noreferrer">L80</a></td>
+</tr>
+<tr>
+<td><code>vmute</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt; [&lt;quiet&gt;]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L81" target="_blank" rel="noopener noreferrer">L81</a></td>
+</tr>
+<tr>
+<td><code>tvmute</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt; [&lt;quiet&gt;]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L82" target="_blank" rel="noopener noreferrer">L82</a></td>
+</tr>
+<tr>
+<td><code>vmute-snap</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt;</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L83" target="_blank" rel="noopener noreferrer">L83</a></td>
+</tr>
+<tr>
+<td><code>unvmute</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt; [&lt;quiet&gt;]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L84" target="_blank" rel="noopener noreferrer">L84</a></td>
+</tr>
+<tr>
+<td><code>vblind</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt; [&lt;quiet&gt;]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L85" target="_blank" rel="noopener noreferrer">L85</a></td>
+</tr>
+<tr>
+<td><code>tvblind</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt; [&lt;quiet&gt;]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L86" target="_blank" rel="noopener noreferrer">L86</a></td>
+</tr>
+<tr>
+<td><code>unvblind</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt; [&lt;quiet&gt;]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L87" target="_blank" rel="noopener noreferrer">L87</a></td>
+</tr>
+<tr>
+<td><code>deaf</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt;</code></td>
+<td>控制成员音频发送或接收</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L88" target="_blank" rel="noopener noreferrer">L88</a></td>
+</tr>
+<tr>
+<td><code>undeaf</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt;</code></td>
+<td>控制成员音频发送或接收</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L89" target="_blank" rel="noopener noreferrer">L89</a></td>
+</tr>
+<tr>
+<td><code>vid-filter</code></td>
+<td><code>&lt;[member_id|all]|last|non_moderator&gt; &lt;string&gt;</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L90" target="_blank" rel="noopener noreferrer">L90</a></td>
+</tr>
+<tr>
+<td><code>relate</code></td>
+<td><code>&lt;member_id&gt;[,&lt;member_id&gt;] &lt;other_member_id&gt;[,&lt;other_member_id&gt;] [nospeak|nohear|clear]</code></td>
+<td>控制成员空间、听说关系或发言选择</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L91" target="_blank" rel="noopener noreferrer">L91</a></td>
+</tr>
+<tr>
+<td><code>getvar</code></td>
+<td><code>&lt;varname&gt;</code></td>
+<td>读取会议、成员或媒体状态</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L92" target="_blank" rel="noopener noreferrer">L92</a></td>
+</tr>
+<tr>
+<td><code>setvar</code></td>
+<td><code>&lt;varname&gt; &lt;value&gt;</code></td>
+<td>修改会议变量或参数</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L93" target="_blank" rel="noopener noreferrer">L93</a></td>
+</tr>
+<tr>
+<td><code>lock</code></td>
+<td>空字符串</td>
+<td>控制会议入口和PIN</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L94" target="_blank" rel="noopener noreferrer">L94</a></td>
+</tr>
+<tr>
+<td><code>unlock</code></td>
+<td>空字符串</td>
+<td>控制会议入口和PIN</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L95" target="_blank" rel="noopener noreferrer">L95</a></td>
+</tr>
+<tr>
+<td><code>dial</code></td>
+<td><code>&lt;endpoint_module_name&gt;/&lt;destination&gt; &lt;callerid number&gt; &lt;callerid name&gt;</code></td>
+<td>同步外呼</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L96" target="_blank" rel="noopener noreferrer">L96</a></td>
+</tr>
+<tr>
+<td><code>bgdial</code></td>
+<td><code>&lt;endpoint_module_name&gt;/&lt;destination&gt; &lt;callerid number&gt; &lt;callerid name&gt;</code></td>
+<td>后台外呼</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L97" target="_blank" rel="noopener noreferrer">L97</a></td>
+</tr>
+<tr>
+<td><code>transfer</code></td>
+<td><code>&lt;conference_name&gt; &lt;member id&gt; [...&lt;member id&gt;]</code></td>
+<td>控制外呼、成员呼叫或按键</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L98" target="_blank" rel="noopener noreferrer">L98</a></td>
+</tr>
+<tr>
+<td><code>record</code></td>
+<td><code>&lt;filename&gt;</code></td>
+<td>控制会议录音</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L99" target="_blank" rel="noopener noreferrer">L99</a></td>
+</tr>
+<tr>
+<td><code>chkrecord</code></td>
+<td><code>&lt;confname&gt;</code></td>
+<td>读取会议、成员或媒体状态</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L100" target="_blank" rel="noopener noreferrer">L100</a></td>
+</tr>
+<tr>
+<td><code>norecord</code></td>
+<td><code>&lt;[filename|all]&gt;</code></td>
+<td>控制会议录音</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L101" target="_blank" rel="noopener noreferrer">L101</a></td>
+</tr>
+<tr>
+<td><code>pause</code></td>
+<td><code>&lt;filename&gt;</code></td>
+<td>暂停录音</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L102" target="_blank" rel="noopener noreferrer">L102</a></td>
+</tr>
+<tr>
+<td><code>resume</code></td>
+<td><code>&lt;filename&gt;</code></td>
+<td>恢复录音</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L103" target="_blank" rel="noopener noreferrer">L103</a></td>
+</tr>
+<tr>
+<td><code>recording</code></td>
+<td><code>[start|stop|check|pause|resume] [&lt;filename&gt;|all]</code></td>
+<td>控制会议录音</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L104" target="_blank" rel="noopener noreferrer">L104</a></td>
+</tr>
+<tr>
+<td><code>exit_sound</code></td>
+<td><code>on|off|none|file &lt;filename&gt;</code></td>
+<td>控制成员进出会议提示音</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L105" target="_blank" rel="noopener noreferrer">L105</a></td>
+</tr>
+<tr>
+<td><code>enter_sound</code></td>
+<td><code>on|off|none|file &lt;filename&gt;</code></td>
+<td>控制成员进出会议提示音</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L106" target="_blank" rel="noopener noreferrer">L106</a></td>
+</tr>
+<tr>
+<td><code>pin</code></td>
+<td><code>&lt;pin#&gt;</code></td>
+<td>控制会议入口和PIN</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L107" target="_blank" rel="noopener noreferrer">L107</a></td>
+</tr>
+<tr>
+<td><code>nopin</code></td>
+<td>空字符串</td>
+<td>控制会议入口和PIN</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L108" target="_blank" rel="noopener noreferrer">L108</a></td>
+</tr>
+<tr>
+<td><code>get</code></td>
+<td><code>&lt;parameter-name&gt;</code></td>
+<td>读取会议、成员或媒体状态</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L109" target="_blank" rel="noopener noreferrer">L109</a></td>
+</tr>
+<tr>
+<td><code>set</code></td>
+<td><code>&lt;max_members|sound_prefix|caller_id_name|caller_id_number|endconference_grace_time&gt; &lt;value&gt;</code></td>
+<td>修改会议变量或参数</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L110" target="_blank" rel="noopener noreferrer">L110</a></td>
+</tr>
+<tr>
+<td><code>file-vol</code></td>
+<td><code>&lt;vol#&gt;</code></td>
+<td>控制文件播放、等待音乐或语音输出</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L111" target="_blank" rel="noopener noreferrer">L111</a></td>
+</tr>
+<tr>
+<td><code>floor</code></td>
+<td><code>&lt;member_id|last&gt;</code></td>
+<td>控制成员空间、听说关系或发言选择</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L112" target="_blank" rel="noopener noreferrer">L112</a></td>
+</tr>
+<tr>
+<td><code>vid-floor</code></td>
+<td><code>&lt;member_id|last&gt; [force]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L113" target="_blank" rel="noopener noreferrer">L113</a></td>
+</tr>
+<tr>
+<td><code>vid-banner</code></td>
+<td><code>&lt;member_id|last&gt; &lt;text&gt;</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L114" target="_blank" rel="noopener noreferrer">L114</a></td>
+</tr>
+<tr>
+<td><code>vid-mute-img</code></td>
+<td><code>&lt;member_id|last&gt; [&lt;path&gt;|clear]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L115" target="_blank" rel="noopener noreferrer">L115</a></td>
+</tr>
+<tr>
+<td><code>vid-logo-img</code></td>
+<td><code>&lt;member_id|last&gt; [&lt;path&gt;|clear]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L116" target="_blank" rel="noopener noreferrer">L116</a></td>
+</tr>
+<tr>
+<td><code>vid-codec-group</code></td>
+<td><code>&lt;member_id|last&gt; [&lt;group&gt;|clear]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L117" target="_blank" rel="noopener noreferrer">L117</a></td>
+</tr>
+<tr>
+<td><code>vid-res-id</code></td>
+<td><code>&lt;member_id&gt;|all &lt;val&gt;|clear [force]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L118" target="_blank" rel="noopener noreferrer">L118</a></td>
+</tr>
+<tr>
+<td><code>vid-role-id</code></td>
+<td><code>&lt;member_id|last&gt; &lt;val&gt;|clear</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L119" target="_blank" rel="noopener noreferrer">L119</a></td>
+</tr>
+<tr>
+<td><code>get-uuid</code></td>
+<td><code>&lt;member_id|last&gt;</code></td>
+<td>读取成员通道UUID</td>
+<td>成员目标</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L120" target="_blank" rel="noopener noreferrer">L120</a></td>
+</tr>
+<tr>
+<td><code>clear-vid-floor</code></td>
+<td>空字符串</td>
+<td>清除视频发言选择</td>
+<td>剩余文本整体传递</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L121" target="_blank" rel="noopener noreferrer">L121</a></td>
+</tr>
+<tr>
+<td><code>vid-layout</code></td>
+<td><code>&lt;layout name&gt;|group &lt;group name&gt; [&lt;canvas id&gt;]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L122" target="_blank" rel="noopener noreferrer">L122</a></td>
+</tr>
+<tr>
+<td><code>vid-write-png</code></td>
+<td><code>&lt;path&gt;</code></td>
+<td>输出视频图像文件</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L123" target="_blank" rel="noopener noreferrer">L123</a></td>
+</tr>
+<tr>
+<td><code>vid-fps</code></td>
+<td><code>&lt;fps&gt;</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L124" target="_blank" rel="noopener noreferrer">L124</a></td>
+</tr>
+<tr>
+<td><code>vid-res</code></td>
+<td><code>&lt;WxH&gt;</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L125" target="_blank" rel="noopener noreferrer">L125</a></td>
+</tr>
+<tr>
+<td><code>vid-fgimg</code></td>
+<td><code>&lt;file&gt; | clear [&lt;canvas-id&gt;]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L126" target="_blank" rel="noopener noreferrer">L126</a></td>
+</tr>
+<tr>
+<td><code>vid-bgimg</code></td>
+<td><code>&lt;file&gt; | clear [&lt;canvas-id&gt;]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L127" target="_blank" rel="noopener noreferrer">L127</a></td>
+</tr>
+<tr>
+<td><code>vid-bandwidth</code></td>
+<td><code>&lt;BW&gt;</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L128" target="_blank" rel="noopener noreferrer">L128</a></td>
+</tr>
+<tr>
+<td><code>vid-personal</code></td>
+<td><code>[on|off]</code></td>
+<td>控制成员视频或会议视频布局</td>
+<td>分词参数</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L129" target="_blank" rel="noopener noreferrer">L129</a></td>
+</tr>
+</tbody></table></div>
+<p>成员分发另检测含“=”的变量选择器。last按成员ID选择，不能只根据附近注释推断新旧顺序。见<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L4196" target="_blank" rel="noopener noreferrer">成员分发</a>及<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L4239" target="_blank" rel="noopener noreferrer">变量选择器</a>。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>全局入口</th>
+<th>作用域提示</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>conference list</code></td>
+<td>未先找到同名会议时分发；同名对象优先级须实测</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L233" target="_blank" rel="noopener noreferrer">L233</a></td>
+</tr>
+<tr>
+<td><code>conference count</code></td>
+<td>未先找到同名会议时分发；同名对象优先级须实测</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L235" target="_blank" rel="noopener noreferrer">L235</a></td>
+</tr>
+<tr>
+<td><code>conference xml_list</code></td>
+<td>未先找到同名会议时分发；同名对象优先级须实测</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L237" target="_blank" rel="noopener noreferrer">L237</a></td>
+</tr>
+<tr>
+<td><code>conference json_list</code></td>
+<td>未先找到同名会议时分发；同名对象优先级须实测</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L239" target="_blank" rel="noopener noreferrer">L239</a></td>
+</tr>
+<tr>
+<td><code>conference help</code></td>
+<td>未先找到同名会议时分发；同名对象优先级须实测</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L241" target="_blank" rel="noopener noreferrer">L241</a></td>
+</tr>
+<tr>
+<td><code>conference commands</code></td>
+<td>未先找到同名会议时分发；同名对象优先级须实测</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L241" target="_blank" rel="noopener noreferrer">L241</a></td>
+</tr>
+</tbody></table></div>
+<p>命名会议不存在时dial/bgdial仍有特殊处理；同名会议与list/count/help冲突的优先级须测试。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_conference/conference_api.c#L218" target="_blank" rel="noopener noreferrer">顶层分发</a></p>
+<h2 id="sofia已确认分支候选">Sofia：已确认分支候选</h2>
+<p>参数表达式不是完整语法。每项均需测试缺参、额外参数、未知值、对象不存在、并发修改及权限边界。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>命令路径</th>
+<th>参数表达式</th>
+<th>用途和作用域</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sofia help</code></td>
+<td>空字符串</td>
+<td>读取帮助；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L4541" target="_blank" rel="noopener noreferrer">L4541</a></td>
+</tr>
+<tr>
+<td><code>sofia tracelevel</code></td>
+<td><code>[&lt;level&gt;]</code></td>
+<td>读取或设置trace日志等级；模块全局</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L4516" target="_blank" rel="noopener noreferrer">L4516</a></td>
+</tr>
+<tr>
+<td><code>sofia loglevel</code></td>
+<td><code>&lt;component&gt; [&lt;numeric_level&gt;]</code></td>
+<td>读取或设置库组件日志等级；模块全局；组件集合需补齐</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L4522" target="_blank" rel="noopener noreferrer">L4522</a></td>
+</tr>
+<tr>
+<td><code>sofia global debug</code></td>
+<td><code>[&lt;substring_expression&gt;]</code></td>
+<td>调节presence/SLA调试；模块全局；修改状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L4551" target="_blank" rel="noopener noreferrer">L4551</a></td>
+</tr>
+<tr>
+<td><code>sofia global siptrace</code></td>
+<td><code>&lt;boolean_expression&gt;</code></td>
+<td>切换SIP跟踪；模块全局；修改状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L4578" target="_blank" rel="noopener noreferrer">L4578</a></td>
+</tr>
+<tr>
+<td><code>sofia global standby</code></td>
+<td><code>&lt;boolean_expression&gt;</code></td>
+<td>切换待机状态；模块全局；修改状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L4584" target="_blank" rel="noopener noreferrer">L4584</a></td>
+</tr>
+<tr>
+<td><code>sofia global capture</code></td>
+<td><code>&lt;boolean_expression&gt;</code></td>
+<td>切换捕获；模块全局；修改状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L4590" target="_blank" rel="noopener noreferrer">L4590</a></td>
+</tr>
+<tr>
+<td><code>sofia global watchdog</code></td>
+<td><code>&lt;boolean_expression&gt;</code></td>
+<td>切换看门狗；模块全局；修改状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L4596" target="_blank" rel="noopener noreferrer">L4596</a></td>
+</tr>
+<tr>
+<td><code>sofia recover</code></td>
+<td><code>[flush]</code></td>
+<td>恢复或清理恢复数据；模块全局；flush清理数据</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L4621" target="_blank" rel="noopener noreferrer">L4621</a></td>
+</tr>
+<tr>
+<td><code>sofia profile restart all</code></td>
+<td>空字符串</td>
+<td>重启所有profile；模块全局；特殊参数顺序</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3574" target="_blank" rel="noopener noreferrer">L3574</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; start</code></td>
+<td>空字符串</td>
+<td>读XML并启动profile；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3561" target="_blank" rel="noopener noreferrer">L3561</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; killgw</code></td>
+<td><code>&lt;gateway_name|_all_&gt;</code></td>
+<td>标记网关删除；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3584" target="_blank" rel="noopener noreferrer">L3584</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; startgw</code></td>
+<td><code>&lt;gateway_name&gt;</code></td>
+<td>载入网关；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3605" target="_blank" rel="noopener noreferrer">L3605</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; rescan</code></td>
+<td>空字符串</td>
+<td>重读XML并扫描profile；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3623" target="_blank" rel="noopener noreferrer">L3623</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; check_sync</code></td>
+<td><code>[&lt;registration_selector&gt;]</code></td>
+<td>同步注册通知；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3636" target="_blank" rel="noopener noreferrer">L3636</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; flush_inbound_reg</code></td>
+<td><code>[&lt;registration_selector&gt;] [reboot]</code></td>
+<td>清理注册或请求终端重启；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3649" target="_blank" rel="noopener noreferrer">L3649</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; recover</code></td>
+<td><code>[flush]</code></td>
+<td>恢复或清理profile恢复数据；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3674" target="_blank" rel="noopener noreferrer">L3674</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; register</code></td>
+<td><code>&lt;gateway_name|all&gt;</code></td>
+<td>调度网关注册；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3691" target="_blank" rel="noopener noreferrer">L3691</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; unregister</code></td>
+<td><code>&lt;gateway_name|all&gt;</code></td>
+<td>调度网关注销；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3724" target="_blank" rel="noopener noreferrer">L3724</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; stop</code></td>
+<td><code>[wait]</code></td>
+<td>停止profile；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3756" target="_blank" rel="noopener noreferrer">L3756</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; restart</code></td>
+<td>空字符串</td>
+<td>重启profile；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3756" target="_blank" rel="noopener noreferrer">L3756</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; siptrace</code></td>
+<td><code>&lt;boolean_expression&gt;</code></td>
+<td>切换profile跟踪；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3791" target="_blank" rel="noopener noreferrer">L3791</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; capture</code></td>
+<td><code>&lt;boolean_expression&gt;</code></td>
+<td>切换profile捕获；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3802" target="_blank" rel="noopener noreferrer">L3802</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; watchdog</code></td>
+<td><code>&lt;boolean_expression&gt;</code></td>
+<td>切换profile看门狗；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3813" target="_blank" rel="noopener noreferrer">L3813</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; gwlist</code></td>
+<td><code>[down|&lt;other_token&gt;]</code></td>
+<td>查询网关可用性；指定profile；gwlist只读，其余通常修改运行状态</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3825" target="_blank" rel="noopener noreferrer">L3825</a></td>
+</tr>
+<tr>
+<td><code>sofia status</code></td>
+<td>空字符串</td>
+<td>读取总体状态；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L2927" target="_blank" rel="noopener noreferrer">L2927</a></td>
+</tr>
+<tr>
+<td><code>sofia status gateway</code></td>
+<td><code>[&lt;name&gt;]</code></td>
+<td>读取网关状态；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L2993" target="_blank" rel="noopener noreferrer">L2993</a></td>
+</tr>
+<tr>
+<td><code>sofia status profile &lt;name&gt;</code></td>
+<td>空字符串</td>
+<td>读取profile详情；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3028" target="_blank" rel="noopener noreferrer">L3028</a></td>
+</tr>
+<tr>
+<td><code>sofia status profile &lt;name&gt; pres</code></td>
+<td><code>&lt;presence_selector&gt;</code></td>
+<td>查询presence信息；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3119" target="_blank" rel="noopener noreferrer">L3119</a></td>
+</tr>
+<tr>
+<td><code>sofia status profile &lt;name&gt; reg</code></td>
+<td><code>[&lt;contact_selector&gt;]</code></td>
+<td>查询注册记录；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3125" target="_blank" rel="noopener noreferrer">L3125</a></td>
+</tr>
+<tr>
+<td><code>sofia status profile &lt;name&gt; user</code></td>
+<td><code>&lt;user@domain&gt;</code></td>
+<td>查询用户记录；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3137" target="_blank" rel="noopener noreferrer">L3137</a></td>
+</tr>
+<tr>
+<td><code>sofia xmlstatus</code></td>
+<td>空字符串</td>
+<td>读取总体状态；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3287" target="_blank" rel="noopener noreferrer">L3287</a></td>
+</tr>
+<tr>
+<td><code>sofia xmlstatus gateway</code></td>
+<td><code>[&lt;name&gt;]</code></td>
+<td>读取网关状态；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3320" target="_blank" rel="noopener noreferrer">L3320</a></td>
+</tr>
+<tr>
+<td><code>sofia xmlstatus profile &lt;name&gt;</code></td>
+<td>空字符串</td>
+<td>读取profile详情；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3329" target="_blank" rel="noopener noreferrer">L3329</a></td>
+</tr>
+<tr>
+<td><code>sofia xmlstatus profile &lt;name&gt; pres</code></td>
+<td><code>&lt;presence_selector&gt;</code></td>
+<td>查询presence信息；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3421" target="_blank" rel="noopener noreferrer">L3421</a></td>
+</tr>
+<tr>
+<td><code>sofia xmlstatus profile &lt;name&gt; reg</code></td>
+<td><code>[&lt;contact_selector&gt;]</code></td>
+<td>查询注册记录；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3428" target="_blank" rel="noopener noreferrer">L3428</a></td>
+</tr>
+<tr>
+<td><code>sofia xmlstatus profile &lt;name&gt; user</code></td>
+<td><code>&lt;user@domain&gt;</code></td>
+<td>查询用户记录；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3442" target="_blank" rel="noopener noreferrer">L3442</a></td>
+</tr>
+<tr>
+<td><code>sofia jsonstatus</code></td>
+<td>空字符串</td>
+<td>读取全局JSON状态；只读</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/sofia_json_api.c#L192" target="_blank" rel="noopener noreferrer">L192</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="必须保留的边界">必须保留的边界</h3>
+<ol>
+<li><code>sofia profile restart all</code>的特殊顺序已由解析分支确认，不能改写成profile all restart。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3574" target="_blank" rel="noopener noreferrer">来源</a></li>
+<li>killgw批量关键字为_all_，register/unregister为all。显式名称查找与批量遍历的作用域还需实测。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3584" target="_blank" rel="noopener noreferrer">来源</a></li>
+<li>stop wait是有上限的等待循环，并非本标准中等待所有活动呼叫自然结束的无损排空。stop/restart还会拒绝启动不足10秒的profile。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L3756" target="_blank" rel="noopener noreferrer">来源</a></li>
+<li>global debug按presence/sla/none子串检查；布尔值通过switch_true解释。说明里的常用词不是解析接受范围的穷举。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L4551" target="_blank" rel="noopener noreferrer">来源</a></li>
+<li>status/xmlstatus只有一个参数时进入网关概要分支；未知单token也应差分测试。pres/reg/user另有不同查询路径。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L2939" target="_blank" rel="noopener noreferrer">来源</a></li>
+<li>jsonstatus函数体不按argv/argc过滤。JSON API sofia.status与sofia.status.info是独立注册面，不要直接套用status命令树。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/sofia_json_api.c#L192" target="_blank" rel="noopener noreferrer">来源</a></li>
+<li>recover处理恢复数据，返回成功不能推导出媒体、应用或ESL连接无中断迁移。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L4621" target="_blank" rel="noopener noreferrer">来源</a></li>
+</ol>
+<h3 id="仅在帮助中发现的候选">仅在帮助中发现的候选</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>帮助路径</th>
+<th>参数</th>
+<th>状态</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sofia profile &lt;name&gt; stun-auto-disable</code></td>
+<td><code>[true|false]</code></td>
+<td>仅帮助；未确认解析分支</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L4482" target="_blank" rel="noopener noreferrer">L4482</a></td>
+</tr>
+<tr>
+<td><code>sofia profile &lt;name&gt; stun-enabled</code></td>
+<td><code>[true|false]</code></td>
+<td>仅帮助；未确认解析分支</td>
+<td><a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/mod_sofia.c#L4482" target="_blank" rel="noopener noreferrer">L4482</a></td>
+</tr>
+</tbody></table></div>
+<p>本次cmd_profile核对未找到上述两项对应解析分支；必须在v1.11.3基线执行并保存实际响应，不能依据帮助字符串创建假成功实现。</p>
+<h2 id="待补验收记录">待补验收记录</h2>
+<p>每个条目补齐：调用入口和身份、完整输入、前置对象状态、原始响应、事件与副作用、完成时点、错误/重复/并发结果、基线差异。通过运行证据后才能更新not_verified状态。</p>
+<p><a href="conference-and-sofia-subcommands.json">机器可读目录</a></p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

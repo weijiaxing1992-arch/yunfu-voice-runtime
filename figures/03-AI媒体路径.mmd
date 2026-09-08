@@ -1,0 +1,15 @@
+flowchart TB
+  A["A侧PCMA/PCMU RTP"] --> RX["Rust接收/重排/G.711解码：原生8kHz"]
+  RX --> RXS["RXS2：身份/segment/100ms期限"]
+  RXS --> Go["Go RX SDK：消费时效检查"]
+  Go --> ASRBridge["ASR候选：8k或按需16k / ASR1 / FINISH-DONE"]
+  ASRBridge --> Provider["外部ASR适配器与识别模型（待接入）"]
+  Provider --> LLM["Agent/LLM/VAD/自动打断（待集成）"]
+  LLM --> TTS["外部TTS：输出8k mono S16LE"]
+  TTS --> RVA["Go RVA1私有入口：通道/turn/token"]
+  RVA --> TX["FD3 → Rust TX → G.711编码/RTP"]
+  TX --> User["A侧听到回复；TX不回灌RX"]
+  classDef candidate fill:#fff4e6,stroke:#b87019;
+  classDef external fill:#f5f6f7,stroke:#7b8993,stroke-dasharray:5 5;
+  class ASRBridge candidate;
+  class Provider,LLM,TTS external;

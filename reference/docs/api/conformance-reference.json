@@ -1,0 +1,1495 @@
+{
+  "schema_version": "1.0.0",
+  "captured_at": "2026-09-06T07:54:06.874984+00:00",
+  "scope": "固定主配置、完整conf树、默认FHS配置树、模块动态库与自行构建依赖；不表示这些模块均完成功能对测。",
+  "binary": {
+    "path": "bin/freeswitch",
+    "absolute_path": "/opt/freeswitch-reference/bin/freeswitch",
+    "bytes": 115704,
+    "sha256": "7351b3d7ee0df136d575978cac528323acc8a7de27ef7492b7bc624b3981e21a"
+  },
+  "core_library": {
+    "path": "lib/libfreeswitch.so.1",
+    "absolute_path": "/opt/freeswitch-reference/lib/libfreeswitch.so.1",
+    "bytes": 7969080,
+    "sha256": "a6bb9d11de9262f0d3a6e9cb509c1c75d79ffb607993a719f0f51e88ab6571e4"
+  },
+  "active_config": {
+    "path": "conf/freeswitch.xml",
+    "absolute_path": "/opt/freeswitch-reference/conf/freeswitch.xml",
+    "bytes": 5779,
+    "sha256": "9022c155929885a6b2cad69506db1aa710746d33e578baeeb41daa7f70a660c5"
+  },
+  "config_tree": [
+    {
+      "path": "freeswitch.xml",
+      "absolute_path": "/opt/freeswitch-reference/conf/freeswitch.xml",
+      "bytes": 5779,
+      "sha256": "9022c155929885a6b2cad69506db1aa710746d33e578baeeb41daa7f70a660c5"
+    },
+    {
+      "path": "tls/agent.pem",
+      "absolute_path": "/opt/freeswitch-reference/conf/tls/agent.pem",
+      "bytes": 2855,
+      "sha256": "a2e72ec10ff67f49a59a54c9eb4f7a5a6719ef0bcc55b6e88a87e797df3c4b0b"
+    },
+    {
+      "path": "tls/cafile.pem",
+      "absolute_path": "/opt/freeswitch-reference/conf/tls/cafile.pem",
+      "bytes": 1151,
+      "sha256": "1abca53bbf2a62ddeccf0b6900920580ee848c890e6d0ff6b92b5ca2bcd9dbc5"
+    },
+    {
+      "path": "tls/cert.pem",
+      "absolute_path": "/opt/freeswitch-reference/conf/tls/cert.pem",
+      "bytes": 1151,
+      "sha256": "1abca53bbf2a62ddeccf0b6900920580ee848c890e6d0ff6b92b5ca2bcd9dbc5"
+    },
+    {
+      "path": "tls/key.pem",
+      "absolute_path": "/opt/freeswitch-reference/conf/tls/key.pem",
+      "bytes": 1704,
+      "sha256": "309a4afb00bde989c9d020b10d035292fb6df9296390a100dee2bdb442cb13a8"
+    },
+    {
+      "path": "tls/wss.pem",
+      "absolute_path": "/opt/freeswitch-reference/conf/tls/wss.pem",
+      "bytes": 2855,
+      "sha256": "a2e72ec10ff67f49a59a54c9eb4f7a5a6719ef0bcc55b6e88a87e797df3c4b0b"
+    },
+    {
+      "path": "tls-before-san/agent.pem",
+      "absolute_path": "/opt/freeswitch-reference/conf/tls-before-san/agent.pem",
+      "bytes": 2819,
+      "sha256": "da078fade1c8596f05a9c1869f924bf3b5077110a873cd9a27cdf5e2faccc192"
+    },
+    {
+      "path": "tls-before-san/cafile.pem",
+      "absolute_path": "/opt/freeswitch-reference/conf/tls-before-san/cafile.pem",
+      "bytes": 1115,
+      "sha256": "623619f57dddfed8c1fd85f22005bdfc67a950773d4b8451aebbc3985a6b4e17"
+    },
+    {
+      "path": "tls-before-san/cert.pem",
+      "absolute_path": "/opt/freeswitch-reference/conf/tls-before-san/cert.pem",
+      "bytes": 1115,
+      "sha256": "623619f57dddfed8c1fd85f22005bdfc67a950773d4b8451aebbc3985a6b4e17"
+    },
+    {
+      "path": "tls-before-san/key.pem",
+      "absolute_path": "/opt/freeswitch-reference/conf/tls-before-san/key.pem",
+      "bytes": 1704,
+      "sha256": "f48dabfbe6142b2d1fe233538bddf7603b1558fce3470589d6057dc28b5faf1b"
+    },
+    {
+      "path": "tls-before-san/wss.pem",
+      "absolute_path": "/opt/freeswitch-reference/conf/tls-before-san/wss.pem",
+      "bytes": 2819,
+      "sha256": "da078fade1c8596f05a9c1869f924bf3b5077110a873cd9a27cdf5e2faccc192"
+    }
+  ],
+  "default_fhs_config_tree": [
+    {
+      "path": "autoload_configs/acl.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/acl.conf.xml",
+      "bytes": 1026,
+      "sha256": "4677560de783c39de9fad8aa948fd55b2a1e0d1c2ee6d5445bd280d5cca41946"
+    },
+    {
+      "path": "autoload_configs/alsa.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/alsa.conf.xml",
+      "bytes": 422,
+      "sha256": "4b490b8657cf9ff59e3577ef95219c772e64344a1edadcd8a2e74b244114daff"
+    },
+    {
+      "path": "autoload_configs/amqp.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/amqp.conf.xml",
+      "bytes": 3401,
+      "sha256": "a18dbc83117e9aedc98923eb3c810414168af2c2e3d6117671921b8374309999"
+    },
+    {
+      "path": "autoload_configs/amr.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/amr.conf.xml",
+      "bytes": 795,
+      "sha256": "50b61c67dd01f4f1ce76578ca02588d5c3230b7f9cebd441924ab77198919944"
+    },
+    {
+      "path": "autoload_configs/amrwb.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/amrwb.conf.xml",
+      "bytes": 874,
+      "sha256": "00b8f0fbda0d1942d118eee372310f4d234a84280c312dac017249062a38db1f"
+    },
+    {
+      "path": "autoload_configs/av.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/av.conf.xml",
+      "bytes": 6153,
+      "sha256": "6687b88d1ab07cd4b552a4d279bb5097d1fed05c326b4112bbed45e6fcd3736b"
+    },
+    {
+      "path": "autoload_configs/avmd.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/avmd.conf.xml",
+      "bytes": 3629,
+      "sha256": "dceffcdb90aeba57fc104ce5ffe4070dd7e75ef9395491d1c62ac74f52cd71bc"
+    },
+    {
+      "path": "autoload_configs/blacklist.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/blacklist.conf.xml",
+      "bytes": 345,
+      "sha256": "25a8ae5339c8a3bff655688049b7281006b29a5131b7fe92f011afd5c07e913a"
+    },
+    {
+      "path": "autoload_configs/callcenter.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/callcenter.conf.xml",
+      "bytes": 2000,
+      "sha256": "6faabf974d917afcc40158b649c9288606a599841a0236803468d37ba2125726"
+    },
+    {
+      "path": "autoload_configs/cdr_csv.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/cdr_csv.conf.xml",
+      "bytes": 2521,
+      "sha256": "53d12aa25e38ef1f0519dc13f50a49e1c2b2bd01a46e56309de52699db7b2e59"
+    },
+    {
+      "path": "autoload_configs/cdr_pg_csv.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/cdr_pg_csv.conf.xml",
+      "bytes": 1517,
+      "sha256": "326c51a00dc4b49fca4c03fe1d2456b5a2ac96334515745e74a5b818c69c5e87"
+    },
+    {
+      "path": "autoload_configs/cdr_sqlite.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/cdr_sqlite.conf.xml",
+      "bytes": 999,
+      "sha256": "57337bc68ebd771ce3b3b100cf6bc3f5ba60538863240f23b10c1644477bb75c"
+    },
+    {
+      "path": "autoload_configs/cidlookup.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/cidlookup.conf.xml",
+      "bytes": 1335,
+      "sha256": "2dc106af6ca4ce163fbd8793aadef5b7c14a45f1dd72bacd353f36faf6d08304"
+    },
+    {
+      "path": "autoload_configs/conference.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/conference.conf.xml",
+      "bytes": 21809,
+      "sha256": "5190ffab8df92428ba88aa9114ad7a16d44d696c81c0f23babf92723ed496810"
+    },
+    {
+      "path": "autoload_configs/conference_layouts.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/conference_layouts.conf.xml",
+      "bytes": 15057,
+      "sha256": "982c0af71bffea83f683b28fcba7ce4ee6774bc03f292eff8a243dca086a1383"
+    },
+    {
+      "path": "autoload_configs/console.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/console.conf.xml",
+      "bytes": 2502,
+      "sha256": "b3050d25d598c64910b0f7a22f3c20549ed6559ec2b24109789a1ea0fba91427"
+    },
+    {
+      "path": "autoload_configs/curl.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/curl.conf.xml",
+      "bytes": 147,
+      "sha256": "19a7834daffac91100b209edd87c648e5869aea02882ec53200112ace246c9ff"
+    },
+    {
+      "path": "autoload_configs/db.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/db.conf.xml",
+      "bytes": 170,
+      "sha256": "e39bb597214d4912ac26ade1977ecb68eabadb28e9911a7c6e4b2fb11250ad71"
+    },
+    {
+      "path": "autoload_configs/dialplan_directory.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/dialplan_directory.conf.xml",
+      "bytes": 380,
+      "sha256": "00dadd3eb637a92a439baccaa5478cbac09d501a0b55b687466ff33ff2ab0318"
+    },
+    {
+      "path": "autoload_configs/directory.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/directory.conf.xml",
+      "bytes": 810,
+      "sha256": "d9fe4cde168cd2d00ea902e70e596e947cb4d4b2a7574990c883e8e2bd655c1c"
+    },
+    {
+      "path": "autoload_configs/distributor.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/distributor.conf.xml",
+      "bytes": 442,
+      "sha256": "23b93b8d959d2889288c2167fbf061a6f9f36cc8c842145f64a55535ea1df9af"
+    },
+    {
+      "path": "autoload_configs/easyroute.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/easyroute.conf.xml",
+      "bytes": 1431,
+      "sha256": "8e02b6068a6523238cebd2c40a2c5542d8da5292fcffe75af9d7fa5ee9668def"
+    },
+    {
+      "path": "autoload_configs/enum.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/enum.conf.xml",
+      "bytes": 1074,
+      "sha256": "9b1cfd4b8077d7c22d155587b483a525ce8f9ac314406d3ad452792df8f75087"
+    },
+    {
+      "path": "autoload_configs/erlang_event.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/erlang_event.conf.xml",
+      "bytes": 1220,
+      "sha256": "6d3846553d75499ef2570ce8511b6fb501513626ac6360bbd1d020708265f2d8"
+    },
+    {
+      "path": "autoload_configs/event_multicast.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/event_multicast.conf.xml",
+      "bytes": 593,
+      "sha256": "49e127e35ab987c150d44afe8b0b7f9b9038eb35beae44525c4462221d740c1f"
+    },
+    {
+      "path": "autoload_configs/event_socket.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/event_socket.conf.xml",
+      "bytes": 412,
+      "sha256": "8a3e246e4b2b364857034316055604ff2b8951f36c5d191d33352bd5f173beed"
+    },
+    {
+      "path": "autoload_configs/fax.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/fax.conf.xml",
+      "bytes": 441,
+      "sha256": "6c4d6d61358a67aa85bdf976a04eed17ce21587ab554733b75fcb7f9c59f6aae"
+    },
+    {
+      "path": "autoload_configs/fifo.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/fifo.conf.xml",
+      "bytes": 371,
+      "sha256": "1d23cb8a5727f5579f984a573152de2711f573aa6de3e931eed4ac44f0f57d53"
+    },
+    {
+      "path": "autoload_configs/format_cdr.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/format_cdr.conf.xml",
+      "bytes": 4622,
+      "sha256": "610297913132d78b2e423ebfefb05617d8d555494bc75216e7d37879139b5026"
+    },
+    {
+      "path": "autoload_configs/graylog2.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/graylog2.conf.xml",
+      "bytes": 1024,
+      "sha256": "422183ef0fb4690e0c922f64195b7a8fcb9be409412ea3f92fa0898d8d3a8615"
+    },
+    {
+      "path": "autoload_configs/hash.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/hash.conf.xml",
+      "bytes": 260,
+      "sha256": "f5bda0b24559083cd29748e07837b7ed01b3a3929970d34213e9b88b9ac1fbe7"
+    },
+    {
+      "path": "autoload_configs/hiredis.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/hiredis.conf.xml",
+      "bytes": 703,
+      "sha256": "8441c31885824db35894bb8e00a6a86d6931ca6b50b1229da5c215e514416db9"
+    },
+    {
+      "path": "autoload_configs/httapi.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/httapi.conf.xml",
+      "bytes": 5506,
+      "sha256": "afdf0c854abeb69d7c7a2718035d06c3bc60abcda5aa2e0ead88a09447a1a2c3"
+    },
+    {
+      "path": "autoload_configs/http_cache.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/http_cache.conf.xml",
+      "bytes": 1029,
+      "sha256": "2a07bc7845d7ef10ca0c45021cda63131942ea0a9d5edb678ade2ae938b0bf15"
+    },
+    {
+      "path": "autoload_configs/ivr.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/ivr.conf.xml",
+      "bytes": 155,
+      "sha256": "48da705c788c70df7701657293c3a61acfdc8e88591d91398130374f95369fd6"
+    },
+    {
+      "path": "autoload_configs/java.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/java.conf.xml",
+      "bytes": 445,
+      "sha256": "b9c80c412752dd2d6bf2ad41bc8dccf67371fbca294078a1f3fc28ad8221e53f"
+    },
+    {
+      "path": "autoload_configs/lcr.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/lcr.conf.xml",
+      "bytes": 3657,
+      "sha256": "8fdfb22c3c6504aefb58036f91d0a1e281bfa24e6c663ba6ee1b785c65172301"
+    },
+    {
+      "path": "autoload_configs/local_stream.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/local_stream.conf.xml",
+      "bytes": 1910,
+      "sha256": "afc7fdc3848427e02b53e80616ba298164452674125482a9e42e7e8356fec34a"
+    },
+    {
+      "path": "autoload_configs/logfile.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/logfile.conf.xml",
+      "bytes": 1162,
+      "sha256": "3b0b4d7316fa3ef78b2af2e94f9a897a2d723e0a29d409d9ad56bdeb36b3beb5"
+    },
+    {
+      "path": "autoload_configs/lua.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/lua.conf.xml",
+      "bytes": 1313,
+      "sha256": "1ee958b25fe1347be98ad7e698376f63fbc72905c25638ca540e5bfa5c4345cc"
+    },
+    {
+      "path": "autoload_configs/memcache.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/memcache.conf.xml",
+      "bytes": 254,
+      "sha256": "6d62aafeda0e743cb20d3fe20f2f733d2d93a952ac36dd5c6dc412bc63b8f8a4"
+    },
+    {
+      "path": "autoload_configs/modules.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/modules.conf.xml",
+      "bytes": 4184,
+      "sha256": "055a5310fe30a0a3a7cb8c4a6c9c7118da9406d9c347854c321b1984f69f346e"
+    },
+    {
+      "path": "autoload_configs/mongo.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/mongo.conf.xml",
+      "bytes": 541,
+      "sha256": "0f8337eb94d0421030049badf7dbdb473ab615f84f3c566c67b36c857ddaf4be"
+    },
+    {
+      "path": "autoload_configs/msrp.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/msrp.conf.xml",
+      "bytes": 512,
+      "sha256": "5787a831150eff2d136bc01c1b9519a65a9d7ab577ad9deb6996b959c4ad41f3"
+    },
+    {
+      "path": "autoload_configs/nibblebill.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/nibblebill.conf.xml",
+      "bytes": 2017,
+      "sha256": "f222daf9a785eac069d9d1ca436bf0985f0bd4b169b82ca65522c5711331f32f"
+    },
+    {
+      "path": "autoload_configs/opal.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/opal.conf.xml",
+      "bytes": 1196,
+      "sha256": "75b760e6e424d11d3323e97614df04f774d8a6056f304d54edbf6b80bfda6e06"
+    },
+    {
+      "path": "autoload_configs/opus.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/opus.conf.xml",
+      "bytes": 1976,
+      "sha256": "c8a71f07172f068b41893e8fbfc8a9d430965cb239b0a22de39dc81d6514bdf2"
+    },
+    {
+      "path": "autoload_configs/osp.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/osp.conf.xml",
+      "bytes": 2108,
+      "sha256": "7e243d203934837c11322f72dda2c5c752042a2bff90f458aa1134d8441a5fc2"
+    },
+    {
+      "path": "autoload_configs/perl.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/perl.conf.xml",
+      "bytes": 593,
+      "sha256": "f1980a9b06df460915ba18bc4fce0445a37e5c6752fc0bce23bdc41b31a08749"
+    },
+    {
+      "path": "autoload_configs/pocketsphinx.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/pocketsphinx.conf.xml",
+      "bytes": 534,
+      "sha256": "f07634cd79074539606664ec5a4602d562ebaa8b783c4a4616d3fb4d4e8373dc"
+    },
+    {
+      "path": "autoload_configs/post_load_modules.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/post_load_modules.conf.xml",
+      "bytes": 110,
+      "sha256": "aca20d066eee9e1bbd6c60199a670f3969736a722011e78bc15bd278d374e60d"
+    },
+    {
+      "path": "autoload_configs/pre_load_modules.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/pre_load_modules.conf.xml",
+      "bytes": 212,
+      "sha256": "37e0966f7f758b5faebb55a82779d47e696b6b8de19e3691dc3d5191a80bd3a4"
+    },
+    {
+      "path": "autoload_configs/presence_map.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/presence_map.conf.xml",
+      "bytes": 196,
+      "sha256": "546cf62720f2d2fb8e002531ed437e0af4764c950a7d07b4451e9ebfaef72329"
+    },
+    {
+      "path": "autoload_configs/python.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/python.conf.xml",
+      "bytes": 575,
+      "sha256": "c6b53142f8d6d650ef932e5a034a5dda0079afa8d03580a92225d2eaf028d062"
+    },
+    {
+      "path": "autoload_configs/redis.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/redis.conf.xml",
+      "bytes": 239,
+      "sha256": "2d0b1acf9b89abc3d5a44db4a08267d5a1dbf2d007a3956e1d0686d396be4d92"
+    },
+    {
+      "path": "autoload_configs/rtmp.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/rtmp.conf.xml",
+      "bytes": 662,
+      "sha256": "b216240a0edba5e864bf68a44b65eb7e5989804725eac4e74db78e6544f198dd"
+    },
+    {
+      "path": "autoload_configs/shout.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/shout.conf.xml",
+      "bytes": 305,
+      "sha256": "1f94e658febf9dceff87f0f71f4077734fe7e468352322e3817f4e9ee1588aa6"
+    },
+    {
+      "path": "autoload_configs/signalwire.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/signalwire.conf.xml",
+      "bytes": 647,
+      "sha256": "1fc0243989730b570856beb0e405522247907ab8949fd44d56720ef28b88fcf5"
+    },
+    {
+      "path": "autoload_configs/skinny.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/skinny.conf.xml",
+      "bytes": 178,
+      "sha256": "173177365e776c494bfd4b4650918d907c68002c8ff72284f5877035d4d75bfd"
+    },
+    {
+      "path": "autoload_configs/smpp.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/smpp.conf.xml",
+      "bytes": 488,
+      "sha256": "ca9d8f2a20e4a21e570ad6d897b96e9fda02f32ca7c920e43a2270a1df45e2ba"
+    },
+    {
+      "path": "autoload_configs/sndfile.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/sndfile.conf.xml",
+      "bytes": 262,
+      "sha256": "b66e9846ed8a4b1c7e71a85743bfc04d980c6d5dd595909435ab2b4552720eeb"
+    },
+    {
+      "path": "autoload_configs/sofia.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/sofia.conf.xml",
+      "bytes": 889,
+      "sha256": "099a5e432ec28ed8de7fc873cc2992e927a44ff72ceb5bec6e506db0b10aea27"
+    },
+    {
+      "path": "autoload_configs/spandsp.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/spandsp.conf.xml",
+      "bytes": 4633,
+      "sha256": "0ec8e5106b50fd8a692f402e7e5038341d5638372065a93205c4619a27f5066d"
+    },
+    {
+      "path": "autoload_configs/switch.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/switch.conf.xml",
+      "bytes": 10837,
+      "sha256": "4d84bc69e47e3ce0bd9a53149fbf75a25a1f001e5b5a7f49f481335f5f700d6b"
+    },
+    {
+      "path": "autoload_configs/syslog.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/syslog.conf.xml",
+      "bytes": 689,
+      "sha256": "8812ce78069e27d5272c753593c6206f22782887c88380af26c6313682bd2458"
+    },
+    {
+      "path": "autoload_configs/timezones.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/timezones.conf.xml",
+      "bytes": 35865,
+      "sha256": "b7152409caa897bc3ed313210ded1d2f161e834cb9c65b7bc028a8d2d045c335"
+    },
+    {
+      "path": "autoload_configs/translate.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/translate.conf.xml",
+      "bytes": 858,
+      "sha256": "684fc3d75f62370ab4684776445b2accbbd3bb7f09628928d06fd44a8d82482c"
+    },
+    {
+      "path": "autoload_configs/tts_commandline.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/tts_commandline.conf.xml",
+      "bytes": 595,
+      "sha256": "0ee3302afe403cdaabf8dc6b05b24b1276a02760f0a2cdae7e6e6776fb693525"
+    },
+    {
+      "path": "autoload_configs/v8.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/v8.conf.xml",
+      "bytes": 727,
+      "sha256": "f57eee190de6e69dc948eaa4829aaf9ae5631909e1d9005d4599252fb452b75e"
+    },
+    {
+      "path": "autoload_configs/verto.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/verto.conf.xml",
+      "bytes": 3548,
+      "sha256": "ae50b5a5b72041e035347d980f7a8dc9157d7fdaa942a02c8f4617f7b2cbfe6b"
+    },
+    {
+      "path": "autoload_configs/voicemail.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/voicemail.conf.xml",
+      "bytes": 3698,
+      "sha256": "7f7042f850201c2e2c8197c4250769b8d6cb7e72d016294f88b81f996e474ff2"
+    },
+    {
+      "path": "autoload_configs/voicemail_ivr.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/voicemail_ivr.conf.xml",
+      "bytes": 8039,
+      "sha256": "1afef58c56d43ac0d63f47e6361545dcfd300d5f0b6fe6fe222d5b2a7d61fc4c"
+    },
+    {
+      "path": "autoload_configs/vpx.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/vpx.conf.xml",
+      "bytes": 9646,
+      "sha256": "97ed22ca391429a1d91eb94aae7d9b528ff691a877b1f7fa25bd98533ed039f8"
+    },
+    {
+      "path": "autoload_configs/xml_cdr.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/xml_cdr.conf.xml",
+      "bytes": 3993,
+      "sha256": "df06eed32ffcb0cd4be8cf5799574586c36962b5da131312f55245959b580132"
+    },
+    {
+      "path": "autoload_configs/xml_curl.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/xml_curl.conf.xml",
+      "bytes": 2868,
+      "sha256": "eb8d2d2b7f6453ccf2b704a62b7934d40b3cbfd6c692de8b35132570a41858dc"
+    },
+    {
+      "path": "autoload_configs/xml_rpc.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/xml_rpc.conf.xml",
+      "bytes": 667,
+      "sha256": "a913db0b416cb38e086d7cf54893ebca0fd36a3ee4c92743124e38f4e45ffd91"
+    },
+    {
+      "path": "autoload_configs/xml_scgi.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/xml_scgi.conf.xml",
+      "bytes": 563,
+      "sha256": "0ae9670362a230b5a9f45d2189cb251bafc7f9c5162ac1f48ad1e6a9b8851841"
+    },
+    {
+      "path": "autoload_configs/zeroconf.conf.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/autoload_configs/zeroconf.conf.xml",
+      "bytes": 203,
+      "sha256": "aa344aaf46ea97e236cf877f095ec3cb38040d65027e2bd83613cd24d5aa7af4"
+    },
+    {
+      "path": "chatplan/default.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/chatplan/default.xml",
+      "bytes": 333,
+      "sha256": "7b6a49d7b559b5483dd00412ef7f367d5b3ceb75bbf04dba0b2e5320c6311fc4"
+    },
+    {
+      "path": "dialplan/default/00_pizza_demo.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/dialplan/default/00_pizza_demo.xml",
+      "bytes": 363,
+      "sha256": "76642b1853a6bc563e897e2c983fc5a39a9c16c02b8a65c04064b16d0d94fdce"
+    },
+    {
+      "path": "dialplan/default/01_Talking_Clock.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/dialplan/default/01_Talking_Clock.xml",
+      "bytes": 1175,
+      "sha256": "8a0e222c4cd6af8eede0bb819916cddf5f50379b111deff0b9f59d2df5e29d85"
+    },
+    {
+      "path": "dialplan/default/01_example.com.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/dialplan/default/01_example.com.xml",
+      "bytes": 1464,
+      "sha256": "ea2083fa86c8c69e38723ae9795f09bf12bd35ed2a843745c5f88cdcc2627c58"
+    },
+    {
+      "path": "dialplan/default.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/dialplan/default.xml",
+      "bytes": 34257,
+      "sha256": "e4843db15276d0e8b87d34fde009d7e71664f8958df19f0dd50281babbc24d46"
+    },
+    {
+      "path": "dialplan/features.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/dialplan/features.xml",
+      "bytes": 2379,
+      "sha256": "5a4a347ded34e6a163de7085030ac2eeadb8910719aaabf1d8841bbc9c8fa9db"
+    },
+    {
+      "path": "dialplan/public/00_inbound_did.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/dialplan/public/00_inbound_did.xml",
+      "bytes": 701,
+      "sha256": "8b5c005c10b220f91c1b7d6a2d0e9fe7bf7f2a9cfe4152b9d4a4ace23b94f42c"
+    },
+    {
+      "path": "dialplan/public.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/dialplan/public.xml",
+      "bytes": 2582,
+      "sha256": "03e3ea84cec5f361698da4a5b4e377d1799493dae90bbf51e70dedbcdf7ce751"
+    },
+    {
+      "path": "dialplan/skinny-patterns/20-Demo.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/dialplan/skinny-patterns/20-Demo.xml",
+      "bytes": 195,
+      "sha256": "f87a974300bd3a125ae91cbbf175004daaa6b55c0ee9a89de1fa054ff1121c64"
+    },
+    {
+      "path": "dialplan/skinny-patterns/20-Local_extension.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/dialplan/skinny-patterns/20-Local_extension.xml",
+      "bytes": 401,
+      "sha256": "9d0b68e2727ceeb8c566ecb34e7be5283e7fb7b578475089231d0b805df7c48a"
+    },
+    {
+      "path": "dialplan/skinny-patterns/90-External.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/dialplan/skinny-patterns/90-External.xml",
+      "bytes": 201,
+      "sha256": "0624bef9c760bad021cf03572ca2ec811681cdcd975cc733106e85502e9ca265"
+    },
+    {
+      "path": "dialplan/skinny-patterns/99-Default_Drop.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/dialplan/skinny-patterns/99-Default_Drop.xml",
+      "bytes": 232,
+      "sha256": "b184eb80fbd5541d28e40de954a049b5b88358fdf533e8593eec1474ae73aa06"
+    },
+    {
+      "path": "dialplan/skinny-patterns.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/dialplan/skinny-patterns.xml",
+      "bytes": 895,
+      "sha256": "9143c9dcc376d84edad7d7081aece06387e6ef696ea663dc796a26282bc418fd"
+    },
+    {
+      "path": "directory/default/1000.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1000.xml",
+      "bytes": 751,
+      "sha256": "fa565c0bfc76300b0204e092307cc9b812c708ac5920cd2cdade37eae74d850d"
+    },
+    {
+      "path": "directory/default/1001.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1001.xml",
+      "bytes": 751,
+      "sha256": "d5b3e1d9070e0379e1fcd89047473d17cf846666d21a93c89e8deeec911898a6"
+    },
+    {
+      "path": "directory/default/1002.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1002.xml",
+      "bytes": 751,
+      "sha256": "accd95b84b84c299e29bad14a6c8a11ab4bddc4f1f835321c308df38aa92dcb2"
+    },
+    {
+      "path": "directory/default/1003.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1003.xml",
+      "bytes": 751,
+      "sha256": "386ee276b93e7d236e8f2875003d3fd32659c1f8c0bbf244adfdcbc478a3ede2"
+    },
+    {
+      "path": "directory/default/1004.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1004.xml",
+      "bytes": 751,
+      "sha256": "859d2814ebe5a533c4457b3e608d4754a1b78902ba9f701b1f7865eb7d819662"
+    },
+    {
+      "path": "directory/default/1005.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1005.xml",
+      "bytes": 751,
+      "sha256": "847cb95f9a99fd41ddc15a377cd6563d91eb2cceca21dcb420089b459b006216"
+    },
+    {
+      "path": "directory/default/1006.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1006.xml",
+      "bytes": 751,
+      "sha256": "b61682541c15a95553ca45d606d3b87509863c5a28b735b0c7350b442e5cf580"
+    },
+    {
+      "path": "directory/default/1007.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1007.xml",
+      "bytes": 751,
+      "sha256": "341036c5c310ba5c4ccec9e1cf2959df0f4de91d6e50bbd1ca337afbe556ef9b"
+    },
+    {
+      "path": "directory/default/1008.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1008.xml",
+      "bytes": 751,
+      "sha256": "a32388d695a8a3f52821e483460a506b3fbdc5d6e9286ba446317b7be9e0fb3c"
+    },
+    {
+      "path": "directory/default/1009.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1009.xml",
+      "bytes": 751,
+      "sha256": "c163a24383c7f12e9928f3e1dd581bce32949cb704005b3fe882bb59f5017816"
+    },
+    {
+      "path": "directory/default/1010.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1010.xml",
+      "bytes": 751,
+      "sha256": "914b2eaa51c5c001783be04e87b92e1af0c8648ef803e2b1649fc8c4b61262e3"
+    },
+    {
+      "path": "directory/default/1011.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1011.xml",
+      "bytes": 751,
+      "sha256": "900abf77f7182cfb4573b65ed4942f07d00c3bcd183fdd2332c38f5d39a270ec"
+    },
+    {
+      "path": "directory/default/1012.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1012.xml",
+      "bytes": 751,
+      "sha256": "85f5397fce1d27ccfdb29c668e242694cf932581a3a6a8724f540e1b5397e510"
+    },
+    {
+      "path": "directory/default/1013.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1013.xml",
+      "bytes": 751,
+      "sha256": "74ebf769572b01deed8c4306317de24d327eeed882508602133effc51e6413c8"
+    },
+    {
+      "path": "directory/default/1014.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1014.xml",
+      "bytes": 751,
+      "sha256": "21ca49abd98c5db0bd92ed1e69710eddf22c2c59fd9d2d53f82897a672e49297"
+    },
+    {
+      "path": "directory/default/1015.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1015.xml",
+      "bytes": 751,
+      "sha256": "e28de88ccc1f08e94eece9d957f5bb7b7f4a21d4c1e04ea6bc962633e064c786"
+    },
+    {
+      "path": "directory/default/1016.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1016.xml",
+      "bytes": 751,
+      "sha256": "0d28ccbb6d7681a9018d96cb48b52e8358dae0ef4c2396a30d224ec25d99bb6c"
+    },
+    {
+      "path": "directory/default/1017.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1017.xml",
+      "bytes": 751,
+      "sha256": "d0ca3624e6951e7f8b880f87c293cb843e4582b38e2b5d7f2bd4186f54859e9d"
+    },
+    {
+      "path": "directory/default/1018.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1018.xml",
+      "bytes": 751,
+      "sha256": "28fe191a1869e19b0e059b448db7d4c1a30325f5859aae1e3d069fc0596407fd"
+    },
+    {
+      "path": "directory/default/1019.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/1019.xml",
+      "bytes": 751,
+      "sha256": "a0f71f3e659224ee4c0b5a1c25a0169a4de52eb2059020d5da7e615f946e8485"
+    },
+    {
+      "path": "directory/default/brian.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/brian.xml",
+      "bytes": 5021,
+      "sha256": "2ef9d494786d85b99837722a988af1d7409a6263d8648308c2480f9482517184"
+    },
+    {
+      "path": "directory/default/default.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/default.xml",
+      "bytes": 1193,
+      "sha256": "4c0ff06f421ac4d378e239f7ac2a28a3e9486f7400689551d6ba5891707ed8fe"
+    },
+    {
+      "path": "directory/default/example.com.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/example.com.xml",
+      "bytes": 912,
+      "sha256": "e382f3bee548eddc89987417c6c6f7f19139027300f828b4fa713a07681cd9cb"
+    },
+    {
+      "path": "directory/default/skinny-example.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default/skinny-example.xml",
+      "bytes": 1102,
+      "sha256": "ba7efabb7842f4d8ff5577424561576b8cc2aafecea134d913e74d90ad1c119d"
+    },
+    {
+      "path": "directory/default.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/directory/default.xml",
+      "bytes": 2950,
+      "sha256": "c6b45a7ea68841b9c31c0e80ee8b7593c6a57d4a2ca9c8442f877d6fb6842895"
+    },
+    {
+      "path": "extensions.conf",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/extensions.conf",
+      "bytes": 683,
+      "sha256": "667b541cef39576328b5b3a95c0f0ec82b0da3be0d89bf4ae354a507e81aaae8"
+    },
+    {
+      "path": "freeswitch.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/freeswitch.xml",
+      "bytes": 3299,
+      "sha256": "aee3c1b524a8dc524e5ed6f78b06fb8c6437f2ccc5d7ada817e8432770bec2c7"
+    },
+    {
+      "path": "fur_elise.ttml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/fur_elise.ttml",
+      "bytes": 1226,
+      "sha256": "5cad8e2ff31ef11d3af52766091594ef5109aa440a836d55544d158162f2d786"
+    },
+    {
+      "path": "ivr_menus/demo_ivr.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/ivr_menus/demo_ivr.xml",
+      "bytes": 2877,
+      "sha256": "d06522c3a6615f47519106ac8ee691795fd030929e4c216242f39738f9d5cf08"
+    },
+    {
+      "path": "ivr_menus/new_demo_ivr.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/ivr_menus/new_demo_ivr.xml",
+      "bytes": 2643,
+      "sha256": "d4dcd560a3940094ae5d7b8fbd2235e1e1eec2ad5947332d47d8bb951d563376"
+    },
+    {
+      "path": "lang/de/de.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/de/de.xml",
+      "bytes": 568,
+      "sha256": "ac8be7dd9eb9bf6dde877ec58d18121f14a8fc85116a9c52ab3a315c23aa0e44"
+    },
+    {
+      "path": "lang/de/demo/demo.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/de/demo/demo.xml",
+      "bytes": 2573,
+      "sha256": "e3c1517d826ef446d106d51c68c4375b415de74a110218a5dc3cc89d61490557"
+    },
+    {
+      "path": "lang/de/vm/sounds.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/de/vm/sounds.xml",
+      "bytes": 15945,
+      "sha256": "ff28ddf7da64d48de1893ef60ffef1ec6069871e7922f1332655f4efb839b588"
+    },
+    {
+      "path": "lang/de/vm/tts.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/de/vm/tts.xml",
+      "bytes": 6497,
+      "sha256": "0e8aed461a8be983c9e12ceedddfc7f639d45d8cd7fa678290e6fd1b3e1b6708"
+    },
+    {
+      "path": "lang/en/demo/demo-ivr.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/en/demo/demo-ivr.xml",
+      "bytes": 7363,
+      "sha256": "65d7236905964dc70f3cc002c579d7cdaf51fa322118357f89b5a29f2f351e9a"
+    },
+    {
+      "path": "lang/en/demo/demo.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/en/demo/demo.xml",
+      "bytes": 2565,
+      "sha256": "05aafd9c54e66f9053aba7f04a7173eb2b73c2f1d3bbf09ddae86e4f6663c720"
+    },
+    {
+      "path": "lang/en/demo/funnies.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/en/demo/funnies.xml",
+      "bytes": 2245,
+      "sha256": "4c0735f62f1ab7d05b8067e52075fe3de9a990de540c4f8a7c9f325dd808cb27"
+    },
+    {
+      "path": "lang/en/demo/new-demo-ivr.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/en/demo/new-demo-ivr.xml",
+      "bytes": 8642,
+      "sha256": "371d7faf05b15eabd5c583a019d594195b7649d60716bbb4cc4a9d7da1fde7b0"
+    },
+    {
+      "path": "lang/en/dir/sounds.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/en/dir/sounds.xml",
+      "bytes": 4640,
+      "sha256": "d6fdb80ebca9dcb07ebb7799f9fddcf144ed7486ec537c8aea16eea816097dc5"
+    },
+    {
+      "path": "lang/en/dir/tts.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/en/dir/tts.xml",
+      "bytes": 2963,
+      "sha256": "016f9e5d5c0018f5a056d066bd225780c90d2670954b95cdb8bc746872128ee5"
+    },
+    {
+      "path": "lang/en/en.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/en/en.xml",
+      "bytes": 1028,
+      "sha256": "57528e50437ee954c03852df19614d4034b2ea1e3e6e1ec94a7e745d3933ee84"
+    },
+    {
+      "path": "lang/en/ivr/sounds.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/en/ivr/sounds.xml",
+      "bytes": 5981,
+      "sha256": "af2f3d92ca01d02debc6c70292aa0107bd60828d0b6fe99d847ebeb8a23d9392"
+    },
+    {
+      "path": "lang/en/vm/sounds.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/en/vm/sounds.xml",
+      "bytes": 16744,
+      "sha256": "e19f8a6c7a73d57696ece759a4982c364fb5614a4f007aece922c05be8bf0990"
+    },
+    {
+      "path": "lang/en/vm/tts.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/en/vm/tts.xml",
+      "bytes": 6936,
+      "sha256": "2775cdd3f1044aec70fe419dd7576aeb100d2143c8ae6e0c9f2eb8dcdffc1b5a"
+    },
+    {
+      "path": "lang/en/vm/voicemail_ivr.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/en/vm/voicemail_ivr.xml",
+      "bytes": 15043,
+      "sha256": "b06feb25583a15a0860fe72dea1fe86f9a173945a8a679ebd5b5ed5bb8d0b38e"
+    },
+    {
+      "path": "lang/es/demo/demo-es-ES.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/demo/demo-es-ES.xml",
+      "bytes": 2433,
+      "sha256": "f81c091d077cd3b48542c827fd33d2ada45fb915a77c3beeab0601f73d7aa0c5"
+    },
+    {
+      "path": "lang/es/demo/demo-es-MX.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/demo/demo-es-MX.xml",
+      "bytes": 2433,
+      "sha256": "f81c091d077cd3b48542c827fd33d2ada45fb915a77c3beeab0601f73d7aa0c5"
+    },
+    {
+      "path": "lang/es/demo/demo-ivr-es-ES.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/demo/demo-ivr-es-ES.xml",
+      "bytes": 7405,
+      "sha256": "1839f04ec4f040cd6d36f9871626f5ea85f71c10f65338f49a7b685666d92194"
+    },
+    {
+      "path": "lang/es/demo/demo-ivr-es-MX.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/demo/demo-ivr-es-MX.xml",
+      "bytes": 7405,
+      "sha256": "1839f04ec4f040cd6d36f9871626f5ea85f71c10f65338f49a7b685666d92194"
+    },
+    {
+      "path": "lang/es/dir/sounds-es-ES.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/dir/sounds-es-ES.xml",
+      "bytes": 4368,
+      "sha256": "d71532acb9a44d18f0e8e70aa3e34a8bfc46ed5620702f18ccf01463336fcb3b"
+    },
+    {
+      "path": "lang/es/dir/sounds-es-MX.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/dir/sounds-es-MX.xml",
+      "bytes": 4368,
+      "sha256": "d71532acb9a44d18f0e8e70aa3e34a8bfc46ed5620702f18ccf01463336fcb3b"
+    },
+    {
+      "path": "lang/es/dir/tts-es-ES.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/dir/tts-es-ES.xml",
+      "bytes": 2871,
+      "sha256": "aba99d6ae691f89a5f1157abe6bc2f79f2bcdc6808f5eb664849e70c86fe439e"
+    },
+    {
+      "path": "lang/es/dir/tts-es-MX.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/dir/tts-es-MX.xml",
+      "bytes": 2865,
+      "sha256": "81812d4c600a139ff3c15b985f83c21721cdfc94984cf6f48e5b0d7a3fdf0c26"
+    },
+    {
+      "path": "lang/es/es_ES.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/es_ES.xml",
+      "bytes": 716,
+      "sha256": "28dd078db5174954c1883ac09a904f7c1982f555496a2f84c067ee65de6478eb"
+    },
+    {
+      "path": "lang/es/es_MX.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/es_MX.xml",
+      "bytes": 713,
+      "sha256": "b0ea30554e8bf29f2ef64568008d23c21eac5fca640165318a2edc304d79a0e3"
+    },
+    {
+      "path": "lang/es/vm/sounds-es-ES.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/vm/sounds-es-ES.xml",
+      "bytes": 14741,
+      "sha256": "42bedf9f0654ff604b06728749b4d5021971b1656661e9a8a4b2074f8fc4d1b0"
+    },
+    {
+      "path": "lang/es/vm/sounds-es-MX.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/vm/sounds-es-MX.xml",
+      "bytes": 14739,
+      "sha256": "c045d70770548c1a41c48bbb98c2da759be285688c96b033995133978009e0d9"
+    },
+    {
+      "path": "lang/es/vm/tts-es-ES.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/vm/tts-es-ES.xml",
+      "bytes": 6889,
+      "sha256": "97167fb820f581a181dc1bcf5acca658eb1cf1dd3160edd12412469ba8701130"
+    },
+    {
+      "path": "lang/es/vm/tts-es-MX.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/es/vm/tts-es-MX.xml",
+      "bytes": 6872,
+      "sha256": "38e1bf16d7d0f3cfd9f1c942ce78be75e74bba8c05fa93083576a6817ce731c6"
+    },
+    {
+      "path": "lang/fr/demo/demo.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/fr/demo/demo.xml",
+      "bytes": 678,
+      "sha256": "23a0cb5fa89e3378a7f7e1d765d7b637a36182af4fc62d4c86afa7284a58d7d0"
+    },
+    {
+      "path": "lang/fr/dir/sounds.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/fr/dir/sounds.xml",
+      "bytes": 4647,
+      "sha256": "387d9cdaeee671f217bc0e6846cb91b1706996e0c880ac78136f9a4d73fd4b4e"
+    },
+    {
+      "path": "lang/fr/dir/tts.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/fr/dir/tts.xml",
+      "bytes": 3219,
+      "sha256": "9761c9ce3906c76e5167c27a8c78dae15a0c836e9917a2877e0c299e82003003"
+    },
+    {
+      "path": "lang/fr/fr.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/fr/fr.xml",
+      "bytes": 731,
+      "sha256": "c6fb9fdb8a9f2b715922278a74988ba0616186ae62a62db3b2093ce9dabe3687"
+    },
+    {
+      "path": "lang/fr/vm/sounds.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/fr/vm/sounds.xml",
+      "bytes": 7594,
+      "sha256": "2b0439130b5936d3588d283d8277e3cdc24439aed417ead5623212b09a1f8c49"
+    },
+    {
+      "path": "lang/he/demo/demo-ivr.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/he/demo/demo-ivr.xml",
+      "bytes": 7364,
+      "sha256": "5bfcf7ebbd3dcfd1c75f42c4a330dfe93e2023969b7557155f8f3455f5c8f90a"
+    },
+    {
+      "path": "lang/he/demo/demo.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/he/demo/demo.xml",
+      "bytes": 2565,
+      "sha256": "05aafd9c54e66f9053aba7f04a7173eb2b73c2f1d3bbf09ddae86e4f6663c720"
+    },
+    {
+      "path": "lang/he/dir/sounds.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/he/dir/sounds.xml",
+      "bytes": 4644,
+      "sha256": "739591a29f16af3233ef71941862f1e34fe47b8290dea1a20053301e0b17451b"
+    },
+    {
+      "path": "lang/he/he.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/he/he.xml",
+      "bytes": 620,
+      "sha256": "d0fa0ce52ec9501d6d578430950f53fba31a83ce597ffabdc01181af03f74d42"
+    },
+    {
+      "path": "lang/he/vm/sounds.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/he/vm/sounds.xml",
+      "bytes": 15760,
+      "sha256": "70f6c94e71f3188aa9f9bdb8f8021fbdadb0fd0720ecee6b2a5a8fb239aa5f72"
+    },
+    {
+      "path": "lang/pt/demo/demo-ivr-pt-BR.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/demo/demo-ivr-pt-BR.xml",
+      "bytes": 7405,
+      "sha256": "1839f04ec4f040cd6d36f9871626f5ea85f71c10f65338f49a7b685666d92194"
+    },
+    {
+      "path": "lang/pt/demo/demo-ivr-pt-PT.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/demo/demo-ivr-pt-PT.xml",
+      "bytes": 7405,
+      "sha256": "1839f04ec4f040cd6d36f9871626f5ea85f71c10f65338f49a7b685666d92194"
+    },
+    {
+      "path": "lang/pt/demo/demo-pt-BR.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/demo/demo-pt-BR.xml",
+      "bytes": 2424,
+      "sha256": "23f704564163ff937904840c00edd9be70843103d07c9d9ca66bd071601b51e7"
+    },
+    {
+      "path": "lang/pt/demo/demo-pt-PT.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/demo/demo-pt-PT.xml",
+      "bytes": 2432,
+      "sha256": "402e8740e2c4d599b53fcafe171d99aa25f6398d9da196575c20c581fbd5cdb6"
+    },
+    {
+      "path": "lang/pt/dir/sounds-pt-BR.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/dir/sounds-pt-BR.xml",
+      "bytes": 4368,
+      "sha256": "d71532acb9a44d18f0e8e70aa3e34a8bfc46ed5620702f18ccf01463336fcb3b"
+    },
+    {
+      "path": "lang/pt/dir/sounds-pt-PT.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/dir/sounds-pt-PT.xml",
+      "bytes": 4368,
+      "sha256": "d71532acb9a44d18f0e8e70aa3e34a8bfc46ed5620702f18ccf01463336fcb3b"
+    },
+    {
+      "path": "lang/pt/dir/tts-pt-BR.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/dir/tts-pt-BR.xml",
+      "bytes": 2821,
+      "sha256": "f03d5a81a12089f5dc856aa19b5517810a9251dd5a240ae031e367f7e1d6b263"
+    },
+    {
+      "path": "lang/pt/dir/tts-pt-PT.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/dir/tts-pt-PT.xml",
+      "bytes": 2881,
+      "sha256": "0d10360ee696376aa48f0e0c9c784a6cf82b2a78606f63b51ee6ea3a01ec54c4"
+    },
+    {
+      "path": "lang/pt/pt_BR.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/pt_BR.xml",
+      "bytes": 714,
+      "sha256": "09f307f7cd88687571069d2177155af147dced87ae7b5397f94b3639a894b8b6"
+    },
+    {
+      "path": "lang/pt/pt_PT.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/pt_PT.xml",
+      "bytes": 714,
+      "sha256": "b19578a21a7a96b04df41068a918a9b5cf841fb5d1ee677bb5e2457894488db1"
+    },
+    {
+      "path": "lang/pt/vm/sounds-pt-BR.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/vm/sounds-pt-BR.xml",
+      "bytes": 14742,
+      "sha256": "3394ca7dd58c11e6d3ab35b1b4bec746ff1555556b272ae24369fe86824bfd96"
+    },
+    {
+      "path": "lang/pt/vm/sounds-pt-PT.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/vm/sounds-pt-PT.xml",
+      "bytes": 14740,
+      "sha256": "019cebe5e380ec1fefe6bc1465836404cae2b365d015789f92e0465a3b85a592"
+    },
+    {
+      "path": "lang/pt/vm/tts-pt-BR.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/vm/tts-pt-BR.xml",
+      "bytes": 6910,
+      "sha256": "41b340265c670b5599de57db50dc7a75ea073d7e5055b724beec61fc1d53759a"
+    },
+    {
+      "path": "lang/pt/vm/tts-pt-PT.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/pt/vm/tts-pt-PT.xml",
+      "bytes": 6944,
+      "sha256": "8afaf89abd22f86b88ba060543084a584b9259f4e2417a9727292fb51b7d43b3"
+    },
+    {
+      "path": "lang/ru/demo/demo-ivr.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/ru/demo/demo-ivr.xml",
+      "bytes": 7125,
+      "sha256": "94bcf1bc4ee3da49dff0f6bb69fe02131b01bfc0d189e41d3233d4b529fd66ee"
+    },
+    {
+      "path": "lang/ru/demo/demo.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/ru/demo/demo.xml",
+      "bytes": 3257,
+      "sha256": "b450cc3a59773f999426e39b42ee3aeb383a5250c83b56eaea7393e85d39a1d1"
+    },
+    {
+      "path": "lang/ru/dir/sounds.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/ru/dir/sounds.xml",
+      "bytes": 4647,
+      "sha256": "387d9cdaeee671f217bc0e6846cb91b1706996e0c880ac78136f9a4d73fd4b4e"
+    },
+    {
+      "path": "lang/ru/dir/tts.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/ru/dir/tts.xml",
+      "bytes": 2962,
+      "sha256": "6bf61431397056e79bdbeab15e758e6e8c165ab26f35d5ce0ffde0b0ade14054"
+    },
+    {
+      "path": "lang/ru/ru.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/ru/ru.xml",
+      "bytes": 886,
+      "sha256": "f5aa4f73950b2dedcb82705d331803f4eb9cdc8351868c1b7e30f07c2607fcb3"
+    },
+    {
+      "path": "lang/ru/vm/sounds.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/ru/vm/sounds.xml",
+      "bytes": 15086,
+      "sha256": "0abdeb45fe8bf5138159f0206e064e0c205a646e329fe0f25ea615eb89dfb7be"
+    },
+    {
+      "path": "lang/ru/vm/tts.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/ru/vm/tts.xml",
+      "bytes": 6936,
+      "sha256": "2775cdd3f1044aec70fe419dd7576aeb100d2143c8ae6e0c9f2eb8dcdffc1b5a"
+    },
+    {
+      "path": "lang/sv/sv.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/sv/sv.xml",
+      "bytes": 468,
+      "sha256": "96294fa0af978e9581664c1d789eaa52c8e19dba0823f736108e523a00d758fd"
+    },
+    {
+      "path": "lang/sv/vm/sounds.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/lang/sv/vm/sounds.xml",
+      "bytes": 20165,
+      "sha256": "f565792df14be3dd45428187ac8c0c0f6654b7cf98ba27d6f3bdcc18052af3b6"
+    },
+    {
+      "path": "mime.types",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/mime.types",
+      "bytes": 53658,
+      "sha256": "d2c33cdbdaef20eb4025a3a8983dd768b085f9d2fe145d2ac8fee560f7a9ce8a"
+    },
+    {
+      "path": "notify-voicemail.tpl",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/notify-voicemail.tpl",
+      "bytes": 1465,
+      "sha256": "6e6398aebbaf006610f3e8dd8b0f63d1833f866341b1287c2a56da28ccdcbb87"
+    },
+    {
+      "path": "sip_profiles/external/example.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/sip_profiles/external/example.xml",
+      "bytes": 2200,
+      "sha256": "8e52f5df400258b4744230bc2ad8a782a17c0ea12193cfaa0382a88b1dd80c1d"
+    },
+    {
+      "path": "sip_profiles/external-ipv6/example.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/sip_profiles/external-ipv6/example.xml",
+      "bytes": 2200,
+      "sha256": "8e52f5df400258b4744230bc2ad8a782a17c0ea12193cfaa0382a88b1dd80c1d"
+    },
+    {
+      "path": "sip_profiles/external-ipv6.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/sip_profiles/external-ipv6.xml",
+      "bytes": 5166,
+      "sha256": "929b3acba00ac02d6e532ab767d1c5d969a86bfa3853bf8842d2e2c73ce7bb22"
+    },
+    {
+      "path": "sip_profiles/external.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/sip_profiles/external.xml",
+      "bytes": 5244,
+      "sha256": "8b2b6fe8d791e5f2eb4bba0e40906f3c82780a9ac97c3810510e163a1d3ed3ff"
+    },
+    {
+      "path": "sip_profiles/internal-ipv6.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/sip_profiles/internal-ipv6.xml",
+      "bytes": 7390,
+      "sha256": "38977285a96e73e965c03f4b565a4b4ba15294b5ee4d9ae3b655414b35416f00"
+    },
+    {
+      "path": "sip_profiles/internal.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/sip_profiles/internal.xml",
+      "bytes": 22203,
+      "sha256": "0d2a269e1632fa82e2077aa50ed266c25cd2ef98022d6aeb61037eee8d78beb7"
+    },
+    {
+      "path": "skinny_profiles/internal.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/skinny_profiles/internal.xml",
+      "bytes": 1998,
+      "sha256": "075ed1634eedb6d5f06af5b452e60f5d8538c48bce037f3ead66e234a36ed4d2"
+    },
+    {
+      "path": "tetris.ttml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/tetris.ttml",
+      "bytes": 1157,
+      "sha256": "88cea58ef652da0513c0b833f626d072050a4435b61d1e32cc4e4e878116712d"
+    },
+    {
+      "path": "tls/dtls-srtp.pem",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/tls/dtls-srtp.pem",
+      "bytes": 4980,
+      "sha256": "8f28cd6e5a9a12568dc94edd82d8a341de642efcb4bf64d5e34032b85a91fbc2"
+    },
+    {
+      "path": "tls/wss.pem",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/tls/wss.pem",
+      "bytes": 4980,
+      "sha256": "ff48d0617ca50c7d97ed0327b7f3f40828adda749f6af4a9ca00fca0bf7769c6"
+    },
+    {
+      "path": "vars.xml",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/vars.xml",
+      "bytes": 20419,
+      "sha256": "09dacc85a055af5a0a1668ab480e8f44ec760cc3cffbd511f738a532573ceaf2"
+    },
+    {
+      "path": "voicemail.tpl",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/voicemail.tpl",
+      "bytes": 1456,
+      "sha256": "04726e1143dbd9e5da0a8e419bdfd179653aafb61c70bc3e3fe1cca623ef1c80"
+    },
+    {
+      "path": "web-vm.tpl",
+      "absolute_path": "/opt/freeswitch-reference/etc/freeswitch/web-vm.tpl",
+      "bytes": 359,
+      "sha256": "9c2aab36a4c3576fb4d2357a5606d3ae4d1c9e43b8aad2092b5ebbc8d4f48640"
+    }
+  ],
+  "native_modules": [
+    {
+      "path": "lib/freeswitch/mod/mod_amr.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_amr.so",
+      "bytes": 71840,
+      "sha256": "c1e83acf181af5bf02fcb5b5c42d809442077b9c7abec3e418e508a03660cc97"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_amrwb.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_amrwb.so",
+      "bytes": 71776,
+      "sha256": "9e7c1cc15ad385e03c3999bdc353eb063cf2875805b832be46566a05ed3cbb4d"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_b64.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_b64.so",
+      "bytes": 71688,
+      "sha256": "bb8d32fe695393c6b72c92d1fa74346a5812ac7631344a3953215b1a763fa553"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_commands.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_commands.so",
+      "bytes": 227464,
+      "sha256": "c88d1de07471901594a725124d5a49d947648068f5008fffb3ef21abec5cbe4a"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_conference.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_conference.so",
+      "bytes": 377040,
+      "sha256": "9d181269d0c07ac1b29d899d7b32ce12f262f5091e7ed83517b592293fc2f3d6"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_console.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_console.so",
+      "bytes": 73336,
+      "sha256": "e01a708ab015c9f4f2336b5a2f81f15cc3f78d0be19ad959cbf1bff56255ae03"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_db.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_db.so",
+      "bytes": 74640,
+      "sha256": "90494901b15bab6c00251141a9904ff5de6b029487e9a75c765295ed1543a0bb"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_dialplan_asterisk.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_dialplan_asterisk.so",
+      "bytes": 74024,
+      "sha256": "dedb61799a40a1b9684b47afcd793aafbe4af197e76c7bd70b9823dd39718936"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_dialplan_xml.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_dialplan_xml.so",
+      "bytes": 73616,
+      "sha256": "7b2d7b3171006c6eff3b813d5ee4d10b46dd3276e083a77e53a0f922e59d1c93"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_dptools.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_dptools.so",
+      "bytes": 232512,
+      "sha256": "bcfcddd772233e3f0ab2beafea91f1814b96be1535cffbad707e763f2032dea4"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_esf.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_esf.so",
+      "bytes": 73496,
+      "sha256": "ce7567d5f6e9b7c97043affd9d9e0821ef36459e96b4123cc2542a2bf41fe6a4"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_event_socket.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_event_socket.so",
+      "bytes": 79688,
+      "sha256": "d8ed4cf73c36e6a5c3bf512540fb0c700cf08c1407926b908c82a0f0fc1baba0"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_expr.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_expr.so",
+      "bytes": 75392,
+      "sha256": "341fef369c8ffc5f6507e0f6c4777e5389dcc79b579ddb51e0f9ec07fac5ebe3"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_fifo.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_fifo.so",
+      "bytes": 148000,
+      "sha256": "014c398844f09072203aef3b7888d2fd1e2df5d6fa6e7a706750ea836e3036e7"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_g723_1.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_g723_1.so",
+      "bytes": 71520,
+      "sha256": "19c86b1806a58f00b149f6b0b1636927150fbf61dd315e20abf9849cca5eea52"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_g729.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_g729.so",
+      "bytes": 71552,
+      "sha256": "00c07ee5574938dafacd6eef88c6efc5556577fde5d60b26c0322ca33ad06808"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_hash.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_hash.so",
+      "bytes": 82664,
+      "sha256": "0aa6865840aa14b254af170feddb5e956d6bd6163ef71c450e8b41305dd1ea25"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_local_stream.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_local_stream.so",
+      "bytes": 76752,
+      "sha256": "0106743bd4f7dae6c8e572560d764c85ce2f410db4930a1db9c38865636c225f"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_logfile.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_logfile.so",
+      "bytes": 73920,
+      "sha256": "3cd51af7caff9a585d7e7aa52e76f5da330ceca0ad27e083bbd43efd73c346a2"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_loopback.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_loopback.so",
+      "bytes": 80696,
+      "sha256": "0322f10bb6522d9d5094dfaec222cbc58a8f366c9c8b7dd2d1084b6f8872ca02"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_lua.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_lua.so",
+      "bytes": 291424,
+      "sha256": "2b1e3cd0d9a1ab7a212beb34ea5bfa6161ae3d1a0161e334724212645c00c7c3"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_native_file.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_native_file.so",
+      "bytes": 72160,
+      "sha256": "8590b3402f3c3a84d4d4080526b5677383fadd8c6d4fdbeb7cd84e6b8bdf5d9a"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_opus.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_opus.so",
+      "bytes": 74744,
+      "sha256": "61f7554d5892b10a1ed369b866a46bcf3f97073194b8c8b5e6e6886e30564b7b"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_sndfile.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_sndfile.so",
+      "bytes": 74352,
+      "sha256": "49e9fd8794c9d45c59092ba521589cfad5002765035d3645bdee53a5f29b7d9f"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_sofia.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_sofia.so",
+      "bytes": 716352,
+      "sha256": "8ea4118f78eac85e0655ee7f40af8dcfa134196fb26995c96174760d3dd41580"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_spandsp.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_spandsp.so",
+      "bytes": 160552,
+      "sha256": "63231c146e71c0336c85eaaee49d29a796ecbd4e3fdf537e29a365bd617f180a"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_tone_stream.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_tone_stream.so",
+      "bytes": 72600,
+      "sha256": "62a283e9f71220188b387bb09c0c30d9384ac8a2966ba6f800f4dc8dceb63f5c"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_valet_parking.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_valet_parking.so",
+      "bytes": 74800,
+      "sha256": "aa99dc21675705d2df87d9243da818602363eb2b614a64e1d579191f464134f2"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_xml_curl.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_xml_curl.so",
+      "bytes": 73696,
+      "sha256": "f45efba05d47028d8a9c6b8e6bbac9cce92472b05dd628f47ef7b2550bd69115"
+    },
+    {
+      "path": "lib/freeswitch/mod/mod_xml_rpc.so",
+      "absolute_path": "/opt/freeswitch-reference/lib/freeswitch/mod/mod_xml_rpc.so",
+      "bytes": 454896,
+      "sha256": "c46288e91565a4230c7098e0086f147748993a5bbc5325239564414703a7d156"
+    }
+  ],
+  "custom_dependency_libraries": [
+    {
+      "path": "lib/libsofia-sip-ua.so.0.6.0",
+      "absolute_path": "/opt/fs-deps/lib/libsofia-sip-ua.so.0.6.0",
+      "bytes": 2387696,
+      "sha256": "59c241bf47bfb4e57974580690612ca2ab5aeadfcd3da92d6d5ede2ccecc171e"
+    },
+    {
+      "path": "lib/libspandsp.so.4.0.0",
+      "absolute_path": "/opt/fs-deps/lib/libspandsp.so.4.0.0",
+      "bytes": 1450800,
+      "sha256": "b9c242d869f35ec1dec6b58f8419f0eeddcd7b9988eac5f739eaf307a104b00d"
+    }
+  ],
+  "tls_server_name": "localhost",
+  "tls_san": [
+    "DNS:localhost",
+    "IP:127.0.0.1"
+  ],
+  "tls_certificate": {
+    "path": "conf/tls/cert.pem",
+    "absolute_path": "/opt/freeswitch-reference/conf/tls/cert.pem",
+    "bytes": 1151,
+    "sha256": "1abca53bbf2a62ddeccf0b6900920580ee848c890e6d0ff6b92b5ca2bcd9dbc5"
+  },
+  "tls_key_digest_only": {
+    "path": "conf/tls/key.pem",
+    "absolute_path": "/opt/freeswitch-reference/conf/tls/key.pem",
+    "bytes": 1704,
+    "sha256": "309a4afb00bde989c9d020b10d035292fb6df9296390a100dee2bdb442cb13a8"
+  },
+  "runtime_os": "Linux localhost 6.18.35-0-virt #1-Alpine SMP PREEMPT_DYNAMIC 2026-06-09 12:34:47 aarch64 GNU/Linux"
+}

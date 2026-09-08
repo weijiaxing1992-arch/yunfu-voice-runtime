@@ -1,0 +1,17 @@
+{
+  "scope": "原始只读发布门禁；失败保持原样，不改证据或嵌入资源",
+  "results": [
+    {
+      "variant": "main",
+      "command": "python3 -B tools/build_api_docs.py --check",
+      "exit_code": 1,
+      "source_modified": false
+    },
+    {
+      "variant": "asr-candidate",
+      "command": "python3 -B tools/build_api_docs.py --check",
+      "exit_code": 1,
+      "source_modified": false
+    }
+  ]
+}

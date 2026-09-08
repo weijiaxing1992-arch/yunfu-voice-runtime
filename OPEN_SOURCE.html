@@ -1,0 +1,75 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>云蝠 Voice Runtime 开源说明 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 云蝠 Voice Runtime 开源说明</div><article class="content"><div class="page-tools"><a href="OPEN_SOURCE.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 4 节</summary><a href="#本次开源清单">本次开源清单</a><a href="#授权方式">授权方式</a><a href="#当前验证边界">当前验证边界</a><a href="#参与方式">参与方式</a></details><h1 id="云蝠-voice-runtime-开源说明">云蝠 Voice Runtime 开源说明</h1>
+<p>云蝠 Voice Runtime（代码中沿用 RustSwitch 名称）面向电话外呼、呼入与语音智能体。媒体处理采用 Rust，呼叫控制和管理后台采用 Go，通过独立 C ABI 与现有编解码库衔接。项目逐步提供有实际业务价值的 FreeSWITCH 接口兼容。</p>
+<p>本次公开的是已有工程、资料、测试依据与缺口清单，供学习、开发、复现和协作。当前发布为开发预览。已有可编译、可运行的实现，同时存在未完成和未通过当前验收的部分。公开源码不表示通过生产验收，也不表示 100% FreeSWITCH 兼容。</p>
+<h2 id="本次开源清单">本次开源清单</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>材料</th>
+<th>仓库位置或发布方式</th>
+<th>内容与状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主项目源码</td>
+<td><code>source/main/</code></td>
+<td>Rust 媒体、Go 控制、管理页面、配置、构建工具和现有测试</td>
+</tr>
+<tr>
+<td>ASR 候选源码</td>
+<td><code>source/asr-candidate/</code></td>
+<td>独立候选快照，包含 ASR1 合同与 mock；尚未合并为主版本，不等于真实识别模型接入</td>
+</tr>
+<tr>
+<td>已验证与工作中补丁</td>
+<td><code>source/patches/</code></td>
+<td>保留已测试快照及后续工作快照，按各自说明区分验证范围</td>
+</tr>
+<tr>
+<td>设计参考</td>
+<td><code>source/design-reference/</code></td>
+<td>协议夹具和离线设计测试，不能当成已接入生产服务</td>
+</tr>
+<tr>
+<td>项目资料</td>
+<td>根目录 <code>01-</code> 至 <code>13-</code> 章节、<code>index.html</code>、<code>reference/</code></td>
+<td>项目说明、拓扑图、架构图、接口文档、使用说明、运维与压测说明、需求和未完成清单</td>
+</tr>
+<tr>
+<td>第三方构建源码</td>
+<td><code>dependencies/</code></td>
+<td>39 个 Rust 锁定依赖及固定 Opus 源码归档；Go vendor 与 SpanDSP 子集保留在各源码树中</td>
+</tr>
+<tr>
+<td>源码与完整交付资源包</td>
+<td>GitHub Releases 附件</td>
+<td>便于完整下载；附文件清单及校验值</td>
+</tr>
+<tr>
+<td>编译运行包</td>
+<td>GitHub Releases 附件</td>
+<td>macOS ARM64 与 Linux ARM64；适用系统、原生库和验证边界见各包 README</td>
+</tr>
+<tr>
+<td>开源与版权说明</td>
+<td><code>LICENSE</code>、<code>NOTICE</code>、<code>LICENSE_SCOPE.md</code>、<code>THIRD_PARTY_NOTICES.md</code></td>
+<td>自有材料许可、第三方例外、来源和分发要求</td>
+</tr>
+</tbody></table></div>
+<p>本次开源材料包括源文件、文档可编辑原稿、历史验收记录和当前问题清单。公开版对个人本地路径及非必要的运行信息进行适当处理；公开版文件清单用于校验公开内容，不能替代原始验收记录的源码绑定。</p>
+<h2 id="授权方式">授权方式</h2>
+<p>可由本项目授权的原创代码与原创文档采用 <a href="LICENSE">Apache License 2.0</a>。使用、修改、分发和商业使用须遵守许可中的条件。第三方材料保持上游许可；本项目不重新授权第三方版权。</p>
+<p><code>native/audio/g722_support.c</code> 作为 G.722 独立动态库的一部分，单独采用 LGPL-2.1-only。SpanDSP、FreeSWITCH 模板、Opus、Go 与 Rust 依赖分别按 <a href="LICENSE_SCOPE.html">许可范围</a> 和 <a href="THIRD_PARTY_NOTICES.html">第三方说明</a> 处理。不能把包含这些材料的整个资源包统称为“全部 Apache-2.0”。</p>
+<p>软件许可不授予项目名称、标识或第三方商标的背书权。FreeSWITCH 名称用于来源说明和兼容对照；本项目不是 FreeSWITCH 官方发行版，不宣称获得其官方认证。</p>
+<h2 id="当前验证边界">当前验证边界</h2>
+<ul>
+<li>完整对照目录记录 3,999 项声明、接口、配置和验收条目，不等于 3,999 个已实现功能。应同时查看实现状态、证据范围与源码是否仍匹配。</li>
+<li>当前资料的发布验收仍有阻塞：主版本文档校验提示 <code>key-api-pcm-stream</code> 绿色证据失效，ASR 候选文档字段字典与机器合同不一致。修复前保留为未通过。</li>
+<li>历史测试通过只覆盖相应快照、平台和场景。不能直接推出当前版本的完整 FreeSWITCH 兼容、5,000／10,000 路生产容量或真实语音智能体全链路性能。</li>
+<li>Linux ARM64 主版本具有限定范围运行记录；候选运行包组合尚未共同运行验收。macOS 原生库的系统要求与核心程序不同，随包 README 明确最低系统版本。</li>
+<li>真实 ASR/TTS 服务、完整 Agent 编排、部分通信协议、编解码及传统 PBX 功能仍按未完成清单推进。</li>
+</ul>
+<h2 id="参与方式">参与方式</h2>
+<p>请使用仓库 Issues 描述问题和复现条件，使用 Pull Request 提交改进。功能变更应同时更新接口合同、中文说明和有意义的验证证据。对比 FreeSWITCH 时固定原版提交与运行配置，明确相同项、差异项、未验证项；只将实际通过且证据仍有效的范围标为通过。</p>
+<p>提交者应确认有权提交相应内容，保留第三方版权和来源，并沿用被修改文件的许可。新的依赖、测试资源和编译附件应补充来源、版本、许可与校验值。不要在公开问题和补丁中提交真实线路密码、访问令牌、个人录音或其他无关私有数据。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

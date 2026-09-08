@@ -1,0 +1,232 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>完整兼容测试计划与成对协议执行器 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 完整兼容测试计划与成对协议执行器</div><article class="content"><div class="page-tools"><a href="conformance-testing.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#文件与运行入口">文件与运行入口</a><a href="#真实可执行探针">真实可执行探针</a><a href="#原始-api-全目录的动态差距">原始 API 全目录的动态差距</a><a href="#全协议与外部边界">全协议与外部边界</a><a href="#隔离限额与证据">隔离、限额与证据</a></details><h1 id="完整兼容测试计划与成对协议执行器">完整兼容测试计划与成对协议执行器</h1>
+<p>本工具把固定 FreeSWITCH <strong>1.11.3 / ef32e205295e29f034f1453ad245ba5efb07b94a</strong> 对照目录的全部 3979 个原始 ID 纳入计划，并追踪 177 条验收定义、35 个业务域、30 类通信协议及外部兼容边界。完整清单已经建立；其中 26 个有限协议探针（2 项身份/目录发现、24 项成对子场景）可以实际连接两端执行。<strong>清单完整不等于全部测试已经实现，子场景通过不等于整条接口完全兼容。</strong></p>
+<p>计划、执行器自测、RustSwitch 单端验证和原版成对实测分别保留状态。没有两端环境、没有实际流量、缺少协议适配器、未选择的探针和未覆盖分支，均不会计入通过；本工具不会生成「100% 兼容」结论。</p>
+<h2 id="文件与运行入口">文件与运行入口</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tests/conformance/plan.json</code></td>
+<td>每个原始 ID 的来源、当前实现状态、关联有限探针、必须补充的断言组和后续步骤</td>
+</tr>
+<tr>
+<td><code>tests/conformance/protocols.json</code></td>
+<td>全部通信协议与外部兼容边界，明确每类剩余验证内容</td>
+</tr>
+<tr>
+<td><code>tests/conformance/profile.example.json</code></td>
+<td>隔离两端服务的配置示例，密码仅引用环境变量</td>
+</tr>
+<tr>
+<td><code>tests/conformance/suite.py</code></td>
+<td>有界协议接收器、真实探针、成对比较和严格状态汇总</td>
+</tr>
+<tr>
+<td><code>tools/run_conformance.py</code></td>
+<td>计划生成、计划一致性检查及真实探针执行入口</td>
+</tr>
+<tr>
+<td><code>tools/test_conformance.py</code></td>
+<td>执行器自身的边界、负例及隔离 socket 夹具测试；不计产品兼容</td>
+</tr>
+</tbody></table></div>
+<p>在项目根目录运行：</p>
+<pre><code class="language-sh">python3 tools/run_conformance.py --plan tests/conformance/plan.json
+python3 tools/run_conformance.py --check-plan tests/conformance/plan.json
+python3 tools/test_conformance.py
+python3 tools/run_conformance.py --profile /path/to/isolated-profile.json --output /path/to/new-run.json
+</code></pre>
+<p>凭证须通过 <code>FS_CONFORMANCE_PASSWORD</code> 和 <code>RUSTSWITCH_CONFORMANCE_PASSWORD</code> 等专用环境变量提供；不要把密码写入命令行或配置 JSON。报告不会保存可恢复的认证密码，只记录该请求长度和摘要；其他报文保留原始 base64 字节。</p>
+<p><code>--probe esl.echo</code> 可限定本次执行的探针，但其余探针继续显示「未选择、未执行」，因此不会总通过。输出路径必须是新文件，历史失败证据不能覆盖。退出码 0 只表示本工具定义的全部有限探针通过；2 表示其中存在差异、失败、阻塞或未执行；3 表示输入或证据出错。退出码 0 仍不代表 3979 个条目的完整契约通过。</p>
+<h2 id="真实可执行探针">真实可执行探针</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>探针</th>
+<th>必须取得的真实结果</th>
+<th>尚不能证明的范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>identity.esl</code></td>
+<td>两端真实 <code>api version</code>；原版响应必须符合固定版本</td>
+<td>不比较不同产品的版本正文，不计兼容通过；远端提交/构建仍需产物证据</td>
+</tr>
+<tr>
+<td><code>esl.auth.fragmented</code></td>
+<td>逐字节认证、成功回复、UTF-8 echo</td>
+<td>ACL、IPv6、认证超时、完整安全矩阵</td>
+</tr>
+<tr>
+<td><code>esl.auth.wrong</code></td>
+<td>错误密码拒绝、后续帧与 EOF</td>
+<td>空密码、封禁策略、限速；仅允许隔离 fixture</td>
+</tr>
+<tr>
+<td><code>esl.auth.required</code></td>
+<td>未认证 API 返回 command not found，随后同连接合法认证和 echo</td>
+<td>用户级授权与所有 API 权限；仅允许隔离 fixture</td>
+</tr>
+<tr>
+<td><code>esl.echo</code></td>
+<td>完整中文 UTF-8 正文及真实字节 Content-Length</td>
+<td>所有 API、输出格式及复杂参数</td>
+</tr>
+<tr>
+<td><code>esl.console.single</code></td>
+<td>fs_cli -x 的 console_execute 包装，UTF-8、空 echo、首尾空格、单分号及 false 字面参数</td>
+<td>别名、双分号批处理、交互日志/补全及全部 API；明确拒绝未实现的控制台入口</td>
+</tr>
+<tr>
+<td><code>esl.api.unknown</code></td>
+<td>固定未知命令的完整错误正文</td>
+<td>所有错误命令组合</td>
+</tr>
+<tr>
+<td><code>esl.frames.pipeline</code></td>
+<td>一次写入两命令、两个独立响应、无吞帧</td>
+<td>高负载下的事件/回复交织和慢消费者</td>
+</tr>
+<tr>
+<td><code>esl.frames.crlf</code></td>
+<td>CRLF 分隔下认证和 echo</td>
+<td>所有头部格式、畸形长度及最大长度运行矩阵</td>
+</tr>
+<tr>
+<td><code>esl.frames.split_positions</code></td>
+<td>固定请求每个字节位置分别拆分后，均完整返回</td>
+<td>任意无限长度输入及网络长期压力</td>
+</tr>
+<tr>
+<td><code>esl.bgapi.echo</code></td>
+<td>固定 Job-UUID、受理回复、BACKGROUND_JOB 内层长度与原始正文</td>
+<td>并发作业、订阅权限、断线重连、重复作业；仅允许隔离 fixture</td>
+</tr>
+<tr>
+<td><code>identity.api_inventory</code></td>
+<td>双端真实 <code>show api as json</code>，行数/字段/重复项验证，并逐个对照全部 292 个原始 API 声明</td>
+<td>接口出现不表示语义兼容，不计通过</td>
+</tr>
+<tr>
+<td><code>esl.api.echo_empty</code></td>
+<td>无参数、尾空格、首尾空格三个真实原始响应</td>
+<td>复杂表达式和所有编码</td>
+</tr>
+<tr>
+<td><code>esl.api.create_uuid</code></td>
+<td>两次生成格式正确、非 nil 且不同的 UUID；原值保留</td>
+<td>完整 UUID 版本/配置矩阵</td>
+</tr>
+<tr>
+<td><code>esl.api.uuid_exists_missing</code></td>
+<td>固定 nil UUID 的实际不存在查询</td>
+<td>存在通道和并发通道状态</td>
+</tr>
+<tr>
+<td><code>esl.api.uuid_getvar_missing</code></td>
+<td>确认 nil UUID 不存在后，比较读取变量的错误</td>
+<td>真实通道的变量、数组、权限和展开</td>
+</tr>
+<tr>
+<td><code>esl.api.uuid_setvar_missing</code></td>
+<td>仅隔离 fixture，确认 nil UUID 不存在后，比较设置错误</td>
+<td>正常写入和通道副作用</td>
+</tr>
+<tr>
+<td><code>esl.api.uuid_kill_missing</code></td>
+<td>仅隔离 fixture，确认 nil UUID 不存在后，比较挂断错误</td>
+<td>真实拆线、原因码、事件与媒体回收</td>
+</tr>
+<tr>
+<td><code>esl.api.uuid_syntax</code></td>
+<td>四个 uuid API 缺参数时的完整 usage/错误</td>
+<td>所有参数组合</td>
+</tr>
+<tr>
+<td><code>esl.command.case</code></td>
+<td>混合大小写命令、格式沿用、nixevent/noevents 状态</td>
+<td>所有 ESL 命令与所有事件</td>
+</tr>
+<tr>
+<td><code>esl.filter.lifecycle</code></td>
+<td>delete all 与空值清除分别执行；每次都要求实际后台事件交付</td>
+<td>正则、数组、索引和多事件权限</td>
+</tr>
+<tr>
+<td><code>esl.bgapi.echo.json</code></td>
+<td>JSON 作业关联、原始正文和内层 Content-Length</td>
+<td>原事件全部字段、数组和重复头</td>
+</tr>
+<tr>
+<td><code>esl.bgapi.echo.xml</code></td>
+<td>XML headers/root-body 结构、作业关联和实际长度</td>
+<td>原事件全部字段、数组和重复标签</td>
+</tr>
+<tr>
+<td><code>sip.options.udp</code></td>
+<td>一个完整 UDP OPTIONS 事务、事务标识、状态和能力头</td>
+<td>注册、呼叫、重传、分叉和媒体</td>
+</tr>
+<tr>
+<td><code>sip.options.tcp</code></td>
+<td>TCP 上完整 OPTIONS 响应及分帧</td>
+<td>完整 TCP 呼叫、长连接复用和背压</td>
+</tr>
+<tr>
+<td><code>sip.options.tls</code></td>
+<td>受信任证书与主机名校验后完成 OPTIONS</td>
+<td>双向 TLS、证书轮换、安全媒体和完整通话</td>
+</tr>
+</tbody></table></div>
+<p>原版 <code>fs_cli -x</code> 在服务端返回错误时也可能退出 0，因此客户端验证必须检查完整 stdout/原始响应。当前控制台包装只开放已有的 9 个 API 单命令路径，复用实际 API 执行和连接期限；别名和 <code>;;</code> 批处理在执行任何动作前明确拒绝，仍是兼容缺口。产品版本和运行目录保留真实身份，不通过修改版本或扩充虚假接口取得通过。</p>
+<p>没有 SIP TCP 或 TLS 端点时，各项单独显示阻塞；不会替换成 UDP，也不影响其他具备条件的 ESL 探针执行。原版 ESL 身份基线失联或版本不符时，成对结果整体缺少可信基线，业务探针明确阻塞。</p>
+<p>ESL 原始响应正文逐字节比较，不在执行器内修剪空格、换行、错误内容或产品版本。真实原版 API 执行会修剪输入参数首尾 ASCII 空白，而 BACKGROUND_JOB 的 Job-Command-Arg 保留原始输入；对应边界已按原版实际报文加入测试。帧头名称大小写及排列可以规范化。BACKGROUND_JOB 仅允许明确列出的实例元数据变化：Core-UUID、FreeSWITCH 主机/地址、事件日期/时间戳、调用位置及事件序号；未知额外字段继续参与比较。原始事件始终保留，外层事件帧长度随这些已声明元数据变化，但内层真实正文的 Content-Length 必须正确。</p>
+<p>SIP OPTIONS 核对客户端生成的 Call-ID、Via branch/地址、From tag、To URI、CSeq；仅在这些事务标识正确后，比较状态码、原因短语、Allow、Supported、Accept、Allow-Events 和正文。实例 To tag、Date、Server/User-Agent 不作为不同产品的字节相等要求。其余响应头保留原始证据但尚未逐个断言，报告范围明确限定为 OPTIONS 子场景。</p>
+<h2 id="原始-api-全目录的动态差距">原始 API 全目录的动态差距</h2>
+<p><code>identity.api_inventory</code> 从两端实际运行实例读取 <code>show api as json</code>。每个原始 <code>fs_api</code> ID 都保留来源模块、原版实际注册字段、候选实际注册字段和下一步，不按同名命令删除源声明，也不直接调用目录中的业务命令。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>blocked_reference_inventory</code> / <code>blocked_candidate_inventory</code></td>
+<td>未取得完整可解析的该端运行目录；不能把失联当空列表</td>
+</tr>
+<tr>
+<td><code>blocked_reference_module</code></td>
+<td>原版当前启用模块没有该命令，需要先补原版构建/模块 fixture</td>
+</tr>
+<tr>
+<td><code>missing_candidate_entrypoint</code></td>
+<td>原版实例提供命令，候选实例未提供入口</td>
+</tr>
+<tr>
+<td><code>requires_semantic_verification</code></td>
+<td>双端都有同名入口，仍须验证该原始接口完整行为；不标为通过</td>
+</tr>
+</tbody></table></div>
+<p>源码模块与运行 <code>ikey</code> 同时保留，core 包装、同名覆盖和模块宿主一致性需要继续验证。新增运行时命令也单独列出，不能藏进现有分母。目录条目不是任意命令的自动执行许可。</p>
+<h2 id="全协议与外部边界">全协议与外部边界</h2>
+<p>协议矩阵显式包含：</p>
+<ul>
+<li>SIP UDP/TCP/TLS/WS/WSS、IPv4/IPv6、REGISTER/Digest、INVITE/ACK/CANCEL/BYE、reINVITE/UPDATE、PRACK/100rel、session timer、REFER/Replaces、MESSAGE/SUBSCRIBE/NOTIFY/PUBLISH。</li>
+<li>ESL inbound/outbound、API/bgapi、sendmsg、linger、订阅、fs_cli/libesl 客户端兼容。</li>
+<li>RTP、RTCP、RTCP-mux、SRTP/SRTCP、DTLS-SRTP、ICE/STUN/TURN、WebRTC/Verto、DTMF、CN/DTX/PLC/FEC，以及原版实际构建编码清单。</li>
+<li>T.38/UDPTL、传真、FSK、H.323/SCCP 等实际端点模块。</li>
+<li>XML configuration/directory/dialplan/XML Curl、HTTP/HTTPS/HTTAPI、CDR/事件投递、数据库/缓存、Lua/JavaScript/Python、原生 switch_* 与 libesl ABI。</li>
+<li>IVR、会议、录音、队列、语音信箱、ASR/TTS、视频/文件、准入、时钟、故障恢复和容量。这些属于业务及外部兼容边界，不把它们都称为核心通信协议。</li>
+</ul>
+<p>每个原始条目仍必须展开合法输入、错误/边界/权限、并发/背压/重传、超时/取消/恢复、实际业务副作用和资源清理。未实例化成真实输入、未同时执行两端、未保留原始媒体/状态/文件结果的断言，都保持未完成。既有 5000 路 PCMU 单端容量结果不自动填充这些成对模块测试。</p>
+<h2 id="隔离限额与证据">隔离、限额与证据</h2>
+<p>测试器只包含固定白名单命令，不接受任意 ESL/API 指令，不拼接 shell，不执行 originate、删除文件或生产通道动作。uuid_setvar/uuid_kill 仅在显式隔离 fixture 中对刚查询确认不存在的固定 nil UUID 验证错误，缺参数用例也不携带有效通道标识；不操作真实通道。bgapi、错误鉴权和未认证请求要求 <code>fixture.isolated=true</code>。远端目标另外要求 <code>allow_remote=true</code>；地址采用数字 IP 或 localhost，TLS 证书名单独用 <code>server_name</code>，避免 DNS 阻塞突破探针时限。</p>
+<p>默认连接 2 秒、每端每探针总时限 8 秒、帧头 64 KiB、正文 1 MiB、原始证据 2 MiB。每个探针连接均在成功、失败、超时后关闭；多次分片连接共享总时限。达到证据限额即失败，不截断后判通过。UDP 数据报不能跨报文拼接补齐正文；TCP 接收缓冲保留下一帧。</p>
+<p>JSON 报告保存 profile SHA-256、执行器/产品源码前后快照、明确指定二进制/配置/源码清单的哈希、实际收发报文、两端差异、执行时间和全部 3979 个条目的后续步骤。运行中源码变化会使原子场景通过状态失效。指定文件哈希只是本地可追溯证据，<strong>不是远端运行进程的自动证明</strong>；完整认证还需要冻结原版构建和启动记录、模块清单、配置、客户端版本及完整观察结果。</p>
+<p>执行器当前 46 个自测覆盖：错版本/错提交、缺端点/缺凭证、空或未知探针、没流量、未选择项、字节差异、连接拒绝/超时、源码变化、重复/非法/溢出长度、UTF-8 空行正文、管线帧、EOF、证据超限、UDP 不完整/额外正文、错误事务标识和实际回环 TCP/UDP 收发。自测通过只证明这些执行器逻辑经过检查，不是原版 FreeSWITCH 的运行结果。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

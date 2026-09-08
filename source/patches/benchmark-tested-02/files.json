@@ -1,0 +1,38 @@
+[
+  {
+    "path": "control/internal/server/benchmark.go",
+    "baseline_sha256": "b0c681ca6df0fa03db24efe599afe5da42e64320f318e1e20700041c4941fd17",
+    "candidate_sha256": "513902bb8818dd292d4ac3f2498ed2491118a547a18e48faba16a7b0879878bf",
+    "bytes": 19520
+  },
+  {
+    "path": "control/internal/server/benchmark_processing.go",
+    "baseline_sha256": "52d542009c2990d19712a6a046a9a21e81463db577a63e7e45303645beae3464",
+    "candidate_sha256": "308d4250d58b6965621534f7182e58cc7c39164438fee3a6c7c3f1508d08dba8",
+    "bytes": 14625
+  },
+  {
+    "path": "control/internal/server/benchmark_runner.go",
+    "baseline_sha256": "f8c158cb24b9d82da7ef36459a0ab93473fd1db343623f6b462210887350c7a4",
+    "candidate_sha256": "9f9af3cbc8d2479221f8ace8ce2d4ff4611c9cce682aff4c3db56544023c5354",
+    "bytes": 28318
+  },
+  {
+    "path": "control/internal/server/benchmark_failure_diagnostics_test.go",
+    "baseline_sha256": null,
+    "candidate_sha256": "5642970aa17dfa00509f2fe48e90cc802793271c3ab0dc61466be3d2710e2b24",
+    "bytes": 11215
+  },
+  {
+    "path": "control/internal/server/web/tests.js",
+    "baseline_sha256": "bb616bcf0d081e2071e83433c0736e0be6445ed6466cba3c36e1722517771bc9",
+    "candidate_sha256": "e1d0b68d4585f2c7d71d6d397cadac3952224cd0ddfbf09b2b82bfe8f77aa66c",
+    "bytes": 51454
+  },
+  {
+    "path": "tools/test_testlab_ui.cjs",
+    "baseline_sha256": "b069ddb641ac9607f7b8bb2ba07ab091f950a8fa1eedbbff20aba855dd6afe19",
+    "candidate_sha256": "c8ad97c86af831e2f1455da880c8e654b054ff89a9364a5746247f0d41ed686b",
+    "bytes": 9875
+  }
+]

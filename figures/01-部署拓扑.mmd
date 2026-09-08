@@ -1,0 +1,13 @@
+flowchart LR
+  Admin["管理员 / 脚本"] <-->|"HTTP 127.0.0.1:9080 / SSH隧道"| Go
+  A["A侧电话 / SBC"] <-->|SIP| Go
+  Go <-->|"SIP / 单固定上游 / 可选REGISTER客户端"| B["B侧上游 / SBC"]
+  subgraph Host["单机 Voice Runtime"]
+    Go["Go控制进程：呼叫 / 准入 / HTTP / IVR"]
+    Rust["Rust媒体 worker × N：分片 / RTP / G.711"]
+    Go <-->|"JSONL + FD3 PCM + FD4 RX"| Rust
+    Go --> Files["本地配置与JSONL事件"]
+  end
+  A <-->|"RTP/RTCP 四端口块"| Rust
+  Rust <-->|"RTP/RTCP"| B
+  Agent["外部本机业务代理"] <-->|"私有RVA1 / 可选ESL"| Go

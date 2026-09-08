@@ -1,0 +1,29 @@
+{
+  "scope": "独立ASR协议测试设计，非生产实现；历史selftest-03保留",
+  "files": [
+    {
+      "path": "acceptance-matrix.md",
+      "sha256": "22a62f6c1918dae6bcc69d697536acdd97f9b66311268c1e6ac3633030652e75"
+    },
+    {
+      "path": "asr1_fixture.py",
+      "sha256": "f29c97b99fc270705054bfc0f528434c819825873959b59dfa4d204dd5094b25"
+    },
+    {
+      "path": "fault_scenarios.py",
+      "sha256": "9460d128f7a5f15a36c92716e60d0d7d0d275d5164ae82ca9c03bc8eb74fbfbf"
+    },
+    {
+      "path": "README.md",
+      "sha256": "884a1bc42d39fd2811a5e5abce71a7be432137f2143228d01138a8e512d2326f"
+    },
+    {
+      "path": "run_selftest.py",
+      "sha256": "958a2e07bd2d7a662c3f15a34779ff478a3d53b39beae8bb715d3af142ded9b5"
+    },
+    {
+      "path": "test_asr1_fixture.py",
+      "sha256": "ecfdc8c95a5c1256caa85ecd7c346bd692700abae915f3165f1089ffc2364dfd"
+    }
+  ]
+}

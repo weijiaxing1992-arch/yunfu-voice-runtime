@@ -1,0 +1,22 @@
+Yunfu Voice Runtime / RustSwitch
+
+Original project code and documentation are made available under the
+Apache License, Version 2.0, except as identified in LICENSE_SCOPE.md.
+Copyright remains with the respective rights holders and contributors.
+This notice does not transfer ownership or relicense third-party works.
+
+This distribution includes FreeSWITCH configuration templates and
+reference metadata, SpanDSP G.722 source files, Opus, golang.org/x/sys,
+and Rust dependencies. Binary distributions also contain portions of
+the Go runtime, Rust Standard Library, and (for Linux media) musl.
+Their original copyright notices and license terms are retained.
+See THIRD_PARTY_NOTICES.md and the accompanying license/source files.
+
+FreeSWITCH is referenced for attribution and compatibility comparison.
+This project is an independent development preview; no endorsement or
+certification by FreeSWITCH or other upstream projects is claimed.
+
+The G.722 support source native/audio/g722_support.c is licensed
+separately under LGPL-2.1-only as described in LICENSE_SCOPE.md.
+Corresponding G.722 library source and rebuilding instructions accompany
+source distributions and the macOS runtime native-source directory.

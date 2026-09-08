@@ -1,0 +1,196 @@
+{
+  "directions": [
+    {
+      "flows_with_loss": 5000,
+      "maximum_received_per_flow": 1,
+      "minimum_received_per_flow": 0,
+      "received": 447,
+      "sent": 1249752,
+      "source_side": 0
+    },
+    {
+      "flows_with_loss": 5000,
+      "maximum_received_per_flow": 1,
+      "minimum_received_per_flow": 0,
+      "received": 454,
+      "sent": 1249752,
+      "source_side": 1
+    }
+  ],
+  "duplicate_packets": 0,
+  "endpoint_socket_groups": 5000,
+  "endpoint_udp_sockets": 20000,
+  "established_calls": 5000,
+  "generator_arch": "arm64",
+  "generator_connected_media": true,
+  "generator_cpus": 10,
+  "generator_late_ticks": 2383,
+  "generator_os": "darwin",
+  "generator_write_errors": 0,
+  "invalid_packets": 0,
+  "measured_at": "2026-09-05T08:15:20Z",
+  "measurement_boundary": "generator socket sends versus unique RTP received at simulated endpoints; does not identify the location of loss",
+  "media_seconds": 5,
+  "media_server_bypassed": false,
+  "nominal_packets": 2500000,
+  "offered_load_ratio": 0.9998016,
+  "passed": false,
+  "payload_type": 0,
+  "ptime_ms": 20,
+  "received_unique_packets": 901,
+  "reordered_packets": 0,
+  "requested_calls": 5000,
+  "scenario": "SIP B2BUA with bidirectional G.711 RTP",
+  "sent_packets": 2499504,
+  "server": "127.0.0.1:51890",
+  "setup_cps": 200,
+  "setup_errors": {},
+  "setup_seconds": 25.168625916,
+  "spread_packet_phases": true,
+  "teardown_failures": 1723,
+  "unexpected_byes": 0,
+  "unknown_rtp_packets": 0,
+  "unreceived_packets": 2498603,
+  "worst_flows": [
+    {
+      "call": 0,
+      "direction": 1,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 4297,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 2,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 3,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 4,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 5,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 6,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 7,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 8,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 9,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 10,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 11,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 12,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 13,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 14,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 15,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 16,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 17,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 18,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    },
+    {
+      "call": 19,
+      "direction": 0,
+      "missing": 250,
+      "received": 0,
+      "sent": 250
+    }
+  ]
+}

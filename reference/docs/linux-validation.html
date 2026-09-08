@@ -1,0 +1,104 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>Linux 容量与稳定性验收 · 云蝠项目资料</title><link rel="stylesheet" href="../../handbook.css"></head><body><aside><a class="brand" href="../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../index.html">资料首页</a><a class="" href="../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / Linux 容量与稳定性验收</div><article class="content"><div class="page-tools"><a href="linux-validation.md" download>Markdown 原稿</a><a href="api/openapi.json" download>OpenAPI JSON</a><a href="../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 6 节</summary><a href="#设备和工作负载">设备和工作负载</a><a href="#启动前">启动前</a><a href="#可直接运行的步骤">可直接运行的步骤</a><a href="#分阶段测试">分阶段测试</a><a href="#必须同时记录">必须同时记录</a><a href="#准入条件">准入条件</a></details><h1 id="linux-容量与稳定性验收">Linux 容量与稳定性验收</h1>
+<p>本文件是 0.3 的后续验收步骤，不是已取得的 Linux 性能结果。<code>linux-10000.example.json</code> 中的 10000 是配置目标，不能作为容量证明。示例地址属于文档保留网段，部署前必须替换。用户将稍后提供服务器，本轮只交付源码、配置和工具。</p>
+<h2 id="设备和工作负载">设备和工作负载</h2>
+<ul>
+<li>初始设备预算：32 个现代物理核心、128GB ECC、支持 RSS 的 25GbE 网卡。这是待测起点，不是已验证的最低规格或容量承诺；获得实际硬件后再选工作进程数。</li>
+<li>独立压测机：需要同时产生并接收预期包率。不要把发生器的瓶颈计为服务端容量上限，也不要忽略实际发包量不足。</li>
+<li>一路通话指两个呼叫腿、两个方向的持续音频，RTP 必须经过 RustSwitch。</li>
+<li>G.711、20ms、相同编码的 10000 通话约为入站 100 万包/秒、出站 100 万包/秒。普通 IPv4 下分别约 1.6Gbit/s，不含链路和额外协议开销。</li>
+<li>每路使用四个端口，因此 10000 通话约占 40000 个 UDP 端口。500 CPS、2 秒端口隔离期还需约 4000 个端口余量。55000 端口的示例范围可满足此项账面预算，但仍应测量端口占用与各分片余量。</li>
+</ul>
+<h2 id="启动前">启动前</h2>
+<ol>
+<li>在 Linux 本机构建 Rust 与 Go 二进制，运行配置校验。当前本机的 Linux Rust 检查仅为交叉编译检查，不包含 Linux 运行验证。</li>
+<li>核对文件描述符限制、物理核心/NUMA/网卡队列布局、网络 MTU、UDP 范围以及已有服务占用。明确保留媒体端口，避免和系统临时端口分配冲突。</li>
+<li>先测不绑定 CPU 的基线，再按机器实际拓扑填写每媒体进程的 <code>cpu_cores</code>。将 Go 控制面、控制管道辅助线程与媒体核心合理分配。不要把超线程数量直接当作物理核心预算。</li>
+<li>检查网卡 RSS/RX/TX 队列和 IRQ。只有定位瓶颈后才调整 RPS/XPS、缓冲和中断参数；本交付不会自动修改系统设置。</li>
+<li>压测机默认每路四个 socket，10000 呼叫需要 40000 个 UDP 端口。发生器提供 <code>--media-port-start 10000 --media-port-end 64999</code> 显式分配，避免只依赖系统临时端口；媒体范围须预先排除其他业务使用。与服务端分机部署时可使用相同端口范围。共享端点诊断可用 <code>--socket-groups 512</code>，但必须单独标注，不能替代独立端点验收。</li>
+<li>记录内核、驱动、CPU、内存、网卡、构建版本和全部配置。将主机指标与应用指标放在同一时间轴。</li>
+</ol>
+<h2 id="可直接运行的步骤">可直接运行的步骤</h2>
+<p>先在目标机项目目录执行：</p>
+<pre><code class="language-sh">make all
+make test
+make check
+bin/rustswitch -check-config -config config/production.json
+bin/rustswitch -config config/production.json
+</code></pre>
+<p><code>production.json</code> 由 <code>config/linux-10000.example.json</code> 复制后填写实际 IP、上游、CPU 核心和日志路径。不要在旧服务仍占有媒体端口时启动第二份相同配置。系统服务模板在 <code>deploy/rustswitch.service</code>，创建服务用户与日志目录后再按实际部署路径安装。</p>
+<p>另一个目标机终端启动只读采集器（替换 <code>ens1f0</code>，输出文件须不存在）：</p>
+<pre><code class="language-sh">python3 tools/collect_linux.py --interface ens1f0 \
+  --admin http://127.0.0.1:9080 --seconds 180 --interval 1 \
+  --output run/linux-1000-host.jsonl
+</code></pre>
+<p>采集器连续写入每核心 CPU jiffies、Linux IP/UDP 计数、网卡包/字节/丢弃/错误，以及应用状态；保留采集失败记录。它不修改网络参数、不自动判断容量，系统计数还包含其他进程。当前已验证解析样本，Linux 实际运行需在服务器上完成。文件描述符、驱动专用队列、内存趋势、IRQ/softirq 以及时间戳仍需补充采集，不能认为该工具已覆盖所有观测项。</p>
+<p>独立压测机上，从 1000 路开始：</p>
+<pre><code class="language-sh">bin/callbench --server 198.51.100.10:5060 \
+  --uas-listen 198.51.100.20:5070 \
+  --bind-ip 198.51.100.20 --advertise-ip 198.51.100.20 \
+  --calls 1000 --cps 100 --seconds 60 --connect-media \
+  --media-port-start 10000 --media-port-end 64999 \
+  --output run/linux-1000-generator.json
+</code></pre>
+<p>0.3 默认业务保护为最多 8000 路占用资源、1000 路建立中，并在占用达到 80% 后逐步降低新呼叫准入速率。开始容量实验前，先在管理页面查看并记录当前策略：万路实验需要在启动硬上限与端口预算允许的前提下，调整业务保护至实验规模，或在隔离验收环境临时关闭该额外保护。启动硬上限和媒体健康准入始终有效。容量测量结束后恢复业务保护，再单独执行超限拒绝与存量通话保持测试。不要把 503 保护拒绝误报成媒体处理容量不足，也不要把关闭业务保护的结果当作默认策略结果。</p>
+<p>完成该档分析后，再测试 <code>--calls 5000 --cps 500</code> 与 <code>--calls 10000 --cps 500</code>，并相应延长主机采集时间。两个程序都应保留标准错误日志。<code>--connect-media</code> 只连接发生器端点，服务端通过配置中的 <code>media.connect_sockets</code> 控制；Linux 示例默认开启服务端连接。</p>
+<p>同步对比服务器事件日志 <code>call_established / call_ended</code> 重建的并发，以及 <code>/v1/status</code> 采样。发生器的累计接通数可能包含已提前结束的会话，单独看该数不能证明同时在线。发生器退出非零、实际负载不足、采集缺失、清理失败、媒体工作进程重启都应判为未完成验收，保留记录再分析。</p>
+<h2 id="分阶段测试">分阶段测试</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>测试方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>功能闭环</td>
+<td>先通过仓库中的 SIP/RTP/RTCP 和故障回归</td>
+</tr>
+<tr>
+<td>容量爬升</td>
+<td>1000 → 5000 → 10000；每档稳定后再提升</td>
+</tr>
+<tr>
+<td>常规相位</td>
+<td><code>callbench --spread=true</code>，把各通话发包时刻分散到 20ms 内</td>
+</tr>
+<tr>
+<td>集中突发</td>
+<td><code>callbench --spread=false</code>，集中发包；必须保留这一结果，不能用常规相位结果覆盖它</td>
+</tr>
+<tr>
+<td>呼叫建立速率</td>
+<td>单独提高到 500 CPS；检查 CPU、控制队列、事务内存和实际接通率</td>
+</tr>
+<tr>
+<td>长时稳态与周转</td>
+<td>使用持续建立/结束呼叫的 SIP 场景，10000 并发运行 72 小时</td>
+</tr>
+<tr>
+<td>过载</td>
+<td>额外增加新 INVITE，检查拒接、重传和已有通话媒体</td>
+</tr>
+<tr>
+<td>故障</td>
+<td>单个媒体进程退出、控制面退出、日志不可写、端口占用、网络抖动/乱序/丢包</td>
+</tr>
+</tbody></table></div>
+<p>当前 <code>callbench</code> 是单轮建立、维持、结束工具，媒体时长最多 3600 秒，尚不能独立完成 72 小时持续周转验收。需增加长期发生器或使用 SIPp 等专用工具，并核对媒体流量是否真实持续。</p>
+<p>服务端最大通话时长从每路收到接通 ACK 起计算，最早接通的呼叫还会经历其余呼叫的建立阶段。长测时应将 <code>sip.max_call_seconds</code> 设为高于整批建立耗时、媒体维持时长与清理余量之和，并同步调整服务模板的 <code>TimeoutStopSec</code>，避免人为时长上限打断测试。</p>
+<h2 id="必须同时记录">必须同时记录</h2>
+<ul>
+<li>成功接通、失败状态码、实际并发、CPS 和通话时长分布。</li>
+<li>发生器名义包数、实际成功提交包数、对端唯一接收数、重复/乱序/内容错误、发生器调度延迟。</li>
+<li>每个 Rust 进程的接收/发送计数、socket 丢包、来源拒绝、包率限制、发送队列溢出和过期计数。</li>
+<li>NIC 和驱动丢包、Linux UDP 接收错误、CPU softirq、每核心利用率、内存、文件描述符及端口回收。</li>
+<li>日志写入数、持久化数、积压和丢失数。异步事件日志的持久化窗口应实测，不承诺 RPO=0。</li>
+<li>服务端新增转发延迟 P99/P99.99。明确使用软件时间戳还是 NIC 时间戳，不能把发生器调度延迟算成服务端处理延迟。</li>
+</ul>
+<h2 id="准入条件">准入条件</h2>
+<p>目标负载下要求实际发包量达到测试设定，服务器引入的可观测丢包为零、异常掉话为零、无持续资源增长，并保留处理余量。故障注入允许的影响范围需单独约定。</p>
+<p>0.2 已实现静态资源预留、CPS、分片配额与媒体包率限制，并增加按媒体进程 CPU、控制积压、socket/发送丢包增量和统计新鲜度的动态准入。默认高/低 CPU 门限为 0.85/0.65 个核心，恢复需连续三个健康样本。该机制只控制新呼叫，不能补回已经丢失的 UDP 包。</p>
+<p>媒体进程 CPU 不是最忙物理核心指标；NIC 全局丢包、内存压力和尾延迟尚未自动反馈到准入。<code>SO_RXQ_OVFL</code> 依赖后续接收的数据报携带计数，缺少新数据时可能未及时显现；连接式 UDP 的内核来源过滤也可能不进入应用拒绝计数。单次流量测试通过不等于完整可靠性验收。</p>
+<p>先结合 <code>receive_syscalls / receive_batches / max_receive_batch</code> 确认批量接收收益，再决定是否实现批量发送、进一步减少时钟读取、共享 socket、io_uring 或内核旁路。当前不把这些未实现手段计入容量结论，也不自动修改 RSS、IRQ、缓冲或系统端口设置。</p>
+<p>参考原始规范：<a href="https://www.rfc-editor.org/info/rfc3550/" target="_blank" rel="noopener noreferrer">RTP</a>、<a href="https://www.rfc-editor.org/info/rfc7339/" target="_blank" rel="noopener noreferrer">SIP 过载控制</a>、<a href="https://docs.kernel.org/networking/scaling.html" target="_blank" rel="noopener noreferrer">Linux 网络多核处理</a>、<a href="https://www.man7.org/linux/man-pages/man2/recvmmsg.2.html" target="_blank" rel="noopener noreferrer">recvmmsg</a>、<a href="https://www.man7.org/linux/man-pages/man2/sendmmsg.2.html" target="_blank" rel="noopener noreferrer">sendmmsg</a>。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

@@ -1,0 +1,265 @@
+{
+  "schema": "asr1-offline-design-selftest-v1",
+  "scope": "draft_protocol_model_only",
+  "started_at": "2026-09-07T04:06:27.194220+00:00",
+  "finished_at": "2026-09-07T04:06:27.244138+00:00",
+  "duration_seconds": 0.049741375000000004,
+  "python": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+  "platform": [
+    "Darwin",
+    "weijiaxingdeMac-mini.local",
+    "25.6.0",
+    "Darwin Kernel Version 25.6.0: Fri Jul 31 19:11:03 PDT 2026; root:xnu-12377.161.14~5/RELEASE_ARM64_T8132",
+    "arm64"
+  ],
+  "command": [
+    "python3",
+    "-B",
+    "run_selftest.py",
+    "selftest-03"
+  ],
+  "tests_run": 52,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "cases": [
+    {
+      "id": "test_asr1_fixture.FreshnessCases.test_deadline_is_immutable_on_retry",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.FreshnessCases.test_exact_expiry_future_origin_and_wrong_domain",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.FreshnessCases.test_ordinary_marker_also_expires_but_summary_has_no_age",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.FreshnessCases.test_partial_submission_expires_then_cannot_resume",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.FreshnessCases.test_provider_rechecks_after_full_read_preemption",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.FreshnessCases.test_shifting_both_deadlines_cannot_hide_expired_source",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.FreshnessCases.test_total_handshake_and_finish_deadline_not_renewed_by_progress",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_auxiliary_event_number_does_not_invent_audio_gap",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_done_before_finish_wrong_prefix_and_unfinalized_partial",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_fault_manifest_is_finite_and_does_not_execute_delays",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_final_or_eof_without_done_cannot_complete",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_final_overflow_is_explicit_failure",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_finish_prefix_must_be_exact",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_hangup_drops_pending_and_late_transcripts",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_input_end_alone_is_not_success",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_malformed_error_cannot_revive_consumer",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_normal_finish_final_done_and_rx_stop_are_distinct",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_partial_coalescing_stays_bounded",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_partial_revision_and_single_open_utterance",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_provider_error_stays_failure",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_result_cannot_claim_missing_events_or_complete_across_gap",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_result_media_range_must_match_actual_input",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_results_require_actual_decoded_not_only_markers",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_source_boundary_invalidates_partial_and_discards_old_result",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_starting_and_unknown_cleanup_retain_quota",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_submitted_provenance_is_bounded_and_final_releases_ranges",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_suspension_invalidates_partial_and_blocks_old_source_until_boundary",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.LifecycleCases.test_wrong_identity_range_order_and_duplicate_final_fail",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.MediaMappingCases.test_complete_rtp_numbers_cannot_go_back_after_marker",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.MediaMappingCases.test_gap_range_is_observation_count_not_silence_duration",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.MediaMappingCases.test_inactive_suspends_utterance_until_new_boundary",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.MediaMappingCases.test_marker_does_not_reset_same_source_time_lower_bound",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.MediaMappingCases.test_observation_failure_is_terminal_not_final",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.MediaMappingCases.test_only_cn_has_sid_and_auxiliary_duration_is_unknown",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.MediaMappingCases.test_partial_during_input_and_final_digest_actual_pcm",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.MediaMappingCases.test_plc_cn_missing_and_dtmf_never_add_samples",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.MediaMappingCases.test_reversal_and_sequence_hole_are_rejected",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.MediaMappingCases.test_source_boundary_resets_hash_and_utterance",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.MediaMappingCases.test_summary_cannot_claim_audio_position_or_deadline",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.MediaMappingCases.test_zero_decoded_returns_no_invented_final",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.ProtocolCases.test_16k_is_320_samples_with_8k_rtp_clock",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.ProtocolCases.test_all_single_split_positions_preserve_bytes",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.ProtocolCases.test_audio_plc_origin_length_and_reserved_flags_reject",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.ProtocolCases.test_audio_requires_matching_token_and_source_boundary",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.ProtocolCases.test_fixed_header_offsets_and_nonzero_pcm",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.ProtocolCases.test_fragmented_and_multiple_messages",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.ProtocolCases.test_half_frame_eof_is_error",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.ProtocolCases.test_hello_required_and_capabilities_exact",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.ProtocolCases.test_json_duplicate_unicode_nonfinite_and_trailing",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.ProtocolCases.test_oversize_and_short_length_reject_before_body",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.ProtocolCases.test_u64_canonical_and_overflow",
+      "status": "passed"
+    },
+    {
+      "id": "test_asr1_fixture.ProtocolCases.test_unknown_prefix_values_rejected",
+      "status": "passed"
+    }
+  ],
+  "network_or_subprocess_executed": false,
+  "denied_audit_events": [],
+  "source_before": {
+    "README.md": "884a1bc42d39fd2811a5e5abce71a7be432137f2143228d01138a8e512d2326f",
+    "acceptance-matrix.md": "22a62f6c1918dae6bcc69d697536acdd97f9b66311268c1e6ac3633030652e75",
+    "asr1_fixture.py": "f29c97b99fc270705054bfc0f528434c819825873959b59dfa4d204dd5094b25",
+    "fault_scenarios.py": "9460d128f7a5f15a36c92716e60d0d7d0d275d5164ae82ca9c03bc8eb74fbfbf",
+    "run_selftest.py": "958a2e07bd2d7a662c3f15a34779ff478a3d53b39beae8bb715d3af142ded9b5",
+    "test_asr1_fixture.py": "ecfdc8c95a5c1256caa85ecd7c346bd692700abae915f3165f1089ffc2364dfd"
+  },
+  "source_after": {
+    "README.md": "884a1bc42d39fd2811a5e5abce71a7be432137f2143228d01138a8e512d2326f",
+    "acceptance-matrix.md": "22a62f6c1918dae6bcc69d697536acdd97f9b66311268c1e6ac3633030652e75",
+    "asr1_fixture.py": "f29c97b99fc270705054bfc0f528434c819825873959b59dfa4d204dd5094b25",
+    "fault_scenarios.py": "9460d128f7a5f15a36c92716e60d0d7d0d275d5164ae82ca9c03bc8eb74fbfbf",
+    "run_selftest.py": "958a2e07bd2d7a662c3f15a34779ff478a3d53b39beae8bb715d3af142ded9b5",
+    "test_asr1_fixture.py": "ecfdc8c95a5c1256caa85ecd7c346bd692700abae915f3165f1089ffc2364dfd"
+  },
+  "source_stable": true,
+  "passed": true,
+  "not_verified": [
+    "actual_unix_connection",
+    "real_sip_rust_rx_adapter",
+    "vendor_recognition",
+    "16k_fir",
+    "real_clock_or_scheduler",
+    "real_resource_limits",
+    "capacity_5000_10000"
+  ],
+  "log_sha256": "15e2b49a00eaaf7015811dc2f40a71b8068367fadfd4f62f7cd5639430914575"
+}

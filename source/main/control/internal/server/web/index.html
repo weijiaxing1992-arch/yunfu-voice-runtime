@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="云蝠 Voice Runtime 管理控制台：独立观察主服务与压测、峰值保护、信令媒体及 FreeSWITCH 对照。">
+  <title>云蝠 Voice Runtime · 管理控制台</title>
+  <link rel="stylesheet" href="/app.css">
+  <link rel="stylesheet" href="/docs.css">
+  <script src="/docs.js" defer></script>
+  <link rel="stylesheet" href="/tests.css">
+  <script src="/tests.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#page-content">跳到主要内容</a>
+  <!-- 固定侧栏在窄屏转换为可展开导航，所有入口保留文字名称。 -->
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#overview" aria-label="云蝠 Voice Runtime 总览"><span class="brand-mark">R<span></span></span><span class="brand-copy">云蝠<small>Voice Runtime</small></span></a>
+    <div class="nav-label">工作空间</div>
+    <nav aria-label="主要导航" id="navigation">
+      <a href="#overview" data-page="overview" class="nav-link active"><span class="nav-icon" data-icon="overview"></span>运行总览</a>
+      <a href="#protection" data-page="protection" class="nav-link"><span class="nav-icon" data-icon="shield"></span>峰值保护</a>
+      <a href="#media" data-page="media" class="nav-link"><span class="nav-icon" data-icon="network"></span>SIP 与媒体</a>
+      <a href="#codecs" data-page="codecs" class="nav-link"><span class="nav-icon" data-icon="network"></span>音频编解码</a>
+      <a href="#operations" data-page="operations" class="nav-link"><span class="nav-icon" data-icon="settings"></span>运维配置</a>
+      <a href="#tests" data-page="tests" class="nav-link"><span class="nav-icon" data-icon="activity"></span>压力与电话测试</a>
+      <div class="nav-label nav-label-secondary">兼容工作区</div>
+      <a href="#freeswitch" data-page="freeswitch" class="nav-link"><span class="nav-icon" data-icon="file"></span>FreeSWITCH 配置</a>
+      <a href="#compatibility" data-page="compatibility" class="nav-link"><span class="nav-icon" data-icon="layers"></span>兼容能力</a>
+      <!-- 文档入口独立于运行配置，阅读和复制示例不会发出写请求。 -->
+      <div class="nav-label nav-label-secondary">开发与迁移文档</div>
+      <a href="#api-docs" data-page="api-docs" class="nav-link"><span class="nav-icon" data-icon="file"></span>接口文档</a>
+      <a href="#fs-comparison" data-page="fs-comparison" class="nav-link"><span class="nav-icon" data-icon="layers"></span>FreeSWITCH 对照</a>
+    </nav>
+    <div class="sidebar-bottom"><div class="architecture-label">RustSwitch · 媒体 Rust · 控制 Go</div><p>协议与编解码通过 C/C++ 适配</p><span class="sidebar-version" id="sidebar-version">开发原型</span></div>
+  </aside>
+  <div class="nav-scrim" id="nav-scrim" hidden></div>
+  <!-- 主面板的状态、告警、表单反馈均由实时接口生成，不放置模拟业务数据。 -->
+  <main class="workspace">
+    <header class="topbar">
+      <div class="header-left"><button class="icon-button mobile-menu" id="menu-toggle" type="button" aria-label="展开导航" aria-controls="sidebar" aria-expanded="false"><span data-icon="menu"></span></button><span class="breadcrumb">工作空间 <span>/</span> <strong id="breadcrumb-current">运行总览</strong></span></div>
+      <div class="header-actions"><span class="connection-state" id="connection-state"><i class="status-dot pending"></i>正在连接</span><button class="button button-quiet button-small" id="refresh-button" type="button"><span data-icon="refresh"></span>刷新</button></div>
+    </header>
+    <div class="main-content">
+      <div class="page-heading"><div><div class="eyebrow" id="page-eyebrow">运行监测</div><h1 id="page-title">运行总览</h1><p id="page-description">分别观察主服务与隔离测试实例的通话、媒体和资源状态。</p></div><div class="heading-meta" id="heading-meta"><span class="badge neutral">每 3 秒刷新</span><small id="last-updated">等待首次采集</small></div></div>
+      <div id="global-notice" class="notice error" role="alert" hidden></div>
+      <section id="page-content" tabindex="-1" aria-label="当前页面"><div class="loading-state"><span class="spinner"></span><h2>正在加载控制台</h2><p>正在读取当前服务状态与配置。</p></div></section>
+    </div>
+    <!-- 原型配置保存到待重启草稿；底栏始终区分本地修改与已保存草稿。 -->
+    <div class="savebar" id="savebar" hidden><div><strong id="savebar-title">没有未保存的修改</strong><span id="savebar-description">配置经校验保存后，需重启服务生效。</span></div><div class="savebar-actions"><button class="button button-secondary" id="discard-button" type="button">撤销本地修改</button><button class="button button-secondary" id="validate-button" type="button">校验配置</button><button class="button button-primary" id="save-button" type="button">保存待重启配置</button></div></div>
+  </main>
+  <!-- 轻量反馈容器兼容键盘与屏幕阅读器，不依赖第三方组件。 -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="false"></div>
+  <dialog id="confirm-dialog" class="confirm-dialog"><form method="dialog"><h2 id="confirm-title">确认操作</h2><p id="confirm-description"></p><div class="dialog-actions"><button value="cancel" class="button button-secondary">取消</button><button value="confirm" class="button button-primary" id="confirm-action">确认</button></div></form></dialog>
+</body>
+</html>

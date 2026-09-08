@@ -1,0 +1,45 @@
+Usage of ./bin/callbench:
+  -advertise-ip string
+    	IPv4 address reachable from RustSwitch (default "127.0.0.1")
+  -bind-ip string
+    	local IPv4 address for caller and media sockets (default "127.0.0.1")
+  -caller-port int
+    	caller SIP UDP port; 0 uses an OS ephemeral port
+  -calls int
+    	number of simultaneous bidirectional calls (default 100)
+  -connect-media
+    	connect generator UDP sockets to the negotiated server peers; requires dedicated sockets
+  -cps int
+    	call setup rate (default 10)
+  -direct-media
+    	diagnostic only: bypass the media server and send RTP directly between simulated endpoints
+  -media-network string
+    	allowed RustSwitch media network; defaults to server IP/32
+  -media-port-end int
+    	explicit endpoint UDP port range end
+  -media-port-start int
+    	explicit endpoint UDP port range start; 0 uses OS ephemeral ports
+  -media-processing string
+    	relay preserves bytes; g711 verifies different-law PCMU/PCMA processing at 20ms (default "relay")
+  -output string
+    	optional JSON report path
+  -payload int
+    	test RTP payload (0 PCMU, 8 PCMA, 9 G722, 111 Opus, 18 G729, 110 G726-32)
+  -phase-slots int
+    	phase groups within each 20ms interval (1..1000); used only with --spread (default 20)
+  -progress string
+    	optional atomic JSON progress path; parent directory must exist
+  -seconds int
+    	media duration after all calls are established (default 10)
+  -senders int
+    	traffic generator sender goroutines (default 4)
+  -sequential-media-ports
+    	use sequential explicit ports instead of deterministic shuffle; useful for hash-collision stress
+  -server string
+    	RustSwitch SIP address (default "127.0.0.1:5060")
+  -socket-groups int
+    	endpoint socket groups; relay 0 is dedicated, g711 0 uses up to 32 shared groups; g711 demultiplexes by negotiated source
+  -spread
+    	spread call packet phases across each 20ms interval; false sends synchronized bursts (default true)
+  -uas-listen string
+    	SIP UAS address; set RustSwitch upstream to this address (default "127.0.0.1:5070")

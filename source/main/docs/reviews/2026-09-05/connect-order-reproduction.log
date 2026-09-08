@@ -1,0 +1,18 @@
+=== RUN   TestReviewConnectExecutionOrder
+    review_order_test.go:31: worker_seq=1 operation=connect_answer version=2 last_b=127.0.0.1:20004 last_dtmf=<nil>
+    review_order_test.go:31: worker_seq=2 operation=connect_early version=1 last_b=127.0.0.1:20002 last_dtmf=101
+    review_order_test.go:32: STALE CONNECT APPLIED LAST: worker last B=127.0.0.1:20002 dtmf=101; controller latest version=2, latest SDP B=127.0.0.1:20004 dtmf=nil
+--- FAIL: TestReviewConnectExecutionOrder (0.04s)
+=== RUN   TestReviewConnectExecutionOrder
+    review_order_test.go:31: worker_seq=1 operation=connect_answer version=2 last_b=127.0.0.1:20004 last_dtmf=<nil>
+    review_order_test.go:31: worker_seq=2 operation=connect_early version=1 last_b=127.0.0.1:20002 last_dtmf=101
+    review_order_test.go:32: STALE CONNECT APPLIED LAST: worker last B=127.0.0.1:20002 dtmf=101; controller latest version=2, latest SDP B=127.0.0.1:20004 dtmf=nil
+--- FAIL: TestReviewConnectExecutionOrder (0.03s)
+=== RUN   TestReviewConnectExecutionOrder
+    review_order_test.go:31: worker_seq=1 operation=connect_answer version=2 last_b=127.0.0.1:20004 last_dtmf=<nil>
+    review_order_test.go:31: worker_seq=2 operation=connect_early version=1 last_b=127.0.0.1:20002 last_dtmf=101
+    review_order_test.go:32: STALE CONNECT APPLIED LAST: worker last B=127.0.0.1:20002 dtmf=101; controller latest version=2, latest SDP B=127.0.0.1:20004 dtmf=nil
+--- FAIL: TestReviewConnectExecutionOrder (0.03s)
+FAIL
+FAIL	rustswitch/control/internal/server	0.474s
+FAIL

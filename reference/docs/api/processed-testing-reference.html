@@ -1,0 +1,62 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>真实音频处理压测与能力目录（1.10） · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 真实音频处理压测与能力目录（1.10）</div><article class="content"><div class="page-tools"><a href="processed-testing-reference.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 6 节</summary><a href="#页面操作">页面操作</a><a href="#请求示例">请求示例</a><a href="#媒体与判定">媒体与判定</a><a href="#有界错误诊断">有界错误诊断</a><a href="#生效模式与能力">生效模式与能力</a><a href="#freeswitch-对照">FreeSWITCH 对照</a></details><h1 id="真实音频处理压测与能力目录110">真实音频处理压测与能力目录（1.10）</h1>
+<p>本轮在管理后台新增可选择的 G.711 双腿音频处理测试。此文描述接口合同，实际通过范围以对应运行收据与最终报告为准。完整语音智能体、5000/10000 路处理容量和 FreeSWITCH 全功能兼容仍需独立验收。</p>
+<h2 id="页面操作">页面操作</h2>
+<p>在“压力与电话测试”选择“同编码 RTP 透传”或“G.711 双腿音频处理”。默认透传，选择与主服务生效模式相互独立。G.711 仅支持 PCMU / PCMA、8 kHz 单声道、20 ms，每通两个方向。A 腿选 PCMU 时 B 腿为 PCMA，反向选择同理。</p>
+<p>运行总览从 <code>/v1/tests.current.samples</code> 显示隔离任务的真实活跃、接通、RTP 收发及解码/编码帧。主服务统计另列；不存在的处理统计显示“—”，失败或过期采样不会伪造零值。任务结束后这些数值是历史值。</p>
+<h2 id="请求示例">请求示例</h2>
+<pre><code class="language-json">{&quot;request_id&quot;:&quot;g711-pressure-001&quot;,&quot;mode&quot;:&quot;pressure&quot;,&quot;concurrency&quot;:500,&quot;cps&quot;:100,&quot;duration_seconds&quot;:10,&quot;payload&quot;:0,&quot;media_processing&quot;:&quot;g711&quot;}
+</code></pre>
+<p>向 <code>POST /v1/tests</code> 提交，沿用同源校验、CSRF 与幂等规则。旧请求省略 <code>media_processing</code> 或传空值均规范为 <code>relay</code>，同键同参数不会重复执行。未知模式或 g711 配非 0/8 载荷返回 422。单路快速测试使用 <code>mode:&quot;phone&quot;</code>、<code>concurrency:1</code>、<code>cps:1</code>。</p>
+<p>测试实例冻结自己的模式，禁止继承主服务真实线路注册、路由、提示音目录或本地 IVR。目标并发不会被自动调低；资源预检不足会保留明确失败报告。端口可规划不等于对应档位性能已通过。</p>
+<h2 id="媒体与判定">媒体与判定</h2>
+<p>发生器 CLI 新增 <code>--media-processing=relay|g711</code>。g711 使用最多 32 组共享端点、64 个 RTP 接收工作者，按“本地接收 socket + 协商的媒体来源”分流。独占连接端点只供不超过 32 路的诊断测试，大档位使用共享端点；没有采用每路创建媒体线程的模型。</p>
+<p>每帧 160 个音频样本使用 16 个固定 PCM 电平生成，前 16 个样本携带呼叫、方向、帧序号和校验，其余 144 个样本同样依身份独立生成。发生器使用独立 G.711 公式解码，全部样本固定最大量化误差 512。此检查针对有损跨律内容，不把改载荷号、只核对标签或静音包视为成功，也不等同真人听感测试。</p>
+<p>g711 报告包含 <code>processed_media</code>，分别列出内容错误、串流、格式、时间戳、序号、身份、迟到、集中补发和发生器迟到。源计划到接收上限固定 80 ms，含 40 ms 图缓冲；同腿输出间隔小于 5 ms 的集中补发单独记录。阈值不因某次失败而调宽。</p>
+<p>原有每路每方向 98% 名义负载、全量唯一收包与零错误要求保持。正常停止输入后允许每腿最多 6 帧有限 PLC 尾帧，逐样本单列验证，不计入源音频唯一收包。worker 实际解码帧必须等于源发送帧，编码帧与解码及 PLC 对得上。</p>
+<p>最终还须核对：请求与发生器模式和两腿格式相同、所有 worker 健康且未重启、全部 22 个处理统计完整、8 桶直方图有效、拆线后资源归零、日志落盘无丢失、进程端口完整清理。最终 worker 统计的 <code>sampled_at</code> 必须晚于发生器退出；不允许复用旧的零状态。</p>
+<p>前端只有在完整 g711 报告、<code>processing_verified</code>、<code>generator_contract_verified</code> 和 <code>worker_stats_after_generator_exit</code> 都成立时显示检查通过。历史 relay 报告保留原记录，不能改为转码通过。</p>
+<h2 id="有界错误诊断">有界错误诊断</h2>
+<p>g711 新报告可附带 <code>processed_diagnostics</code>，版本 <code>g711-observation-v1</code>。<code>observed_content_valid_packets</code> 对归属正确的完整 160 个 PCM 样本独立核对，包含时间戳失败的包；其中时间戳错误数与超过 80 ms 接收期限的数量另列。这些观察不计入成功接收，不能抵消丢失或改变通过条件。原 <code>processed_media.late_packets</code> 只统计通过内容与时间戳检查的源音频，不能用它的零值证明被拒绝包也没有迟到。</p>
+<p>每个方向只保留首个接收错误及首个发送迟到，最终分别按真实观察时间选取最早 32 项，省略的方向数明确记录。接收样本保留最多 172 字节原报文及前后 RTP 时间位置，可区分音频内容损坏与持续时间轴偏移；热路径不分配逐包日志。发送诊断记录 <code>writeBatch</code> 适配器调用前后时间和成功提交字节数。portable 模式的一次调用可以包含多次 UDP 写，Linux 模式可以包含批量调用重试；这些时间只能界定整个适配器调用区间，不能推断批内每包的精确内核提交时刻。</p>
+<p>页面“查看音频时间轴与发生器首错”展示这些原始定位数据。历史报告没有诊断字段时保持“未提供”，不补写零值，也不重新授予通过。</p>
+<h2 id="生效模式与能力">生效模式与能力</h2>
+<p>SIP 与媒体配置页可保存 <code>media.processing</code> 草稿。保存不会重启服务或改变在途通话。<code>relay</code> 保留同格式透传；<code>g711</code> 是真实 G.711 图，1.11 候选增加独立能力握手的<a href="processed-local-reference.html">本地单腿 IVR/PCM</a>。本管理压测仍测双腿图；G.722/Opus 实时转码、ASR/TTS/VAD 和实时录音尚未接入，不能把本地功能用例当作双腿容量证明。</p>
+<p><code>GET /v1/codecs</code> 目录版本 1.1.0 新增 <code>runtime_media</code> 和 <code>live_codec_profiles</code>。<code>runtime_media</code> 每次读取当前进程真实 ready 握手；预期分片缺失、旧版本缺能力、无有效进程身份均不就绪。只有显式启用 g711 且全部预期分片健康声明 <code>processed_g711_v1</code> 时，顶层 <code>live_transcoding=true</code>。</p>
+<p><code>codec_profiles</code> 仍是全部测试预设；当前 g711 模式的 <code>live_codec_profiles</code> 只有 PCMU、PCMA。原生 SDK 自检仍独立缓存，其 <code>live_transcoding=false</code> 描述离线 SDK 入口；不能拿库加载成功推断实时处理能力，也不能用它否认另一个已握手的 G.711 实时图。</p>
+<h2 id="freeswitch-对照">FreeSWITCH 对照</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>FreeSWITCH 能力</th>
+<th>本项目对应</th>
+<th>当前范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核心会话跨 Codec 解码/编码</td>
+<td>Rust G.711 PCM 双腿图</td>
+<td>部分实现；仅 G.711 8 kHz / 20 ms，其他 Codec 实时图待接</td>
+</tr>
+<tr>
+<td><code>show codecs</code> / Codec 模块</td>
+<td><code>/v1/codecs</code></td>
+<td>自有 HTTP 目录，不是 ESL 正文或二进制模块 ABI 兼容</td>
+</tr>
+<tr>
+<td>RTP/RTCP 会话统计</td>
+<td><code>/v1/status</code> worker stats + <code>/metrics</code></td>
+<td>实际处理与传输指标，字段语义分别记录</td>
+</tr>
+<tr>
+<td>外部 SIPp/媒体发生器</td>
+<td><code>/v1/tests</code> 与 callbench</td>
+<td>自有隔离测试工具，不是 FreeSWITCH 固有压测 API</td>
+</tr>
+<tr>
+<td>正式媒体通话容量验收</td>
+<td>独立 Linux / 同机同质量基准</td>
+<td>5000/10000 路处理容量、完整 Agent 负载、72 小时稳态均需独立证据</td>
+</tr>
+</tbody></table></div>
+<p>机器模型见 <a href="openapi.json">OpenAPI</a> 和 <a href="schema-reference.html">字段字典</a>；媒体协议及处理限制见 <a href="processed-media-reference.html">处理参考</a>。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

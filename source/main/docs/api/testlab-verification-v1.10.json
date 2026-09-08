@@ -1,0 +1,962 @@
+{
+  "schema_version": "1.0.0",
+  "document_version": "1.10.0",
+  "document_type": "release_testlab_summary",
+  "summary_only": true,
+  "promotes_runtime_green": false,
+  "passed": false,
+  "started_at": "2026-09-06T18:14:49.212953+00:00",
+  "finished_at": "2026-09-06T18:16:14.729188+00:00",
+  "verified_at": "2026-09-06T18:23:10.512792+00:00",
+  "scope": "v1.10 本机隔离管理入口与 G.711 功能测试；不是 FreeSWITCH 等价或生产容量认证",
+  "binary_sha256": {
+    "controller": "da9a4577fbade6102fb70cbe44570433d5516e212640bc4cfb4faf526fb93545",
+    "media": "6bf8f9afffea38ae0d2f5cb3497d4b8df9401ea954718f717fae46c76778a2c6",
+    "generator": "371851e004bfff8249fd1d4db52112446dfe34f57caab7920d6bbf1cac22871f"
+  },
+  "source_unchanged": true,
+  "protected_unchanged": true,
+  "candidate_unchanged": true,
+  "main_service_unchanged": {
+    "revision": true,
+    "active": true,
+    "guard_policy": true
+  },
+  "source_summary": {
+    "path": "work/voice-runtime-m1-next/testlab-02/summary.json",
+    "bytes": 99453,
+    "sha256": "f15025e6a483c545e06573caa4df7b7bf62814aafe6c40dfa6e3bc715ba393ce"
+  },
+  "runs": [
+    {
+      "case": "g711-pcmu-to-pcma",
+      "outer_media_processing": "relay",
+      "requested_media_processing": "g711",
+      "payload_a": 0,
+      "payload_b": 8,
+      "status": "completed",
+      "requested_calls": 1,
+      "duration_seconds": 3,
+      "passed": true,
+      "report": {
+        "path": "work/voice-runtime-m1-next/testlab-02/01-relay/g711-pcmu-to-pcma-report.json",
+        "bytes": 57391,
+        "sha256": "c2fa34bb7116d370a5c8fad7bb260cfce8e2fd0280406f5f2db87e79e8e01f45"
+      },
+      "media_result": {
+        "passed": true,
+        "established_calls": 1,
+        "nominal_packets": 300,
+        "sent_packets": 300,
+        "received_unique_packets": 300,
+        "unreceived_packets": 0,
+        "generator_reader_errors": 0,
+        "generator_write_errors": 0,
+        "generator_os": "darwin",
+        "generator_arch": "arm64"
+      },
+      "status_sampling_errors": 1,
+      "last_status_sampling_error": "worker 0: 测试证据字段 peak_resident_bytes 缺失或不是有效非负数",
+      "processed_media": {
+        "burst_gap_limit_ms": 5,
+        "burst_packets": 0,
+        "codec_a": "PCMU",
+        "codec_b": "PCMA",
+        "codec_mismatch_packets": 0,
+        "content_mismatch_packets": 0,
+        "content_verified_packets": 300,
+        "cross_flow_packets": 0,
+        "generator_late_packets": 0,
+        "identity_errors": 0,
+        "jitter_target_ms": 40,
+        "late_packets": 0,
+        "observed_packets": 312,
+        "oracle_version": "g711-pcm-v1",
+        "payload_a": 0,
+        "payload_b": 8,
+        "receive_late_limit_ms": 80,
+        "samples_per_frame": 160,
+        "sequence_errors": 0,
+        "tail_plc_packets": 12,
+        "timestamp_errors": 0
+      },
+      "processed_diagnostics": {
+        "max_write_call_ns": 289958,
+        "max_write_return_delay_ns": 2420666,
+        "observed_content_late_packets": 0,
+        "observed_content_valid_packets": 300,
+        "receiver_error_flows": 0,
+        "sample_limit": 32,
+        "sender_late_flows": 0,
+        "timestamp_error_content_valid_packets": 0,
+        "truncated_receiver_flows": 0,
+        "truncated_sender_flows": 0,
+        "version": "g711-observation-v1",
+        "write_attempt_late_packets": 0,
+        "write_return_late_packets": 0,
+        "raw_samples_in_original_report": true,
+        "first_late_write_sample": null
+      }
+    },
+    {
+      "case": "g711-pcma-to-pcmu",
+      "outer_media_processing": "relay",
+      "requested_media_processing": "g711",
+      "payload_a": 8,
+      "payload_b": 0,
+      "status": "completed",
+      "requested_calls": 1,
+      "duration_seconds": 3,
+      "passed": true,
+      "report": {
+        "path": "work/voice-runtime-m1-next/testlab-02/01-relay/g711-pcma-to-pcmu-report.json",
+        "bytes": 46605,
+        "sha256": "0c8e14aa3a0df2e61f06f97cb34db91ce7dca6252b43593e71267f185b6fa1aa"
+      },
+      "media_result": {
+        "passed": true,
+        "established_calls": 1,
+        "nominal_packets": 300,
+        "sent_packets": 300,
+        "received_unique_packets": 300,
+        "unreceived_packets": 0,
+        "generator_reader_errors": 0,
+        "generator_write_errors": 0,
+        "generator_os": "darwin",
+        "generator_arch": "arm64"
+      },
+      "status_sampling_errors": 1,
+      "last_status_sampling_error": "worker 0: 测试证据字段 active_calls 缺失或不是有效非负数",
+      "processed_media": {
+        "burst_gap_limit_ms": 5,
+        "burst_packets": 0,
+        "codec_a": "PCMA",
+        "codec_b": "PCMU",
+        "codec_mismatch_packets": 0,
+        "content_mismatch_packets": 0,
+        "content_verified_packets": 300,
+        "cross_flow_packets": 0,
+        "generator_late_packets": 0,
+        "identity_errors": 0,
+        "jitter_target_ms": 40,
+        "late_packets": 0,
+        "observed_packets": 312,
+        "oracle_version": "g711-pcm-v1",
+        "payload_a": 8,
+        "payload_b": 0,
+        "receive_late_limit_ms": 80,
+        "samples_per_frame": 160,
+        "sequence_errors": 0,
+        "tail_plc_packets": 12,
+        "timestamp_errors": 0
+      },
+      "processed_diagnostics": {
+        "max_write_call_ns": 862583,
+        "max_write_return_delay_ns": 2792708,
+        "observed_content_late_packets": 0,
+        "observed_content_valid_packets": 300,
+        "receiver_error_flows": 0,
+        "sample_limit": 32,
+        "sender_late_flows": 0,
+        "timestamp_error_content_valid_packets": 0,
+        "truncated_receiver_flows": 0,
+        "truncated_sender_flows": 0,
+        "version": "g711-observation-v1",
+        "write_attempt_late_packets": 0,
+        "write_return_late_packets": 0,
+        "raw_samples_in_original_report": true,
+        "first_late_write_sample": null
+      }
+    },
+    {
+      "case": "explicit-relay-under-g711",
+      "outer_media_processing": "g711",
+      "requested_media_processing": "relay",
+      "payload_a": 0,
+      "payload_b": 0,
+      "status": "completed",
+      "requested_calls": 1,
+      "duration_seconds": 3,
+      "passed": true,
+      "report": {
+        "path": "work/voice-runtime-m1-next/testlab-02/02-g711/explicit-relay-under-g711-report.json",
+        "bytes": 31979,
+        "sha256": "b407ed637ce030a3dae5b13ef05c2d3c6967f13d1efce9b6a3ec1c0f720cf464"
+      },
+      "media_result": {
+        "passed": true,
+        "established_calls": 1,
+        "nominal_packets": 300,
+        "sent_packets": 300,
+        "received_unique_packets": 300,
+        "unreceived_packets": 0,
+        "generator_reader_errors": 0,
+        "generator_write_errors": 0,
+        "generator_os": "darwin",
+        "generator_arch": "arm64"
+      },
+      "status_sampling_errors": 1,
+      "last_status_sampling_error": "worker 0: 测试证据字段 active_calls 缺失或不是有效非负数",
+      "processed_media": null
+    },
+    {
+      "case": "g711-pressure-100",
+      "outer_media_processing": "relay",
+      "requested_media_processing": "g711",
+      "payload_a": 0,
+      "payload_b": 8,
+      "status": "completed",
+      "requested_calls": 100,
+      "duration_seconds": 30,
+      "passed": true,
+      "report": {
+        "path": "work/voice-runtime-m1-next/testlab-02/03-relay/g711-pressure-100-report.json",
+        "bytes": 244692,
+        "sha256": "c765cf7e88ee3410155ad4e28c7012eb912fbb5632c51be63c4f51178e86430a"
+      },
+      "media_result": {
+        "passed": true,
+        "established_calls": 100,
+        "nominal_packets": 300000,
+        "sent_packets": 300000,
+        "received_unique_packets": 300000,
+        "unreceived_packets": 0,
+        "generator_reader_errors": 0,
+        "generator_write_errors": 0,
+        "generator_os": "darwin",
+        "generator_arch": "arm64"
+      },
+      "status_sampling_errors": 1,
+      "last_status_sampling_error": "worker 0: 测试证据字段 tx_packets 缺失或不是有效非负数",
+      "processed_media": {
+        "burst_gap_limit_ms": 5,
+        "burst_packets": 0,
+        "codec_a": "PCMU",
+        "codec_b": "PCMA",
+        "codec_mismatch_packets": 0,
+        "content_mismatch_packets": 0,
+        "content_verified_packets": 300000,
+        "cross_flow_packets": 0,
+        "generator_late_packets": 0,
+        "identity_errors": 0,
+        "jitter_target_ms": 40,
+        "late_packets": 0,
+        "observed_packets": 301200,
+        "oracle_version": "g711-pcm-v1",
+        "payload_a": 0,
+        "payload_b": 8,
+        "receive_late_limit_ms": 80,
+        "samples_per_frame": 160,
+        "sequence_errors": 0,
+        "tail_plc_packets": 1200,
+        "timestamp_errors": 0
+      },
+      "processed_diagnostics": {
+        "max_write_call_ns": 592625,
+        "max_write_return_delay_ns": 2727459,
+        "observed_content_late_packets": 0,
+        "observed_content_valid_packets": 300000,
+        "receiver_error_flows": 0,
+        "sample_limit": 32,
+        "sender_late_flows": 0,
+        "timestamp_error_content_valid_packets": 0,
+        "truncated_receiver_flows": 0,
+        "truncated_sender_flows": 0,
+        "version": "g711-observation-v1",
+        "write_attempt_late_packets": 0,
+        "write_return_late_packets": 0,
+        "raw_samples_in_original_report": true,
+        "first_late_write_sample": null
+      }
+    },
+    {
+      "case": "g711-pressure-500",
+      "outer_media_processing": "relay",
+      "requested_media_processing": "g711",
+      "payload_a": 0,
+      "payload_b": 8,
+      "status": "failed",
+      "requested_calls": 500,
+      "duration_seconds": 30,
+      "passed": false,
+      "report": {
+        "path": "work/voice-runtime-m1-next/testlab-02/03-relay/g711-pressure-500-report.json",
+        "bytes": 355522,
+        "sha256": "edb9cbfae22029792828a211312e087ac40cb2a5283164a1d1d90e3e06a9526c"
+      },
+      "media_result": {
+        "passed": false,
+        "established_calls": 500,
+        "nominal_packets": 1500000,
+        "sent_packets": 1500000,
+        "received_unique_packets": 1498372,
+        "unreceived_packets": 1628,
+        "generator_reader_errors": 0,
+        "generator_write_errors": 0,
+        "generator_os": "darwin",
+        "generator_arch": "arm64"
+      },
+      "status_sampling_errors": 1,
+      "last_status_sampling_error": "worker 0: 测试证据字段 active_calls 缺失或不是有效非负数",
+      "processed_media": {
+        "burst_gap_limit_ms": 5,
+        "burst_packets": 499,
+        "codec_a": "PCMU",
+        "codec_b": "PCMA",
+        "codec_mismatch_packets": 0,
+        "content_mismatch_packets": 988,
+        "content_verified_packets": 1498372,
+        "cross_flow_packets": 0,
+        "generator_late_packets": 3306,
+        "identity_errors": 0,
+        "jitter_target_ms": 40,
+        "late_packets": 0,
+        "observed_packets": 1505360,
+        "oracle_version": "g711-pcm-v1",
+        "payload_a": 0,
+        "payload_b": 8,
+        "receive_late_limit_ms": 80,
+        "samples_per_frame": 160,
+        "sequence_errors": 2,
+        "tail_plc_packets": 6000,
+        "timestamp_errors": 0
+      },
+      "processed_diagnostics": {
+        "max_write_call_ns": 3193583,
+        "max_write_return_delay_ns": 48490958,
+        "observed_content_late_packets": 0,
+        "observed_content_valid_packets": 1498372,
+        "receiver_error_flows": 890,
+        "sample_limit": 32,
+        "sender_late_flows": 1000,
+        "timestamp_error_content_valid_packets": 0,
+        "truncated_receiver_flows": 858,
+        "truncated_sender_flows": 968,
+        "version": "g711-observation-v1",
+        "write_attempt_late_packets": 3306,
+        "write_return_late_packets": 3310,
+        "raw_samples_in_original_report": true,
+        "first_late_write_sample": {
+          "call_index": 93,
+          "send_leg": "a",
+          "frame_ordinal": 1116,
+          "planned_at_ns": 22311625000,
+          "write_begin_at_ns": 22345955250,
+          "write_return_at_ns": 22346002875,
+          "submitted_bytes": 172
+        }
+      }
+    }
+  ],
+  "m1": {
+    "candidate": "build-03",
+    "receipt": {
+      "path": "work/voice-runtime-m1-next/processed-03/processed.receipt.json",
+      "bytes": 274286,
+      "sha256": "b37d64348709849a5c4d56a56130bca36faf2af8885fabdea56db5b6d38032d0"
+    },
+    "passed": true,
+    "outcome": "passed_scoped",
+    "started_at": "2026-09-06T18:08:51.054292+00:00",
+    "finished_at": "2026-09-06T18:09:37.209650+00:00",
+    "runtime_source_before_sha256": "c350942e388c36e8e41731249c1722b9e82019d1e5eb9afdc7efac7bed218f58",
+    "runtime_source_after_sha256": "c350942e388c36e8e41731249c1722b9e82019d1e5eb9afdc7efac7bed218f58",
+    "source_digest_encoding": "UTF-8 JSON ensure_ascii=false sort_keys=true indent=2 plus newline",
+    "runtime_source_unchanged": true,
+    "binaries_before": {
+      "control": "da9a4577fbade6102fb70cbe44570433d5516e212640bc4cfb4faf526fb93545",
+      "media": "6bf8f9afffea38ae0d2f5cb3497d4b8df9401ea954718f717fae46c76778a2c6"
+    },
+    "binaries_after": {
+      "control": "da9a4577fbade6102fb70cbe44570433d5516e212640bc4cfb4faf526fb93545",
+      "media": "6bf8f9afffea38ae0d2f5cb3497d4b8df9401ea954718f717fae46c76778a2c6"
+    },
+    "stages": [
+      {
+        "mode": "udp",
+        "exit_code": 0,
+        "elapsed_seconds": 22.916,
+        "passed": 11,
+        "failed": 0,
+        "skipped": 0,
+        "timed_out": false,
+        "forced_cleanup": false
+      },
+      {
+        "mode": "connected",
+        "exit_code": 0,
+        "elapsed_seconds": 22.958,
+        "passed": 11,
+        "failed": 0,
+        "skipped": 0,
+        "timed_out": false,
+        "forced_cleanup": false
+      }
+    ]
+  },
+  "http_observation": {
+    "outer_recorded_reads": 411,
+    "outer_recorded_errors": 0,
+    "outer_max_group_seconds": 0.008914458012441173,
+    "overall_sampling_read_attempts": 412,
+    "overall_sampling_read_errors": 0,
+    "overall_sampling_max_read_seconds": 0.0075847909902222455
+  },
+  "all_outer_instances_exited": true,
+  "all_outer_ports_released": true,
+  "failures_preserved": true,
+  "performance_certified": false,
+  "full_voice_agent_verified": false,
+  "passed_cases": 4,
+  "failed_cases": 1,
+  "next_action": "保留build-03/testlab-02的500路失败；继续定位约22.31秒附近的全发送方向迟发与剩余内容/序号/过密到达异常，按相同门槛独立复测，不预设GC或操作系统根因。",
+  "pcm_oracle": {
+    "version": "g711-pcm-v1",
+    "samples_per_frame": 160,
+    "reference_level_spacing": 2048,
+    "max_absolute_sample_error": 512,
+    "error_unit": "signed_16bit_pcm_amplitude",
+    "tail_plc_counted_as_verified_source_audio": false
+  },
+  "limitations": [
+    "当前build-03/testlab-02三单路及100路通过、500路失败；历史build-02/testlab-01也保留，不能将timestamp_errors归零当作完整容量通过。",
+    "processed-03的22项、发送方恢复4项、旧E2E228项、Go与Rust是独立集合，不相加为兼容接口数。",
+    "启动未知统计与HTTP读取失败分别解释；processed_diagnostics只归因，不改变有效接收、PCM或时间线门槛。",
+    "全部1000发送方向出现迟发是实际观察，不足以区分GC、宿主调度或其他原因。",
+    "M1/M2完整能力、5000/10000路和同硬件FreeSWITCH性能目标未完成，运行后台实际版本以/v1/docs.version核对。"
+  ],
+  "additional_sources": [
+    {
+      "path": "work/voice-runtime-m1-next/build-02/runtime-build.json",
+      "bytes": 100093,
+      "sha256": "3b2d64235f7136c2879f79737942b5302f0186fced9d38b3c047dd4c65043071"
+    },
+    {
+      "path": "work/voice-runtime-m1-next/review/host-environment.json",
+      "bytes": 297,
+      "sha256": "4ebdcbe4fd24d3fa5ec26eb0ff0c4bc6c803718669ba67dce5351d069230a2a9"
+    }
+  ],
+  "management_results_apply_to": {
+    "candidate": "build-03",
+    "run": "testlab-02",
+    "historical": false,
+    "note": "当前管理测试4通过1失败；旧testlab-01全部结果保留在historical_management_testlab_01，不改写失败。"
+  },
+  "latest_candidate": {
+    "candidate": "build-03",
+    "build": {
+      "path": "work/voice-runtime-m1-next/build-03/runtime-build.json",
+      "bytes": 100841,
+      "sha256": "e67d5558aa47fe1cb49dc4886bb2b68e27aec87ba61899fbe370a0e174e9d36f"
+    },
+    "binary_sha256": {
+      "control": "da9a4577fbade6102fb70cbe44570433d5516e212640bc4cfb4faf526fb93545",
+      "media": "6bf8f9afffea38ae0d2f5cb3497d4b8df9401ea954718f717fae46c76778a2c6",
+      "generator": "371851e004bfff8249fd1d4db52112446dfe34f57caab7920d6bbf1cac22871f"
+    }
+  },
+  "latest_management_retest": {
+    "candidate": "build-03",
+    "run": "testlab-02",
+    "state": "completed_failed",
+    "passed": false,
+    "passed_cases": 4,
+    "failed_cases": 1,
+    "scope": "三项单路与100路通过，500路按原质量门槛失败；时间戳已无错误仍不能授予容量通过。",
+    "worker_snapshot_limitation": {
+      "http_sampled_at": "2026-09-06T18:16:14.453234Z",
+      "generator_exited_at": "2026-09-06T18:16:14.452191Z",
+      "worker_sampled_at_min": "2026-09-07T02:16:13.794674+08:00",
+      "worker_sampled_at_max": "2026-09-07T02:16:13.79811+08:00",
+      "limitation": "失败路径只保留最后缓存快照；HTTP读取虽在发生器退出之后，worker内部采样早于退出，不能作为全程帧总数或释放后的媒体会话数。"
+    },
+    "worker_error_windows": [
+      {
+        "previous_http_sample_elapsed_seconds": 27.6916025,
+        "previous_worker_sampled_at_min": "2026-09-07T02:16:05.794619+08:00",
+        "previous_worker_sampled_at_max": "2026-09-07T02:16:05.797974+08:00",
+        "http_sample_elapsed_seconds": 28.190029916,
+        "worker_sampled_at_min": "2026-09-07T02:16:06.79447+08:00",
+        "worker_sampled_at_max": "2026-09-07T02:16:06.797896+08:00",
+        "delta": {
+          "processed_jitter_late": 1074,
+          "processed_jitter_lost": 1074,
+          "processed_playout_expired": 552,
+          "processed_missing_frames": 86,
+          "processed_plc_frames": 988,
+          "processed_send_deadline_misses": 2
+        },
+        "worker_cpu_seconds_since_previous_cached_sample": 0.3189370000000009
+      }
+    ],
+    "counter_matches_are_per_packet_proof": false,
+    "unretained_sender_error_timestamps_known": false
+  },
+  "historical_m1": {
+    "candidate": "build-02",
+    "result": {
+      "receipt": {
+        "path": "work/voice-runtime-m1-next/processed-02/processed.receipt.json",
+        "bytes": 272567,
+        "sha256": "8a1e7189972d9519705e0da6e3d8dbebc0980d13e915359747f94f958cdde9bc"
+      },
+      "passed": true,
+      "outcome": "passed_scoped",
+      "started_at": "2026-09-06T17:37:58.424310+00:00",
+      "finished_at": "2026-09-06T17:38:45.868678+00:00",
+      "runtime_source_before_sha256": "855bc8682d2cced6869222999483a4973f4c04cd15de4455e8ba32337df3d552",
+      "runtime_source_after_sha256": "855bc8682d2cced6869222999483a4973f4c04cd15de4455e8ba32337df3d552",
+      "runtime_source_unchanged": true,
+      "binaries_before": {
+        "control": "d84f21f753f1cdf0b89b820f01bcb40183235d216d5b0409ddfd9de57380c573",
+        "media": "6f0b3d1886bca1e84f53e917fd95da0f0ad58b1cba1de5f99ab63bfd92beddeb"
+      },
+      "binaries_after": {
+        "control": "d84f21f753f1cdf0b89b820f01bcb40183235d216d5b0409ddfd9de57380c573",
+        "media": "6f0b3d1886bca1e84f53e917fd95da0f0ad58b1cba1de5f99ab63bfd92beddeb"
+      },
+      "stages": [
+        {
+          "mode": "udp",
+          "exit_code": 0,
+          "elapsed_seconds": 24.199,
+          "passed": 11,
+          "failed": 0,
+          "skipped": 0,
+          "timed_out": false,
+          "forced_cleanup": false
+        },
+        {
+          "mode": "connected",
+          "exit_code": 0,
+          "elapsed_seconds": 22.976,
+          "passed": 11,
+          "failed": 0,
+          "skipped": 0,
+          "timed_out": false,
+          "forced_cleanup": false
+        }
+      ]
+    },
+    "applies_to_current_source": false
+  },
+  "sender_pause_recovery": {
+    "scope": "同SSRC、同160ticks采样相位，发送方暂停183ms后恢复原发送计划；另一方向保持实时输入。独立于固定22项，不是容量认证。",
+    "before": {
+      "candidate": "build-02",
+      "summary": {
+        "path": "work/voice-runtime-m1-next/recovery-before-01-summary.json",
+        "bytes": 1177,
+        "sha256": "6e2f15109ceef6b700c18471d1e923eba7b29b9ff9f19b0cf30fad664403e146"
+      },
+      "modes": [
+        "udp"
+      ],
+      "passed": 0,
+      "failed": 2,
+      "returncode": 1,
+      "binary_sha256": {
+        "control": "d84f21f753f1cdf0b89b820f01bcb40183235d216d5b0409ddfd9de57380c573",
+        "media": "6f0b3d1886bca1e84f53e917fd95da0f0ad58b1cba1de5f99ab63bfd92beddeb"
+      },
+      "missing_successful_final_stats_preserved": true
+    },
+    "after": {
+      "candidate": "build-03",
+      "summary": {
+        "path": "work/voice-runtime-m1-next/recovery-after-01/summary.json",
+        "bytes": 104960,
+        "sha256": "d770174bf60cbd20feba1994215fe463bfa8a1037cdd647708adb10fd9f7fe7c"
+      },
+      "modes": [
+        "udp",
+        "connected"
+      ],
+      "passed": 4,
+      "failed": 0,
+      "started_at": "2026-09-06T18:07:57.132732+00:00",
+      "finished_at": "2026-09-06T18:08:18.921555+00:00",
+      "binaries_before": {
+        "control": "da9a4577fbade6102fb70cbe44570433d5516e212640bc4cfb4faf526fb93545",
+        "media": "6bf8f9afffea38ae0d2f5cb3497d4b8df9401ea954718f717fae46c76778a2c6"
+      },
+      "binaries_after": {
+        "control": "da9a4577fbade6102fb70cbe44570433d5516e212640bc4cfb4faf526fb93545",
+        "media": "6bf8f9afffea38ae0d2f5cb3497d4b8df9401ea954718f717fae46c76778a2c6"
+      },
+      "stages": [
+        {
+          "mode": "udp",
+          "returncode": 0,
+          "timed_out": false,
+          "forced_cleanup": false,
+          "passed": true,
+          "log_sha256": "aa1b405b69052836ceb90f1ac6bb6a9be72e24f532de0fc7087979d30136b710"
+        },
+        {
+          "mode": "connected",
+          "returncode": 0,
+          "timed_out": false,
+          "forced_cleanup": false,
+          "passed": true,
+          "log_sha256": "76a68de6abd9d1e47a2c3dd7c2a5555e1e438a1d45fb5c316147eb70a41151d9"
+        }
+      ]
+    },
+    "old_failure_overwritten": false
+  },
+  "current_regressions": [
+    {
+      "suite": "go_race",
+      "receipt": {
+        "path": "work/voice-runtime-m1-next/runtime-evidence/go-0372986139f448b98c498a684c6b4a58.receipt.json",
+        "bytes": 87127,
+        "sha256": "e9c5c3bc36c54ac78cfd41f0c7c2d064cd096d6298efcb3b78bc9de1d29b9bf3"
+      },
+      "top_level_passed": 272,
+      "subtest_passed": 441,
+      "total_passed_records": 713,
+      "test_skipped": 0,
+      "counts_are_distinct_from_interfaces": true
+    },
+    {
+      "suite": "existing_sip_media_ivr_e2e",
+      "receipt": {
+        "path": "work/voice-runtime-m1-next/runtime-evidence/e2e-a223fca7d6c742eeb77fbe97efb4d79e.receipt.json",
+        "bytes": 127427,
+        "sha256": "3d9adaee17e6a04130a3a20963034746a6550fec45d8f74bcb4529d555997fcd"
+      },
+      "stages": 24,
+      "passed": 228,
+      "failed": 0,
+      "skipped": 0,
+      "timed_out": false,
+      "forced_cleanup": false
+    },
+    {
+      "suite": "rust_all_targets",
+      "summary": {
+        "path": "work/voice-runtime-m1-next/review/rust-recovery-01.json",
+        "bytes": 8940,
+        "sha256": "0cf9da268e465be642fac6bc38c00cf7b6bcbe373860e18563cd4ebe9dbe2141"
+      },
+      "unit_passed": 126,
+      "integration_passed": 1,
+      "total_passed": 127,
+      "failed": 0,
+      "ignored": 0,
+      "clippy_warnings_denied_passed": true
+    }
+  ],
+  "current_freeswitch_pair": {
+    "report_path": "work/linux-vm/share/voice-runtime-m1-recovery/paired-01.json",
+    "source_snapshot_sha256": "ec95383ddfb8c2e257d585bea1963742ea5b643adc2fbfc4211188c510b0eed6",
+    "report_sha256": "781fbfc999502efd07cad776c29efd1d9150b82b367aa470828802bd22b7affa",
+    "finished_at": "2026-09-06T18:04:40.677827Z",
+    "counts": {
+      "identity_observed": 1,
+      "passed_scoped": 21,
+      "inventory_observed": 1,
+      "failed_difference": 3
+    },
+    "original_entries": 3988,
+    "reference_tree_files_before_after": 243,
+    "vm_shutdown_exit_code": 0,
+    "published_json": true,
+    "full_compatibility_passed": false
+  },
+  "historical_management_testlab_01": {
+    "candidate": "build-02",
+    "run": "testlab-01",
+    "passed": false,
+    "started_at": "2026-09-06T17:40:11.923950+00:00",
+    "finished_at": "2026-09-06T17:41:37.495469+00:00",
+    "binary_sha256": {
+      "controller": "d84f21f753f1cdf0b89b820f01bcb40183235d216d5b0409ddfd9de57380c573",
+      "media": "6f0b3d1886bca1e84f53e917fd95da0f0ad58b1cba1de5f99ab63bfd92beddeb",
+      "generator": "c9b5892b15f008d5244737d892c4f5f8897dc7157ac46847fd5d8d656967cc0e"
+    },
+    "source_unchanged": true,
+    "protected_unchanged": true,
+    "candidate_unchanged": true,
+    "main_service_unchanged": {
+      "revision": true,
+      "active": true,
+      "guard_policy": true
+    },
+    "source_summary": {
+      "path": "work/voice-runtime-m1-next/testlab-01/summary.json",
+      "bytes": 98856,
+      "sha256": "e3f4924845399e8e0411576a83434c6354c3af15f9f8160db52cf7fc3a400fa4"
+    },
+    "runs": [
+      {
+        "case": "g711-pcmu-to-pcma",
+        "outer_media_processing": "relay",
+        "requested_media_processing": "g711",
+        "payload_a": 0,
+        "payload_b": 8,
+        "status": "completed",
+        "requested_calls": 1,
+        "duration_seconds": 3,
+        "passed": true,
+        "report": {
+          "path": "work/voice-runtime-m1-next/testlab-01/01-relay/g711-pcmu-to-pcma-report.json",
+          "bytes": 56207,
+          "sha256": "539753347cb67ebaab87b820410ad6e18214fb5a4e92a5335a352c503a421b27"
+        },
+        "media_result": {
+          "passed": true,
+          "established_calls": 1,
+          "nominal_packets": 300,
+          "sent_packets": 300,
+          "received_unique_packets": 300,
+          "unreceived_packets": 0,
+          "generator_reader_errors": 0,
+          "generator_write_errors": 0,
+          "generator_os": "darwin",
+          "generator_arch": "arm64"
+        },
+        "status_sampling_errors": 1,
+        "last_status_sampling_error": "worker 0: 测试证据字段 active_calls 缺失或不是有效非负数",
+        "processed_media": {
+          "burst_gap_limit_ms": 5,
+          "burst_packets": 0,
+          "codec_a": "PCMU",
+          "codec_b": "PCMA",
+          "codec_mismatch_packets": 0,
+          "content_mismatch_packets": 0,
+          "content_verified_packets": 300,
+          "cross_flow_packets": 0,
+          "generator_late_packets": 0,
+          "identity_errors": 0,
+          "jitter_target_ms": 40,
+          "late_packets": 0,
+          "observed_packets": 312,
+          "oracle_version": "g711-pcm-v1",
+          "payload_a": 0,
+          "payload_b": 8,
+          "receive_late_limit_ms": 80,
+          "samples_per_frame": 160,
+          "sequence_errors": 0,
+          "tail_plc_packets": 12,
+          "timestamp_errors": 0
+        }
+      },
+      {
+        "case": "g711-pcma-to-pcmu",
+        "outer_media_processing": "relay",
+        "requested_media_processing": "g711",
+        "payload_a": 8,
+        "payload_b": 0,
+        "status": "completed",
+        "requested_calls": 1,
+        "duration_seconds": 3,
+        "passed": true,
+        "report": {
+          "path": "work/voice-runtime-m1-next/testlab-01/01-relay/g711-pcma-to-pcmu-report.json",
+          "bytes": 45398,
+          "sha256": "bcc984baaf94fc60a20b3ebf98765d13177b0036de9d51dfc824a5f2e540001d"
+        },
+        "media_result": {
+          "passed": true,
+          "established_calls": 1,
+          "nominal_packets": 300,
+          "sent_packets": 300,
+          "received_unique_packets": 300,
+          "unreceived_packets": 0,
+          "generator_reader_errors": 0,
+          "generator_write_errors": 0,
+          "generator_os": "darwin",
+          "generator_arch": "arm64"
+        },
+        "status_sampling_errors": 1,
+        "last_status_sampling_error": "worker 0: 测试证据字段 send_errors 缺失或不是有效非负数",
+        "processed_media": {
+          "burst_gap_limit_ms": 5,
+          "burst_packets": 0,
+          "codec_a": "PCMA",
+          "codec_b": "PCMU",
+          "codec_mismatch_packets": 0,
+          "content_mismatch_packets": 0,
+          "content_verified_packets": 300,
+          "cross_flow_packets": 0,
+          "generator_late_packets": 0,
+          "identity_errors": 0,
+          "jitter_target_ms": 40,
+          "late_packets": 0,
+          "observed_packets": 312,
+          "oracle_version": "g711-pcm-v1",
+          "payload_a": 8,
+          "payload_b": 0,
+          "receive_late_limit_ms": 80,
+          "samples_per_frame": 160,
+          "sequence_errors": 0,
+          "tail_plc_packets": 12,
+          "timestamp_errors": 0
+        }
+      },
+      {
+        "case": "explicit-relay-under-g711",
+        "outer_media_processing": "g711",
+        "requested_media_processing": "relay",
+        "payload_a": 0,
+        "payload_b": 0,
+        "status": "completed",
+        "requested_calls": 1,
+        "duration_seconds": 3,
+        "passed": true,
+        "report": {
+          "path": "work/voice-runtime-m1-next/testlab-01/02-g711/explicit-relay-under-g711-report.json",
+          "bytes": 31989,
+          "sha256": "ffe9d235907a92b92aeabbd70624d319aeec04f9d20419bb06d01db97726aca2"
+        },
+        "media_result": {
+          "passed": true,
+          "established_calls": 1,
+          "nominal_packets": 300,
+          "sent_packets": 300,
+          "received_unique_packets": 300,
+          "unreceived_packets": 0,
+          "generator_reader_errors": 0,
+          "generator_write_errors": 0,
+          "generator_os": "darwin",
+          "generator_arch": "arm64"
+        },
+        "status_sampling_errors": 1,
+        "last_status_sampling_error": "worker 0: 测试证据字段 active_calls 缺失或不是有效非负数",
+        "processed_media": null
+      },
+      {
+        "case": "g711-pressure-100",
+        "outer_media_processing": "relay",
+        "requested_media_processing": "g711",
+        "payload_a": 0,
+        "payload_b": 8,
+        "status": "completed",
+        "requested_calls": 100,
+        "duration_seconds": 30,
+        "passed": true,
+        "report": {
+          "path": "work/voice-runtime-m1-next/testlab-01/03-relay/g711-pressure-100-report.json",
+          "bytes": 243071,
+          "sha256": "6efc07f2b5b798d97a5850a99ca508bb9b19e0e06dae9f2f2df42e0a5652e0fc"
+        },
+        "media_result": {
+          "passed": true,
+          "established_calls": 100,
+          "nominal_packets": 300000,
+          "sent_packets": 300000,
+          "received_unique_packets": 300000,
+          "unreceived_packets": 0,
+          "generator_reader_errors": 0,
+          "generator_write_errors": 0,
+          "generator_os": "darwin",
+          "generator_arch": "arm64"
+        },
+        "status_sampling_errors": 1,
+        "last_status_sampling_error": "worker 0: 测试证据字段 rate_limited 缺失或不是有效非负数",
+        "processed_media": {
+          "burst_gap_limit_ms": 5,
+          "burst_packets": 0,
+          "codec_a": "PCMU",
+          "codec_b": "PCMA",
+          "codec_mismatch_packets": 0,
+          "content_mismatch_packets": 0,
+          "content_verified_packets": 300000,
+          "cross_flow_packets": 0,
+          "generator_late_packets": 0,
+          "identity_errors": 0,
+          "jitter_target_ms": 40,
+          "late_packets": 0,
+          "observed_packets": 301200,
+          "oracle_version": "g711-pcm-v1",
+          "payload_a": 0,
+          "payload_b": 8,
+          "receive_late_limit_ms": 80,
+          "samples_per_frame": 160,
+          "sequence_errors": 0,
+          "tail_plc_packets": 1200,
+          "timestamp_errors": 0
+        }
+      },
+      {
+        "case": "g711-pressure-500",
+        "outer_media_processing": "relay",
+        "requested_media_processing": "g711",
+        "payload_a": 0,
+        "payload_b": 8,
+        "status": "failed",
+        "requested_calls": 500,
+        "duration_seconds": 30,
+        "passed": false,
+        "report": {
+          "path": "work/voice-runtime-m1-next/testlab-01/03-relay/g711-pressure-500-report.json",
+          "bytes": 270253,
+          "sha256": "f268f73d843242ccc70ae1c2973d9fdfac60754338ba9fce78741bb4540a06c1"
+        },
+        "media_result": {
+          "passed": false,
+          "established_calls": 500,
+          "nominal_packets": 1500000,
+          "sent_packets": 1500000,
+          "received_unique_packets": 1054811,
+          "unreceived_packets": 445189,
+          "generator_reader_errors": 0,
+          "generator_write_errors": 0,
+          "generator_os": "darwin",
+          "generator_arch": "arm64"
+        },
+        "status_sampling_errors": 1,
+        "last_status_sampling_error": "worker 0: 测试证据字段 rx_packets 缺失或不是有效非负数",
+        "processed_media": {
+          "burst_gap_limit_ms": 5,
+          "burst_packets": 530,
+          "codec_a": "PCMU",
+          "codec_b": "PCMA",
+          "codec_mismatch_packets": 0,
+          "content_mismatch_packets": 10968,
+          "content_verified_packets": 1054811,
+          "cross_flow_packets": 0,
+          "generator_late_packets": 9595,
+          "identity_errors": 0,
+          "jitter_target_ms": 40,
+          "late_packets": 0,
+          "observed_packets": 1505776,
+          "oracle_version": "g711-pcm-v1",
+          "payload_a": 0,
+          "payload_b": 8,
+          "receive_late_limit_ms": 80,
+          "samples_per_frame": 160,
+          "sequence_errors": 0,
+          "tail_plc_packets": 3708,
+          "timestamp_errors": 443207
+        }
+      }
+    ],
+    "http_observation": {
+      "outer_recorded_reads": 411,
+      "outer_recorded_errors": 0,
+      "outer_max_group_seconds": 0.009094500011997297,
+      "overall_sampling_read_attempts": 412,
+      "overall_sampling_read_errors": 0,
+      "overall_sampling_max_read_seconds": 0.013056875002803281
+    },
+    "all_outer_instances_exited": true,
+    "all_outer_ports_released": true,
+    "passed_cases": 4,
+    "failed_cases": 1
+  },
+  "independent_review": {
+    "path": "work/voice-runtime-m1-next/review/testlab-02-analysis.json",
+    "bytes": 15026,
+    "sha256": "19e3468f0d9674cfdbc364609003a639db4454fb1e16ea1291996deb34135e12"
+  },
+  "deployment_observation": {
+    "evidence_environment": "isolated_candidate",
+    "running_version_endpoint": "/v1/docs",
+    "running_version_field": "version",
+    "note": "文档中的结果来自隔离候选；实际后台版本以运行接口核对，文档本身不授予上线状态。"
+  }
+}

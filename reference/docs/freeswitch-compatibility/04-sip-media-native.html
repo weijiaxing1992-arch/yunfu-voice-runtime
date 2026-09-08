@@ -1,0 +1,682 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>04 SIP、媒体、原生模块与切换连续性标准 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 04 SIP、媒体、原生模块与切换连续性标准</div><article class="content"><div class="page-tools"><a href="04-sip-media-native.md" download>Markdown 原稿</a><a href="../api/openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 8 节</summary><a href="#41-兼容目标与当前差距">4.1 兼容目标与当前差距</a><a href="#42-sofia-profilegateway-与终端配置的契约">4.2 Sofia profile、gateway 与终端配置的契约</a><a href="#43-sip-事务对话与-sdp-行为矩阵">4.3 SIP 事务、对话与 SDP 行为矩阵</a><a href="#44-媒体dtmf编解码录音会议与传真">4.4 媒体、DTMF、编解码、录音、会议与传真</a><a href="#45-sip-q850-freeswitch-原因码的映射">4.5 SIP / Q.850 / FreeSWITCH 原因码的映射</a><a href="#46-cc-生态兼容与-freeswitch-模块-abi">4.6 C/C++ 生态兼容与 FreeSWITCH 模块 ABI</a><a href="#47-无感替换与活动状态在线迁移分别验收">4.7 “无感替换”与“活动状态在线迁移”分别验收</a><a href="#48-万路容量必须按功能组合认证">4.8 万路容量必须按功能组合认证</a></details><h1 id="04-sip媒体原生模块与切换连续性标准">04 SIP、媒体、原生模块与切换连续性标准</h1>
+<p>文档状态：接口目标与验收规范，<strong>不是已经实现或通过认证的能力清单</strong>。按用户确认，目标锁定 FreeSWITCH 最新正式版 <code>v1.11.3</code>，固定 commit <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>。用户部署的编译选项、模块、配置及终端清单尚待导入。认证必须绑定具体基线二进制、配置和模块哈希。在线官方手册用于定位功能，默认值、特殊行为和响应格式由上述固定源码与基线实测共同确定，不能将持续更新的手册当作固定版本行为完全相同的证明。<a href="https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a" target="_blank" rel="noopener noreferrer">固定版本源码</a></p>
+<p>本章的“必须”指替换产品获得对应兼容性声明前必须满足的要求。未实现、未执行、阻塞、已知差异均不能记为通过；业务当前未启用的可选模块可以标注“本部署未启用”，但不得从面向所有 FreeSWITCH 用户的完整兼容分母中删除。</p>
+<h2 id="41-兼容目标与当前差距">4.1 兼容目标与当前差距</h2>
+<p>对现有客户而言，兼容必须表现为：原终端、运营商中继、SIP 代理、ESL 客户端、拨号计划和媒体文件流程，在相同配置下获得相同的呼叫结果。仅能接收相同方法名、完成一次 PCMU 呼叫或复用一个编解码库，都不能证明兼容。</p>
+<p>协议级验收比较的是外部可观察行为。随机 Call-ID、tag、branch、UUID、端口和时间戳允许通过<strong>预先声明的映射</strong>对齐；映射必须保持两条呼叫腿、事务、事件、话单和录音之间的引用关系。不能把错误原因码、缺失事件、错误号码、认证放宽、媒体方向或计费时间归入“随机差异”。SIP 合法的头域顺序变化可在语义比较器中归一化；依赖特定字节格式的真实设备另做原始报文回归。</p>
+<p>截至应用版本 v0.3、文档发行版本 1.5：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>范围</th>
+<th>当前实际状态</th>
+<th>取得本章认证还缺少什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Go SIP 提供器</td>
+<td>可信中继上的有限 UDP/TCP/TLS <code>INVITE/ACK/CANCEL/BYE/OPTIONS</code>，双腿呼叫、可靠连接归属及断线回收；TCP/TLS 已完成真实 Rust 双向 RTP 呼叫回归</td>
+<td>完整 Sofia 配置与 SIP 行为；注册、路由、重协商、WS/WSS 等仍缺失；现有测试通过不等于 Sofia 等价</td>
+</tr>
+<tr>
+<td>Rust 媒体</td>
+<td>G.711、G.722、Opus、G.729、G.726 等受限格式的同编码 RTP 透传、RTCP 与 telephone-event 转发；批量收包、地址校验、容量保护</td>
+<td>完整协商、NAT、终结型 RTCP、加密、实时转码和录音/会议等媒体应用，以及 FreeSWITCH 变量语义</td>
+</tr>
+<tr>
+<td>C 编解码器</td>
+<td>自定义 <code>rs_codec_v1</code> ABI 与 G.711 插件；离线音频 SDK 提供规范 PCM、G.711 及可选 G.722/Opus 后端</td>
+<td>实际转码通话、全部选定 codec 的参数和错误行为；离线 SDK 通过不代表实时转码</td>
+</tr>
+<tr>
+<td>原生协议提供器</td>
+<td><code>rs_protocol_v1</code> 预留契约</td>
+<td>Sofia-SIP/PJSIP 实际集成及与 Go 状态机的完整衔接</td>
+</tr>
+<tr>
+<td>FreeSWITCH 模块</td>
+<td>不能直接加载原 <code>mod_*.so</code></td>
+<td>原生模块运行环境或逐模块移植；两者需要不同认证</td>
+</tr>
+<tr>
+<td>无中断切换</td>
+<td>尚无完整现网切换验收</td>
+<td>呼叫排空方案、入口路由、事件和话单收敛、回滚；活动状态迁移另验</td>
+</tr>
+</tbody></table></div>
+<p>当前代码事实见项目 <a href="../../README.html">README</a>、<a href="../../native/include/rustswitch_codec.h">codec ABI</a> 与 <a href="../../native/include/rustswitch_protocol.h">protocol ABI</a>。</p>
+<h2 id="42-sofia-profilegateway-与终端配置的契约">4.2 Sofia profile、gateway 与终端配置的契约</h2>
+<p>配置兼容必须保留对象名、配置入口、继承关系、变量展开时机、默认值以及修改后的生效边界。把旧 XML 转换为内部结构是实现选择；要求客户重写 gateway、终端密码、拨号字符串或管理脚本，不能获得“原配置直接替换”的认证。官方将 profile 与 gateway 作为明确的配置与运行对象，gateway 的拨号入口包括 <code>sofia/gateway/&lt;name&gt;/&lt;number&gt;</code>。<a href="https://developer.signalwire.com/freeswitch/users-and-endpoints/sip-profiles/" target="_blank" rel="noopener noreferrer">Sofia profiles</a>、<a href="https://developer.signalwire.com/freeswitch/users-and-endpoints/gateways/" target="_blank" rel="noopener noreferrer">Gateways</a></p>
+<p>下表是本项目制定的最小差分测试集，每行必须按启用的 profile、传输和真实终端扩展。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>需保持的契约</th>
+<th>最少测试输入</th>
+<th>通过条件与证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SIP-C01</td>
+<td>profile 名称、监听地址、域、context、dialplan、alias</td>
+<td>多 profile、同名冲突、IPv4/IPv6、端口被占用、禁用 profile</td>
+<td>加载结果、失败范围、监听集合、入口 context 和查询输出与基线一致</td>
+</tr>
+<tr>
+<td>SIP-C02</td>
+<td>gateway 名称与所有参数的作用域、优先级、缺省值</td>
+<td>注册/不注册中继；proxy、register-proxy、outbound-proxy 分离；入/出方向变量</td>
+<td>实际请求目的地、From/Contact、认证身份、路由变量与基线一致；不能忽略未知配置却报告完整成功</td>
+</tr>
+<tr>
+<td>SIP-C03</td>
+<td>profile/gateway 生命周期</td>
+<td><code>start/stop/restart/rescan/killgw</code> 等基线可用命令；<code>reloadxml</code> 后新旧呼叫并存</td>
+<td>接受的命令语法、返回值、影响的呼叫范围及生效时机与基线一致；完整命令清单来自基线能力目录</td>
+</tr>
+<tr>
+<td>SIP-C04</td>
+<td>REGISTER 用户目录与 Digest</td>
+<td>正确/错误口令；realm、nonce 过期、stale、qop、重放；现网使用的算法</td>
+<td>挑战头、校验、重试、注册状态和事件一致；不得以不校验认证实现表面接通</td>
+</tr>
+<tr>
+<td>SIP-C05</td>
+<td>注册绑定与刷新</td>
+<td>多 Contact、重复 REGISTER、过期边界、注销单个/全部绑定、多设备同账号</td>
+<td>绑定数量、寻址结果、到期行为、通知和持久化作用域一致</td>
+</tr>
+<tr>
+<td>SIP-C06</td>
+<td>注册传输与连接寿命</td>
+<td>UDP/TCP/TLS/WS/WSS；连接复用、空闲、重连、断线后注册刷新</td>
+<td>原终端不更改配置可注册与回呼；记录旧绑定可达性和恢复时限</td>
+</tr>
+<tr>
+<td>SIP-C07</td>
+<td>注册中继恢复与 OPTIONS 探活</td>
+<td>401/407、拒绝、丢响应、DNS 故障、连续成功/失败、超时重试</td>
+<td>状态转换、下一次重试时间窗口、路由可用性及 <code>sofia::gateway_state</code> 类事件与基线匹配</td>
+</tr>
+<tr>
+<td>SIP-C08</td>
+<td>身份与透传头</td>
+<td>From、PAI、RPID、Privacy、Diversion、History-Info、自定义 <code>sip_h_*</code> 等现网变量</td>
+<td>A/B 腿头域、主被叫显示、隐私行为及变量可见性符合基线；不盲目跨信任域复制所有头</td>
+</tr>
+<tr>
+<td>SIP-C09</td>
+<td>ACL 与域隔离</td>
+<td>同账号跨域、目录不存在、ACL 命中/未命中、网关入口与用户入口交叉</td>
+<td>访问控制、认证触发和失败事件一致；合法用户未被新的默认策略阻断</td>
+</tr>
+<tr>
+<td>SIP-C10</td>
+<td>地址、端口和 DNS</td>
+<td><code>sip-ip/rtp-ip/ext-sip-ip/ext-rtp-ip</code>；A/AAAA/SRV/NAPTR 的基线启用组合与故障</td>
+<td>对外公布地址、实际发送地址、重试路由和生存时间行为与基线一致</td>
+</tr>
+<tr>
+<td>SIP-C11</td>
+<td>证书与 TLS 策略</td>
+<td>现有证书路径、链、私钥口令、有效期、对端验证策略、协议/套件限制</td>
+<td>无需重新签发证书或改客户端信任配置；成功和拒绝边界一致；不自动降级加密</td>
+</tr>
+<tr>
+<td>SIP-C12</td>
+<td>存量注册与监控可见性</td>
+<td>查询注册、联系人查找、profile/gateway 状态、刷新配置</td>
+<td>业务和运维脚本的原命令、字段及状态语义保持；注册在线迁移需另过 MIG-03</td>
+</tr>
+</tbody></table></div>
+<p>**实现约束：**Sofia-SIP 可优先作为协议库候选，但 <code>mod_sofia</code> 还连接 FreeSWITCH 的目录、变量、事件、数据库与媒体状态。换用 PJSIP 或直接调用 Sofia-SIP 都必须过同一套行为测试，不能以“使用相同协议库”替代验收。</p>
+<h2 id="43-sip-事务对话与-sdp-行为矩阵">4.3 SIP 事务、对话与 SDP 行为矩阵</h2>
+<p>协议测试同时采用标准检查与 FreeSWITCH 差分。SIP 基本事务/对话、可靠临时响应、会话定时器及 WebSocket 传输分别以 <a href="https://www.rfc-editor.org/rfc/rfc3261.html" target="_blank" rel="noopener noreferrer">RFC 3261</a>、<a href="https://www.rfc-editor.org/rfc/rfc3262.html" target="_blank" rel="noopener noreferrer">RFC 3262</a>、<a href="https://www.rfc-editor.org/rfc/rfc4028.html" target="_blank" rel="noopener noreferrer">RFC 4028</a>、<a href="https://www.rfc-editor.org/rfc/rfc7118.html" target="_blank" rel="noopener noreferrer">RFC 7118</a> 为协议依据。历史特殊行为若与标准或现代安全要求冲突，应记录为明确的基线差异，并经部署方决定是否启用兼容配置；不能默默改变现网行为后仍宣称完全一致。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>场景</th>
+<th>必须观察的行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SIP-D01</td>
+<td>UDP 基本呼入/呼出；同终端双向并发</td>
+<td>请求/响应、独立呼叫腿、ACK、媒体建立、BYE、事件和话单完整闭环</td>
+</tr>
+<tr>
+<td>SIP-D02</td>
+<td>TCP/TLS 分片、粘包、多消息、连接中断</td>
+<td>Content-Length、消息边界、连接复用、失败传播；不得把一次读取视为完整 SIP 消息</td>
+</tr>
+<tr>
+<td>SIP-D03</td>
+<td>WS/WSS 升级、子协议、分帧、控制帧、连接关闭</td>
+<td>握手与 SIP 消息边界兼容；浏览器原客户端无需改库；WSS、DTLS 证书分别核验</td>
+</tr>
+<tr>
+<td>SIP-D04</td>
+<td>初始 INVITE 带 SDP / 无 SDP</td>
+<td>offer/answer 所在消息、ACK 中 SDP、早协商/晚协商时机与基线一致</td>
+</tr>
+<tr>
+<td>SIP-D05</td>
+<td>100/180/183 的不同组合；早期媒体变更</td>
+<td>振铃、回铃音、计费前媒体、<code>ignore_early_media</code> 等基线配置及进展事件一致</td>
+</tr>
+<tr>
+<td>SIP-D06</td>
+<td>100rel、PRACK，RSeq/RAck 错误/重复/超时</td>
+<td>双腿可靠临时响应分别维护；不重复回答、重复启动媒体或跨腿混用序号</td>
+</tr>
+<tr>
+<td>SIP-D07</td>
+<td>丢失 INVITE/1xx/200/ACK/BYE/最终失败响应</td>
+<td>基线的重传与清理时间窗口、重复报文幂等性；一个业务呼叫不因重传生成额外话单</td>
+</tr>
+<tr>
+<td>SIP-D08</td>
+<td>CANCEL 早于/晚于 200；CANCEL 与 B 腿接通竞争</td>
+<td>CANCEL 事务结果、INVITE 最终结果、必要 ACK/BYE、所有胜出/失败分支资源释放；不以已发 CANCEL 忽略迟到 200</td>
+</tr>
+<tr>
+<td>SIP-D09</td>
+<td>上游/下游并发 BYE；未知对话；错误 CSeq/tag</td>
+<td>响应、关闭原因、事件次序和计费结束点；无串话或双重业务结算</td>
+</tr>
+<tr>
+<td>SIP-D10</td>
+<td>Route/Record-Route、loose/strict route、Contact 更新</td>
+<td>对话内请求沿正确路由集发送；代理存在时双腿独立；不能只按最近包源地址返回</td>
+</tr>
+<tr>
+<td>SIP-D11</td>
+<td>3xx 重定向、多 Contact、目标环路</td>
+<td>跟随与透传策略、重试上限、认证和自定义头传播、最终失败原因与基线一致</td>
+</tr>
+<tr>
+<td>SIP-D12</td>
+<td>并行/顺序 fork；多个 18x、多分支 200、全分支失败</td>
+<td>胜出分支、早期媒体选择、取消未胜出分支、失败原因合并和事件关联一致</td>
+</tr>
+<tr>
+<td>SIP-D13</td>
+<td>re-INVITE/UPDATE 保持恢复；<code>sendrecv/sendonly/recvonly/inactive</code>、零地址保持</td>
+<td>单向/双向媒体、保持音乐、CHANNEL_HOLD/UNHOLD、SDP 版本变化与基线一致</td>
+</tr>
+<tr>
+<td>SIP-D14</td>
+<td>同时 re-INVITE 的 glare、拒绝重协商、ACK 缺失</td>
+<td>旧协商状态回退、重试、失败处理一致；拒绝新 offer 后仍能维持原通话</td>
+</tr>
+<tr>
+<td>SIP-D15</td>
+<td>通话中改 codec/ptime/媒体 IP/端口；增加/关闭媒体 m-line</td>
+<td>双腿协商原子性、PT 映射、资源切换和旧包处理；无已确认 SDP 与实际媒体路径不一致</td>
+</tr>
+<tr>
+<td>SIP-D16</td>
+<td>Session-Expires、Min-SE、refresher、422、刷新丢失</td>
+<td>主动/被动刷新角色、方法、重试和释放时机与配置基线一致；长通话持续覆盖多次刷新</td>
+</tr>
+<tr>
+<td>SIP-D17</td>
+<td>REFER 盲转、带 Replaces 的咨询转接、失败转接恢复</td>
+<td>REFER/NOTIFY 订阅结果、桥接关系、UUID 关联、旧腿关闭时机及话单结果一致</td>
+</tr>
+<tr>
+<td>SIP-D18</td>
+<td>INFO DTMF、MESSAGE、SUBSCRIBE/NOTIFY、MWI/BLF/Presence</td>
+<td>按现网启用模块逐项测试内容类型、事件包、订阅刷新、通知版本、权限和拒绝结果；不能统一返回 200</td>
+</tr>
+<tr>
+<td>SIP-D19</td>
+<td>畸形/过长消息、重复头、未知 Require、未知方法、multipart SDP</td>
+<td>与基线的接受/拒绝边界、错误码和连接处置对齐；不会损坏其他会话</td>
+</tr>
+<tr>
+<td>SIP-D20</td>
+<td>本地 drain、CPS/会话/媒体资源耗尽、下游拥塞</td>
+<td>对外错误码、Retry-After 是否存在、相关变量和事件一致；已接通呼叫服务质量单独计量</td>
+</tr>
+<tr>
+<td>SIP-D21</td>
+<td>非 SIP 终端模块被使用</td>
+<td><code>mod_verto</code>、其他 endpoint 的协议与命令另列模块测试；通过 SIP over WSS 不能替代 Verto JSON-RPC 兼容</td>
+</tr>
+</tbody></table></div>
+<p>为避免状态分裂，每条 SIP 事务只能由一个协议提供器拥有重传、连接和事务定时器；Go 控制面拥有跨腿业务决策。协议提供器必须把临时对话、最终对话、路由集、协商提交/回滚、transport 关闭及原因码上报到统一契约。当前 <code>rs_protocol_v1</code> 仅定义传递字节的函数指针，还没有这些完整事件 schema 和幂等规则。</p>
+<h2 id="44-媒体dtmf编解码录音会议与传真">4.4 媒体、DTMF、编解码、录音、会议与传真</h2>
+<p>FreeSWITCH 的 normal、proxy、bypass 是不同媒体行为：normal 可处理媒体；proxy 保留服务端转发路径；bypass 让端点直接交换媒体。选用 bypass 后取得的并发数不能称为服务器转发容量。相关控制项应与 <a href="https://developer.signalwire.com/freeswitch/media-and-codecs/handling/" target="_blank" rel="noopener noreferrer">官方媒体说明</a> 对齐。编解码优先级、早晚协商和参数交集必须分别验证，依据 <a href="https://developer.signalwire.com/freeswitch/media-and-codecs/codecs/" target="_blank" rel="noopener noreferrer">官方 codec 协商说明</a> 定位固定版本实现。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>兼容面</th>
+<th>必须覆盖的输入与结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MED-01</td>
+<td>normal / proxy / bypass / bridge 后 bypass</td>
+<td>每模式抓取两腿 SDP 与媒体路径；切换保持、转接和录音时按基线恢复媒体；模式未支持不可自动改为另一模式</td>
+</tr>
+<tr>
+<td>MED-02</td>
+<td>RTP 包与时间轴</td>
+<td>SSRC、sequence 回绕、timestamp 回绕、marker、CSRC、header extension、padding、重复/乱序；验证透明转发或终结重建是否符合所选模式</td>
+</tr>
+<tr>
+<td>MED-03</td>
+<td>动态 PT 与多速率 codec</td>
+<td>同 codec 不同 PT、两腿 PT 不同、fmtp/ptime/maxptime、音频采样率与 RTP clock 区别、CN/DTX；协商成功必须能实际双向播放</td>
+</tr>
+<tr>
+<td>MED-04</td>
+<td>codec 集合与优先级</td>
+<td>按基线实际加载清单逐个及成对验收 PCMU/PCMA、G722、Opus、其他语音/视频 codec；验证 absolute/inherit codec 类变量、禁用转码和协商失败</td>
+</tr>
+<tr>
+<td>MED-05</td>
+<td>转码与重采样</td>
+<td>每个已声明支持的有向 codec 对、声道数/采样率/帧长组合；音质、音量、延迟、CPU、解码错误处理和两腿 RTP 节奏均达预先冻结门槛</td>
+</tr>
+<tr>
+<td>MED-06</td>
+<td>抖动缓冲、PLC、FEC、VAD</td>
+<td>确定性注入延迟/乱序/丢失/重复；输出音频和计数与基线功能设置一致；网络真实丢包与补偿输出分别统计</td>
+</tr>
+<tr>
+<td>MED-07</td>
+<td>RFC 2833/4733 telephone-event</td>
+<td>动态 PT、不同 clock、0–9/*/#/A–D、长按、结束包重传、跨包间隔、双腿重复；一次按键产生的事件数量、持续时间单位和顺序与基线相同</td>
+</tr>
+<tr>
+<td>MED-08</td>
+<td>SIP INFO 与带内 DTMF</td>
+<td>INFO 内容类型、duration、无效数字；语音与双音混合；检测、生成、透传和模式转换分别验证；重复来源不导致重复业务输入</td>
+</tr>
+<tr>
+<td>MED-09</td>
+<td>DTMF 与应用交互</td>
+<td>IVR、收号、play-and-get-digits、放音打断、DTMF 绑定与注入；相同输入得到相同业务分支和相关变量</td>
+</tr>
+<tr>
+<td>MED-10</td>
+<td>NAT 与源地址学习</td>
+<td>对称 RTP、SDP 私网地址、rport/received、NAT 映射变化、合法媒体换源、禁止 auto-adjust 的配置、陌生源注入；学习窗口及安全边界与基线对齐</td>
+</tr>
+<tr>
+<td>MED-11</td>
+<td>RTCP</td>
+<td>独立端口/rtcp-mux、SR/RR/SDES/BYE、扩展反馈、报告间隔、丢包/jitter 统计、终结与透明转发分别测；不能用转发 RTCP 证明生成报告兼容</td>
+</tr>
+<tr>
+<td>MED-12</td>
+<td>SRTP/SDES</td>
+<td>现网加密套件、mandatory/optional/forbidden、方向覆盖、重协商/换密钥、重放、认证失败；不能回落明文而报告加密成功</td>
+</tr>
+<tr>
+<td>MED-13</td>
+<td>DTLS-SRTP、ICE 与 WebRTC</td>
+<td>fingerprint/角色、握手重传、候选选择、ICE restart、网络切换、rtcp-mux、多媒体协商；按基线支持的组合测真实浏览器；记录失败事件与恢复窗口</td>
+</tr>
+<tr>
+<td>MED-14</td>
+<td>放音、提示音、TTS/ASR/流式源</td>
+<td>文件 URI、相对路径、语言/声音资产、媒体格式、seek/stop、播放完成/打断、外部服务超时；音频产物与应用事件同时验证</td>
+</tr>
+<tr>
+<td>MED-15</td>
+<td>双腿录音与媒体 bug</td>
+<td>record_session、uuid_record 及所用 API；单声道/立体声/方向、开始停止暂停恢复、追加、通话转接、录音跟随；文件可打开、声道归属、时长、路径及事件正确</td>
+</tr>
+<tr>
+<td>MED-16</td>
+<td>录音故障</td>
+<td>目录不存在、无写权限、磁盘满、编码失败、进程故障；API/事件错误与通话是否继续的行为对齐；不得发成功事件但缺文件</td>
+</tr>
+<tr>
+<td>MED-17</td>
+<td>音频会议</td>
+<td>按房间和成员数拓扑验收入会/离会、静音、主持人、PIN、锁定、DTMF 菜单、音量、旁听、成员控制、录音；输出音频、成员查询与 CUSTOM 事件一致</td>
+</tr>
+<tr>
+<td>MED-18</td>
+<td>视频与会议</td>
+<td>codec/PT/fmtp、分辨率、帧率、关键帧请求、PLI/FIR/NACK、音画同步；passthrough、转码、混屏分别验收，房间布局/屏幕共享按启用基线覆盖</td>
+</tr>
+<tr>
+<td>MED-19</td>
+<td>G.711 传真、T.38、网关转换</td>
+<td>txfax/rxfax、T.38 re-INVITE 接受/拒绝/回退、UDPTL 冗余、页数、ECM、超时、音频↔T.38；收发文件、页内容、结果变量和完成钩子一致</td>
+</tr>
+<tr>
+<td>MED-20</td>
+<td>超时、静音、保持期间超时</td>
+<td>RTP inactivity、hold timeout、早期媒体超时、合法 DTX 和单向媒体；不因丢一包或合法无声误杀通话；终止时间、原因和事件与基线相同</td>
+</tr>
+<tr>
+<td>MED-21</td>
+<td>通话媒体资源释放</td>
+<td>正常挂断、失败、fork、CANCEL race、re-INVITE 回滚、worker 故障后，端口、文件、codec context、定时器和共享缓冲最终回收；旧会话包不能进入复用后的新会话</td>
+</tr>
+</tbody></table></div>
+<p>**当前特别缺口：**Rust 可选 connected UDP 将 peer 固定到协商地址；这不是 FreeSWITCH RTP auto-adjust/NAT 学习语义。优化不能阻止合法终端换源，也不能为追求兼容而放开无条件换源。实现时应在 MED-10 明确定义学习状态和可认证变更，然后在新 peer 生效时原子更新目的地并清理旧队列。</p>
+<p>WebRTC 的 SIP over WS/WSS 与 Verto 是两种信令入口；加密传输与媒体安全也有独立的证书与状态。支持其中一个入口不能推出另一个入口可用。<a href="https://developer.signalwire.com/freeswitch/users-and-endpoints/webrtc-sip/" target="_blank" rel="noopener noreferrer">官方 WebRTC over SIP 文档</a></p>
+<p>媒体功能的结果不只是一条 <code>+OK</code>。录音/放音必须核对相应开始和停止事件、路径和完成状态；会议应核对房间/成员事件及控制结果；传真应核对实际页内容与结果变量。事件名与字段以固定版本采集为准，不为方便实现而创造“等价但改名”的事件。<a href="https://developer.signalwire.com/freeswitch/programming/events-catalog/" target="_blank" rel="noopener noreferrer">官方事件目录</a>、<a href="https://developer.signalwire.com/freeswitch/applications/conferencing/" target="_blank" rel="noopener noreferrer">会议</a>、<a href="https://developer.signalwire.com/freeswitch/applications/fax/" target="_blank" rel="noopener noreferrer">传真</a></p>
+<h2 id="45-sip-q850-freeswitch-原因码的映射">4.5 SIP / Q.850 / FreeSWITCH 原因码的映射</h2>
+<p>原因码是业务接口：呼叫中心重拨、计费、告警及运营商重试会读取它。必须同时保存原始协议结果与 FreeSWITCH 语义，不得仅将所有非 2xx 合并为“呼叫失败”。应逐腿验证 <code>hangup_cause</code>、<code>Hangup-Cause</code>、<code>sip_term_status</code>、<code>proto_specific_hangup_cause</code>、<code>last_bridge_hangup_cause</code>、<code>originate_disposition</code> 与话单中的对应值。<a href="https://developer.signalwire.com/freeswitch/troubleshooting/call-setup/" target="_blank" rel="noopener noreferrer">官方呼叫失败说明</a></p>
+<p>以下覆盖已核对的 <code>v1.11.3</code> 函数 <code>sofia_glue_sip_cause_to_freeswitch()</code> 全部显式分支和默认分支。它是该函数的映射表；更高层的 Reason 覆盖、配置与实际调用时机仍须运行测试，也不能通过反向查表生成所有出站响应。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/endpoints/mod_sofia/sofia_glue.c#L1814" target="_blank" rel="noopener noreferrer">固定源码：sofia_glue.c</a></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>输入的最终 SIP 响应</th>
+<th>应核对的 FreeSWITCH 原因名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td><code>NORMAL_CLEARING</code></td>
+</tr>
+<tr>
+<td>401 / 402 / 403 / 407 / 603 / 608</td>
+<td><code>CALL_REJECTED</code></td>
+</tr>
+<tr>
+<td>607</td>
+<td><code>UNWANTED</code></td>
+</tr>
+<tr>
+<td>404</td>
+<td><code>UNALLOCATED_NUMBER</code></td>
+</tr>
+<tr>
+<td>408 / 504</td>
+<td><code>RECOVERY_ON_TIMER_EXPIRE</code></td>
+</tr>
+<tr>
+<td>410</td>
+<td><code>NUMBER_CHANGED</code></td>
+</tr>
+<tr>
+<td>413 / 414 / 416 / 420 / 421 / 423 / 505 / 513</td>
+<td><code>INTERWORKING</code></td>
+</tr>
+<tr>
+<td>480</td>
+<td><code>NO_USER_RESPONSE</code></td>
+</tr>
+<tr>
+<td>484</td>
+<td><code>INVALID_NUMBER_FORMAT</code></td>
+</tr>
+<tr>
+<td>485 / 604</td>
+<td><code>NO_ROUTE_DESTINATION</code></td>
+</tr>
+<tr>
+<td>486 / 600</td>
+<td><code>USER_BUSY</code></td>
+</tr>
+<tr>
+<td>487</td>
+<td><code>ORIGINATOR_CANCEL</code></td>
+</tr>
+<tr>
+<td>488 / 606</td>
+<td><code>INCOMPATIBLE_DESTINATION</code></td>
+</tr>
+<tr>
+<td>502</td>
+<td><code>NETWORK_OUT_OF_ORDER</code></td>
+</tr>
+<tr>
+<td>405</td>
+<td><code>SERVICE_UNAVAILABLE</code></td>
+</tr>
+<tr>
+<td>406 / 415 / 501</td>
+<td><code>SERVICE_NOT_IMPLEMENTED</code></td>
+</tr>
+<tr>
+<td>482 / 483</td>
+<td><code>EXCHANGE_ROUTING_ERROR</code></td>
+</tr>
+<tr>
+<td>400 / 481 / 500 / 503</td>
+<td><code>NORMAL_TEMPORARY_FAILURE</code></td>
+</tr>
+<tr>
+<td>428</td>
+<td><code>NO_IDENTITY</code></td>
+</tr>
+<tr>
+<td>429</td>
+<td><code>BAD_IDENTITY_INFO</code></td>
+</tr>
+<tr>
+<td>437</td>
+<td><code>UNSUPPORTED_CERTIFICATE</code></td>
+</tr>
+<tr>
+<td>438</td>
+<td><code>INVALID_IDENTITY</code></td>
+</tr>
+<tr>
+<td>没有显式映射的其他值</td>
+<td><code>NORMAL_UNSPECIFIED</code></td>
+</tr>
+</tbody></table></div>
+<p>必须补全三类独立测试：</p>
+<ol>
+<li>**协议→内部：**遍历源码中的全部显式分支及未知状态码；比较带/不带 Reason/Q.850 的响应、BYE，验证配置是否允许 Reason 覆盖 SIP 映射。</li>
+<li>**内部→协议：**遍历基线原因枚举与 <code>respond</code>、<code>hangup</code>、<code>uuid_kill</code>、路由失败、资源不足、超时等入口；核对 wire status、reason phrase、Reason 头和变量。多个 SIP 状态可能归并为同一原因，反向映射不保证可逆。</li>
+<li>**多腿聚合：**同时忙线/无应答/拒绝、fork 全失败、先失败后重试成功、取消与接通竞争；比较最终 A 腿、各 B 腿以及业务返回结果。不能只检查最后到达的 B 腿原因。</li>
+</ol>
+<p>可记录的测试证据必须包含触发入口、两腿报文、事件、最终话单与源码分支；只核对一个 HTTP 状态码不满足要求。</p>
+<h2 id="46-cc-生态兼容与-freeswitch-模块-abi">4.6 C/C++ 生态兼容与 FreeSWITCH 模块 ABI</h2>
+<p>FreeSWITCH 模块通过宿主提供的接口注册端点、应用、API、codec 等，并参与加载、运行与卸载生命周期；模块开发使用其开发头文件和相关核心服务。<a href="https://developer.signalwire.com/freeswitch/FreeSWITCH-Explained/Community/Contributing-Code/Creating-New-Modules/" target="_blank" rel="noopener noreferrer">官方模块开发</a>、<a href="https://developer.signalwire.com/freeswitch/configuration/module-loading/" target="_blank" rel="noopener noreferrer">模块加载</a></p>
+<p>固定版源码中 <code>SWITCH_API_VERSION</code> 为 <code>5</code>，模块定义暴露函数表，装载器检查该版本，模块接口同时持有多类接口指针、锁、引用计数和内存池。版本号相同只是一个检查条件，不是所有结构与运行行为兼容的充分条件。<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/include/switch_types.h#L2604" target="_blank" rel="noopener noreferrer">模块定义</a>、<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/include/switch_loadable_module.h#L64" target="_blank" rel="noopener noreferrer">模块接口结构</a>、<a href="https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/switch_loadable_module.c#L1757" target="_blank" rel="noopener noreferrer">装载器检查</a></p>
+<p>必须把下列四种兼容声明分开，且给每个原生组件标记一种：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>等级</th>
+<th>客户可继续使用的东西</th>
+<th>实现与验收要求</th>
+<th>不能推出的结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>N-LIB 库复用</td>
+<td>libopus、libsrtp、SpanDSP、Sofia-SIP 等选定库</td>
+<td>为确定版本库编写适配器；验证参数、线程、内存、错误和媒体/协议结果</td>
+<td>不能直接加载原 <code>mod_opus.so</code>、<code>mod_sofia.so</code> 或客户模块</td>
+</tr>
+<tr>
+<td>N-SRC 源码移植</td>
+<td>有源码的客户/社区模块</td>
+<td>逐模块调整或提供源码 API 兼容层后重新编译，实际执行功能用例</td>
+<td>不是原 <code>.so</code> 文件原样可用，也不是所有模块都能重编译</td>
+</tr>
+<tr>
+<td>N-BIN 二进制兼容</td>
+<td>客户现有且哈希不变的 <code>.so</code></td>
+<td>在同 CPU/OS/动态库环境下，完整满足所需符号、结构布局、调用约定、生命周期与语义；原文件通过全部业务测试</td>
+<td>仅 <code>dlopen</code> 成功或提供同名函数不代表 ABI/行为兼容</td>
+</tr>
+<tr>
+<td>N-HOST 原版兼容宿主</td>
+<td>经认证的原模块与其对应 FreeSWITCH 运行环境</td>
+<td>保留匹配版本的 FreeSWITCH 宿主和依赖，原模块在宿主中运行；内部连接 Rust/Go 新能力</td>
+<td>这是一套含原版核心的兼容发行方案，不能宣称已完整移除 FreeSWITCH C 核心</td>
+</tr>
+</tbody></table></div>
+<p>现有 RustSwitch 的 <code>rs_codec_get_v1</code>、<code>rs_codec_v1</code>、<code>rs_protocol_v1</code> 是新项目自己的 ABI。它们不含 FreeSWITCH channel/session、内存池、事件总线、codec/frame、media bug、数据库、XML 查询、状态处理器等宿主服务，所以不能把“保留 C/C++ 生态”写成“所有 FreeSWITCH 二进制模块均兼容”。Go 对象也不能直接作为原模块期待的 FreeSWITCH 结构体指针传递。</p>
+<p>**建议实施路线：**先建立外部兼容面，由 Go 承担兼容控制逻辑、Rust 提供经过验证的媒体能力；必须保留的原模块先在 N-HOST 环境内运行，再逐模块移到 N-LIB/N-SRC 或完成 N-BIN 服务。进程隔离的协议/codec 服务本身并不能接纳任意依赖 channel/media-bug 的模块；这些模块需要完整宿主。对宿主到 Rust 的媒体分流，必须实现明确的接入模块与媒体边界，并重新测试录音、转码、会议、事件及变量。当前代码尚没有这个兼容宿主或分流模块。</p>
+<p>若交付物要求完全 Rust/Go 替换原核心，则 N-HOST 只能是过渡阶段，完整验收最终仍需消除外部对原核心的依赖，并通过本部署全部模块与业务用例。若客户要求现有任意闭源模块原样加载，必须先取得模块清单与运行样本才能定义有限、可测的 N-BIN 范围；不能承诺未知模块的无限兼容性。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>原生验收场景</th>
+<th>通过标准</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NAT-01</td>
+<td>模块清单与装载</td>
+<td>文件哈希、版本、CPU/OS、依赖、load/unload/reload 与失败返回均已记录；未满足依赖不会误报加载成功</td>
+</tr>
+<tr>
+<td>NAT-02</td>
+<td>原有注册接口</td>
+<td>模块注册的 applications、APIs、events、codecs、file formats 与实际能力目录一致</td>
+</tr>
+<tr>
+<td>NAT-03</td>
+<td>内存和对象寿命</td>
+<td>session/channel/frame/内存池指针在其规定寿命内有效；错误退出、取消及卸载无越界、悬空引用或泄漏</td>
+</tr>
+<tr>
+<td>NAT-04</td>
+<td>线程、回调与重入</td>
+<td>媒体线程与控制线程语义、阻塞规则、回调次序、锁与重入行为满足被移植模块实际要求</td>
+</tr>
+<tr>
+<td>NAT-05</td>
+<td>codec 生命周期</td>
+<td>初始化、fmtp、编码、解码、PLC/FEC、reset/destroy、非法长度及并发；不能跨 Rust/Go/C 边界传播异常或 unwinding</td>
+</tr>
+<tr>
+<td>NAT-06</td>
+<td>运行中卸载/故障</td>
+<td>活跃调用对模块的引用、拒绝/等待卸载、孤立模块进程退出、重启后的资源回收与基线声明一致</td>
+</tr>
+<tr>
+<td>NAT-07</td>
+<td>非 codec 原生模块</td>
+<td>media bug、ASR/TTS、MRCP、存储、CDR、文件格式、定时器及自定义模块分别用真实工作流验证</td>
+</tr>
+<tr>
+<td>NAT-08</td>
+<td>ABI 认证复现</td>
+<td>客户原二进制未经修改在认证环境执行；结果必须包含功能测试而非只列动态符号检查</td>
+</tr>
+</tbody></table></div>
+<h2 id="47-无感替换与活动状态在线迁移分别验收">4.7 “无感替换”与“活动状态在线迁移”分别验收</h2>
+<p><strong>原客户端无需改造</strong>和<strong>切换时连接不断</strong>是不同目标。前者解决接口兼容，后者还需要复制或保持正在运行的协议、传输、媒体、应用与持久化状态。DNS/VIP 改向只能改变后续流量的到达位置；不能自然生成目标节点不存在的 SIP 对话、TLS/ESL 连接、SRTP 密钥、RTP 时间轴和文件句柄。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>切换目标</th>
+<th>必须设计的机制</th>
+<th>通过条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MIG-01</td>
+<td>原配置与原客户端替换后可用</td>
+<td>安装路径、配置、证书、入口地址、账号、模块和管理命令兼容</td>
+<td>基线业务全回归；客户业务代码、终端设置和运营商配置不变，允许预先约定的运维部署步骤</td>
+</tr>
+<tr>
+<td>MIG-02</td>
+<td>存量呼叫排空后切换</td>
+<td>旧节点保留已有对话/媒体；新呼叫通过已存在或新增并经认证的入口策略去新节点；等待旧呼叫自然结束后停机</td>
+<td>排空期间已有通话不中断，旧新节点事件/话单归属正确；记录最长等待时间及新呼叫可用性，超时不能自动强拆还称无损</td>
+</tr>
+<tr>
+<td>MIG-03</td>
+<td>存量注册/订阅平滑接续</td>
+<td>注册绑定、过期时间、凭据校验策略、NAT/transport 可达性、订阅版本及网关刷新所有权</td>
+<td>已注册终端继续可被叫；重注册风暴可控；数据库复制不被误认为 TCP/TLS/WS 连接也已迁移</td>
+</tr>
+<tr>
+<td>MIG-04</td>
+<td>活动通话在线迁移</td>
+<td>两腿事务/对话、路由、应用执行点、定时器、媒体 SSRC/序列、抖动缓冲、SRTP/DTLS/ICE、codec 状态、录音等完整方案</td>
+<td>无需等通话结束；故障注入后媒体缺口、信令成功率、重复执行、录音/话单连续性均达冻结指标；若只能恢复部分功能必须明确范围</td>
+</tr>
+<tr>
+<td>MIG-05</td>
+<td>活动 ESL/脚本连接在线迁移</td>
+<td>TCP/TLS 连接保持层或明确重连方案；订阅过滤器、linger、job/execute 关联、未完成命令、事件游标与客户端解析状态</td>
+<td>原客户端无需重连才可称连接不断；若要重连则按重连兼容验收，不能将重放伪装成原版具备的可靠续传</td>
+</tr>
+<tr>
+<td>MIG-06</td>
+<td>故障回滚</td>
+<td>防止同一呼叫双主、地址归属、命令幂等、计费去重、注册归属与残留状态清理</td>
+<td>失败切换能在冻结窗口内恢复；不产生重复扣费、重复外呼或两端同时接管</td>
+</tr>
+</tbody></table></div>
+<p>本阶段应优先形成可验证的 MIG-01/MIG-02 方案。MIG-02 在有合适入口路由时能让新旧版本并存、等待旧通话结束；若现场只有单个地址且没有对话路由/保留旧流量的机制，则不能默认推导出新呼叫零停机。MIG-04/MIG-05 属于独立工程与独立认证，当前原型并未实现，单机故障也不能通过接口文档获得零中断保证。</p>
+<h2 id="48-万路容量必须按功能组合认证">4.8 万路容量必须按功能组合认证</h2>
+<p>容量单位先冻结：本项目目标中的一“路”默认是<strong>一通同时成立的双向桥接呼叫</strong>，通常涉及两个 channel；FreeSWITCH 的 session/channel 指标必须明确换算，不能把 10,000 个 channel 宣称为 10,000 通双腿呼叫。多方会议以参与者和房间数描述，不能强行沿用双腿呼叫数字。</p>
+<p>以 G.711、20 ms、160 字节音频负载、IPv4 且无加密/扩展为算例：10,000 通双向呼叫对媒体服务器贡献约 1,000,000 RTP 收包/秒及 1,000,000 发包/秒；按 RTP/UDP/IPv4 共 40 字节头计算，约 1.6 Gbit/s 入站和 1.6 Gbit/s 出站。该估算尚未包含以太网开销、RTCP、DTMF、重传/冗余或隧道；它是测试规划算例，不是硬件性能结论。</p>
+<p>以下每一组合都必须独立报告达标容量。不能用 PCMU proxy 的成绩覆盖 Opus 转码、SRTP、录音或会议。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>容量档案</th>
+<th>冻结的功能组合</th>
+<th>除通话数外的关键负载</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CAP-01</td>
+<td>G.711 双向媒体转发，20 ms，SIP/UDP</td>
+<td>双向真实满额包率；注册/事件/CDR 工作量；独立发生器和接收端</td>
+</tr>
+<tr>
+<td>CAP-02</td>
+<td>normal 媒体，同 codec，含 DTMF/RTCP</td>
+<td>媒体处理开销、定时器、播放/收号真实比例；不是 proxy 的更名</td>
+</tr>
+<tr>
+<td>CAP-03</td>
+<td>codec A→B 与 B→A 转码</td>
+<td>每种 codec、帧长、声道、复杂度、采样率及质量门槛</td>
+</tr>
+<tr>
+<td>CAP-04</td>
+<td>SIP/TLS 或 WSS + DTLS/SRTP/ICE</td>
+<td>活动连接数、TLS 握手/秒、注册刷新、ICE restart 比例、加密包率</td>
+</tr>
+<tr>
+<td>CAP-05</td>
+<td>录音</td>
+<td>同时录音通话比例、单/双声道、文件格式、实际磁盘带宽/延迟、文件关闭与持久化时间</td>
+</tr>
+<tr>
+<td>CAP-06</td>
+<td>音频会议</td>
+<td>例如 1,000 房×10 人与 10 房×1,000 人分别测试；发言比例、采样率、混音与录音配置</td>
+</tr>
+<tr>
+<td>CAP-07</td>
+<td>视频或传真</td>
+<td>每路码率/分辨率/帧率、透传/转码/混屏；传真页数、图像复杂度、并发和成功率</td>
+</tr>
+<tr>
+<td>CAP-08</td>
+<td>现网混合业务</td>
+<td>根据真实使用比例组合以上能力，持续有建呼/拆呼、转接、保持、刷新及事件消费</td>
+</tr>
+</tbody></table></div>
+<p>验收报告必须包含：</p>
+<ol>
+<li>**稳定性：**预热后目标并发持续运行，建议容量门槛至少连续 60 分钟，另做不少于 24 小时的目标业务稳定性运行；具体时长与容错阈值在执行前冻结，失败后不能缩短窗口以获得通过。</li>
+<li>**满额供给：**发生器完成目标 CPS、同时在话数和每流实际包率；发送量不足时标记“负载不足”，不能以低丢包率通过。每个方向逐流校验内容、序列、重复、乱序和接收窗口。</li>
+<li>**SLO：**分别规定建呼成功率、p95/p99 建呼时延、DTMF 延迟、媒体时延/缺口、系统新增丢包、意外掉话、事件缺失、录音完整率、话单正确率。若目标是实验条件下系统新增丢包为零，应将阈值写为零，并保留所有失败包及窗口；它不构成对任意公网丢包的承诺。</li>
+<li>**完整证据：**服务与发生器 CPU/内存/文件描述符、网卡/内核/socket 丢包、收发计数、事件队列、磁盘和录音、两腿协议结果，以及时间同步误差。硬件型号、NUMA、网卡队列、内核、构建参数、依赖与配置哈希一并归档。</li>
+<li>**压力边界：**目标负载下做注册风暴、瞬时 CPS、慢 ESL 消费者、XML 后端/磁盘变慢、外部中继拒绝和媒体故障；验证准入拒绝的基线语义以及已有呼叫的质量。稳定目标性能与超载保护效果分别给结论。</li>
+<li>**清理收敛：**停止供给后，呼叫、对话、注册/订阅保留项、定时器、端口、文件和事件队列按各自生命周期收敛；不能将仍有活动通话的压测进程强杀后称“资源释放通过”。</li>
+</ol>
+<p>历史本机千路记录和历史 1.4 Linux 虚拟机两次五千路通过记录保留各自版本边界。本轮 1.5 四次新构建及一次旧版对照，共五轮均未提供足量负载；最新 capacity-04 实际发收各 2,407,092 包，标称提供率 48.14184%，另有发生器发送写错误 8 次，未通过验收。这些记录不能认证 10,000 路、完整 FreeSWITCH 兼容、生产网卡路径或任意上述功能组合；独立 Linux 服务器到位后仍需按冻结档案复验。详见 <a href="../api/release-validation-v1.5.html">1.5 交付验证说明</a>。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

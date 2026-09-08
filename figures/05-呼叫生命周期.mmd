@@ -1,0 +1,10 @@
+flowchart LR
+  Invite["INVITE：来源/事务/SDP"] --> Guard["硬限制/Guard/媒体健康"]
+  Guard --> Allocate["预留四端口块 / session"]
+  Allocate --> Answer["本地或B腿 200 OK"]
+  Answer -->|"正确ACK；200本身不授权媒体"| Active["真实通话 / IVR / PCM / RX"]
+  Active --> Stop["BYE/超时/故障：撤销资格"]
+  Guard -->|"失败/CANCEL/超时"| Cleanup["清理并确认；未知结果保留责任"]
+  Stop --> Cleanup
+  Cleanup --> Quiet["端口隔离期 + 事务缓存"]
+  Quiet --> Zero["通道 / 媒体 / 端口分别归零核验"]

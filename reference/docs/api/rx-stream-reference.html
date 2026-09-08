@@ -1,0 +1,614 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>本地通话上行音频：RXS2 与 Go RX SDK · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 本地通话上行音频：RXS2 与 Go RX SDK</div><article class="content"><div class="page-tools"><a href="rx-stream-reference.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 8 节</summary><a href="#1-支持范围与通道">1. 支持范围与通道</a><a href="#2-json-控制与状态">2. JSON 控制与状态</a><a href="#3-worker-指标与应用侧计数">3. Worker 指标与应用侧计数</a><a href="#4-rxs2-二进制格式">4. RXS2 二进制格式</a><a href="#5-100-ms-固定期限">5. 100 ms 固定期限</a><a href="#6-有界队列失败与回收">6. 有界队列、失败与回收</a><a href="#7-server-sdk-授权与生命周期">7. Server SDK 授权与生命周期</a><a href="#8-本批实际验证与未完成部分">8. 本批实际验证与未完成部分</a></details><h1 id="本地通话上行音频rxs2-与-go-rx-sdk">本地通话上行音频：RXS2 与 Go RX SDK</h1>
+<p>本文属于 1.13 文档包，包含已验证的内部 RX 收音合同。实际安装版本须通过 <code>GET /v1/docs</code> 及部署回执核对，不能从文档包版本推定已安装或改变兼容认证状态。测试来源为冻结的 Rust 媒体候选 08、Go RXS2 SDK 与 Server SDK 03；实际通过范围见末尾验收记录。它为 Voice Agent 提供可追溯、可撤销的本地收音基础，尚无外部 ASR HTTP/WebSocket 接口、供应商适配器、VAD 或完整实时对话验收。</p>
+<p>这是 RustSwitch 内部接口，不是 FreeSWITCH 同名命令、ESL 报文、媒体 bug API 或 C/C++ ABI 的兼容实现。现有 SIP、拨号计划与下行 PCM 的适配范围仍以各自文档为准。</p>
+<h2 id="1-支持范围与通道">1. 支持范围与通道</h2>
+<p>当前只接受实际分配为 <code>local</code>、处理版本 <code>1</code> 的 A 腿 G.711 音频：PCMA 或 PCMU，音频采样率和 RTP 时钟均为 8000 Hz，单声道、20 ms。导出的 PCM 保持原生 8 kHz S16LE，每帧 160 样本；不自动转成 16 kHz。桥接双腿、B 腿、纯转发、G.722、Opus 和其他 Codec 的实时收音不在此合同内。</p>
+<p>控制使用现有 JSON IPC。音频使用可选的 <code>RUSTSWITCH_RX_FD=4</code>：父进程创建已连接的 <code>AF_UNIX/SOCK_DGRAM</code> socketpair，Rust 写入，Go 读取。FD3 下行 PCM 保持独立。每个媒体 Worker 进程代次使用新的 socketpair；Go 将通道绑定 Worker 与 Generation，旧代数据不能进入新代次。Generation 不增加到 RXS2 头或 JSON 请求中。</p>
+<p><code>ready.capabilities</code> 必须包含 <code>rx_g711_local_v2</code>，并同时具备 <code>processed_g711_v1</code>、<code>processed_g711_local_v1</code>。JSON <code>protocol_version</code> 仍为 <code>1</code>；RXS2 的魔数、能力名和头长度共同标识本次二进制合同。旧 RXS1/v1 不被静默接受。未报告能力的旧 Worker 不具备 RX 资格。</p>
+<p>该通道要求同一主机及相同单调时钟命名空间，不能经网络转发为外部音频协议。</p>
+<h2 id="2-json-控制与状态">2. JSON 控制与状态</h2>
+<p>三个请求均要求 <code>id</code>、<code>op</code>、<code>session</code>、<code>subscription_id</code>。<code>id</code> 是请求关联号，取无符号 64 位整数；另外两个 ID 必须非零。数值上限为 <code>18446744073709551615</code>，客户端不能用精度不足的浮点数保存 ID。</p>
+<pre><code class="language-json">{&quot;id&quot;:1,&quot;op&quot;:&quot;rx_subscribe&quot;,&quot;session&quot;:73,&quot;subscription_id&quot;:1}
+</code></pre>
+<pre><code class="language-json">{&quot;id&quot;:2,&quot;op&quot;:&quot;rx_status&quot;,&quot;session&quot;:73,&quot;subscription_id&quot;:1}
+</code></pre>
+<pre><code class="language-json">{&quot;id&quot;:3,&quot;op&quot;:&quot;rx_unsubscribe&quot;,&quot;session&quot;:73,&quot;subscription_id&quot;:1}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>rx_subscribe</code></td>
+<td>每个会话最多一个活动订阅。Rust 同 ID 重试返回原订阅的当前快照，不复活终态、不重新校准时钟；更大 ID 只在旧订阅已停止或失败后创建</td>
+</tr>
+<tr>
+<td><code>rx_status</code></td>
+<td>查询同一会话及订阅，推进应过期记录的清理并返回实际 Rust 状态；未知会话、无订阅或 ID 不匹配均拒绝</td>
+</tr>
+<tr>
+<td><code>rx_unsubscribe</code></td>
+<td>停止观察并撤销待发音频，返回实际 <code>stopped</code> 或已有 <code>failed</code>；不等待 Go 消费或终止数据报送达</td>
+</tr>
+</tbody></table></div>
+<p>上述是媒体 IPC 语义。Server SDK 的同 ID Subscribe 使用缓存，区别见第 7 节。</p>
+<p>成功回执示例：</p>
+<pre><code class="language-json">{&quot;id&quot;:2,&quot;ok&quot;:true,&quot;type&quot;:&quot;rx_state&quot;,&quot;session&quot;:73,&quot;subscription_id&quot;:1,&quot;state&quot;:&quot;active&quot;,&quot;produced_events&quot;:3,&quot;submitted_events&quot;:2,&quot;dropped_events&quot;:0,&quot;queued_events&quot;:1,&quot;produced_samples&quot;:320,&quot;submitted_samples&quot;:160,&quot;dropped_samples&quot;:0,&quot;oldest_age_ms&quot;:7,&quot;error&quot;:&quot;&quot;}
+</code></pre>
+<p><code>rx_state</code> 的以下 15 个字段全部必填，不接受 <code>null</code>：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型与范围</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>id</code></td>
+<td>u64</td>
+<td>对应请求 ID</td>
+</tr>
+<tr>
+<td><code>ok</code></td>
+<td>固定 <code>true</code></td>
+<td>成功取得状态，不代表音频已送达应用</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>固定 <code>rx_state</code></td>
+<td>回执类型</td>
+</tr>
+<tr>
+<td><code>session</code></td>
+<td>非零 u64</td>
+<td>冻结的媒体会话</td>
+</tr>
+<tr>
+<td><code>subscription_id</code></td>
+<td>非零 u64</td>
+<td>冻结的订阅</td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td><code>active</code> / <code>stopped</code> / <code>failed</code></td>
+<td>Rust 订阅状态</td>
+</tr>
+<tr>
+<td><code>produced_events</code></td>
+<td>u64</td>
+<td>已产生的原始观察记录数</td>
+</tr>
+<tr>
+<td><code>submitted_events</code></td>
+<td>u64</td>
+<td>原始观察成功交给 Unix socket 的数量</td>
+</tr>
+<tr>
+<td><code>dropped_events</code></td>
+<td>u64</td>
+<td>Rust 已丢弃的原始观察数量</td>
+</tr>
+<tr>
+<td><code>queued_events</code></td>
+<td>整数 0..8</td>
+<td>Rust 导出队列中的原始观察数量</td>
+</tr>
+<tr>
+<td><code>produced_samples</code></td>
+<td>u64，160 的倍数</td>
+<td>已产生 PCM 样本数，包括历史 PLC</td>
+</tr>
+<tr>
+<td><code>submitted_samples</code></td>
+<td>u64，160 的倍数</td>
+<td>交给 Unix socket 的 PCM 样本数</td>
+</tr>
+<tr>
+<td><code>dropped_samples</code></td>
+<td>u64，160 的倍数</td>
+<td>Rust 已丢弃 PCM 样本数</td>
+</tr>
+<tr>
+<td><code>oldest_age_ms</code></td>
+<td>u64</td>
+<td>当前 Rust 队头观察年龄，空队列为 0</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>字符串枚举</td>
+<td>非失败状态为空串；失败原因见下表</td>
+</tr>
+</tbody></table></div>
+<p>计数按原始观察对账，CN、DTMF 状态及边界没有 PCM 样本。导出的 Gap、End、ExportFailed 摘要不增加上述原始观察计数。</p>
+<pre><code class="language-text">produced_events = submitted_events + dropped_events + queued_events
+queued_samples = produced_samples - submitted_samples - dropped_samples
+0 &lt;= queued_samples &lt;= queued_events * 160
+produced_samples / 160 &lt;= produced_events
+submitted_samples / 160 &lt;= submitted_events
+dropped_samples / 160 &lt;= dropped_events
+</code></pre>
+<p><code>queued_samples</code> 仅是推导值，不是 RX JSON 字段。各项样本计数及推导值必须为 160 的倍数，运算须检查溢出与下溢。终态 <code>queued_events=0</code>；空队列 <code>oldest_age_ms=0</code>。同 ID subscribe 的快照不主动清过期队列，因此 Schema 不把年龄强行限制在 100 以下。</p>
+<p><a href="media-ipc.schema.json">媒体 IPC Schema</a> 校验字段、范围和状态条件，不能执行上述跨字段加减或验证请求/响应关联。Go 与 Rust 负责运行时算术、身份、状态和连续性检查。请求及回执沿用 Serde 忽略未知字段的行为，RX Schema 也允许附加字段；这不改变已有 <code>WorkerConfig</code> 拒绝未知字段的规则。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th><code>failed</code> 的 <code>error</code></th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>invalid_observation</code></td>
+<td>观察记录无法按合同编码</td>
+</tr>
+<tr>
+<td><code>sequence_exhausted</code></td>
+<td>原始观察序号无法继续递增</td>
+</tr>
+<tr>
+<td><code>sample_count_exhausted</code></td>
+<td>PCM 样本计数溢出</td>
+</tr>
+<tr>
+<td><code>gap_metadata_discontinuity</code></td>
+<td>无法合并为保真的连续丢弃摘要</td>
+</tr>
+<tr>
+<td><code>rx_lane_unavailable</code></td>
+<td>上行通道失效或持续无法前进</td>
+</tr>
+<tr>
+<td><code>rx_observation_failed</code></td>
+<td>Graph 观察器显式失败</td>
+</tr>
+<tr>
+<td><code>rx_clock_out_of_range</code></td>
+<td>观察时钟换算或固定期限越界</td>
+</tr>
+</tbody></table></div>
+<p><code>active</code>、<code>stopped</code> 的 <code>error</code> 为 <code>&quot;&quot;</code>，第一个实际失败原因保留。参数错误、无会话、不支持的拓扑、旧 ID 或时钟初始校准失败使用普通 <code>type=error</code> 回执，不能伪造为成功的 <code>rx_state</code>。例如：</p>
+<pre><code class="language-json">{&quot;id&quot;:1,&quot;ok&quot;:false,&quot;type&quot;:&quot;error&quot;,&quot;message&quot;:&quot;RX requires local topology&quot;}
+</code></pre>
+<p><code>message</code> 是诊断文本，不是稳定错误码。明确拒绝、控制超时和结果未知须区分处理。</p>
+<h2 id="3-worker-指标与应用侧计数">3. Worker 指标与应用侧计数</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th><code>stats</code> 字段</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>rx_active_subscriptions</code></td>
+<td>当前仍接受观察的订阅数量</td>
+</tr>
+<tr>
+<td><code>rx_queued_events</code></td>
+<td>当前所有 Rust 导出队列中的原始观察数，不含 Gap/终止摘要</td>
+</tr>
+<tr>
+<td><code>rx_observation_storage_bytes</code></td>
+<td>Graph 观察器分配的存储，不含 Rust 导出队列、OS socket 或 Go SDK 队列</td>
+</tr>
+<tr>
+<td><code>rx_observation_failed</code></td>
+<td>当前 Graph 观察器处于失败状态的数量，不是累计通道错误数；通道隔离后观察器已关闭时可为 0</td>
+</tr>
+</tbody></table></div>
+<p>四项为非负 u64，当前候选始终输出。Schema 保留对旧 Worker 的兼容，允许旧 <code>stats</code> 缺少它们；缺失表示不可用，不能当成 0 或 RX 已通过。</p>
+<p>Go <code>RXSnapshot</code> 另记 <code>ReceivedRecords/DeliveredRecords/DroppedRecords/ExportGapEvents</code>、对应样本数、<code>FreshnessFailures/ClockFailures/QueuedRecords/Error</code>。这些记录计数包含 Gap 和终态，不能与 Rust 原始观察口径相加。Rust <code>submitted</code> 只证明交给内核；Go <code>delivered</code> 只证明 SDK 检查点交付，二者都不等于 ASR 已识别。Server 最后拒绝的帧也可能已计入底层 SDK delivered，必须分别解释。</p>
+<h2 id="4-rxs2-二进制格式">4. RXS2 二进制格式</h2>
+<p>RXS2 不是 JSON Schema 的额外请求分支。每个数据报由固定 168 字节头加正文组成，正文最多 480 字节，总长最多 648。所有多字节整数使用小端；不得拼接数据报、截断正文或附加尾部。所有记录仅来自 A/RX。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>偏移</th>
+<th>类型</th>
+<th>字段及约束</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>4 字节</td>
+<td>魔数 <code>RXS2</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>u8</td>
+<td><code>kind</code>，见下表</td>
+</tr>
+<tr>
+<td>5</td>
+<td>u8</td>
+<td>保留，必须 0</td>
+</tr>
+<tr>
+<td>6</td>
+<td>u16</td>
+<td><code>flags</code>，仅低 10 位有效</td>
+</tr>
+<tr>
+<td>8</td>
+<td>u64</td>
+<td><code>session</code>，非零</td>
+</tr>
+<tr>
+<td>16</td>
+<td>u64</td>
+<td><code>subscription_id</code>，非零</td>
+</tr>
+<tr>
+<td>24</td>
+<td>u64</td>
+<td><code>event_seq</code>，原始观察从 1 递增；摘要规则见下文</td>
+</tr>
+<tr>
+<td>32</td>
+<td>u64</td>
+<td><code>source_generation</code></td>
+</tr>
+<tr>
+<td>40</td>
+<td>u64</td>
+<td><code>source_segment</code></td>
+</tr>
+<tr>
+<td>48</td>
+<td>u64</td>
+<td>展开后的 RTP 时间戳，未声明有效则 0</td>
+</tr>
+<tr>
+<td>56</td>
+<td>u64</td>
+<td>展开后的 RTP 包序，未声明有效则 0</td>
+</tr>
+<tr>
+<td>64</td>
+<td>u64</td>
+<td><code>media_time_ns</code>，未声明有效则 0；不是 UTC</td>
+</tr>
+<tr>
+<td>72</td>
+<td>u32</td>
+<td>SSRC，未声明有效则 0</td>
+</tr>
+<tr>
+<td>76</td>
+<td>u32</td>
+<td>音频采样率，固定 8000</td>
+</tr>
+<tr>
+<td>80</td>
+<td>u32</td>
+<td>RTP 时钟，固定 8000</td>
+</tr>
+<tr>
+<td>84</td>
+<td>u16</td>
+<td><code>body_bytes</code>，实际正文长度</td>
+</tr>
+<tr>
+<td>86</td>
+<td>u16</td>
+<td><code>sample_count</code>，仅解码与 PLC 为 160，其余 0</td>
+</tr>
+<tr>
+<td>88</td>
+<td>u64</td>
+<td><code>gap_first_seq</code>，仅 ExportGap 使用</td>
+</tr>
+<tr>
+<td>96</td>
+<td>u64</td>
+<td><code>gap_last_seq</code>，仅 ExportGap 使用</td>
+</tr>
+<tr>
+<td>104</td>
+<td>u32</td>
+<td><code>gap_decoded_events</code>，仅 ExportGap 使用</td>
+</tr>
+<tr>
+<td>108</td>
+<td>u32</td>
+<td><code>gap_plc_events</code>，仅 ExportGap 使用</td>
+</tr>
+<tr>
+<td>112</td>
+<td>u64</td>
+<td><code>known_duration_ticks</code>，只记录已知媒体区间</td>
+</tr>
+<tr>
+<td>120</td>
+<td>u32</td>
+<td><code>export_age_ms</code>，Rust 导出队列年龄，非端到端延迟</td>
+</tr>
+<tr>
+<td>124</td>
+<td>u16</td>
+<td><code>reason</code>，观察原因或 Gap 原因位</td>
+</tr>
+<tr>
+<td>126</td>
+<td>u16</td>
+<td>保留，必须 0</td>
+</tr>
+<tr>
+<td>128</td>
+<td>u64</td>
+<td><code>discarded_packets</code>，确认源边界丢弃的编码包数</td>
+</tr>
+<tr>
+<td>136</td>
+<td>u32</td>
+<td><code>observation_age_ms</code>，Graph 观察至当前提交的年龄</td>
+</tr>
+<tr>
+<td>140</td>
+<td>u32</td>
+<td><code>arrival_age_ms</code>，仅 flags bit8 有效</td>
+</tr>
+<tr>
+<td>144</td>
+<td>u32</td>
+<td><code>deadline_lateness_ms</code>，仅 flags bit9 有效</td>
+</tr>
+<tr>
+<td>148</td>
+<td>u8</td>
+<td><code>boundary</code>，0..6</td>
+</tr>
+<tr>
+<td>149</td>
+<td>u8</td>
+<td><code>cn_applied</code>，0 或 1</td>
+</tr>
+<tr>
+<td>150</td>
+<td>u16</td>
+<td><code>clock_domain</code>，必须匹配接收平台</td>
+</tr>
+<tr>
+<td>152</td>
+<td>u64</td>
+<td><code>observation_lower_bound_ns</code>，原始观察时刻的同机单调时钟下界</td>
+</tr>
+<tr>
+<td>160</td>
+<td>u64</td>
+<td><code>expires_at_ns</code>，固定到期时刻</td>
+</tr>
+<tr>
+<td>168</td>
+<td>0..480 字节</td>
+<td>正文，按 kind 解释</td>
+</tr>
+</tbody></table></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>kind</th>
+<th>名称</th>
+<th>正文与语义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Decoded</td>
+<td>严格 320 字节 S16LE、160 样本，实际 G.711 解码</td>
+</tr>
+<tr>
+<td>2</td>
+<td>HistoryPlc</td>
+<td>同格式；有限历史衰减补偿，不能当成新收到的用户语音</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Missing</td>
+<td>无正文，明确缺失</td>
+</tr>
+<tr>
+<td>4</td>
+<td>ComfortNoise</td>
+<td>1..480 字节真实 CN SID，无 PCM</td>
+</tr>
+<tr>
+<td>5</td>
+<td>LocalExpired</td>
+<td>无正文，本地音频已错过处理期限</td>
+</tr>
+<tr>
+<td>6</td>
+<td>AuxiliaryExpired</td>
+<td>无正文，辅助状态过期；不自动等同 20 ms 音频丢失</td>
+</tr>
+<tr>
+<td>7</td>
+<td>SourceBoundary</td>
+<td>无正文，实际来源边界</td>
+</tr>
+<tr>
+<td>8</td>
+<td>InactiveSuspended</td>
+<td>无正文，观察已进入非活动挂起</td>
+</tr>
+<tr>
+<td>9</td>
+<td>ObservationFailed</td>
+<td>无正文，观察器显式失败</td>
+</tr>
+<tr>
+<td>10</td>
+<td>ExportGap</td>
+<td>无正文，连续丢弃范围摘要</td>
+</tr>
+<tr>
+<td>11</td>
+<td>End</td>
+<td>无正文，正常终止摘要</td>
+</tr>
+<tr>
+<td>12</td>
+<td>ExportFailed</td>
+<td>无正文，上行失败摘要</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Auxiliary</td>
+<td>无正文，DTMF 辅助状态，不生成音频</td>
+</tr>
+</tbody></table></div>
+<p>最后一帧 PLC 可以带 <code>suspended_after</code>，不能重复这帧 PCM 来补一个状态通知。CN、PLC、真实缺包和 DTMF 保持不同类型，VAD/ASR 适配器不能将它们一律视为用户沉默。此处导出 DTMF 状态不扩大既有 telephone-event 按键 API 的合同。</p>
+<p><code>flags</code> 各位分别为：bit0 SSRC 有效；bit1 RTP 时间戳有效；bit2 RTP 包序有效；bit3 媒体时间有效；bit4 有来源边界；bit5 CN 辅助转发已过期；bit6 <code>suspended_after</code>；bit7 RTP marker；bit8 arrival 已知；bit9 deadline 已知。其余位必须为 0，对应元数据未声明有效则数值必须为 0。</p>
+<p><code>boundary</code>：0 无；1 初始来源；2 SSRC 变化；3 包序重启；4 时间戳重启；5 新段；6 已知源 RTCP BYE 结束。非零值须与 bit4 一致；除新段 5 外，非零边界必须使用 SourceBoundary。边界 6 不声明 RTP 包序有效。<code>discarded_packets</code> 只在 SourceBoundary 非零；<code>cn_applied=1</code> 只允许 ComfortNoise 或 AuxiliaryExpired。</p>
+<p>普通观察 <code>reason</code> 为：0 无；1 MissingPacket；2 AudioDeadline；3 AuxiliaryDeadline；4 StaleComfortNoise；5 InvalidComfortNoise；6 ToneTimeout；7 DecoderFailure；8 ObservationOverflow；9 ObservationSequenceExhausted；10 JitterBufferLimit；11 LateArrival。End 固定 0，ExportFailed 固定 1，具体失败仍由 JSON 查询。</p>
+<p>ExportGap 的 <code>reason</code> 使用非零位掩码：1 队列满、2 年龄超时、4 停止/撤销，可组合。必须满足 <code>gap_first_seq&gt;=1</code>、<code>gap_last_seq&gt;=gap_first_seq</code>、<code>event_seq=gap_last_seq</code>，解码数加 PLC 数不超过该范围记录数。接收端按前一个序号校验缺口连续性，不能允许无摘要跳序或重复交付。</p>
+<p>Gap 可以跨来源段，因此其 flags、来源身份、RTP/媒体位置、时长、丢弃编码包数、观察/arrival/deadline 年龄、boundary、cn_applied 均为 0，不能借摘要冒充某一具体来源。End、ExportFailed 的 <code>event_seq</code> 是最终产生序号，允许 0；它们同样没有上述来源信息，也没有 Gap 字段。其他 kind 的四个 Gap 字段均为 0。Go 严格拒绝未知 kind、保留位、错误长度、非法组合或错订阅身份。</p>
+<h2 id="5-100-ms-固定期限">5. 100 ms 固定期限</h2>
+<p><code>clock_domain=1</code> 表示 Linux <code>CLOCK_MONOTONIC</code>，<code>2</code> 表示 macOS <code>CLOCK_UPTIME_RAW</code>。Rust 新订阅以共享时钟前采样、Instant 锚点、共享时钟后采样建立映射，校准跨度不得超过 1 ms；失败仅拒绝本次订阅。已有 ID 不重新锚定。</p>
+<p>普通观察的 <code>observation_lower_bound_ns</code> 非零，且不得溢出；<code>expires_at_ns</code> 必须精确等于它加 <code>100000000</code> ns。期限从原始 Graph 观察换算一次，Rust 排队、重试、编码、OS 停留、Go 接收和交付都不续期。ExportGap、End、ExportFailed 不携带可恢复音频，两个时间字段均为 0，但时钟域仍须匹配。</p>
+<p>Go 在接收与 Read 时复核公共单调时钟，Server Read 再调用该帧的 <code>CheckFresh()</code>。下界来自未来、时钟域错误、公共时钟读取失败、期限非法或已经到期都明确失败；旧 PCM 不作为正常语音交付。Go Read 另限制本地队列停留不足 100 ms，不能靠摘要无音频期限绕过慢消费边界。</p>
+<p>这些是明确检查点，不是函数返回或业务使用的原子保证。调用者在真正送给模型或写外部连接前仍须复核 <code>frame.CheckFresh()</code>，并遵守通话撤权；一次成功 Read 不能覆盖之后任意暂停。预算从 Graph 观察开始，不代表声学采集到 ASR 的总延迟，也不覆盖系统休眠的墙钟时间。Linux 父子进程必须在相同 time namespace。</p>
+<h2 id="6-有界队列失败与回收">6. 有界队列、失败与回收</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>层</th>
+<th>实际边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Graph 观察器</td>
+<td>每订阅 8 个普通槽及独立无 PCM 失败终态；只在订阅期间分配，每个实际 local A 方向观察只取一次</td>
+</tr>
+<tr>
+<td>Rust 导出</td>
+<td>每订阅 8 个记录槽，加独立 Gap 和终止摘要；总订阅数受 Worker <code>max_calls</code> 限制</td>
+</tr>
+<tr>
+<td>Go SDK</td>
+<td>每订阅 8 个槽，每 Worker 固定一个接收循环；慢消费者局部失败，清除未读数据，保留清理句柄</td>
+</tr>
+<tr>
+<td>Server 控制</td>
+<td>全服务固定 4 个执行者，64 个授权请求槽、64 个在途预留及 64 个 job/result 槽</td>
+</tr>
+</tbody></table></div>
+<p>以上是不同层的缓冲，不能合称整条通道“只有 8 槽”；OS socket 另有内核缓冲。Rust 队列满或年龄达到 100 ms 时丢最旧观察，合并连续 event_seq、decoded/PLC 数和原因位，下次发送先提交 Gap，再提交新鲜记录。不能保真合并或计数耗尽时显式失败，不无标记地继续。Go 局部慢读者的失败不阻塞其他订阅。</p>
+<p>每次媒体事件循环 <code>flush_rx</code> 最多 128 次发送尝试，可以对同一订阅尝试多次；这不是 128 会话的容量或公平吞吐保证。整条通道暂时不可写时退避 1 ms；连续至少 1 秒无成功写入进展，在下一次发送检查时隔离通道并失败相关活动订阅。它不是独立的 1 秒定时器，也不承诺静止无事件时恰好 1 秒触发。</p>
+<p>SIP、TX、主动 DTMF 和 Release 不等待 RX 消费。媒体 Release 最多尝试两次待发 Gap/终止摘要，随后释放，不保证 End 到达。实际 Release 回执或对应 Worker 代次消失才是回收事实，不能从未收到 End 推断泄漏，也不能从本地 EOF 推断远端已停止。已 stopped 的订阅不被其他通道错误改成 failed。</p>
+<h2 id="7-server-sdk-授权与生命周期">7. Server SDK 授权与生命周期</h2>
+<pre><code class="language-go">func (s *Server) SubscribeRX(ctx context.Context, uuid string, subscriptionID uint64) (*RXHandle, media.Reply, error)
+func (h *RXHandle) UUID() string
+func (h *RXHandle) SubscriptionID() uint64
+func (h *RXHandle) Read(ctx context.Context) (media.RXFrame, error)
+func (h *RXHandle) Status(ctx context.Context) (media.Reply, error)
+func (h *RXHandle) Unsubscribe(ctx context.Context) (media.Reply, error)
+func (h *RXHandle) Snapshot() media.RXSnapshot
+func (h *RXHandle) Retired() bool
+</code></pre>
+<p><code>uuid</code> 必须是当前 <code>compatChannels</code> 实际索引的 A 腿 UUID，非空、最多 128 字节、不得含空格或 TAB/CR/LF。它不是媒体 session ID、B 腿 UUID 或鉴权凭据。主循环在受理及成功回执交付时都检查真实本地 A 腿已经正确 ACK、Established、Allocated，且未 Ended/Releasing；生效处理模式、实际 Allocation、PCMA/PCMU 格式和 SDP PTime 均满足第 1 节。健康 Worker、正 PID、非零 Generation 及三个能力必须与通话冻结身份一致。</p>
+<p>RX 不需要 <code>pcm_turn_v1</code>，也不占用 TX 互斥，可与 park、静默 read、现有放音/WAV、PCM 下行、主动 DTMF 并行；这不扩大这些应用各自的资格或容量合同。</p>
+<p>句柄保存不可变 UUID、Worker、Generation、session 和 subscription，不持有 Call。Read 不读通话全局映射、不走 SIP 主循环、不创建逐帧 context、AfterFunc 或 goroutine。每个句柄只允许一个在途 Read；Status/Unsubscribe 共用另一个单在途控制标记，读与控制可并行。</p>
+<p>Read 依次检查本地资格、底层 SDK 读取及期限、Server 撤权、帧 <code>CheckFresh()</code>，最后再查 Retired/readClosed。过期或撤权后关闭本地读权，不能将迟帧返回为正常音频；最后一次检查与真正业务使用仍非原子操作。</p>
+<p>同 ID 的 Server.SubscribeRX 返回原句柄和最后一次已知成功回执，不再次发送媒体 subscribe，也不重新授权。缓存可能来自早前 Subscribe、Status 或 Unsubscribe，不等于新执行的 Status；其中旧 <code>active</code> 不能证明现在可读。没有成功缓存时返回原句柄与 <code>ErrRXSubscribeUnknown</code>。取得新鲜远端计数应调用 <code>h.Status(ctx)</code>；即使它返回 active，也不复活本地已关闭的读权。</p>
+<p>取消前尚未提交可明确返回 context 错误；一旦可能已提交，必须保留返回的非 nil 句柄，即使同时有错误。未知结果不能当作不存在。取消会永久撤销该句柄的读权，迟到绑定也执行 <code>RevokeRead()</code>，清队列并唤醒读取，同时保留 Status/Unsubscribe。恢复流程为：保留原句柄，等待在途结果后查询或退订，取得实际 stopped/failed，再在电话仍合格时使用严格更大的 ID。旧 ID 不能复活；旧流没有实际终态时更大 ID 也拒绝。</p>
+<p>通话 finish 先撤销读权，再推进原有 Release，不等待消费者或模型。实际释放或匹配 Worker+Generation 失败后退休句柄；迟回执不能重新授权已挂机通话。新代次不受旧失败通知影响。Server.Close 先撤读权、取消服务上下文，关闭媒体池并等待固定 4 个 RX 控制执行者退出。每次控制执行最多 3 秒，从执行开始计时，不能据此保证排队加执行总计 3 秒；调用者仍应设置业务 context 期限。</p>
+<p><code>Snapshot()</code> 是底层媒体本地快照，未绑定时表示 Pending。它的 Retired 不等同于 Server 层 <code>h.Retired()</code>；Server 已撤权而 Rust 尚 active 是两个层次的真实状态。Snapshot 不是新鲜远端查询，也不能代替完整授权。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>错误</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ErrRXInvalid</code></td>
+<td>参数不合法，修正 UUID/ID</td>
+</tr>
+<tr>
+<td><code>ErrRXNotEligible</code></td>
+<td>未满足真实 ACK/local/G.711/Allocation/同代能力，未提交新订阅</td>
+</tr>
+<tr>
+<td><code>ErrRXHandleBusy</code></td>
+<td>额度、在途操作或绑定未到；不要并发堆积重试</td>
+</tr>
+<tr>
+<td><code>ErrRXSubscribeUnknown</code></td>
+<td>保留非 nil 句柄，等待后用同一身份 Status/Unsubscribe 对账</td>
+</tr>
+<tr>
+<td><code>ErrRXStaleSubscription</code></td>
+<td>ID 回退或旧订阅没有实际终态，先完成清理</td>
+</tr>
+<tr>
+<td><code>ErrRXHandleClosed</code></td>
+<td>Server 读权已撤销，同 ID 不复活；尚未退休时仍可清理</td>
+</tr>
+<tr>
+<td><code>ErrRXHandleRetired</code></td>
+<td>身份已释放或失效，停止使用旧句柄</td>
+</tr>
+<tr>
+<td><code>media.ErrRXPending</code> / <code>media.ErrRXOutcomeUnknown</code></td>
+<td>底层控制在途或结果未知，保留同一身份收敛</td>
+</tr>
+<tr>
+<td><code>media.ErrRXSlowConsumer</code> / <code>media.ErrRXExpired</code> / <code>media.ErrRXClockInvalid</code></td>
+<td>明确慢消费、期限或时钟失败；不解释为静音，清理旧流后用更高 ID</td>
+</tr>
+</tbody></table></div>
+<p>底层明确拒绝、通道错误和 context 错误也可能返回。Server 不将这些内部错误伪装为 FreeSWITCH ESL 回复或新 HTTP 错误码。</p>
+<h2 id="8-本批实际验证与未完成部分">8. 本批实际验证与未完成部分</h2>
+<p>以下记录截至本候选编写时，均保留原始结果及源/二进制指纹。不同测试层不相加成兼容功能数量，也不据此宣称 5000/10000 路 Voice Agent、外部 ASR 或 FreeSWITCH 成对认证通过。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>证据</th>
+<th>已验证范围</th>
+<th>结果与限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>media-build-08/receipt.json</code></td>
+<td>当前 Rust 08 库测试、Clippy、release 构建</td>
+<td>170 个库测试通过、0 失败；包含既有功能，不是 170 项 RX 或 FS 认证</td>
+</tr>
+<tr>
+<td><code>go-clock-01/receipt.json</code></td>
+<td>Go RXS2 SDK、时钟、队列及竞态</td>
+<td>21 顶层 + 84 子项通过；macOS arm64 实际执行，Linux arm64/amd64 仅编译不等于运行通过</td>
+</tr>
+<tr>
+<td><code>server-sdk-03/receipt.json</code></td>
+<td>Server 授权、错 ACK、取消/未知、迟回执、撤权、代次、TX 并行、有界执行与关闭</td>
+<td>15 顶层 + 38 子项通过；定向 race、无实际网络，四件拥有源码前后稳定</td>
+</tr>
+<tr>
+<td><code>rust-rx-rxs2-udp-01</code> / <code>rust-rx-rxs2-connected-01</code></td>
+<td>直接 Rust 控制、FD4 和 RTP 原始记录</td>
+<td>各 12 项通过，共 24 项；绑定历史 Rust 06，不能冒充 Rust 08 全套复跑</td>
+</tr>
+<tr>
+<td><code>schema-02/receipt.json</code></td>
+<td>JSON Schema 及原始控制回执离线核验</td>
+<td>185 向量：29 个结构正例（其中 4 个守恒或退订状态反例由独立运行约束检查拒绝）、156 个结构负例。24 份历史 wire 中 82 个 rx_state、42 个 stats、24 个 ready、18 个真实拒绝回执均符合各自结构和语义；无网络重跑</td>
+</tr>
+<tr>
+<td><code>go-pause-01/receipt.json</code></td>
+<td>Rust 08 实际 RTP → OS FD4 → Go SDK 进程暂停恢复</td>
+<td>PCMA/PCMU × 普通/connected UDP 四组通过；旧数据均报期限失败，SDK DeliveredSamples=0，退订与释放完成。范围没有 SIP 或模型</td>
+</tr>
+<tr>
+<td><code>server-sip-03/receipt.json</code></td>
+<td>Rust 08 + Server 03，真实 SIP 授权与收音回收</td>
+<td>1 顶层 + 4 子项通过，4 通电话、32 帧/5120 样本逐样本核验；错 ACK 拒绝、正确 ACK 授权、BYE 撤权、fresh-zero 状态、四媒体端口复绑及 32 秒终态 GC。不是容量或供应商认证</td>
+</tr>
+</tbody></table></div>
+<p>当前 Rust 08 验证二进制 SHA-256 为 <code>1a3fdd0342f689ff88b3fe89056b23bc0858cd1177601dc5c68947d699227dde</code>。历史 24 项直接 wire 证据绑定 <code>de02c36cffd093118f2c59e85c366b4eee2fab26fa69572349f71f41741c9028</code>，两者明确分开。</p>
+<p>后续仍需外部 ASR 传输与重连协议、供应商真实消费、VAD/endpointing、打断仲裁、双轨录音、其他 Codec 的处理图、Linux 同机同配置容量/长稳测试，以及目标 FreeSWITCH 的成对行为对照。本批没有为这些缺口预填绿色。</p>
+<p>相关合同：<a href="processed-local-reference.html">本地处理媒体</a>、<a href="processed-media-reference.html">桥接处理媒体</a>、<a href="pcm-turn-reference.html">PCM 回合</a>、<a href="rva1-reference.html">RVA1 下行通道</a>、<a href="voice-runtime-direction.html">Voice Runtime 方向</a>、<a href="voice-runtime-v1-acceptance.html">V1 验收标准</a>。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

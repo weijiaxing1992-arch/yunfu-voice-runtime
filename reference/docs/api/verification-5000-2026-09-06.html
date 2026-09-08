@@ -1,0 +1,185 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>5000路验证与本轮逐项复核 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 5000路验证与本轮逐项复核</div><article class="content"><div class="page-tools"><a href="verification-5000-2026-09-06.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#最终两轮结果">最终两轮结果</a><a href="#代码修复与回归">代码修复与回归</a><a href="#对照表逐项处理">对照表逐项处理</a><a href="#历次尝试完整保留">历次尝试完整保留</a><a href="#文档与证据复核">文档与证据复核</a></details><h1 id="5000路验证与本轮逐项复核">5000路验证与本轮逐项复核</h1>
+<p>文档集 1.4.0，复核日期 2026-09-06。最终代码在隔离 Linux 虚拟机连续两轮完成 5000 路真实 SIP 与双向 PCMU 媒体验收。</p>
+<h2 id="最终两轮结果">最终两轮结果</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>轮次</th>
+<th align="right">同时接通</th>
+<th align="right">媒体时长</th>
+<th align="right">实际发送 / 唯一接收</th>
+<th align="right">名义负载完成率</th>
+<th align="right">实际缺包</th>
+<th align="right">拆线失败</th>
+<th>清理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>final-5000-01</td>
+<td align="right">5000</td>
+<td align="right">10 秒</td>
+<td align="right">4,999,993 / 4,999,993</td>
+<td align="right">99.999860%</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td>全部完成</td>
+</tr>
+<tr>
+<td>final-5000-02</td>
+<td align="right">5000</td>
+<td align="right">10 秒</td>
+<td align="right">4,999,946 / 4,999,946</td>
+<td align="right">99.998920%</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td>全部完成</td>
+</tr>
+</tbody></table></div>
+<p>每轮标称双向总包量 5,000,000；门禁保持原定的逐方向、逐流至少 98% 负载，并要求所有实际发送包被唯一接收。两轮每方向每路最低收到 499 个包，部分方向达到 500；不存在用总吞吐掩盖未发声通话的情况。</p>
+<p>两轮日志均证明同一控制实例下 5000 路同时接通；8 个媒体分片均无重启，最终活跃通话归零，媒体 socket 丢弃及应用收发错误为零，事件日志无丢失。进程退出、端口释放和临时目录删除均由测试管理器完成并核对。</p>
+<h3 id="实际环境和证据边界">实际环境和证据边界</h3>
+<p>宿主为共享使用的 ARM64 Mac mini，10 个逻辑 CPU、16 GiB 内存；测试在 Apple Virtualization.framework 启动的 Alpine 3.24.1 / Linux 6.18.35-virt ARM64 虚拟机中执行，分配 8 vCPU、2 GiB。服务、8 个媒体分片、8 个发生器发送工作者共享该虚拟机，使用隔离回环地址 127.77.0.2、128 组共享端点、512 个端点 UDP socket。100 CPS 建立呼叫，PCMU / 20 ms，完整媒体窗口 10 秒。</p>
+<p>测试期间为虚拟机进程持有系统提供的 latencyCritical / userInitiated 活动，结束即释放；用于降低系统节能对实时定时的影响。前期失败与最终成功之间还存在宿主负载、虚拟机内存和发生器版本的变化，不能将差异全部归因于某一代码优化。环境做法见 <a href="https://developer.apple.com/documentation/foundation/processinfo/activityoptions/latencycritical" target="_blank" rel="noopener noreferrer">Apple 实时活动文档</a>。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>轮次</th>
+<th align="right">整机 UDP InErrors / RcvbufErrors 增量</th>
+<th align="right">UDP NoPorts 增量</th>
+<th align="right">媒体 socket_rx_drops</th>
+<th align="right">实际 RTP 缺包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>final-5000-01</td>
+<td align="right">126 / 126</td>
+<td align="right">69</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td>final-5000-02</td>
+<td align="right">204 / 204</td>
+<td align="right">125</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+</tbody></table></div>
+<p>整机UDP InErrors/RcvbufErrors增量不为零，尚未定位具体流量；媒体分片socket丢弃为零且实际RTP发送等于唯一接收。不能表述为整机UDP零丢包。</p>
+<p>本结果不覆盖长时间稳定性、真实网卡/线路、转码、会议、录音或一万路；静态 musl 构建中的动态加载不可用，因此也不证明 Linux 原生 G.722/Opus SDK 转码。未执行原版 FreeSWITCH，本轮没有授予任何成对兼容认证。当前 macOS 管理页面仍执行自身端口预检，5000 路按钮不会自动调度此隔离 Linux 虚拟机。</p>
+<h2 id="代码修复与回归">代码修复与回归</h2>
+<ul>
+<li>发生器在 Linux ARM64/AMD64 使用批量收发，按真实 socket 分配固定发送工作者并提前准备包缓冲。保留节奏控制、部分发送只重试未发送后缀及有界信号中断重试。</li>
+<li>5000 路拆线采用最多 64 个工作者，独立维护每路请求和超时，避免每路一个 goroutine 或串行拆线队列。逐流不足量、未知/额外包及早退读取都计为失败。</li>
+<li>Rust 复用 Linux 批量接收描述符；每批重绑缓冲地址、重置内核输出，保留边沿通知一直排空到 EAGAIN 的要求，避免旧控制信息或截断数据误判。相同时刻准入计算走快路径但不补回已花费令牌。</li>
+<li>XML 元数据启动时解析并有界缓存；输出快照独立持有切片，读写中的纯计算移出管理锁，保存前再次检查配置版本。慢 XML 响应不再拖住状态与排空接口。持久化提交仍包含同步写盘，慢盘场景尚需实际硬件验证。</li>
+<li>修复账本漏列 21 个动态编码用例；通过有界 AST 枚举列出定义，不执行测试文件。绿色状态单独绑定真实运行、当前源码、构建产物、完整日志和复查期限；缺失证据、过期、源码变化或失败均不会显示绿色。</li>
+</ul>
+<p>全量 Go 竞态回归通过 303 个 test/subtest 事件；两种 UDP 模式共 90 项真实 SIP/媒体端到端用例通过。宿主 Rust 25 项库测试和 1 项集成测试通过；Linux 实际执行 27 项 Rust 库测试，批量系统调用布局、真实收发、截断、部分发送、每路足量与有界拆线等发生器测试通过。新开发路径均附中文说明。</p>
+<h2 id="对照表逐项处理">对照表逐项处理</h2>
+<p>固定 FreeSWITCH 1.11.3 / <code>ef32e205295e29f034f1453ad245ba5efb07b94a</code>。逐项核对全部 3979 个原始 ID，原始实现状态与本地运行状态分别保留。当前 30 项有有效的本地限定范围证据，其余保持待执行或未实现；绿色数量不是原版兼容率。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>原始实现状态</th>
+<th align="right">条数</th>
+<th>处理方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>export_only</td>
+<td align="right">882</td>
+<td>验证编辑/导出子集，原版XML业务执行仍缺失</td>
+</tr>
+<tr>
+<td>implemented</td>
+<td align="right">17</td>
+<td>自有接口；按具体测试断言授予绿色，不升级为原版线协议兼容</td>
+</tr>
+<tr>
+<td>internal_only</td>
+<td align="right">6</td>
+<td>内部合同与原版外部接口不同，保留边界</td>
+</tr>
+<tr>
+<td>not_implemented</td>
+<td align="right">2884</td>
+<td>没有对应运行处理器，保留缺口和下一步要求</td>
+</tr>
+<tr>
+<td>not_verified</td>
+<td align="right">178</td>
+<td>177项兼容定义与万路目标；5000路单独列有限定的绿色附加状态</td>
+</tr>
+<tr>
+<td>partial</td>
+<td align="right">12</td>
+<td>只按实际覆盖的子集验证，不推导完整合同</td>
+</tr>
+</tbody></table></div>
+<p>全部项目的剩余问题与后续要求见 <a href="verification-5000-entries.csv">3979项逐项处理表</a>、<a href="runtime-verification.html">运行验证</a>和<a href="feature-audit.html">完整功能审计</a>。ESL 入站/出站与事件、用户 REGISTER/Digest、完整 Sofia 生命周期、拨号计划/目录执行、会议、录音、脚本应用和原版 C ABI 等仍存在实际功能缺口；仅有模块名、配置文件或测试定义不能验证它们已兼容。</p>
+<h2 id="历次尝试完整保留">历次尝试完整保留</h2>
+<p>以下为本轮最终构建之前的真实试验。诊断版改变节奏或 profile，只用于定位；其结果没有冒充最终代码证据。宿主负载与环境并不相同，不用这些数字计算受控性能提升百分比。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>尝试</th>
+<th>通过</th>
+<th align="right">发送 / 唯一接收</th>
+<th align="right">名义负载完成率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>baseline-1000-ready</td>
+<td>是</td>
+<td align="right">999904 / 999904</td>
+<td align="right">99.990400%</td>
+</tr>
+<tr>
+<td>baseline-2g-5000</td>
+<td>否</td>
+<td align="right">2905658 / 2905658</td>
+<td align="right">58.113160%</td>
+</tr>
+<tr>
+<td>baseline-5000</td>
+<td>否</td>
+<td align="right">3276162 / 3274812</td>
+<td align="right">65.523240%</td>
+</tr>
+<tr>
+<td>diagnostic-no-floor-5000</td>
+<td>否</td>
+<td align="right">1046153 / 1046153</td>
+<td align="right">20.923060%</td>
+</tr>
+<tr>
+<td>diagnostic-profile4-activity-5000</td>
+<td>否</td>
+<td align="right">2261598 / 2260390</td>
+<td align="right">45.231960%</td>
+</tr>
+<tr>
+<td>optimized-initial-5000</td>
+<td>否</td>
+<td align="right">668217 / 668217</td>
+<td align="right">13.364340%</td>
+</tr>
+<tr>
+<td>optimized-v2-2g-5000</td>
+<td>否</td>
+<td align="right">346957 / 333747</td>
+<td align="right">6.939140%</td>
+</tr>
+<tr>
+<td>optimized-v2-activity-lowerload-5000</td>
+<td>是</td>
+<td align="right">4999894 / 4999894</td>
+<td align="right">99.997880%</td>
+</tr>
+</tbody></table></div>
+<p>另外保留最初主服务未就绪的采集尝试、虚拟机回环未启用的工具测试失败、一次 XML 慢请求测试失败，以及宿主执行文件被原地覆盖造成媒体子进程退出的 E2E 失败；后续修复后的完整重跑日志另存，未覆盖旧记录。宿主可执行文件以新文件原子替换安装。</p>
+<h2 id="文档与证据复核">文档与证据复核</h2>
+<p><a href="verification-5000-2026-09-06.json">机器报告</a>保留最终包量、方向、内核增量、环境、清理及二进制 SHA；<a href="runtime-verification.json">运行验证数据</a>随文档内嵌有界压缩原始日志，可离线重新判定绿色。完整二进制、状态采样、事件、失败报告与构建记录收录在 <code>rustswitch-compatibility-verification-v1.4.0.zip</code>。</p>
+<p>运行测试的宿主/Linux 二进制和最终内嵌新版文档的宿主控制程序分别记录 SHA。文档发布不改变已验证的 Go/Rust 功能源码；实际容量证据只引用当时真正运行的 Linux 产物。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "scope": "复制后二进制实际配置校验与离线codec自检；无网络监听、无SIP呼叫、无安装服务操作",
+  "checks": [
+    {
+      "variant": "main",
+      "name": "config",
+      "exit_code": 0,
+      "log_sha256": "46c5c07f292065e567d4b846144d68b2d8c1d759918780baa87ea69a7cda9e6e"
+    },
+    {
+      "variant": "main",
+      "name": "codec",
+      "exit_code": 0,
+      "log_sha256": "84289f18e7e2c037f5e7c3178011f1ff9ebed6a05452acface5fe0e3286c670d"
+    },
+    {
+      "variant": "main",
+      "name": "audio",
+      "exit_code": 0,
+      "log_sha256": "e6f89b9d6ee7ddc76eca37557f485cf9d6972bbbc4c173e1cf30a0f05fd147a4"
+    },
+    {
+      "variant": "main",
+      "name": "callbench-help",
+      "exit_code": 0,
+      "log_sha256": "55222336029fb1cd4e893a323cd5a1b61a66090ff5129d0f0b0a646f33141ad3"
+    },
+    {
+      "variant": "asr-candidate",
+      "name": "config",
+      "exit_code": 0,
+      "log_sha256": "46c5c07f292065e567d4b846144d68b2d8c1d759918780baa87ea69a7cda9e6e"
+    },
+    {
+      "variant": "asr-candidate",
+      "name": "codec",
+      "exit_code": 0,
+      "log_sha256": "84289f18e7e2c037f5e7c3178011f1ff9ebed6a05452acface5fe0e3286c670d"
+    },
+    {
+      "variant": "asr-candidate",
+      "name": "audio",
+      "exit_code": 0,
+      "log_sha256": "e6f89b9d6ee7ddc76eca37557f485cf9d6972bbbc4c173e1cf30a0f05fd147a4"
+    },
+    {
+      "variant": "asr-candidate",
+      "name": "callbench-help",
+      "exit_code": 0,
+      "log_sha256": "55222336029fb1cd4e893a323cd5a1b61a66090ff5129d0f0b0a646f33141ad3"
+    },
+    {
+      "variant": "asr-candidate",
+      "name": "asr-mock-help",
+      "exit_code": 0,
+      "log_sha256": "0300f88372f82ddecfc5aee6000c5b9f33ebc3c62d2bdb55235046952b2de6de"
+    }
+  ],
+  "release_gate_passed": false
+}

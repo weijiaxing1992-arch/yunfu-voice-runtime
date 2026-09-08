@@ -1,0 +1,114 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>11 交付与源码说明 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="active" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 11 交付与源码说明</div><article class="content"><div class="page-tools"><a href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 6 节</summary><a href="#交付目录">交付目录</a><a href="#哪套代码用于哪项工作">哪套代码用于哪项工作</a><a href="#已完成代码的具体增量">已完成代码的具体增量</a><a href="#离线编译步骤">离线编译步骤</a><a href="#发布前仍需完成的检查">发布前仍需完成的检查</a><a href="#交接时应核对什么">交接时应核对什么</a></details><h1 id="11-交付与源码说明">11 交付与源码说明</h1>
+<p>本次将完整源码、已完成候选、尚未复验工作稿、需求与未完成清单加入原来的同一个资料目录。入口仍是 <code>index.html</code>。<strong>源码编译通过，发布门禁仍有明确阻塞</strong>；版本身份与验证范围见下表。</p>
+<h2 id="交付目录">交付目录</h2>
+<pre><code class="language-text">云蝠VoiceRuntime-项目资料-2026-09-08/
+  index.html、01…10                 上轮完整架构、接口、使用与运维资料
+  11-交付与源码说明.md / .html        本说明
+  12-需求说明书.md / .html            功能、性能、边界、阶段与验收要求
+  13-项目未完成清单.md / .html        逐项缺口、优先级、依赖和完成条件
+  source/main/                      主工程完整源码快照
+  source/asr-candidate/             已完成ASR开发的完整候选源码快照
+  source/patches/benchmark-tested-02/ 已通过定向检查的压测诊断补丁
+  source/patches/benchmark-working/   后续工作稿，包含未复验改动
+  source/design-reference/          已完成的独立ASR协议离线测试设计
+  source/*manifest.json              源码逐文件SHA-256清单
+  source/asr-vs-main.*                候选与主工程差异
+  dependencies/rust-vendor/          Cargo.lock固定Rust依赖源码
+  dependencies/opus-1.5.2.tar.gz      可选编解码后端固定上游源码
+  delivery-tools/build_source.py     可搬移的离线编译工具
+  backlog/                          全部3999条FS对照及分状态清单
+  requirements/                     用户方向原文与需求追踪资料
+  evidence/                         编译、发布门禁及候选历史验证原件
+  figures/、reference/、candidate/   上轮图源、专题及候选说明
+  manifest.json、validation.json     整包完整性与资料校验记录
+</code></pre>
+<h2 id="哪套代码用于哪项工作">哪套代码用于哪项工作</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>交付内容</th>
+<th>范围</th>
+<th>实际验证 / 当前边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="source/main/README.md">主工程</a></td>
+<td>1126 个文件，Go/Rust/C、后台、配置、部署、测试、工具、vendor、文档与内嵌资源</td>
+<td>本轮离线编译通过。文档基线1.13，组件版本另计；本轮未部署</td>
+</tr>
+<tr>
+<td><a href="source/asr-candidate/README.md">ASR候选</a></td>
+<td>1171 个文件，包含主业务基础及ASR1、mock、重采样、来源证明、消费时效、取消/配额清理、总览观测及测试</td>
+<td>本轮离线编译通过，包含asr-mock。候选尚未合并发布，自己的部署目录本来不存在</td>
+</tr>
+<tr>
+<td><a href="source/patches/benchmark-tested-02/files.json">已测诊断补丁</a></td>
+<td>6个改动文件及冻结unified.patch；从原基线还原后逐个核对哈希</td>
+<td>test-02定向unit/race、页面函数测试通过。使用旧观测新鲜度判断，仍依赖待修的原子统计问题，未合并</td>
+</tr>
+<tr>
+<td><a href="source/patches/benchmark-working/files.json">压测后续工作稿</a></td>
+<td>相对原基线的完整补丁与6个改动文件；其中runner及测试2文件较test-02更新</td>
+<td>新终态helper和用例尚未完成test-03；没有新的完整验证结论</td>
+</tr>
+<tr>
+<td><a href="source/design-reference/asr1-fixture/README.md">独立ASR测试设计</a></td>
+<td>六份设计、离线协议夹具及验收矩阵</td>
+<td>selftest-03的52个离线方法有历史证据；不作为生产协议互通或完整Agent验收</td>
+</tr>
+</tbody></table></div>
+<p>主/候选差异共59个路径：新增47、修改10、未带入2（主工程 <code>.gitignore</code> 与 systemd 模板）。完整目录保留各自状态，没有把候选拷回主工程。二进制测试向量在完整候选目录中；<code>asr-vs-main.text.patch</code> 仅用于文本审查，<strong>不能单靠这份文本补丁重建二进制向量</strong>，重建以完整目录及JSON清单为准。</p>
+<p>原 ASR <code>full-review-01</code> 收据绑定的896个文件与本次候选逐个哈希吻合。原结果是504个顶层、1471个含子项测试事件，以及vet、页面函数检查和双平台编译。此绑定不包括未列入原收据的Makefile/源文档增量，更不覆盖压测工作稿。见 <a href="source/historical-test-binding.json">绑定报告</a>。</p>
+<h2 id="已完成代码的具体增量">已完成代码的具体增量</h2>
+<ol>
+<li>RX元数据、原始观察时钟与剩余期限：<code>control/internal/media/rx_*</code>，覆盖过期、丢弃、暂停及消费边界。</li>
+<li>ASR协议与客户端：<code>control/internal/asr</code>，分离wire、流读写、帧与来源验证、有界队列、FINISH/DONE和取消。</li>
+<li>按需重采样：<code>control/internal/asr/resample</code>，固定系数、独立参考向量、8→16k及状态边界。</li>
+<li>真实本地通道接入：<code>control/internal/server/asr_stream*</code> 与 <code>rx_stream*</code>，正确ACK授权、生命周期撤权及无绑定配额回收。</li>
+<li>可控代理：<code>control/cmd/asr-mock</code>，真实Unix连接、PCM摘要及故障注入；不含真正识别模型。</li>
+<li>ASR配置和观测：<code>control/internal/config/asr_stream*</code>、Server观测、HTTP状态/指标及总览代码。</li>
+<li>压测诊断：失败后有界采样、保留原失败、socket丢包支持能力显示；已测与未测版本分别交付。</li>
+</ol>
+<p>源码文件保留开发时的中文注释。Go vendor、Rust vendor、上游C源码和历史证据按原始内容保存；不把第三方注释翻译后冒充原件。</p>
+<h2 id="离线编译步骤">离线编译步骤</h2>
+<p>在交付目录执行，系统需安装 Go≥1.23、兼容工程的Rust stable（最低1.85）、C编译器和Python3。工具链本身未随包提供。以下命令编译开发产物，不启动电话服务：</p>
+<pre><code class="language-sh">python3 delivery-tools/build_source.py --variant main --output /tmp/voice-main-build-01
+python3 delivery-tools/build_source.py --variant asr-candidate --output /tmp/voice-asr-build-01
+</code></pre>
+<p>输出目录必须尚不存在且位于交付目录之外。脚本用 <code>-mod=vendor</code> 编译Go，用 <code>--locked --offline</code> 和本包Rust依赖编译媒体，并生成G.711 C ABI示例。可通过环境变量 <code>GO</code>、<code>CARGO</code>、<code>CC</code> 指定工具位置。两套源码均已按此脚本在本机实际执行成功，原始日志和收据见 <a href="evidence/delivery-build/main/receipt.json">主工程编译</a>、<a href="evidence/delivery-build/asr-candidate/receipt.json">候选编译</a>。</p>
+<p>源码中的原始 <code>make all</code> 仍执行文档发布门禁。开发编译成功不等于该门禁通过；脚本不会更新、跳过后宣称通过或篡改绿色证据。Linux ARM64历史编译也不等于Linux运行或容量验收。</p>
+<p>Go第三方依赖已在各源码树 <code>control/vendor</code> 中，旧README里的“无第三方Go模块”描述已过时，实际为固定 <code>golang.org/x/sys v0.30.0</code>。可选Opus原始tar包已按工程 <code>native/audio/sources.json</code> 的SHA核对；原生后端的实际构建参数、加载路径和许可见原专题，基础编译不自动开启全部编码实时处理。</p>
+<p>需要试运行时，在自己的运行目录复制 <code>source/main/config/local.json</code>，把 <code>media.binary</code> 指向上述构建输出里的 <code>cargo-target/release/rustswitch-media</code>；先用同一输出目录的 <code>rustswitch -check-config -config &lt;配置路径&gt;</code> 校验，再按06章配置端口、线路与日志目录。源码快照中不补入运行配置或构建产物。</p>
+<h2 id="发布前仍需完成的检查">发布前仍需完成的检查</h2>
+<p>本轮实际执行两份源码的 <code>python3 -B tools/build_api_docs.py --check</code>：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>源码</th>
+<th>结果</th>
+<th>后续处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>main</td>
+<td>失败：<code>绿色已失效：key-api-pcm-stream</code></td>
+<td>按冻结源码重新取得有效证据并更新派生文档；不能只改时间戳或绿色字段</td>
+</tr>
+<tr>
+<td>asr-candidate</td>
+<td>失败：<code>字段字典落后于机器合同</code></td>
+<td>ASR源OpenAPI增量需同步字段字典、内嵌资源与当前源码验证；首个错误修复后继续跑完整门禁</td>
+</tr>
+</tbody></table></div>
+<p><a href="evidence/delivery-doc-gate/receipt.json">原始门禁收据</a>保留失败。原对照中的82项local passed是交付参考文件的存量统计，不能全量当作本日仍有效的绿色认证。当前没有新发布、万路、完整供应商Agent或100% FreeSWITCH通过结论。</p>
+<h2 id="交接时应核对什么">交接时应核对什么</h2>
+<ul>
+<li><code>source/main-manifest.json</code>、<code>source/asr-candidate-manifest.json</code> 与整包 <code>manifest.json</code> 能逐文件校验。</li>
+<li><code>source/packaging-snapshot.json</code> 记录原始来源、排除项、差异和工作稿边界。</li>
+<li><a href="evidence/source-audit/source-audit.md">独立源码审计</a>记录副本一致性、早期实现纳入情况、未复验改动与证据范围。</li>
+<li><code>backlog</code> 保留全部原ID与状态，可按需求编号和模块逐项分派，不能只按绿数推进。</li>
+<li>运行密钥、主服务状态、socket、构建缓存和旧安装二进制未作为源码打包。验收测试向量、必要配置示例、完整vendor和第三方许可已经保留。</li>
+<li>本次公开发布已提供根级 Apache-2.0 LICENSE；自有代码与原创资料适用该许可，第三方组件保留原许可及例外，详见 <a href="OPEN_SOURCE.html">开源说明</a>。</li>
+<li>本轮以源码及材料交付为范围，未重启或替换正在运行的服务。</li>
+</ul>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

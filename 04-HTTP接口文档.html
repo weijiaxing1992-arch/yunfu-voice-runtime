@@ -1,0 +1,2205 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>04 HTTP 管理接口完整文档 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="active" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 04 HTTP 管理接口完整文档</div><article class="content"><div class="page-tools"><a href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 28 节</summary><a href="#通用调用合同">通用调用合同</a><a href="#操作目录">操作目录</a><a href="#gethealth-get-healthz">getHealth · GET /healthz</a><a href="#getreadiness-get-readyz">getReadiness · GET /readyz</a><a href="#getstatus-get-v1status">getStatus · GET /v1/status</a><a href="#getmetrics-get-metrics">getMetrics · GET /metrics</a><a href="#getconfig-get-v1config">getConfig · GET /v1/config</a><a href="#putconfig-put-v1config">putConfig · PUT /v1/config</a><a href="#getguard-get-v1guard">getGuard · GET /v1/guard</a><a href="#putguard-put-v1guard">putGuard · PUT /v1/guard</a><a href="#drain-post-v1drain">drain · POST /v1/drain</a><a href="#resume-post-v1resume">resume · POST /v1/resume</a><a href="#getfsconfig-get-v1fs-config">getFSConfig · GET /v1/fs-config</a><a href="#putfsconfig-put-v1fs-config">putFSConfig · PUT /v1/fs-config</a><a href="#getfsfile-get-v1fs-configfile">getFSFile · GET /v1/fs-config/file</a><a href="#putfsfile-put-v1fs-configfile">putFSFile · PUT /v1/fs-config/file</a><a href="#getfsexport-get-v1fs-configexport">getFSExport · GET /v1/fs-config/export</a><a href="#getdocs-get-v1docs">getDocs · GET /v1/docs</a><a href="#getopenapi-get-v1docsopenapijson">getOpenAPI · GET /v1/docs/openapi.json</a><a href="#getcomparison-get-v1docscomparisonjson">getComparison · GET /v1/docs/comparison.json</a><a href="#getdocument-get-v1docsfile">getDocument · GET /v1/docs/file</a><a href="#getdocsexport-get-v1docsexportzip">getDocsExport · GET /v1/docs/export.zip</a><a href="#gettests-get-v1tests">getTests · GET /v1/tests</a><a href="#starttest-post-v1tests">startTest · POST /v1/tests</a><a href="#gettest-get-v1testsid">getTest · GET /v1/tests/{id}</a><a href="#stoptest-post-v1testsidstop">stopTest · POST /v1/tests/{id}/stop</a><a href="#gettestreport-get-v1testsidreport">getTestReport · GET /v1/tests/{id}/report</a><a href="#getcodecs-get-v1codecs">getCodecs · GET /v1/codecs</a></details><h1 id="04-http-管理接口完整文档">04 HTTP 管理接口完整文档</h1>
+<p>基线：OpenAPI 3.1.0，文档 1.13.0。本章由主目录机器契约自动整理，覆盖全部 26 个操作；所有 77 个模型原文见 <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html">09</a>。完整 JSON 见 <a href="reference/docs/api/openapi.json">openapi.json</a>。ASR 候选不在本基线新增任何 HTTP path，其字段补充见候选合同。</p>
+<h2 id="通用调用合同">通用调用合同</h2>
+<ul>
+<li>基地址示例 <code>http://127.0.0.1:9080</code>，管理监听为回环；CSRF不等于用户认证。</li>
+<li>GET/HEAD无需CSRF；写请求要求 <code>Content-Type: application/json</code>、正确 <code>X-RustSwitch-CSRF</code>，非空Origin需同源。</li>
+<li>用 GET /v1/config 取得令牌；revision由配置/Guard/XML共用。409保留草稿并合并；网络超时不盲重放写入。</li>
+<li>仅明确收到令牌失效403及 <code>X-RustSwitch-CSRF-Refresh: required</code> 时，可刷新并用同一原请求重试一次。</li>
+<li>完整PUT不自动合并省略字段；校验/HTTP资源预算及错误例外详见 <a href="reference/docs/api/http-reference.html">HTTP专题</a>。</li>
+<li>常见错误为JSON error对象；路由404/405可能为文本；readyz 503的Content-Type存在已记录例外，不能只凭类型判断服务是否可接入。</li>
+</ul>
+<h2 id="操作目录">操作目录</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>路径</th>
+<th>operationId</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET</td>
+<td><code>/healthz</code></td>
+<td><code>getHealth</code></td>
+<td>读取进程存活和版本</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/readyz</code></td>
+<td><code>getReadiness</code></td>
+<td>读取新呼叫准入就绪</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/status</code></td>
+<td><code>getStatus</code></td>
+<td>读取控制与媒体观测</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/metrics</code></td>
+<td><code>getMetrics</code></td>
+<td>读取Prometheus指标</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/config</code></td>
+<td><code>getConfig</code></td>
+<td>读取运行配置和待启动草稿</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><code>/v1/config</code></td>
+<td><code>putConfig</code></td>
+<td>保存完整待启动配置</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/guard</code></td>
+<td><code>getGuard</code></td>
+<td>读取即时峰值保护</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><code>/v1/guard</code></td>
+<td><code>putGuard</code></td>
+<td>原子更新即时峰值保护</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/v1/drain</code></td>
+<td><code>drain</code></td>
+<td>暂停新初始呼叫</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/v1/resume</code></td>
+<td><code>resume</code></td>
+<td>恢复按既有策略接入</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/fs-config</code></td>
+<td><code>getFSConfig</code></td>
+<td>读取FreeSWITCH配置草稿目录</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><code>/v1/fs-config</code></td>
+<td><code>putFSConfig</code></td>
+<td>按参数ID保存差量修改</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/fs-config/file</code></td>
+<td><code>getFSFile</code></td>
+<td>读取单个XML草稿</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><code>/v1/fs-config/file</code></td>
+<td><code>putFSFile</code></td>
+<td>保存或新增XML文件</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/fs-config/export</code></td>
+<td><code>getFSExport</code></td>
+<td>导出完整XML配置ZIP</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/docs</code></td>
+<td><code>getDocs</code></td>
+<td>读取文档清单</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/docs/openapi.json</code></td>
+<td><code>getOpenAPI</code></td>
+<td>下载OpenAPI 3.1描述</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/docs/comparison.json</code></td>
+<td><code>getComparison</code></td>
+<td>下载完整接口对照</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/docs/file</code></td>
+<td><code>getDocument</code></td>
+<td>读取允许清单内原始文档</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/docs/export.zip</code></td>
+<td><code>getDocsExport</code></td>
+<td>下载完整文档ZIP</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/tests</code></td>
+<td><code>getTests</code></td>
+<td>读取测试能力与任务列表</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/v1/tests</code></td>
+<td><code>startTest</code></td>
+<td>启动压力或单路媒体测试</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/tests/{id}</code></td>
+<td><code>getTest</code></td>
+<td>读取指定测试进度</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/v1/tests/{id}/stop</code></td>
+<td><code>stopTest</code></td>
+<td>停止压力测试或挂断测试小电话</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/tests/{id}/report</code></td>
+<td><code>getTestReport</code></td>
+<td>下载测试结果与失败证据</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/codecs</code></td>
+<td><code>getCodecs</code></td>
+<td>读取音频传输与原生后端能力</td>
+</tr>
+</tbody></table></div>
+<h2 id="gethealth-get-healthz">getHealth · GET /healthz</h2>
+<p>读取进程存活和版本</p>
+<p>可以响应不表示媒体健康或有新呼叫容量。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#health">Health</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;status&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;只报告本HTTP进程存活，不是FreeSWITCH status的结构和文本。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+<h2 id="getreadiness-get-readyz">getReadiness · GET /readyz</h2>
+<p>读取新呼叫准入就绪</p>
+<p>合并排空、日志健康、Guard.limit_reason及至少一个媒体分片Admission；不检查全部私有容量状态，不能保证下一次媒体分配成功。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-1">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-1">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#readiness">Readiness</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>暂不可接入，正文为ready=false；当前先WriteHeader再writeJSON，实际Content-Type可能缺失。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#readiness">Readiness</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照-1">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;fsctl pause_check / status&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;这是RustSwitch自有HTTP契约，不兼容原版ESL/fs_cli的传输、命令与输出。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+<h2 id="getstatus-get-v1status">getStatus · GET /v1/status</h2>
+<p>读取控制与媒体观测</p>
+<p>返回控制计数、保护器和媒体分片；没有逐通话清单、ESL事件流或完整CDR。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-2">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-2">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#status">Status</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照-2">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;status / show calls / show channels&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;计数/身份/字段不同，没有实现show calls/channels的原始API。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+<h2 id="getmetrics-get-metrics">getMetrics · GET /metrics</h2>
+<p>读取Prometheus指标</p>
+<p>text/plain; version=0.0.4，无HELP/TYPE声明；累计和即时指标须按指标字典区分。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-3">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-3">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>text/plain <code>{&quot;type&quot;:&quot;string&quot;}</code></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照-3">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;status / 媒体模块统计&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;这是RustSwitch自有HTTP契约，不兼容原版ESL/fs_cli的传输、命令与输出。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+<h2 id="getconfig-get-v1config">getConfig · GET /v1/config</h2>
+<p>读取运行配置和待启动草稿</p>
+<p>读取共享revision、当前进程CSRF令牌、active/desired、持久化状态和Guard。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-4">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-4">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#adminconfigresponse">AdminConfigResponse</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照-4">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;XML配置 / reloadxml&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;配置为RustSwitch JSON，不执行FreeSWITCH XML或reloadxml。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a/conf/vanilla&quot;
+}
+</code></pre>
+<h2 id="putconfig-put-v1config">putConfig · PUT /v1/config</h2>
+<p>保存完整待启动配置</p>
+<p>先校验完整config再检查revision；禁止修改media.binary与journal.path；当前Guard必须适合新的硬上限。保存不切换当前socket/worker，下次启动应用desired。</p>
+<p><strong>写入边界：</strong> 遵守通用Content-Type/CSRF/Origin要求；幂等性和revision以本操作正文为准。</p>
+<h3 id="路径查询与头参数-5">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+<tr>
+<td>Origin</td>
+<td>header</td>
+<td>false</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>非空时须scheme=http且URL.Host与请求Host完全相同；省略允许。</td>
+</tr>
+</tbody></table></div>
+<h3 id="请求正文">请求正文</h3>
+<p>单个JSON对象；Go重复已知键采用后值覆盖/对象合并，省略按零值，不是PATCH。</p>
+<p>必需：true.</p>
+<p>媒体类型：<code>application/json</code>；模型：<a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#configupdate">ConfigUpdate</a></p>
+<h3 id="全部已定义响应-5">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#adminconfigresponse">AdminConfigResponse</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>415</td>
+<td>写请求Content-Type分号前部分不是精确application/json。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td>JSON语法/类型/未知字段/空正文/多JSON值或4 MiB读取上限错误；当前返回400而非413。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>409</td>
+<td>共享revision过期。resume也可能因进程正在退出而返回无revision错误。</td>
+<td>application/json <code>{&quot;oneOf&quot;:[{&quot;$ref&quot;:&quot;#/components/schemas/Error&quot;},{&quot;$ref&quot;:&quot;#/components/schemas/RevisionConflict&quot;}]}</code></td>
+</tr>
+<tr>
+<td>422</td>
+<td>配置、保护阈值、路径、XML或参数的业务校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>500</td>
+<td>持久化、内嵌文件或目录处理错误；不可假定请求已生效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>管理重请求并发已达8个，尚未读取正文或执行业务；Retry-After为1秒，按原逻辑请求重试。状态、停止、排空及保护策略不占重请求槽。64个管理TCP连接全部占用时，新连接仍可能在系统队列等待，轻量入口也不能绕过连接上限。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<p>响应 <code>503</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Retry-After&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;const&quot;: &quot;1&quot;
+    },
+    &quot;description&quot;: &quot;建议一秒后重试。&quot;
+  }
+}
+</code></pre>
+<h3 id="freeswitch-对照-5">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;XML配置 / reloadxml&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;保存下次启动参数，不是reloadxml的运行语义。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a/conf/vanilla&quot;
+}
+</code></pre>
+<h2 id="getguard-get-v1guard">getGuard · GET /v1/guard</h2>
+<p>读取即时峰值保护</p>
+<p>GET会结算令牌补充，不消费额度或增加准入计数。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-6">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-6">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#guardresponse">GuardResponse</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照-6">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;fsctl max_sessions / fsctl sps&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;这是RustSwitch自有HTTP契约，不兼容原版ESL/fs_cli的传输、命令与输出。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+<h2 id="putguard-put-v1guard">putGuard · PUT /v1/guard</h2>
+<p>原子更新即时峰值保护</p>
+<p>按revision检查，并同时受active/desired硬边界约束；先持久化再应用。降限不挂断已有通话，更新和启停不补满令牌。</p>
+<p><strong>写入边界：</strong> 遵守通用Content-Type/CSRF/Origin要求；幂等性和revision以本操作正文为准。</p>
+<h3 id="路径查询与头参数-7">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+<tr>
+<td>Origin</td>
+<td>header</td>
+<td>false</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>非空时须scheme=http且URL.Host与请求Host完全相同；省略允许。</td>
+</tr>
+</tbody></table></div>
+<h3 id="请求正文-1">请求正文</h3>
+<p>单个JSON对象；Go重复已知键采用后值覆盖/对象合并，省略按零值，不是PATCH。</p>
+<p>必需：true.</p>
+<p>媒体类型：<code>application/json</code>；模型：<a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#guardupdate">GuardUpdate</a></p>
+<h3 id="全部已定义响应-7">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#guardresponse">GuardResponse</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>415</td>
+<td>写请求Content-Type分号前部分不是精确application/json。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td>JSON语法/类型/未知字段/空正文/多JSON值或4 MiB读取上限错误；当前返回400而非413。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>409</td>
+<td>共享revision过期。resume也可能因进程正在退出而返回无revision错误。</td>
+<td>application/json <code>{&quot;oneOf&quot;:[{&quot;$ref&quot;:&quot;#/components/schemas/Error&quot;},{&quot;$ref&quot;:&quot;#/components/schemas/RevisionConflict&quot;}]}</code></td>
+</tr>
+<tr>
+<td>422</td>
+<td>配置、保护阈值、路径、XML或参数的业务校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>500</td>
+<td>持久化、内嵌文件或目录处理错误；不可假定请求已生效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照-7">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;fsctl max_sessions / fsctl sps&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;采用桥接资源数，新增建立中限制和软降速，不等同FreeSWITCH session计数或fsctl语法。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+<h2 id="drain-post-v1drain">drain · POST /v1/drain</h2>
+<p>暂停新初始呼叫</p>
+<p>只修改当前draining，不持久化、不推进revision、不挂断存量。handler不解析正文；空/未知/非JSON正文不会因正文被拒绝，但仍要求Content-Type和CSRF。</p>
+<p><strong>写入边界：</strong> 遵守通用Content-Type/CSRF/Origin要求；幂等性和revision以本操作正文为准。</p>
+<h3 id="路径查询与头参数-8">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+<tr>
+<td>Origin</td>
+<td>header</td>
+<td>false</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>非空时须scheme=http且URL.Host与请求Host完全相同；省略允许。</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>写接口必须application/json，可带分号参数；分号前不做大小写/空白归一化。OpenAPI工具通常由requestBody自动设置。</td>
+</tr>
+</tbody></table></div>
+<h3 id="请求正文-2">请求正文</h3>
+<p>正文不读取；推荐{}，不要求revision。</p>
+<p>必需：false.</p>
+<p>媒体类型：<code>application/json</code>；模型：<code>{}</code></p>
+<pre><code class="language-json">{}
+</code></pre>
+<h3 id="全部已定义响应-8">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#drainstate">DrainState</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>415</td>
+<td>写请求Content-Type分号前部分不是精确application/json。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照-8">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;fsctl pause&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;只控制RustSwitch新初始INVITE，不区分FreeSWITCH inbound/outbound，也不是优雅停机命令。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+<h2 id="resume-post-v1resume">resume · POST /v1/resume</h2>
+<p>恢复按既有策略接入</p>
+<p>只修改当前draining，不持久化、不推进revision、不挂断存量。handler不解析正文；空/未知/非JSON正文不会因正文被拒绝，但仍要求Content-Type和CSRF。stopping=true时409。</p>
+<p><strong>写入边界：</strong> 遵守通用Content-Type/CSRF/Origin要求；幂等性和revision以本操作正文为准。</p>
+<h3 id="路径查询与头参数-9">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+<tr>
+<td>Origin</td>
+<td>header</td>
+<td>false</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>非空时须scheme=http且URL.Host与请求Host完全相同；省略允许。</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>写接口必须application/json，可带分号参数；分号前不做大小写/空白归一化。OpenAPI工具通常由requestBody自动设置。</td>
+</tr>
+</tbody></table></div>
+<h3 id="请求正文-3">请求正文</h3>
+<p>正文不读取；推荐{}，不要求revision。</p>
+<p>必需：false.</p>
+<p>媒体类型：<code>application/json</code>；模型：<code>{}</code></p>
+<pre><code class="language-json">{}
+</code></pre>
+<h3 id="全部已定义响应-9">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#drainstate">DrainState</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>415</td>
+<td>写请求Content-Type分号前部分不是精确application/json。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>409</td>
+<td>共享revision过期。resume也可能因进程正在退出而返回无revision错误。</td>
+<td>application/json <code>{&quot;oneOf&quot;:[{&quot;$ref&quot;:&quot;#/components/schemas/Error&quot;},{&quot;$ref&quot;:&quot;#/components/schemas/RevisionConflict&quot;}]}</code></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照-9">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;fsctl resume&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;只控制RustSwitch新初始INVITE，不区分FreeSWITCH inbound/outbound，也不是优雅停机命令。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+<h2 id="getfsconfig-get-v1fs-config">getFSConfig · GET /v1/fs-config</h2>
+<p>读取FreeSWITCH配置草稿目录</p>
+<p>基线叠加保存改动后的文件和参数，仅编辑导出，不是模块运行清单。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-10">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-10">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#fsconfigresponse">FSConfigResponse</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>500</td>
+<td>持久化、内嵌文件或目录处理错误；不可假定请求已生效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>管理重请求并发已达8个，尚未读取正文或执行业务；Retry-After为1秒，按原逻辑请求重试。状态、停止、排空及保护策略不占重请求槽。64个管理TCP连接全部占用时，新连接仍可能在系统队列等待，轻量入口也不能绕过连接上限。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<p>响应 <code>503</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Retry-After&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;const&quot;: &quot;1&quot;
+    },
+    &quot;description&quot;: &quot;建议一秒后重试。&quot;
+  }
+}
+</code></pre>
+<h3 id="freeswitch-对照-10">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;conf/vanilla XML&quot;,
+  &quot;relationship&quot;: &quot;export_artifact_only&quot;,
+  &quot;difference&quot;: &quot;配置编辑与导出可用，RustSwitch不执行XML业务语义。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a/conf/vanilla&quot;
+}
+</code></pre>
+<h2 id="putfsconfig-put-v1fs-config">putFSConfig · PUT /v1/fs-config</h2>
+<p>按参数ID保存差量修改</p>
+<p>只发送本次ID到值的差量，XML字符自动转义。未知ID返回422；省略/null/空映射不改XML但仍推进revision。</p>
+<p><strong>写入边界：</strong> 遵守通用Content-Type/CSRF/Origin要求；幂等性和revision以本操作正文为准。</p>
+<h3 id="路径查询与头参数-11">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+<tr>
+<td>Origin</td>
+<td>header</td>
+<td>false</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>非空时须scheme=http且URL.Host与请求Host完全相同；省略允许。</td>
+</tr>
+</tbody></table></div>
+<h3 id="请求正文-4">请求正文</h3>
+<p>单个JSON对象；Go重复已知键采用后值覆盖/对象合并，省略按零值，不是PATCH。</p>
+<p>必需：true.</p>
+<p>媒体类型：<code>application/json</code>；模型：<a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#fsparametersupdate">FSParametersUpdate</a></p>
+<h3 id="全部已定义响应-11">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#fsconfigresponse">FSConfigResponse</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>415</td>
+<td>写请求Content-Type分号前部分不是精确application/json。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td>JSON语法/类型/未知字段/空正文/多JSON值或4 MiB读取上限错误；当前返回400而非413。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>409</td>
+<td>共享revision过期。resume也可能因进程正在退出而返回无revision错误。</td>
+<td>application/json <code>{&quot;oneOf&quot;:[{&quot;$ref&quot;:&quot;#/components/schemas/Error&quot;},{&quot;$ref&quot;:&quot;#/components/schemas/RevisionConflict&quot;}]}</code></td>
+</tr>
+<tr>
+<td>422</td>
+<td>配置、保护阈值、路径、XML或参数的业务校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>500</td>
+<td>持久化、内嵌文件或目录处理错误；不可假定请求已生效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>管理重请求并发已达8个，尚未读取正文或执行业务；Retry-After为1秒，按原逻辑请求重试。状态、停止、排空及保护策略不占重请求槽。64个管理TCP连接全部占用时，新连接仍可能在系统队列等待，轻量入口也不能绕过连接上限。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<p>响应 <code>503</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Retry-After&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;const&quot;: &quot;1&quot;
+    },
+    &quot;description&quot;: &quot;建议一秒后重试。&quot;
+  }
+}
+</code></pre>
+<h3 id="freeswitch-对照-11">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;conf/vanilla XML属性&quot;,
+  &quot;relationship&quot;: &quot;export_artifact_only&quot;,
+  &quot;difference&quot;: &quot;这是RustSwitch自有HTTP契约，不兼容原版ESL/fs_cli的传输、命令与输出。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a/conf/vanilla&quot;
+}
+</code></pre>
+<h2 id="getfsfile-get-v1fs-configfile">getFSFile · GET /v1/fs-config/file</h2>
+<p>读取单个XML草稿</p>
+<p>返回包含xml字符串的JSON，不直接返回XML，不读取任意本机文件。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-12">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+<tr>
+<td>path</td>
+<td>query</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;安全相对 XML 路径；path.Clean必须等于原值，禁止绝对路径和穿越。&quot;,&quot;minLength&quot;:1,&quot;maxLength&quot;:200,&quot;pattern&quot;:&quot;^[A-Za-z0-9_./-]+\\.xml$&quot;}</code></td>
+<td>当前只使用Query().Get的首个path；其他参数和重复path未统一拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-12">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#fsfileresponse">FSFileResponse</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td>查询/路径格式不合法；文档file入口比FS文件入口采用更严格的参数规则。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td>路径语法合法，但文件不在对应目录或文档允许清单。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>500</td>
+<td>持久化、内嵌文件或目录处理错误；不可假定请求已生效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>管理重请求并发已达8个，尚未读取正文或执行业务；Retry-After为1秒，按原逻辑请求重试。状态、停止、排空及保护策略不占重请求槽。64个管理TCP连接全部占用时，新连接仍可能在系统队列等待，轻量入口也不能绕过连接上限。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<p>响应 <code>503</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Retry-After&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;const&quot;: &quot;1&quot;
+    },
+    &quot;description&quot;: &quot;建议一秒后重试。&quot;
+  }
+}
+</code></pre>
+<h3 id="freeswitch-对照-12">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;conf/vanilla XML文件&quot;,
+  &quot;relationship&quot;: &quot;export_artifact_only&quot;,
+  &quot;difference&quot;: &quot;这是RustSwitch自有HTTP契约，不兼容原版ESL/fs_cli的传输、命令与输出。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a/conf/vanilla&quot;
+}
+</code></pre>
+<h2 id="putfsfile-put-v1fs-configfile">putFSFile · PUT /v1/fs-config/file</h2>
+<p>保存或新增XML文件</p>
+<p>先校验路径/XML再检查revision。单文件256 KiB、覆盖/新增最多512个、合计5 MiB；无删除接口。允许多根片段，不执行预处理。</p>
+<p><strong>写入边界：</strong> 遵守通用Content-Type/CSRF/Origin要求；幂等性和revision以本操作正文为准。</p>
+<h3 id="路径查询与头参数-13">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+<tr>
+<td>Origin</td>
+<td>header</td>
+<td>false</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>非空时须scheme=http且URL.Host与请求Host完全相同；省略允许。</td>
+</tr>
+</tbody></table></div>
+<h3 id="请求正文-5">请求正文</h3>
+<p>单个JSON对象；Go重复已知键采用后值覆盖/对象合并，省略按零值，不是PATCH。</p>
+<p>必需：true.</p>
+<p>媒体类型：<code>application/json</code>；模型：<a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#fsfileupdate">FSFileUpdate</a></p>
+<h3 id="全部已定义响应-13">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#fsfileupdated">FSFileUpdated</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>415</td>
+<td>写请求Content-Type分号前部分不是精确application/json。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td>JSON语法/类型/未知字段/空正文/多JSON值或4 MiB读取上限错误；当前返回400而非413。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>409</td>
+<td>共享revision过期。resume也可能因进程正在退出而返回无revision错误。</td>
+<td>application/json <code>{&quot;oneOf&quot;:[{&quot;$ref&quot;:&quot;#/components/schemas/Error&quot;},{&quot;$ref&quot;:&quot;#/components/schemas/RevisionConflict&quot;}]}</code></td>
+</tr>
+<tr>
+<td>422</td>
+<td>配置、保护阈值、路径、XML或参数的业务校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>500</td>
+<td>持久化、内嵌文件或目录处理错误；不可假定请求已生效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>管理重请求并发已达8个，尚未读取正文或执行业务；Retry-After为1秒，按原逻辑请求重试。状态、停止、排空及保护策略不占重请求槽。64个管理TCP连接全部占用时，新连接仍可能在系统队列等待，轻量入口也不能绕过连接上限。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<p>响应 <code>503</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Retry-After&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;const&quot;: &quot;1&quot;
+    },
+    &quot;description&quot;: &quot;建议一秒后重试。&quot;
+  }
+}
+</code></pre>
+<h3 id="freeswitch-对照-13">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;conf/vanilla XML文件&quot;,
+  &quot;relationship&quot;: &quot;export_artifact_only&quot;,
+  &quot;difference&quot;: &quot;这是RustSwitch自有HTTP契约，不兼容原版ESL/fs_cli的传输、命令与输出。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a/conf/vanilla&quot;
+}
+</code></pre>
+<h2 id="getfsexport-get-v1fs-configexport">getFSExport · GET /v1/fs-config/export</h2>
+<p>导出完整XML配置ZIP</p>
+<p>包含conf/树、LICENSE.freeswitch、SOURCE.json和README-中文.txt。下载不部署或重载。合并集合失败返回500；ZIP构建错误当前handler直接返回，可能得到空/不完整响应，不能保证结构化500。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-14">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-14">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/zip <code>{&quot;type&quot;:&quot;string&quot;,&quot;format&quot;:&quot;binary&quot;}</code></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>500</td>
+<td>持久化、内嵌文件或目录处理错误；不可假定请求已生效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>管理重请求并发已达8个，尚未读取正文或执行业务；Retry-After为1秒，按原逻辑请求重试。状态、停止、排空及保护策略不占重请求槽。64个管理TCP连接全部占用时，新连接仍可能在系统队列等待，轻量入口也不能绕过连接上限。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<p>响应 <code>200</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Content-Disposition&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;&quot;
+    },
+    &quot;example&quot;: &quot;attachment; filename=\&quot;freeswitch-1.11.3-config.zip\&quot;&quot;
+  },
+  &quot;Content-Length&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;非负累计数或即时数量。&quot;,
+      &quot;minimum&quot;: 0
+    }
+  }
+}
+</code></pre>
+<p>响应 <code>503</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Retry-After&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;const&quot;: &quot;1&quot;
+    },
+    &quot;description&quot;: &quot;建议一秒后重试。&quot;
+  }
+}
+</code></pre>
+<h3 id="freeswitch-对照-14">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;conf/vanilla配置分发&quot;,
+  &quot;relationship&quot;: &quot;export_artifact_only&quot;,
+  &quot;difference&quot;: &quot;这是RustSwitch自有HTTP契约，不兼容原版ESL/fs_cli的传输、命令与输出。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a/conf/vanilla&quot;
+}
+</code></pre>
+<h2 id="getdocs-get-v1docs">getDocs · GET /v1/docs</h2>
+<p>读取文档清单</p>
+<p>文档版本1.0.0，应用仍0.3.0。SHA-256和字节数对应原始文件，条目数不等于兼容认证通过数。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-15">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-15">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#docsmanifest">DocsManifest</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>500</td>
+<td>持久化、内嵌文件或目录处理错误；不可假定请求已生效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>管理重请求并发已达8个，尚未读取正文或执行业务；Retry-After为1秒，按原逻辑请求重试。状态、停止、排空及保护策略不占重请求槽。64个管理TCP连接全部占用时，新连接仍可能在系统队列等待，轻量入口也不能绕过连接上限。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<p>响应 <code>503</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Retry-After&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;const&quot;: &quot;1&quot;
+    },
+    &quot;description&quot;: &quot;建议一秒后重试。&quot;
+  }
+}
+</code></pre>
+<h3 id="freeswitch-对照-15">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;无同名FreeSWITCH HTTP入口&quot;,
+  &quot;relationship&quot;: &quot;internal_contract_only&quot;,
+  &quot;difference&quot;: &quot;这是RustSwitch自有HTTP契约，不兼容原版ESL/fs_cli的传输、命令与输出。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a&quot;
+}
+</code></pre>
+<h2 id="getopenapi-get-v1docsopenapijson">getOpenAPI · GET /v1/docs/openapi.json</h2>
+<p>下载OpenAPI 3.1描述</p>
+<p>本接口规范不代表FreeSWITCH原始API或ESL已实现。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-16">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-16">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#openapifile">OpenAPIFile</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>500</td>
+<td>持久化、内嵌文件或目录处理错误；不可假定请求已生效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td>路径语法合法，但文件不在对应目录或文档允许清单。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>管理重请求并发已达8个，尚未读取正文或执行业务；Retry-After为1秒，按原逻辑请求重试。状态、停止、排空及保护策略不占重请求槽。64个管理TCP连接全部占用时，新连接仍可能在系统队列等待，轻量入口也不能绕过连接上限。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<p>响应 <code>200</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Content-Disposition&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;inline文件名，由mime.FormatMediaType编码。&quot;
+    }
+  },
+  &quot;Content-Length&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;非负累计数或即时数量。&quot;,
+      &quot;minimum&quot;: 0
+    }
+  }
+}
+</code></pre>
+<p>响应 <code>503</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Retry-After&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;const&quot;: &quot;1&quot;
+    },
+    &quot;description&quot;: &quot;建议一秒后重试。&quot;
+  }
+}
+</code></pre>
+<h3 id="freeswitch-对照-16">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;无同名FreeSWITCH HTTP入口&quot;,
+  &quot;relationship&quot;: &quot;internal_contract_only&quot;,
+  &quot;difference&quot;: &quot;这是RustSwitch自有HTTP契约，不兼容原版ESL/fs_cli的传输、命令与输出。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a&quot;
+}
+</code></pre>
+<h2 id="getcomparison-get-v1docscomparisonjson">getComparison · GET /v1/docs/comparison.json</h2>
+<p>下载完整接口对照</p>
+<p>结合status、relationship、differences和verification解释结果，禁止把静态条目当差分验收。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-17">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-17">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#comparison">Comparison</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>500</td>
+<td>持久化、内嵌文件或目录处理错误；不可假定请求已生效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td>路径语法合法，但文件不在对应目录或文档允许清单。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>管理重请求并发已达8个，尚未读取正文或执行业务；Retry-After为1秒，按原逻辑请求重试。状态、停止、排空及保护策略不占重请求槽。64个管理TCP连接全部占用时，新连接仍可能在系统队列等待，轻量入口也不能绕过连接上限。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<p>响应 <code>200</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Content-Disposition&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;inline文件名，由mime.FormatMediaType编码。&quot;
+    }
+  },
+  &quot;Content-Length&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;非负累计数或即时数量。&quot;,
+      &quot;minimum&quot;: 0
+    }
+  }
+}
+</code></pre>
+<p>响应 <code>503</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Retry-After&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;const&quot;: &quot;1&quot;
+    },
+    &quot;description&quot;: &quot;建议一秒后重试。&quot;
+  }
+}
+</code></pre>
+<h3 id="freeswitch-对照-17">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;无同名FreeSWITCH HTTP入口&quot;,
+  &quot;relationship&quot;: &quot;internal_contract_only&quot;,
+  &quot;difference&quot;: &quot;这是RustSwitch自有HTTP契约，不兼容原版ESL/fs_cli的传输、命令与输出。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a&quot;
+}
+</code></pre>
+<h2 id="getdocument-get-v1docsfile">getDocument · GET /v1/docs/file</h2>
+<p>读取允许清单内原始文档</p>
+<p>返回原始MD/JSON/CSV/头文件/文本，不执行Markdown或HTML，不读取任意磁盘路径。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-18">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+<tr>
+<td>path</td>
+<td>query</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;从documents[].path原样取得。&quot;,&quot;minLength&quot;:1,&quot;maxLength&quot;:240}</code></td>
+<td>仅允许恰好一个path；缺失/重复/未知参数/解码错误/绝对路径/..穿越/反斜线400；合法但不在清单404。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-18">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>原始正文，文本带UTF-8声明；具体MIME由允许文件类型决定。</td>
+<td>text/markdown <code>{&quot;type&quot;:&quot;string&quot;}</code>；application/json <code>{}</code>；text/csv <code>{&quot;type&quot;:&quot;string&quot;}</code>；text/plain <code>{&quot;type&quot;:&quot;string&quot;}</code></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td>查询/路径格式不合法；文档file入口比FS文件入口采用更严格的参数规则。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td>路径语法合法，但文件不在对应目录或文档允许清单。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>500</td>
+<td>持久化、内嵌文件或目录处理错误；不可假定请求已生效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>管理重请求并发已达8个，尚未读取正文或执行业务；Retry-After为1秒，按原逻辑请求重试。状态、停止、排空及保护策略不占重请求槽。64个管理TCP连接全部占用时，新连接仍可能在系统队列等待，轻量入口也不能绕过连接上限。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<p>响应 <code>200</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Content-Disposition&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;inline; filename=安全basename。&quot;
+    }
+  },
+  &quot;Content-Length&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;非负累计数或即时数量。&quot;,
+      &quot;minimum&quot;: 0
+    }
+  }
+}
+</code></pre>
+<p>响应 <code>503</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Retry-After&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;const&quot;: &quot;1&quot;
+    },
+    &quot;description&quot;: &quot;建议一秒后重试。&quot;
+  }
+}
+</code></pre>
+<h3 id="freeswitch-对照-18">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;无同名FreeSWITCH HTTP入口&quot;,
+  &quot;relationship&quot;: &quot;internal_contract_only&quot;,
+  &quot;difference&quot;: &quot;这是RustSwitch自有HTTP契约，不兼容原版ESL/fs_cli的传输、命令与输出。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a&quot;
+}
+</code></pre>
+<h2 id="getdocsexport-get-v1docsexportzip">getDocsExport · GET /v1/docs/export.zip</h2>
+<p>下载完整文档ZIP</p>
+<p>包含manifest.json和documents列出的全部文件；不写配置，不执行文档。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-19">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-19">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>成功。</td>
+<td>application/zip <code>{&quot;type&quot;:&quot;string&quot;,&quot;format&quot;:&quot;binary&quot;}</code></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>500</td>
+<td>持久化、内嵌文件或目录处理错误；不可假定请求已生效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>管理重请求并发已达8个，尚未读取正文或执行业务；Retry-After为1秒，按原逻辑请求重试。状态、停止、排空及保护策略不占重请求槽。64个管理TCP连接全部占用时，新连接仍可能在系统队列等待，轻量入口也不能绕过连接上限。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<p>响应 <code>200</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Content-Disposition&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;&quot;
+    },
+    &quot;example&quot;: &quot;attachment; filename=\&quot;rustswitch-interface-docs.zip\&quot;&quot;
+  },
+  &quot;Content-Length&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;非负累计数或即时数量。&quot;,
+      &quot;minimum&quot;: 0
+    }
+  }
+}
+</code></pre>
+<p>响应 <code>503</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Retry-After&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;const&quot;: &quot;1&quot;
+    },
+    &quot;description&quot;: &quot;建议一秒后重试。&quot;
+  }
+}
+</code></pre>
+<h3 id="freeswitch-对照-19">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;无同名FreeSWITCH HTTP入口&quot;,
+  &quot;relationship&quot;: &quot;internal_contract_only&quot;,
+  &quot;difference&quot;: &quot;这是RustSwitch自有HTTP契约，不兼容原版ESL/fs_cli的传输、命令与输出。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/tree/ef32e205295e29f034f1453ad245ba5efb07b94a&quot;
+}
+</code></pre>
+<h2 id="gettests-get-v1tests">getTests · GET /v1/tests</h2>
+<p>读取测试能力与任务列表</p>
+<p>只读返回当前控制进程的测试能力、唯一运行任务和最近20个终态摘要。当前任务附最近至多300条成功采样，历史摘要的samples为空数组；所有记录只在内存，重启后消失。档位不是实测通过容量，实际FD、隔离端口和二进制检查在显式创建后执行。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-20">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-20">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>当前能力和内存任务索引；current可能为null，history最多20个摘要，每个摘要samples为空数组。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#testoverview">TestOverview</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照-20">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;无同名HTTP测试作业入口；originate/status仅为原版呼叫与观测&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;作业由本项目启动本机隔离实例、模拟两端并验证真实RTP，不兼容ESL/bgapi，不认证FreeSWITCH运行能力。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+<h2 id="starttest-post-v1tests">startTest · POST /v1/tests</h2>
+<p>启动压力或单路媒体测试</p>
+<p>仅创建本机独立实例，不接受任意可执行文件、主机或路径。202只表示受理，后续资源预检仍可能失败。request_id在当前控制进程内去重，最多4096个键；同键同参数返回200，同键异参、有运行任务、服务退出或清理冻结返回409；报告淘汰后原键返回410且不重新执行，键数达上限的新请求返回429。总执行上下文期限T=ceil(concurrency/cps)+duration_seconds+90秒，到期进入终止清理，报告发布时间可晚于T。</p>
+<p><strong>写入边界：</strong> 遵守通用Content-Type/CSRF/Origin要求；幂等性和revision以本操作正文为准。</p>
+<h3 id="路径查询与头参数-21">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="请求正文-6">请求正文</h3>
+<p>必需：true.</p>
+<p>媒体类型：<code>application/json</code>；模型：<a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#testrequest">TestRequest</a></p>
+<h3 id="全部已定义响应-21">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>202</td>
+<td>已原子占用唯一测试槽并异步执行预检；返回完整任务记录，不保证已经启动或能够达到目标并发。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#testrun">TestRun</a></td>
+</tr>
+<tr>
+<td>200</td>
+<td>当前进程中同request_id、同参数的既有任务；不会重复执行，报告保留范围内可恢复实际状态。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#testrun">TestRun</a></td>
+</tr>
+<tr>
+<td>409</td>
+<td>已有测试运行、服务正在退出、资源清理失败导致冻结，或同request_id对应不同参数。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>410</td>
+<td>该幂等键对应的报告已从最近20份内存历史淘汰；键仍保留，明确拒绝重新执行。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>422</td>
+<td>模式、并发、CPS、时长或载荷越界。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td>JSON类型、未知字段、空正文或拼接JSON无效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>415</td>
+<td>必须为application/json。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>429</td>
+<td>本控制进程已保存4096个幂等键，拒绝新增任务；既有键仍按去重规则处理，重启后内存记录清空。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照-21">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;无同名HTTP测试作业入口；originate/status仅为原版呼叫与观测&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;作业由本项目启动本机隔离实例、模拟两端并验证真实RTP，不兼容ESL/bgapi，不认证FreeSWITCH运行能力。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+<h2 id="gettest-get-v1testsid">getTest · GET /v1/tests/{id}</h2>
+<p>读取指定测试进度</p>
+<p>返回保留中的任务阶段、发生器进度、最近至多300条成功采样和清理状态。采样错误不会被填成零值；全程峰值在最终报告的evidence中。历史报告最多20份且只保留在内存，淘汰或重启后返回404。终态字段本身不是生产容量通过证明。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-22">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+<tr>
+<td>id</td>
+<td>path</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;}</code></td>
+<td>创建或列表实际返回的任务ID，不能作为文件路径。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-22">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>保留中的完整任务；samples最多300条，只包含成功读取的真实状态。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#testrun">TestRun</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td>未知或已淘汰任务。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照-22">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;无同名HTTP测试作业入口；originate/status仅为原版呼叫与观测&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;作业由本项目启动本机隔离实例、模拟两端并验证真实RTP，不兼容ESL/bgapi，不认证FreeSWITCH运行能力。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+<h2 id="stoptest-post-v1testsidstop">stopTest · POST /v1/tests/{id}/stop</h2>
+<p>停止压力测试或挂断测试小电话</p>
+<p>只取消指定任务拥有的控制、Rust媒体和发生器实例，不停止主服务。202表示已请求停止，继续读取cleanup确认资源；200表示指定任务已有终态，重复停止不再次执行。最终报告在有界清理完成后发布，提前停止不形成完整通过结论。记录淘汰或进程重启后返回404。</p>
+<p><strong>写入边界：</strong> 遵守通用Content-Type/CSRF/Origin要求；幂等性和revision以本操作正文为准。</p>
+<h3 id="路径查询与头参数-23">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+<tr>
+<td>id</td>
+<td>path</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;}</code></td>
+<td>创建或列表实际返回的任务ID，不能作为文件路径。</td>
+</tr>
+</tbody></table></div>
+<h3 id="请求正文-7">请求正文</h3>
+<p>必需：true.</p>
+<p>媒体类型：<code>application/json</code>；模型：<code>{&quot;type&quot;:&quot;object&quot;,&quot;additionalProperties&quot;:false}</code></p>
+<h3 id="全部已定义响应-23">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>202</td>
+<td>停止请求已受理，任务进入stopping；资源仍可能处于清理中，需继续读取任务。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#testrun">TestRun</a></td>
+</tr>
+<tr>
+<td>200</td>
+<td>指定任务已经形成终态报告，返回原任务，不再次停止或重新执行。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#testrun">TestRun</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td>未知或已淘汰任务。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td>JSON类型、未知字段、空正文或拼接JSON无效。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>415</td>
+<td>必须为application/json。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>422</td>
+<td>停止正文必须为一个空JSON对象；null或非空对象返回422。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照-23">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;无同名HTTP测试作业入口；originate/status仅为原版呼叫与观测&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;作业由本项目启动本机隔离实例、模拟两端并验证真实RTP，不兼容ESL/bgapi，不认证FreeSWITCH运行能力。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+<h2 id="gettestreport-get-v1testsidreport">getTestReport · GET /v1/tests/{id}/report</h2>
+<p>下载测试结果与失败证据</p>
+<p>成功、失败及停止任务在资源清理结束并发布后均可下载，不可变报告只在本进程内存保留最近20份。运行或清理中返回409，已淘汰或重启后返回404。controller_tail和generator_tail各保留最近64KiB原始日志字节；result未实际生成或未通过有界读取时为null。evidence逐字段记录预检、部分二进制摘要、采样峰值、日志和最后收敛状态；缺失/null不表示通过。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-24">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+<tr>
+<td>id</td>
+<td>path</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;}</code></td>
+<td>创建或列表实际返回的任务ID，不能作为文件路径。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-24">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>资源清理流程结束后的完整JSON报告，含实际已有的成功或失败证据；通过仍需核对run、result、日志收敛和cleanup。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#testreport">TestReport</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td>未知或已淘汰任务。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>409</td>
+<td>测试仍在运行或清理中，没有可发布的完整报告。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>管理重请求并发已达8个，尚未读取正文或执行业务；Retry-After为1秒，按原逻辑请求重试。状态、停止、排空及保护策略不占重请求槽。64个管理TCP连接全部占用时，新连接仍可能在系统队列等待，轻量入口也不能绕过连接上限。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<p>响应 <code>503</code> 的头定义：</p>
+<pre><code class="language-json">{
+  &quot;Retry-After&quot;: {
+    &quot;schema&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;const&quot;: &quot;1&quot;
+    },
+    &quot;description&quot;: &quot;建议一秒后重试。&quot;
+  }
+}
+</code></pre>
+<h3 id="freeswitch-对照-24">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;无同名HTTP测试作业入口；originate/status仅为原版呼叫与观测&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;作业由本项目启动本机隔离实例、模拟两端并验证真实RTP，不兼容ESL/bgapi，不认证FreeSWITCH运行能力。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+<h2 id="getcodecs-get-v1codecs">getCodecs · GET /v1/codecs</h2>
+<p>读取音频传输与原生后端能力</p>
+<p>读取生效配置及当前worker握手；runtime_media每次读取，所有预期分片健康且支持精确能力后，g711模式才live_transcoding=true。实时图为G711 8kHz/20ms双腿桥接或本地A腿PCM及有限播放/按键，分别核验就绪；G722/Opus实时转码、ASR/TTS/VAD和录音尚待接入。native_audio独立缓存SDK自检（至多一次、2秒、各64KiB输出），失败仍返回200、null和native_probe_error；SDK的live_transcoding=false描述其离线入口，不否定独立的实时G711图。503为管理预算不足。 目录1.2.0新增runtime_media.local_capability/local_available/local_ready/local_capable_workers；双腿ready不能代替本地单腿ready，旧版本缺字段按未知处理。</p>
+<p><strong>写入边界：</strong> 只读。</p>
+<h3 id="路径查询与头参数-25">路径、查询与头参数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>必需</th>
+<th>类型/模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>header</td>
+<td>true</td>
+<td><code>{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;&quot;}</code></td>
+<td>客户端通常自动设置。主机部分须为精确localhost或回环IP字面量，自定义域名即便解析到回环也拒绝。</td>
+</tr>
+</tbody></table></div>
+<h3 id="全部已定义响应-25">全部已定义响应</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+<th>正文类型与模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>能力目录或可解释的原生探测失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#codeccatalog">CodecCatalog</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td>Host不是localhost/回环字面量，或写请求Origin/CSRF校验失败。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+<tr>
+<td>503</td>
+<td>管理重请求预算耗尽；稍后重试。</td>
+<td>application/json <a href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html#error">Error</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="freeswitch-对照-25">FreeSWITCH 对照</h3>
+<pre><code class="language-json">{
+  &quot;interface&quot;: &quot;show codecs / 编解码模块接口&quot;,
+  &quot;relationship&quot;: &quot;analogous_not_wire_compatible&quot;,
+  &quot;difference&quot;: &quot;HTTP目录为本项目能力探测，不兼容ESL正文、不代表mod_*.so可直接装载，亦不认证实时转码。&quot;,
+  &quot;status&quot;: &quot;implemented&quot;,
+  &quot;reference_url&quot;: &quot;https://github.com/signalwire/freeswitch/blob/ef32e205295e29f034f1453ad245ba5efb07b94a/src/mod/applications/mod_commands/mod_commands.c&quot;
+}
+</code></pre>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

@@ -1,0 +1,91 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>RustSwitch 1.7 缺口实现与逐项验证 · 云蝠项目资料</title><link rel="stylesheet" href="../../../handbook.css"></head><body><aside><a class="brand" href="../../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../../index.html">资料首页</a><a class="" href="../../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / RustSwitch 1.7 缺口实现与逐项验证</div><article class="content"><div class="page-tools"><a href="release-validation-v1.7.md" download>Markdown 原稿</a><a href="openapi.json" download>OpenAPI JSON</a><a href="../../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 5 节</summary><a href="#本轮实现">本轮实现</a><a href="#当前源码的本地验证">当前源码的本地验证</a><a href="#原版逐项对照">原版逐项对照</a><a href="#绿色状态与剩余工作">绿色状态与剩余工作</a><a href="#发布后页面与500路回归">发布后页面与500路回归</a></details><h1 id="rustswitch-17-缺口实现与逐项验证">RustSwitch 1.7 缺口实现与逐项验证</h1>
+<p>本轮已补齐 AI 电话链中一组可实际使用的缺口：受限 XML 拨号计划、answer/sleep/park/hangup、真实 WAV 放音、播放终止键、普通 uuid_break、批量变量和标准普通事件名称订阅。全部新增代码按中文说明维护。参考仍固定 FreeSWITCH 1.11.3；以下证据不表示全模块、全部协议或万路容量已完成。</p>
+<h2 id="本轮实现">本轮实现</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>入口</th>
+<th>实际行为</th>
+<th>主要边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sip.dialplan</code></td>
+<td>启动冻结 XML；指定context按号码匹配，顺序执行八个限定应用，未匹配404</td>
+<td>无完整条件求值、预处理、动态重载、bridge或变量展开；后台导出草稿不自动运行</td>
+</tr>
+<tr>
+<td><code>answer/sleep/park/hangup</code></td>
+<td>真实媒体准备后接听、等待ACK、定时顺序执行、保持停泊及实际BYE</td>
+<td>park私有事件抢占、全部cause和完整会话状态仍未实现</td>
+</tr>
+<tr>
+<td>WAV文件播放</td>
+<td>8k单声道PCM16/PCMA/PCMU文件，向当前PCMA/PCMU腿发送实际RTP</td>
+<td>相对受控root、1MiB/30秒、异步有界加载；无任意文件后端、URL或实时重采样</td>
+</tr>
+<tr>
+<td>播放终止／<code>uuid_break</code></td>
+<td>默认*、none、自定义按键、真实停音后完成；read仅停止提示音后继续收号</td>
+<td>原版FILE PLAYED也用于主动中断，不能推断完整播放；all/both、纯等待数字的read打断未兼容</td>
+</tr>
+<tr>
+<td><code>uuid_setvar_multi</code></td>
+<td>批量变量真实读回、空值和缺等号删除、引号／转义／有限自定义分隔、部分成功</td>
+<td>64项/16KiB批次预算；无完整变量展开、数组和全部变量副作用</td>
+</tr>
+<tr>
+<td>ESL普通名称订阅</td>
+<td>固定目录92个普通事件名称可订阅，客户端混合订阅不再整体失败</td>
+<td>CUSTOM子类仍未实现；订阅成功不合成不存在的业务事件</td>
+</tr>
+</tbody></table></div>
+<p>文件加载使用固定线程与有界队列／缓存。停止、挂机和会话复用后，迟到加载结果不能恢复旧播放；加载失败不会继续 XML 后续动作。XML 关闭 ESL 时也能实际收号和挂机，内部通道身份不再依赖外部事件发布器。部署的 XML 路径、context、放音root在后台只读，完整配置PUT须保持原值。</p>
+<h2 id="当前源码的本地验证">当前源码的本地验证</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>检查</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Go全量竞态回归</td>
+<td>547项测试及子测试通过，失败0，跳过0；全项目静态检查通过</td>
+</tr>
+<tr>
+<td>Rust全量</td>
+<td>58项单元测试＋1项进程集成测试通过，失败0，跳过0；Clippy通过</td>
+</tr>
+<tr>
+<td>真实SIP／Rust媒体／ESL</td>
+<td>18个阶段共176例通过，失败0，跳过0；普通与connected UDP分别执行</td>
+</tr>
+<tr>
+<td>文档／账本／证据发布器</td>
+<td>95项回归通过</td>
+</tr>
+<tr>
+<td>压测页面与请求恢复</td>
+<td>11个任务读取场景＋8个请求恢复场景通过；包含重启、历史淘汰、404/410和失败请求不盲目重放</td>
+</tr>
+<tr>
+<td>机器合同</td>
+<td>26个HTTP操作、68个模型；OpenAPI3.1及媒体IPC Schema校验通过</td>
+</tr>
+</tbody></table></div>
+<p>真实媒体检查包含独立G.711样本核对、WAV尾帧、缺失／损坏文件、加载中停止、释放后无迟到音频、双向桥接恢复、按键打断和再次呼叫。XML检查包含ACK前不推进、迟到CANCEL、错误／重复ACK、404重传、资源预算和挂机清理。业务作用结果与事件／API正文共同验收，不以返回+OK代替实际执行。</p>
+<p>本地最终收据：<code>go-3e7b8835af9f4bb396cd49f68102f690</code>、<code>e2e-2ff83531f4014b988e41415a2ff6e56e</code>。原始日志、构建收据、运行前后源码和二进制摘要由 <a href="runtime-verification.json">运行验证数据</a> 保存绑定；文档重建不覆盖这些执行记录。</p>
+<h2 id="原版逐项对照">原版逐项对照</h2>
+<p>新 <a href="ai-calling-verification-v1.7.html">11组业务对照</a> 已在固定原版与当前Linux候选分别执行，对各自声明的应用／媒体范围通过；批量变量另逐字核对12个输入的返回与变量副作用。原版与候选各使用冻结配置，WAV／XML／测试脚本、实际二进制和配置树在运行前后均核验摘要。候选功能指纹为 <code>6c3060ccea97106b68c752cb44fa1f6d15303a094a69e9c56f4b8fc9fda70df7</code>。</p>
+<p>原有 <a href="conformance-report.html">26项协议对照</a> 也已重跑：21项限定通过、3项实际差异、2项身份／目录观察。完整合同通过数仍为0，不能把身份观察算通过。</p>
+<p>原版实测推动修复了缺等号删除变量、XML未匹配404、缺文件FILE NOT FOUND、播放终止／break完成响应、正常停泊挂机响应和普通事件名称订阅。初轮失败证据保留，成功结论只引用最终构建。</p>
+<h2 id="绿色状态与剩余工作">绿色状态与剩余工作</h2>
+<p>对照目录现为3985条：882仅配置导出、17自有入口、11内部接口、2851未实现、178未验证、46部分实现。本地绿色54条，全部限定到已执行断言；3930条未执行，容量项保持失败。目录条数与绿色条数都不是FreeSWITCH兼容率。</p>
+<p>本轮仍观察到5处场景的生命周期事件不一致：三种放音场景缺完整PLAYBACK_START/STOP，两个XML停泊场景缺完整CHANNEL_PARK/UNPARK。相应完整事件合同继续保留缺口。</p>
+<p>仍需实现及逐项对测：终端REGISTER服务器与位置数据库、多网关、originate／动态bridge／transfer／re-INVITE、完整XML菜单／条件与变量展开、outbound ESL、完整事件生命周期、通话录音与会议、实时ASR／TTS／AudioGraph、通话转码、WebRTC／SRTP／DTLS／ICE及其他端点协议。它们不能通过声明目录齐全或已有同名配置替代运行实现。</p>
+<p>本轮没有新的5000或10000并发认证。1.5最近一次5000路失败记录保留，1.4历史成功不继承为当前绿色。单路对照、500路页面回归和万路业务组合必须分别验收；后续物理Linux服务器仍需测足量双向媒体、实际网卡丢包、CPU／线程、故障和完整回收。</p>
+<p>接口细节见 <a href="dialplan-reference.html">XML与基础应用</a>、<a href="file-playback-reference.html">WAV文件</a>、<a href="variables-reference.html">批量变量</a>、<a href="esl-reference.html">ESL</a> 与 <a href="freeswitch-comparison.html">完整对照表</a>。</p>
+<h2 id="发布后页面与500路回归">发布后页面与500路回归</h2>
+<p>第一版1.7发布后，单路3秒双向300包及500路10秒双向500000包全部唯一接收，未接收/发送错误0；135次状态读取错误0，最长约33毫秒。媒体启动后主动停止场景完整清理，非法输入、幂等和主配置/策略不变检查通过。详见<a href="testlab-verification-v1.7.json">本次页面与压力回归</a>。随后只更新报告导航和内嵌文档，功能源码保持同一指纹。500路是本机限定测试，5000与10000仍未认证。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

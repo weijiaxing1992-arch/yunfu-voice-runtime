@@ -1,0 +1,44 @@
+{
+  "sip": {
+    "listen": "127.0.0.1:5060",
+    "advertise": "127.0.0.1:5060",
+    "upstream": "127.0.0.1:5070",
+    "trusted_networks": [
+      "127.0.0.0/8"
+    ],
+    "setup_timeout_ms": 32000,
+    "ack_timeout_ms": 32000,
+    "max_call_seconds": 3600
+  },
+  "media": {
+    "binary": "./bin/rustswitch-media",
+    "bind_ip": "127.0.0.1",
+    "advertise_ip": "127.0.0.1",
+    "port_start": 20000,
+    "port_end": 21999,
+    "workers": 2,
+    "receive_buffer_bytes": 65536,
+    "port_reuse_delay_ms": 2000,
+    "max_packets_per_second_per_leg": 200,
+    "allowed_remote_networks": [
+      "127.0.0.0/8"
+    ],
+    "cpu_cores": [],
+    "adaptive_admission": true,
+    "admission_cpu_high": 0.85,
+    "admission_cpu_low": 0.65
+  },
+  "limits": {
+    "max_calls": 100,
+    "calls_per_second": 20,
+    "burst_calls": 40,
+    "max_transactions": 10000
+  },
+  "admin": {
+    "listen": "127.0.0.1:9080"
+  },
+  "journal": {
+    "path": "run/events.jsonl",
+    "queue_capacity": 4096
+  }
+}

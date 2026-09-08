@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="940" viewBox="0 0 1400 940" role="img" aria-label="03  AI 媒体路径">
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto-start-reverse"><path d="M0 0L8 4L0 8" fill="none" stroke="#65818e" stroke-width="1.4"/></marker></defs>
+<style>text{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#1b3440} .small{font-size:17px;fill:#58717e} .label{font-size:17px;fill:#456777} .node{font-size:19px} .title{font-size:23px;font-weight:650}</style>
+<rect width="1400" height="940" fill="#ffffff"/>
+<rect x="35" y="33" width="6" height="66" rx="3" fill="#0b827b"/>
+<text x="58" y="61" font-size="30" font-weight="700">03  AI 媒体路径</text>
+<text x="58" y="92" class="small">上行只观察对端 A 腿；下行播放不会作为“用户收音”回灌。</text>
+<polyline points="310,255 350,255" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="320" y="235" class="label">RTP</text>
+<polyline points="670,255 710,255" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="672" y="235" class="label">PCM</text>
+<polyline points="1030,255 1070,255" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1035" y="235" class="label">FD4</text>
+<polyline points="1205,350 1205,418 800,418 800,477" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="365" y="408" class="label">候选消费检查：从 Rust 观察起固定 100 ms，不因读取/转换续期</text>
+<polyline points="625,558 555,558" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="563" y="536" class="label">ASR1</text>
+<polyline points="335,558 275,558" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="280" y="536" class="label">文本</text>
+<polyline points="158,642 158,712" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="175" y="682" class="label">业务决策</text>
+<polyline points="310,790 380,790" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="320" y="766" class="label">PCM</text>
+<polyline points="695,790 765,790" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="600" y="865" class="label">RVA1 → FD3</text>
+<polyline points="1045,790 1100,790" fill="none" stroke="#65818e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1055" y="766" class="label">RTP</text>
+<rect x="45" y="180" width="265" height="170" rx="12" fill="#f5f6f7" stroke="#7b8993" stroke-width="1.5" stroke-dasharray="8 5"/>
+<text x="63" y="212" class="title">A 侧通话音频</text>
+<text x="63" y="243" class="node">已授权本地 A 腿</text>
+<text x="63" y="270" class="node">PCMA / PCMU</text>
+<text x="63" y="297" class="node">正确 ACK 后开放</text>
+<rect x="350" y="180" width="320" height="170" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="368" y="212" class="title">Rust 接收与解码</text>
+<text x="368" y="243" class="node">RTP 来源 / 时钟 / 重排</text>
+<text x="368" y="270" class="node">原生 8 kHz / 20 ms</text>
+<text x="368" y="297" class="node">丢包、CN、PLC 区分</text>
+<rect x="710" y="180" width="320" height="170" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="728" y="212" class="title">RXS2 观察出口</text>
+<text x="728" y="243" class="node">168 字节头 + 有界正文</text>
+<text x="728" y="270" class="node">订阅 / 代次 / segment</text>
+<text x="728" y="297" class="node">队列 8 项 / 100 ms 时效</text>
+<rect x="1070" y="180" width="285" height="170" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="1088" y="212" class="title">Go RX SDK</text>
+<text x="1088" y="243" class="node">真实来源绑定</text>
+<text x="1088" y="270" class="node">消费期限复核</text>
+<text x="1088" y="297" class="node">不把缺口当沉默</text>
+<rect x="625" y="477" width="475" height="165" rx="12" fill="#fff4e6" stroke="#b87019" stroke-width="1.5"/>
+<text x="643" y="509" class="title">ASR 候选桥接</text>
+<text x="643" y="540" class="node">原生 8 kHz 或按需 16 kHz</text>
+<text x="643" y="567" class="node">ASR1 / 来源区间 / FINISH→DONE</text>
+<text x="643" y="594" class="node">Unix 模拟代理通过；厂商适配待接入</text>
+<rect x="335" y="477" width="220" height="165" rx="12" fill="#f5f6f7" stroke="#7b8993" stroke-width="1.5" stroke-dasharray="8 5"/>
+<text x="353" y="509" class="title">ASR 供应商</text>
+<text x="353" y="540" class="node">协议适配器</text>
+<text x="353" y="567" class="node">真实识别模型</text>
+<text x="353" y="594" class="node">准确率另验收</text>
+<rect x="45" y="477" width="230" height="165" rx="12" fill="#f5f6f7" stroke="#7b8993" stroke-width="1.5" stroke-dasharray="8 5"/>
+<text x="63" y="509" class="title">Agent / LLM</text>
+<text x="63" y="540" class="node">业务轮次编排</text>
+<text x="63" y="567" class="node">VAD / 自动打断</text>
+<text x="63" y="594" class="node">尚待完整集成</text>
+<rect x="45" y="712" width="265" height="130" rx="12" fill="#f5f6f7" stroke="#7b8993" stroke-width="1.5" stroke-dasharray="8 5"/>
+<text x="63" y="744" class="title">TTS 供应商 / 适配器</text>
+<text x="63" y="775" class="node">转换为 8 kHz mono</text>
+<text x="63" y="802" class="node">S16LE / 20 ms</text>
+<rect x="380" y="712" width="315" height="130" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="398" y="744" class="title">Go 私有下行入口</text>
+<text x="398" y="775" class="node">RVA1 BEGIN / DATA / END</text>
+<text x="398" y="802" class="node">通道 + turn + token</text>
+<rect x="765" y="712" width="280" height="130" rx="12" fill="#eef7fb" stroke="#167799" stroke-width="1.5"/>
+<text x="783" y="744" class="title">Rust TX 播放图</text>
+<text x="783" y="775" class="node">独立发送状态</text>
+<text x="783" y="802" class="node">编码 G.711 / RTP</text>
+<rect x="1100" y="712" width="255" height="130" rx="12" fill="#f5f6f7" stroke="#7b8993" stroke-width="1.5" stroke-dasharray="8 5"/>
+<text x="1118" y="744" class="title">A 侧收到语音</text>
+<text x="1118" y="775" class="node">用户听到回复</text>
+<text x="1118" y="802" class="node">不反馈到 RX 订阅</text>
+<rect x="50" y="885" width="22" height="18" rx="4" fill="#eef7fb" stroke="#167799"/>
+<text x="82" y="900" class="small">主目录基线已有实现</text>
+<rect x="415" y="885" width="22" height="18" rx="4" fill="#fff4e6" stroke="#b87019"/>
+<text x="447" y="900" class="small">独立候选，尚未发布</text>
+<rect x="805" y="885" width="22" height="18" rx="4" fill="#f5f6f7" stroke="#7b8993"/>
+<text x="837" y="900" class="small">外部系统 / 待集成范围</text>
+</svg>

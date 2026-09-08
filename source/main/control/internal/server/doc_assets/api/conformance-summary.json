@@ -1,0 +1,4399 @@
+{
+  "schema_version": "1.0.0",
+  "reference": {
+    "version": "1.11.3",
+    "commit": "ef32e205295e29f034f1453ad245ba5efb07b94a"
+  },
+  "finished_at": "2026-09-07T03:29:44.582250Z",
+  "expires_at": "2026-10-07T03:29:44.582250+00:00",
+  "source_snapshot_sha256": "e0cd73f2c1eaa108e129d3e3c124a8d618dd5f97a9deff682d42d269d4000505",
+  "report_sha256": "82c5851a10119966c66e1e5bfc699c89e323073ad5671523e23c26f51fba82df",
+  "reference_runtime_executed": true,
+  "full_compatibility_passed": false,
+  "all_protocols_passed": false,
+  "full_superiority_proven": false,
+  "counts": {
+    "identity_observed": 1,
+    "passed_scoped": 21,
+    "inventory_observed": 1,
+    "failed_difference": 3
+  },
+  "original_entries": 3999,
+  "probes": [
+    {
+      "id": "identity.esl",
+      "state": "identity_observed",
+      "scope": "读取两端真实版本并核实 reference 发行版本；不比较版本字符串"
+    },
+    {
+      "id": "esl.auth.fragmented",
+      "state": "passed_scoped",
+      "scope": "认证请求逐字节发送、成功身份和固定 echo 正文"
+    },
+    {
+      "id": "esl.auth.wrong",
+      "state": "passed_scoped",
+      "scope": "一个错误密码的回复及随后关闭；不包含 ACL、锁定、空密码、认证超时"
+    },
+    {
+      "id": "esl.auth.required",
+      "state": "passed_scoped",
+      "scope": "认证前 api echo 被拒绝且不获取身份，同连接随后有效认证和 echo 成功"
+    },
+    {
+      "id": "esl.echo",
+      "state": "passed_scoped",
+      "scope": "api echo 固定 UTF-8 正文、Content-Length 字节数"
+    },
+    {
+      "id": "esl.console.single",
+      "state": "passed_scoped",
+      "scope": "fs_cli -x 的 console_execute 单命令包装：UTF-8、空 echo、首尾空格、单分号和 false 字面参数；不代表别名、批处理或交互客户端"
+    },
+    {
+      "id": "esl.api.unknown",
+      "state": "passed_scoped",
+      "scope": "单个固定未知 API 命令的错误响应"
+    },
+    {
+      "id": "esl.frames.pipeline",
+      "state": "passed_scoped",
+      "scope": "一次写入两条 echo；逐帧读取并核对两个正文；不代表事件洪峰"
+    },
+    {
+      "id": "esl.frames.crlf",
+      "state": "passed_scoped",
+      "scope": "CRLF 命令分隔的认证和 echo；不代表所有头部/长度边界"
+    },
+    {
+      "id": "esl.frames.split_positions",
+      "state": "passed_scoped",
+      "scope": "固定 echo 请求在每个字节边界拆成两次发送，每次独立连接"
+    },
+    {
+      "id": "esl.bgapi.echo",
+      "state": "passed_scoped",
+      "scope": "固定 Job-UUID、bgapi echo 回复及 BACKGROUND_JOB 结果；不包含并发作业/重连重放"
+    },
+    {
+      "id": "identity.api_inventory",
+      "state": "inventory_observed",
+      "scope": "真实 show api as json 注册目录；逐个对照全部 fs_api 原始 ID，接口存在不表示语义通过"
+    },
+    {
+      "id": "esl.api.echo_empty",
+      "state": "passed_scoped",
+      "scope": "echo 无参数、尾空格、首尾空格的完整原始响应；不预设空白归一化"
+    },
+    {
+      "id": "esl.api.create_uuid",
+      "state": "passed_scoped",
+      "scope": "连续两次生成合法且不同 UUID，保留原字节；仅随机 UUID 值可规范化"
+    },
+    {
+      "id": "esl.api.uuid_exists_missing",
+      "state": "passed_scoped",
+      "scope": "固定 nil UUID 实际不存在时返回 false；不代表存在通道完整契约"
+    },
+    {
+      "id": "esl.api.uuid_getvar_missing",
+      "state": "passed_scoped",
+      "scope": "先核实固定 nil UUID 不存在，再读取变量并比较完整错误"
+    },
+    {
+      "id": "esl.api.uuid_setvar_missing",
+      "state": "passed_scoped",
+      "scope": "仅隔离 fixture，确认 nil UUID 不存在后尝试设置并比较错误；不修改真实通道"
+    },
+    {
+      "id": "esl.api.uuid_kill_missing",
+      "state": "passed_scoped",
+      "scope": "仅隔离 fixture，确认 nil UUID 不存在后调用并比较错误；不挂断真实通道"
+    },
+    {
+      "id": "esl.api.uuid_syntax",
+      "state": "passed_scoped",
+      "scope": "uuid_exists/getvar/setvar/kill 缺参数的真实错误/usage；不执行有效通道动作"
+    },
+    {
+      "id": "esl.command.case",
+      "state": "passed_scoped",
+      "scope": "混合大小写 AUTH/API/EVENT、格式沿用及 nixevent/noevents 开关"
+    },
+    {
+      "id": "esl.filter.lifecycle",
+      "state": "passed_scoped",
+      "scope": "filter delete all、空值清除、noevents/nixevent；以真实后台事件交付证明过滤已清除"
+    },
+    {
+      "id": "esl.bgapi.echo.json",
+      "state": "passed_scoped",
+      "scope": "JSON BACKGROUND_JOB、固定 UUID、原始正文与内层字节长度"
+    },
+    {
+      "id": "esl.bgapi.echo.xml",
+      "state": "passed_scoped",
+      "scope": "XML BACKGROUND_JOB、固定 UUID、headers/root-body 结构、原始正文与内层字节长度"
+    },
+    {
+      "id": "sip.options.udp",
+      "state": "failed_difference",
+      "scope": "一个 OPTIONS 事务、状态码/能力头和回显事务标识；不代表完成呼叫"
+    },
+    {
+      "id": "sip.options.tcp",
+      "state": "failed_difference",
+      "scope": "TCP 连接上一个 OPTIONS 请求及完整响应；不代表 TCP 呼叫/复用/背压"
+    },
+    {
+      "id": "sip.options.tls",
+      "state": "failed_difference",
+      "scope": "验证证书的 TLS 连接上一个 OPTIONS；不允许跳过证书验证"
+    }
+  ],
+  "api_inventory": {
+    "evidence_type": "live_registration_discovery_only",
+    "reference_observed": true,
+    "candidate_observed": true,
+    "source_registration_entries": 292,
+    "reference_runtime_rows": 189,
+    "candidate_runtime_rows": 14,
+    "counts_by_state": {
+      "blocked_reference_module": 103,
+      "missing_candidate_entrypoint": 176,
+      "requires_semantic_verification": 13
+    },
+    "entries": [
+      {
+        "id": "registration:api:core:msrp:1890",
+        "name": "msrp",
+        "source_module": "core",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "msrp",
+          "description": "MSRP Functions",
+          "syntax": "debug <on|off>|restart",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:core:uuid_msrp_send:1892",
+        "name": "uuid_msrp_send",
+        "source_module": "core",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_msrp_send",
+          "description": "send msrp text",
+          "syntax": "<msg>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:core:vpx:2026",
+        "name": "vpx",
+        "source_module": "core",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_alsa:alsa:817",
+        "name": "alsa",
+        "source_module": "mod_alsa",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_amqp:amqp:76",
+        "name": "amqp",
+        "source_module": "mod_amqp",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_amr:amr_debug:679",
+        "name": "amr_debug",
+        "source_module": "mod_amr",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_amrwb:amrwb_debug:609",
+        "name": "amrwb_debug",
+        "source_module": "mod_amrwb",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_av:av:237",
+        "name": "av",
+        "source_module": "mod_av",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_avmd:avmd:1203",
+        "name": "avmd",
+        "source_module": "mod_avmd",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_basic:basic:378",
+        "name": "basic",
+        "source_module": "mod_basic",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_blacklist:blacklist:328",
+        "name": "blacklist",
+        "source_module": "mod_blacklist",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_callcenter:callcenter_break:4265",
+        "name": "callcenter_break",
+        "source_module": "mod_callcenter",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_callcenter:callcenter_config:4264",
+        "name": "callcenter_config",
+        "source_module": "mod_callcenter",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_cdr_csv:cdr_csv:457",
+        "name": "cdr_csv",
+        "source_module": "mod_cdr_csv",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_cidlookup:cidlookup:835",
+        "name": "cidlookup",
+        "source_module": "mod_cidlookup",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_cluechoo:cluechoo:85",
+        "name": "cluechoo",
+        "source_module": "mod_cluechoo",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:...:7664",
+        "name": "...",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "...",
+          "description": "Shutdown",
+          "syntax": "",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:acl:7644",
+        "name": "acl",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "acl",
+          "description": "Compare an ip to an acl list",
+          "syntax": "<ip> <list_name>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:alias:7645",
+        "name": "alias",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "alias",
+          "description": "Alias",
+          "syntax": "[add|stickyadd] <alias> <command> | del [<alias>|*]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:banner:7646",
+        "name": "banner",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "banner",
+          "description": "Return the system banner",
+          "syntax": "",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:bg_spawn:7634",
+        "name": "bg_spawn",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "bg_spawn",
+          "description": "Execute a spawn command in the background",
+          "syntax": "<command>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:bg_system:7632",
+        "name": "bg_system",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "bg_system",
+          "description": "Execute a system command in the background",
+          "syntax": "<command>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:bgapi:7647",
+        "name": "bgapi",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "bgapi",
+          "description": "Execute an api command in a thread",
+          "syntax": "<command>[ <arg>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:break:7648",
+        "name": "break",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "break",
+          "description": "uuid_break",
+          "syntax": "<uuid> [all]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:coalesce:7645",
+        "name": "coalesce",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "coalesce",
+          "description": "Return first nonempty parameter",
+          "syntax": "[^^<delim>]<value1>,<value2>,...",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:complete:7649",
+        "name": "complete",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "complete",
+          "description": "Complete",
+          "syntax": "add <word>|del [<word>|*]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:cond:7650",
+        "name": "cond",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "cond",
+          "description": "Evaluate a conditional",
+          "syntax": "<expr> ? <true val> : <false val>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:console_complete:7651",
+        "name": "console_complete",
+        "source_module": "mod_commands",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:console_complete_xml:7652",
+        "name": "console_complete_xml",
+        "source_module": "mod_commands",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:create_uuid:7653",
+        "name": "create_uuid",
+        "source_module": "mod_commands",
+        "state": "requires_semantic_verification",
+        "reference_registration": {
+          "name": "create_uuid",
+          "description": "Create a uuid",
+          "syntax": "<uuid> <other_uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": {
+          "name": "create_uuid",
+          "description": "Generate a UUID",
+          "syntax": "",
+          "ikey": "rustswitch"
+        },
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:db_cache:7654",
+        "name": "db_cache",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "db_cache",
+          "description": "Manage db cache",
+          "syntax": "status",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:domain_data:7655",
+        "name": "domain_data",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "domain_data",
+          "description": "Find domain data",
+          "syntax": "<domain> [var|param|attr] <name>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:domain_exists:7656",
+        "name": "domain_exists",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "domain_exists",
+          "description": "Check if a domain exists",
+          "syntax": "<domain>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:echo:7657",
+        "name": "echo",
+        "source_module": "mod_commands",
+        "state": "requires_semantic_verification",
+        "reference_registration": {
+          "name": "echo",
+          "description": "Echo",
+          "syntax": "<data>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": {
+          "name": "echo",
+          "description": "Echo",
+          "syntax": "<data>",
+          "ikey": "rustswitch"
+        },
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:escape:7659",
+        "name": "escape",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "escape",
+          "description": "Escape a string",
+          "syntax": "<data>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:eval:7660",
+        "name": "eval",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "eval",
+          "description": "eval (noop)",
+          "syntax": "[uuid:<uuid> ]<expression>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:event_channel_broadcast:7658",
+        "name": "event_channel_broadcast",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "event_channel_broadcast",
+          "description": "Broadcast",
+          "syntax": "<channel> <json>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:expand:7661",
+        "name": "expand",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "expand",
+          "description": "Execute an api with variable expansion",
+          "syntax": "[uuid:<uuid> ]<cmd> <args>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:file_exists:7787",
+        "name": "file_exists",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "file_exists",
+          "description": "Check if a file exists on server",
+          "syntax": "<file>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:find_user_xml:7662",
+        "name": "find_user_xml",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "find_user_xml",
+          "description": "Find a user",
+          "syntax": "<key> <user> <domain>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:fsctl:7663",
+        "name": "fsctl",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "fsctl",
+          "description": "FS control messages",
+          "syntax": "[api_expansion [on|off]|recover|send_sighup|hupall|pause [inbound|outbound]|resume [inbound|outbound]|shutdown [cancel|elegant|asap|now|restart]|uuid_version [4|7]|sps|sps_peak_reset|sync_clock|sync_clock_when_idle|reclaim_mem|max_sessions|min_dtmf_duration [num]|max_dtmf_duration [num]|default_dtmf_duration [num]|min_idle_cpu|loglevel [level]|debug_level [level]|mdns_resolve [enable|disable]]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:getcputime:7788",
+        "name": "getcputime",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "getcputime",
+          "description": "Gets CPU time in milliseconds (user,kernel)",
+          "syntax": "[reset]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:getenv:7676",
+        "name": "getenv",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "getenv",
+          "description": "getenv",
+          "syntax": "<name>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:gethost:7675",
+        "name": "gethost",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "gethost",
+          "description": "gethostbyname",
+          "syntax": "",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:global_getvar:7667",
+        "name": "global_getvar",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "global_getvar",
+          "description": "Get global var",
+          "syntax": "<var>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:global_setvar:7668",
+        "name": "global_setvar",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "global_setvar",
+          "description": "Set global var",
+          "syntax": "<var>=<value> [=<value2>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:group_call:7669",
+        "name": "group_call",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "group_call",
+          "description": "Generate a dial string to call a group",
+          "syntax": "<group>[@<domain>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:help:7670",
+        "name": "help",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "help",
+          "description": "Show help for all the api commands",
+          "syntax": "",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:host_lookup:7671",
+        "name": "host_lookup",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "host_lookup",
+          "description": "Lookup host",
+          "syntax": "<hostname>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:hostname:7672",
+        "name": "hostname",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "hostname",
+          "description": "Return the system hostname",
+          "syntax": "",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:hupall:7677",
+        "name": "hupall",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "hupall",
+          "description": "hupall",
+          "syntax": "<cause> [<var> <value>] [<var2> <value2>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:in_group:7678",
+        "name": "in_group",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "in_group",
+          "description": "Determine if a user is in a group",
+          "syntax": "<user>[@<domain>] <group_name>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:interface_allowlist_dump:7639",
+        "name": "interface_allowlist_dump",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "interface_allowlist_dump",
+          "description": "Dump loaded interfaces in interface-allowlist config format",
+          "syntax": "[modules] [plain]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:interface_ip:7673",
+        "name": "interface_ip",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "interface_ip",
+          "description": "Return the primary IP of an interface",
+          "syntax": "[auto|ipv4|ipv6] <ifname>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:is_lan_addr:7679",
+        "name": "is_lan_addr",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "is_lan_addr",
+          "description": "See if an ip is a lan addr",
+          "syntax": "<ip>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:json:7789",
+        "name": "json",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "json",
+          "description": "JSON API",
+          "syntax": "JSON",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:limit_hash_usage:7681",
+        "name": "limit_hash_usage",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "limit_hash_usage",
+          "description": "Deprecated: gets the usage count of a limited resource",
+          "syntax": "<realm> <id>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:limit_interval_reset:7684",
+        "name": "limit_interval_reset",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "limit_interval_reset",
+          "description": "Reset the interval counter for a limited resource",
+          "syntax": "<backend> <realm> <resource>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:limit_reset:7683",
+        "name": "limit_reset",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "limit_reset",
+          "description": "Reset the counters of a limit backend",
+          "syntax": "<backend>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:limit_status:7682",
+        "name": "limit_status",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "limit_status",
+          "description": "Get the status of a limit backend",
+          "syntax": "<backend>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:limit_usage:7680",
+        "name": "limit_usage",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "limit_usage",
+          "description": "Get the usage count of a limited resource",
+          "syntax": "<backend> <realm> <id>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:list_users:7685",
+        "name": "list_users",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "list_users",
+          "description": "List Users configured in Directory",
+          "syntax": "[group <group>] [domain <domain>] [user <user>] [context <context>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:load:7686",
+        "name": "load",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "load",
+          "description": "Load Module",
+          "syntax": "<mod_name>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:log:7687",
+        "name": "log",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "log",
+          "description": "Log",
+          "syntax": "<level> <message>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:md5:7688",
+        "name": "md5",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "md5",
+          "description": "Return md5 hash",
+          "syntax": "<data>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:memory:7790",
+        "name": "memory",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "memory",
+          "description": "Memory usage statistics",
+          "syntax": "memory",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:module_exists:7689",
+        "name": "module_exists",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "module_exists",
+          "description": "Check if module exists",
+          "syntax": "<module>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:msleep:7690",
+        "name": "msleep",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "msleep",
+          "description": "Sleep N milliseconds",
+          "syntax": "<milliseconds>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:nat_map:7691",
+        "name": "nat_map",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "nat_map",
+          "description": "Manage NAT",
+          "syntax": "[status|republish|reinit] | [add|del] <port> [tcp|udp] [static]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:originate:7692",
+        "name": "originate",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "originate",
+          "description": "Originate a call",
+          "syntax": "<call url> <exten>|&<application_name>(<app_args>) [<dialplan>] [<context>] [<cid_name>] [<cid_num>] [<timeout_sec>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:pause:7693",
+        "name": "pause",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "pause",
+          "description": "Pause media on a channel",
+          "syntax": "<uuid> <on|off>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:pool_stats:7694",
+        "name": "pool_stats",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "pool_stats",
+          "description": "Core pool memory usage",
+          "syntax": "Core pool memory usage.",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:quote_shell_arg:7695",
+        "name": "quote_shell_arg",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "quote_shell_arg",
+          "description": "Quote/escape a string for use on shell command line",
+          "syntax": "<data>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:reg_url:7719",
+        "name": "reg_url",
+        "source_module": "mod_commands",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:regex:7696",
+        "name": "regex",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "regex",
+          "description": "Evaluate a regex",
+          "syntax": "<data>|<pattern>[|<subst string>][n|b]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:reload:7698",
+        "name": "reload",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "reload",
+          "description": "Reload module",
+          "syntax": "[-f] <mod_name>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:reloadacl:7697",
+        "name": "reloadacl",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "reloadacl",
+          "description": "Reload ACL",
+          "syntax": "",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:reloadcert:7700",
+        "name": "reloadcert",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "reloadcert",
+          "description": "Reload SSL/TLS certificates",
+          "syntax": "",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:reloadxml:7699",
+        "name": "reloadxml",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "reloadxml",
+          "description": "Reload XML",
+          "syntax": "",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:replace:7701",
+        "name": "replace",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "replace",
+          "description": "Replace a string",
+          "syntax": "<data>|<string1>|<string2>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:say_string:7702",
+        "name": "say_string",
+        "source_module": "mod_commands",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:sched_api:7703",
+        "name": "sched_api",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sched_api",
+          "description": "Schedule an api command",
+          "syntax": "[+@]<time> <group_name> <command_string>[&]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:sched_broadcast:7704",
+        "name": "sched_broadcast",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sched_broadcast",
+          "description": "Schedule a broadcast event to a running call",
+          "syntax": "[[+]<time>|@time] <uuid> <path> [aleg|bleg|both]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:sched_del:7705",
+        "name": "sched_del",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sched_del",
+          "description": "Delete a scheduled task",
+          "syntax": "<task_id>|<group_id>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:sched_hangup:7706",
+        "name": "sched_hangup",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sched_hangup",
+          "description": "Schedule a running call to hangup",
+          "syntax": "[+]<time> <uuid> [<cause>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:sched_transfer:7707",
+        "name": "sched_transfer",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sched_transfer",
+          "description": "Schedule a transfer for a running call",
+          "syntax": "[+]<time> <uuid> <extension> [<dialplan>] [<context>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:show:7708",
+        "name": "show",
+        "source_module": "mod_commands",
+        "state": "requires_semantic_verification",
+        "reference_registration": {
+          "name": "show",
+          "description": "Show various reports",
+          "syntax": "codec|endpoint|application|api|dialplan|file|timer|calls [count]|channels [count|like <match string>]|calls|detailed_calls|bridged_calls|detailed_bridged_calls|aliases|complete|chat|management|modules|nat_map|say|interfaces|interface_types|tasks|limits|status",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": {
+          "name": "show",
+          "description": "List implemented APIs",
+          "syntax": "api as json",
+          "ikey": "rustswitch"
+        },
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:shutdown:7665",
+        "name": "shutdown",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "shutdown",
+          "description": "Shutdown",
+          "syntax": "",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:spawn:7635",
+        "name": "spawn",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "spawn",
+          "description": "Execute a spawn command without capturing it's output",
+          "syntax": "<command>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:spawn_stream:7636",
+        "name": "spawn_stream",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "spawn_stream",
+          "description": "Execute a spawn command and capture it's output",
+          "syntax": "<command>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:sql_escape:7709",
+        "name": "sql_escape",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sql_escape",
+          "description": "Escape a string to prevent sql injection",
+          "syntax": "<string>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:status:7710",
+        "name": "status",
+        "source_module": "mod_commands",
+        "state": "requires_semantic_verification",
+        "reference_registration": {
+          "name": "status",
+          "description": "Show current status",
+          "syntax": "",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": {
+          "name": "status",
+          "description": "RustSwitch current status",
+          "syntax": "",
+          "ikey": "rustswitch"
+        },
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:strftime_tz:7711",
+        "name": "strftime_tz",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "strftime_tz",
+          "description": "Display formatted time of timezone",
+          "syntax": "<timezone_name> [<epoch>|][format string]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:stun:7712",
+        "name": "stun",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "stun",
+          "description": "Execute STUN lookup",
+          "syntax": "<stun_server>[:port] [<source_ip>[:<source_port]]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:switchname:7674",
+        "name": "switchname",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "switchname",
+          "description": "Return the switch name",
+          "syntax": "",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:system:7633",
+        "name": "system",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "system",
+          "description": "Execute a system command",
+          "syntax": "<command>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:time_test:7713",
+        "name": "time_test",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "time_test",
+          "description": "Show time jitter",
+          "syntax": "<mss> [count]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:timer_test:7714",
+        "name": "timer_test",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "timer_test",
+          "description": "Exercise FS timer",
+          "syntax": "<10|20|40|60|120> [<1..200>] [<timer_name>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:tolower:7723",
+        "name": "tolower",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "tolower",
+          "description": "Lower Case a string",
+          "syntax": "<string>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:tone_detect:7715",
+        "name": "tone_detect",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "tone_detect",
+          "description": "Start tone detection on a channel",
+          "syntax": "<uuid> <key> <tone_spec> [<flags> <timeout> <app> <args> <hits>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:toupper:7722",
+        "name": "toupper",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "toupper",
+          "description": "Upper Case a string",
+          "syntax": "<string>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:unload:7716",
+        "name": "unload",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "unload",
+          "description": "Unload module",
+          "syntax": "[-f] <mod_name>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:unsched_api:7717",
+        "name": "unsched_api",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "unsched_api",
+          "description": "Unschedule an api command",
+          "syntax": "<task_id>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uptime:7718",
+        "name": "uptime",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uptime",
+          "description": "Show uptime",
+          "syntax": "[us|ms|s|m|h|d|microseconds|milliseconds|seconds|minutes|hours|days]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:url_decode:7720",
+        "name": "url_decode",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "url_decode",
+          "description": "Url decode a string",
+          "syntax": "<string>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:url_encode:7721",
+        "name": "url_encode",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "url_encode",
+          "description": "Url encode a string",
+          "syntax": "<string>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:user_data:7724",
+        "name": "user_data",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "user_data",
+          "description": "Find user data",
+          "syntax": "<user>@<domain> [var|param|attr] <name>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:user_exists:7726",
+        "name": "user_exists",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "user_exists",
+          "description": "Find a user",
+          "syntax": "<key> <user> <domain>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_answer:7727",
+        "name": "uuid_answer",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_answer",
+          "description": "answer",
+          "syntax": "<uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_audio:7728",
+        "name": "uuid_audio",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_audio",
+          "description": "uuid_audio",
+          "syntax": "<uuid> [start [read|write] [mute|level <level>]|stop]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_break:7729",
+        "name": "uuid_break",
+        "source_module": "mod_commands",
+        "state": "requires_semantic_verification",
+        "reference_registration": {
+          "name": "uuid_break",
+          "description": "Break out of media sent to channel",
+          "syntax": "<uuid> [all]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": {
+          "name": "uuid_break",
+          "description": "Stop active playback or read",
+          "syntax": "<uuid>",
+          "ikey": "rustswitch"
+        },
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_bridge:7730",
+        "name": "uuid_bridge",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_bridge",
+          "description": "Bridge call legs",
+          "syntax": "",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_broadcast:7731",
+        "name": "uuid_broadcast",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_broadcast",
+          "description": "Execute dialplan application",
+          "syntax": "<uuid> <path> [aleg|bleg|holdb|both]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_buglist:7732",
+        "name": "uuid_buglist",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_buglist",
+          "description": "List media bugs on a session",
+          "syntax": "<uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_capture_text:7735",
+        "name": "uuid_capture_text",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_capture_text",
+          "description": "start/stop capture_text",
+          "syntax": "<uuid> <on|off>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_chat:7733",
+        "name": "uuid_chat",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_chat",
+          "description": "Send a chat message",
+          "syntax": "<uuid> <text>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_codec_debug:7736",
+        "name": "uuid_codec_debug",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_codec_debug",
+          "description": "Send codec a debug message",
+          "syntax": "<uuid> audio|video <level>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_codec_param:7737",
+        "name": "uuid_codec_param",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_codec_param",
+          "description": "Send codec a param",
+          "syntax": "<uuid> audio|video read|write <param> <val>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_debug_media:7738",
+        "name": "uuid_debug_media",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_debug_media",
+          "description": "Debug media",
+          "syntax": "<uuid> <read|write|both|vread|vwrite|vboth|all> <on|off>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_deflect:7739",
+        "name": "uuid_deflect",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_deflect",
+          "description": "Send a deflect",
+          "syntax": "<uuid> <uri>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_displace:7740",
+        "name": "uuid_displace",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_displace",
+          "description": "Displace audio",
+          "syntax": "<uuid> [start|stop] <path> [<limit>] [mux]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_display:7741",
+        "name": "uuid_display",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_display",
+          "description": "Update phone display",
+          "syntax": "<uuid> <display>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_drop_dtmf:7743",
+        "name": "uuid_drop_dtmf",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_drop_dtmf",
+          "description": "Drop all DTMF or replace it with a mask",
+          "syntax": "<uuid> [on | off ] [ mask_digits <digits> | mask_file <file>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_dual_transfer:7779",
+        "name": "uuid_dual_transfer",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_dual_transfer",
+          "description": "Transfer a session and its partner",
+          "syntax": "<uuid> <A-dest-exten>[/<A-dialplan>][/<A-context>] <B-dest-exten>[/<B-dialplan>][/<B-context>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_dump:7744",
+        "name": "uuid_dump",
+        "source_module": "mod_commands",
+        "state": "requires_semantic_verification",
+        "reference_registration": {
+          "name": "uuid_dump",
+          "description": "Dump session vars",
+          "syntax": "<uuid> [format]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": {
+          "name": "uuid_dump",
+          "description": "Inspect a channel snapshot",
+          "syntax": "<uuid> [format]",
+          "ikey": "rustswitch"
+        },
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_early_ok:7725",
+        "name": "uuid_early_ok",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_early_ok",
+          "description": "stop ignoring early media",
+          "syntax": "<uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_exists:7745",
+        "name": "uuid_exists",
+        "source_module": "mod_commands",
+        "state": "requires_semantic_verification",
+        "reference_registration": {
+          "name": "uuid_exists",
+          "description": "Check if a uuid exists",
+          "syntax": "<uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": {
+          "name": "uuid_exists",
+          "description": "Check if a uuid exists",
+          "syntax": "<uuid>",
+          "ikey": "rustswitch"
+        },
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_fileman:7746",
+        "name": "uuid_fileman",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_fileman",
+          "description": "Manage session audio",
+          "syntax": "<uuid> <cmd>:<val>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_flush_dtmf:7747",
+        "name": "uuid_flush_dtmf",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_flush_dtmf",
+          "description": "Flush dtmf on a given uuid",
+          "syntax": "<uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_getvar:7748",
+        "name": "uuid_getvar",
+        "source_module": "mod_commands",
+        "state": "requires_semantic_verification",
+        "reference_registration": {
+          "name": "uuid_getvar",
+          "description": "Get a variable from a channel",
+          "syntax": "<uuid> <var>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": {
+          "name": "uuid_getvar",
+          "description": "Get a variable from a channel",
+          "syntax": "<uuid> <var>",
+          "ikey": "rustswitch"
+        },
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_hold:7749",
+        "name": "uuid_hold",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_hold",
+          "description": "Place call on hold",
+          "syntax": "[off|toggle] <uuid> [<display>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_jitterbuffer:7781",
+        "name": "uuid_jitterbuffer",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_jitterbuffer",
+          "description": "uuid_jitterbuffer",
+          "syntax": "<uuid> [0|<min_msec>[:<max_msec>]]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_kill:7750",
+        "name": "uuid_kill",
+        "source_module": "mod_commands",
+        "state": "requires_semantic_verification",
+        "reference_registration": {
+          "name": "uuid_kill",
+          "description": "Kill channel",
+          "syntax": "<uuid> [cause]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": {
+          "name": "uuid_kill",
+          "description": "Kill a channel with normal clearing",
+          "syntax": "<uuid> [NORMAL_CLEARING]",
+          "ikey": "rustswitch"
+        },
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_limit:7758",
+        "name": "uuid_limit",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_limit",
+          "description": "Increase limit resource",
+          "syntax": "<uuid> <backend> <realm> <resource> [<max>[/interval]] [number [dialplan [context]]]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_limit_release:7759",
+        "name": "uuid_limit_release",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_limit_release",
+          "description": "Release limit resource",
+          "syntax": "<uuid> <backend> [realm] [resource]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_loglevel:7760",
+        "name": "uuid_loglevel",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_loglevel",
+          "description": "Set loglevel on session",
+          "syntax": "<uuid> <level>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_media:7761",
+        "name": "uuid_media",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_media",
+          "description": "Reinvite FS in or out of media path",
+          "syntax": "[off] <uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_media_3p:7762",
+        "name": "uuid_media_3p",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_media_3p",
+          "description": "Reinvite FS in or out of media path using 3pcc",
+          "syntax": "[off] <uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_media_params:7742",
+        "name": "uuid_media_params",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_media_params",
+          "description": "Update remote vid params",
+          "syntax": "<uuid> <json>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_media_reneg:7763",
+        "name": "uuid_media_reneg",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_media_reneg",
+          "description": "Media negotiation",
+          "syntax": "<uuid>[ <codec_string>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_outgoing_answer:7757",
+        "name": "uuid_outgoing_answer",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_outgoing_answer",
+          "description": "Answer outgoing channel",
+          "syntax": "<uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_park:7764",
+        "name": "uuid_park",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_park",
+          "description": "Park channel",
+          "syntax": "<uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_pause:7765",
+        "name": "uuid_pause",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_pause",
+          "description": "Pause media on a channel",
+          "syntax": "<uuid> <on|off>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_phone_event:7766",
+        "name": "uuid_phone_event",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_phone_event",
+          "description": "Send an event to the phone",
+          "syntax": "<uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_pre_answer:7768",
+        "name": "uuid_pre_answer",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_pre_answer",
+          "description": "pre_answer",
+          "syntax": "<uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_preprocess:7769",
+        "name": "uuid_preprocess",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_preprocess",
+          "description": "Pre-process Channel",
+          "syntax": "<>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_record:7770",
+        "name": "uuid_record",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_record",
+          "description": "Record session audio",
+          "syntax": "<uuid> [start|stop|mask|unmask] <path> [<limit>] [<recording_vars>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_recovery_refresh:7771",
+        "name": "uuid_recovery_refresh",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_recovery_refresh",
+          "description": "Send a recovery_refresh",
+          "syntax": "<uuid> <uri>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_recv_dtmf:7772",
+        "name": "uuid_recv_dtmf",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_recv_dtmf",
+          "description": "Receive dtmf digits",
+          "syntax": "<uuid> <dtmf_data>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_redirect:7773",
+        "name": "uuid_redirect",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_redirect",
+          "description": "Send a redirect",
+          "syntax": "<uuid> <uri>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_ring_ready:7767",
+        "name": "uuid_ring_ready",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_ring_ready",
+          "description": "Sending ringing to a channel",
+          "syntax": "<uuid> [queued]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_send_dtmf:7774",
+        "name": "uuid_send_dtmf",
+        "source_module": "mod_commands",
+        "state": "requires_semantic_verification",
+        "reference_registration": {
+          "name": "uuid_send_dtmf",
+          "description": "Send dtmf digits",
+          "syntax": "<uuid> <dtmf_data>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": {
+          "name": "uuid_send_dtmf",
+          "description": "Queue telephone events on a local A leg",
+          "syntax": "<uuid> <digits>[@milliseconds]",
+          "ikey": "rustswitch"
+        },
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_send_info:7752",
+        "name": "uuid_send_info",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_send_info",
+          "description": "Send info to the endpoint",
+          "syntax": "<uuid> [<mime_type> <mime_subtype>] <message>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_send_message:7751",
+        "name": "uuid_send_message",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_send_message",
+          "description": "Send MESSAGE to the endpoint",
+          "syntax": "<uuid> <message>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_send_text:7734",
+        "name": "uuid_send_text",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_send_text",
+          "description": "Send text in real-time",
+          "syntax": "<uuid> <text>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_session_heartbeat:7775",
+        "name": "uuid_session_heartbeat",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_session_heartbeat",
+          "description": "uuid_session_heartbeat",
+          "syntax": "<uuid> [sched] [0|<seconds>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_set_media_stats:7753",
+        "name": "uuid_set_media_stats",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_set_media_stats",
+          "description": "Set media stats",
+          "syntax": "<uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_setvar:7777",
+        "name": "uuid_setvar",
+        "source_module": "mod_commands",
+        "state": "requires_semantic_verification",
+        "reference_registration": {
+          "name": "uuid_setvar",
+          "description": "Set a variable",
+          "syntax": "<uuid> <var> [value]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": {
+          "name": "uuid_setvar",
+          "description": "Set a basic variable",
+          "syntax": "<uuid> <var> [value]",
+          "ikey": "rustswitch"
+        },
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_setvar_multi:7776",
+        "name": "uuid_setvar_multi",
+        "source_module": "mod_commands",
+        "state": "requires_semantic_verification",
+        "reference_registration": {
+          "name": "uuid_setvar_multi",
+          "description": "Set multiple variables",
+          "syntax": "<uuid> <var>=<value>;<var>=<value>...",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": {
+          "name": "uuid_setvar_multi",
+          "description": "Set multiple basic variables",
+          "syntax": "<uuid> <var>=<value>;<var>=<value>...",
+          "ikey": "rustswitch"
+        },
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_simplify:7780",
+        "name": "uuid_simplify",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_simplify",
+          "description": "Try to cut out of a call path / attended xfer",
+          "syntax": "<uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_transfer:7778",
+        "name": "uuid_transfer",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_transfer",
+          "description": "Transfer a session",
+          "syntax": "<uuid> [-bleg|-both] <dest-exten> [<dialplan>] [<context>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_video_bandwidth:7755",
+        "name": "uuid_video_bandwidth",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_video_bandwidth",
+          "description": "Send video bandwidth",
+          "syntax": "<uuid> <bitrate>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_video_bitrate:7754",
+        "name": "uuid_video_bitrate",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_video_bitrate",
+          "description": "Send video bitrate req.",
+          "syntax": "<uuid> <bitrate>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_video_refresh:7756",
+        "name": "uuid_video_refresh",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_video_refresh",
+          "description": "Send video refresh.",
+          "syntax": "<uuid> [auto|manual]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_xfer_zombie:7783",
+        "name": "uuid_xfer_zombie",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_xfer_zombie",
+          "description": "Allow A leg to hangup and continue originating",
+          "syntax": "<uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:uuid_zombie_exec:7782",
+        "name": "uuid_zombie_exec",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_zombie_exec",
+          "description": "Set zombie_exec flag on the specified uuid",
+          "syntax": "<uuid>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:version:7666",
+        "name": "version",
+        "source_module": "mod_commands",
+        "state": "requires_semantic_verification",
+        "reference_registration": {
+          "name": "version",
+          "description": "Version",
+          "syntax": "[short]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": {
+          "name": "version",
+          "description": "RustSwitch product identity",
+          "syntax": "",
+          "ikey": "rustswitch"
+        },
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:xml_flush_cache:7784",
+        "name": "xml_flush_cache",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "xml_flush_cache",
+          "description": "Clear xml cache",
+          "syntax": "<id> <key> <val>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:xml_locate:7785",
+        "name": "xml_locate",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "xml_locate",
+          "description": "Find some xml",
+          "syntax": "[root | <section> <tag> <tag_attr_name> <tag_attr_val>]",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_commands:xml_wrap:7786",
+        "name": "xml_wrap",
+        "source_module": "mod_commands",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "xml_wrap",
+          "description": "Wrap another api command in xml",
+          "syntax": "<command> <args>",
+          "ikey": "mod_commands"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_conference:conference:4037",
+        "name": "conference",
+        "source_module": "mod_conference",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "conference",
+          "description": "Conference module commands",
+          "syntax": "",
+          "ikey": "mod_conference"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_console:console:478",
+        "name": "console",
+        "source_module": "mod_console",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "console",
+          "description": "Console",
+          "syntax": "loglevel [level]|colorize [on|toggle|off]|uuid [on|toggle|off]|json [on|toggle|off]",
+          "ikey": "mod_console"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_curl:curl:1163",
+        "name": "curl",
+        "source_module": "mod_curl",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_curl:curl_sendfile:1167",
+        "name": "curl_sendfile",
+        "source_module": "mod_curl",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_cv:cv_bug:1404",
+        "name": "cv_bug",
+        "source_module": "mod_cv",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_db:db:675",
+        "name": "db",
+        "source_module": "mod_db",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "db",
+          "description": "db get/set",
+          "syntax": "[insert|delete|select|exists|count|list]/<realm>/<key>/<value>",
+          "ikey": "mod_db"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_db:group:682",
+        "name": "group",
+        "source_module": "mod_db",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "group",
+          "description": "group [insert|delete|call]",
+          "syntax": "[insert|delete|call]:<group name>:<url>",
+          "ikey": "mod_db"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_distributor:distributor:509",
+        "name": "distributor",
+        "source_module": "mod_distributor",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_distributor:distributor_ctl:510",
+        "name": "distributor_ctl",
+        "source_module": "mod_distributor",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_dptools:chat:6624",
+        "name": "chat",
+        "source_module": "mod_dptools",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "chat",
+          "description": "chat",
+          "syntax": "<proto>|<from>|<to>|<message>|[<content-type>]",
+          "ikey": "mod_dptools"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_dptools:page:6622",
+        "name": "page",
+        "source_module": "mod_dptools",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "page",
+          "description": "Send a file as a page",
+          "syntax": "(var1=val1,var2=val2)<var1=val1,var2=val2><chan1>[:_:<chanN>]",
+          "ikey": "mod_dptools"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_dptools:presence:6626",
+        "name": "presence",
+        "source_module": "mod_dptools",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "presence",
+          "description": "presence",
+          "syntax": "[in|out] <user> <rpid> <message>",
+          "ikey": "mod_dptools"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_dptools:strepoch:6621",
+        "name": "strepoch",
+        "source_module": "mod_dptools",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "strepoch",
+          "description": "Convert a date string into epoch time",
+          "syntax": "<string>",
+          "ikey": "mod_dptools"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_dptools:strftime:6625",
+        "name": "strftime",
+        "source_module": "mod_dptools",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "strftime",
+          "description": "strftime",
+          "syntax": "<format_string>",
+          "ikey": "mod_dptools"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_dptools:strmicroepoch:6623",
+        "name": "strmicroepoch",
+        "source_module": "mod_dptools",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "strmicroepoch",
+          "description": "Convert a date string into micoepoch time",
+          "syntax": "<string>",
+          "ikey": "mod_dptools"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_easyroute:easyroute:407",
+        "name": "easyroute",
+        "source_module": "mod_easyroute",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_enum:enum:914",
+        "name": "enum",
+        "source_module": "mod_enum",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_enum:enum_auto:915",
+        "name": "enum_auto",
+        "source_module": "mod_enum",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_erlang_event:erlang:1990",
+        "name": "erlang",
+        "source_module": "mod_erlang_event",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_esl:single_esl:127",
+        "name": "single_esl",
+        "source_module": "mod_esl",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_event_multicast:multicast_peers:895",
+        "name": "multicast_peers",
+        "source_module": "mod_event_multicast",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_event_socket:event_sink:1202",
+        "name": "event_sink",
+        "source_module": "mod_event_socket",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "event_sink",
+          "description": "event_sink",
+          "syntax": "<web data>",
+          "ikey": "mod_event_socket"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_expr:expr:213",
+        "name": "expr",
+        "source_module": "mod_expr",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "expr",
+          "description": "Eval an expression",
+          "syntax": "<expr>",
+          "ikey": "mod_expr"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_fifo:fifo:4896",
+        "name": "fifo",
+        "source_module": "mod_fifo",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "fifo",
+          "description": "Return data about a fifo",
+          "syntax": "list|list_verbose|count|debug|status|has_outbound|importance [<fifo name>]|reparse [del_all]",
+          "ikey": "mod_fifo"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_fifo:fifo_add_outbound:4898",
+        "name": "fifo_add_outbound",
+        "source_module": "mod_fifo",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "fifo_add_outbound",
+          "description": "Add outbound members to a fifo",
+          "syntax": "<node> <url> [<priority>]",
+          "ikey": "mod_fifo"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_fifo:fifo_check_bridge:4899",
+        "name": "fifo_check_bridge",
+        "source_module": "mod_fifo",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "fifo_check_bridge",
+          "description": "check if uuid is in a bridge",
+          "syntax": "<uuid>|<outbound_id>",
+          "ikey": "mod_fifo"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_fifo:fifo_member:4897",
+        "name": "fifo_member",
+        "source_module": "mod_fifo",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "fifo_member",
+          "description": "Add members to a fifo",
+          "syntax": "[add <fifo_name> <originate_string> [<simo_count>] [<timeout>] [<lag>] [<expires>] [<taking_calls>] | del <fifo_name> <originate_string>]",
+          "ikey": "mod_fifo"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_hash:hash:974",
+        "name": "hash",
+        "source_module": "mod_hash",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "hash",
+          "description": "hash get/set",
+          "syntax": "[insert|delete|select]/<realm>/<key>/<value>",
+          "ikey": "mod_hash"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_hash:hash_dump:975",
+        "name": "hash_dump",
+        "source_module": "mod_hash",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "hash_dump",
+          "description": "dump hash/limit_hash data (used for synchronization)",
+          "syntax": "all|limit|db [<realm>]",
+          "ikey": "mod_hash"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_hash:hash_remote:976",
+        "name": "hash_remote",
+        "source_module": "mod_hash",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "hash_remote",
+          "description": "hash remote",
+          "syntax": "list|kill [name]|rescan",
+          "ikey": "mod_hash"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_hiredis:hiredis_raw:442",
+        "name": "hiredis_raw",
+        "source_module": "mod_hiredis",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_httapi:httapi:3259",
+        "name": "httapi",
+        "source_module": "mod_httapi",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_http_cache:http_clear_cache:1978",
+        "name": "http_clear_cache",
+        "source_module": "mod_http_cache",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_http_cache:http_get:1975",
+        "name": "http_get",
+        "source_module": "mod_http_cache",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_http_cache:http_prefetch:1980",
+        "name": "http_prefetch",
+        "source_module": "mod_http_cache",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_http_cache:http_put:1977",
+        "name": "http_put",
+        "source_module": "mod_http_cache",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_http_cache:http_remove_cache:1979",
+        "name": "http_remove_cache",
+        "source_module": "mod_http_cache",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_http_cache:http_tryget:1976",
+        "name": "http_tryget",
+        "source_module": "mod_http_cache",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_lcr:lcr:2102",
+        "name": "lcr",
+        "source_module": "mod_lcr",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_lcr:lcr_admin:2103",
+        "name": "lcr_admin",
+        "source_module": "mod_lcr",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_local_stream:local_stream:1567",
+        "name": "local_stream",
+        "source_module": "mod_local_stream",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "local_stream",
+          "description": "manage local streams",
+          "syntax": "<show|start|reload|stop|hup> <local_stream_name>",
+          "ikey": "mod_local_stream"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_lua:lua:688",
+        "name": "lua",
+        "source_module": "mod_lua",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "lua",
+          "description": "run a script as an api function",
+          "syntax": "<script>",
+          "ikey": "mod_lua"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_lua:luarun:687",
+        "name": "luarun",
+        "source_module": "mod_lua",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "luarun",
+          "description": "run a script",
+          "syntax": "<script>",
+          "ikey": "mod_lua"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_managed:managed:367",
+        "name": "managed",
+        "source_module": "mod_managed",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_managed:managedlist:370",
+        "name": "managedlist",
+        "source_module": "mod_managed",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_managed:managedreload:369",
+        "name": "managedreload",
+        "source_module": "mod_managed",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_managed:managedrun:366",
+        "name": "managedrun",
+        "source_module": "mod_managed",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_memcache:memcache:601",
+        "name": "memcache",
+        "source_module": "mod_memcache",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_mongo:mongo_find_n:897",
+        "name": "mongo_find_n",
+        "source_module": "mod_mongo",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_mongo:mongo_find_one:896",
+        "name": "mongo_find_one",
+        "source_module": "mod_mongo",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_mongo:mongo_mapreduce:898",
+        "name": "mongo_mapreduce",
+        "source_module": "mod_mongo",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_nibblebill:nibblebill:1049",
+        "name": "nibblebill",
+        "source_module": "mod_nibblebill",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_opus:opus_debug:1407",
+        "name": "opus_debug",
+        "source_module": "mod_opus",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "opus_debug",
+          "description": "Set OPUS Debug",
+          "syntax": "<on|off>",
+          "ikey": "mod_opus"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_opusfile:opusfile_debug:1161",
+        "name": "opusfile_debug",
+        "source_module": "mod_opusfile",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_osp:osp:2980",
+        "name": "osp",
+        "source_module": "mod_osp",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_perl:perl:530",
+        "name": "perl",
+        "source_module": "mod_perl",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_perl:perlrun:529",
+        "name": "perlrun",
+        "source_module": "mod_perl",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_png:uuid_write_png:443",
+        "name": "uuid_write_png",
+        "source_module": "mod_png",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_prefix:prefix:235",
+        "name": "prefix",
+        "source_module": "mod_prefix",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_python3:pyrun:619",
+        "name": "pyrun",
+        "source_module": "mod_python3",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_python3:python:620",
+        "name": "python",
+        "source_module": "mod_python3",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_rtmp:rtmp:2063",
+        "name": "rtmp",
+        "source_module": "mod_rtmp",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_rtmp:rtmp_contact:2064",
+        "name": "rtmp_contact",
+        "source_module": "mod_rtmp",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_shout:telecast:1798",
+        "name": "telecast",
+        "source_module": "mod_shout",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_signalwire:signalwire:952",
+        "name": "signalwire",
+        "source_module": "mod_signalwire",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_skel:skel:258",
+        "name": "skel",
+        "source_module": "mod_skel",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_skel_codec:skel_sayhi:205",
+        "name": "skel_sayhi",
+        "source_module": "mod_skel_codec",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_skinny:skinny:663",
+        "name": "skinny",
+        "source_module": "mod_skinny",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_smpp:smpp_debug:235",
+        "name": "smpp_debug",
+        "source_module": "mod_smpp",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_smpp:smpp_send:236",
+        "name": "smpp_send",
+        "source_module": "mod_smpp",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_snapshot:uuid_snapshot:330",
+        "name": "uuid_snapshot",
+        "source_module": "mod_snapshot",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_sndfile:sndfile_debug:649",
+        "name": "sndfile_debug",
+        "source_module": "mod_sndfile",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sndfile_debug",
+          "description": "Set sndfile debug",
+          "syntax": "<on|off>",
+          "ikey": "mod_sndfile"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_sofia:sofia:6854",
+        "name": "sofia",
+        "source_module": "mod_sofia",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sofia",
+          "description": "Sofia Controls",
+          "syntax": "<cmd> <args>",
+          "ikey": "mod_sofia"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_sofia:sofia_contact:6888",
+        "name": "sofia_contact",
+        "source_module": "mod_sofia",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sofia_contact",
+          "description": "Sofia Contacts",
+          "syntax": "[profile/]<user>@<domain>",
+          "ikey": "mod_sofia"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_sofia:sofia_count_reg:6889",
+        "name": "sofia_count_reg",
+        "source_module": "mod_sofia",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sofia_count_reg",
+          "description": "Count Sofia registration",
+          "syntax": "[profile/]<user>@<domain>",
+          "ikey": "mod_sofia"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_sofia:sofia_dig:6890",
+        "name": "sofia_dig",
+        "source_module": "mod_sofia",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sofia_dig",
+          "description": "SIP DIG",
+          "syntax": "<url>",
+          "ikey": "mod_sofia"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_sofia:sofia_gateway_data:6855",
+        "name": "sofia_gateway_data",
+        "source_module": "mod_sofia",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sofia_gateway_data",
+          "description": "Get data from a sofia gateway",
+          "syntax": "<gateway_name> [ivar|ovar|var] <name>",
+          "ikey": "mod_sofia"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_sofia:sofia_presence_data:6891",
+        "name": "sofia_presence_data",
+        "source_module": "mod_sofia",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sofia_presence_data",
+          "description": "Sofia Presence Data",
+          "syntax": "[list|status|rpid|user_agent] [profile/]<user>@domain",
+          "ikey": "mod_sofia"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_sofia:sofia_username_of:6887",
+        "name": "sofia_username_of",
+        "source_module": "mod_sofia",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "sofia_username_of",
+          "description": "Sofia Username Lookup",
+          "syntax": "[profile/]<user>@<domain>",
+          "ikey": "mod_sofia"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_spandsp:spandsp_start_tone_detect:865",
+        "name": "spandsp_start_tone_detect",
+        "source_module": "mod_spandsp",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "spandsp_start_tone_detect",
+          "description": "Start background tone detection with cadence",
+          "syntax": "<uuid> <name>",
+          "ikey": "mod_spandsp"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_spandsp:spandsp_stop_tone_detect:866",
+        "name": "spandsp_stop_tone_detect",
+        "source_module": "mod_spandsp",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "spandsp_stop_tone_detect",
+          "description": "Stop background tone detection with cadence",
+          "syntax": "<uuid>",
+          "ikey": "mod_spandsp"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_spandsp:start_tdd_detect:871",
+        "name": "start_tdd_detect",
+        "source_module": "mod_spandsp",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "start_tdd_detect",
+          "description": "Start background tdd detection",
+          "syntax": "<uuid>",
+          "ikey": "mod_spandsp"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_spandsp:stop_tdd_detect:872",
+        "name": "stop_tdd_detect",
+        "source_module": "mod_spandsp",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "stop_tdd_detect",
+          "description": "Stop background tdd detection",
+          "syntax": "<uuid>",
+          "ikey": "mod_spandsp"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_spandsp:uuid_send_tdd:874",
+        "name": "uuid_send_tdd",
+        "source_module": "mod_spandsp",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "uuid_send_tdd",
+          "description": "send tdd data to a uuid",
+          "syntax": "<uuid> <text>",
+          "ikey": "mod_spandsp"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_spy:userspy_show:354",
+        "name": "userspy_show",
+        "source_module": "mod_spy",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_translate:translate:414",
+        "name": "translate",
+        "source_module": "mod_translate",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_v8:jsapi:1579",
+        "name": "jsapi",
+        "source_module": "mod_v8",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_v8:jskill:1582",
+        "name": "jskill",
+        "source_module": "mod_v8",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_v8:jsmon:1580",
+        "name": "jsmon",
+        "source_module": "mod_v8",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_v8:jsps:1581",
+        "name": "jsps",
+        "source_module": "mod_v8",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_v8:jsrun:1578",
+        "name": "jsrun",
+        "source_module": "mod_v8",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_valet_parking:valet_info:1000",
+        "name": "valet_info",
+        "source_module": "mod_valet_parking",
+        "state": "missing_candidate_entrypoint",
+        "reference_registration": {
+          "name": "valet_info",
+          "description": "Valet Parking Info",
+          "syntax": "[<lot name>]",
+          "ikey": "mod_valet_parking"
+        },
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_verto:verto:6988",
+        "name": "verto",
+        "source_module": "mod_verto",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_verto:verto_contact:6989",
+        "name": "verto_contact",
+        "source_module": "mod_verto",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_video_filter:chromakey:1190",
+        "name": "chromakey",
+        "source_module": "mod_video_filter",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_video_filter:uuid_video_replace:1195",
+        "name": "uuid_video_replace",
+        "source_module": "mod_video_filter",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_vmd:vmd:525",
+        "name": "vmd",
+        "source_module": "mod_vmd",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_boxcount:6232",
+        "name": "vm_boxcount",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_delete:6234",
+        "name": "vm_delete",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_auth_login:6239",
+        "name": "vm_fsdb_auth_login",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_msg_count:6242",
+        "name": "vm_fsdb_msg_count",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_msg_delete:6245",
+        "name": "vm_fsdb_msg_delete",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_msg_email:6247",
+        "name": "vm_fsdb_msg_email",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_msg_forward:6250",
+        "name": "vm_fsdb_msg_forward",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_msg_get:6244",
+        "name": "vm_fsdb_msg_get",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_msg_list:6243",
+        "name": "vm_fsdb_msg_list",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_msg_purge:6248",
+        "name": "vm_fsdb_msg_purge",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_msg_save:6249",
+        "name": "vm_fsdb_msg_save",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_msg_undelete:6246",
+        "name": "vm_fsdb_msg_undelete",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_pref_greeting_get:6254",
+        "name": "vm_fsdb_pref_greeting_get",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_pref_greeting_set:6253",
+        "name": "vm_fsdb_pref_greeting_set",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_pref_password_set:6256",
+        "name": "vm_fsdb_pref_password_set",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_fsdb_pref_recname_set:6255",
+        "name": "vm_fsdb_pref_recname_set",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_inject:6231",
+        "name": "vm_inject",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_list:6236",
+        "name": "vm_list",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_prefs:6233",
+        "name": "vm_prefs",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:vm_read:6235",
+        "name": "vm_read",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:voicemail:6229",
+        "name": "voicemail",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_voicemail:voicemail_inject:6230",
+        "name": "voicemail_inject",
+        "source_module": "mod_voicemail",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_xml_curl:xml_curl:591",
+        "name": "xml_curl",
+        "source_module": "mod_xml_curl",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_xml_ldap:xml_ldap:161",
+        "name": "xml_ldap",
+        "source_module": "mod_xml_ldap",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      },
+      {
+        "id": "registration:api:mod_xml_scgi:xml_scgi:394",
+        "name": "xml_scgi",
+        "source_module": "mod_xml_scgi",
+        "state": "blocked_reference_module",
+        "reference_registration": null,
+        "candidate_registration": null,
+        "complete_contract_passed": false,
+        "provider_identity_policy": "源码模块与实际 ikey 同时保留；core 包装或同名覆盖须单独核对，名字存在不等于原模块可加载",
+        "next_step": "补齐原版实际模块构建或候选入口，再为本原始 ID 实例化正常/错误/边界/权限/并发/副作用断言"
+      }
+    ],
+    "extra_runtime_names": {
+      "reference": [],
+      "candidate": [
+        "uuid_send_dtmf_status"
+      ]
+    },
+    "complete_contract_passed": false
+  },
+  "scope": "每项绿色仅表示显示的双端子场景通过；API入口存在、原版已加载、目录完整均不等于语义全兼容。"
+}

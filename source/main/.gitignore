@@ -1,0 +1,6 @@
+/target/
+/media/target/
+/bin/
+/run/
+*.log
+__pycache__/

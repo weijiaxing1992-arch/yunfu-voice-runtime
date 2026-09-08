@@ -1,0 +1,430 @@
+{
+  "note": "Original reports and evidence preserved. derived_from_* fields reconstructed afterwards from saved local artifacts; journal peak is session-count evidence, not a media-capacity verdict.",
+  "runs": [
+    {
+      "name": "10000",
+      "report": "10000.json",
+      "passed": false,
+      "report_sha256": "77b21d43cbadc1f012240ec619643b5cc8798b72b6e62bc703a143a37e5f7bd5",
+      "derived_from_journal": {
+        "run_id": "050f26005b9eacba08ddfa6cca8aeb04",
+        "peak_simultaneously_established": 2176,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 10000,
+          "call_answered": 5261,
+          "call_established": 2176,
+          "call_ended": 7163
+        },
+        "journal_sha256": "0778f396c330241e894e4ae1bb17cd07fe821e4eddcb1300b0117c014ae0134f"
+      },
+      "journal_archive": "10000.events.jsonl.gz",
+      "derived_from_status_samples": {
+        "samples": 13,
+        "peak_established_calls": 830,
+        "timeline_sha256": "33ba21f63596e76401af7cb1e806c1845455641763ad494e7fabe1e27b5f489e"
+      }
+    },
+    {
+      "name": "all-connected-1000",
+      "report": "all-connected-1000.json",
+      "passed": true,
+      "report_sha256": "02c471444c85cb9db4e44ca1edbc8eb1f147edb56079d5e8fb6785bdba8f58d0",
+      "derived_from_journal": {
+        "run_id": "d987fd0c03d3d885a0020dd41e81e8e3",
+        "peak_simultaneously_established": 1000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 1000,
+          "call_answered": 1000,
+          "call_established": 1000,
+          "call_ended": 1000
+        },
+        "journal_sha256": "f9c5f99b63e09de90f9ec40f041126fd1b3a41cd067117f1614d1863dfb7a205"
+      },
+      "derived_from_status_samples": {
+        "samples": 45,
+        "peak_established_calls": 1000,
+        "timeline_sha256": "311cf498595757b5145989658dc6b6dc9ccfe3de787f4a38a61c238859c498ba"
+      }
+    },
+    {
+      "name": "all-connected-1000-30s",
+      "report": "all-connected-1000-30s.json",
+      "passed": true,
+      "report_sha256": "410414fc1ec5c46e9293e51ea0a16eab3365f0e31ed79053053dbe2f7c34df0b",
+      "derived_from_journal": {
+        "run_id": "3bf2699e737ca7a23d37405ef6af0488",
+        "peak_simultaneously_established": 1000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 1000,
+          "call_answered": 1000,
+          "call_established": 1000,
+          "call_ended": 1000
+        },
+        "journal_sha256": "a208d195186c910e23837d1d73fdcde438df6ee1c751637cb3094706826998e4"
+      },
+      "derived_from_status_samples": {
+        "samples": 140,
+        "peak_established_calls": 1000,
+        "timeline_sha256": "cc00d1933b14cec7955aa96b98946771278a805ce0ead3bfaf5b317ead0f166b"
+      }
+    },
+    {
+      "name": "all-connected-5000-v2",
+      "report": "all-connected-5000-v2.json",
+      "passed": false,
+      "report_sha256": "b75873a49ba92f327e6e90e54583595098156a3b258bcb06471af79151845087",
+      "derived_from_journal": {
+        "run_id": "73a071a5feffbb2bc929117fe39ceca4",
+        "peak_simultaneously_established": 5000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 5000,
+          "call_answered": 5000,
+          "call_established": 5000,
+          "call_ended": 5000
+        },
+        "journal_sha256": "9c75b31dae9732dd3b8a7756330702d1181d97378a8c2ff87bc9f5af0771137f"
+      },
+      "derived_from_status_samples": {
+        "samples": 112,
+        "peak_established_calls": 5000,
+        "timeline_sha256": "123eb87805b610840287f2d9b4fc4d143836cce72820834ada92ab91b42adaae"
+      }
+    },
+    {
+      "name": "baseline-1000",
+      "report": "baseline-1000.json",
+      "passed": false,
+      "report_sha256": "73ec16ec0eda070646d8f3da1db73bb3290f5d6fed32781adbe3b3ed4f3f7631",
+      "derived_from_journal": {
+        "run_id": "ae77389024439ecda0f70f0630f73338",
+        "peak_simultaneously_established": 1000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 1000,
+          "call_answered": 1000,
+          "call_established": 1000,
+          "call_ended": 1000
+        },
+        "journal_sha256": "2312ecc37969e5e056e3527059c024a737baf9e955e06332fc1aa1d6b19af57d"
+      }
+    },
+    {
+      "name": "connected-1000",
+      "report": "connected-1000.json",
+      "passed": false,
+      "report_sha256": "b9df03db1852bd1f29a0ead3c35930ea89a4d5a554d9bd0c91759c44640a0760",
+      "derived_from_journal": {
+        "run_id": "18a10cfba4fae99166be3e6206dec389",
+        "peak_simultaneously_established": 1000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 1000,
+          "call_answered": 1000,
+          "call_established": 1000,
+          "call_ended": 1000
+        },
+        "journal_sha256": "2215e2ee1522278b096a8a7464e1d3ba4ab85a9a71597d230d92bcba87546413"
+      },
+      "derived_from_status_samples": {
+        "samples": 30,
+        "peak_established_calls": 1000,
+        "timeline_sha256": "51f241a073200762878b1710d51637788de96aa00bbff19345b8d0ef123c086f"
+      }
+    },
+    {
+      "name": "direct-5000",
+      "report": "direct-5000.json",
+      "passed": false,
+      "report_sha256": "25977546e7add60650954d5fe17f59ec734f3aba79d4c44f06350a1a56d7cf81",
+      "derived_from_journal": {
+        "run_id": "b95376c855ee1bd0e01a5f363e16b973",
+        "peak_simultaneously_established": 5000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 5000,
+          "call_answered": 5000,
+          "call_established": 5000,
+          "call_ended": 5000
+        },
+        "journal_sha256": "bfc5543dbcbc25e17a82fefa622a4850dfe363b867069c147241cdcea225d7e6"
+      },
+      "derived_from_status_samples": {
+        "samples": 48,
+        "peak_established_calls": 5000,
+        "timeline_sha256": "02b0a845c3a02a652224f638be5a2b224b7db4d2cf7933886ead00dc8d0c04b6"
+      }
+    },
+    {
+      "name": "direction-1000",
+      "report": "direction-1000.json",
+      "passed": false,
+      "report_sha256": "6eb6bc03ee9673626bd230f643f5257a1c430d5924a6c171ca3b8de38a9690b5",
+      "derived_from_journal": {
+        "run_id": "d3a5da7ac01b8924c648d14f0e785b25",
+        "peak_simultaneously_established": 1000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 1000,
+          "call_answered": 1000,
+          "call_established": 1000,
+          "call_ended": 1000
+        },
+        "journal_sha256": "8ea238670cdf6892fa37176206fc531b7cd9b675d2e4770fe8757fb134777018"
+      },
+      "derived_from_status_samples": {
+        "samples": 27,
+        "peak_established_calls": 1000,
+        "timeline_sha256": "378bf428fd11d1bfb783ba5c47b95aace4511971dd6ddb9223b7e2e4e37b3632"
+      }
+    },
+    {
+      "name": "final-1000-60s",
+      "report": "final-1000-60s.json",
+      "passed": false,
+      "report_sha256": "158d0d2bd1a812f7489483c45eebf072ac5f740c5d8b30b6d27b14315f458239",
+      "derived_from_journal": {
+        "run_id": "dfce56c060420a51980ea3e2ecfd1f8b",
+        "peak_simultaneously_established": 1000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 1000,
+          "call_answered": 1000,
+          "call_established": 1000,
+          "call_ended": 1000
+        },
+        "journal_sha256": "517be3de2f6c2e91c18ad795f838e45cc37ede59e88afa48975aa9374b9009c1"
+      },
+      "derived_from_status_samples": {
+        "samples": 241,
+        "peak_established_calls": 1000,
+        "timeline_sha256": "593803fab225e0def82513efbb0a7947c5268a9b182a76f1e17357ffcec38994"
+      }
+    },
+    {
+      "name": "final-burst-1000",
+      "report": "final-burst-1000.json",
+      "passed": false,
+      "report_sha256": "2950b373380ee8f71322d84744202d749e882aec30bf941d9378e52dce5ed9c0",
+      "derived_from_journal": {
+        "run_id": "57a6078e4be874a8780980a76682a44e",
+        "peak_simultaneously_established": 1000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 1000,
+          "call_answered": 1000,
+          "call_established": 1000,
+          "call_ended": 1000
+        },
+        "journal_sha256": "f31bd387f5e16c87a590f7c533ceefce0451c7c2191a324b84be347dd483f98c"
+      },
+      "derived_from_status_samples": {
+        "samples": 27,
+        "peak_established_calls": 1000,
+        "timeline_sha256": "093807f1504f6d7e090936963f151efffcb815d5dd5b2db61fe987b35b6154dc"
+      }
+    },
+    {
+      "name": "final-dialudp-1000-60s",
+      "report": "final-dialudp-1000-60s.json",
+      "passed": true,
+      "report_sha256": "26757d08fb002c884628a8e0cdb65f7859e5edbf2e94f631a6e7ba09cb9a63b8",
+      "derived_from_journal": {
+        "run_id": "79ce8b8d16752749c2d53ebc33efbd06",
+        "peak_simultaneously_established": 1000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 1000,
+          "call_answered": 1000,
+          "call_established": 1000,
+          "call_ended": 1000
+        },
+        "journal_sha256": "40e79121e29ee2c991d843dae77e3ef55b869aa93e143e23e4b61336cc234318"
+      },
+      "journal_archive": "final-dialudp-1000-60s.events.jsonl.gz",
+      "derived_from_status_samples": {
+        "samples": 245,
+        "peak_established_calls": 1000,
+        "timeline_sha256": "7e7533250401423ca85ea11a7d1a929b387825b100776a66426f5e7d2a405d6e"
+      }
+    },
+    {
+      "name": "fine-phase-5000-v2",
+      "report": "fine-phase-5000-v2.json",
+      "passed": false,
+      "report_sha256": "8120dc262814c25d4cda571cbb574c61dea2c5b964f596ea3ddeaf7105de1f2f",
+      "derived_from_journal": {
+        "run_id": "3b62607a051b444a76adf450bda49825",
+        "peak_simultaneously_established": 5000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 5000,
+          "call_answered": 5000,
+          "call_established": 5000,
+          "call_ended": 5000
+        },
+        "journal_sha256": "43f73115b4e92fc924126a82f1eaaa6c91508a986f3707bdba80c6c505365223"
+      },
+      "derived_from_status_samples": {
+        "samples": 52,
+        "peak_established_calls": 5000,
+        "timeline_sha256": "e1e5aac98bf9ff6f83bd67a85bdca6479c4cf5e36bf27d67e16d477282446d57"
+      }
+    },
+    {
+      "name": "grouped-10000",
+      "report": "grouped-10000.json",
+      "passed": false,
+      "report_sha256": "f9f87f12121d304d2427d2127ad03d07c8b4e5b577f9911cf1a73011803193e2",
+      "derived_from_journal": {
+        "run_id": "d3d8f454ee84cc3f855ad9a9e3de60f4",
+        "peak_simultaneously_established": 10000,
+        "established_without_end_at_file_end": 3001,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 10000,
+          "call_answered": 10000,
+          "call_established": 10000,
+          "call_ended": 6999
+        },
+        "journal_sha256": "ec838cf827d74d51f6253c94d58ba2ed103b330320bb7db1ff20b58ff7d4b275"
+      },
+      "journal_archive": "grouped-10000.events.jsonl.gz",
+      "derived_from_status_samples": {
+        "samples": 64,
+        "peak_established_calls": 7766,
+        "timeline_sha256": "4789ca6114023e489bd4fc602c2ede4f07417eddd2a1b765415fc0089938a631"
+      }
+    },
+    {
+      "name": "host-baseline-1000",
+      "report": "host-baseline-1000.json",
+      "passed": false,
+      "report_sha256": "90bba594f27a0c61ff745481cfde0991d901a096fd91decabe5c12472520b346",
+      "derived_from_journal": {
+        "run_id": "04bbda8e30a24490a4c72b33bff7ff02",
+        "peak_simultaneously_established": 1000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 1000,
+          "call_answered": 1000,
+          "call_established": 1000,
+          "call_ended": 1000
+        },
+        "journal_sha256": "74c612ec60a795f6ca8a04c3987c09de0fab27c1f84b29833746d94b38bf9b5b"
+      }
+    },
+    {
+      "name": "race-connected",
+      "report": "race-connected.json",
+      "passed": true,
+      "report_sha256": "56f27cff45710a0039353cc874978133429a518127f2057bf52e7f3f51c81f5f",
+      "derived_from_journal": {
+        "run_id": "60fa97030d8174c4c0e3b01a9c567eb8",
+        "peak_simultaneously_established": 20,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 20,
+          "call_answered": 20,
+          "call_established": 20,
+          "call_ended": 20
+        },
+        "journal_sha256": "120e7e681fbc87e294b8e9e969e7bb03e0426c5b3c6c17ab7ba9d7e5845b573b"
+      },
+      "derived_from_status_samples": {
+        "samples": 24,
+        "peak_established_calls": 20,
+        "timeline_sha256": "7fe5b91e17417fe73d3fa57ce6612577bbb23ad1d9ee3dc5768b8e8c7f292258"
+      }
+    },
+    {
+      "name": "race-grouped",
+      "report": "race-grouped.json",
+      "passed": true,
+      "report_sha256": "0b7d8b6ab31330540baa528ae27b003cd99ddb9ce744f88115e81cee49b87de2",
+      "derived_from_journal": {
+        "run_id": "412aef41c1ba1d3689b41d282714440f",
+        "peak_simultaneously_established": 20,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 20,
+          "call_answered": 20,
+          "call_established": 20,
+          "call_ended": 20
+        },
+        "journal_sha256": "33b5e1fec7ac8cfdcf4c8533643b954415179aeab620bf023e3e4a41a09e0306"
+      },
+      "derived_from_status_samples": {
+        "samples": 22,
+        "peak_established_calls": 20,
+        "timeline_sha256": "a3e016dfac9ac65e1c8872bca3059c219525cc71c53bb42b4228aee868c2d0f8"
+      }
+    },
+    {
+      "name": "shuffle-5000",
+      "report": "shuffle-5000.json",
+      "passed": false,
+      "report_sha256": "0cc65e4b23aecb0c8ccd0c6442653fcea31eb6f437208784844cefbe3c76e526",
+      "derived_from_journal": {
+        "run_id": "e94dd99f05622d4c9f9e1dcf8c07cd85",
+        "peak_simultaneously_established": 5000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 5000,
+          "call_answered": 5000,
+          "call_established": 5000,
+          "call_ended": 5000
+        },
+        "journal_sha256": "6f279193780c8a4479c7393f64024e32f1defd76627c6407778586af37a1f882"
+      },
+      "derived_from_status_samples": {
+        "samples": 111,
+        "peak_established_calls": 5000,
+        "timeline_sha256": "b52bee8d4608a75a7906ef6e2c6e92ae78734ffc1d7dc2b8576c16b81c7f93ab"
+      }
+    },
+    {
+      "name": "slots-1000",
+      "report": "slots-1000.json",
+      "passed": false,
+      "report_sha256": "c8fe71411e5f7935b4ddf3c66c1f684f10680d7977763b0c1d2e72bcbf0dc5a0",
+      "derived_from_journal": {
+        "run_id": "aab6944c633580b7d983cecbb2e7dc35",
+        "peak_simultaneously_established": 1000,
+        "established_without_end_at_file_end": 0,
+        "event_counts": {
+          "controller_started": 1,
+          "call_admitted": 1000,
+          "call_answered": 1000,
+          "call_established": 1000,
+          "call_ended": 1000
+        },
+        "journal_sha256": "b7498dfb59becb017648bf5e1dcf9118f8124d1db7691103463615fe8e9e1a1b"
+      },
+      "derived_from_status_samples": {
+        "samples": 23,
+        "peak_established_calls": 1000,
+        "timeline_sha256": "3fe73469006147c9ced81cfe8ab327ffd59bf9bed87d3adc5b5ca625b1868201"
+      }
+    }
+  ]
+}

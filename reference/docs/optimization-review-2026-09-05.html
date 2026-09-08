@@ -1,0 +1,139 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>RustSwitch 代码与容量优化审查 · 云蝠项目资料</title><link rel="stylesheet" href="../../handbook.css"></head><body><aside><a class="brand" href="../../index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../../index.html">资料首页</a><a class="" href="../../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / RustSwitch 代码与容量优化审查</div><article class="content"><div class="page-tools"><a href="optimization-review-2026-09-05.md" download>Markdown 原稿</a><a href="api/openapi.json" download>OpenAPI JSON</a><a href="../../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 10 节</summary><a href="#优先级与证据">优先级与证据</a><a href="#1-同会话媒体命令乱序优先修复">1. 同会话媒体命令乱序：优先修复</a><a href="#2-控制请求超时与媒体失效应分开处理">2. 控制请求超时与媒体失效应分开处理</a><a href="#3-提高端口容量利用并补异常呼叫清理">3. 提高端口容量利用，并补异常呼叫清理</a><a href="#4-把容量工具改成真实业务负载与质量验收">4. 把容量工具改成真实业务负载与质量验收</a><a href="#5-日志压力恢复与长期运行">5. 日志压力恢复与长期运行</a><a href="#6-媒体与控制调度优化">6. 媒体与控制调度优化</a><a href="#7-根据实际热点减少每包开销">7. 根据实际热点减少每包开销</a><a href="#8-freeswitch-无感替换的落实顺序">8. FreeSWITCH 无感替换的落实顺序</a><a href="#本轮证据与下一轮交付">本轮证据与下一轮交付</a></details><h1 id="rustswitch-代码与容量优化审查">RustSwitch 代码与容量优化审查</h1>
+<blockquote>
+<p>历史审查记录：以下复现描述审查时的 0.2 原型，不表示当前缺陷状态。文档 1.2 对应实现已修复 Go 媒体提交乱序、连续早期媒体更新积压及异常释放处理，并补上管理和媒体资源预算。最新行为、保护边界见<a href="api/stability-reference.html">稳定性说明</a>。原版动态差分、控制重启无损保持通话及 Linux 万路认证仍未完成；历史源代码行号只用于当时复现，不作为当前实现定位。</p>
+</blockquote>
+<p>审查日期：2026-09-05。对象：当前 0.2 原型。目标保持为 <strong>Rust 媒体核心、Go 控制面、C/C++ 生态适配、单机一万通话及 FreeSWITCH 无感替换</strong>。</p>
+<p>最先要修复的是媒体配置命令乱序：当前代码可以先执行最终接通配置，再被旧的早期媒体配置覆盖。本轮已在源码副本中复现。随后应处理控制故障扩大、端口准入及异常清理，再完善真实持续负载验收和媒体性能。</p>
+<p>本轮审查主要覆盖媒体循环、控制 RPC、SIP 状态处理、定时器、日志及压测工具。没有修改交付目录中的运行代码，也没有重新执行万路压测。最终千路 60 秒完整收发 5,999,904 包是既有测量；万路媒体与 Linux 容量仍未通过，见<a href="optimization-v0.2.html">原性能记录</a>。</p>
+<h2 id="优先级与证据">优先级与证据</h2>
+<p>P1 表示下一轮优先完成或构成目标验收阻断；P2 表示随后完成的可靠性、容量利用或性能改进。“已复现”只针对列出的行为；“静态确认”来自代码路径；性能候选均须测量收益。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>项目</th>
+<th>证据</th>
+<th>主要收益</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>同一通话的媒体变更有序执行</td>
+<td>命令倒序连续复现 3 次</td>
+<td>防止旧媒体地址/DTMF 配置覆盖最终配置</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>区分控制请求超时与媒体进程失效</td>
+<td>延迟只读 stats 回复复现进程被终止</td>
+<td>避免短暂控制阻塞扩大为整分片掉话</td>
+</tr>
+<tr>
+<td>P1，架构目标</td>
+<td>控制面重启期间保持已有媒体</td>
+<td>静态确认当前 IPC 断开即退出</td>
+<td>为控制面维护、重启和恢复提供通话保护</td>
+</tr>
+<tr>
+<td>P1，验收目标</td>
+<td>持续建拆、实时质量及独立 Linux 验收</td>
+<td>静态确认现有测试分阶段执行</td>
+<td>证明真实业务负载下的一万路服务能力</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>根据可用端口及在途预留选择分片</td>
+<td>静态确认只按活动通话数选择</td>
+<td>避免有空闲容量却反复拒接</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>媒体失败时取消尚未接通的 B 腿</td>
+<td>静态确认遗漏 CANCEL 路径</td>
+<td>防止呼叫失败后上游继续振铃</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>日志压力恢复、分段及检查点</td>
+<td>队列排空后仍拒绝记录已复现</td>
+<td>减少持续停接与长时间运行后的恢复成本</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>发送重试与控制循环的调度预算</td>
+<td>机制确认；实际影响待测</td>
+<td>减少拥塞扩散及本机排队超期</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>按实测热点减少每包开销</td>
+<td>成本存在；收益待 Linux profiling</td>
+<td>降低每包 CPU 和系统调用成本</td>
+</tr>
+</tbody></table></div>
+<h2 id="1-同会话媒体命令乱序优先修复">1. 同会话媒体命令乱序：优先修复</h2>
+<p>**触发：**上游先发携带地址 X 的 183，紧接着发携带地址 Y 的 200。控制面为两个媒体连接命令分别启动 goroutine，实际入队顺序没有保证。</p>
+<p><strong>证据：</strong><a href="../control/internal/server/server.go#L269">submit</a> 独立启动 goroutine；<a href="../control/internal/server/calls.go#L329">connect</a> 只在控制结果中保留 <code>ConnectVersion</code>；<a href="../media/src/media/protocol.rs#L47">Rust Connect</a> 没有会话变更版本。<a href="../control/internal/server/calls.go#L186">旧回复过滤</a> 发生在命令执行之后，无法撤销已发生的媒体修改。</p>
+<p>副本测试设置 <code>GOMAXPROCS=1</code>，使用实际 Go 提交和 Pool 代码、模拟媒体协议进程，连续 3 次观察到：</p>
+<pre><code class="language-text">worker_seq=1  connect_answer  version=2  B=127.0.0.1:20004  DTMF=nil
+worker_seq=2  connect_early   version=1  B=127.0.0.1:20002  DTMF=101
+</code></pre>
+<p>这是命令执行顺序的复现，未声称已经做过该场景的 Linux 实际音频测量。实际 Rust 执行层会按到达顺序更新 <code>call.b</code> 和 <code>call.dtmf</code>，因此存在接通后无声或单向音的风险。</p>
+<p>**建议：**同会话的 allocate/connect/release 通过有序调度器提交；请求携带会话变更版本，Rust 执行前拒绝旧版本。重复同版本请求必须核对参数；已释放会话不能被迟到 connect 恢复。不要仅依赖 Go 内存竞争检测，这属于执行顺序错误。</p>
+<p>**验收：**不同地址和 DTMF 的 183/200 连续到达、重复与延迟回复、CANCEL/BYE 穿插等情况下，最终媒体配置始终与最新有效状态一致。</p>
+<h2 id="2-控制请求超时与媒体失效应分开处理">2. 控制请求超时与媒体失效应分开处理</h2>
+<p><a href="../control/internal/media/pool.go#L297">pool.go</a> 为每次 RPC 设置 1 秒定时器，超时直接终止进程；<a href="../control/internal/media/pool.go#L365">每秒 stats</a> 也使用同一逻辑。进程退出后，<a href="../control/internal/server/calls.go#L501">workerFailed</a> 结束所属通话。</p>
+<p>本轮使用协议模拟进程，将只读 stats 回复延迟到 1.2 秒，观察到进程被终止。启动后约 2 秒出现失败，因为先等待约 1 秒的统计周期，再达到 1 秒 RPC 超时。这证明当前监管行为，不代表已测出 Linux 上出现此延迟的频率。</p>
+<p>**建议：**只读查询超时先暂停该分片的新准入并标记统计过期；进程失效由独立存活检查和媒体循环进展共同判断。引入有界在途请求表、迟到回复处理及操作状态查询。变更请求超时必须区分“未执行”和“执行结果未知”，再决定重试或对账。只加长超时时间不能解决故障隔离问题。</p>
+<p>更长期的限制是 Go 进程退出会关闭管道，Rust <a href="../media/src/media/worker.rs#L221">命令通道断开</a> 或<a href="../media/src/media/worker.rs#L125">回复写入失败</a> 就退出。要满足控制重启时已有通话继续，应实现独立媒体服务、有期限的续存租约、会话快照、重连认证、控制所有权代次及恢复对账。不能只删退出逻辑，否则会产生无法管理的通话与端口。整机或媒体进程崩溃后的接管仍是另一项能力。</p>
+<p>**验收：**控制延迟、只读请求超时、控制进程重启分别注入；按设计验证存量 RTP 是否持续、准入是否关闭、恢复后是否重复分配或泄漏。该能力实现前，不能承诺控制故障下无业务损失。</p>
+<h2 id="3-提高端口容量利用并补异常呼叫清理">3. 提高端口容量利用，并补异常呼叫清理</h2>
+<p><strong>端口准入：</strong><a href="../control/internal/server/calls.go#L92">分片选择</a> 只比较活动通话数，没有考虑 Rust 已提供的 <code>available_blocks</code>。<a href="../control/internal/server/calls.go#L164">分配失败</a> 后直接拒接并释放预留，不尝试其他分片。短通话集中在某一分片时，它可能活动数最低、端口却都在隔离期内，导致后续呼叫反复选中它；其他分片仍可能有空闲容量。<a href="../control/internal/config/config.go#L138">配置检查</a> 只保证全局 CPS 与端口隔离期的余量，不能保证各分片周转均匀。</p>
+<p>**建议：**结合可用端口、在途分配及最近容量失败选择分片，对耗尽分片短暂停止准入，并针对明确容量错误做有界换片重试。统计有滞后，不能直接把上一秒的端口数当作当前可用配额；Rust 仍是分配的最终判断者。换片时保留原进程代次与请求身份，清理任何迟到成功分配。</p>
+<p>**验收：**一部分分片长通话驻留、另一部分高 CPS 短通话持续周转，在保留端口隔离期的情况下验证剩余容量是否可用，且没有跨分片重复分配。</p>
+<p><strong>异常清理：</strong><a href="../control/internal/server/calls.go#L516">workerFailed</a> 只调用 <code>sendByeB</code>，但 <a href="../control/internal/server/calls.go#L443">B 腿未接通</a> 时该函数直接返回。如果 B 已回过 180/183，A 收到媒体故障响应后，B 仍可能继续振铃，直到后续信令或对方自己的超时处理。</p>
+<p>**建议：**已接通发送 BYE，尚未接通按事务状态发送或安排 CANCEL，继续保留迟到 200 的 ACK/BYE 清理。验收覆盖 180/183 后工作进程失败，以及失败与 200 同时发生。</p>
+<h2 id="4-把容量工具改成真实业务负载与质量验收">4. 把容量工具改成真实业务负载与质量验收</h2>
+<p><a href="../control/cmd/callbench/main.go#L210">callbench</a> 等全部拨号完成后才<a href="../control/cmd/callbench/main.go#L277">开始 RTP</a>，媒体全部停止后才<a href="../control/cmd/callbench/main.go#L292">统一 BYE</a>。目前的 500 CPS 参数不能证明媒体满载时仍可保持 500 CPS 建拆。</p>
+<p>下一版工具应同时提供：</p>
+<ol>
+<li>接通即发媒体，持续维持目标活动数，按 CPS 不断替换通话；覆盖端口隔离、准入、定时器及事务回收。</li>
+<li>每路、每方向、每个时间窗核对实际 PPS、最长断流与发包节奏。当前<a href="../control/cmd/callbench/main.go#L329">全场 98% 门槛</a> 会掩盖局部负载不足。</li>
+<li>记录发送及接收时刻，区分丢失包和超过播放期限的迟到包，统计 P50/P95/P99/P99.99、连续丢包长度、乱序与接通/拆线耗时。当前<a href="../control/cmd/callbench/main.go#L283">收尾继续等待 500 ms</a> 收到的迟到包也计为成功，未证明实时语音质量。媒体 RTP 时间戳本身不能充当实际到达时间。</li>
+<li>长时间运行的有界统计、周期汇总与故障注入；逐步覆盖 24/72 小时。当前工具限制一小时，不能仅延长参数而不检查内存、日志和单次最长通话配置。</li>
+<li>已支持能力的组合负载：RTCP、DTMF、早期媒体、排空、单分片故障及过载；现有少量通话功能测试不代替满载验证。</li>
+</ol>
+<p>Linux 到位后，发生器与服务端分机部署，双方采集 CPU、RSS、FD、socket 内存、NIC/内核丢包及软中断/队列证据。为<a href="../tools/collect_linux.py">现有采集器</a> 增加这些字段及统一时间轴；关键证据缺失应报告“验收不完整”。区分发生器调度、端到端时延和服务器内部转发时延；跨机器单向时延需要同步时钟或校正方案。</p>
+<p>容量预算应明确“一万路”的单位：当前一条桥接通话为两个呼叫腿、四个 UDP socket，即一万通话约两万通道、四万个服务端媒体 socket。以 G.711、20 ms、每包 160 字节音频计算：服务器每秒约接收 100 万 RTP 包并转发 100 万包；按 IPv4/UDP/RTP 总计 200 字节计算，收、发各约 1.6 Gbit/s，尚未计二层、RTCP、信令及其他业务。该算式是预算，不是实测吞吐。</p>
+<h2 id="5-日志压力恢复与长期运行">5. 日志压力恢复与长期运行</h2>
+<p><a href="../control/internal/journal/journal.go#L75">journal.Record</a> 遇到一次队列满就永久设置 <code>failed</code>。本轮使用 64 项队列复现：64 条已接受事件全部同步、队列归零后，健康状态仍为 false，后续事件仍被拒绝。因此暂时积压可以演变为持续停接和日志丢失。</p>
+<p>拒绝继续准入体现当前保守策略，不能简单清除失败标记并忽略已经丢失的数据。建议分开维护“暂时积压”“存储失败”“已发生数据缺口”，在可恢复积压时控制流量，为结束事件保留预算；恢复准入前按明确策略处理缺口、恢复存储并完成对账。</p>
+<p>另一个长期成本是 <a href="../control/internal/journal/journal.go#L45">Open</a> 每次启动逐行检查整个历史文件，时间随文件增长；当前无内置分段、保留策略及恢复检查点。应采用分段日志、序列号、检查点和校验后的归档策略，保留单写者与末尾修复约束。当前日志也未保存完整 SIP/媒体会话状态，不能直接用它实现在线接管。</p>
+<p>**验收：**短暂积压恢复、队列满后的数据缺口、磁盘错误、异常断电尾部及大量历史文件分别测试，核对已接受/已写入/已同步/丢失事件，并限制启动恢复耗时。20 ms 的同步周期仍不是持久化零丢失保证。</p>
+<h2 id="6-媒体与控制调度优化">6. 媒体与控制调度优化</h2>
+<p><strong>发送重试：</strong><a href="../media/src/media/worker.rs#L583">flush_pending</a> 每轮只检查 128 个 socket；没有接收或控制工作时，<a href="../media/src/media/worker.rs#L225">循环等待 1 ms</a>，发送队列期限却只有 5 ms。大量 socket 同时排队时，即使恢复可写，一部分也可能在获得重试机会前超期。有接收就绪工作时不会执行该固定等待，实际阈值受调度影响；这不能用来断言已定位既有压测丢包。</p>
+<p>建议在有待发包时监听可写事件，结合最近截止时间安排重试，保留每轮时间预算和过期丢弃，记录排队时长。可写通知之后仍须处理 <code>WouldBlock</code>，就绪不保证下一次操作一定成功，参见 <a href="https://docs.rs/mio/1.2.3/mio/struct.Poll.html#spurious-events" target="_blank" rel="noopener noreferrer">Mio Poll 官方文档</a>。不要通过等攒满批次或无限扩大队列牺牲语音实时性。</p>
+<p><strong>控制循环：</strong><a href="../control/internal/server/server.go#L240">SIP send</a> 在唯一业务循环中同步等待，单次最长 20 ms；批量消息和最多 1024 个到期定时器可能放大出口拥塞的影响。先增加循环延迟、命令排队、最老定时器迟到等指标；再考虑保序的有界发送队列、按耗时预算处理到期事件。当前没有测出 Linux 下的实际阻塞幅度。</p>
+<p><strong>原子媒体变更：</strong><a href="../media/src/media/worker.rs#L390">连接式 UDP 更新</a> 逐个连接四个 socket，中途失败没有回滚前面已变更的 socket。目前 Go 对当前版本错误会结束并释放通话，因此不能描述成普通流程长期留下断流会话。实现 re-INVITE/NAT 换址和失败后保留原通话之前，应补齐回滚或可恢复的提交状态机。</p>
+<h2 id="7-根据实际热点减少每包开销">7. 根据实际热点减少每包开销</h2>
+<p>候选优化包括：</p>
+<ul>
+<li>每批共享时间采样，减少<a href="../media/src/media/worker.rs#L514">每包时间读取</a>和<a href="../media/src/admission.rs#L19">浮点令牌补充</a>。必须保持限流边界及发送期限；<code>Instant::now()</code> 不应被认定为必然进行内核系统调用。</li>
+<li>复用 <a href="../media/src/media/io.rs#L71">Linux 接收描述符</a>，计算平均批量 <code>Δrx_packets / Δreceive_batches</code> 和调用成本 <code>Δreceive_syscalls / Δrx_packets</code>。每个 socket 每 20 ms 一包时，实际批量可能接近 1。</li>
+<li>当前<a href="../media/src/media/worker.rs#L622">发送</a>仍是逐包调用。同一接收批次、同一输出 socket 可评估批量发送，处理部分成功及顺序。不能跨不同 fd 拼成一次 <code>sendmmsg</code>，其调用指定单个 socket，且可能只发送部分消息，参见 <a href="https://man7.org/linux/man-pages/man2/sendmmsg.2.html" target="_blank" rel="noopener noreferrer">Linux man-pages</a>。也不能等待凑包。</li>
+<li>在 Linux 确认 CPU/NUMA、网卡队列与工作进程分布，检查真实 socket 缓冲占用及分片负载偏差。内核缓冲上限不等于预先全部分配的物理内存。</li>
+</ul>
+<p>先保存 profiling 和每次变更的同条件对照结果，再决定是否需要更大范围的 I/O 架构调整。上述候选不附带未经测量的提升百分比，也不构成“加上某项技术即可万路”的结论。</p>
+<h2 id="8-freeswitch-无感替换的落实顺序">8. FreeSWITCH 无感替换的落实顺序</h2>
+<p>兼容标准已有文档，但<a href="freeswitch-compatibility/07-current-gap-and-roadmap.html">当前差距</a>仍包括 ESL、XML、脚本、完整 SIP 和原生模块宿主。下一步应把标准变成可执行的差分验收，而不是继续增加文档页数。</p>
+<p>固定 FreeSWITCH 1.11.3 参考构建，录制原客户端、配置、事件、话单和异常流程；同样输入分别执行原版与 RustSwitch，比较返回值、事件顺序约束、状态变化及媒体行为。先统一双通道 UUID、变量和生命周期模型，再实现 ESL/核心 API、XML/拨号计划、正式 SIP 提供器及业务模块。C/C++ 自定义编解码 ABI 不能计为旧 FreeSWITCH 模块二进制兼容。</p>
+<p>性能矩阵也要按功能分别验收：纯转发、转码、录音、会议、脚本、ESL 订阅及外部后端压力有不同成本。纯 G.711 转发的一万路通过不能代表一万路全功能通过。所有未执行兼容用例继续保持未执行状态。</p>
+<h2 id="本轮证据与下一轮交付">本轮证据与下一轮交付</h2>
+<ul>
+<li><a href="reviews/2026-09-05/connect-order-reproduction.log">媒体命令乱序原始输出</a>：3 次断言失败，暴露当前缺陷，不是通过的回归测试。</li>
+<li><a href="reviews/2026-09-05/control-timeout-reproduction.log">控制超时复现</a>：模拟 stats 延迟 1.2 秒后被终止；测试断言的是当前监管行为。</li>
+<li><a href="reviews/2026-09-05/journal-reproduction.log">日志积压复现</a>：队列归零、全部已接受事件同步后仍拒绝记录；没有注入磁盘故障。</li>
+</ul>
+<p>诊断在工作目录副本执行，原有 Go 文件与交付源码逐文件比对一致；新增测试和模拟进程仅位于工作目录。本轮没有复跑完整 Rust/Go/SIP 回归，原有测试结果不能代替新增问题的回归验证。</p>
+<p>下一轮建议交付一个可独立验收的改进版本：完成同会话有序提交与媒体版本检查、超时分级、端口择片和故障 CANCEL 修复，并为这些路径补回归；同时升级混合负载与实时质量工具。控制面续存及 FreeSWITCH 差分框架单列里程碑。Linux 服务器到位后再确定媒体热点的实际优先级与万路容量结论。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>

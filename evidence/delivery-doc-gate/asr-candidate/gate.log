@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/asr-candidate/tools/build_api_docs.py", line 206, in <module>
+    main()
+  File "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/asr-candidate/tools/build_api_docs.py", line 179, in main
+    assets, manifest = assemble()
+  File "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/asr-candidate/tools/build_api_docs.py", line 159, in assemble
+    documents, operations, comparison = collect()
+  File "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/asr-candidate/tools/build_api_docs.py", line 111, in collect
+    require(documents.get("api/schema-reference.md", b"").decode() == build_schema_reference.assemble(), "字段字典落后于机器合同")
+  File "/workspace/yunfu-voice-runtime/outputs/云蝠VoiceRuntime-项目资料-2026-09-08/source/asr-candidate/tools/build_api_docs.py", line 26, in require
+    raise ValueError(message)
+ValueError: 字段字典落后于机器合同

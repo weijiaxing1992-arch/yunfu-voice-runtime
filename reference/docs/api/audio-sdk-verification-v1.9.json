@@ -1,0 +1,191 @@
+{
+  "generated_at": "2026-09-06T14:37:47.259487+00:00",
+  "scope": "离线AudioFrame/分支和实际原生库的限定检查；不包含实时AudioGraph、ASR/TTS或容量认证",
+  "passed": true,
+  "tests": 20,
+  "test_failures": 0,
+  "ignored": 0,
+  "native_libraries_configured": true,
+  "clippy_all_targets_deny_warnings": true,
+  "source_files": {
+    "media/src/audio/mod.rs": "2a3c8feb4212ce350c771a183542a08504084b7bb91b4276585fa5e5616e08e1",
+    "media/src/audio/native.rs": "b1f7d959263f799cc7e5bb5bf8fafe76c786bbedd4e55d38676afcae616c7294",
+    "media/src/audio/frame.rs": "8abcd6f87d85839536e729c390e1e8c0fb84b7d4c419806009ab61a44c0057e9",
+    "media/src/audio/branch.rs": "56d25ffd291cc24a9f466f4b5251fa6ac8e9ff6dcbe67de02415c0ca1dbaa526",
+    "docs/api/audio-frame-reference.md": "f7173c779e540073c6d10a42b979862b3407e17706189c5ed0baee96226aa9bb"
+  },
+  "native_libraries": {
+    "work/audio-deps/librustswitch_g722.dylib": "ccd3e3b911d291feba5cf3f128bc94ce803a68ceb40cb2577182350463bfdb39",
+    "work/audio-deps/opus/lib/libopus.dylib": "39d7bce655ec29da6e0fb16b1206504ec9774d7e2d509865289a58c36762f0a0"
+  },
+  "evidence": {
+    "audio-sdk-tests.log": "5326933c2702ca8921e374e0806fc9b475709cc52fcef20ea716e361bb649da7",
+    "audio-sdk-clippy.log": "6fb8a98d5c21d6538e1f2d9cbdc7bdb0c66411d3532b3086b636742e6f7cff24",
+    "audio-sdk-check.json": "e6f89b9d6ee7ddc76eca37557f485cf9d6972bbbc4c173e1cf30a0f05fd147a4",
+    "audio-sdk-check.log": "c36c6ef4514a9298098e63a376b57443acc18bf2602b084cab8b1ffbdec195ac"
+  },
+  "legacy_and_native_audio_check": {
+    "branch_sample_rates": [
+      8000,
+      16000,
+      24000,
+      48000
+    ],
+    "checks": [
+      {
+        "aligned_signal_correlation": 0.999933338606659,
+        "cn_is_separate": true,
+        "decoded_absolute_energy": 73112217,
+        "durations_ms": [
+          10,
+          20
+        ],
+        "encoded_bytes": 4800,
+        "frames": 40,
+        "generator_fixture_20ms": false,
+        "loss_after_cn_is_missing": true,
+        "name": "PCMU",
+        "native_pcm": {
+          "aligned_signal_correlation": 0.9999258112684474,
+          "cn_is_separate": true,
+          "decoded_absolute_energy": 36698304,
+          "durations_ms": [
+            10,
+            20
+          ],
+          "encoded_bytes": 4800,
+          "frames": 40,
+          "generator_fixture_20ms": false,
+          "loss_after_cn_is_missing": true,
+          "name": "PCMU",
+          "passed": true,
+          "plc": true,
+          "rtp_clock_rate": 8000,
+          "sample_rate": 8000
+        },
+        "passed": true,
+        "plc": true,
+        "rtp_clock_rate": 8000,
+        "sample_rate": 16000
+      },
+      {
+        "aligned_signal_correlation": 0.9999174984686273,
+        "cn_is_separate": true,
+        "decoded_absolute_energy": 73185311,
+        "durations_ms": [
+          10,
+          20
+        ],
+        "encoded_bytes": 4800,
+        "frames": 40,
+        "generator_fixture_20ms": false,
+        "loss_after_cn_is_missing": true,
+        "name": "PCMA",
+        "native_pcm": {
+          "aligned_signal_correlation": 0.9999117124301684,
+          "cn_is_separate": true,
+          "decoded_absolute_energy": 36729984,
+          "durations_ms": [
+            10,
+            20
+          ],
+          "encoded_bytes": 4800,
+          "frames": 40,
+          "generator_fixture_20ms": false,
+          "loss_after_cn_is_missing": true,
+          "name": "PCMA",
+          "passed": true,
+          "plc": true,
+          "rtp_clock_rate": 8000,
+          "sample_rate": 8000
+        },
+        "passed": true,
+        "plc": true,
+        "rtp_clock_rate": 8000,
+        "sample_rate": 16000
+      },
+      {
+        "aligned_signal_correlation": 0.999999189251504,
+        "cn_is_separate": true,
+        "decoded_absolute_energy": 73155061,
+        "durations_ms": [
+          10,
+          20
+        ],
+        "encoded_bytes": 4800,
+        "frames": 40,
+        "generator_fixture_20ms": true,
+        "loss_after_cn_is_missing": true,
+        "name": "G722",
+        "native_pcm": {
+          "aligned_signal_correlation": 0.999999189251504,
+          "cn_is_separate": true,
+          "decoded_absolute_energy": 73155061,
+          "durations_ms": [
+            10,
+            20
+          ],
+          "encoded_bytes": 4800,
+          "frames": 40,
+          "generator_fixture_20ms": true,
+          "loss_after_cn_is_missing": true,
+          "name": "G722",
+          "passed": true,
+          "plc": true,
+          "rtp_clock_rate": 8000,
+          "sample_rate": 16000
+        },
+        "passed": true,
+        "plc": true,
+        "rtp_clock_rate": 8000,
+        "sample_rate": 16000
+      },
+      {
+        "aligned_signal_correlation": 0.9998478617232582,
+        "cn_is_separate": true,
+        "decoded_absolute_energy": 72498603,
+        "durations_ms": [
+          10,
+          20
+        ],
+        "encoded_bytes": 1477,
+        "frames": 40,
+        "generator_fixture_20ms": true,
+        "loss_after_cn_is_missing": true,
+        "name": "OPUS",
+        "native_pcm": {
+          "aligned_signal_correlation": 0.9977233615442695,
+          "cn_is_separate": true,
+          "decoded_absolute_energy": 217879529,
+          "durations_ms": [
+            10,
+            20
+          ],
+          "encoded_bytes": 3588,
+          "frames": 40,
+          "generator_fixture_20ms": true,
+          "loss_after_cn_is_missing": true,
+          "name": "OPUS",
+          "passed": true,
+          "plc": true,
+          "rtp_clock_rate": 48000,
+          "sample_rate": 48000
+        },
+        "passed": true,
+        "plc": true,
+        "rtp_clock_rate": 48000,
+        "sample_rate": 16000
+      }
+    ],
+    "live_transcoding": false,
+    "native_pcm_rates": [
+      8000,
+      16000,
+      48000
+    ],
+    "passed": true,
+    "pcm_channels": 1,
+    "pcm_sample_format": "s16le",
+    "pcm_sample_rate": 16000
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "status": "development prototype; final local 1000-call 60-second test passed once; 10000-call media acceptance failed; Linux runtime pending",
+  "built_at": "2026-09-05T09:14:25.057359+00:00",
+  "binary_platform": "macOS ARM64",
+  "rust_version": "1.98.1",
+  "go_version": "1.27.1",
+  "compiler": "Apple Clang 21.0.0",
+  "binaries": [
+    {
+      "name": "callbench",
+      "bytes": 4834242,
+      "sha256": "a478e78ddec209e145d0d157419aaf21ec0a1ce562647334a989eb1e5e2818e0"
+    },
+    {
+      "name": "librustswitch_g711.dylib",
+      "bytes": 33560,
+      "sha256": "5f06067a2b60128545bf3533a45eabde2407074c169dca66a74c64614a8ce795"
+    },
+    {
+      "name": "rustswitch",
+      "bytes": 9859202,
+      "sha256": "017e5209358a4765b64f4d1a444069104f5704a65152a21ef62b2329a233f33d"
+    },
+    {
+      "name": "rustswitch-media",
+      "bytes": 1081104,
+      "sha256": "f994978e9f3db6686410dbca426a724c139ae42eba9dfd146673401de328d38a"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>快速开始 · 云蝠项目资料</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">Y</span><span>云蝠 Voice Runtime<small>项目资料 · 2026.09.08</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">资料首页</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">项目资料 / 快速开始</div><article class="content"><div class="page-tools"><a href="QUICKSTART.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 4 节</summary><a href="#1-选择源码或运行包">1. 选择源码或运行包</a><a href="#2-使用预编译运行包">2. 使用预编译运行包</a><a href="#3-从源码离线编译">3. 从源码离线编译</a><a href="#4-理解验收状态">4. 理解验收状态</a></details><h1 id="快速开始">快速开始</h1>
+<p>本次公开内容是云蝠 Voice Runtime 的开发预览：Rust 媒体、Go 控制面、管理后台，以及保留 C/C++ 生态的音频适配层。先使用 <code>main</code>；<code>asr-candidate</code> 是独立候选版本，包含 ASR1 接口与模拟供应商，没有真实识别模型，也没有可直接调用的公开 StartASR HTTP 接口。</p>
+<h2 id="1-选择源码或运行包">1. 选择源码或运行包</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>入口</th>
+<th>内容与适用范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前仓库的 <code>source/main/</code></td>
+<td>主工程源码，包含内嵌管理后台与测试工具</td>
+</tr>
+<tr>
+<td><code>source/asr-candidate/</code></td>
+<td>ASR 候选源码，与主工程分别构建、分别使用</td>
+</tr>
+<tr>
+<td>GitHub Releases 的 macOS ARM64 运行包</td>
+<td>macOS 26 及以上、Apple Silicon；带 G.722/Opus 可选原生库，开发构建未做 Developer ID 公证</td>
+</tr>
+<tr>
+<td>GitHub Releases 的 Linux ARM64 运行包</td>
+<td>Linux aarch64；核心程序为静态 ELF，未包含可选 G.722/Opus 动态库</td>
+</tr>
+<tr>
+<td>GitHub Releases 的完整资料包</td>
+<td>项目说明、架构与拓扑、接口、使用说明、需求、未完成清单、源码及构建材料</td>
+</tr>
+</tbody></table></div>
+<p>当前没有预编译 Linux x86_64 包。Linux 主工程保留限定探针的历史运行记录；Linux ASR 候选的整组联调尚未完成。</p>
+<h2 id="2-使用预编译运行包">2. 使用预编译运行包</h2>
+<p>下载与平台匹配的 Release 资产并解压，在包含 <code>verify.py</code>、<code>main/</code> 和 <code>asr-candidate/</code> 的目录执行：</p>
+<pre><code class="language-sh"># Python 3.9 或以上；只核对文件完整性。
+python3 verify.py
+
+cd main
+chmod +x run.sh bin/*
+./run.sh -check-config
+</code></pre>
+<p>出现 <code>configuration valid</code> 表示配置校验通过，尚未启动 SIP、HTTP 或媒体服务。要使用 ASR 候选，将 <code>cd main</code> 改为 <code>cd asr-candidate</code>。两者默认端口相同，不要同时启动。</p>
+<p>确认本机没有服务占用示例端口后，在同一目录启动：</p>
+<pre><code class="language-sh">./run.sh
+</code></pre>
+<p>打开 <a href="http://127.0.0.1:9080" target="_blank" rel="noopener noreferrer">http://127.0.0.1:9080</a>。控制程序会启动自己的 Rust 媒体工作进程。首次 Ctrl+C 进入排空流程；再次中断可能强制结束存量通话。</p>
+<p>默认配置只绑定本机：SIP <code>5060</code>、固定上游 <code>5070</code>、后台 <code>9080</code>、媒体端口 <code>20000–21999</code>，100 路并发上限、20 CPS、2 个媒体工作进程。默认没有真实 SIP 上游，须自行接入可信线路；这些默认值不是万路容量配置。后台“小电话”提供单路隔离 SIP/媒体模拟测试，不是浏览器麦克风电话。</p>
+<p>实际线路地址、访问白名单、认证文件等配置方法见 <a href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html">使用说明</a>。每次修改 <code>config/local.json</code> 后先执行 <code>./run.sh -check-config</code>。后台默认仅供本机访问；远程访问应通过自己的安全运维通道，CSRF 校验不能代替账户认证。</p>
+<p>Linux 可选 G.722/Opus 动态库需要在目标环境构建；详见 <a href="source/main/native/audio/README.md">原生音频后端</a>。G.711 PCMA/PCMU 核心路径不依赖这些动态库。自建原生库可通过绝对路径的 <code>RUSTSWITCH_G722_LIBRARY</code>、<code>RUSTSWITCH_OPUS_LIBRARY</code> 环境变量指定，Linux 使用 <code>.so</code>，macOS 使用 <code>.dylib</code>。</p>
+<h2 id="3-从源码离线编译">3. 从源码离线编译</h2>
+<p>本机需要以下工具；源码包包含依赖源码，不包含编译器本身。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>最低要求与说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Python</td>
+<td>3.9，交付构建与校验脚本使用 <code>Path.is_relative_to</code></td>
+</tr>
+<tr>
+<td>Go</td>
+<td>1.23，依赖固定在 <code>control/vendor/</code></td>
+</tr>
+<tr>
+<td>Rust 与 Cargo</td>
+<td>1.85，项目与固定的 clap 依赖均声明此最低版本</td>
+</tr>
+<tr>
+<td>C 编译器</td>
+<td>支持 C11，以及本平台动态库链接；macOS 需开发工具与系统 SDK，Linux 需对应开发环境</td>
+</tr>
+<tr>
+<td>可选原生音频后端</td>
+<td>另外需要 <code>make</code>；Opus 官方归档已在 <code>dependencies/</code> 中提供</td>
+</tr>
+</tbody></table></div>
+<p>以上最低版本来自源码声明与脚本用法，尚未逐个最低版本重建。现有离线构建记录使用 Go 1.27.1 和 Rust 1.98.1。只支持在匹配的类 Unix 目标环境按本脚本本机构建；Windows 不在当前运行包范围内。</p>
+<p>在仓库根目录执行，输出目录必须不存在，并且必须位于仓库目录之外：</p>
+<pre><code class="language-sh">python3 delivery-tools/build_source.py \
+  --variant main \
+  --output ../voice-runtime-build-main
+</code></pre>
+<p>候选版本使用 <code>--variant asr-candidate</code> 并指定另一个新的输出目录。脚本禁止在线依赖下载，不启动服务；各步骤日志与结果保存到输出目录，最后查看 <code>receipt.json</code> 中的 <code>passed</code> 与 <code>source_unchanged</code>。</p>
+<p>构建会生成控制程序、压测发生器、Rust 媒体和 G.711 C ABI 示例插件。Rust 媒体位于 <code>cargo-target/release/rustswitch-media</code>；ASR 候选还会生成 <code>asr-mock</code>。G.722/Opus 是额外的可选原生后端，未包含在此基础构建步骤中。</p>
+<p>要使用这次主工程构建，可在仓库根目录组装独立运行目录：</p>
+<pre><code class="language-sh">mkdir -p ../voice-runtime-local/bin ../voice-runtime-local/config
+cp ../voice-runtime-build-main/rustswitch ../voice-runtime-local/bin/
+cp ../voice-runtime-build-main/callbench ../voice-runtime-local/bin/
+cp ../voice-runtime-build-main/cargo-target/release/rustswitch-media ../voice-runtime-local/bin/
+cp source/main/config/local.json ../voice-runtime-local/config/
+cd ../voice-runtime-local
+./bin/rustswitch -config config/local.json -check-config
+</code></pre>
+<p>配置通过后执行 <code>./bin/rustswitch -config config/local.json</code> 启动。配置中的相对媒体与日志路径按当前工作目录解析，因此应始终从这个运行目录启动。</p>
+<h2 id="4-理解验收状态">4. 理解验收状态</h2>
+<p>基础编译、配置校验、文件哈希校验分别验证不同范围。离线交付构建复用现有内嵌文档，不等于重新通过项目发布门禁。</p>
+<p>当前两份源码的文档发布门禁仍有阻塞，保留原始记录：</p>
+<ul>
+<li>主工程：<code>绿色已失效：key-api-pcm-stream</code>。</li>
+<li>ASR 候选：<code>字段字典落后于机器合同</code>。</li>
+</ul>
+<p>这是门禁遇到的首个错误，不代表仅有这两项待办。<code>make all</code> 会进入文档构建步骤，当前不能据此宣布发布验收通过。应按 <a href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">未完成清单</a> 修复与重新验收。</p>
+<p>项目尚未证明完全兼容 FreeSWITCH，也没有通过 5000/10000 路完整容量验收。对照表中的历史通过记录只覆盖注明的有限断言。真实 ASR/TTS 供应商、完整 Voice Agent、活动通话高可用迁移仍需要后续工作。</p>
+<p>继续阅读 <a href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html">项目说明</a>、<a href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html">HTTP 接口文档</a>、<a href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">协议与 SDK</a>、<a href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html">需求说明书</a> 和 <a href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">项目未完成清单</a>。</p>
+</article><div class="foot">资料基线 1.13.0 · 2026-09-08 · 离线静态资料；候选与历史证据保留各自验证范围。</div></main></body></html>
