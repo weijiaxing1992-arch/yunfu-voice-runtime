@@ -1,11 +1,11 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>RustSwitch — a FreeSWITCH alternative · RustSwitch 项目文档</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">R</span><span>RustSwitch<small>项目文档 · 开发预览</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">项目首页</a><a href="DOCUMENTATION.html">文档中心</a><a href="QUICKSTART.html">快速开始</a><a href="CHANGELOG.html">更新日志</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">RustSwitch 文档 / RustSwitch — a FreeSWITCH alternative</div><article class="content"><div class="page-tools"><a href="README_EN.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 12 节</summary><a href="#project-and-version-identifiers">Project and version identifiers</a><a href="#who-this-is-for">Who this is for</a><a href="#design-principles">Design principles</a><a href="#current-capabilities-and-boundaries">Current capabilities and boundaries</a><a href="#architecture">Architecture</a><a href="#administration-console">Administration console</a><a href="#quick-start">Quick start</a><a href="#freeswitch-compatibility-and-acceptance">FreeSWITCH compatibility and acceptance</a><a href="#development-priorities">Development priorities</a><a href="#source-and-documentation">Source and documentation</a><a href="#contribute">Contribute</a><a href="#license-and-attribution">License and attribution</a></details><div class="readme-center"><h1 id="rustswitch-a-freeswitch-alternative">RustSwitch — a FreeSWITCH alternative</h1>
-<p><strong>An open-source real-time voice runtime for Voice Agents</strong></p>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>RustSwitch — a FreeSWITCH alternative · RustSwitch 项目文档</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">R</span><span>RustSwitch<small>项目文档 · 开发预览</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">项目首页</a><a href="DOCUMENTATION.html">文档中心</a><a href="community/freeswitch-pbx-guide.html">FreeSWITCH / PBX</a><a href="QUICKSTART.html">快速开始</a><a href="CHANGELOG.html">更新日志</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">RustSwitch 文档 / RustSwitch — a FreeSWITCH alternative</div><article class="content"><div class="page-tools"><a href="README_EN.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 13 节</summary><a href="#freeswitch-pbx-and-sip-telephony">FreeSWITCH, PBX and SIP telephony</a><a href="#project-and-version-identifiers">Project and version identifiers</a><a href="#who-this-is-for">Who this is for</a><a href="#design-principles">Design principles</a><a href="#current-capabilities-and-boundaries">Current capabilities and boundaries</a><a href="#architecture">Architecture</a><a href="#administration-console">Administration console</a><a href="#quick-start">Quick start</a><a href="#freeswitch-compatibility-and-acceptance">FreeSWITCH compatibility and acceptance</a><a href="#development-priorities">Development priorities</a><a href="#source-and-documentation">Source and documentation</a><a href="#contribute">Contribute</a><a href="#license-and-attribution">License and attribution</a></details><div class="readme-center"><h1 id="rustswitch-a-freeswitch-alternative">RustSwitch — a FreeSWITCH alternative</h1>
+<p><strong>Open-source real-time voice infrastructure · FreeSWITCH / PBX migration research</strong></p>
 <p>Rust media · Go call control · C/C++ codec adapters</p>
 <p><a href="README.html">简体中文</a> · <strong>English</strong></p>
 <p><a href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><span class="offline-badge">Development preview</span></a>
 <a href="LICENSE_SCOPE.html"><span class="offline-badge">Original code Apache-2.0</span></a>
 <a href="https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/stargazers" target="_blank" rel="noopener noreferrer"><span class="offline-badge">GitHub stars</span></a></p>
-<p><a href="QUICKSTART.html"><strong>Quick start</strong></a> · <a href="https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908" target="_blank" rel="noopener noreferrer"><strong>Download the preview</strong></a> · <a href="DOCUMENTATION.html"><strong>Documentation</strong></a> · <a href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><strong>API reference</strong></a> · <a href="CONTRIBUTING.html"><strong>Contribute</strong></a></p>
+<p><a href="QUICKSTART.html"><strong>Quick start</strong></a> · <a href="https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908" target="_blank" rel="noopener noreferrer"><strong>Download the preview</strong></a> · <a href="DOCUMENTATION.html"><strong>Documentation</strong></a> · <a href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><strong>API reference</strong></a> · <a href="community/freeswitch-pbx-guide.en.html"><strong>FreeSWITCH / PBX guide</strong></a> · <a href="CONTRIBUTING.html"><strong>Contribute</strong></a></p>
 <p><a href="community/assets/hero.svg" title="打开原图"><img src="community/assets/hero.svg" alt="RustSwitch: a development-preview voice runtime using Rust, Go and C/C++" loading="lazy"/></a></p>
 </div><p>RustSwitch, also named <strong>Yunfu Voice Runtime</strong> in the source and delivery materials, is a real-time telephony infrastructure project for Voice Agents. It separates Rust media processing, Go call control, and native C/C++ adapters, with a focus on telephone access, continuous audio, playback, digit interaction, resource protection, and observability.</p>
 <p>The goal is to become a <strong>FreeSWITCH alternative for telephone Voice Agent workloads</strong>, adding compatibility where it supports actual migration requirements. This repository contains the main source, a separate ASR candidate, tests, pinned dependencies, documentation, and a published backlog. Runtime binaries and resource archives are distributed through GitHub Releases.</p>
@@ -13,6 +13,79 @@
 <p><strong>Development preview.</strong> RustSwitch is not currently a drop-in replacement for every FreeSWITCH deployment. Complete 5,000/10,000-call capacity acceptance and a real ASR–LLM–TTS application loop remain unfinished. Implementation, limited validation, and engineering goals are reported separately in the <a href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html">capability status</a>.</p>
 </blockquote>
 <p>Most detailed documentation, diagrams, administration screens, and code comments are currently in Chinese. This English overview provides an entry point; it does not imply that all materials have been translated.</p>
+<h2 id="freeswitch-pbx-and-sip-telephony">FreeSWITCH, PBX and SIP telephony</h2>
+<p>RustSwitch is relevant to engineers evaluating a <strong>FreeSWITCH alternative, open-source PBX / IP PBX integration, SIP media server or telephone Voice Agent runtime</strong>. Its focus is the call and media infrastructure required by AI conversations. Extension registration, conferencing, queues, voicemail, fax and other complete PBX services remain separate implementation and acceptance work.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Evaluation area</th>
+<th>Current scope</th>
+<th>Guide</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FreeSWITCH migration</td>
+<td>Pinned interface comparison, explicit differences and workload-specific acceptance</td>
+<td><a href="community/freeswitch-migration.html">Migration guide (Chinese)</a></td>
+</tr>
+<tr>
+<td>PBX / IP PBX / softswitch</td>
+<td>Media and call-control foundations; not a complete PBX distribution</td>
+<td><a href="community/freeswitch-pbx-guide.en.html">PBX concepts and FAQ</a></td>
+</tr>
+<tr>
+<td>SIP trunk / REGISTER / Digest</td>
+<td>One fixed upstream registration client; restricted UDP/TCP/TLS signaling</td>
+<td><a href="reference/docs/api/trunk-registration.html">Trunk contract</a></td>
+</tr>
+<tr>
+<td>Inbound calls / outbound calls</td>
+<td>Two-leg bridging and limited local answering; general <code>originate</code> is unfinished</td>
+<td><a href="reference/docs/api/ai-calling-reference.html">Calling reference</a></td>
+</tr>
+<tr>
+<td>IVR / auto attendant / DTMF</td>
+<td>Local-leg playback, digit collection and telephone-event subsets</td>
+<td><a href="reference/docs/api/ivr-reference.html">IVR contract</a></td>
+</tr>
+<tr>
+<td>ESL / event socket / fs_cli</td>
+<td>Inbound commands and events within a documented subset</td>
+<td><a href="reference/docs/api/esl-reference.html">ESL reference</a></td>
+</tr>
+<tr>
+<td>XML dialplan</td>
+<td>Configuration editing/export and a separate limited runtime dialplan</td>
+<td><a href="reference/docs/api/dialplan-reference.html">Dialplan contract</a></td>
+</tr>
+<tr>
+<td>RTP / RTCP / codecs</td>
+<td>Relay and G.711 real-time processing; optional offline G.722/Opus backends</td>
+<td><a href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">Protocol and codec boundaries</a></td>
+</tr>
+<tr>
+<td>Voice Agent / conversational AI</td>
+<td>PCM playback, receive audio and turn controls; a separate ASR1 candidate</td>
+<td><a href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html">Architecture</a></td>
+</tr>
+<tr>
+<td>Call center / contact center</td>
+<td>Telephony component research; ACD queues, agent distribution and recording need separate work</td>
+<td><a href="community/pbx-feature-matrix.html">PBX feature matrix (Chinese)</a></td>
+</tr>
+<tr>
+<td>Concurrent calls / CPS</td>
+<td>Admission control and isolated load tests; capacity requires actual workload validation</td>
+<td><a href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html">Operations and testing</a></td>
+</tr>
+</tbody></table></div>
+<h3 id="pbx-migration-faq">PBX migration FAQ</h3>
+<p><strong>Is RustSwitch a drop-in FreeSWITCH replacement?</strong> Migration must be evaluated against the deployment&#39;s trunks, modules, commands, events, dialplan and media requirements. The preview does not establish universal replacement compatibility.</p>
+<p><strong>Can SIP extensions register with it?</strong> The implemented fixed-upstream REGISTER client is different from a PBX extension registrar. A complete endpoint registration service and multiple gateways are unfinished.</p>
+<p><strong>Can I reuse ESL clients, fs_cli and XML configuration?</strong> Only the documented inbound ESL and runtime dialplan subsets apply. Exporting configuration does not execute the corresponding FreeSWITCH module.</p>
+<p><strong>Does it include conferencing, queues, voicemail or browser WebRTC calling?</strong> These are migration dependencies to assess, not complete features of this preview. See the <a href="community/pbx-feature-matrix.html">feature matrix</a> for current implementation boundaries.</p>
+<p><strong>Can I build an ASR/TTS voice bot?</strong> The project supplies media foundations and an ASR streaming candidate. Real recognition, synthesis, VAD and Agent orchestration need further integration and end-to-end acceptance.</p>
+<p><strong>Are 5,000 or 10,000 concurrent calls certified?</strong> No. Relay, real codec processing and complete Voice Agent workloads have separate acceptance requirements. Configured limits are not measured capacity.</p>
 <h2 id="project-and-version-identifiers">Project and version identifiers</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -273,4 +346,4 @@ evidence/                Historical evidence with version and scope
 <h2 id="license-and-attribution">License and attribution</h2>
 <p>Original code and documentation that the project is entitled to license are provided under <a href="LICENSE">Apache-2.0</a>. G.722 support files, SpanDSP, FreeSWITCH templates, Opus, and Go/Rust dependencies retain applicable exceptions and upstream licenses. Review <a href="LICENSE_SCOPE.html">LICENSE_SCOPE</a>, <a href="THIRD_PARTY_NOTICES.html">third-party notices</a>, and the <a href="third-party-inventory.json">machine inventory</a> before redistribution.</p>
 <p>Thanks to FreeSWITCH, Rust, Go, SpanDSP, Opus, and the dependency projects. RustSwitch is independent; references to FreeSWITCH describe compatibility research and attribution, not an official distribution, endorsement, or compatibility certification.</p>
-</article><div class="foot">RustSwitch · 文档修订 2026-09-08 · 主接口基线 1.13.0 · 候选与历史证据按各自范围适用。</div></main></body></html>
+</article><div class="foot">RustSwitch · 阅读手册 · 主接口基线 1.13.0 · 候选与历史证据按各自范围适用。</div></main></body></html>

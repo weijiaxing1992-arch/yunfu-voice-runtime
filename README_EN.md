@@ -2,7 +2,7 @@
 
 # RustSwitch — a FreeSWITCH alternative
 
-**An open-source real-time voice runtime for Voice Agents**
+**Open-source real-time voice infrastructure · FreeSWITCH / PBX migration research**
 
 Rust media · Go call control · C/C++ codec adapters
 
@@ -12,7 +12,7 @@ Rust media · Go call control · C/C++ codec adapters
 [![Original code Apache-2.0](https://img.shields.io/badge/original_code-Apache--2.0-087f79?style=flat-square)](LICENSE_SCOPE.md)
 [![GitHub stars](https://img.shields.io/github/stars/weijiaxing1992-arch/yunfu-voice-runtime?style=flat-square)](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/stargazers)
 
-[**Quick start**](QUICKSTART.md) · [**Download the preview**](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908) · [**Documentation**](DOCUMENTATION.md) · [**API reference**](04-HTTP接口文档.md) · [**Contribute**](CONTRIBUTING.md)
+[**Quick start**](QUICKSTART.md) · [**Download the preview**](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908) · [**Documentation**](DOCUMENTATION.md) · [**API reference**](04-HTTP接口文档.md) · [**FreeSWITCH / PBX guide**](community/freeswitch-pbx-guide.en.md) · [**Contribute**](CONTRIBUTING.md)
 
 ![RustSwitch: a development-preview voice runtime using Rust, Go and C/C++](community/assets/hero.svg)
 
@@ -25,6 +25,38 @@ The goal is to become a **FreeSWITCH alternative for telephone Voice Agent workl
 > **Development preview.** RustSwitch is not currently a drop-in replacement for every FreeSWITCH deployment. Complete 5,000/10,000-call capacity acceptance and a real ASR–LLM–TTS application loop remain unfinished. Implementation, limited validation, and engineering goals are reported separately in the [capability status](08-当前能力与验证状态.md).
 
 Most detailed documentation, diagrams, administration screens, and code comments are currently in Chinese. This English overview provides an entry point; it does not imply that all materials have been translated.
+
+## FreeSWITCH, PBX and SIP telephony
+
+RustSwitch is relevant to engineers evaluating a **FreeSWITCH alternative, open-source PBX / IP PBX integration, SIP media server or telephone Voice Agent runtime**. Its focus is the call and media infrastructure required by AI conversations. Extension registration, conferencing, queues, voicemail, fax and other complete PBX services remain separate implementation and acceptance work.
+
+| Evaluation area | Current scope | Guide |
+| --- | --- | --- |
+| FreeSWITCH migration | Pinned interface comparison, explicit differences and workload-specific acceptance | [Migration guide (Chinese)](community/freeswitch-migration.md) |
+| PBX / IP PBX / softswitch | Media and call-control foundations; not a complete PBX distribution | [PBX concepts and FAQ](community/freeswitch-pbx-guide.en.md) |
+| SIP trunk / REGISTER / Digest | One fixed upstream registration client; restricted UDP/TCP/TLS signaling | [Trunk contract](reference/docs/api/trunk-registration.md) |
+| Inbound calls / outbound calls | Two-leg bridging and limited local answering; general `originate` is unfinished | [Calling reference](reference/docs/api/ai-calling-reference.md) |
+| IVR / auto attendant / DTMF | Local-leg playback, digit collection and telephone-event subsets | [IVR contract](reference/docs/api/ivr-reference.md) |
+| ESL / event socket / fs_cli | Inbound commands and events within a documented subset | [ESL reference](reference/docs/api/esl-reference.md) |
+| XML dialplan | Configuration editing/export and a separate limited runtime dialplan | [Dialplan contract](reference/docs/api/dialplan-reference.md) |
+| RTP / RTCP / codecs | Relay and G.711 real-time processing; optional offline G.722/Opus backends | [Protocol and codec boundaries](05-协议与SDK文档.md) |
+| Voice Agent / conversational AI | PCM playback, receive audio and turn controls; a separate ASR1 candidate | [Architecture](03-软件架构图.md) |
+| Call center / contact center | Telephony component research; ACD queues, agent distribution and recording need separate work | [PBX feature matrix (Chinese)](community/pbx-feature-matrix.md) |
+| Concurrent calls / CPS | Admission control and isolated load tests; capacity requires actual workload validation | [Operations and testing](07-运维与压测说明.md) |
+
+### PBX migration FAQ
+
+**Is RustSwitch a drop-in FreeSWITCH replacement?** Migration must be evaluated against the deployment's trunks, modules, commands, events, dialplan and media requirements. The preview does not establish universal replacement compatibility.
+
+**Can SIP extensions register with it?** The implemented fixed-upstream REGISTER client is different from a PBX extension registrar. A complete endpoint registration service and multiple gateways are unfinished.
+
+**Can I reuse ESL clients, fs_cli and XML configuration?** Only the documented inbound ESL and runtime dialplan subsets apply. Exporting configuration does not execute the corresponding FreeSWITCH module.
+
+**Does it include conferencing, queues, voicemail or browser WebRTC calling?** These are migration dependencies to assess, not complete features of this preview. See the [feature matrix](community/pbx-feature-matrix.md) for current implementation boundaries.
+
+**Can I build an ASR/TTS voice bot?** The project supplies media foundations and an ASR streaming candidate. Real recognition, synthesis, VAD and Agent orchestration need further integration and end-to-end acceptance.
+
+**Are 5,000 or 10,000 concurrent calls certified?** No. Relay, real codec processing and complete Voice Agent workloads have separate acceptance requirements. Configured limits are not measured capacity.
 
 ## Project and version identifiers
 

@@ -2,7 +2,7 @@
 
 本页提供 RustSwitch 的文档导航、版本解释和技术术语，适用于项目评估、应用接入、源码开发及运行维护。项目公开名称为 **FreeSWITCH 平替 RustSwitch**；历史源码、协议和资料中的“云蝠 Voice Runtime”指同一项目。产品定位是面向语音智能体的实时语音内核，当前发行阶段为开发预览。
 
-文档修订日期：2026-09-08。修订范围与历史记录见[更新日志](CHANGELOG.md)。
+文档修订日期：2026-09-09。修订范围与历史记录见[更新日志](CHANGELOG.md)。
 
 ## 按工作场景阅读
 
@@ -18,6 +18,17 @@
 | 使用与分发项目材料 | [源码与交付](11-交付与源码说明.md) → [开源说明](OPEN_SOURCE.md) → [许可范围](LICENSE_SCOPE.md) | 明确源码、预编译包、历史证据和第三方许可的适用范围。 |
 
 [全部专题与原始文件索引](10-全部专题文档目录.md)保留协议细节、历史报告、机器可读数据及候选合同。英文概览见 [English README](README_EN.md)。
+
+## FreeSWITCH / PBX 社区专题
+
+| 专题 | 适合解决的问题 |
+| --- | --- |
+| [FreeSWITCH 与 PBX 指南](community/freeswitch-pbx-guide.md) | 理解 PBX、IP PBX、SIP Trunk、IVR、ESL、媒体服务器和语音智能体之间的关系。 |
+| [FreeSWITCH & PBX guide — English](community/freeswitch-pbx-guide.en.md) | English overview of PBX concepts, SIP telephony and RustSwitch's implementation boundaries. |
+| [PBX 功能与模块矩阵](community/pbx-feature-matrix.md) | 从分机、网关、拨号计划、队列、会议、录音等场景定位实际支持范围与缺口。 |
+| [FreeSWITCH 迁移指南](community/freeswitch-migration.md) | 盘点现网依赖，设计成对验收，并规划灰度与回退。 |
+
+专题提供选型与接入信息，不改变原始 FreeSWITCH 对照状态；技术事实与使用范围以对应合同及有效证据为准。
 
 ## 版本与发布基线
 

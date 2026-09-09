@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T07:55:13.609043+00:00",
+  "generated_at": "2026-09-09T04:42:13.236558+00:00",
   "scope": "当前公开仓库文件完整性；文档修订不新增功能、兼容或容量验收结论。",
   "files": [
     {
@@ -24,8 +24,8 @@
     },
     {
       "path": ".github/PULL_REQUEST_TEMPLATE.html",
-      "bytes": 4667,
-      "sha256": "15e115a73d8aa74d8591c5994d2c8663cad7773502eb961772ab3be6c7eed760"
+      "bytes": 4725,
+      "sha256": "762e6d3c14eec8276e6f6ad5e2018fa17009006289e410ffff9a1cf0fd26c515"
     },
     {
       "path": ".github/PULL_REQUEST_TEMPLATE.md",
@@ -39,8 +39,8 @@
     },
     {
       "path": "01-项目说明.html",
-      "bytes": 14474,
-      "sha256": "5a745f4c504a8861985efa5503defd671a118f3d4102982f747e7f2a3b2448bf"
+      "bytes": 14529,
+      "sha256": "dda8c65f490638de2df1f938edd3140f1832dc67ce0ada6086569a7585641531"
     },
     {
       "path": "01-项目说明.md",
@@ -49,8 +49,8 @@
     },
     {
       "path": "02-项目拓扑图.html",
-      "bytes": 11392,
-      "sha256": "5bd19076a65e48c9fd3400bd7fe03ab3e849a60e6a1b33306b96a33b46608155"
+      "bytes": 11447,
+      "sha256": "58feb871aa7986766675dfe36ebee0f1becfde63a24702a9b3d6f5ea9bb0f579"
     },
     {
       "path": "02-项目拓扑图.md",
@@ -59,18 +59,18 @@
     },
     {
       "path": "03-软件架构图.html",
-      "bytes": 13437,
-      "sha256": "f73736ab417fbc746d839c7698e3ab3317fd26d1e42470f7ee9da77e29a0d8f6"
+      "bytes": 13680,
+      "sha256": "42dc1aadc5f818d1c1443dddc6a37ea4deaa463a8f40af0d50b0622666fcb547"
     },
     {
       "path": "03-软件架构图.md",
-      "bytes": 7825,
-      "sha256": "9a1a81d208201297e96baeed2dc1e0b578a566a41d8a39f19bdd92095084524b"
+      "bytes": 8000,
+      "sha256": "cc6a391a34fd9731f1852c1cebdb46be07bb51ce6a942c370c95a0432712a4a5"
     },
     {
       "path": "04-HTTP接口文档.html",
-      "bytes": 99331,
-      "sha256": "389021d0d09a5f9fef4bad0c04b12c528b861df62bc28c19d24c6410ce464610"
+      "bytes": 99386,
+      "sha256": "bc5c7ef2f69fa963cf7c225c8e54665931bdea6d25a6d3dbed75801b5fb0944c"
     },
     {
       "path": "04-HTTP接口文档.md",
@@ -79,8 +79,8 @@
     },
     {
       "path": "05-协议与SDK文档.html",
-      "bytes": 12151,
-      "sha256": "e988da72d8308284371097355b33243c191b78da223eb95482d349be4cb7af1d"
+      "bytes": 12206,
+      "sha256": "5254d88d9e372a0d318791a65a798f398435ec46e1bf14cc176a504e26a3249e"
     },
     {
       "path": "05-协议与SDK文档.md",
@@ -89,8 +89,8 @@
     },
     {
       "path": "06-使用说明.html",
-      "bytes": 19328,
-      "sha256": "dc415ea8e51e9fd8d9de296f70cab845301f92480ce6af12d74460fe9a0edc90"
+      "bytes": 19383,
+      "sha256": "91f66dfd697123a4a49c3b938e6998fafbcbc5dc29b0ab919aa0dfb682eb0bfc"
     },
     {
       "path": "06-使用说明.md",
@@ -99,8 +99,8 @@
     },
     {
       "path": "07-运维与压测说明.html",
-      "bytes": 18004,
-      "sha256": "c5ead7f13aadf9b7c7ff9db0de51e1a4ef7cb9997b70d370fcdbbe48aa50b8b2"
+      "bytes": 18059,
+      "sha256": "4f602872f97a80627b13b3b57be1e44697ace06dd5892d6624dfd0d05dc88bb1"
     },
     {
       "path": "07-运维与压测说明.md",
@@ -109,8 +109,8 @@
     },
     {
       "path": "08-当前能力与验证状态.html",
-      "bytes": 14811,
-      "sha256": "c698f163738b0f933183568ecee1a393d0c3f92fd11f70856de58f01cc9b8a8e"
+      "bytes": 14866,
+      "sha256": "eb597ec197af16bb8e0846a0efba88e9916f5ee7dd2b85e4eb7d0dbb2a0511de"
     },
     {
       "path": "08-当前能力与验证状态.md",
@@ -119,8 +119,8 @@
     },
     {
       "path": "09-数据模型全文.html",
-      "bytes": 247156,
-      "sha256": "118445536ba2e837b0c8e0ccad956780ffd95335d81b8a390ca88c30c4493680"
+      "bytes": 247211,
+      "sha256": "2fbe52d7045a1e282f108e0f299fb7219505457d58d44236d73dd5dade1fbac4"
     },
     {
       "path": "09-数据模型全文.md",
@@ -129,18 +129,18 @@
     },
     {
       "path": "10-全部专题文档目录.html",
-      "bytes": 47141,
-      "sha256": "dcfbd343abe3d5ab864d37d06e2ffb80c86ed67f2dd4493a3c3c36d32f27bff6"
+      "bytes": 48172,
+      "sha256": "c47ef0301c270656b760c37166f587e6afde77190353b30f4ca29bdd0e22969b"
     },
     {
       "path": "10-全部专题文档目录.md",
-      "bytes": 28964,
-      "sha256": "7c3604cea4f82857071cb5192e3e52b3ba19469bd6c073c1c7c261e18b586796"
+      "bytes": 29599,
+      "sha256": "a93b4c577d81475599f7bd3cc0904d3cb498133a0bc9d2ef03cfa4c8c0e10935"
     },
     {
       "path": "11-交付与源码说明.html",
-      "bytes": 15571,
-      "sha256": "4aba0fff4540fa20adf6b421688937267352e08b58a133c47d5cae737cfd956e"
+      "bytes": 15626,
+      "sha256": "26f02bec568a199210b5ca313daf947e19799eb377e2ea4fced146bae1f2f6e3"
     },
     {
       "path": "11-交付与源码说明.md",
@@ -149,8 +149,8 @@
     },
     {
       "path": "12-需求说明书.html",
-      "bytes": 57893,
-      "sha256": "fae705e48f2e5ed4f8e0ab06c2c7f25b03307df6b0b6bc3563c82856b5fbba4f"
+      "bytes": 57948,
+      "sha256": "79e0735ac478f28f73b0b38b6e5c1aa4099c823561012d3f9cd88fea463618eb"
     },
     {
       "path": "12-需求说明书.md",
@@ -159,8 +159,8 @@
     },
     {
       "path": "13-项目未完成清单.html",
-      "bytes": 62034,
-      "sha256": "629f3189bee8214b8ab44bff365d55d5dbcfe5848c879b09a6c58db2fd4c08c3"
+      "bytes": 62089,
+      "sha256": "71d3257aeae0d6b3c3553057084453967fd8eff589e5717d53fcdd6bec1bf22c"
     },
     {
       "path": "13-项目未完成清单.md",
@@ -169,28 +169,28 @@
     },
     {
       "path": "CHANGELOG.html",
-      "bytes": 5659,
-      "sha256": "2052e2b340a362a6eb9f80bc10ba0279d288b3a5fc6cb5a4852c071af4bb8407"
+      "bytes": 6523,
+      "sha256": "920e662a13725892c3b3acd5041fc19928fe51ac91d8869bb6c883f6724f0ddd"
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 1983,
-      "sha256": "7db2e3e6c3f7b986b6a5656ca5d775414011ff11bc74f0741ddfad17e2da1d5b"
+      "bytes": 2609,
+      "sha256": "3b3e10c79fe517b578d15e1c003e8f890d80707397f500211d0b74e5cd571d91"
     },
     {
       "path": "COMMUNITY.html",
-      "bytes": 13667,
-      "sha256": "9cfe0c5ecd2c860f3cb136049fdcac241b22232fc2665b3affd5cd13ca184d9b"
+      "bytes": 14914,
+      "sha256": "7cab013c3229b3dec273eb6d8fb47ba606a2f1b751dda0830fec1e97a421efda"
     },
     {
       "path": "COMMUNITY.md",
-      "bytes": 8317,
-      "sha256": "fcdb29ce429487cb083cbd210f89296b2b116251b95f1f2ff657277133126396"
+      "bytes": 9319,
+      "sha256": "e892f04c6bb0279b98bed25b5ae738eb02ac904aa79a06e841c9a9ce84349394"
     },
     {
       "path": "CONTRIBUTING.html",
-      "bytes": 14910,
-      "sha256": "2e68aeda4431d704686520322bf1fa1b99f0ea36812cda6302c83b3987fe1e10"
+      "bytes": 14965,
+      "sha256": "8079b918f4f0d8a9d1fb52b2cf8d0be5f9773f8e40e91b36a8c6ff763306b407"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -199,8 +199,8 @@
     },
     {
       "path": "DELIVERY.html",
-      "bytes": 11511,
-      "sha256": "5f8d0184baf325b76401bc9239c196565cbceae14598dcb795f7e6dce27ba0be"
+      "bytes": 11566,
+      "sha256": "23bb7e1e8803e34970911d2ea9547d18d1fb7a0dae3b512e13e913b55c27fdf1"
     },
     {
       "path": "DELIVERY.md",
@@ -209,18 +209,18 @@
     },
     {
       "path": "DOCUMENTATION.html",
-      "bytes": 14113,
-      "sha256": "e7ae05ea09334b0c1a34dcba9efe0c05c7787ee0636af19a0ee9abfc1aebaf5b"
+      "bytes": 15403,
+      "sha256": "c1836f0212bbff8868a199a6ab07233b2b9b4cca8483c23e95dd014d7a4b9e80"
     },
     {
       "path": "DOCUMENTATION.md",
-      "bytes": 8015,
-      "sha256": "ca204813787cf1254514f5596b5b7c12c2bdc97e2444394a9addb805b312239c"
+      "bytes": 8895,
+      "sha256": "0fd49df586ca027e78ed2d84d0b091dc1eb069a022d63a7065f5a4b1d6483494"
     },
     {
       "path": "G722-SUPPORT-LICENSE.html",
-      "bytes": 3822,
-      "sha256": "4bbc68f78b3c8254971e94ac4d726881f62c6e86b72ebb58f4fd9691f6a44b15"
+      "bytes": 3877,
+      "sha256": "d31f9057e4b30115fc5ef9b4754eaed2baca7b926c9725fcbe3a8695ee13c21f"
     },
     {
       "path": "G722-SUPPORT-LICENSE.md",
@@ -234,8 +234,8 @@
     },
     {
       "path": "LICENSE_SCOPE.html",
-      "bytes": 6257,
-      "sha256": "f35aa6120f190017329889e0aef276768cf0e4479ae864b6e0b00619c6a6a753"
+      "bytes": 6312,
+      "sha256": "0e20b70bcceeb69c96123d0df8da19672f588a8de83bf078126403bb33ba6b01"
     },
     {
       "path": "LICENSE_SCOPE.md",
@@ -249,8 +249,8 @@
     },
     {
       "path": "OPEN_SOURCE.html",
-      "bytes": 11006,
-      "sha256": "e997e3635cc09667f5cdd925f63c40bc1469811b8e51923f212a799d35bffedc"
+      "bytes": 11061,
+      "sha256": "0653260dc0c6618b34f1898038f7d896a8bba995981a0b0baa812ae5abe0e026"
     },
     {
       "path": "OPEN_SOURCE.md",
@@ -259,8 +259,8 @@
     },
     {
       "path": "QUICKSTART.html",
-      "bytes": 15629,
-      "sha256": "99cf0841d9b110f1364f4d31d662ad932111f2460bada32d142586c72d5cdb80"
+      "bytes": 15684,
+      "sha256": "c2e2b977e4a5794a570f9b139e462393b0923a987541112ba1b12918c511c63f"
     },
     {
       "path": "QUICKSTART.md",
@@ -269,28 +269,28 @@
     },
     {
       "path": "README.html",
-      "bytes": 22666,
-      "sha256": "97734b552e0b828bc335b4722873fe20aa5d93f6cae45894ce3142ab5d92ddaa"
+      "bytes": 28308,
+      "sha256": "4ac3942ea1b52297bb88e9520e369e40fadf5a53a36ffb5ff871e835b1f1c56a"
     },
     {
       "path": "README.md",
-      "bytes": 14435,
-      "sha256": "c45f7f69f7c7c47a74c82fd7446bf4c21d417b38530cb9a8179ed958fd4db5aa"
+      "bytes": 18886,
+      "sha256": "8f1788047bfc1c264e3a29b9efd9ce6c514127bd09892ead8c48e5d3aab3b93a"
     },
     {
       "path": "README_EN.html",
-      "bytes": 25637,
-      "sha256": "839326a1cbbfb6df08964188bf636b1599df5c0985aeeb43f3167af34894f83f"
+      "bytes": 30469,
+      "sha256": "9631ac59cb26627e308a90e4e6f87b834b480435cfbd4cbdd78abd0ca1ccee99"
     },
     {
       "path": "README_EN.md",
-      "bytes": 16958,
-      "sha256": "42220d1de2832acf21aab60d75af202a9c7cf9bb3eaa721c988faf535365de9d"
+      "bytes": 20734,
+      "sha256": "ea9f777c98d6c3b8d6a64d59bdd983e8addbe94cba9b8100524d539e32cd8e5d"
     },
     {
       "path": "SECURITY.html",
-      "bytes": 9981,
-      "sha256": "ec9f09cd96801714c0b70d04457cc1bead08840db03cb8d96a165a1005ab5087"
+      "bytes": 10036,
+      "sha256": "1d6cabf4f428cf6cb306da342eb665ac5d938f01ce94a8874b5b7a063767cecd"
     },
     {
       "path": "SECURITY.md",
@@ -299,8 +299,8 @@
     },
     {
       "path": "THIRD_PARTY_NOTICES.html",
-      "bytes": 16983,
-      "sha256": "e903d3809a3c8130bc64584ba682cebf05b2e732ab3d82000398ef65e07e5748"
+      "bytes": 17038,
+      "sha256": "7f0abb45c1bc830099d76c0d3c7b2c6b1cd6a454998596e2452c401ec0e31d71"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -488,16 +488,6 @@
       "sha256": "6efb0476a1cc085077ed49357026d8c173bf33017278ef440f222fb9cbcb66e6"
     },
     {
-      "path": "binaries/linux-arm64/licenses/rust/anstyle/LICENSE-APACHE",
-      "bytes": 11358,
-      "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08"
-    },
-    {
-      "path": "binaries/linux-arm64/licenses/rust/anstyle/LICENSE-MIT",
-      "bytes": 1062,
-      "sha256": "6efb0476a1cc085077ed49357026d8c173bf33017278ef440f222fb9cbcb66e6"
-    },
-    {
       "path": "binaries/linux-arm64/licenses/rust/anstyle-parse/LICENSE-APACHE",
       "bytes": 11358,
       "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08"
@@ -524,6 +514,16 @@
     },
     {
       "path": "binaries/linux-arm64/licenses/rust/anstyle-wincon/LICENSE-MIT",
+      "bytes": 1062,
+      "sha256": "6efb0476a1cc085077ed49357026d8c173bf33017278ef440f222fb9cbcb66e6"
+    },
+    {
+      "path": "binaries/linux-arm64/licenses/rust/anstyle/LICENSE-APACHE",
+      "bytes": 11358,
+      "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08"
+    },
+    {
+      "path": "binaries/linux-arm64/licenses/rust/anstyle/LICENSE-MIT",
       "bytes": 1062,
       "sha256": "6efb0476a1cc085077ed49357026d8c173bf33017278ef440f222fb9cbcb66e6"
     },
@@ -1248,16 +1248,6 @@
       "sha256": "6efb0476a1cc085077ed49357026d8c173bf33017278ef440f222fb9cbcb66e6"
     },
     {
-      "path": "binaries/macos-arm64/licenses/rust/anstyle/LICENSE-APACHE",
-      "bytes": 11358,
-      "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08"
-    },
-    {
-      "path": "binaries/macos-arm64/licenses/rust/anstyle/LICENSE-MIT",
-      "bytes": 1062,
-      "sha256": "6efb0476a1cc085077ed49357026d8c173bf33017278ef440f222fb9cbcb66e6"
-    },
-    {
       "path": "binaries/macos-arm64/licenses/rust/anstyle-parse/LICENSE-APACHE",
       "bytes": 11358,
       "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08"
@@ -1284,6 +1274,16 @@
     },
     {
       "path": "binaries/macos-arm64/licenses/rust/anstyle-wincon/LICENSE-MIT",
+      "bytes": 1062,
+      "sha256": "6efb0476a1cc085077ed49357026d8c173bf33017278ef440f222fb9cbcb66e6"
+    },
+    {
+      "path": "binaries/macos-arm64/licenses/rust/anstyle/LICENSE-APACHE",
+      "bytes": 11358,
+      "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08"
+    },
+    {
+      "path": "binaries/macos-arm64/licenses/rust/anstyle/LICENSE-MIT",
       "bytes": 1062,
       "sha256": "6efb0476a1cc085077ed49357026d8c173bf33017278ef440f222fb9cbcb66e6"
     },
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "candidate/asr-openapi-update-proposal.html",
-      "bytes": 16225,
-      "sha256": "3b884554549632e5eae93a5e4ce91b90587adfa21e178023c55d74404db41446"
+      "bytes": 16283,
+      "sha256": "0f259c7498597120cdadb8080836b02fd26a8ee606997ec965e72db021152134"
     },
     {
       "path": "candidate/asr-openapi-update-proposal.md",
@@ -1859,8 +1859,8 @@
     },
     {
       "path": "candidate/asr-stream-reference.html",
-      "bytes": 40009,
-      "sha256": "182dd7419fe9a45270311d4229db4c3a1542006631131fa679244e3f001006a2"
+      "bytes": 40067,
+      "sha256": "dce46305e4dd9acc64ae2ea2cd47ec0b484131e48a84c2c18e86e2a1f3edd905"
     },
     {
       "path": "candidate/asr-stream-reference.md",
@@ -1894,8 +1894,8 @@
     },
     {
       "path": "community/assets/README.html",
-      "bytes": 4330,
-      "sha256": "ab622675e9d35a4db1eabe3ba4ef95312ffeea95131a9d6b30859ba028287c91"
+      "bytes": 4378,
+      "sha256": "34cee8c8257dc835016205ac422b24ac58531c328543133e13df77048c417c58"
     },
     {
       "path": "community/assets/README.md",
@@ -1911,6 +1911,46 @@
       "path": "community/assets/hero.svg",
       "bytes": 4092,
       "sha256": "7ba81c4c7ee0e611f91d52965a1f2116368e128a4809b36d0833b7c180e431b1"
+    },
+    {
+      "path": "community/freeswitch-migration.html",
+      "bytes": 23307,
+      "sha256": "98b9727492d6a762f97c26adaefcaf81f4538f6fb2bfef337515ca98e88ba735"
+    },
+    {
+      "path": "community/freeswitch-migration.md",
+      "bytes": 16144,
+      "sha256": "f7ce7f3f0dfec2be87108983a8728ce360b6b666b6e763dca25ef59afdd5c1e7"
+    },
+    {
+      "path": "community/freeswitch-pbx-guide.en.html",
+      "bytes": 30740,
+      "sha256": "c5e34c34ecbdbb2ce60a94e3d23cff939ffab506765219a332ba8d99ebe8e9ba"
+    },
+    {
+      "path": "community/freeswitch-pbx-guide.en.md",
+      "bytes": 20750,
+      "sha256": "b588f8a985c7d4fe98fb2d47a71be6ff3bfc6b2aef158f9785a9a4108ca35f40"
+    },
+    {
+      "path": "community/freeswitch-pbx-guide.html",
+      "bytes": 28393,
+      "sha256": "fc3b683194647c82950a110ed526952c92c2dac7ddffbaed758a7906a2633e9d"
+    },
+    {
+      "path": "community/freeswitch-pbx-guide.md",
+      "bytes": 18697,
+      "sha256": "950011174d395e311da3dfcb43eca17ad5458fa6f4b4068cdefa2702df7498ef"
+    },
+    {
+      "path": "community/pbx-feature-matrix.html",
+      "bytes": 33318,
+      "sha256": "4460f42a1df55a06afaede7d30416801cd4821788de728436a903d9453b566c9"
+    },
+    {
+      "path": "community/pbx-feature-matrix.md",
+      "bytes": 22912,
+      "sha256": "cd560dd61a1e965f4fb82d387cd3651a11f907f3895296b3529f82e6ebfe20fc"
     },
     {
       "path": "delivery-tools/build_source.py",
@@ -2031,81 +2071,6 @@
       "path": "dependencies/rust-vendor/anstream/src/wincon.rs",
       "bytes": 7084,
       "sha256": "16afb01d151c3992bb3ee50871723f1e1f1f6b34d3f161d4a8dc6fd27db4cb1c"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/.cargo-checksum.json",
-      "bytes": 1401,
-      "sha256": "80f0ab2a63eadae24264528ab97466c530585308d44ed19ca9a94080a58d646d"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/.cargo_vcs_info.json",
-      "bytes": 108,
-      "sha256": "00598318503c452840bff2f331dc4aeba638d07ca04c19df391480077651d8ce"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/Cargo.lock",
-      "bytes": 6777,
-      "sha256": "99932d5df3eb13cfd9b5e1a2dd5e8745ee50e54639b06fa3a40ef67a3478b939"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/Cargo.toml",
-      "bytes": 4166,
-      "sha256": "1464191f3d9cdcddee83a73a16c7cee7e48dba818248b3fd4273757fbed4407e"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/Cargo.toml.orig",
-      "bytes": 1154,
-      "sha256": "25ef1f8a15173a072714c3cd93700a3d3b2d377f83578955914fb0bfb5028094"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/LICENSE-APACHE",
-      "bytes": 11358,
-      "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/LICENSE-MIT",
-      "bytes": 1062,
-      "sha256": "6efb0476a1cc085077ed49357026d8c173bf33017278ef440f222fb9cbcb66e6"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/README.md",
-      "bytes": 1459,
-      "sha256": "015245c48ad8fb28bc4b2ed85a992a6e1182aa7fd633ecaac8f69b229d2aacab"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/examples/dump-style.rs",
-      "bytes": 4463,
-      "sha256": "a6c89b70be79594485312ec4670886ea9f4bebbf2f39fedfbd16d92745824f82"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/src/color.rs",
-      "bytes": 20401,
-      "sha256": "fc82bbfc225372584c1985ecb11e744ec0e59d8c208ad404c98846759eb01f4b"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/src/effect.rs",
-      "bytes": 10362,
-      "sha256": "ed72ba456c4804ff6669f41ee0754bf8e2d974c2217e3eeac0d4d23202b81289"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/src/lib.rs",
-      "bytes": 2400,
-      "sha256": "0b3ac694950781211aee56f48129317880c1c3056b0b7639f0ea6cddb0201c6c"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/src/macros.rs",
-      "bytes": 102,
-      "sha256": "0c90b45626fe8331d5b3326abb831f4ba6e04bcc975b1b9c01e465715050caa2"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/src/reset.rs",
-      "bytes": 1099,
-      "sha256": "456baf708f7d595369d2d852427d1891208a9fad5e21291be3217c4e69114faf"
-    },
-    {
-      "path": "dependencies/rust-vendor/anstyle/src/style.rs",
-      "bytes": 10264,
-      "sha256": "6f5eee7892f10df47bc07dd8f5715ee5d0c438cba53b63b72dce0843423b42bd"
     },
     {
       "path": "dependencies/rust-vendor/anstyle-parse/.cargo-checksum.json",
@@ -2306,6 +2271,81 @@
       "path": "dependencies/rust-vendor/anstyle-wincon/src/windows.rs",
       "bytes": 9330,
       "sha256": "ef7a56c7bc4436a46c93ce85220e5c03c0ca82fbe945521360ea9ecffce4291d"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/.cargo-checksum.json",
+      "bytes": 1401,
+      "sha256": "80f0ab2a63eadae24264528ab97466c530585308d44ed19ca9a94080a58d646d"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/.cargo_vcs_info.json",
+      "bytes": 108,
+      "sha256": "00598318503c452840bff2f331dc4aeba638d07ca04c19df391480077651d8ce"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/Cargo.lock",
+      "bytes": 6777,
+      "sha256": "99932d5df3eb13cfd9b5e1a2dd5e8745ee50e54639b06fa3a40ef67a3478b939"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/Cargo.toml",
+      "bytes": 4166,
+      "sha256": "1464191f3d9cdcddee83a73a16c7cee7e48dba818248b3fd4273757fbed4407e"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/Cargo.toml.orig",
+      "bytes": 1154,
+      "sha256": "25ef1f8a15173a072714c3cd93700a3d3b2d377f83578955914fb0bfb5028094"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/LICENSE-APACHE",
+      "bytes": 11358,
+      "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/LICENSE-MIT",
+      "bytes": 1062,
+      "sha256": "6efb0476a1cc085077ed49357026d8c173bf33017278ef440f222fb9cbcb66e6"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/README.md",
+      "bytes": 1459,
+      "sha256": "015245c48ad8fb28bc4b2ed85a992a6e1182aa7fd633ecaac8f69b229d2aacab"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/examples/dump-style.rs",
+      "bytes": 4463,
+      "sha256": "a6c89b70be79594485312ec4670886ea9f4bebbf2f39fedfbd16d92745824f82"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/src/color.rs",
+      "bytes": 20401,
+      "sha256": "fc82bbfc225372584c1985ecb11e744ec0e59d8c208ad404c98846759eb01f4b"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/src/effect.rs",
+      "bytes": 10362,
+      "sha256": "ed72ba456c4804ff6669f41ee0754bf8e2d974c2217e3eeac0d4d23202b81289"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/src/lib.rs",
+      "bytes": 2400,
+      "sha256": "0b3ac694950781211aee56f48129317880c1c3056b0b7639f0ea6cddb0201c6c"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/src/macros.rs",
+      "bytes": 102,
+      "sha256": "0c90b45626fe8331d5b3326abb831f4ba6e04bcc975b1b9c01e465715050caa2"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/src/reset.rs",
+      "bytes": 1099,
+      "sha256": "456baf708f7d595369d2d852427d1891208a9fad5e21291be3217c4e69114faf"
+    },
+    {
+      "path": "dependencies/rust-vendor/anstyle/src/style.rs",
+      "bytes": 10264,
+      "sha256": "6f5eee7892f10df47bc07dd8f5715ee5d0c438cba53b63b72dce0843423b42bd"
     },
     {
       "path": "dependencies/rust-vendor/anyhow/.cargo-checksum.json",
@@ -5233,6 +5273,11 @@
       "sha256": "7f3ddbd9121e2029cdebede7890cf812e16da43bd7f9a0fb3b6cf224fdd318ce"
     },
     {
+      "path": "dependencies/rust-vendor/libc/src/new/linux_uapi/linux/can.rs",
+      "bytes": 3448,
+      "sha256": "b30565ca3a98f76f98a6410fdd0649336270aa1ae4c677d1ce0d67a9be8803ee"
+    },
+    {
       "path": "dependencies/rust-vendor/libc/src/new/linux_uapi/linux/can/bcm.rs",
       "bytes": 1222,
       "sha256": "1718a1c3aae686d18ec83dff1560439d61de244bfaf332256cc2b42b85fe5249"
@@ -5256,11 +5301,6 @@
       "path": "dependencies/rust-vendor/libc/src/new/linux_uapi/linux/can/raw.rs",
       "bytes": 642,
       "sha256": "669f39f228820f8c76db846322dd4aa7599fcdf90a2f2f17d841294924bc094c"
-    },
-    {
-      "path": "dependencies/rust-vendor/libc/src/new/linux_uapi/linux/can.rs",
-      "bytes": 3448,
-      "sha256": "b30565ca3a98f76f98a6410fdd0649336270aa1ae4c677d1ce0d67a9be8803ee"
     },
     {
       "path": "dependencies/rust-vendor/libc/src/new/linux_uapi/linux/futex.rs",
@@ -7668,6 +7708,11 @@
       "sha256": "1257d423e9311dda9db0239ff244dfe7b028c1048ab8a83d76daec6068b05114"
     },
     {
+      "path": "dependencies/rust-vendor/proc-macro2/src/probe.rs",
+      "bytes": 220,
+      "sha256": "2b57e8ebf46a7c60ee2762f23f16d24ee9ddb8f1acd0a7faf7a99cf2e4187151"
+    },
+    {
       "path": "dependencies/rust-vendor/proc-macro2/src/probe/proc_macro_span.rs",
       "bytes": 1217,
       "sha256": "53853f0c70170c9695294b8867821664d9b8f1c901957b003003a3c26987abbe"
@@ -7681,11 +7726,6 @@
       "path": "dependencies/rust-vendor/proc-macro2/src/probe/proc_macro_span_location.rs",
       "bytes": 408,
       "sha256": "e022386204b6e042b3c55a6c809923849a2f915199bcbf3be72d0b7c8ffa7f83"
-    },
-    {
-      "path": "dependencies/rust-vendor/proc-macro2/src/probe.rs",
-      "bytes": 220,
-      "sha256": "2b57e8ebf46a7c60ee2762f23f16d24ee9ddb8f1acd0a7faf7a99cf2e4187151"
     },
     {
       "path": "dependencies/rust-vendor/proc-macro2/src/rcvec.rs",
@@ -8268,6 +8308,11 @@
       "sha256": "7daa248b3b1121bba90c5a184bbd9b630d46bca4b4c1b5814df97f494bf1ee9e"
     },
     {
+      "path": "dependencies/rust-vendor/serde_derive/src/de.rs",
+      "bytes": 34045,
+      "sha256": "a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c"
+    },
+    {
       "path": "dependencies/rust-vendor/serde_derive/src/de/enum_.rs",
       "bytes": 3490,
       "sha256": "5a099a25034e4f9364d421a53cfb4428ea8a94fd66515c66207bf8bfb7c4db4f"
@@ -8311,11 +8356,6 @@
       "path": "dependencies/rust-vendor/serde_derive/src/de/unit.rs",
       "bytes": 1916,
       "sha256": "b792db7952fc2e4719fdce9552fe4ba1836086cc967ae9a5b919c28b30f2b4a0"
-    },
-    {
-      "path": "dependencies/rust-vendor/serde_derive/src/de.rs",
-      "bytes": 34045,
-      "sha256": "a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c"
     },
     {
       "path": "dependencies/rust-vendor/serde_derive/src/deprecated.rs",
@@ -8653,6 +8693,11 @@
       "sha256": "7d54721bbaea19c362e7c39046745ffb3c774d6af0b3af5643e4bdfbf0fa1011"
     },
     {
+      "path": "dependencies/rust-vendor/serde_json/tests/lexical.rs",
+      "bytes": 1027,
+      "sha256": "a863468815c2c1f1415b30eef42971604d860e6128e66c39d965322fbc567240"
+    },
+    {
       "path": "dependencies/rust-vendor/serde_json/tests/lexical/algorithm.rs",
       "bytes": 3867,
       "sha256": "da378df9ee24bfa033968d5c94e91b58e52c39bf6c825dec51c3eb7250cc5874"
@@ -8688,11 +8733,6 @@
       "sha256": "6c56e39ba534616c1b2146e8efa6eb57aed322e683bf23183cd32a61fae6447e"
     },
     {
-      "path": "dependencies/rust-vendor/serde_json/tests/lexical.rs",
-      "bytes": 1027,
-      "sha256": "a863468815c2c1f1415b30eef42971604d860e6128e66c39d965322fbc567240"
-    },
-    {
       "path": "dependencies/rust-vendor/serde_json/tests/macros/mod.rs",
       "bytes": 1511,
       "sha256": "93aa1d54af20bc2c55b6ae8db73c1414cda2626eb9fa7bd57b9d613a3c6e6a19"
@@ -8701,6 +8741,11 @@
       "path": "dependencies/rust-vendor/serde_json/tests/map.rs",
       "bytes": 1603,
       "sha256": "232a980d98b0ceac022ad34d25b0a0fc613389784222a45da4f5650a9414a847"
+    },
+    {
+      "path": "dependencies/rust-vendor/serde_json/tests/regression.rs",
+      "bytes": 130,
+      "sha256": "2f2aa349a0dcc399e246e08e2fbae8fb349831b461169014605538fed8d65622"
     },
     {
       "path": "dependencies/rust-vendor/serde_json/tests/regression/issue1004.rs",
@@ -8731,11 +8776,6 @@
       "path": "dependencies/rust-vendor/serde_json/tests/regression/issue979.rs",
       "bytes": 758,
       "sha256": "06851e827c7bcb069de03d878f56710786fad55d9d9ad1149a8e9629a5ac3062"
-    },
-    {
-      "path": "dependencies/rust-vendor/serde_json/tests/regression.rs",
-      "bytes": 130,
-      "sha256": "2f2aa349a0dcc399e246e08e2fbae8fb349831b461169014605538fed8d65622"
     },
     {
       "path": "dependencies/rust-vendor/serde_json/tests/stream.rs",
@@ -9343,6 +9383,11 @@
       "sha256": "d2294a79e341c623ae671dd363e99965d78dda7f340b0cc038267207adfacae2"
     },
     {
+      "path": "dependencies/rust-vendor/syn/tests/regression.rs",
+      "bytes": 132,
+      "sha256": "e9565ea0efecb4136f099164ffcfa26e1996b0a27fb9c6659e90ad9bdd42e7b6"
+    },
+    {
       "path": "dependencies/rust-vendor/syn/tests/regression/issue1108.rs",
       "bytes": 97,
       "sha256": "f32db35244a674e22ff824ca9e5bbec2184e287b59f022db68c418b5878a2edc"
@@ -9351,11 +9396,6 @@
       "path": "dependencies/rust-vendor/syn/tests/regression/issue1235.rs",
       "bytes": 932,
       "sha256": "a2266b10c3f7c7af5734817ab0a3e8b309b51e7d177b63f26e67e6b744d280b0"
-    },
-    {
-      "path": "dependencies/rust-vendor/syn/tests/regression.rs",
-      "bytes": 132,
-      "sha256": "e9565ea0efecb4136f099164ffcfa26e1996b0a27fb9c6659e90ad9bdd42e7b6"
     },
     {
       "path": "dependencies/rust-vendor/syn/tests/repo/mod.rs",
@@ -11719,8 +11759,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 22650,
-      "sha256": "7cc9594665ccd5edacd7c6dcb60233fa2880952d2cdde9e800d27571f2ee27e5"
+      "bytes": 28292,
+      "sha256": "8e7f03c418379b3a24df5bd0325f9359953dc8fff17f80d54d72e6339eba3892"
     },
     {
       "path": "licenses/Apache-2.0.txt",
@@ -11754,8 +11794,8 @@
     },
     {
       "path": "open-source/PUBLICATION.html",
-      "bytes": 9760,
-      "sha256": "e1b2f7c8d9c4b09f9d01db1a2b940c4359739652067980669394271aed6a93be"
+      "bytes": 9818,
+      "sha256": "1082bac3eb71658af6022585216dd5c5d3bab30779f3f315929e72c1b2924c86"
     },
     {
       "path": "open-source/PUBLICATION.md",
@@ -11764,8 +11804,8 @@
     },
     {
       "path": "open-source/content-audit.html",
-      "bytes": 10141,
-      "sha256": "f56e27f5ef2702ff1b853eea2e58fcb7c9e4753d8888c91b7d9fb02836f7890e"
+      "bytes": 10199,
+      "sha256": "3d02afd62aaaa43e12edbf698a07f0a8b4246127850cd9c2da9b91d42c97c5c0"
     },
     {
       "path": "open-source/content-audit.md",
@@ -11784,13 +11824,13 @@
     },
     {
       "path": "page-index.json",
-      "bytes": 162494,
-      "sha256": "fa3f84d43ff1abbdecb532f76ef873626ae04dd7c1aec551e892c503c2bd07d8"
+      "bytes": 173861,
+      "sha256": "afe2faf604c5943dd57b225aede49abef87389b351cacbe45a057edca8cacb7b"
     },
     {
       "path": "reference/README.html",
-      "bytes": 22570,
-      "sha256": "b49e9b04d6a56af0bd4c3e7025038bba42bbc64d4ec2fa3cb2adfbd4ec8d3f2b"
+      "bytes": 22628,
+      "sha256": "2521e8483d880acff2d21cbe155e894ac04bb53f0cb07a56f9148935229ee577"
     },
     {
       "path": "reference/README.md",
@@ -11884,8 +11924,8 @@
     },
     {
       "path": "reference/docs/api/README.html",
-      "bytes": 19876,
-      "sha256": "1b3f9c6512afb218ad2913cce038951ad34731d7df1fe0354a7e6eb0cb185325"
+      "bytes": 19940,
+      "sha256": "938eea98ce7f2eb50dee9665857b5aa4cd0ae0eca84ec13c773b2b38bbae14e1"
     },
     {
       "path": "reference/docs/api/README.md",
@@ -11894,8 +11934,8 @@
     },
     {
       "path": "reference/docs/api/ai-calling-reference.html",
-      "bytes": 13965,
-      "sha256": "40f2072eb9949715f8b439b67b9565ab4ca90fb8a061273f66804d8beac18e35"
+      "bytes": 14029,
+      "sha256": "9b7473bad66b99c028787d9490063e6979d2488c787bca818c6af6ac655e2f72"
     },
     {
       "path": "reference/docs/api/ai-calling-reference.md",
@@ -11904,8 +11944,8 @@
     },
     {
       "path": "reference/docs/api/ai-calling-verification-v1.7.html",
-      "bytes": 7434,
-      "sha256": "7dc38bd307011a1b12b111037f262a2f15ff8cda91a968e3569f42f788471408"
+      "bytes": 7498,
+      "sha256": "81a077fb8d169988d6487c8a792aea5ad1ddead744d065e85f19cc19e8d6dfe6"
     },
     {
       "path": "reference/docs/api/ai-calling-verification-v1.7.json",
@@ -11919,8 +11959,8 @@
     },
     {
       "path": "reference/docs/api/ai-calling-verification-v1.8.html",
-      "bytes": 7537,
-      "sha256": "73426f8ce976de826929e7309b3a84510ff04f504174b8b89631af3af3692909"
+      "bytes": 7601,
+      "sha256": "e4124dc957d525817b1750bb01f09aa041b699e8254844b42488fa46d7c24b98"
     },
     {
       "path": "reference/docs/api/ai-calling-verification-v1.8.json",
@@ -11934,8 +11974,8 @@
     },
     {
       "path": "reference/docs/api/ai-calling-verification-v1.9.html",
-      "bytes": 8485,
-      "sha256": "8e5c68cd785156174b8165ef50cc11df37b1dc82e554b1158117665c813eca08"
+      "bytes": 8549,
+      "sha256": "f9e81546fa323f97fcf1f05881813a82230b2f42f2205bc1a8bf7362abd9aab9"
     },
     {
       "path": "reference/docs/api/ai-calling-verification-v1.9.json",
@@ -11949,8 +11989,8 @@
     },
     {
       "path": "reference/docs/api/ai-calling-verification.html",
-      "bytes": 8023,
-      "sha256": "7d73aeb3533adf9ea4be70738307f1dec428d2b1aa906f42dee7970ba638dab0"
+      "bytes": 8087,
+      "sha256": "596f5622c556ebe1b80a0503ab3f07ce82dd40989c51ef7bd4f74098a1847b8e"
     },
     {
       "path": "reference/docs/api/ai-calling-verification.json",
@@ -11964,8 +12004,8 @@
     },
     {
       "path": "reference/docs/api/audio-frame-reference.html",
-      "bytes": 13474,
-      "sha256": "a87180b5c81f3467e1e3718d94828f008583f8ff63baf1f6f822edd6e9bb6270"
+      "bytes": 13538,
+      "sha256": "9d6cbca3f1801539cebc66c39c5d2e51b27fa4ad030f9d9a3502bbb6c7563499"
     },
     {
       "path": "reference/docs/api/audio-frame-reference.md",
@@ -11974,8 +12014,8 @@
     },
     {
       "path": "reference/docs/api/audio-reference.html",
-      "bytes": 23653,
-      "sha256": "30347ecc60e0efce7f64fb94906c9bc44ae9aaeaf931e330b4be143c177a794b"
+      "bytes": 23717,
+      "sha256": "3e10947f0bd58be55350510c566f780e7c4487baa7cfe780d1f63c511e66ad7c"
     },
     {
       "path": "reference/docs/api/audio-reference.md",
@@ -11994,8 +12034,8 @@
     },
     {
       "path": "reference/docs/api/channel-snapshot-reference.html",
-      "bytes": 6926,
-      "sha256": "8a0e7e9aeda749ff7d2ce4ae421d5e301af9d930dc5a1a43ae91f22be87c0597"
+      "bytes": 6990,
+      "sha256": "a051e2eef5a0622ca15e3daab56b82a051f4447920ae80c41b592c09952af551"
     },
     {
       "path": "reference/docs/api/channel-snapshot-reference.md",
@@ -12049,8 +12089,8 @@
     },
     {
       "path": "reference/docs/api/compatibility-worklist.html",
-      "bytes": 12216,
-      "sha256": "8bbe3e5ac08463257d87f8a5d078007f94912acc556b1a3590fca6437ff8409e"
+      "bytes": 12280,
+      "sha256": "df3a4ef2d66949404a9b29785b995841b7453bb4377c5eb3a59d77b6c4e4eecf"
     },
     {
       "path": "reference/docs/api/compatibility-worklist.json",
@@ -12079,8 +12119,8 @@
     },
     {
       "path": "reference/docs/api/conformance-report.html",
-      "bytes": 8402,
-      "sha256": "1e1d6b559cba6cf9771118dbe018819b27be22f36ee40540d0e9059b88e7ae36"
+      "bytes": 8466,
+      "sha256": "09a3250d6425c7b51ed3075069c2125f311d72b20a3b6794c901a13a535d4c07"
     },
     {
       "path": "reference/docs/api/conformance-report.json",
@@ -12099,8 +12139,8 @@
     },
     {
       "path": "reference/docs/api/conformance-testing.html",
-      "bytes": 18450,
-      "sha256": "673be37c21db94a59727c969214d3493f91dd61c3fb99f907408cd6ad899c449"
+      "bytes": 18514,
+      "sha256": "6bcaaaf2aa6013830744d8b810ae76b9608c334868df4aca8add701a1f5552ae"
     },
     {
       "path": "reference/docs/api/conformance-testing.md",
@@ -12109,8 +12149,8 @@
     },
     {
       "path": "reference/docs/api/dialplan-reference.html",
-      "bytes": 17380,
-      "sha256": "a19b81806d3cd8f35711f484716b57078ba93d38da0b06bbcff47f7481dc84f0"
+      "bytes": 17444,
+      "sha256": "d7d8d688e992249294123e23562477df544b30a261255ba626f049bfce0a682e"
     },
     {
       "path": "reference/docs/api/dialplan-reference.md",
@@ -12119,8 +12159,8 @@
     },
     {
       "path": "reference/docs/api/dtmf-send-reference.html",
-      "bytes": 18702,
-      "sha256": "f7d0f643121e0cc359c73d1230a5ce9c89075581dd299c7a7f80281f2a21a035"
+      "bytes": 18766,
+      "sha256": "24279ff8d445b45233b56dde2ac0fa0b3107745b12d302f9f38050fdd036580a"
     },
     {
       "path": "reference/docs/api/dtmf-send-reference.md",
@@ -12129,8 +12169,8 @@
     },
     {
       "path": "reference/docs/api/esl-reference.html",
-      "bytes": 17811,
-      "sha256": "933afe0a183e3764d90744ca80ecf67ab5c97aa89c5509f0f2eb20f5ad9c01dc"
+      "bytes": 17875,
+      "sha256": "d840cdf00cd2e4599bd067d17235ccbd3b263fc4d1317ab3756439f6c18c61f2"
     },
     {
       "path": "reference/docs/api/esl-reference.md",
@@ -12139,8 +12179,8 @@
     },
     {
       "path": "reference/docs/api/event-lifecycle-reference.html",
-      "bytes": 12936,
-      "sha256": "837411beca31369df46f23da14552e111ca754f685390e9514c9ec8b186f5863"
+      "bytes": 13000,
+      "sha256": "b4c7fae75f7ff39b9141b2ee0b4548711c19c632e07b9c216cee72275360d591"
     },
     {
       "path": "reference/docs/api/event-lifecycle-reference.md",
@@ -12149,8 +12189,8 @@
     },
     {
       "path": "reference/docs/api/feature-audit.html",
-      "bytes": 85784,
-      "sha256": "96ad5c6a8a2b0bac434994bf9de362e26917797bbee98bc5ed02c5e27d7a5254"
+      "bytes": 85848,
+      "sha256": "84e269b1c5c57eaef60a2f785e6a6373c0b7f1e548862b3effd0642e25b66f03"
     },
     {
       "path": "reference/docs/api/feature-audit.json",
@@ -12164,8 +12204,8 @@
     },
     {
       "path": "reference/docs/api/file-playback-reference.html",
-      "bytes": 19509,
-      "sha256": "e1f8ec9b89710d0f88b45f1ab08cd9310ad8a2903128c14871dbc96e6cc86274"
+      "bytes": 19573,
+      "sha256": "b2c499fc027f99ed08885e6d4d258018c49335d16d437be97dcfc595043afd71"
     },
     {
       "path": "reference/docs/api/file-playback-reference.md",
@@ -12174,8 +12214,8 @@
     },
     {
       "path": "reference/docs/api/freeswitch-comparison.html",
-      "bytes": 154401,
-      "sha256": "f87ac7100041e5b80a667c1549f50992ee5a9afe6802f5c4474710d283cd970d"
+      "bytes": 154465,
+      "sha256": "3a9d25c8ede210b558b32ce8f87713a1a7086514dba977fb6dd2f619ebbca16a"
     },
     {
       "path": "reference/docs/api/freeswitch-comparison.md",
@@ -12184,8 +12224,8 @@
     },
     {
       "path": "reference/docs/api/http-reference.html",
-      "bytes": 79921,
-      "sha256": "e480da6ae0dd33911c0562f8b553202a6b6bb49d467fec8165186328d9d81558"
+      "bytes": 79985,
+      "sha256": "10a51b18caa079dc3c288c1eae7d1103ce350da547d19505b551fde07d64c8e6"
     },
     {
       "path": "reference/docs/api/http-reference.md",
@@ -12194,8 +12234,8 @@
     },
     {
       "path": "reference/docs/api/ivr-reference.html",
-      "bytes": 21302,
-      "sha256": "23ea71a37b7dd9409e592b7219dba4fe070b4272680a28b4cfde6620f42895c2"
+      "bytes": 21366,
+      "sha256": "7d7fe5f1973303190b4d37877df2b525347286ce5cdaacc9372058ff692326d1"
     },
     {
       "path": "reference/docs/api/ivr-reference.md",
@@ -12204,8 +12244,8 @@
     },
     {
       "path": "reference/docs/api/media-interaction.html",
-      "bytes": 19874,
-      "sha256": "63bab61b204f5565533b3932a998b6c5aa2ae32e7f5d9c555f140c0169f4715d"
+      "bytes": 19938,
+      "sha256": "9d87d0998115901e59401387bd918fbc7a4a742eb86ad571b38eba281d95801a"
     },
     {
       "path": "reference/docs/api/media-interaction.md",
@@ -12224,8 +12264,8 @@
     },
     {
       "path": "reference/docs/api/overview-testing-reference.html",
-      "bytes": 13310,
-      "sha256": "a46b65ca99838a5f12ea2f95f300b264ed2286f087526173d8d03c3156a1d3e2"
+      "bytes": 13374,
+      "sha256": "e84681ce1e6609edba61079b89bdfdf99baa3f334b9e91c5326ff5e33c67396f"
     },
     {
       "path": "reference/docs/api/overview-testing-reference.md",
@@ -12234,8 +12274,8 @@
     },
     {
       "path": "reference/docs/api/pcm-turn-reference.html",
-      "bytes": 28267,
-      "sha256": "048842e36fedfcb20cb5e166b9a5297eea6d946b789b2b0263d892ac3e5e3b80"
+      "bytes": 28331,
+      "sha256": "8379d0248b3576382f280d8ce629630c1e08857670ecdbea027ebfe08964cae4"
     },
     {
       "path": "reference/docs/api/pcm-turn-reference.md",
@@ -12244,8 +12284,8 @@
     },
     {
       "path": "reference/docs/api/processed-local-reference.html",
-      "bytes": 14766,
-      "sha256": "f8197fa9435bc85a5561fc3d7f1244d577f2d372fac07ecd8a049d7c2aa35190"
+      "bytes": 14830,
+      "sha256": "9e668b25fc60293672303eb0ce1349af5a7ccf4c87581c54c7c205596a1fa2a0"
     },
     {
       "path": "reference/docs/api/processed-local-reference.md",
@@ -12259,8 +12299,8 @@
     },
     {
       "path": "reference/docs/api/processed-media-reference.html",
-      "bytes": 36016,
-      "sha256": "f09f014f5499e6d4edb8cfe0123f96b3d2f3e6ee353786af6dbceaa201706b92"
+      "bytes": 36080,
+      "sha256": "bcaf930148168dfded7482caa99024e65217d170446e1b90ebced21d545b4eb3"
     },
     {
       "path": "reference/docs/api/processed-media-reference.md",
@@ -12274,8 +12314,8 @@
     },
     {
       "path": "reference/docs/api/processed-testing-reference.html",
-      "bytes": 11819,
-      "sha256": "f18ccfe77f5a97c2df2569ebad8f79154cdb8d4c23ad09372a8827cfeb688d1b"
+      "bytes": 11883,
+      "sha256": "393d8ece7953e71902fbd1276ce000169d51e59d4859c0796582b18bec64a4cd"
     },
     {
       "path": "reference/docs/api/processed-testing-reference.md",
@@ -12284,8 +12324,8 @@
     },
     {
       "path": "reference/docs/api/protocol-reference.html",
-      "bytes": 54120,
-      "sha256": "cd51da134d170062f917b88aa821efe7b8b4fb807946f0090888e4cb7c3882fd"
+      "bytes": 54184,
+      "sha256": "873acc151ce7e6d86dcc5f098f0bbcecc476ab8074fe648ee5a016be086ee2f8"
     },
     {
       "path": "reference/docs/api/protocol-reference.md",
@@ -12294,8 +12334,8 @@
     },
     {
       "path": "reference/docs/api/release-validation-m1.html",
-      "bytes": 9155,
-      "sha256": "7246f53fab0eaa48b3f38d81230320e6c9e7cd86101305a3958ad626a5f24c92"
+      "bytes": 9219,
+      "sha256": "0178c6366151d74472326b6076d8dd18af9eae3d45aa1e96668394c2610f2fd0"
     },
     {
       "path": "reference/docs/api/release-validation-m1.md",
@@ -12304,8 +12344,8 @@
     },
     {
       "path": "reference/docs/api/release-validation-v1.10.html",
-      "bytes": 22420,
-      "sha256": "cb451713311063e05623e7a53fed26befb9b8c879741f1aec46931c02d184ee7"
+      "bytes": 22484,
+      "sha256": "f7116f39bc61b171d9f68216d5c1f62df28b69872726339bb8fff0069d1a19e1"
     },
     {
       "path": "reference/docs/api/release-validation-v1.10.md",
@@ -12314,8 +12354,8 @@
     },
     {
       "path": "reference/docs/api/release-validation-v1.11.html",
-      "bytes": 11646,
-      "sha256": "1da1595a89adfe3bf79ab797b6e237a1f6360387cef79a3f1eb83b13f3363a77"
+      "bytes": 11710,
+      "sha256": "5cc59e68928fbbd7afdfc6a9ac27f33fc5f33dac5770c178e2c7aeadccda5e19"
     },
     {
       "path": "reference/docs/api/release-validation-v1.11.md",
@@ -12324,8 +12364,8 @@
     },
     {
       "path": "reference/docs/api/release-validation-v1.12.html",
-      "bytes": 20653,
-      "sha256": "ffaaea72f567c8d21ff037a815030c6282ad6cecb3e04d33ec396e70830c1db3"
+      "bytes": 20717,
+      "sha256": "9760618fea1dcedd109ff4afdd648c8320ae170dbdc20a704a401fecadcda2fe"
     },
     {
       "path": "reference/docs/api/release-validation-v1.12.md",
@@ -12334,8 +12374,8 @@
     },
     {
       "path": "reference/docs/api/release-validation-v1.13.html",
-      "bytes": 12390,
-      "sha256": "899e6a145d06755187de00013b4935fbbd13662b75385ef2e32c45d4d30b421b"
+      "bytes": 12454,
+      "sha256": "d316ed8f145f4dd6b9698733435612f8888e221e6f914352c9b2bb8917a9f9a5"
     },
     {
       "path": "reference/docs/api/release-validation-v1.13.md",
@@ -12344,8 +12384,8 @@
     },
     {
       "path": "reference/docs/api/release-validation-v1.5.html",
-      "bytes": 15964,
-      "sha256": "56d0a04ff1e8e257dc3c1e99b0f85ec09bd3f8b9f0551956f7dbd705f50277c0"
+      "bytes": 16028,
+      "sha256": "222b76b42bbe74b5371756195b0e34b9e5feb3a426ee3e129627df1687ab52e5"
     },
     {
       "path": "reference/docs/api/release-validation-v1.5.md",
@@ -12354,8 +12394,8 @@
     },
     {
       "path": "reference/docs/api/release-validation-v1.6.html",
-      "bytes": 10842,
-      "sha256": "4422beb2af6c6e90a5349e5f7a1b6e870e781be7ed7f69656e080c9a0a01ea67"
+      "bytes": 10906,
+      "sha256": "29e55e38ec6f6e04b37cb1152cfe6ed2493b3e428a170c8b953dc1456eb076de"
     },
     {
       "path": "reference/docs/api/release-validation-v1.6.md",
@@ -12364,8 +12404,8 @@
     },
     {
       "path": "reference/docs/api/release-validation-v1.7.html",
-      "bytes": 11215,
-      "sha256": "14aeb6c629ff86fc155a2cfd79b88a0eb493859309bb1996ea028abe3784de88"
+      "bytes": 11279,
+      "sha256": "ad6c1760bb0471461ed7d072593bd93d188c9f156ee14f4b16c74bbea44ec97e"
     },
     {
       "path": "reference/docs/api/release-validation-v1.7.md",
@@ -12374,8 +12414,8 @@
     },
     {
       "path": "reference/docs/api/release-validation-v1.8.html",
-      "bytes": 14633,
-      "sha256": "a3b9cbe40070ed38895dd717dbcce49534b738cc452209e6e7a063bc48152a67"
+      "bytes": 14697,
+      "sha256": "2c45e562036a463b060511adaf16812eb08c3423ad83996d6d8bbb9fdd488b3f"
     },
     {
       "path": "reference/docs/api/release-validation-v1.8.md",
@@ -12384,8 +12424,8 @@
     },
     {
       "path": "reference/docs/api/release-validation-v1.9.html",
-      "bytes": 13273,
-      "sha256": "0bd95585d1b86389adb3ba34d1701c2531b6b97db94aa5dc84318cf734b6c4ff"
+      "bytes": 13337,
+      "sha256": "168e873183b08834603eee7dc2e4b902d46996eb47c89e56dd1c22beaee393ed"
     },
     {
       "path": "reference/docs/api/release-validation-v1.9.md",
@@ -12394,8 +12434,8 @@
     },
     {
       "path": "reference/docs/api/runtime-diagnostics-reference.html",
-      "bytes": 7618,
-      "sha256": "298665cc5f039c63ddb1e40641818a3564a6f54c5923b2108d70b00231b52d63"
+      "bytes": 7682,
+      "sha256": "bcc59145d6964e39259f699bf824af28eac2daee310d3648ffe947c79ca40fff"
     },
     {
       "path": "reference/docs/api/runtime-diagnostics-reference.md",
@@ -12404,8 +12444,8 @@
     },
     {
       "path": "reference/docs/api/runtime-verification.html",
-      "bytes": 30555,
-      "sha256": "2d263d7fcabe0a3a4dc602cb254adb23d9a1876586ef4860923893f89327a56a"
+      "bytes": 30619,
+      "sha256": "7dc64666e99d9b91ff032b35d2a4d0d5b41aec53fb756ef4cf6458ef5b6acbe8"
     },
     {
       "path": "reference/docs/api/runtime-verification.json",
@@ -12419,8 +12459,8 @@
     },
     {
       "path": "reference/docs/api/rva1-reference.html",
-      "bytes": 27557,
-      "sha256": "ed7fdda4708c766a1e2fa6b0da0a9ac029ccb0d7fd4bdc9a0a2df5b82604fc81"
+      "bytes": 27621,
+      "sha256": "bbb47d8156cb1f06fd3b5e458a90a6104e8a302dbb1999d5ccff9f9b5f217a67"
     },
     {
       "path": "reference/docs/api/rva1-reference.md",
@@ -12429,8 +12469,8 @@
     },
     {
       "path": "reference/docs/api/rx-stream-reference.html",
-      "bytes": 34624,
-      "sha256": "aac09856343c865ecc3669869dce330e1f2c49deb941f36788aa10bd17efc4ab"
+      "bytes": 34688,
+      "sha256": "b25c550aad5719f575b0c38724cd619821a8a61edb5c14f01e327210a8c27252"
     },
     {
       "path": "reference/docs/api/rx-stream-reference.md",
@@ -12439,8 +12479,8 @@
     },
     {
       "path": "reference/docs/api/schema-reference.html",
-      "bytes": 406319,
-      "sha256": "ef59c0c1c91c003650661a771914dd61f935f0e2a1e4a6c2ed1ed6e9109f85f6"
+      "bytes": 406383,
+      "sha256": "b3ea5ee5d01d7b883a1a860cb1f1bf239aeaad942fbf305c0b66cecfd0cd2b4f"
     },
     {
       "path": "reference/docs/api/schema-reference.md",
@@ -12449,8 +12489,8 @@
     },
     {
       "path": "reference/docs/api/stability-reference.html",
-      "bytes": 12594,
-      "sha256": "c76bb528c844b3818b61a6d1323faf2fe8cb5d75a6779eb521c79363f6576bc3"
+      "bytes": 12658,
+      "sha256": "8c356a60148cac6532bd31e11b8d44a9a342d55ead7922a5edddf958903066c3"
     },
     {
       "path": "reference/docs/api/stability-reference.md",
@@ -12459,8 +12499,8 @@
     },
     {
       "path": "reference/docs/api/testing-reference.html",
-      "bytes": 21742,
-      "sha256": "bb86b978afca573722a97686a9765ac2fb164cb1830fb458bec93962bb2458c9"
+      "bytes": 21806,
+      "sha256": "2be884810ee95c8577a442926d0f95d4f30b18ff122d454ca080b9b575586a40"
     },
     {
       "path": "reference/docs/api/testing-reference.md",
@@ -12494,8 +12534,8 @@
     },
     {
       "path": "reference/docs/api/trunk-registration.html",
-      "bytes": 18727,
-      "sha256": "6ad8700f5e907aa7ceb66958ceb71af8cb0c58b16c436ef4fc9cdccf67c99a23"
+      "bytes": 18791,
+      "sha256": "46bc5fa9b41c01a6a82447339a40c877e0b86607fcef75ff9b3934d8a1ff3710"
     },
     {
       "path": "reference/docs/api/trunk-registration.md",
@@ -12504,8 +12544,8 @@
     },
     {
       "path": "reference/docs/api/variables-reference.html",
-      "bytes": 6642,
-      "sha256": "39d8a2a79a329f8fb9ad8c47fed9c9160305debccb5426361820e9bbed9086ca"
+      "bytes": 6706,
+      "sha256": "60205782acc13064f89b2de45b50d0b7da2b9202121153c5bd47e4e4da665aac"
     },
     {
       "path": "reference/docs/api/variables-reference.md",
@@ -12514,8 +12554,8 @@
     },
     {
       "path": "reference/docs/api/verification-2026-09-05.html",
-      "bytes": 8654,
-      "sha256": "ab011ec88b46178359d4ee0a33716adf582a6ebbfba4f16fcb7329b6061106f0"
+      "bytes": 8718,
+      "sha256": "191624b5a7148f8503bd214a2608044516acddd288e63efdcc8b16d954d4404a"
     },
     {
       "path": "reference/docs/api/verification-2026-09-05.md",
@@ -12524,8 +12564,8 @@
     },
     {
       "path": "reference/docs/api/verification-2026-09-06.html",
-      "bytes": 13854,
-      "sha256": "c0e3868ba300a1890fea03facac4a6dc76a3c8021947282cf8c25ea10a9e4fa2"
+      "bytes": 13918,
+      "sha256": "9b1d2ed7eca8a14d69793ea07ec473d1c4fe46e4138e0628f0eb104523728e22"
     },
     {
       "path": "reference/docs/api/verification-2026-09-06.json",
@@ -12539,8 +12579,8 @@
     },
     {
       "path": "reference/docs/api/verification-5000-2026-09-06.html",
-      "bytes": 13892,
-      "sha256": "64c082ca2ef78f5746f509c005283430b8ec3418bdf302d2c148087d87fb8a3e"
+      "bytes": 13956,
+      "sha256": "84e6fe709985ab27bc6b256853b008c95536df2352f65957f5b91b79da56b462"
     },
     {
       "path": "reference/docs/api/verification-5000-2026-09-06.json",
@@ -12564,8 +12604,8 @@
     },
     {
       "path": "reference/docs/api/verification-ledger.html",
-      "bytes": 8334,
-      "sha256": "941ef8ae9255e0aac8753c26bd70dc205e17ba32adc945270e951c1e51b133ff"
+      "bytes": 8398,
+      "sha256": "453487c1bd2322cb1d0345136f48060bdcd7f8fea47ebcfe343df662483bc56a"
     },
     {
       "path": "reference/docs/api/verification-ledger.json",
@@ -12579,8 +12619,8 @@
     },
     {
       "path": "reference/docs/api/voice-runtime-direction.html",
-      "bytes": 21795,
-      "sha256": "7e628dbeaf69135271a2264af390938809ab32080947124111ba0d064c216c91"
+      "bytes": 21859,
+      "sha256": "c9692f040f1b7860b3d4584f800d126c32175048532a3076894c507b6b0196f4"
     },
     {
       "path": "reference/docs/api/voice-runtime-direction.md",
@@ -12594,8 +12634,8 @@
     },
     {
       "path": "reference/docs/api/voice-runtime-v1-acceptance.html",
-      "bytes": 51324,
-      "sha256": "ff75d1d8168641f6a795ad2b3234a56aa3f54a0d50e7b0f30403c88bfea8d052"
+      "bytes": 51388,
+      "sha256": "7fe6ebc3663df9e35b51ab46e54d44ba42b54f7c752c99bbb6c086209d025f36"
     },
     {
       "path": "reference/docs/api/voice-runtime-v1-acceptance.md",
@@ -12604,8 +12644,8 @@
     },
     {
       "path": "reference/docs/architecture.html",
-      "bytes": 12905,
-      "sha256": "92f48e4264d41ee659d1c0991bb222deb50d492544ed0bdc780ccf34653fbc84"
+      "bytes": 12966,
+      "sha256": "318895c49e5020d0a602e42458e68acad56b85a68984bccb96cf0080344aa3f3"
     },
     {
       "path": "reference/docs/architecture.md",
@@ -12824,8 +12864,8 @@
     },
     {
       "path": "reference/docs/freeswitch-compatibility/01-scope-and-contract.html",
-      "bytes": 14175,
-      "sha256": "838965b245488ee550fa4b6df3797ed7e89fc77994368a5389a371120ba22b50"
+      "bytes": 14239,
+      "sha256": "7e6f7752ecb8839d3e5e2d78c98a95cd91afd08358ced93afdc607674ef41880"
     },
     {
       "path": "reference/docs/freeswitch-compatibility/01-scope-and-contract.md",
@@ -12834,8 +12874,8 @@
     },
     {
       "path": "reference/docs/freeswitch-compatibility/02-esl-events.html",
-      "bytes": 42267,
-      "sha256": "fdd9e74cb04ff38124ef412aada007022ac6fa3a9a60e013d67e7ad11328f6e2"
+      "bytes": 42331,
+      "sha256": "684aaf74d7a39d051b3a288d398ad22251fa805532cca9deb155d7b9800373ce"
     },
     {
       "path": "reference/docs/freeswitch-compatibility/02-esl-events.md",
@@ -12844,8 +12884,8 @@
     },
     {
       "path": "reference/docs/freeswitch-compatibility/03-config-dialplan-integrations.html",
-      "bytes": 47700,
-      "sha256": "f59847f2abcb777d596cda8bbc2c61abf22ce5da0a7840ecc7317472c61e765e"
+      "bytes": 47764,
+      "sha256": "6a870973496b21b0eb33eeadbe6a945948ea93bac2151f42bb8da2bf3f0ae7fc"
     },
     {
       "path": "reference/docs/freeswitch-compatibility/03-config-dialplan-integrations.md",
@@ -12854,8 +12894,8 @@
     },
     {
       "path": "reference/docs/freeswitch-compatibility/04-sip-media-native.html",
-      "bytes": 44932,
-      "sha256": "5b73b1e864778cee2f3048ec1d4b5a1d4b90d1a9a23a9761fef3988a18b110d0"
+      "bytes": 44996,
+      "sha256": "3b09dc8f20757700694697879bbddd31db60e6a0c06098283ecd9472981ca431"
     },
     {
       "path": "reference/docs/freeswitch-compatibility/04-sip-media-native.md",
@@ -12864,8 +12904,8 @@
     },
     {
       "path": "reference/docs/freeswitch-compatibility/05-api-contracts.html",
-      "bytes": 22385,
-      "sha256": "f41a95768bd3d99aca8044fdccc2d9a6a1eae0a054d58890507fc6b0a638dd48"
+      "bytes": 22449,
+      "sha256": "9da4c17a6da1e87d611767c304186e00f4405d6efdd6167247d1584cbdbc8ad3"
     },
     {
       "path": "reference/docs/freeswitch-compatibility/05-api-contracts.md",
@@ -12874,8 +12914,8 @@
     },
     {
       "path": "reference/docs/freeswitch-compatibility/06-conformance-and-cutover.html",
-      "bytes": 17935,
-      "sha256": "3379759902125a5202b26765aa09042977241d9da78487b7d9796f24c5f28aa8"
+      "bytes": 17999,
+      "sha256": "46bedf638e1b7264c2fe09424076f53d286c1f09567c495bf4cdb7edf0ccb83d"
     },
     {
       "path": "reference/docs/freeswitch-compatibility/06-conformance-and-cutover.md",
@@ -12884,8 +12924,8 @@
     },
     {
       "path": "reference/docs/freeswitch-compatibility/07-current-gap-and-roadmap.html",
-      "bytes": 13118,
-      "sha256": "45defedd2651e7267ed9e7c37b76349da81b4cbe7db10bb6d8800245ba9fc8fa"
+      "bytes": 13182,
+      "sha256": "daf20938ae033fd3589235dfbfb952122ea2e4d9f05c05e2cc7ff0764cd2e6bc"
     },
     {
       "path": "reference/docs/freeswitch-compatibility/07-current-gap-and-roadmap.md",
@@ -12894,8 +12934,8 @@
     },
     {
       "path": "reference/docs/freeswitch-compatibility/FULL-STANDARD.html",
-      "bytes": 182405,
-      "sha256": "6baf97b6944ad8273e18f2115010e4aad189294a19c1f39d427f26c04b08ebad"
+      "bytes": 182469,
+      "sha256": "e590e0530f9c3f9699dce63d9b2732294622d082417b0183b454b15a82ad2182"
     },
     {
       "path": "reference/docs/freeswitch-compatibility/FULL-STANDARD.md",
@@ -12904,8 +12944,8 @@
     },
     {
       "path": "reference/docs/freeswitch-compatibility/README.html",
-      "bytes": 12042,
-      "sha256": "97691a13d5828ce30dcf63f58c94a963978574708df9945dcfdfc39da3530214"
+      "bytes": 12106,
+      "sha256": "eb6c44555b892305d170ad9aa82529b95f2f1b85fd4dd455a947d0dfdee98c38"
     },
     {
       "path": "reference/docs/freeswitch-compatibility/README.md",
@@ -12914,8 +12954,8 @@
     },
     {
       "path": "reference/docs/freeswitch-compatibility/catalog/README.html",
-      "bytes": 7292,
-      "sha256": "2359387993a26f7d03034feed5397325a27e3dda296a55c6150118d999c73700"
+      "bytes": 7359,
+      "sha256": "0b7511f4d8b51548e6cb3833d2dd6292b761c8e53a52b95afa385fc328ac71be"
     },
     {
       "path": "reference/docs/freeswitch-compatibility/catalog/README.md",
@@ -12929,8 +12969,8 @@
     },
     {
       "path": "reference/docs/freeswitch-compatibility/catalog/api-and-applications.html",
-      "bytes": 189725,
-      "sha256": "1b6f80cb8352f5960c7060cca1977b543ae0089d506f8710d858b8b9bfe64ef5"
+      "bytes": 189792,
+      "sha256": "06919c060cf47a8a673b332c63ae25cd83fd2fa4e5f0a5724257492926eadb23"
     },
     {
       "path": "reference/docs/freeswitch-compatibility/catalog/api-and-applications.md",
@@ -12944,8 +12984,8 @@
     },
     {
       "path": "reference/docs/freeswitch-compatibility/catalog/conference-and-sofia-subcommands.html",
-      "bytes": 59388,
-      "sha256": "bf9abb5f55c3b0c7cce6b13d84f67488c8d455fd5b176a7e00b02c35a5ce49a4"
+      "bytes": 59455,
+      "sha256": "68bdcdfb2567aa6ad8da19f1fe2dd0612dd44f0a2494a2b4482042915295c00d"
     },
     {
       "path": "reference/docs/freeswitch-compatibility/catalog/conference-and-sofia-subcommands.json",
@@ -13004,8 +13044,8 @@
     },
     {
       "path": "reference/docs/freeswitch-compatibility/templates/README.html",
-      "bytes": 11982,
-      "sha256": "72c928b2d155d0a1e245c6af1b830221302d9b66b01b8fdc064e2394f212d013"
+      "bytes": 12049,
+      "sha256": "75953764e9ee6f4e4b8dda8e83f4a77c1f5be5ad7794e229d30d2f31114cae32"
     },
     {
       "path": "reference/docs/freeswitch-compatibility/templates/README.md",
@@ -13029,8 +13069,8 @@
     },
     {
       "path": "reference/docs/interface-documentation-v1.html",
-      "bytes": 9597,
-      "sha256": "7066cabe67d43e0f3eebbad8074641e44b69286112eaf10d9d5ca18a942821e8"
+      "bytes": 9658,
+      "sha256": "30d2f63a6bed9d346683f6b34eda59e4ebabccb617fd827aaa6c8443537cb206"
     },
     {
       "path": "reference/docs/interface-documentation-v1.md",
@@ -13039,8 +13079,8 @@
     },
     {
       "path": "reference/docs/linux-validation.html",
-      "bytes": 14267,
-      "sha256": "c128cbfcb85dc5cc63f4d641ecdacb99054760f1a0917a53fe61b793c4f06dbf"
+      "bytes": 14328,
+      "sha256": "06073964849402c2bcfb90ddda444246f32636bbbbb5e738e4aefa8ba651da78"
     },
     {
       "path": "reference/docs/linux-validation.md",
@@ -13049,8 +13089,8 @@
     },
     {
       "path": "reference/docs/management-v0.3.html",
-      "bytes": 30196,
-      "sha256": "7d504d4f74e5cad1cdbcc340b81b97079d2ea57738c2c9b1de06e6ce4cdafca2"
+      "bytes": 30257,
+      "sha256": "5d9122a0461261726df64d6462b8b9aadea6bdbc89b074e6ee48ce1db6883fee"
     },
     {
       "path": "reference/docs/management-v0.3.md",
@@ -13064,8 +13104,8 @@
     },
     {
       "path": "reference/docs/optimization-review-2026-09-05.html",
-      "bytes": 23541,
-      "sha256": "14a23f04995e8612ae79171cd0ea4196562723f32a798994d813744e98ebafa0"
+      "bytes": 23602,
+      "sha256": "b4c8bfb63590941f446c38e886904bcd15111f16559f56abaa39cf58a7982775"
     },
     {
       "path": "reference/docs/optimization-review-2026-09-05.md",
@@ -13074,8 +13114,8 @@
     },
     {
       "path": "reference/docs/optimization-v0.2.html",
-      "bytes": 16618,
-      "sha256": "4712a8d39e372fef6d230e5a219d6decc8c5983c0666880d4102ff29d739edee"
+      "bytes": 16679,
+      "sha256": "f309633924687134779f2403056e7710ef06ca569e88ae3a7c5a95de057a9c57"
     },
     {
       "path": "reference/docs/optimization-v0.2.md",
@@ -13099,8 +13139,8 @@
     },
     {
       "path": "reference/docs/testlab-validation.html",
-      "bytes": 7271,
-      "sha256": "b4eb2e91c24186308a203105913cccc075a39dcf098ca0d73d257b470f533f39"
+      "bytes": 7332,
+      "sha256": "3dc57fe9fd1ca5f1435b515ba90d6de48f31ccdaeeb8e5b9eb87383a51a624e9"
     },
     {
       "path": "reference/docs/testlab-validation.md",
@@ -13109,8 +13149,8 @@
     },
     {
       "path": "reference/docs/verification-v0.3/README.html",
-      "bytes": 5299,
-      "sha256": "0d3dd4bd128ebfb12ba4ad7e7d01bf826891f9ce1acabafe31eab8da36ba33ae"
+      "bytes": 5363,
+      "sha256": "57f0f0a97e3da3a10124005aca33382e68a6cf0d4d05811bd135b1f6c2ddbf89"
     },
     {
       "path": "reference/docs/verification-v0.3/README.md",
@@ -13169,8 +13209,8 @@
     },
     {
       "path": "reference/docs/verification.html",
-      "bytes": 11332,
-      "sha256": "d5ac4933a921be79c4c425f0ff75a281b95b87e0fe49ed1a022ed7f8d56fb17a"
+      "bytes": 11393,
+      "sha256": "c15b24cedbf405d37f3e7c46e905b285d944ca91489b25fa762ca5108baeb130"
     },
     {
       "path": "reference/docs/verification.md",
@@ -13204,8 +13244,8 @@
     },
     {
       "path": "reference/native/audio/README.html",
-      "bytes": 12877,
-      "sha256": "b3ac6a83b8d242f6a6c5ec898c8a3c66be240a7676110dabede549b7e83059cc"
+      "bytes": 12941,
+      "sha256": "81686978259ca8dd215c343c948a245eb9f2172c7e6c696c4274450026117ef1"
     },
     {
       "path": "reference/native/audio/README.md",
@@ -13333,9 +13373,24 @@
       "sha256": "b870108ec5e7790e9f9919064f1b9421d62d5f9b0e6c230c6adf7ea2da62e97b"
     },
     {
+      "path": "source-links.json",
+      "bytes": 180,
+      "sha256": "b6643d55792a6bc1bb654777c852251b028bba73db92f8762a387584bfc8b952"
+    },
+    {
+      "path": "source-snapshot.json",
+      "bytes": 21651,
+      "sha256": "e64879d9001fea149f918fab33bf1f67a29b8dc705a928f9865fe82a6734a014"
+    },
+    {
       "path": "source/README.md",
       "bytes": 2557,
       "sha256": "de3d964f41a3d75798478b0e919c11bca3474c9709aea648cb2b4e3399941a2f"
+    },
+    {
+      "path": "source/asr-candidate-manifest.json",
+      "bytes": 218189,
+      "sha256": "ac14881f9280a9d59650eadc1f385225576ef7f7420bae317ab248784f8f3302"
     },
     {
       "path": "source/asr-candidate/Makefile",
@@ -15253,6 +15308,11 @@
       "sha256": "7b6a49d7b559b5483dd00412ef7f367d5b3ceb75bbf04dba0b2e5320c6311fc4"
     },
     {
+      "path": "source/asr-candidate/control/internal/server/fs_templates/dialplan/default.xml",
+      "bytes": 34257,
+      "sha256": "e4843db15276d0e8b87d34fde009d7e71664f8958df19f0dd50281babbc24d46"
+    },
+    {
       "path": "source/asr-candidate/control/internal/server/fs_templates/dialplan/default/00_pizza_demo.xml",
       "bytes": 363,
       "sha256": "76642b1853a6bc563e897e2c983fc5a39a9c16c02b8a65c04064b16d0d94fdce"
@@ -15268,14 +15328,14 @@
       "sha256": "ea2083fa86c8c69e38723ae9795f09bf12bd35ed2a843745c5f88cdcc2627c58"
     },
     {
-      "path": "source/asr-candidate/control/internal/server/fs_templates/dialplan/default.xml",
-      "bytes": 34257,
-      "sha256": "e4843db15276d0e8b87d34fde009d7e71664f8958df19f0dd50281babbc24d46"
-    },
-    {
       "path": "source/asr-candidate/control/internal/server/fs_templates/dialplan/features.xml",
       "bytes": 2379,
       "sha256": "5a4a347ded34e6a163de7085030ac2eeadb8910719aaabf1d8841bbc9c8fa9db"
+    },
+    {
+      "path": "source/asr-candidate/control/internal/server/fs_templates/dialplan/public.xml",
+      "bytes": 2582,
+      "sha256": "03e3ea84cec5f361698da4a5b4e377d1799493dae90bbf51e70dedbcdf7ce751"
     },
     {
       "path": "source/asr-candidate/control/internal/server/fs_templates/dialplan/public/00_inbound_did.xml",
@@ -15283,9 +15343,9 @@
       "sha256": "8b5c005c10b220f91c1b7d6a2d0e9fe7bf7f2a9cfe4152b9d4a4ace23b94f42c"
     },
     {
-      "path": "source/asr-candidate/control/internal/server/fs_templates/dialplan/public.xml",
-      "bytes": 2582,
-      "sha256": "03e3ea84cec5f361698da4a5b4e377d1799493dae90bbf51e70dedbcdf7ce751"
+      "path": "source/asr-candidate/control/internal/server/fs_templates/dialplan/skinny-patterns.xml",
+      "bytes": 895,
+      "sha256": "9143c9dcc376d84edad7d7081aece06387e6ef696ea663dc796a26282bc418fd"
     },
     {
       "path": "source/asr-candidate/control/internal/server/fs_templates/dialplan/skinny-patterns/20-Demo.xml",
@@ -15308,9 +15368,9 @@
       "sha256": "b184eb80fbd5541d28e40de954a049b5b88358fdf533e8593eec1474ae73aa06"
     },
     {
-      "path": "source/asr-candidate/control/internal/server/fs_templates/dialplan/skinny-patterns.xml",
-      "bytes": 895,
-      "sha256": "9143c9dcc376d84edad7d7081aece06387e6ef696ea663dc796a26282bc418fd"
+      "path": "source/asr-candidate/control/internal/server/fs_templates/directory/default.xml",
+      "bytes": 2950,
+      "sha256": "c6b45a7ea68841b9c31c0e80ee8b7593c6a57d4a2ca9c8442f877d6fb6842895"
     },
     {
       "path": "source/asr-candidate/control/internal/server/fs_templates/directory/default/1000.xml",
@@ -15431,11 +15491,6 @@
       "path": "source/asr-candidate/control/internal/server/fs_templates/directory/default/skinny-example.xml",
       "bytes": 1102,
       "sha256": "ba7efabb7842f4d8ff5577424561576b8cc2aafecea134d913e74d90ad1c119d"
-    },
-    {
-      "path": "source/asr-candidate/control/internal/server/fs_templates/directory/default.xml",
-      "bytes": 2950,
-      "sha256": "c6b45a7ea68841b9c31c0e80ee8b7593c6a57d4a2ca9c8442f877d6fb6842895"
     },
     {
       "path": "source/asr-candidate/control/internal/server/fs_templates/freeswitch.xml",
@@ -15763,9 +15818,9 @@
       "sha256": "f565792df14be3dd45428187ac8c0c0f6654b7cf98ba27d6f3bdcc18052af3b6"
     },
     {
-      "path": "source/asr-candidate/control/internal/server/fs_templates/sip_profiles/external/example.xml",
-      "bytes": 2200,
-      "sha256": "8e52f5df400258b4744230bc2ad8a782a17c0ea12193cfaa0382a88b1dd80c1d"
+      "path": "source/asr-candidate/control/internal/server/fs_templates/sip_profiles/external-ipv6.xml",
+      "bytes": 5166,
+      "sha256": "929b3acba00ac02d6e532ab767d1c5d969a86bfa3853bf8842d2e2c73ce7bb22"
     },
     {
       "path": "source/asr-candidate/control/internal/server/fs_templates/sip_profiles/external-ipv6/example.xml",
@@ -15773,14 +15828,14 @@
       "sha256": "8e52f5df400258b4744230bc2ad8a782a17c0ea12193cfaa0382a88b1dd80c1d"
     },
     {
-      "path": "source/asr-candidate/control/internal/server/fs_templates/sip_profiles/external-ipv6.xml",
-      "bytes": 5166,
-      "sha256": "929b3acba00ac02d6e532ab767d1c5d969a86bfa3853bf8842d2e2c73ce7bb22"
-    },
-    {
       "path": "source/asr-candidate/control/internal/server/fs_templates/sip_profiles/external.xml",
       "bytes": 5244,
       "sha256": "8b2b6fe8d791e5f2eb4bba0e40906f3c82780a9ac97c3810510e163a1d3ed3ff"
+    },
+    {
+      "path": "source/asr-candidate/control/internal/server/fs_templates/sip_profiles/external/example.xml",
+      "bytes": 2200,
+      "sha256": "8e52f5df400258b4744230bc2ad8a782a17c0ea12193cfaa0382a88b1dd80c1d"
     },
     {
       "path": "source/asr-candidate/control/internal/server/fs_templates/sip_profiles/internal-ipv6.xml",
@@ -19193,11 +19248,6 @@
       "sha256": "9b0233cd63178f7c424a8564e8c4eeec1cdb12dcc9c7f9586ad9fa5bda6ff584"
     },
     {
-      "path": "source/asr-candidate-manifest.json",
-      "bytes": 218189,
-      "sha256": "ac14881f9280a9d59650eadc1f385225576ef7f7420bae317ab248784f8f3302"
-    },
-    {
       "path": "source/asr-vs-main.json",
       "bytes": 12228,
       "sha256": "8a01d29606aa6a2465e14a9fe024c61cf9b64c07816c93ce71673eaf4fadf291"
@@ -19246,6 +19296,11 @@
       "path": "source/historical-test-binding.json",
       "bytes": 262832,
       "sha256": "28f4a652c67526d7274ac5303e33a0ea02d4ec33ec7190530ce126f7987aa97e"
+    },
+    {
+      "path": "source/main-manifest.json",
+      "bytes": 210274,
+      "sha256": "45cb43a9eaa75bc0d8aaefd6c2206b5dce6a4c6d017cc7b42c719a3b641dd5d1"
     },
     {
       "path": "source/main/.gitignore",
@@ -20953,6 +21008,11 @@
       "sha256": "7b6a49d7b559b5483dd00412ef7f367d5b3ceb75bbf04dba0b2e5320c6311fc4"
     },
     {
+      "path": "source/main/control/internal/server/fs_templates/dialplan/default.xml",
+      "bytes": 34257,
+      "sha256": "e4843db15276d0e8b87d34fde009d7e71664f8958df19f0dd50281babbc24d46"
+    },
+    {
       "path": "source/main/control/internal/server/fs_templates/dialplan/default/00_pizza_demo.xml",
       "bytes": 363,
       "sha256": "76642b1853a6bc563e897e2c983fc5a39a9c16c02b8a65c04064b16d0d94fdce"
@@ -20968,14 +21028,14 @@
       "sha256": "ea2083fa86c8c69e38723ae9795f09bf12bd35ed2a843745c5f88cdcc2627c58"
     },
     {
-      "path": "source/main/control/internal/server/fs_templates/dialplan/default.xml",
-      "bytes": 34257,
-      "sha256": "e4843db15276d0e8b87d34fde009d7e71664f8958df19f0dd50281babbc24d46"
-    },
-    {
       "path": "source/main/control/internal/server/fs_templates/dialplan/features.xml",
       "bytes": 2379,
       "sha256": "5a4a347ded34e6a163de7085030ac2eeadb8910719aaabf1d8841bbc9c8fa9db"
+    },
+    {
+      "path": "source/main/control/internal/server/fs_templates/dialplan/public.xml",
+      "bytes": 2582,
+      "sha256": "03e3ea84cec5f361698da4a5b4e377d1799493dae90bbf51e70dedbcdf7ce751"
     },
     {
       "path": "source/main/control/internal/server/fs_templates/dialplan/public/00_inbound_did.xml",
@@ -20983,9 +21043,9 @@
       "sha256": "8b5c005c10b220f91c1b7d6a2d0e9fe7bf7f2a9cfe4152b9d4a4ace23b94f42c"
     },
     {
-      "path": "source/main/control/internal/server/fs_templates/dialplan/public.xml",
-      "bytes": 2582,
-      "sha256": "03e3ea84cec5f361698da4a5b4e377d1799493dae90bbf51e70dedbcdf7ce751"
+      "path": "source/main/control/internal/server/fs_templates/dialplan/skinny-patterns.xml",
+      "bytes": 895,
+      "sha256": "9143c9dcc376d84edad7d7081aece06387e6ef696ea663dc796a26282bc418fd"
     },
     {
       "path": "source/main/control/internal/server/fs_templates/dialplan/skinny-patterns/20-Demo.xml",
@@ -21008,9 +21068,9 @@
       "sha256": "b184eb80fbd5541d28e40de954a049b5b88358fdf533e8593eec1474ae73aa06"
     },
     {
-      "path": "source/main/control/internal/server/fs_templates/dialplan/skinny-patterns.xml",
-      "bytes": 895,
-      "sha256": "9143c9dcc376d84edad7d7081aece06387e6ef696ea663dc796a26282bc418fd"
+      "path": "source/main/control/internal/server/fs_templates/directory/default.xml",
+      "bytes": 2950,
+      "sha256": "c6b45a7ea68841b9c31c0e80ee8b7593c6a57d4a2ca9c8442f877d6fb6842895"
     },
     {
       "path": "source/main/control/internal/server/fs_templates/directory/default/1000.xml",
@@ -21131,11 +21191,6 @@
       "path": "source/main/control/internal/server/fs_templates/directory/default/skinny-example.xml",
       "bytes": 1102,
       "sha256": "ba7efabb7842f4d8ff5577424561576b8cc2aafecea134d913e74d90ad1c119d"
-    },
-    {
-      "path": "source/main/control/internal/server/fs_templates/directory/default.xml",
-      "bytes": 2950,
-      "sha256": "c6b45a7ea68841b9c31c0e80ee8b7593c6a57d4a2ca9c8442f877d6fb6842895"
     },
     {
       "path": "source/main/control/internal/server/fs_templates/freeswitch.xml",
@@ -21463,9 +21518,9 @@
       "sha256": "f565792df14be3dd45428187ac8c0c0f6654b7cf98ba27d6f3bdcc18052af3b6"
     },
     {
-      "path": "source/main/control/internal/server/fs_templates/sip_profiles/external/example.xml",
-      "bytes": 2200,
-      "sha256": "8e52f5df400258b4744230bc2ad8a782a17c0ea12193cfaa0382a88b1dd80c1d"
+      "path": "source/main/control/internal/server/fs_templates/sip_profiles/external-ipv6.xml",
+      "bytes": 5166,
+      "sha256": "929b3acba00ac02d6e532ab767d1c5d969a86bfa3853bf8842d2e2c73ce7bb22"
     },
     {
       "path": "source/main/control/internal/server/fs_templates/sip_profiles/external-ipv6/example.xml",
@@ -21473,14 +21528,14 @@
       "sha256": "8e52f5df400258b4744230bc2ad8a782a17c0ea12193cfaa0382a88b1dd80c1d"
     },
     {
-      "path": "source/main/control/internal/server/fs_templates/sip_profiles/external-ipv6.xml",
-      "bytes": 5166,
-      "sha256": "929b3acba00ac02d6e532ab767d1c5d969a86bfa3853bf8842d2e2c73ce7bb22"
-    },
-    {
       "path": "source/main/control/internal/server/fs_templates/sip_profiles/external.xml",
       "bytes": 5244,
       "sha256": "8b2b6fe8d791e5f2eb4bba0e40906f3c82780a9ac97c3810510e163a1d3ed3ff"
+    },
+    {
+      "path": "source/main/control/internal/server/fs_templates/sip_profiles/external/example.xml",
+      "bytes": 2200,
+      "sha256": "8e52f5df400258b4744230bc2ad8a782a17c0ea12193cfaa0382a88b1dd80c1d"
     },
     {
       "path": "source/main/control/internal/server/fs_templates/sip_profiles/internal-ipv6.xml",
@@ -24878,11 +24933,6 @@
       "sha256": "9b0233cd63178f7c424a8564e8c4eeec1cdb12dcc9c7f9586ad9fa5bda6ff584"
     },
     {
-      "path": "source/main-manifest.json",
-      "bytes": 210274,
-      "sha256": "45cb43a9eaa75bc0d8aaefd6c2206b5dce6a4c6d017cc7b42c719a3b641dd5d1"
-    },
-    {
       "path": "source/packaging-snapshot.json",
       "bytes": 3439,
       "sha256": "829d9d2dab50c53a800796baf4465e62600722dec35621d8685e6a5e60097451"
@@ -24966,16 +25016,6 @@
       "path": "source/patches/benchmark-working/unified.patch",
       "bytes": 39110,
       "sha256": "ac9ac46f980af18f1d7bc69ee63bb250198256f9b5ae255031fddf6df0c3aee0"
-    },
-    {
-      "path": "source-links.json",
-      "bytes": 180,
-      "sha256": "b6643d55792a6bc1bb654777c852251b028bba73db92f8762a387584bfc8b952"
-    },
-    {
-      "path": "source-snapshot.json",
-      "bytes": 21651,
-      "sha256": "e64879d9001fea149f918fab33bf1f67a29b8dc705a928f9865fe82a6734a014"
     },
     {
       "path": "third-party-inventory.json",

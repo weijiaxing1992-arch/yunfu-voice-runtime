@@ -18,6 +18,14 @@ RustSwitch 是面向电话语音智能体的开源实时语音项目，采用 Ru
 
 中文和英文的问题、文档改进与技术讨论均可提交。当前以本仓库 Issues 和 Pull Requests 为公开协作入口，尚未公布独立聊天群、固定会议、响应时限或付费支持方案。
 
+## FreeSWITCH 与 PBX 技术协作
+
+社区关注 SIP 电话系统、PBX / IP PBX 迁移及实时语音智能体接入。选型和术语从[中文 PBX 指南](community/freeswitch-pbx-guide.md)或 [English PBX guide](community/freeswitch-pbx-guide.en.md)开始；现有能力按[模块矩阵](community/pbx-feature-matrix.md)确认，迁移操作按[迁移指南](community/freeswitch-migration.md)准备。
+
+欢迎围绕具体场景贡献资料：SIP Trunk 的注册与续期、ESL 命令和事件顺序、XML Dialplan 条件与动作、DTMF 收号、IVR 超时、RTP 时间戳和编解码、呼叫取消与资源释放。提交会议、队列、录音、转接或 WebRTC 需求时，说明现网模块和必要行为，以便判断实现优先级。
+
+复现和互通报告使用现有 Issue 模板，关联原始对照 ID 与版本。教程中的能力描述须与测试范围一致；场景教程和双语解释应能帮助读者解决问题，避免重复关键词或未经验证的兼容声明。
+
 ## 第一次参与
 
 不需要先理解整个媒体内核。可以选择一个独立、可验证的改进：

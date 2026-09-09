@@ -1316,6 +1316,11 @@
       "text": "资料范围与阅读约定"
     },
     {
+      "id": "freeswitch-pbx-场景专题",
+      "level": 2,
+      "text": "FreeSWITCH / PBX 场景专题"
+    },
+    {
       "id": "candidate",
       "level": 2,
       "text": "candidate"
@@ -1864,6 +1869,11 @@
       "text": "RustSwitch 更新日志"
     },
     {
+      "id": "2026-09-09-freeswitch-pbx-社区资料",
+      "level": 2,
+      "text": "2026-09-09 · FreeSWITCH / PBX 社区资料"
+    },
+    {
       "id": "2026-09-08-项目文档修订",
       "level": 2,
       "text": "2026-09-08 · 项目文档修订"
@@ -1884,6 +1894,11 @@
       "id": "参与入口",
       "level": 2,
       "text": "参与入口"
+    },
+    {
+      "id": "freeswitch-与-pbx-技术协作",
+      "level": 2,
+      "text": "FreeSWITCH 与 PBX 技术协作"
     },
     {
       "id": "第一次参与",
@@ -2012,6 +2027,11 @@
       "text": "按工作场景阅读"
     },
     {
+      "id": "freeswitch-pbx-社区专题",
+      "level": 2,
+      "text": "FreeSWITCH / PBX 社区专题"
+    },
+    {
       "id": "版本与发布基线",
       "level": 2,
       "text": "版本与发布基线"
@@ -2117,6 +2137,16 @@
       "text": "FreeSWITCH 平替 RustSwitch"
     },
     {
+      "id": "freeswitchpbx-与-sip-电话系统",
+      "level": 2,
+      "text": "FreeSWITCH、PBX 与 SIP 电话系统"
+    },
+    {
+      "id": "freeswitch-与-pbx-常见问题",
+      "level": 3,
+      "text": "FreeSWITCH 与 PBX 常见问题"
+    },
+    {
       "id": "项目与版本",
       "level": 2,
       "text": "项目与版本"
@@ -2192,6 +2222,16 @@
       "id": "rustswitch-a-freeswitch-alternative",
       "level": 1,
       "text": "RustSwitch — a FreeSWITCH alternative"
+    },
+    {
+      "id": "freeswitch-pbx-and-sip-telephony",
+      "level": 2,
+      "text": "FreeSWITCH, PBX and SIP telephony"
+    },
+    {
+      "id": "pbx-migration-faq",
+      "level": 3,
+      "text": "PBX migration FAQ"
     },
     {
       "id": "project-and-version-identifiers",
@@ -2447,6 +2487,329 @@
       "id": "rustswitch-社区视觉资源",
       "level": 1,
       "text": "RustSwitch 社区视觉资源"
+    }
+  ],
+  "community/freeswitch-migration.html": [
+    {
+      "id": "freeswitch-迁移到-rustswitch评估互通与灰度指南",
+      "level": 1,
+      "text": "FreeSWITCH 迁移到 RustSwitch：评估、互通与灰度指南"
+    },
+    {
+      "id": "先判断哪些业务适合进入试验",
+      "level": 2,
+      "text": "先判断哪些业务适合进入试验"
+    },
+    {
+      "id": "1-固定环境和证据基线",
+      "level": 2,
+      "text": "1. 固定环境和证据基线"
+    },
+    {
+      "id": "2-盘点实际使用的接口和业务依赖",
+      "level": 2,
+      "text": "2. 盘点实际使用的接口和业务依赖"
+    },
+    {
+      "id": "3-选择一条清晰的接入路径",
+      "level": 2,
+      "text": "3. 选择一条清晰的接入路径"
+    },
+    {
+      "id": "路径-a保留-pbx通过独立-sip-线路评估媒体能力",
+      "level": 3,
+      "text": "路径 A：保留 PBX，通过独立 SIP 线路评估媒体能力"
+    },
+    {
+      "id": "路径-b把一个功能受限的业务流程迁到隔离-rustswitch",
+      "level": 3,
+      "text": "路径 B：把一个功能受限的业务流程迁到隔离 RustSwitch"
+    },
+    {
+      "id": "4-把迁移范围转成可执行验收矩阵",
+      "level": 2,
+      "text": "4. 把迁移范围转成可执行验收矩阵"
+    },
+    {
+      "id": "5-对失败取消和清理建立单独标准",
+      "level": 2,
+      "text": "5. 对失败、取消和清理建立单独标准"
+    },
+    {
+      "id": "6-小范围放量排空与回退",
+      "level": 2,
+      "text": "6. 小范围放量、排空与回退"
+    },
+    {
+      "id": "7-形成可审查的迁移结论",
+      "level": 2,
+      "text": "7. 形成可审查的迁移结论"
+    }
+  ],
+  "community/freeswitch-pbx-guide.en.html": [
+    {
+      "id": "freeswitch-pbx-and-rustswitch-a-practical-guide-to-telephony-and-voice-agents",
+      "level": 1,
+      "text": "FreeSWITCH, PBX and RustSwitch: a practical guide to telephony and Voice Agents"
+    },
+    {
+      "id": "1-start-with-the-telephone-service-you-need",
+      "level": 2,
+      "text": "1. Start with the telephone service you need"
+    },
+    {
+      "id": "2-pbx-media-server-and-sbc-are-different-responsibilities",
+      "level": 2,
+      "text": "2. PBX, media server and SBC are different responsibilities"
+    },
+    {
+      "id": "3-sip-trunks-upstream-registration-and-extension-registration",
+      "level": 2,
+      "text": "3. SIP trunks, upstream registration and extension registration"
+    },
+    {
+      "id": "4-how-ivr-dtmf-esl-and-xml-fit-together",
+      "level": 2,
+      "text": "4. How IVR, DTMF, ESL and XML fit together"
+    },
+    {
+      "id": "ivr-a-prompt-is-only-the-beginning",
+      "level": 3,
+      "text": "IVR: a prompt is only the beginning"
+    },
+    {
+      "id": "dtmf-test-digits-separately-from-speech-audio",
+      "level": 3,
+      "text": "DTMF: test digits separately from speech audio"
+    },
+    {
+      "id": "esl-separate-command-responses-from-events",
+      "level": 3,
+      "text": "ESL: separate command responses from events"
+    },
+    {
+      "id": "xml-editable-configuration-is-not-executable-capability",
+      "level": 3,
+      "text": "XML: editable configuration is not executable capability"
+    },
+    {
+      "id": "5-pbx-feature-map-upstream-functionality-and-this-preview",
+      "level": 2,
+      "text": "5. PBX feature map: upstream functionality and this preview"
+    },
+    {
+      "id": "6-what-voice-agents-add-to-pbx-acceptance",
+      "level": 2,
+      "text": "6. What Voice Agents add to PBX acceptance"
+    },
+    {
+      "id": "7-codecs-and-webrtc-inspect-the-actual-media-path",
+      "level": 2,
+      "text": "7. Codecs and WebRTC: inspect the actual media path"
+    },
+    {
+      "id": "8-a-reproducible-pbx-migration-evaluation",
+      "level": 2,
+      "text": "8. A reproducible PBX migration evaluation"
+    },
+    {
+      "id": "9-frequently-asked-questions",
+      "level": 2,
+      "text": "9. Frequently asked questions"
+    },
+    {
+      "id": "can-rustswitch-replace-a-complete-freeswitch-pbx-now",
+      "level": 3,
+      "text": "Can RustSwitch replace a complete FreeSWITCH PBX now?"
+    },
+    {
+      "id": "registration-succeeds-but-calls-fail-what-should-i-inspect-first",
+      "level": 3,
+      "text": "Registration succeeds, but calls fail. What should I inspect first?"
+    },
+    {
+      "id": "does-ok-http-200-or-uuid_existstrue-prove-the-business-action-completed",
+      "level": 3,
+      "text": "Does `+OK`, HTTP 200 or `uuid_exists=true` prove the business action completed?"
+    },
+    {
+      "id": "how-do-call-queues-differ-from-overload-protection",
+      "level": 3,
+      "text": "How do call queues differ from overload protection?"
+    },
+    {
+      "id": "why-are-voicemail-and-conference-templates-present-if-those-features-are-unfinished",
+      "level": 3,
+      "text": "Why are voicemail and conference templates present if those features are unfinished?"
+    },
+    {
+      "id": "do-pcmrx-interfaces-replace-a-recording-or-asr-product",
+      "level": 3,
+      "text": "Do PCM/RX interfaces replace a recording or ASR product?"
+    },
+    {
+      "id": "what-makes-a-useful-compatibility-contribution",
+      "level": 3,
+      "text": "What makes a useful compatibility contribution?"
+    },
+    {
+      "id": "10-continue-reading",
+      "level": 2,
+      "text": "10. Continue reading"
+    }
+  ],
+  "community/freeswitch-pbx-guide.html": [
+    {
+      "id": "freeswitch-与-pbx-指南电话系统rustswitch-与语音智能体",
+      "level": 1,
+      "text": "FreeSWITCH 与 PBX 指南：电话系统、RustSwitch 与语音智能体"
+    },
+    {
+      "id": "1-先确定需要解决的电话业务",
+      "level": 2,
+      "text": "1. 先确定需要解决的电话业务"
+    },
+    {
+      "id": "2-pbxmedia-server-与-sbc-的职责",
+      "level": 2,
+      "text": "2. PBX、Media Server 与 SBC 的职责"
+    },
+    {
+      "id": "3-sip-trunk线路注册与分机注册",
+      "level": 2,
+      "text": "3. SIP Trunk、线路注册与分机注册"
+    },
+    {
+      "id": "4-ivrdtmfesl-与-xml-如何配合",
+      "level": 2,
+      "text": "4. IVR、DTMF、ESL 与 XML 如何配合"
+    },
+    {
+      "id": "ivr播放提示之后还需要正确处理输入",
+      "level": 3,
+      "text": "IVR：播放提示之后，还需要正确处理输入"
+    },
+    {
+      "id": "dtmf电话按键与语音音频分别核验",
+      "level": 3,
+      "text": "DTMF：电话按键与语音音频分别核验"
+    },
+    {
+      "id": "esl命令回复与异步事件分开处理",
+      "level": 3,
+      "text": "ESL：命令回复与异步事件分开处理"
+    },
+    {
+      "id": "xml文件能编辑不代表应用能执行",
+      "level": 3,
+      "text": "XML：文件能编辑，不代表应用能执行"
+    },
+    {
+      "id": "5-常见-pbx-功能与-rustswitch-的现状映射",
+      "level": 2,
+      "text": "5. 常见 PBX 功能与 RustSwitch 的现状映射"
+    },
+    {
+      "id": "6-从-pbx-到-voice-agent新增了哪些验收要求",
+      "level": 2,
+      "text": "6. 从 PBX 到 Voice Agent，新增了哪些验收要求"
+    },
+    {
+      "id": "7-编解码与-webrtc选型时不要跳过媒体路径",
+      "level": 2,
+      "text": "7. 编解码与 WebRTC：选型时不要跳过媒体路径"
+    },
+    {
+      "id": "8-如何组织一次可复现的-pbx-迁移评估",
+      "level": 2,
+      "text": "8. 如何组织一次可复现的 PBX 迁移评估"
+    },
+    {
+      "id": "9-常见问题",
+      "level": 2,
+      "text": "9. 常见问题"
+    },
+    {
+      "id": "rustswitch-现在可以替换完整-freeswitch-pbx-吗",
+      "level": 3,
+      "text": "RustSwitch 现在可以替换完整 FreeSWITCH PBX 吗？"
+    },
+    {
+      "id": "注册成功但打不通应该先看什么",
+      "level": 3,
+      "text": "“注册成功但打不通”应该先看什么？"
+    },
+    {
+      "id": "okhttp-200-或一次-uuid_exists-为-true能证明业务完成吗",
+      "level": 3,
+      "text": "`+OK`、HTTP 200 或一次 `uuid_exists` 为 true，能证明业务完成吗？"
+    },
+    {
+      "id": "呼叫排队和峰值保护有什么不同",
+      "level": 3,
+      "text": "呼叫排队和峰值保护有什么不同？"
+    },
+    {
+      "id": "xml-模板有会议和语音信箱为什么仍显示未实现",
+      "level": 3,
+      "text": "XML 模板有会议和语音信箱，为什么仍显示未实现？"
+    },
+    {
+      "id": "已有-pcmrx能直接替代录音或-asr-产品吗",
+      "level": 3,
+      "text": "已有 PCM/RX，能直接替代录音或 ASR 产品吗？"
+    },
+    {
+      "id": "如何贡献有价值的兼容信息",
+      "level": 3,
+      "text": "如何贡献有价值的兼容信息？"
+    },
+    {
+      "id": "10-接下来阅读",
+      "level": 2,
+      "text": "10. 接下来阅读"
+    }
+  ],
+  "community/pbx-feature-matrix.html": [
+    {
+      "id": "freeswitch-sip-pbx-功能矩阵rustswitch-的实现与验收边界",
+      "level": 1,
+      "text": "FreeSWITCH / SIP PBX 功能矩阵：RustSwitch 的实现与验收边界"
+    },
+    {
+      "id": "状态阅读方法",
+      "level": 2,
+      "text": "状态阅读方法"
+    },
+    {
+      "id": "sip线路与终端接入0110",
+      "level": 2,
+      "text": "SIP、线路与终端接入（01—10）"
+    },
+    {
+      "id": "esl拨号计划与扩展接口1120",
+      "level": 2,
+      "text": "ESL、拨号计划与扩展接口（11—20）"
+    },
+    {
+      "id": "pbxivr-与呼叫中心业务2132",
+      "level": 2,
+      "text": "PBX、IVR 与呼叫中心业务（21—32）"
+    },
+    {
+      "id": "编解码rtp-与语音智能体3343",
+      "level": 2,
+      "text": "编解码、RTP 与语音智能体（33—43）"
+    },
+    {
+      "id": "运行保护与故障恢复4445",
+      "level": 2,
+      "text": "运行保护与故障恢复（44—45）"
+    },
+    {
+      "id": "如何推进一个缺口",
+      "level": 2,
+      "text": "如何推进一个缺口"
     }
   ],
   "open-source/PUBLICATION.html": [
@@ -6802,6 +7165,16 @@
       "id": "freeswitch-平替-rustswitch",
       "level": 1,
       "text": "FreeSWITCH 平替 RustSwitch"
+    },
+    {
+      "id": "freeswitchpbx-与-sip-电话系统",
+      "level": 2,
+      "text": "FreeSWITCH、PBX 与 SIP 电话系统"
+    },
+    {
+      "id": "freeswitch-与-pbx-常见问题",
+      "level": 3,
+      "text": "FreeSWITCH 与 PBX 常见问题"
     },
     {
       "id": "项目与版本",

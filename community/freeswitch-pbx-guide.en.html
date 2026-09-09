@@ -1,0 +1,265 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>FreeSWITCH, PBX and RustSwitch: a practical guide to telephony and Voice Agents · RustSwitch 项目文档</title><link rel="stylesheet" href="../handbook.css"></head><body><aside><a class="brand" href="../index.html"><span class="brand-icon">R</span><span>RustSwitch<small>项目文档 · 开发预览</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../index.html">项目首页</a><a href="../DOCUMENTATION.html">文档中心</a><a href="freeswitch-pbx-guide.html">FreeSWITCH / PBX</a><a href="../QUICKSTART.html">快速开始</a><a href="../CHANGELOG.html">更新日志</a><a class="" href="../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">RustSwitch 文档 / FreeSWITCH, PBX and RustSwitch: a practical guide to telephony and Voice Agents</div><article class="content"><div class="page-tools"><a href="freeswitch-pbx-guide.en.md" download>Markdown 原稿</a><a href="../reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 10 节</summary><a href="#1-start-with-the-telephone-service-you-need">1. Start with the telephone service you need</a><a href="#2-pbx-media-server-and-sbc-are-different-responsibilities">2. PBX, media server and SBC are different responsibilities</a><a href="#3-sip-trunks-upstream-registration-and-extension-registration">3. SIP trunks, upstream registration and extension registration</a><a href="#4-how-ivr-dtmf-esl-and-xml-fit-together">4. How IVR, DTMF, ESL and XML fit together</a><a href="#5-pbx-feature-map-upstream-functionality-and-this-preview">5. PBX feature map: upstream functionality and this preview</a><a href="#6-what-voice-agents-add-to-pbx-acceptance">6. What Voice Agents add to PBX acceptance</a><a href="#7-codecs-and-webrtc-inspect-the-actual-media-path">7. Codecs and WebRTC: inspect the actual media path</a><a href="#8-a-reproducible-pbx-migration-evaluation">8. A reproducible PBX migration evaluation</a><a href="#9-frequently-asked-questions">9. Frequently asked questions</a><a href="#10-continue-reading">10. Continue reading</a></details><h1 id="freeswitch-pbx-and-rustswitch-a-practical-guide-to-telephony-and-voice-agents">FreeSWITCH, PBX and RustSwitch: a practical guide to telephony and Voice Agents</h1>
+<p><a href="freeswitch-pbx-guide.html">中文</a> · <a href="freeswitch-pbx-guide.en.html">English</a> · <a href="../README_EN.html">Project home</a> · <a href="../DOCUMENTATION.html">Documentation</a></p>
+<p>Updated <strong>2026-09-09</strong>. This guide is for developers, integrators and operators evaluating open-source PBX, IP PBX, SIP platforms and telephone Voice Agents. It explains the vocabulary, configuration boundaries, test questions and actual RustSwitch scope.</p>
+<p>Upstream descriptions link to SignalWire&#39;s official FreeSWITCH documentation. RustSwitch statements refer to main interface baseline <strong>1.13.0</strong>, the <a href="../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">protocol contracts</a> and <a href="../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">remaining-work register</a>. Our compatibility reference remains <strong>FreeSWITCH 1.11.3</strong>; continuously updated upstream documentation is not evidence that this pinned version was executed in a paired test.</p>
+<blockquote>
+<p><strong>RustSwitch is a development-preview FreeSWITCH alternative focused on Voice Agents.</strong> PBX capabilities described here are not automatically implemented in RustSwitch. A complete PBX, full protocol compatibility, real ASR–LLM–TTS integration and complete 5,000/10,000-call acceptance remain unfinished.</p>
+</blockquote>
+<h2 id="1-start-with-the-telephone-service-you-need">1. Start with the telephone service you need</h2>
+<p>A PBX, or Private Branch Exchange, serves an organization&#39;s internal and external telephone communication; an IP PBX uses IP telephony for that work. Evaluation usually includes extensions, routing, permissions, attendants, transfers, messages and operations. FreeSWITCH is a programmable communications switching platform whose default configuration provides a SIP PBX starting point. <a href="https://developer.signalwire.com/freeswitch/foundations/introduction/" target="_blank" rel="noopener noreferrer">Official core concepts</a></p>
+<p>Start with required call flows rather than a protocol count:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Workload</th>
+<th>Define first</th>
+<th>RustSwitch evaluation focus</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Office telephony</td>
+<td>Extension registration, dialing permissions, transfers, voicemail, device management</td>
+<td>Complete extension PBX behavior is unfinished; inspect gaps first</td>
+</tr>
+<tr>
+<td>Customer service / contact center</td>
+<td>Queues, agent state, human handoff, recordings, call records</td>
+<td>Admission throttling does not implement an agent queue</td>
+</tr>
+<tr>
+<td>Automated menus</td>
+<td>Answer, prompts, digits, timeouts, branches, hangup</td>
+<td>Limited local IVR/read/playback can be tested individually</td>
+</tr>
+<tr>
+<td>Telephone Voice Agent</td>
+<td>Continuous receive audio, streaming speech, turn cancellation, model timeouts</td>
+<td>G.711/PCM/RX foundations exist; real model integration is pending</td>
+</tr>
+<tr>
+<td>SIP trunk media service</td>
+<td>Signaling, codecs, source validation, resource budgets</td>
+<td>Begin with a fixed trunk and a defined same-format media path</td>
+</tr>
+</tbody></table></div>
+<p>These are evaluation steps derived from this project&#39;s scope, not a vendor ranking or purchasing recommendation. Keep existing service in place when it supplies a mandatory capability that this preview lacks, and evaluate the candidate path in isolation.</p>
+<h2 id="2-pbx-media-server-and-sbc-are-different-responsibilities">2. PBX, media server and SBC are different responsibilities</h2>
+<p>One product may combine several roles. Acceptance should still observe them separately:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Responsibility to evaluate</th>
+<th>RustSwitch boundary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PBX / IP PBX</td>
+<td>Who may call, where numbers route, how extension features behave</td>
+<td>Selected trunk and application features, not a complete enterprise phone suite</td>
+</tr>
+<tr>
+<td>SIP control plane</td>
+<td>Dialog setup/teardown, authentication, routing, transactions and events</td>
+<td>Restricted SIP and call-state management in Go</td>
+</tr>
+<tr>
+<td>Media server</td>
+<td>Audio transport, playback, digits, transcoding, mixing or recording</td>
+<td>Rust relay, G.711 real-time graph and PCM/RX foundations</td>
+</tr>
+<tr>
+<td><a href="https://signalwire.com/blog/metaswitch-end-of-life" target="_blank" rel="noopener noreferrer">SBC / session border controller</a></td>
+<td>Signaling, media and security policy at network boundaries</td>
+<td>Two-leg bridging, allowlists and rate limits do not establish full SBC capability</td>
+</tr>
+<tr>
+<td>Voice Agent application</td>
+<td>Recognition, business decisions, generated speech and conversation turns</td>
+<td>Real suppliers and complete application orchestration remain to be integrated</td>
+</tr>
+</tbody></table></div>
+<p>FreeSWITCH distinguishes processing media, proxying media through the server and bypassing the server&#39;s media path. Consequently, a connected-call count alone does not establish the amount of audio work performed. <a href="https://developer.signalwire.com/freeswitch/media-and-codecs/handling/" target="_blank" rel="noopener noreferrer">Official media handling</a></p>
+<p>This is a <strong>responsibility sketch</strong>, not an already integrated preview deployment:</p>
+<pre><code class="language-text">Phone / softphone / carrier SIP trunk
+                   |
+       Network and security boundary
+                   |
+      Call routing and state control -- Operations and events
+                   |
+          RTP and audio processing
+                   |
+       ASR -&gt; Business / LLM -&gt; TTS
+</code></pre>
+<p>Actual RustSwitch processes, ports and candidate paths are documented in <a href="../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html">deployment topology</a> and <a href="../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html">software architecture</a>. External AI boxes do not supply a model account, a hosted service or billing integration.</p>
+<h2 id="3-sip-trunks-upstream-registration-and-extension-registration">3. SIP trunks, upstream registration and extension registration</h2>
+<p>A SIP trunk is a logical calling connection to a carrier or another telephone system. FreeSWITCH gateways belong to Sofia profiles and may register upstream or use a peer connection without REGISTER. The carrier&#39;s interconnect contract determines which is required. <a href="https://developer.signalwire.com/freeswitch/users-and-endpoints/gateways/" target="_blank" rel="noopener noreferrer">Official gateways and registration</a></p>
+<p><strong>Registering to an upstream</strong> makes this service a client. <strong>Accepting phone registrations</strong> requires authenticating endpoints, maintaining contact bindings and routing calls to them. FreeSWITCH&#39;s Sofia profiles and user directory participate in those functions. <a href="https://developer.signalwire.com/freeswitch/users-and-endpoints/sip-profiles/" target="_blank" rel="noopener noreferrer">Official SIP profiles</a></p>
+<p>RustSwitch currently has one fixed-upstream REGISTER/Digest client. The network destination comes from <code>sip.upstream</code>; this is neither full multi-gateway management nor a registrar for softphones. Restart requirements, URI restrictions and private credential-file rules are documented in the <a href="../reference/docs/api/trunk-registration.html">RustSwitch registration contract</a>.</p>
+<p>For a real trunk, capture at least these questions:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Test question</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Registration and call authentication</td>
+<td>Does INVITE require a separate challenge even after REGISTER succeeds?</td>
+</tr>
+<tr>
+<td>Identity and routing</td>
+<td>Are the authentication user, address of record, caller ID and destination format independently correct?</td>
+</tr>
+<tr>
+<td>Reachability</td>
+<td>Can the peer reach Contact, advertised signaling and advertised media addresses?</td>
+</tr>
+<tr>
+<td>Refresh and failure</td>
+<td>Do expiration, rejected credentials, transport loss and timeouts recover without unbounded retries?</td>
+</tr>
+<tr>
+<td>Direction</td>
+<td>Have inbound and outbound calls both been tested through actual endpoints?</td>
+</tr>
+<tr>
+<td>Teardown</td>
+<td>Do CANCEL, BYE, missing ACK and transport failure release the correct resources?</td>
+</tr>
+</tbody></table></div>
+<p>Successful registration establishes a registration result. It does not by itself prove destination routing, caller-ID permission, bidirectional speech or sustained availability.</p>
+<h2 id="4-how-ivr-dtmf-esl-and-xml-fit-together">4. How IVR, DTMF, ESL and XML fit together</h2>
+<h3 id="ivr-a-prompt-is-only-the-beginning">IVR: a prompt is only the beginning</h3>
+<p>Interactive Voice Response connects prompts, caller input and branch actions. FreeSWITCH provides XML menus invoked through the <code>ivr</code> application, including menus, submenus and actions. <a href="https://developer.signalwire.com/freeswitch/applications/ivr-menus/" target="_blank" rel="noopener noreferrer">Official IVR menus</a></p>
+<p>RustSwitch has limited local playback, <code>read</code> digit collection and selected basic applications. Test initial and inter-digit timeouts, terminators, repeated input, prompt interruption, playback failure, hangup cancellation and result variables. Successful <code>read</code> does not establish a complete menu-tree implementation. <a href="../reference/docs/api/ivr-reference.html">RustSwitch IVR contract</a></p>
+<h3 id="dtmf-test-digits-separately-from-speech-audio">DTMF: test digits separately from speech audio</h3>
+<p>Common digit paths are RTP <code>telephone-event</code>, SIP INFO and audible in-band tones. FreeSWITCH retains the <code>rfc2833</code> configuration name; its glossary identifies RFC 4733 as the successor. RTP telephone events are distinct from detecting tones inside speech audio. <a href="https://developer.signalwire.com/freeswitch/reference/glossary/" target="_blank" rel="noopener noreferrer">Official glossary</a></p>
+<p>RustSwitch implements contract-limited RTP event receive/local send and explicitly enabled INFO digit collection. That does not provide in-band detection or all INFO formats. Locally submitted DTMF packets do not prove that the remote IVR accepted a digit. <a href="../reference/docs/api/dtmf-send-reference.html">DTMF sending contract</a></p>
+<h3 id="esl-separate-command-responses-from-events">ESL: separate command responses from events</h3>
+<p>FreeSWITCH&#39;s <code>mod_event_socket</code> exposes control and events over TCP. In inbound mode an external process connects to FreeSWITCH; in outbound mode FreeSWITCH connects to an external process for a call. <a href="https://developer.signalwire.com/freeswitch/integration/event-socket/" target="_blank" rel="noopener noreferrer">Official Event Socket</a></p>
+<p>RustSwitch has an explicitly enabled inbound ESL subset. Clients must handle authentication, byte lengths, fragmented/combined frames and events interleaved with responses. <code>+OK</code> confirms the documented acceptance stage; playback or digit completion still needs correlated events, result fields and real media observations. <a href="../reference/docs/api/esl-reference.html">RustSwitch ESL contract</a></p>
+<h3 id="xml-editable-configuration-is-not-executable-capability">XML: editable configuration is not executable capability</h3>
+<p>The FreeSWITCH XML dialplan organizes routing and applications with contexts, extensions, conditions and actions. Variable handling and evaluation order are part of its behavior. <a href="https://developer.signalwire.com/freeswitch/dialplan/xml/" target="_blank" rel="noopener noreferrer">Official XML dialplan</a></p>
+<p>RustSwitch&#39;s configuration workspace, XML export and startup-frozen runtime dialplan subset are separate capabilities. Exporting conference or voicemail configuration does not run the corresponding module. <a href="../reference/docs/api/dialplan-reference.html">RustSwitch dialplan contract</a></p>
+<h2 id="5-pbx-feature-map-upstream-functionality-and-this-preview">5. PBX feature map: upstream functionality and this preview</h2>
+<p>The table places official upstream entry points beside RustSwitch&#39;s actual boundary. It is a reading index, not an interoperability certificate. Current details come from the <a href="../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html">capability status</a> and <a href="../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">work register</a>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>PBX feature</th>
+<th>Official FreeSWITCH entry point</th>
+<th>RustSwitch scope / gap</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Extensions and user directory</td>
+<td><a href="https://developer.signalwire.com/freeswitch/foundations/introduction/" target="_blank" rel="noopener noreferrer">Configuration relationships</a></td>
+<td>Limited exact-number local answering; full endpoint registration, directory and tenancy are unfinished</td>
+</tr>
+<tr>
+<td>Trunks, gateways and registration</td>
+<td><a href="https://developer.signalwire.com/freeswitch/users-and-endpoints/gateways/" target="_blank" rel="noopener noreferrer">Sofia gateways</a></td>
+<td>One fixed-upstream client; multiple trunks and complete gateway behavior are unfinished</td>
+</tr>
+<tr>
+<td>IVR, prompts and digits</td>
+<td><a href="https://developer.signalwire.com/freeswitch/applications/ivr-menus/" target="_blank" rel="noopener noreferrer">IVR menus</a></td>
+<td>Limited local implementation; full menus, scripts and parameters need further work</td>
+</tr>
+<tr>
+<td>Blind and attended transfers</td>
+<td><a href="https://developer.signalwire.com/freeswitch/dialplan/dptools/" target="_blank" rel="noopener noreferrer"><code>transfer</code> / <code>att_xfer</code></a></td>
+<td>Bridging or <code>park</code> does not establish complete transfer behavior; REFER remains a gap</td>
+</tr>
+<tr>
+<td>Call recording</td>
+<td><a href="https://developer.signalwire.com/freeswitch/media-and-codecs/audio-files/" target="_blank" rel="noopener noreferrer"><code>record_session</code> / <code>uuid_record</code></a></td>
+<td>Receive-audio access is not a recording product; complete recording and dual-track storage remain open</td>
+</tr>
+<tr>
+<td>Conferencing and mixing</td>
+<td><a href="https://developer.signalwire.com/freeswitch/applications/conferencing/" target="_blank" rel="noopener noreferrer"><code>mod_conference</code></a></td>
+<td>Complete conferencing is unfinished; two-leg bridging is not multiparty mixing</td>
+</tr>
+<tr>
+<td>Queues, agents and ACD</td>
+<td><a href="https://developer.signalwire.com/freeswitch/applications/call-queues/" target="_blank" rel="noopener noreferrer"><code>mod_fifo</code> / <code>mod_callcenter</code></a></td>
+<td>Full queues, agent assignment and agent-state management are unfinished</td>
+</tr>
+<tr>
+<td>Voicemail</td>
+<td><a href="https://developer.signalwire.com/freeswitch/applications/voicemail/" target="_blank" rel="noopener noreferrer"><code>mod_voicemail</code></a></td>
+<td>Complete message deposit, retrieval and management are unfinished</td>
+</tr>
+<tr>
+<td>External events and control</td>
+<td><a href="https://developer.signalwire.com/freeswitch/integration/event-socket/" target="_blank" rel="noopener noreferrer"><code>mod_event_socket</code></a></td>
+<td>Limited inbound commands/events; outbound ESL and complete event semantics are unfinished</td>
+</tr>
+<tr>
+<td>Call detail records</td>
+<td><a href="https://developer.signalwire.com/freeswitch/module-reference/event-handlers/" target="_blank" rel="noopener noreferrer">Event, CDR and logging modules</a></td>
+<td>Local event logs do not implement complete billing records, reconciliation or upstream CDR modules</td>
+</tr>
+<tr>
+<td>Browser calling</td>
+<td><a href="https://developer.signalwire.com/freeswitch/users-and-endpoints/webrtc-sip/" target="_blank" rel="noopener noreferrer">SIP over WSS</a></td>
+<td>The admin console is not a WebRTC phone; WS/WSS, ICE and DTLS-SRTP remain open</td>
+</tr>
+</tbody></table></div>
+<p>Conferences, queues and voicemail each own additional state and resources. In particular, FreeSWITCH&#39;s queue/agent/tier callcenter model cannot be replaced by a limit on calls being established. <a href="https://developer.signalwire.com/freeswitch/applications/call-queues/" target="_blank" rel="noopener noreferrer">Official queue model</a></p>
+<h2 id="6-what-voice-agents-add-to-pbx-acceptance">6. What Voice Agents add to PBX acceptance</h2>
+<p>A PBX call flow is a starting point. Voice Agents also connect media to asynchronous external services. The following are this project&#39;s integration test recommendations:</p>
+<ul>
+<li><strong>Continuous input:</strong> track audio origin, session/generation and sample rate; missing or expired frames must not masquerade as real user silence.</li>
+<li><strong>Streaming output:</strong> late TTS, excessive queueing or cancelled turns must not inject old speech into a later turn.</li>
+<li><strong>Interruption:</strong> distinguish business cancellation, queued-data cancellation, media stop and remaining buffers.</li>
+<li><strong>Model failure:</strong> ASR/TTS timeouts, disconnected suppliers and slow consumers need explicit cleanup or a defined degraded outcome.</li>
+<li><strong>Human handoff:</strong> test the actual connection/transfer path and its fallback; a diagram does not implement a contact center.</li>
+<li><strong>Evidence:</strong> correlate audio, text, application events and channel identity, while sanitizing public reports.</li>
+</ul>
+<p>The main project provides G.711, PCM downlink and receive-audio foundations. ASR1 is a separately published candidate not merged into the main project, and its mock validates protocol behavior. Real recognition, TTS, LLM, automatic VAD interruption and full application acceptance remain open. <a href="../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">Audio and candidate contracts</a></p>
+<h2 id="7-codecs-and-webrtc-inspect-the-actual-media-path">7. Codecs and WebRTC: inspect the actual media path</h2>
+<p>G.711 PCMA/PCMU, G.722, Opus or G.729 appearing in SDP or an administration page may indicate parsing, negotiation, relay or real codec execution. State which level a deployment needs instead of asking only whether a codec name is supported.</p>
+<p>RustSwitch&#39;s current real-time graph is based on G.711. Optional G.722/Opus libraries and offline checks do not mean those codecs are wired into every real-time path. G.729 and G.726 relay should be evaluated against their payload contracts, not described as complete live transcoding. <a href="../reference/docs/api/audio-reference.html">RustSwitch audio capabilities</a></p>
+<p>FreeSWITCH browser calling includes SIP over WS/WSS and Verto signaling paths; browser media also needs ICE and DTLS-SRTP. A SIP TCP/TLS listener or a web button does not supply that browser protocol stack. <a href="https://developer.signalwire.com/freeswitch/users-and-endpoints/webrtc-sip/" target="_blank" rel="noopener noreferrer">Official WebRTC over SIP</a></p>
+<p>RustSwitch&#39;s administration “small phone” test is currently an isolated SIP/media simulation. Browser microphone access, mobile networks and NAT traversal require separate protocol and security acceptance; simulation results do not establish them.</p>
+<h2 id="8-a-reproducible-pbx-migration-evaluation">8. A reproducible PBX migration evaluation</h2>
+<ol>
+<li><strong>Pin versions:</strong> record FreeSWITCH source/configuration, RustSwitch commit/variant, toolchains and binary hashes.</li>
+<li><strong>List business flows:</strong> separate registration, inbound/outbound calls, IVR, transfer, recording and event consumption.</li>
+<li><strong>Map dependencies:</strong> identify actual commands, variables, modules, events and media formats; compare them with the backlog.</li>
+<li><strong>Start with one call:</strong> retain both sides&#39; SIP/SDP, events, bidirectional audio and final resource state.</li>
+<li><strong>Add failures:</strong> rejected authentication, CANCEL/answer races, missing ACK, failed playback, timeouts and worker restart.</li>
+<li><strong>Then test capacity:</strong> hold codecs, packetization, CPS, duration, recording/AI features and hardware conditions constant.</li>
+<li><strong>Publish a scoped result:</strong> describe passed scenarios, differences, unrun cases and rollback needs without inventing an overall percentage.</li>
+</ol>
+<p>The <a href="../backlog/FreeSWITCH-%E5%85%A8%E9%83%A8%E9%80%90%E9%A1%B9%E7%8A%B6%E6%80%81.csv">3,999 original comparison records</a> mix declarations, configuration and acceptance definitions; they are not 3,999 independently implemented PBX features. Historical green results do not certify today&#39;s source, and failed gates or capacity runs must remain visible. <a href="../DOCUMENTATION.html">Evidence rules</a></p>
+<p>Load reports should separate call attempts, observed established-call peak, offered media, valid received media, errors/loss, tail latency and resources remaining after teardown. RustSwitch tooling is also constrained by isolated ports and generator capacity. Incomplete results cannot pass acceptance. <a href="../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html">Operations and load testing</a></p>
+<h2 id="9-frequently-asked-questions">9. Frequently asked questions</h2>
+<h3 id="can-rustswitch-replace-a-complete-freeswitch-pbx-now">Can RustSwitch replace a complete FreeSWITCH PBX now?</h3>
+<p>No such conclusion is supported. Limited trunk, media, IVR and ESL/XML paths exist, while full extensions, transfers, conferencing, queues, voicemail and other modules remain open. Test the deployment&#39;s actual requirements rather than replacing every existing feature at once.</p>
+<h3 id="registration-succeeds-but-calls-fail-what-should-i-inspect-first">Registration succeeds, but calls fail. What should I inspect first?</h3>
+<p>Separate registration state, arriving INVITE, routing/authentication, SDP addressing/codecs, actual ACK and bidirectional RTP. Preserve a correlated transaction or channel identity for each step. Registration state alone cannot locate an audio failure.</p>
+<h3 id="does-ok-http-200-or-uuid_existstrue-prove-the-business-action-completed">Does <code>+OK</code>, HTTP 200 or <code>uuid_exists=true</code> prove the business action completed?</h3>
+<p>No. Distinguish command acceptance, application completion, actual media processing, peer receipt and the business outcome. A complete call also requires hangup and cleanup. See <a href="../reference/docs/api/esl-reference.html">ESL</a> and <a href="../reference/docs/api/event-lifecycle-reference.html">event lifecycle</a>.</p>
+<h3 id="how-do-call-queues-differ-from-overload-protection">How do call queues differ from overload protection?</h3>
+<p>Queues hold callers for agents and assign them according to business rules. Admission protection controls new calls to reduce overload. RustSwitch&#39;s guard does not implement a complete ACD/agent queue or promise eventual connection through unlimited buffering.</p>
+<h3 id="why-are-voicemail-and-conference-templates-present-if-those-features-are-unfinished">Why are voicemail and conference templates present if those features are unfinished?</h3>
+<p>Templates support editing/export. Runtime loading, application behavior, state, events, media and persistence are different implementation layers. Exporting upstream XML does not provide a FreeSWITCH module host.</p>
+<h3 id="do-pcmrx-interfaces-replace-a-recording-or-asr-product">Do PCM/RX interfaces replace a recording or ASR product?</h3>
+<p>No. They are integration foundations. Storage/indexing, real recognition, failure recovery, access control and lifecycle acceptance still need implementation. The ASR mock does not recognize actual speech.</p>
+<h3 id="what-makes-a-useful-compatibility-contribution">What makes a useful compatibility contribution?</h3>
+<p>Submit an <a href="https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues/new?template=compatibility_report.yml" target="_blank" rel="noopener noreferrer">interoperability report</a> with pinned versions, the exact module/command, a minimal scenario, both results and sanitized evidence. Read <a href="../COMMUNITY.html">COMMUNITY</a> and <a href="../CONTRIBUTING.html">CONTRIBUTING</a> for the workflow.</p>
+<h2 id="10-continue-reading">10. Continue reading</h2>
+<ul>
+<li>Assess the deployment: <a href="pbx-feature-matrix.html">45-domain PBX feature matrix</a>, <a href="freeswitch-migration.html">FreeSWITCH migration and rollback guide</a> (Chinese).</li>
+<li>Install and experiment: <a href="../QUICKSTART.html">Quick start</a>, <a href="../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html">user guide</a>.</li>
+<li>Develop and integrate: <a href="../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html">HTTP API</a>, <a href="../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">protocols and SDKs</a>, <a href="../source/README.md">source navigation</a>.</li>
+<li>Evaluate migration: <a href="../source/main/docs/freeswitch-compatibility/README.md">pinned comparison standard</a>, <a href="../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html">current status</a>, <a href="../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">remaining work</a>.</li>
+<li>Redistribute safely: <a href="../LICENSE_SCOPE.html">license scope</a>, <a href="../THIRD_PARTY_NOTICES.html">third-party notices</a>, <a href="../SECURITY.html">security policy</a>.</li>
+</ul>
+<p>This guide is an original RustSwitch community synthesis and set of integration recommendations. Official sources describe upstream capabilities; references to FreeSWITCH do not imply certification, endorsement or official distribution status. Availability of an upstream module still depends on the selected version&#39;s build, loading and configuration.</p>
+</article><div class="foot">RustSwitch · 阅读手册 · 主接口基线 1.13.0 · 候选与历史证据按各自范围适用。</div></main></body></html>

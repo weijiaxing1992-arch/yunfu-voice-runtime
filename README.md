@@ -2,7 +2,7 @@
 
 # FreeSWITCH 平替 RustSwitch
 
-**面向语音智能体的开源实时语音内核**
+**面向语音智能体的开源实时语音内核 · FreeSWITCH / PBX 迁移研究**
 
 Rust 媒体 · Go 控制 · C/C++ 编解码生态
 
@@ -12,7 +12,7 @@ Rust 媒体 · Go 控制 · C/C++ 编解码生态
 [![Original code Apache-2.0](https://img.shields.io/badge/original_code-Apache--2.0-087f79?style=flat-square)](LICENSE_SCOPE.md)
 [![GitHub stars](https://img.shields.io/github/stars/weijiaxing1992-arch/yunfu-voice-runtime?style=flat-square)](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/stargazers)
 
-[**快速开始**](QUICKSTART.md) · [**下载预览版**](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908) · [**文档中心**](DOCUMENTATION.md) · [**接口文档**](04-HTTP接口文档.md) · [**参与贡献**](CONTRIBUTING.md)
+[**快速开始**](QUICKSTART.md) · [**下载预览版**](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908) · [**文档中心**](DOCUMENTATION.md) · [**接口文档**](04-HTTP接口文档.md) · [**FreeSWITCH / PBX 专题**](community/freeswitch-pbx-guide.md) · [**参与贡献**](CONTRIBUTING.md)
 
 ![RustSwitch：面向语音智能体的 FreeSWITCH 替代项目，开发预览](community/assets/hero.svg)
 
@@ -23,6 +23,36 @@ RustSwitch 是面向电话语音智能体的实时语音基础设施项目，工
 项目希望成为 **FreeSWITCH 在语音智能体场景下的替代选择**，优先兼容实际迁移所需的接口与协议行为。仓库公开主工程、独立 ASR 候选、测试工具、固定依赖、完整项目资料和未完成清单；源码可以直接查看，编译程序与资源包通过 GitHub Releases 分发。
 
 > **当前为开发预览。**“平替”是产品方向，当前并非可直接替换所有 FreeSWITCH 部署的完整实现。项目尚未完成 5000/10000 路完整容量验收，也未完成真实 ASR–LLM–TTS 业务闭环。已有实现、限定验证和研发目标分别列示，详见[能力与验证状态](08-当前能力与验证状态.md)。
+
+## FreeSWITCH、PBX 与 SIP 电话系统
+
+如果你正在寻找 **FreeSWITCH 替代方案、开源 PBX、IP PBX、SIP 媒体服务器或 AI 电话接入内核**，可以从这里了解 RustSwitch 的适用范围。PBX（Private Branch Exchange，专用交换系统）常涉及分机、线路、拨号计划、自动总机、队列、录音和转接；本项目优先建设其中服务语音智能体的电话与媒体路径，完整 PBX 能力仍按[功能矩阵](community/pbx-feature-matrix.md)追踪。
+
+| 你正在评估的场景 | RustSwitch 当前可评估内容 | 深入阅读 |
+| --- | --- | --- |
+| FreeSWITCH alternative / migration | 固定版本下的接口差异与迁移验收；部分入口实现 | [FreeSWITCH 迁移指南](community/freeswitch-migration.md) |
+| 开源 PBX / IP PBX / 软交换 | 呼叫控制与媒体基础；分机注册服务、会议、队列、语音信箱等仍有缺口 | [PBX 功能与模块矩阵](community/pbx-feature-matrix.md) |
+| SIP Trunk / 线路注册 | 单固定上游 REGISTER / Digest 客户端；受限 SIP UDP/TCP/TLS | [线路注册合同](reference/docs/api/trunk-registration.md) |
+| 呼入 / 呼出 / Call control | 双呼叫腿桥接、有限本地接听与释放；通用 `originate` 待实现 | [AI 呼叫接入](reference/docs/api/ai-calling-reference.md) |
+| IVR / 自动总机 / DTMF | 本地 A 腿播放、收号、telephone-event 与有限 IVR | [IVR 接口](reference/docs/api/ivr-reference.md) |
+| ESL / Event Socket / fs_cli | 入站命令与事件子集；需逐条核对返回、顺序及应用完成语义 | [ESL 参考](reference/docs/api/esl-reference.md) |
+| XML Dialplan / 拨号计划 | 配置编辑导出与有限运行拨号计划分别提供 | [拨号计划合同](reference/docs/api/dialplan-reference.md) |
+| RTP / RTCP / G.711 / PCM | 媒体转发、G.711 实时图、PCM 下行与 RX 收音 | [协议与音频 SDK](05-协议与SDK文档.md) |
+| G.722 / Opus / 音频转码 | 可选离线后端与部分协商转发；完整实时编解码路径待验收 | [编码与音频范围](community/pbx-feature-matrix.md) |
+| Voice Agent / 语音机器人 | 音频轮次、播放中断、收音与独立 ASR 候选；真实模型闭环待接入 | [AI 媒体架构](03-软件架构图.md) |
+| 呼叫中心 / Contact center | 可研究电话媒体组件；ACD 排队、坐席分配、录音等业务须分别建设 | [PBX 选型与常见问题](community/freeswitch-pbx-guide.md) |
+| 并发呼叫 / CPS / 压力测试 | 峰值保护、单路小电话、隔离负载与失败报告；容量按实际结果验证 | [运维与压测](07-运维与压测说明.md) |
+
+**English:** RustSwitch is an open-source Rust/Go voice runtime pursuing a FreeSWITCH alternative for SIP telephony and Voice Agents. Explore PBX / IP PBX migration, SIP trunks, ESL event socket, XML dialplan, IVR, DTMF, RTP/RTCP and real-time PCM in the [English PBX guide](community/freeswitch-pbx-guide.en.md). This development preview offers subsets and integration foundations; full PBX replacement and production-scale capacity remain unverified.
+
+### FreeSWITCH 与 PBX 常见问题
+
+- **能直接替换现有 FreeSWITCH 吗？** 先盘点实际使用的线路、命令、事件、XML、模块和媒体能力，再完成逐项验收。当前不能承诺任意部署无感替换，步骤见[迁移指南](community/freeswitch-migration.md)。
+- **分机可以向 RustSwitch 注册吗？** 已有能力是向固定上游注册的客户端；完整终端注册服务器及多网关仍待实现，不能将这两类注册混用。
+- **可以沿用 ESL、fs_cli 和 XML 吗？** 入站 ESL 和运行 XML 拨号计划仅支持明确列出的子集；编辑或导出 XML 不代表相关模块已经执行。
+- **是否包含会议、呼叫队列、语音信箱、传真和 WebRTC？** 这些是迁移评估的重要依赖，当前均不能按完整已交付模块使用，详见[模块矩阵](community/pbx-feature-matrix.md)。
+- **能否承载 ASR、TTS 和实时对话？** 主工程提供媒体接口基础，ASR1 候选用于流协议和生命周期验证；真实识别、合成、VAD 与 Agent 编排仍需接入和验收。
+- **支持多少并发呼叫？** 5,000 / 10,000 路是阶段验收目标。转发、实际编解码和完整 Agent 负载分别测试，不能用配置上限代替实测容量。
 
 ## 项目与版本
 

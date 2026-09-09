@@ -1,0 +1,265 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>FreeSWITCH 与 PBX 指南：电话系统、RustSwitch 与语音智能体 · RustSwitch 项目文档</title><link rel="stylesheet" href="../handbook.css"></head><body><aside><a class="brand" href="../index.html"><span class="brand-icon">R</span><span>RustSwitch<small>项目文档 · 开发预览</small></span></a><div class="nav-label">阅读目录</div><nav><a href="../index.html">项目首页</a><a href="../DOCUMENTATION.html">文档中心</a><a href="freeswitch-pbx-guide.html">FreeSWITCH / PBX</a><a href="../QUICKSTART.html">快速开始</a><a href="../CHANGELOG.html">更新日志</a><a class="" href="../01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="../09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="../11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="../12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">RustSwitch 文档 / FreeSWITCH 与 PBX 指南：电话系统、RustSwitch 与语音智能体</div><article class="content"><div class="page-tools"><a href="freeswitch-pbx-guide.md" download>Markdown 原稿</a><a href="../reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="../10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 10 节</summary><a href="#1-先确定需要解决的电话业务">1. 先确定需要解决的电话业务</a><a href="#2-pbxmedia-server-与-sbc-的职责">2. PBX、Media Server 与 SBC 的职责</a><a href="#3-sip-trunk线路注册与分机注册">3. SIP Trunk、线路注册与分机注册</a><a href="#4-ivrdtmfesl-与-xml-如何配合">4. IVR、DTMF、ESL 与 XML 如何配合</a><a href="#5-常见-pbx-功能与-rustswitch-的现状映射">5. 常见 PBX 功能与 RustSwitch 的现状映射</a><a href="#6-从-pbx-到-voice-agent新增了哪些验收要求">6. 从 PBX 到 Voice Agent，新增了哪些验收要求</a><a href="#7-编解码与-webrtc选型时不要跳过媒体路径">7. 编解码与 WebRTC：选型时不要跳过媒体路径</a><a href="#8-如何组织一次可复现的-pbx-迁移评估">8. 如何组织一次可复现的 PBX 迁移评估</a><a href="#9-常见问题">9. 常见问题</a><a href="#10-接下来阅读">10. 接下来阅读</a></details><h1 id="freeswitch-与-pbx-指南电话系统rustswitch-与语音智能体">FreeSWITCH 与 PBX 指南：电话系统、RustSwitch 与语音智能体</h1>
+<p><a href="freeswitch-pbx-guide.html">中文</a> · <a href="freeswitch-pbx-guide.en.html">English</a> · <a href="../README.html">项目首页</a> · <a href="../DOCUMENTATION.html">文档中心</a></p>
+<p>更新日期：<strong>2026-09-09</strong>。本文面向评估开源 PBX、IP PBX、SIP 电话平台和 Voice Agent 的开发、集成与运维人员，解释常见概念、配置关系、测试方法，以及它们在 RustSwitch 中的实际范围。</p>
+<p>FreeSWITCH 外部事实参考 SignalWire 官方文档，链接随相关内容列出；本项目状态以主接口 <strong>1.13.0</strong>、<a href="../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">协议合同</a>和<a href="../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">未完成清单</a>为准。兼容参考仍固定为 <strong>FreeSWITCH 1.11.3</strong>，并非把持续更新的官方文档当作该固定版本已运行验证的证据。</p>
+<blockquote>
+<p><strong>RustSwitch 是面向语音智能体的 FreeSWITCH 替代方向，当前为开发预览。</strong> 本文介绍的 PBX 功能不自动成为本项目已实现功能；完整 PBX、全协议兼容、真实 ASR–LLM–TTS 闭环及 5000/10000 路完整验收尚未完成。</p>
+</blockquote>
+<h2 id="1-先确定需要解决的电话业务">1. 先确定需要解决的电话业务</h2>
+<p>PBX（Private Branch Exchange，专用交换系统）服务于组织内部及对外电话；IP PBX 使用 IP 电话技术承担这些业务。实际选型通常涉及分机、号码路由、权限、总机、转接、留言和运维。FreeSWITCH 本身是可编程通信交换平台，其默认配置提供 SIP PBX 起点，而不是只提供一个通话转发进程。<a href="https://developer.signalwire.com/freeswitch/foundations/introduction/" target="_blank" rel="noopener noreferrer">官方核心概念</a></p>
+<p>不要从“支持多少协议”开始，先列出业务不可缺少的通话流程：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>业务</th>
+<th>首先明确</th>
+<th>RustSwitch 当前评估重点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>企业办公电话</td>
+<td>分机注册、内外线权限、转接、留言、终端管理</td>
+<td>完整分机 PBX 尚未实现，应先核对缺口</td>
+</tr>
+<tr>
+<td>客服与呼叫中心</td>
+<td>排队、坐席状态、转人工、录音、话单</td>
+<td>不把准入限流等同于坐席排队系统</td>
+</tr>
+<tr>
+<td>自动语音菜单</td>
+<td>接听、提示音、按键、超时、分支、挂机</td>
+<td>已有受限本地 IVR/read/playback，可逐项测试</td>
+</tr>
+<tr>
+<td>电话语音智能体</td>
+<td>持续收音、边听边说、轮次取消、模型超时</td>
+<td>G.711/PCM/RX 基础已有，真实模型链路待集成</td>
+</tr>
+<tr>
+<td>SIP 中继媒体服务</td>
+<td>信令互通、音频格式、来源校验、资源预算</td>
+<td>从固定线路与同格式媒体路径开始</td>
+</tr>
+</tbody></table></div>
+<p>这些是按本项目现状给出的评估步骤，不是其他产品的排名或采购结论。若现网必须依赖尚未实现的能力，应保留现有服务，先隔离验证候选路径。</p>
+<h2 id="2-pbxmedia-server-与-sbc-的职责">2. PBX、Media Server 与 SBC 的职责</h2>
+<p>一个系统可以组合多个角色，但验收时应分别观察它们：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>需要解决的问题</th>
+<th>本项目边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PBX / IP PBX</td>
+<td>谁能打电话、号码去向、分机业务如何执行</td>
+<td>仅有部分线路与应用能力，不是完整企业电话套件</td>
+</tr>
+<tr>
+<td>SIP 控制面</td>
+<td>建立/结束对话、认证、路由、事务与事件</td>
+<td>Go 提供受限 SIP 与呼叫状态管理</td>
+</tr>
+<tr>
+<td>Media Server（媒体服务器）</td>
+<td>收发音频、播放、收号、转码、混音或录音</td>
+<td>Rust 主线以转发、G.711 实时图和 PCM/RX 为基础</td>
+</tr>
+<tr>
+<td><a href="https://signalwire.com/blog/metaswitch-end-of-life" target="_blank" rel="noopener noreferrer">SBC（会话边界控制器）</a></td>
+<td>在网络边界组织信令、媒体和安全策略</td>
+<td>双腿桥接、白名单、限流不足以证明完整 SBC 能力</td>
+</tr>
+<tr>
+<td>Voice Agent 应用</td>
+<td>识别、业务决策、生成语音、管理对话轮次</td>
+<td>真实供应商和完整业务编排仍待接入</td>
+</tr>
+</tbody></table></div>
+<p>FreeSWITCH 区分让媒体经过处理、在服务端代理转发以及让端点直接交换媒体的模式；因此仅统计“呼叫连接数”不能说明服务器实际处理了多少音频。<a href="https://developer.signalwire.com/freeswitch/media-and-codecs/handling/" target="_blank" rel="noopener noreferrer">官方媒体处理</a></p>
+<p>可把以下链路作为<strong>职责示意</strong>，不是本预览已集成拓扑：</p>
+<pre><code class="language-text">电话 / 软电话 / 运营商 SIP Trunk
+                    │
+          网络接入与安全边界
+                    │
+     呼叫路由与状态控制 ── 管理、指标、业务事件
+                    │
+       RTP 音频与实时处理
+                    │
+      ASR → 业务 / LLM → TTS
+</code></pre>
+<p>RustSwitch 的真实进程、端口和候选连接见<a href="../02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html">部署拓扑</a>与<a href="../03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html">软件架构</a>。图中的外部 AI 不提供现成账号、模型或计费服务。</p>
+<h2 id="3-sip-trunk线路注册与分机注册">3. SIP Trunk、线路注册与分机注册</h2>
+<p>SIP Trunk 是与运营商或其他电话系统交换呼叫的逻辑线路。在 FreeSWITCH 中，gateway 配置归属于 Sofia profile，可选择向上游注册，也可使用不发送 REGISTER 的对等线路。是否需要注册取决于线路接入合同。<a href="https://developer.signalwire.com/freeswitch/users-and-endpoints/gateways/" target="_blank" rel="noopener noreferrer">官方网关与中继注册</a></p>
+<p><strong>向上游注册</strong>和<strong>接收分机注册</strong>是两个方向：前者由本服务充当客户端；后者需要保存终端绑定、验证身份并把来电定位到终端。FreeSWITCH 的 Sofia profile 与用户目录参与这些工作。<a href="https://developer.signalwire.com/freeswitch/users-and-endpoints/sip-profiles/" target="_blank" rel="noopener noreferrer">官方 SIP Profiles</a></p>
+<p>RustSwitch 当前只有单固定上游 REGISTER/Digest 客户端；实际目的地来自 <code>sip.upstream</code>，不是完整多 gateway 管理，也不是让软电话注册进来的 registrar。配置重启要求、URI 限制和私有凭据文件规则见<a href="../reference/docs/api/trunk-registration.html">本项目线路注册合同</a>。</p>
+<p>接入一条真实线路时，至少记录下面的项目：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>验证问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>注册与呼叫认证</td>
+<td>REGISTER 成功后，INVITE 是否还需要单独的认证挑战？</td>
+</tr>
+<tr>
+<td>身份与路由</td>
+<td>认证用户名、AOR、主叫显示、被叫格式是否各自正确？</td>
+</tr>
+<tr>
+<td>可达性</td>
+<td>Contact、SIP 宣告地址和媒体地址是否能从对端访问？</td>
+</tr>
+<tr>
+<td>失效与刷新</td>
+<td>过期、认证失败、连接断开、超时后是否恢复且不会无限重试？</td>
+</tr>
+<tr>
+<td>呼叫方向</td>
+<td>呼入与呼出是否都经过真实端点验证？</td>
+</tr>
+<tr>
+<td>拆线与释放</td>
+<td>CANCEL、BYE、未收到 ACK 和异常断开是否结束正确资源？</td>
+</tr>
+</tbody></table></div>
+<p>注册成功只说明注册事务达到相应结果，不证明号码路由、主叫权限、双向语音或长期可用性。</p>
+<h2 id="4-ivrdtmfesl-与-xml-如何配合">4. IVR、DTMF、ESL 与 XML 如何配合</h2>
+<h3 id="ivr播放提示之后还需要正确处理输入">IVR：播放提示之后，还需要正确处理输入</h3>
+<p>IVR（Interactive Voice Response）把提示、输入和分支动作连接起来。FreeSWITCH 提供 XML 菜单与 <code>ivr</code> 应用，可组织菜单、子菜单和动作。<a href="https://developer.signalwire.com/freeswitch/applications/ivr-menus/" target="_blank" rel="noopener noreferrer">官方 IVR 菜单</a></p>
+<p>RustSwitch 已实现本地通道上的受限播放、<code>read</code> 收号及若干基础应用。验收应覆盖第一位超时、位间超时、终止键、重复输入、提示音被打断、播放失败、挂机取消和结果变量；完整菜单树语义不能仅凭 <code>read</code> 成功推断。<a href="../reference/docs/api/ivr-reference.html">本项目 IVR 合同</a></p>
+<h3 id="dtmf电话按键与语音音频分别核验">DTMF：电话按键与语音音频分别核验</h3>
+<p>常见按键传递方式包括 RTP <code>telephone-event</code>、SIP INFO 和音频内双音。FreeSWITCH 文档仍使用 <code>rfc2833</code> 配置名，并说明该电话事件规范由 RFC 4733 取代；RTP 电话事件不能与音频内按键检测混为一谈。<a href="https://developer.signalwire.com/freeswitch/reference/glossary/" target="_blank" rel="noopener noreferrer">官方术语表</a></p>
+<p>本项目支持合同限定的 RTP 电话事件接收和本地发送，以及显式启用的 INFO 收号；没有因此实现音频内 DTMF 检测或所有 INFO 变体。按键发包完成也不证明远端 IVR 接受了按键。<a href="../reference/docs/api/dtmf-send-reference.html">DTMF 发送边界</a></p>
+<h3 id="esl命令回复与异步事件分开处理">ESL：命令回复与异步事件分开处理</h3>
+<p>FreeSWITCH 的 <code>mod_event_socket</code> 提供 TCP 控制/事件接口，分为外部程序连入的 inbound 模式，以及 FreeSWITCH 按通话连接外部程序的 outbound 模式。<a href="https://developer.signalwire.com/freeswitch/integration/event-socket/" target="_blank" rel="noopener noreferrer">官方 Event Socket</a></p>
+<p>RustSwitch 当前是显式启用的入站 ESL 子集。客户端需要正确处理鉴权、字节长度、分片/粘包以及混入命令响应之间的事件；<code>+OK</code> 仅表示规定阶段的受理，播放与收号仍应关联完成事件、结果字段和真实媒体。<a href="../reference/docs/api/esl-reference.html">本项目 ESL 合同</a></p>
+<h3 id="xml文件能编辑不代表应用能执行">XML：文件能编辑，不代表应用能执行</h3>
+<p>FreeSWITCH XML Dialplan 使用 context、extension、condition、action 组织路由与应用执行；变量和求值时机也是语义的一部分。<a href="https://developer.signalwire.com/freeswitch/dialplan/xml/" target="_blank" rel="noopener noreferrer">官方 XML Dialplan</a></p>
+<p>RustSwitch 的配置工作区、XML 导出和启动时冻结的运行 Dialplan 子集需要分别看待。导出的 <code>conference</code>、<code>voicemail</code> 或其他模块配置不表示对应模块已经运行。<a href="../reference/docs/api/dialplan-reference.html">本项目拨号计划合同</a></p>
+<h2 id="5-常见-pbx-功能与-rustswitch-的现状映射">5. 常见 PBX 功能与 RustSwitch 的现状映射</h2>
+<p>下表将官方功能入口与本项目状态放在同一行。它是阅读索引，不是逐条互通认证；本项目细节统一以<a href="../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html">当前状态</a>和<a href="../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">工作清单</a>为准。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>PBX 功能</th>
+<th>FreeSWITCH 官方入口</th>
+<th>RustSwitch 当前范围 / 缺口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>分机、用户目录</td>
+<td><a href="https://developer.signalwire.com/freeswitch/foundations/introduction/" target="_blank" rel="noopener noreferrer">核心配置关系</a></td>
+<td>有限本地号码接听；完整终端注册、目录与租户管理未完成</td>
+</tr>
+<tr>
+<td>线路、gateway、注册</td>
+<td><a href="https://developer.signalwire.com/freeswitch/users-and-endpoints/gateways/" target="_blank" rel="noopener noreferrer">Sofia gateways</a></td>
+<td>单固定上游客户端；多线路及完整 gateway 语义未完成</td>
+</tr>
+<tr>
+<td>IVR / 播放 / 收号</td>
+<td><a href="https://developer.signalwire.com/freeswitch/applications/ivr-menus/" target="_blank" rel="noopener noreferrer">IVR menus</a></td>
+<td>本地受限实现；完整菜单、脚本与应用参数须逐项补齐</td>
+</tr>
+<tr>
+<td>盲转、咨询转接</td>
+<td><a href="https://developer.signalwire.com/freeswitch/dialplan/dptools/" target="_blank" rel="noopener noreferrer"><code>transfer</code> / <code>att_xfer</code></a></td>
+<td>不能把双腿桥接或 <code>park</code> 当完整转接；REFER 等仍有缺口</td>
+</tr>
+<tr>
+<td>录音</td>
+<td><a href="https://developer.signalwire.com/freeswitch/media-and-codecs/audio-files/" target="_blank" rel="noopener noreferrer"><code>record_session</code> / <code>uuid_record</code></a></td>
+<td>RX 收音不等于录音产品；完整录音与双轨留存待建设</td>
+</tr>
+<tr>
+<td>电话会议、混音</td>
+<td><a href="https://developer.signalwire.com/freeswitch/applications/conferencing/" target="_blank" rel="noopener noreferrer"><code>mod_conference</code></a></td>
+<td>未实现完整会议；两腿音频桥接不等于多方混音</td>
+</tr>
+<tr>
+<td>排队、坐席、ACD</td>
+<td><a href="https://developer.signalwire.com/freeswitch/applications/call-queues/" target="_blank" rel="noopener noreferrer"><code>mod_fifo</code> / <code>mod_callcenter</code></a></td>
+<td>完整队列、坐席分配与状态管理未完成</td>
+</tr>
+<tr>
+<td>语音信箱 Voicemail</td>
+<td><a href="https://developer.signalwire.com/freeswitch/applications/voicemail/" target="_blank" rel="noopener noreferrer"><code>mod_voicemail</code></a></td>
+<td>未实现完整留言、检索和消息管理</td>
+</tr>
+<tr>
+<td>事件与外部控制</td>
+<td><a href="https://developer.signalwire.com/freeswitch/integration/event-socket/" target="_blank" rel="noopener noreferrer"><code>mod_event_socket</code></a></td>
+<td>入站有限命令/事件；outbound ESL 与完整事件语义未完成</td>
+</tr>
+<tr>
+<td>话单 CDR</td>
+<td><a href="https://developer.signalwire.com/freeswitch/module-reference/event-handlers/" target="_blank" rel="noopener noreferrer">事件、CDR 与日志模块</a></td>
+<td>本地事件日志不等同完整计费话单、对账或原版 CDR 模块</td>
+</tr>
+<tr>
+<td>浏览器电话</td>
+<td><a href="https://developer.signalwire.com/freeswitch/users-and-endpoints/webrtc-sip/" target="_blank" rel="noopener noreferrer">SIP over WSS</a></td>
+<td>管理页面不是 WebRTC 电话；WS/WSS、ICE、DTLS-SRTP 等仍待实现</td>
+</tr>
+</tbody></table></div>
+<p>会议、队列、语音信箱各有独立状态和资源需求。特别是 FreeSWITCH <code>mod_callcenter</code> 的 queue、agent、tier 模型，不能用“同时建立中呼叫上限”替代。<a href="https://developer.signalwire.com/freeswitch/applications/call-queues/" target="_blank" rel="noopener noreferrer">官方队列模型</a></p>
+<h2 id="6-从-pbx-到-voice-agent新增了哪些验收要求">6. 从 PBX 到 Voice Agent，新增了哪些验收要求</h2>
+<p>PBX 呼叫流程可以作为起点，语音智能体还需要把媒体与外部异步服务连接起来。以下是本项目的集成验收建议：</p>
+<ul>
+<li><strong>持续收音</strong>：音频来源、会话/代次和采样率明确；丢失与过期帧不能变成真实用户沉默。</li>
+<li><strong>流式播放</strong>：TTS 迟到、排队过长或轮次被取消时，旧语音不能进入下一轮通话。</li>
+<li><strong>打断</strong>：分别确认业务取消、队列停止、媒体停止和剩余缓存，避免只返回成功命令。</li>
+<li><strong>模型失效</strong>：ASR/TTS 超时、连接断开和慢消费者应释放资源或有明确降级结果。</li>
+<li><strong>转人工</strong>：验证需要的接续/转接路径与失败回退，不能把概念图视为已实现呼叫中心。</li>
+<li><strong>数据记录</strong>：音频、识别文本、应用事件和通道身份需要可关联，但测试材料应脱敏。</li>
+</ul>
+<p>RustSwitch 主线提供 G.711 实时图、PCM 下行与 RX 收音基础；ASR1 是单独公开、尚未合入主线的候选，mock 只验证协议。真实识别、TTS、LLM、自动 VAD 打断和完整业务链路仍待建设。<a href="../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">内部音频与候选合同</a></p>
+<h2 id="7-编解码与-webrtc选型时不要跳过媒体路径">7. 编解码与 WebRTC：选型时不要跳过媒体路径</h2>
+<p>G.711 PCMA/PCMU、G.722、Opus、G.729 等名称出现在 SDP 或管理页面中，可能分别表示能够识别、协商、转发或执行编解码。集成测试应明确究竟需要哪一层，而不只问“支持这个 codec 吗”。</p>
+<p>本项目当前实时图以 G.711 为基础；G.722/Opus 可选原生后端及离线验证不等于已经接入所有实时路径。G.729、G.726 等应按各自载荷合同判断透传范围，不能宣布已有完整实时转码。<a href="../reference/docs/api/audio-reference.html">本项目音频能力</a></p>
+<p>FreeSWITCH 的浏览器接入有 SIP over WS/WSS 和 Verto 路径，WebRTC 媒体还涉及 ICE 与 DTLS-SRTP。一个 SIP TCP/TLS 监听器或网页按钮不能替代这套浏览器媒体协议。<a href="https://developer.signalwire.com/freeswitch/users-and-endpoints/webrtc-sip/" target="_blank" rel="noopener noreferrer">官方 WebRTC over SIP</a></p>
+<p>因此，RustSwitch 后台“小电话”目前是隔离 SIP/媒体模拟测试。需要浏览器麦克风、移动网络或 NAT 穿越时，应单独列出相应协议与安全验收，不能沿用模拟测试通过结论。</p>
+<h2 id="8-如何组织一次可复现的-pbx-迁移评估">8. 如何组织一次可复现的 PBX 迁移评估</h2>
+<ol>
+<li><strong>固定版本</strong>：记录 FreeSWITCH 提交/配置、RustSwitch 提交/变体、工具链和二进制哈希。</li>
+<li><strong>建立业务清单</strong>：按注册、呼入、呼出、IVR、转接、录音和事件消费拆分具体场景。</li>
+<li><strong>映射依赖</strong>：列出真正使用的命令、变量、模块、事件和媒体格式；对照完整缺口。</li>
+<li><strong>先做单路</strong>：保存双方 SIP/SDP、事件、双向音频及最终资源状态。</li>
+<li><strong>加入失败路径</strong>：认证错误、取消/接通竞争、缺失 ACK、播放失败、超时与进程重启。</li>
+<li><strong>再测容量</strong>：保持编解码、包时长、CPS、时长、录音/AI功能与硬件条件一致。</li>
+<li><strong>给出有范围的结论</strong>：记录通过的场景、差异、未运行项和回退要求，不计算虚假的全量百分比。</li>
+</ol>
+<p>本仓库 <a href="../backlog/FreeSWITCH-%E5%85%A8%E9%83%A8%E9%80%90%E9%A1%B9%E7%8A%B6%E6%80%81.csv">3999 条原始对照</a>混合声明、配置与验收条目，不是“3999 个 PBX 功能”。历史绿色也不是当前源码的自动认证；文档门禁阻塞和容量失败应继续保留。<a href="../DOCUMENTATION.html">证据使用规则</a></p>
+<p>对于压力测试，至少分开记录呼叫请求数、实际接通峰值、媒体发送量、有效接收量、错误/丢失、尾延迟和释放后的残留资源。本项目压力工具还受隔离端口和发生器能力限制；未完整生成结果不能判通过。<a href="../07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html">运维与压力测试</a></p>
+<h2 id="9-常见问题">9. 常见问题</h2>
+<h3 id="rustswitch-现在可以替换完整-freeswitch-pbx-吗">RustSwitch 现在可以替换完整 FreeSWITCH PBX 吗？</h3>
+<p>不能作这个结论。已有有限线路、媒体、IVR、ESL/XML 子集，但完整分机、转接、会议、队列、语音信箱和其他模块仍有缺口。应按实际业务清单逐项验证，而不是直接替换现网全部功能。</p>
+<h3 id="注册成功但打不通应该先看什么">“注册成功但打不通”应该先看什么？</h3>
+<p>先分开检查注册状态、INVITE 是否到达、号码路由/认证结果、SDP 地址与 codec、真实 ACK 和双向 RTP。每一步保存可关联的事务或通道身份；注册状态本身无法定位语音问题。</p>
+<h3 id="okhttp-200-或一次-uuid_exists-为-true能证明业务完成吗"><code>+OK</code>、HTTP 200 或一次 <code>uuid_exists</code> 为 true，能证明业务完成吗？</h3>
+<p>不能。分别核对命令受理、应用完成、媒体实际处理、对端收到及业务结果；完整通话还需要挂机和资源回收。对应判断见<a href="../reference/docs/api/esl-reference.html">ESL</a>及<a href="../reference/docs/api/event-lifecycle-reference.html">事件生命周期</a>。</p>
+<h3 id="呼叫排队和峰值保护有什么不同">呼叫排队和峰值保护有什么不同？</h3>
+<p>排队是等待坐席并按照业务策略分配；峰值保护是控制新呼叫准入，减少过载。本项目保护策略不提供完整 ACD/坐席队列，也不通过无限排队保证最终接通。</p>
+<h3 id="xml-模板有会议和语音信箱为什么仍显示未实现">XML 模板有会议和语音信箱，为什么仍显示未实现？</h3>
+<p>模板属于编辑/导出能力。运行时加载、应用执行、状态、事件、音频和持久化是另外的实现与验收层。导出上游模板不会带来对应 FreeSWITCH 模块宿主。</p>
+<h3 id="已有-pcmrx能直接替代录音或-asr-产品吗">已有 PCM/RX，能直接替代录音或 ASR 产品吗？</h3>
+<p>不能。音频接口是集成基础，还需要录音存储/索引、真实识别模型、错误恢复、访问控制和生命周期验收。ASR mock 不输出真实识别结果。</p>
+<h3 id="如何贡献有价值的兼容信息">如何贡献有价值的兼容信息？</h3>
+<p>提交<a href="https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues/new?template=compatibility_report.yml" target="_blank" rel="noopener noreferrer">互通报告</a>，写明固定版本、具体模块/命令、最小场景、双方结果和脱敏证据。贡献方式见<a href="../COMMUNITY.html">社区指南</a>与<a href="../CONTRIBUTING.html">贡献说明</a>。</p>
+<h2 id="10-接下来阅读">10. 接下来阅读</h2>
+<ul>
+<li>专题评估：<a href="pbx-feature-matrix.html">45 项 PBX 功能矩阵</a>、<a href="freeswitch-migration.html">FreeSWITCH 迁移与回退指南</a>。</li>
+<li>安装与实验：<a href="../QUICKSTART.html">快速开始</a>、<a href="../06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html">使用说明</a>。</li>
+<li>开发与接入：<a href="../04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html">HTTP 接口</a>、<a href="../05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">协议与 SDK</a>、<a href="../source/README.md">源码导航</a>。</li>
+<li>迁移与验收：<a href="../source/main/docs/freeswitch-compatibility/README.md">固定版本对照标准</a>、<a href="../08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html">当前状态</a>、<a href="../13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">未完成清单</a>。</li>
+<li>开源与安全：<a href="../LICENSE_SCOPE.html">许可范围</a>、<a href="../THIRD_PARTY_NOTICES.html">第三方声明</a>、<a href="../SECURITY.html">安全政策</a>。</li>
+</ul>
+<p>本文为 RustSwitch 社区的原创整理与集成建议，引用官方资料用于说明上游功能。FreeSWITCH 名称不代表本项目获其认证、背书或官方发行资格；模块能否使用还应核对选定上游版本的实际构建、加载和配置。</p>
+</article><div class="foot">RustSwitch · 阅读手册 · 主接口基线 1.13.0 · 候选与历史证据按各自范围适用。</div></main></body></html>
