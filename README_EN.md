@@ -12,7 +12,7 @@ Rust media · Go call control · C/C++ codec adapters
 [![Original code Apache-2.0](https://img.shields.io/badge/original_code-Apache--2.0-087f79?style=flat-square)](LICENSE_SCOPE.md)
 [![GitHub stars](https://img.shields.io/github/stars/weijiaxing1992-arch/yunfu-voice-runtime?style=flat-square)](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/stargazers)
 
-[**Quick start**](QUICKSTART.md) · [**Download the preview**](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908) · [**Documentation**](DOCUMENTATION.md) · [**API reference**](04-HTTP接口文档.md) · [**FreeSWITCH / PBX guide**](community/freeswitch-pbx-guide.en.md) · [**Contribute**](CONTRIBUTING.md)
+[**Quick start**](QUICKSTART.md) · [**Product user manual**](14-产品使用说明书.md) · [**Download the preview**](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908) · [**Documentation**](DOCUMENTATION.md) · [**API reference**](04-HTTP接口文档.md) · [**FreeSWITCH / PBX guide**](community/freeswitch-pbx-guide.en.md) · [**Contribute**](CONTRIBUTING.md)
 
 ![RustSwitch: a development-preview voice runtime using Rust, Go and C/C++](community/assets/hero.svg)
 
@@ -200,7 +200,7 @@ These are engineering priorities, without promised delivery dates or achieved pe
 
 | Reader | Starting points |
 |---|---|
-| Evaluators | [Quick start](QUICKSTART.md), [project overview](01-项目说明.md), [current status](08-当前能力与验证状态.md) |
+| Evaluators | [Product user manual](14-产品使用说明书.md), [Quick start](QUICKSTART.md), [project overview](01-项目说明.md), [current status](08-当前能力与验证状态.md) |
 | Developers and integrators | [Architecture](03-软件架构图.md), [26 HTTP operations](04-HTTP接口文档.md), [77 data models](09-数据模型全文.md), [protocols and SDKs](05-协议与SDK文档.md) |
 | Operations and testing | [User guide](06-使用说明.md), [operations and load testing](07-运维与压测说明.md) |
 | Project handover | [Source delivery](11-交付与源码说明.md), [requirements](12-需求说明书.md), [remaining work](13-项目未完成清单.md) |

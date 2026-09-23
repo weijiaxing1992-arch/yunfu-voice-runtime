@@ -1,0 +1,197 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'none'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'"><title>RustSwitch 产品使用说明书 · RustSwitch 项目文档</title><link rel="stylesheet" href="handbook.css"></head><body><aside><a class="brand" href="index.html"><span class="brand-icon">R</span><span>RustSwitch<small>项目文档 · 开发预览</small></span></a><div class="nav-label">阅读目录</div><nav><a href="index.html">项目首页</a><a href="DOCUMENTATION.html">文档中心</a><a href="community/freeswitch-pbx-guide.html">FreeSWITCH / PBX</a><a href="QUICKSTART.html">快速开始</a><a href="CHANGELOG.html">更新日志</a><a class="" href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html"><em>01</em>项目说明</a><a class="" href="02-%E9%A1%B9%E7%9B%AE%E6%8B%93%E6%89%91%E5%9B%BE.html"><em>02</em>部署与接入拓扑</a><a class="" href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html"><em>03</em>软件与媒体架构</a><a class="" href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html"><em>04</em>HTTP 接口 · 26 操作</a><a class="" href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html"><em>05</em>协议与 SDK</a><a class="" href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html"><em>06</em>使用说明</a><a class="" href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html"><em>07</em>运维与压力测试</a><a class="" href="08-%E5%BD%93%E5%89%8D%E8%83%BD%E5%8A%9B%E4%B8%8E%E9%AA%8C%E8%AF%81%E7%8A%B6%E6%80%81.html"><em>08</em>能力与验证状态</a><a class="" href="09-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%85%A8%E6%96%87.html"><em>09</em>数据模型 · 77 个</a><a class="" href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html"><em>10</em>全部专题文档</a><a class="" href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html"><em>11</em>交付与源码说明</a><a class="" href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>12</em>需求说明书</a><a class="" href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html"><em>13</em>项目未完成清单</a><a class="active" href="14-%E4%BA%A7%E5%93%81%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E4%B9%A6.html"><em>14</em>产品使用说明书</a></nav><div class="aside-foot">源码文档基线 1.13.0<br>ASR 候选单独列示<br>离线阅读，无需启动服务</div></aside><main><div class="crumb">RustSwitch 文档 / RustSwitch 产品使用说明书</div><article class="content"><div class="page-tools"><a href="14-%E4%BA%A7%E5%93%81%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E4%B9%A6.md" download>Markdown 原稿</a><a href="reference/docs/api/openapi.json" download>OpenAPI JSON</a><a href="10-%E5%85%A8%E9%83%A8%E4%B8%93%E9%A2%98%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.html">全部专题</a></div><details class="toc"><summary>本页目录 · 11 节</summary><a href="#1-获取产品">1. 获取产品</a><a href="#2-安装前检查">2. 安装前检查</a><a href="#3-构建与启动">3. 构建与启动</a><a href="#4-首次健康检查与后台">4. 首次健康检查与后台</a><a href="#5-单路小电话试用">5. 单路“小电话”试用</a><a href="#6-接入-sip-线路">6. 接入 SIP 线路</a><a href="#7-ivrdtmf-与实时音频">7. IVR、DTMF 与实时音频</a><a href="#8-压力测试与验收">8. 压力测试与验收</a><a href="#9-日常运维升级与回退">9. 日常运维、升级与回退</a><a href="#10-故障定位速查">10. 故障定位速查</a><a href="#11-源码产品说明和支持">11. 源码、产品说明和支持</a></details><h1 id="rustswitch-产品使用说明书">RustSwitch 产品使用说明书</h1>
+<p>开发预览 · 2026-09-23</p>
+<p>RustSwitch（历史资料中亦称“云蝠 Voice Runtime”）是面向电话语音智能体的实时语音内核，采用 Rust 媒体层、Go 控制面和 C/C++ 编解码适配。本文将安装、配置、单路通话、后台操作、压测和排障串成一条可执行的试用流程；细节由文末接口合同和专题文档补充。</p>
+<p><strong>产品状态：开发预览。</strong> 当前提供受限 SIP 呼叫与固定上游注册、RTP/RTCP、G.711 实时处理、本地播放与按键收集、入站 ESL 子集、PCM/RX 音频接口和管理后台。完整 FreeSWITCH/PBX 替换、终端注册服务、通用 originate、会议、队列、WebRTC、真实 ASR–LLM–TTS 链路与 5,000/10,000 路容量尚未完成整体验收。管理页面显示的能力或配置上限不能代替真实业务验收。</p>
+<h2 id="1-获取产品">1. 获取产品</h2>
+<p>公开仓库：<a href="https://github.com/weijiaxing1992-arch/yunfu-voice-runtime" target="_blank" rel="noopener noreferrer">yunfu-voice-runtime</a>。主工程源码位于 <a href="source/main">source/main</a>，独立 ASR 候选位于 <a href="source/asr-candidate">source/asr-candidate</a>；候选带 mock 供应商，不提供真实语音识别。首次试用请选择主工程。</p>
+<p>固定预览版：<a href="https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908" target="_blank" rel="noopener noreferrer">v0.1.0-preview.20260908</a>。目前提供 macOS ARM64 和 Linux ARM64 运行包，没有预编译 x86_64 包。压缩包内有平台说明、文件清单和许可材料；选定平台后先运行包内的 <code>verify.py</code>，再继续安装。不要混合不同包内的控制程序、媒体程序和配置。</p>
+<p>获取当前源码并校验仓库材料：</p>
+<pre><code class="language-sh">git clone https://github.com/weijiaxing1992-arch/yunfu-voice-runtime.git
+cd yunfu-voice-runtime
+python3 delivery-tools/verify_delivery.py
+</code></pre>
+<p>文件完整性校验只检查路径、大小和 SHA-256；它不证明功能或容量通过。若修改了源码，历史清单不再匹配属于预期现象。复现固定发行版时，克隆命令增加 <code>--branch v0.1.0-preview.20260908</code>。</p>
+<h2 id="2-安装前检查">2. 安装前检查</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>本地试用要求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作系统与架构</td>
+<td>选择匹配的 ARM64 运行包；源码构建按目标系统分别执行。</td>
+</tr>
+<tr>
+<td>工具链</td>
+<td>源码构建需要 Python 3.9+、Go 1.23+、Rust/Cargo 1.85+ 和 C11 编译器。最低版本来自源码声明，部署时应在目标平台验证。</td>
+</tr>
+<tr>
+<td>目录</td>
+<td>准备单独运行目录；保证服务用户能读取配置、执行程序并写入日志与状态目录。</td>
+</tr>
+<tr>
+<td>端口</td>
+<td>示例后台 9080、SIP 5060、上游 5070、媒体 20000–21999。先确认没有被其他服务占用。</td>
+</tr>
+<tr>
+<td>网络</td>
+<td>默认绑定回环地址；接入真实线路前，设置可达的宣告地址、最小可信网段与防火墙规则。</td>
+</tr>
+<tr>
+<td>凭据</td>
+<td>线路和 ESL 密码使用私有文件，按服务用户授予最小读权限；不要加入 Git 或公开日志。</td>
+</tr>
+<tr>
+<td>压测</td>
+<td>使用隔离 IP、媒体端口或独立发生器，先完成资源预检；测试端口不得侵占主服务媒体范围。</td>
+</tr>
+</tbody></table></div>
+<p>本地示例默认硬并发 100、20 CPS、2 个媒体 worker。它们是开发配置，不是生产容量建议。</p>
+<h2 id="3-构建与启动">3. 构建与启动</h2>
+<p>如果已下载预编译运行包，从解压后的包根目录执行：</p>
+<pre><code class="language-sh">python3 verify.py
+cd main
+./run.sh -check-config
+./run.sh
+</code></pre>
+<p>若 <code>run.sh</code> 在当前平台尚无执行权限，先按 <a href="QUICKSTART.html">快速开始</a> 的说明授权。不要在已有运行目录上覆盖正在使用的程序。</p>
+<p>从源码构建时，在仓库根目录执行，输出目录必须位于仓库外且尚不存在：</p>
+<pre><code class="language-sh">python3 delivery-tools/build_source.py \
+  --variant main --output ../rustswitch-build-main
+</code></pre>
+<p>构建成功后得到 Go 控制程序 <code>rustswitch</code>、发生器 <code>callbench</code> 和 Rust 媒体程序 <code>rustswitch-media</code>。按照 <a href="QUICKSTART.html">快速开始</a> 将它们与 <code>source/main/config/local.json</code> 放入单独运行目录，然后在该目录执行：</p>
+<pre><code class="language-sh">./bin/rustswitch -config config/local.json -check-config
+./bin/rustswitch -config config/local.json
+</code></pre>
+<p>构建脚本使用固定依赖、不启动服务。配置检查通过不表示监听端口空闲或真实 SIP 线路已经可用。源码修改后若交付构建拒绝快照校验，应走 <a href="source/main/README.md">主工程开发入口</a>，保留变更与测试记录。</p>
+<h2 id="4-首次健康检查与后台">4. 首次健康检查与后台</h2>
+<p>服务启动后，打开 <code>http://127.0.0.1:9080</code>。先做只读检查：</p>
+<pre><code class="language-sh">curl --fail --silent --show-error http://127.0.0.1:9080/healthz
+curl --fail --silent --show-error http://127.0.0.1:9080/readyz
+curl --fail --silent --show-error http://127.0.0.1:9080/v1/status
+curl --fail --silent --show-error http://127.0.0.1:9080/v1/docs
+</code></pre>
+<p><code>healthz</code> 检查进程响应，<code>readyz</code> 表示当前新呼叫准入状态。<code>status</code> 和 <code>docs</code> 分别提供运行状态及内嵌接口版本。这些结果不代表呼叫或媒体验收。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>页面</th>
+<th>主要操作</th>
+<th>生效与判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>运行总览</td>
+<td>查看呼叫、分片、日志、保护和压测任务状态</td>
+<td>区分主业务与测试数据，检查采样时间。</td>
+</tr>
+<tr>
+<td>峰值保护</td>
+<td>调整并发、建立中呼叫和 CPS 限额</td>
+<td>Guard 保存后影响新的呼叫；降低阈值不会主动挂断已接通的通话。</td>
+</tr>
+<tr>
+<td>SIP 与媒体/运维配置</td>
+<td>修改监听、媒体、日志与其他 desired 配置</td>
+<td>保存后查看 <code>restart_required</code>；需重启的字段不会即时成为 active。</td>
+</tr>
+<tr>
+<td>FreeSWITCH 配置</td>
+<td>编辑或导出 XML 工作区</td>
+<td>导出的文件不会自动成为运行拨号计划，也不会装载同名模块。</td>
+</tr>
+<tr>
+<td>压力与电话测试</td>
+<td>单路小电话、隔离并发测试、报告下载</td>
+<td>必须检查完整任务结果和资源回收。</td>
+</tr>
+<tr>
+<td>接口文档与对照</td>
+<td>查接口参数、错误行为和 FreeSWITCH 差异</td>
+<td>历史绿色只代表对应的有限断言。</td>
+</tr>
+</tbody></table></div>
+<p><code>active</code> 是当前进程配置，<code>desired</code> 是已保存的待启动配置。多个写入页共享 <code>revision</code>；收到 HTTP 409 时应重新读取并合并草稿。CSRF token 保护本机管理写入，但不是远程账户认证。远程查看后台应使用已有的 SSH 运维通道，例如 <code>ssh -N -L 9080:127.0.0.1:9080 your-server-alias</code>。</p>
+<h2 id="5-单路小电话试用">5. 单路“小电话”试用</h2>
+<p>在后台“压力与电话测试”选择单路测试，按顺序确认：</p>
+<ol>
+<li>发生器资源预检通过，任务进入运行状态。</li>
+<li>SIP 呼叫建立，出现预期的接通/ACK 状态。</li>
+<li>双向媒体有有效发送和接收记录，测试按键能够按合同产生 DTMF 结果。</li>
+<li>通话挂断后，媒体会话、端口和队列按报告清理。</li>
+<li>下载任务报告，保存任务 ID、服务版本、配置摘要与日志时间范围。</li>
+</ol>
+<p>小电话使用隔离 SIP/媒体模拟端点，不调用浏览器麦克风，也不代表真实运营商线路已打通。若不能完成第 1–4 步，先排障，再接入真实线路或加大并发。</p>
+<h2 id="6-接入-sip-线路">6. 接入 SIP 线路</h2>
+<p>真实线路至少需要核对 <code>sip.listen</code>、<code>sip.advertise</code>、<code>sip.upstream</code>、<code>media.bind_ip</code>、<code>media.advertise_ip</code>、RTP/RTCP 端口范围、<code>sip.trusted_networks</code> 和 <code>media.allowed_remote_networks</code>。启用固定上游 REGISTER/Digest 时，再提供注册 AOR、服务地址、刷新策略和私有密码文件。字段、格式和重启条件见 <a href="reference/docs/api/trunk-registration.html">线路注册合同</a>。</p>
+<p>配置完成后依次验证：注册事务、INVITE、鉴权、号码路由、SDP、实际 ACK、双向 RTP/RTCP、按键、BYE 和资源释放。注册成功只能证明注册事务成功，不能证明通话可用。</p>
+<p>本预览的线路注册是“向固定上游注册”的客户端；它不是接受任意软电话注册的 registrar。当前没有完整多网关、通用外呼 originate、复杂转接、SRTP/ICE/WebRTC 或完整 SBC 行为。</p>
+<h2 id="7-ivrdtmf-与实时音频">7. IVR、DTMF 与实时音频</h2>
+<p>本地 A 腿可以按受限合同接听、播放 WAV、收集 <code>read</code> 按键。测试时覆盖首位/位间超时、终止键、重复尾包、播放中断、挂断取消和结果变量。RTP <code>telephone-event</code> 接收与本地发送、显式 SIP INFO 收号及音频内 DTMF 检测是不同路径；当前不提供完整音频内 DTMF 检测。详见 <a href="reference/docs/api/ivr-reference.html">IVR 合同</a>和 <a href="reference/docs/api/dtmf-send-reference.html">DTMF 发送合同</a>。</p>
+<p>ESL 默认关闭。启用入站 ESL 子集需要同时指定本机监听和私有密码文件：</p>
+<pre><code class="language-sh">./bin/rustswitch -config config/local.json \
+  -esl-listen 127.0.0.1:8021 \
+  -esl-password-file /absolute/private/esl.secret
+</code></pre>
+<p>客户端应关联真实通道 UUID、应用完成事件和 DTMF 结果；<code>+OK</code> 只代表约定阶段的命令受理。ESL 命令、事件及差异见 <a href="reference/docs/api/esl-reference.html">ESL 参考</a>。</p>
+<p>主工程有 G.711 实时图、PCM 下行和 RX 收音等 Agent 媒体基础。独立 ASR 候选的 mock 只验证流协议与生命周期。接入真实 ASR/TTS/LLM 需另行实现供应商适配、采样率转换、轮次取消、超时背压和业务回退。G.722/Opus 可选离线后端、G.729/G.726 受限透传不等于各格式均已接入实时转码。</p>
+<h2 id="8-压力测试与验收">8. 压力测试与验收</h2>
+<p>后台提供 500、1000、2000、3000、5000 和自定义目标。先用单路，再逐级运行；每档固定记录 codec、ptime、CPS、通话时长、媒体模式、硬件和发生器资源。资源预检需要检查隔离端口、文件描述符、CPU、内存与日志空间。用独立 Linux 地址或服务器承载高档位发生器。</p>
+<p>判断报告时同时看实际建立/接通数、<code>sent_packets</code>、<code>received_unique_packets</code>、<code>nominal_packets</code>、错误与丢失、尾延迟、CPU/线程/队列峰值及停止后的资源残留。页面显示“任务未完整完成”“读取失败”或隔离端口不足时，先看任务错误、预检和进程日志；缺少完整结果不能记为通过。具体规则见 <a href="07-%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%8E%8B%E6%B5%8B%E8%AF%B4%E6%98%8E.html">运维与压测说明</a>。</p>
+<p>5,000/10,000 路属于验收目标或测试参数，不是当前已认证容量。准入保护的阈值也不是服务能够稳定承载该负载的证据。</p>
+<h2 id="9-日常运维升级与回退">9. 日常运维、升级与回退</h2>
+<p>日常观察 <code>/healthz</code>、<code>/readyz</code>、<code>/v1/status</code>、任务报告、日志、媒体 worker 代次、端口占用和磁盘余量。计划停机时先停止新呼叫，再排空在途通话，保存配置、管理状态、日志、任务报告和当前 Git/Release 标识。重启后核对 <code>active</code>、<code>desired</code> 和 Guard，并复测单路呼叫及双向媒体。</p>
+<p>灰度迁移 FreeSWITCH 时，先盘点现网网关、分机、拨号计划、ESL 命令/事件、codec、录音、队列和会议依赖；用 <a href="community/pbx-feature-matrix.html">45 项 PBX 功能矩阵</a> 标出缺口，再按 <a href="community/freeswitch-migration.html">迁移指南</a> 做成对互通、少量测试号码切流与回退。当前不能保证故障实例上的活动通话跨机无损恢复。</p>
+<h2 id="10-故障定位速查">10. 故障定位速查</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>首先检查</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>后台打不开</td>
+<td>进程、9080 监听、<code>/healthz</code> 和启动日志。</td>
+</tr>
+<tr>
+<td>配置检查通过但启动失败</td>
+<td>运行目录、媒体程序路径、端口冲突、日志/状态文件权限。</td>
+</tr>
+<tr>
+<td>注册成功但无法通话</td>
+<td>INVITE 是否到达、鉴权、号码路由、SDP、ACK 和 BYE。</td>
+</tr>
+<tr>
+<td>接通后单向或双向无声</td>
+<td>宣告地址、媒体白名单、RTP/RTCP 端口、codec/PT/ptime 和实际收发包。</td>
+</tr>
+<tr>
+<td>IVR/DTMF 无结果</td>
+<td>播放/收号前置状态、telephone-event 协商、结果变量和完成事件。</td>
+</tr>
+<tr>
+<td>配置保存返回 409</td>
+<td>重新读取 <code>revision</code>，合并修改后再提交。</td>
+</tr>
+<tr>
+<td>压测读取失败或任务不完整</td>
+<td>隔离端口、资源预检、发生器日志、结果文件与服务日志。</td>
+</tr>
+<tr>
+<td>ASR 没有真实识别文本</td>
+<td>确认是否只运行 mock；真实供应商链路仍需集成。</td>
+</tr>
+</tbody></table></div>
+<h2 id="11-源码产品说明和支持">11. 源码、产品说明和支持</h2>
+<ul>
+<li><a href="source/README.md">源码总览</a> · <a href="source/main">主工程源码</a> · <a href="source/asr-candidate">ASR 候选源码</a></li>
+<li><a href="01-%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E.html">项目说明</a> · <a href="03-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE.html">架构图</a> · <a href="12-%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6.html">需求说明书</a></li>
+<li><a href="04-HTTP%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3.html">HTTP 接口</a> · <a href="05-%E5%8D%8F%E8%AE%AE%E4%B8%8ESDK%E6%96%87%E6%A1%A3.html">协议与 SDK</a> · <a href="06-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.html">完整使用细节</a></li>
+<li><a href="11-%E4%BA%A4%E4%BB%98%E4%B8%8E%E6%BA%90%E7%A0%81%E8%AF%B4%E6%98%8E.html">源码与交付</a> · <a href="13-%E9%A1%B9%E7%9B%AE%E6%9C%AA%E5%AE%8C%E6%88%90%E6%B8%85%E5%8D%95.html">未完成清单</a></li>
+<li><a href="OPEN_SOURCE.html">开源说明</a> · <a href="LICENSE_SCOPE.html">许可范围</a> · <a href="THIRD_PARTY_NOTICES.html">第三方声明</a></li>
+</ul>
+<p>原创代码和资料采用 <a href="LICENSE">Apache-2.0</a>；第三方依赖及 FreeSWITCH 模板、SpanDSP、G.722、Opus 保留各自许可和来源。普通问题可提交 <a href="https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a>，附提交/发行版本、平台、最小复现和脱敏日志。安全问题使用 <a href="SECURITY.html">私密报告流程</a>。</p>
+</article><div class="foot">RustSwitch · 阅读手册 · 主接口基线 1.13.0 · 候选与历史证据按各自范围适用。</div></main></body></html>

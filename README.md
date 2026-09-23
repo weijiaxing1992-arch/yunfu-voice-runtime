@@ -12,7 +12,7 @@ Rust 媒体 · Go 控制 · C/C++ 编解码生态
 [![Original code Apache-2.0](https://img.shields.io/badge/original_code-Apache--2.0-087f79?style=flat-square)](LICENSE_SCOPE.md)
 [![GitHub stars](https://img.shields.io/github/stars/weijiaxing1992-arch/yunfu-voice-runtime?style=flat-square)](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/stargazers)
 
-[**快速开始**](QUICKSTART.md) · [**下载预览版**](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908) · [**文档中心**](DOCUMENTATION.md) · [**接口文档**](04-HTTP接口文档.md) · [**FreeSWITCH / PBX 专题**](community/freeswitch-pbx-guide.md) · [**参与贡献**](CONTRIBUTING.md)
+[**快速开始**](QUICKSTART.md) · [**产品使用说明书**](14-产品使用说明书.md) · [**下载预览版**](https://github.com/weijiaxing1992-arch/yunfu-voice-runtime/releases/tag/v0.1.0-preview.20260908) · [**文档中心**](DOCUMENTATION.md) · [**接口文档**](04-HTTP接口文档.md) · [**FreeSWITCH / PBX 专题**](community/freeswitch-pbx-guide.md) · [**参与贡献**](CONTRIBUTING.md)
 
 ![RustSwitch：面向语音智能体的 FreeSWITCH 替代项目，开发预览](community/assets/hero.svg)
 
@@ -184,7 +184,7 @@ RustSwitch 优先覆盖电话语音智能体常用路径，渐进兼容有实际
 
 | 读者 | 建议入口 |
 |---|---|
-| 首次评估 | [快速开始](QUICKSTART.md) · [项目说明](01-项目说明.md) · [当前状态](08-当前能力与验证状态.md) |
+| 首次评估 | [产品使用说明书](14-产品使用说明书.md) · [快速开始](QUICKSTART.md) · [项目说明](01-项目说明.md) · [当前状态](08-当前能力与验证状态.md) |
 | 开发与集成 | [架构](03-软件架构图.md) · [26 个 HTTP 操作](04-HTTP接口文档.md) · [77 个数据模型](09-数据模型全文.md) · [协议与 SDK](05-协议与SDK文档.md) |
 | 运维与测试 | [使用说明](06-使用说明.md) · [运维与压测](07-运维与压测说明.md) |
 | 项目交接 | [交付说明](11-交付与源码说明.md) · [需求](12-需求说明书.md) · [未完成清单](13-项目未完成清单.md) |
